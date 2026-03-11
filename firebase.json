@@ -1,0 +1,29 @@
+{
+  "hosting": {
+    "public": "web/out",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "cleanUrls": true,
+    "rewrites": [
+      {
+        "source": "/sais",
+        "destination": "/sales/premium-light.html"
+      },
+      {
+        "source": "/vendas/sais-dark",
+        "destination": "/sales/premium-dark.html"
+      },
+      {
+        "source": "/v3/sais",
+        "destination": "/sales/v3/light.html"
+      },
+      {
+        "source": "/v3/negocio",
+        "destination": "/sales/v3/dark.html"
+      }
+    ]
+  }
+}
