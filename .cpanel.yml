@@ -1,0 +1,4 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/essencia/public_html/
+    - /bin/cp -R web/out/* $DEPLOYPATH
