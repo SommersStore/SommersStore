@@ -23,6 +23,10 @@
       {
         "source": "/v3/negocio",
         "destination": "/sales/v3/dark.html"
+      },
+      {
+        "source": "/vsl",
+        "destination": "/sales/vsl.html"
       }
     ]
   }
