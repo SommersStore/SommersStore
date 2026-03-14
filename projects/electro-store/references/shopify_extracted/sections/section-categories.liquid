@@ -1,0 +1,186 @@
+{% if section.blocks.size > 0 %}
+  {%- assign _lazyload = section.settings.lazyload -%}
+  {%- assign _layout = section.settings.layout -%}
+  {%- assign _title = section.settings.section_title -%}
+  {%- assign _item_per_row = section.settings.item_per_row -%}
+
+  {% if _item_per_row == '3' %}
+    {%- assign  _class = 'col-lg-4 col-md-6 col-sm-12' -%}
+  {% else %}
+    {%- assign _class = 'col-lg-3 col-md-6 col-sm-12' -%}
+  {% endif %}
+
+  <div id="categories-{{ section.id }}" class="categories-section layout-{{ _layout }}" style="background: {{ section.settings.background}}">
+    {% if _layout == 'boxed' and settings.left_column_style == 'none' %}<div class="container">{% endif %}
+    
+      {% unless _title == blank %}
+        <div class="title-wrapper"><h3>{{ _title }}</h3></div>
+      {% endunless %}
+    
+      <div class="categories-list {% if _item_per_row == '3' %} border-item{% endif %}">
+        {% for block in section.blocks %}
+
+          {%- assign image_size = block.settings.image_size -%}
+          {%- assign col = block.settings.collection -%}
+          {%- assign collection = collections[col] -%}
+        
+          {% unless col == blank %}
+
+            <div class="c-item {{ _class }}">
+              <div class="h-category">
+                <div class="image">
+                  <a href="{{ collection.url }}" {% if _lazyload %} class="lazyload waiting"{% endif %} style="color: {{ section.settings.color }};">
+                    <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ block.settings.image | img_url: image_size }}" alt="{{ collection.title | escape }}" />                 
+                  </a>                
+                </div>
+
+                <div class="text">                  
+                  <h3><a href="{{ collection.url }}">{{ collection.title }}</a></h3>
+                  <a href="{{ collection.url }}">{{ 'collections.general.see_all' | t }}</a>                  
+                </div>
+              </div>
+            </div>
+        
+        	{% else %}
+              <div class="c-item {{ _class }}">
+                <div class="h-category">
+                  <div class="image">
+                    {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                    {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+
+                  <div class="text">
+                    <h3>{{ 'homepage.onboarding.collection_title' | t }}</h3>
+                    <a href="{{ collection.url }}">{{ 'collections.general.see_all' | t }}</a>
+                  </div>
+                </div>
+              </div>
+        
+          {% endunless %}
+
+        {% endfor %}
+      </div>
+
+    {% if _layout == 'boxed' and settings.left_column_style == 'none' %}</div>{% endif %}
+    
+    <style type="text/css">      
+      .text a { color: {{ section.settings.color }}; }
+      .text a:hover { color: {{ section.settings.color_hover }}; }
+    </style>
+  </div>
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "Categories",
+  "max_blocks": 8,
+  "settings": [
+	{
+      "type": "paragraph",
+      "content": "Created by 'Collection List' section"
+    },
+	{
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Collection List"
+    },
+	{
+      "type": "checkbox",
+      "id": "lazyload",
+      "label": "Enable Lazy loading",
+      "default": true
+    },
+	{
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        {
+          "value": "boxed",
+          "label": "Boxed"
+        },
+        {
+          "value": "full",
+          "label": "Wide"
+        }
+      ]
+    },
+	{
+      "type": "text",
+      "id": "section_title",
+      "label": "Title",
+      "default": "Top Categories This Month"
+    },
+	{
+      "type": "color",
+      "id": "background",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+	{
+      "type": "color",
+      "id": "color",
+      "label": "Text color",
+      "default": "#333e48"
+    },
+	{
+      "type": "color",
+      "id": "color_hover",
+      "label": "Text hover color",
+      "default": "#fed700"
+    },
+	{
+      "type": "select",
+      "id": "item_per_row",
+      "label": "Number of items per row",
+      "options": [
+        { "value": "3", "label": "3 items" },
+        { "value": "4", "label": "4 items" }
+      ],
+      "default": "3"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Categories",
+      "settings": [
+        {
+          "id": "collection",
+          "type": "collection",
+          "label": "Collection"
+        },
+		{
+          "id": "image",
+          "type": "image_picker",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "image_size",
+          "label": "Image size",
+          "default": "150x138",
+          "info": "It is only number, not px. For exam: 150x138"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection List",
+      "category": "Collection",
+      "blocks": [
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" }
+      ]
+    }
+  ]
+}
+{% endschema %}

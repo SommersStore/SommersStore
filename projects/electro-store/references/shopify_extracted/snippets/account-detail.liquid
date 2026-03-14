@@ -1,0 +1,13 @@
+<div class="account-details">
+  <h2>{{'customer.account.details' | t }}</h2>
+
+  <div class="info">
+    <div class="author"><i class="demo-icon icon-electro-user-icon"></i>{{ customer.first_name }} {{customer.last_name }}</div>
+    <div class="email"><i class="demo-icon icon-mail"></i>{{ customer.email }}</div> 
+    {% if customer.default_address != nil %}
+    <p class="address"><i class="demo-icon icon-location-1"></i> {{ customer.default_address.address1 }}{% if customer.default_address.city != empty and customer.default_address.city != blank %}, {{ customer.default_address.city}}{% endif %}, {% if customer.default_address.country != empty and customer.default_address.country != blank %} {{customer.default_address.country}}{% endif %}</p>
+    {% endif %}
+  </div>
+
+  <a href="/account/addresses" class="btn btn-1">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a>
+</div>

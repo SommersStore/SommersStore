@@ -1,0 +1,140 @@
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _lazyload = section.settings.lazyload -%}
+
+<div class="policies-wrapper{% if _hide_mobile %} d-none d-md-block{% endif %}">
+  {% if settings.left_column_style == 'none' %}<div class="container">{% endif %}
+
+    <div class="policies-content">
+      <div class="policy-list">
+
+        {% if section.blocks.size > 0 %}
+
+          {% for block in section.blocks %}
+
+          <div class="policy-item">
+
+            {% unless block.settings.image == blank %}
+              {%- assign _image_size = block.settings.image_size -%}
+
+              <div class="image{% if _lazyload %} lazyload waiting disable-load{% endif %}">
+                <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ block.settings.image | img_url: _image_size }}" alt="Policy" />
+              </div>
+
+            {% else %}
+              <div class="image">
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+
+            {% endunless %}
+            
+            <div class="text">
+              {% unless block.settings.title == blank %}<h6>{{ block.settings.title }}</h6>{% endunless %}
+              {% unless block.settings.subtitle == blank %}<span>{{ block.settings.subtitle }}</span>{% endunless %}
+            </div>
+
+          </div>
+
+          {% endfor %}
+
+        {% else %}
+          {% for i in (1..5) %}
+            <div class="policy-item">
+              <div class="image">
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+
+              <div class="text">
+                <h6>{{ 'homepage.onboarding.policy_title' | t }}</h6>
+                <span>{{ 'homepage.onboarding.policy_subtitle' | t }}</span>
+              </div>
+
+            </div>
+          {% endfor %}
+
+        {% endif %}
+
+      </div>
+    </div>
+
+  {% if settings.left_column_style == 'none' %}</div>{% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Policies",
+  "max_blocks": 5,
+  "settings": [
+	{
+      "type": "paragraph",
+      "content": "Created by 'Policies' section"
+    },
+	{
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Policies"
+    },
+  	{
+      "type": "checkbox",
+      "id": "lazyload",
+      "label": "Enable Lazy loading",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+	{
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "image_size",
+          "label": "Image size (pixels)",
+          "default": "45x35",
+          "info": "Default is 45x35 pixels"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Policy's title"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "subtitle",
+          "default": "Policy's subtitle"
+        }
+      ]
+    }
+    
+  ],
+  "presets": [
+    {
+      "name": "Policies",
+      "category": "Banner",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+		{ "type": "image" },
+		{ "type": "image" },
+		{ "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

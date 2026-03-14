@@ -1,0 +1,730 @@
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _lazyload = section.settings.lazyload -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _type = section.settings.type -%}
+{%- assign _effect = section.settings.effect -%}
+{%- assign _item_per_row = section.settings.item_per_row -%}
+
+{% case _item_per_row %}
+  {% when 1 %}
+    {%- assign _banner_class = "col-xl-12 col-lg-12 col-md-12 col-sm-12" -%}
+  {% when 2 %}
+    {%- assign _banner_class = "col-xl-6 col-lg-6 col-md-6 col-sm-6" -%}
+  {% when 3 %}
+    {%- assign _banner_class = "col-xl-4 col-lg-4 col-md-4 col-sm-6" -%}
+  {% else %}
+    {%- assign _banner_class = "col-xl-3 col-lg-3 col-md-6 col-sm-6" -%}
+{% endcase %}
+
+{% if _layout == 'full' %}
+  {% case _item_per_row %}
+    {% when 1 %}
+      {%- assign _banner_size = "1920x" -%}
+    {% when 2 %}
+      {%- assign _banner_size = "960x" -%}
+    {% when 3 %}
+      {%- assign _banner_size = "640x" -%}
+    {% else %}
+      {%- assign _banner_size = "480x" -%}
+  {% endcase %}
+
+{% else %}
+  {% case _item_per_row %}
+    {% when 1 %}
+      {%- assign _banner_size = "1170x" -%}
+    {% when 2 %}
+      {%- assign _banner_size = "570x" -%}
+    {% when 3 %}
+      {%- assign _banner_size = "370x" -%}
+    {% else %}
+      {%- assign _banner_size = "270x" -%}
+  {% endcase %}
+{% endif %}
+
+{% capture emptyImage %}
+  <div class="image">
+    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+  </div>
+
+  <div class="text">
+    <div class="title h5" style="color: #000000;">{{ 'homepage.onboarding.banner_title' | t }}</div>
+  </div>
+{% endcapture %}
+
+<div class="home-banner effect-{{ _effect }}{% if _hide_mobile %} d-none d-md-block{% endif %} layout-{{_layout }}">
+  {% if _layout == 'boxed' and settings.left_column_style == 'none' %}<div class="container">{% endif %}
+    
+  <div class="home-banner-items">
+      {% if section.blocks.size > 0 %}
+      
+        {%  if _type == 'row' or _type == 'carousel'  %}
+          <div class="{% if _type == 'row' %}row{% else %}home-banner-carousel home-banner-carousel-{{ section.id }}{% endif %}">
+
+            {% for block in section.blocks %}
+              {%- assign _text_align = block.settings.text_align -%}
+              {%- assign _text_box_overlay = block.settings.text_box_overlay -%}
+              {%- assign _image = block.settings.image -%}
+              {%- assign _image_size = block.settings.image_size -%}
+              {%- assign _title = block.settings.image_title -%}
+              {%- assign _title_color = block.settings.title_color -%}
+              {%- assign _title_size = block.settings.title_size -%}
+              {%- assign _subtitle = block.settings.subtitle -%}
+              {%- assign _subtitle_color = block.settings.subtitle_color -%}
+              {%- assign _subtitle_size = block.settings.subtitle_size -%}
+              {%- assign _offer = block.settings.offer -%}
+              {%- assign _offer_color = block.settings.offer_color -%}
+              {%- assign _offer_size = block.settings.offer_size -%}
+              {%- assign _expire = block.settings.expire -%}
+              {%- assign _button_text = block.settings.button_text -%}
+			  {%- assign _button_color = block.settings.button_text_color -%}
+              {%- assign _button_bg = block.settings.button_text_bg_color -%}
+              {%- assign _link = block.settings.button_link -%}
+
+              {% if _type == 'row' %}<div class="{{ _banner_class }} col-12">{% endif %}
+                <div class="banner-item{% unless _text_box_overlay %} text-box-overlay {{ _text_align }}{% endunless %}">
+
+                  {% unless _image == blank %}
+                    <div class="image">
+                      <a href="{{ _link }}" class="{% if _lazyload %}lazyload waiting{% endif %}">
+
+                        {% if _image_size == blank  %}
+                          <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ _image | img_url: _banner_size }}" alt="Banner" />
+
+                        {% else %}
+                          <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ _image | img_url: _image_size }}" alt="Banner" />
+
+                        {% endif %}
+
+                      </a>
+                    </div>
+
+                    <div class="text">
+                      {% unless _title == blank %}<div class="title {{ _title_size }}{% if block.settings.title_text_bold %} bold-text{% endif %}" style="color: {{ _title_color }};">{{ _title }}</div>{% endunless %}
+                      {% unless _subtitle == blank %}<div class="subtitle {{ _subtitle_size }} {% if block.settings.subtitle_text_bold %} bold-text{% endif %}" style="color: {{ _subtitle_color }};">{{ _subtitle }}</div>{% endunless %}
+                      
+                      {% unless _expire == blank %}
+                        <div class="offer {{ _offer_size }}" style="color: {{ _offer_color }};">
+                          
+                          {% unless _expire == blank %}<span class="text">{{ _offer }}</span>{% endunless %}
+                          
+                          {% assign _dueDate = _expire | split: '/' %}  
+                          <div class="countdown_{{ block.id }}"></div>
+                          
+                          <script type="text/javascript">
+                            jQuery(document).ready(function($){
+                              var currentDate = new Date();
+                              var dueDate = new Date( {{ _dueDate[2] }}, {{ _dueDate[0] | plus:0 }} - 1, {{ _dueDate[1] | plus:0 }} );
+
+                              if(currentDate < dueDate){
+                                $('.countdown_{{ block.id }}').countdown({until: dueDate, format: 'DHMS'});
+                              }
+
+                              else{
+                                  $('.countdown_{{ block.id }}').parent().hide();
+                              }
+                            });
+                          </script>
+                          
+                        </div>
+                      {% endunless %}
+                      
+                      {% unless _button_text == blank %}<a class="btn btn-banner" href="{{ _link }}" style="color: {{ _button_color }}; background: {{ _button_bg }}; ">{{ _button_text }}</a>{% endunless %}
+                    </div>
+
+                  {% else %}
+                    {{ emptyImage }}
+
+                  {% endunless %}
+
+                </div>
+              {% if _type == 'row' %}</div>{% endif %}
+
+            {% endfor %}
+
+          </div>
+
+        {% else %}
+          <div class="home-banner-masonry">
+            <div class="bc-masonry margin-row">
+
+              {% for block in section.blocks %}
+                {%- assign _text_align = block.settings.text_align -%}
+              	{%- assign _text_box_overlay = block.settings.text_box_overlay -%}
+                {%- assign _image = block.settings.image -%}
+                {%- assign _image_width = block.settings.image_width  %}
+                {%- assign _title = block.settings.image_title -%}
+                {%- assign _title_color = block.settings.title_color -%}
+                {%- assign _title_size = block.settings.title_size -%}
+                {%- assign _subtitle = block.settings.subtitle -%}
+                {%- assign _subtitle_color = block.settings.subtitle_color -%}
+                {%- assign _subtitle_size = block.settings.subtitle_size -%}
+              	{%- assign _offer = block.settings.offer -%}
+                {%- assign _offer_color = block.settings.offer_color -%}
+                {%- assign _offer_size = block.settings.offer_size -%}
+                {%- assign _expire = block.settings.expire -%}
+                {%- assign _button_text = block.settings.button_text -%}
+              	{%- assign _button_color = block.settings.button_text_color -%}
+              	{%- assign _button_bg = block.settings.button_text_bg_color -%}
+                {%- assign _link = block.settings.button_link -%}
+
+                {% if _layout == 'full' %}
+                  {% case _image_width %}
+                    {% when '25' %}
+                      {%- assign _banner_size_masonry = "480x" -%}
+                    {% when '50' %}
+                      {%- assign _banner_size_masonry = "960x" -%}
+                    {% when '75' %}
+                      {%- assign _banner_size_masonry = "1140x" -%}
+                    {% else %}
+                      {%- assign _banner_size_masonry = "1920x" -%}
+                  {% endcase %}
+
+                {% else %}
+                  {% case _image_width %}
+                    {% when '25' %}
+                      {%- assign _banner_size_masonry = "300x" -%}
+                    {% when '50' %}
+                      {%- assign _banner_size_masonry = "570x" -%}
+                    {% when '75' %}
+                      {%- assign _banner_size_masonry = "900x" -%}
+                    {% else %}
+                      {%- assign _banner_size_masonry = "1170x" -%}
+                  {% endcase %}
+                {% endif %}
+
+                  <div class="banner-item{% unless _text_box_overlay %} text-box-overlay {{ _text_align }}{% endunless %} width-{{ _image_width }}">
+
+                    {% unless _image == blank %}
+                      <div class="image{% if _lazyload %} lazyload waiting{% endif %}">
+                        <a href="{{ _link }}"><img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ _image | img_url: _banner_size_masonry }}" alt="Banner" /></a>
+                      </div>
+
+                      <div class="text">
+                        {% unless _title == blank %}<div class="title {{ _title_size }}{% if block.settings.title_text_bold %} bold-text{% endif %}" style="color: {{ _title_color }};">{{ _title }}</div>{% endunless %}
+                        {% unless _subtitle == blank %}<div class="subtitle {{ _subtitle_size }} {% if block.settings.subtitle_text_bold %} bold-text{% endif %}" style="color: {{ _subtitle_color }};">{{ _subtitle }}</div>{% endunless %}
+                        
+                        {% unless _expire == blank %}
+                          <div class="offer {{ _offer_size }}" style="color: {{ _offer_color }};">
+
+                            {% unless _expire == blank %}<span class="text">{{ _offer }}</span>{% endunless %}
+
+                            {% assign _dueDate = _expire | split: '/' %}  
+                            <div class="countdown_{{ block.id }}"></div>
+
+                            <script type="text/javascript">
+                              jQuery(document).ready(function($){
+                                var currentDate = new Date();
+                                var dueDate = new Date( {{ _dueDate[2] }}, {{ _dueDate[0] | plus:0 }} - 1, {{ _dueDate[1] | plus:0 }} );
+
+                                if(currentDate < dueDate){
+                                  $('.countdown_{{ block.id }}').countdown({until: dueDate, format: 'DHMS'});
+                                }
+
+                                else{
+                                    $('.countdown_{{ block.id }}').parent().hide();
+                                }
+                              });
+                            </script>
+
+                          </div>
+                        {% endunless %}
+                        
+                        {% unless _button_text == blank %}<a class="btn btn-banner" href="{{ _link }}" style="color: {{ _button_color }}; background: {{ _button_bg }}; ">{{ _button_text }}</a>{% endunless %}
+                      </div>
+
+                    {% else %}
+                      {{ emptyImage }}
+
+                    {% endunless %}
+
+                  </div>
+
+              {% endfor %}
+
+            </div>
+          </div>
+        {% endif %}
+      
+      {% else %}
+      
+        <div class="row">
+          {% for i in (1.._item_per_row) %}
+            <div class="{{ _banner_class }} col-12">
+              <div class="banner-item">
+                {{ emptyImage }}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+      {% endif %}
+  </div>
+    
+  {% if _type == 'carousel' or _type == 'masonry' %}
+      <script>
+          jQuery(document).ready(function($) {
+                                 
+            {% if _type == 'carousel' %}
+
+              jQuery(".home-banner-carousel-{{ section.id }}").length && jQuery('.home-banner-carousel-{{ section.id }}').owlCarousel({
+                nav			: true
+                ,dots 		: false
+                ,margin		: 15
+                ,responsive : {
+                  0:{
+                    items: 1
+                  }
+                  ,320:{
+                    items: 2
+                  }
+                  ,768:{
+                    items: 3
+                  }
+                  ,992:{
+                    items: {{ _item_per_row }}
+                  }                                                                 
+                }
+                ,navText	: ['<span class="button-prev"></span>', '<span class="button-next"></span>']
+              });
+                                 
+            {% else %}
+
+              if( jQuery('.bc-masonry').length > 0 ){
+		  
+                if( 'undefined' === typeof Isotope ){
+                    console.log(" Isotope has not defined yet! ");
+                    return;
+                }
+
+                jQuery('.bc-masonry').isotope({
+                  itemSelector: '.banner-item',
+                  layoutMode: 'packery'
+                });
+              }
+        
+            {% endif %}
+
+          });
+      </script>
+  {% endif %}
+    
+  {% if _layout == 'boxed' and settings.left_column_style == 'none' %}</div>{% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Image Gallery",
+  "max_blocks": 20,
+  "settings": [
+	{
+      "type": "paragraph",
+      "content": "Created by 'Image Gallery' section"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Image Gallery"
+    },
+	{
+      "type": "checkbox",
+      "id": "lazyload",
+      "label": "Enable Lazy loading",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+	{
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        {
+          "value": "boxed",
+          "label": "Boxed"
+        },
+        {
+          "value": "full",
+          "label": "Wide"
+        }
+      ]
+    },
+	{
+      "type": "select",
+      "id": "type",
+      "label": "Type",
+      "options": [
+        {
+          "value": "row",
+          "label": "Row"
+        },
+        {
+          "value": "carousel",
+          "label": "Carousel"
+        },
+		{
+          "value": "masonry",
+          "label": "Masonry"
+		}
+      ],
+      "default": "row"
+    },
+	{
+      "type": "select",
+      "id": "effect",
+      "label": "Hover Effect",
+      "options": [
+        {
+          "value": "1",
+          "label": "None"
+        },
+        {
+          "value": "2",
+          "label": "Effect Image"
+        }
+      ],
+      "default": "2"
+    },
+	{
+      "type": "range",
+      "id": "item_per_row",
+      "label": "Number of items per row",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 4,
+      "info": "Not for Masonry"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "image_size",
+          "label": "Image size (pixels)",
+          "default": "630x350",
+          "info": "Not for Masonry. For exam: 630x350"
+        },
+		{
+          "type": "select",
+          "id": "image_width",
+          "label": "Width",
+          "default": "50",
+          "options": [
+			{
+              "value": "16",
+              "label": "16%"
+            },
+			{
+              "value": "20",
+              "label": "20%"
+            },
+			{
+              "value": "25",
+              "label": "25%"
+            },
+			{
+              "value": "33",
+              "label": "33%"
+            },
+			{
+              "value": "40",
+              "label": "40%"
+            },
+            {
+              "value": "50",
+              "label": "50%"
+            },
+			{
+              "value": "60",
+              "label": "60%"
+            },
+			{
+              "value": "66",
+              "label": "66%"
+            },
+			{
+              "value": "75",
+              "label": "75%"
+            },
+			{
+              "value": "100",
+              "label": "100%"
+            }
+          ],
+          "info": "Only for Masonry"
+        },
+		{
+          "type": "header",
+          "content": "Text Box",
+          "info": "Heading, Subheading, Offer, Button"
+        },
+        {
+          "type": "checkbox",
+          "id": "text_box_overlay",
+          "label": "Disable text box overlay",
+          "default": false
+        },
+		{
+          "type": "select",
+          "id": "text_align",
+          "label": "Text box alignment",
+          "default": "center-center",
+          "options": [
+            {
+              "label": "Top left",
+              "value": "top-left"
+            },
+            {
+              "label": "Top center",
+              "value": "top-center"
+            },
+            {
+              "label": "Top right",
+              "value": "top-right"
+            },
+            {
+              "label": "Middle left",
+              "value": "center-left"
+            },
+            {
+              "label": "Middle center",
+              "value": "center-center"
+            },
+            {
+              "label": "Middle right",
+              "value": "center-right"
+            },
+            {
+              "label": "Bottom left",
+              "value": "bottom-left"
+            },
+            {
+              "label": "Bottom center",
+              "value": "bottom-center"
+            },
+            {
+              "label": "Bottom right",
+              "value": "bottom-right"
+            }
+          ],
+          "info": "Not use when text box overlay is disabled"
+        },
+		{
+          "type": "header",
+          "content": "Heading"
+        },
+		{
+          "type": "text",
+          "id": "image_title",
+          "label": "Text",
+          "default": "Heading"
+        },
+		{
+          "type": "checkbox",
+          "id": "title_text_bold",
+          "label": "Bold text"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Text color",
+          "default": "#ffffff"
+        },
+		{
+          "type": "select",
+          "id": "title_size",
+          "label": "Font size",
+          "default": "h2",
+          "options": [
+            {
+              "value": "h1",
+              "label": "Heading 1"
+            },
+            {
+              "value": "h2",
+              "label": "Heading 2"
+            },
+            {
+              "value": "h3",
+              "label": "Heading 3"
+            },
+            {
+              "value": "h4",
+              "label": "Heading 4"
+            },
+            {
+              "value": "h5",
+              "label": "Heading 5"
+            },
+            {
+              "value": "h6",
+              "label": "Heading 6"
+            }
+          ]
+        },
+		{
+          "type": "header",
+          "content": "Sub heading"
+        },
+		{
+          "type": "text",
+          "id": "subtitle",
+          "label": "Text",
+          "default": "Sub heading"
+        },
+		{
+          "type": "checkbox",
+          "id": "subtitle_text_bold",
+          "label": "Bold text"
+        },
+        {
+          "type": "color",
+          "id": "subtitle_color",
+          "label": "Text color",
+          "default": "#ffffff"
+        },
+		{
+          "type": "select",
+          "id": "subtitle_size",
+          "label": "Font size",
+          "default": "h5",
+          "options": [
+            {
+              "value": "h1",
+              "label": "Heading 1"
+            },
+            {
+              "value": "h2",
+              "label": "Heading 2"
+            },
+            {
+              "value": "h3",
+              "label": "Heading 3"
+            },
+            {
+              "value": "h4",
+              "label": "Heading 4"
+            },
+            {
+              "value": "h5",
+              "label": "Heading 5"
+            },
+            {
+              "value": "h6",
+              "label": "Heading 6"
+            }
+          ]
+        },
+		{
+          "type": "header",
+          "content": "Offer"
+        },
+		{
+          "type": "text",
+          "id": "offer",
+          "label": "Offer text",
+          "default": "Offer ends in"
+        },
+		{
+          "type": "color",
+          "id": "offer_color",
+          "label": "Offer color",
+          "default": "#ffffff"
+        },
+		{
+          "type": "select",
+          "id": "offer_size",
+          "label": "Offer size",
+          "default": "h5",
+          "options": [
+            {
+              "value": "h1",
+              "label": "Heading 1"
+            },
+            {
+              "value": "h2",
+              "label": "Heading 2"
+            },
+            {
+              "value": "h3",
+              "label": "Heading 3"
+            },
+            {
+              "value": "h4",
+              "label": "Heading 4"
+            },
+            {
+              "value": "h5",
+              "label": "Heading 5"
+            },
+            {
+              "value": "h6",
+              "label": "Heading 6"
+            }
+          ]
+        },
+		{
+          "type": "text",
+          "id": "expire",
+          "label": "Expire offer",
+          "info": "(mm/dd/yyyy. For exam: 09/25/2018)"
+        },
+		{
+          "type": "header",
+          "content": "Button"
+        },
+		{
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text"
+        },
+		{
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Text color",
+          "default": "#000000"
+        },
+		{
+          "type": "color",
+          "id": "button_text_bg_color",
+          "label": "Background color",
+          "default": "#ffffff"
+        },
+    	{
+          "type": "url",
+          "id": "button_link",
+          "label": "Link to"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image Gallery",
+      "category": "Banner",
+      "blocks": [
+        { "type": "image" },
+		{ "type": "image" },
+		{ "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,47 @@
+{% if shop.customer_accounts_enabled %}
+  <li class="customer-account{% if _lazyload %} lazyload waiting{% endif %}">
+
+    {% if customer %}
+     
+    <a href="/account" title="{{ 'general.header.my_account' | t }}">
+      {% if settings.account_icon_type == 'font-icon' %}
+        <i class="demo-icon {{ settings.account_font_icon }}"></i>
+
+      {% else %}
+        {% assign account_type = settings.account_icon %}
+
+        <img {% if _lazyload %}class="lazyload"
+             data-srcset="{{ account_type | img_url: '20x'}} 1x, {{ account_type | img_url: '40x'}} 2x"
+             {% else %}src="{{ account_type | img_url: '20x'}}"{% endif %}
+             alt="Account" />
+
+      {% endif %}
+      {{ 'general.header.my_account' | t }}
+    </a>
+    <span class="customer-or">{{ 'customer.general.or' | t }}</span>
+    <a href="/account/logout" title="{{ 'general.header.logout' | t }}"><span>{{ 'general.header.logout' | t }}</span></a>
+
+    {% else %}
+    <a href="/account/register" title="{{ 'general.header.register' | t }}">
+      {% if settings.account_icon_type == 'font-icon' %}
+        <i class="demo-icon {{ settings.account_font_icon }}"></i>
+
+      {% else %}
+        {% assign account_type = settings.account_icon %}
+
+        <img {% if _lazyload %}class="lazyload"
+             data-srcset="{{ account_type | img_url: '20x'}} 1x, {{ account_type | img_url: '40x'}} 2x"
+             {% else %}src="{{ account_type | img_url: '20x'}}"{% endif %}
+             alt="Account" />
+
+      {% endif %}
+      {{ 'general.header.register' | t }}
+    </a>
+    <span class="customer-or">{{ 'customer.general.or' | t }}</span>
+    <a href="/account/login" title=">{{ 'general.header.login' | t }}">{{ 'general.header.login' | t }}</a>
+
+    {% endif %}
+
+  </li>
+{% endif %}
+

@@ -1,0 +1,1254 @@
+<style>
+  .custom-content-wrapper-{{ section.id }} .custom-content-header  {
+    color: {{ section.settings.heading_color }};
+  }
+
+  {% unless section.settings.background_color == blank %}
+    .custom-content-wrapper-{{ section.id }} {
+      background-color: {{ section.settings.background_color }};      
+    }
+  {% endunless %}
+</style>
+
+<div class="custom-content-wrapper custom-content-wrapper-{{ section.id }} {% if section.settings.top_margin %}custom-content-margin-top{% endif %} {% if section.settings.bottom_margin %}custom-content-margin-bottom{% endif %} {% if section.settings.check_min_height != blank %}only-min-height{% endif %}" data-section-id="{{ section.id }}" data-section-type="custom-content">
+  <div class="custom-content-width{% if section.settings.width == 'boxed' and settings.left_column_style == 'none' %} container{% endif %}">
+    
+    {%- assign _lazyload = section.settings.lazyload -%}
+    
+    {% unless section.settings.heading_text == blank %}
+      <h2 class="custom-content-header text-center">{{ section.settings.heading_text }}</h2>
+    {% endunless %}
+
+    <div class="custom-content row">
+      {% for block in section.blocks %}
+      
+        {% case block.settings.width %}
+          {% when '25%' %}
+            {%- assign block_width = 'col-xl-3 col-lg-3 col-md-4 col-sm-12' -%}
+          {% when '33%' %}
+            {%- assign block_width = 'col-xl-4 col-lg-4 col-md-4 col-sm-12' -%}
+          {% when '41%' %}
+            {%- assign block_width = 'col-xl-5 col-lg-5 col-md-5 col-sm-12' -%}
+          {% when '50%' %}
+            {%- assign block_width = 'col-xl-6 col-lg-6 col-md-6 col-sm-12' -%}
+          {% when '59%' %}
+            {%- assign block_width = 'col-xl-7 col-lg-7 col-md-7 col-sm-12' -%}
+          {% when '66%' %}
+            {%- assign block_width = 'col-xl-8 col-lg-8 col-md-12 col-sm-12' -%}
+          {% when '75%' %}
+            {%- assign block_width = 'col-xl-9 col-lg-9 col-md-12 col-sm-12' -%}
+          {% when '100%' %}
+            {%- assign block_width = 'col-xl-12 col-lg-12 col-md-12 col-sm-12' -%}
+        {% endcase %}
+      
+        {% unless block.type == 'bgimage' %}
+          <div class="custom-item custom-item-{{ block.id }} {{ block_width }} align-{{ block.settings.alignment }}" {{ block.shopify_attributes }} style="{% if section.settings.check_min_height != blank %}min-height: {{ section.settings.text_min_height }};{% endif %}">
+            <div class="custom-item-inner custom-item-inner-{{ block.type }}">
+
+              {% case block.type %}
+                {% when 'image' %}
+
+                  {% comment %} Custom Image Block {% endcomment %}
+
+                  {% if block.settings.image != blank %}
+                    <div class="custom-block-image{% if _lazyload %} lazyload waiting{% endif %}">
+                      <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ block.settings.image | img_url: '1920x' }}" alt="{{ block.settings.image.alt | escape }}">
+                    </div>
+                  {% else %}
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {% endif %}
+
+                {% when 'text' %}
+
+                  {% comment %} Custom Text Block {% endcomment %}
+                  <style>
+                    .custom-content-wrapper-{{ section.id }} .custom-item-{{ block.id }} .custom-block-heading-text {
+                      color: {{ block.settings.heading_color }};
+                    }
+
+                    .custom-content-wrapper-{{ section.id }} .custom-item-{{ block.id }} .custom-block-body-text {
+                      color: {{ block.settings.paragraph_color }};
+                    }
+                  </style>
+
+                  <div class="custom-block-text text-{{ block.settings.align_text }}">
+                    {% unless block.settings.heading_text == blank %}
+                      <h2 class="custom-block-heading-text {{ block.settings.heading_size }}">{{ block.settings.heading_text }}</h2>
+                    {% endunless %}
+
+                    {% unless block.settings.paragraph_text == blank %}
+                      <div class="custom-block-body-text {{ block.settings.paragraph_size }}">{{ block.settings.paragraph_text }}</div>
+                    {% endunless %}
+                  </div>
+
+                {% when 'video' %}
+
+                  {% comment %} Custom Video Block {% endcomment %}
+                  {% unless block.settings.video_url == blank %}
+              
+                    {% if block.settings.image_layer_size == blank %}
+                      {%- assign image_size = '690x170' -%}
+                    {% else %}
+                      {%- assign image_size = block.settings.image_layer_size -%}
+                    {% endif %}
+              
+                    <div id="custom-block-video-{{ block.id }}" class="custom-block-video">
+                      <div id="bvideo-{{ block.id }}" class="player" data-property="{videoURL:'{{ block.settings.video_url }}',containment:'#custom-block-video-{{ block.id }}', mute:true, startAt:0, autoPlay:{{ block.settings.auto_video }}, addRaster:true, opacity:1}"></div>
+                      
+                      {% unless block.settings.auto_video %}
+                      <button class="b-play b-play-{{ block.id}}"><span></span></button>
+                      <button class="b-pause b-pause-{{ block.id}} hide"><span></span></button>
+                      {% endunless %}
+                      
+                      {% unless block.settings.image_layer == blank %}
+                      <div class="image-layer layer-{{ block.settings.image_layer_alignment }}{% if block.settings.image_layer_mobile %} hidden-xs{% endif %}"><img src="{{ block.settings.image_layer | img_url: image_size }}" alt="" /></div>
+                      {% endunless %}
+                    </div>
+              
+                    <script>
+                      jQuery(document).ready(function($) {
+                        var myPlayer = jQuery("#bvideo-{{ block.id }}").YTPlayer();
+                        jQuery('.b-play-{{ block.id}}').on('click',function () {
+                          myPlayer.YTPPlay();
+                          $(this).addClass('hide');$('.b-pause-{{ block.id}}').removeClass('hide');
+                        });
+                        jQuery('.b-pause-{{ block.id}}').on('click',function () {
+                          myPlayer.YTPPause();
+                          $(this).addClass('hide');$('.b-play-{{ block.id}}').removeClass('hide');
+                        });
+                      });
+                    </script>
+                  {% endunless %}
+
+                {% when 'product' %}
+
+                  {% comment %} Custom Product Block {% endcomment %}
+                  {%- assign product = all_products[block.settings.product] -%}
+
+                  {% if product.title.size > 0 %}
+                    <div class="custom-block-product">
+                      <div class="custom-product-inner">
+
+                        {% if product.featured_image != blank %}
+                        <div class="image{% if _lazyload %} lazyload waiting{% endif %}">
+                          <a href="{{ product.url }}" class="text-center{% if block.settings.show_spacing %} padding{% endif %}">
+                            <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ product.featured_image.src | img_url: '1024x1024' }}" alt="{{ product.featured_image.alt | escape }}">
+                          </a>
+                        </div>
+                        {% endif %}
+
+                        <div class="info">
+                          <div class="product-author">{{ product.vendor }}</div>
+                          <h5 class="product-name">{{ product.title }}</h5>
+
+                          <div class="product-price">
+                            {% if product.available %}
+
+                            {% if product.variants.first.compare_at_price and product.variants.first.price < product.variants.first.compare_at_price %}
+                            <span class="price-compare"> {{ product.variants.first.compare_at_price | money }}</span>
+                            <span class="price-sale">{{ product.variants.first.price | money }}</span>
+
+                            {% else %}
+                            <span class="price">{{ product.variants.first.price | money }}</span>
+
+                            {% endif %}  
+
+                            {% else %}
+                            <span class="sold-out">{{'products.product.sold_out' | t }}</span>
+
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  {% else %}
+                  <div class="custom-product-inner">
+                    {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                    {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+
+                    <div class="info">
+                      <div class="product-author">Product vendor</div>
+                      <h5 class="product-name">Example Product Title</h5>
+                      <div class="product-price"><span class="price">$19.99</span></div>
+                    </div>
+                  </div>
+                  {% endif %}
+
+                {% when 'collection' %}
+
+                  {% comment %} Custom Collection Block {% endcomment %}
+                  {%- assign collection = collections[block.settings.collection] -%}
+
+                  {% unless collection == empty %}
+                  <div class="custom-block-collection text-center">
+                    <div class="custom-collection-inner">
+                      <div class="image{% if _lazyload %} lazyload waiting{% endif %}">
+                        {% if block.settings.image != blank %}
+                        <a href="{{ collection.url }}"><img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ block.settings.image | img_url: '1024x1024' }}" alt="{{ collection_image.alt | escape }}" /></a>
+                        {% else %}
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {% endif %}
+                      </div>
+
+                      <div class="info">
+                        <a href="{{ collection.url }}">{{ collection.title }}</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  {% else %}
+                  <div class="custom-collection-inner">
+                    {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                    {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+
+                    <div class="info">
+                      <a href="#">Your collection's name</a>
+                    </div>
+                  </div>
+                  {% endunless %}
+
+                {% when 'html' %}
+                  {% comment %} Custom HTML Block {% endcomment %}
+                  {% unless block.settings.code == blank %}
+                    <div class="custom-block-html">{{ block.settings.code }}</div>
+                  {% endunless %}
+
+              {% endcase %}
+
+            </div>
+          </div>
+
+        {% else %}
+          <div class="custom-item-full parralax-style-{{ block.settings.parralax_style }} {% if block.settings.parralax_style == '1' %} parallax-section{% endif %} full-height custom-item custom-item-{{ block.type }} custom-item-{{ block.id }}" {{ block.shopify_attributes }} style="{% if block.settings.parralax_style == '1' %}background-image:url({{ block.settings.bg_image | img_url: '1920x' }});{% else %}background-color: {{ block.settings.bg_color }}{% endif %}">
+            <div class="custom-item-inner custom-item-inner-{{ block.type }}">
+              
+              <div class="custom-item-container">
+                <div id="scene" class="text text-{{ block.settings.align_text }}">
+                  
+                  {% if block.settings.parralax_style == '2' %}
+                  <div class="tp-parallax-wrap image-1" data-depth="0.40">
+                    <div class="tp-loop-wrap">
+                      <img src="{{ block.settings.image_1 | img_url: '900x' }}" alt="" />
+                    </div>
+                  </div>
+                  {% endif %}
+                  
+                  <div class="tp-parallax-wrap tp-parallax-text" data-depth="0.80">
+                    {% unless block.settings.heading_text == blank %}
+                    <div class=" heading-text">
+                      <div class="tp-loop-wrap">
+                        <h2 class="custom-block-heading-text {{ block.settings.heading_size }}{% if block.settings.heading_text_bold %} bold-text{% endif %}" style="color: {{ block.settings.heading_color }};">{{ block.settings.heading_text }}</h2>
+                      </div>
+                    </div>
+                    {% endunless %}
+                    
+                    {%- assign  _icon_layer = block.settings.icon_layer -%}
+                    {% if _icon_layer %}
+                      {% if block.settings.icon_layer_size == blank %}
+                        {%- assign icon_size = '150x15' -%}
+                      {% else %}
+                        {%- assign icon_size = block.settings.icon_layer_size -%}
+                      {% endif %}
+                    
+                    <div class="icon-layer"><img src="{{ _icon_layer | img_url: icon_size }}" alt="icon" /></div>
+                    
+                    {% endif %}
+
+                    {% unless block.settings.subheading_text == blank %}
+                    <div class="subheading-text">
+                      <div class="tp-loop-wrap">
+                        <span class="custom-block-subheading-text {{ block.settings.subheading_size }}" style="color: {{ block.settings.subheading_color }};">{{ block.settings.subheading_text }}</span>
+                      </div>
+                    </div>
+                    {% endunless %}
+
+                    {% unless block.settings.button_text == blank %}
+                    <div class="button">
+                      <div class="tp-loop-wrap">
+                        <a class="btn btn-parallax" style=" color: {{ block.settings.button_color}}; background: {{ block.settings.button_bg_color }}; border-color: {{ block.settings.button_bg_color }};" href="{{ block.settings.button_link }}">{{ block.settings.button_text }}</a>
+                      </div>
+                    </div>
+                    {% endunless %}
+                  </div>
+                  
+                  {% if block.settings.parralax_style == '2' %}
+                  <div class="tp-parallax-wrap image-2" data-depth="0.40">
+                    <div class="tp-loop-wrap">
+                      <img src="{{ block.settings.image_2 | img_url: '900x' }}" alt="" />
+                    </div>
+                  </div>
+                  {% endif %}
+                  
+                  {% if block.settings.parralax_style == '2' %}
+                  <div class="tp-parallax-wrap image-3" data-depth="0.40">
+                    <div class="tp-loop-wrap">
+                      <img src="{{ block.settings.image_3 | img_url: '900x' }}" alt="" />
+                    </div>
+                  </div>
+                  {% endif %}
+                  
+                </div>
+              </div>
+ 
+              {% if block.settings.parralax_style == '2' %}
+              <script src="{{ 'parallax.js' | asset_url }}"></script>
+              <script>
+
+                var scene = document.getElementById('scene');
+                var parallax = new Parallax(scene);
+
+              </script>
+              {% endif %}
+              
+            </div>
+          </div>
+
+        {% endunless %}
+
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom content",
+  "settings": [
+	{
+      "type": "paragraph",
+      "content": "Created by 'Custom Content' section"
+    },
+	{
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Custom Content"
+    },
+	{
+      "type": "checkbox",
+      "id": "lazyload",
+      "label": "Enable Lazy loading",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+	{
+      "type": "select",
+      "id": "width",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        {
+          "value": "boxed",
+          "label": "Boxed"
+        },
+        {
+          "value": "full",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading",
+      "default": "Custom content"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#3a3a3a"
+
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color"
+    },
+    {
+      "type": "checkbox",
+      "id": "top_margin",
+      "label": "Top margin",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "bottom_margin",
+      "label": "Bottom margin",
+      "default": true
+    },
+	{
+      "type": "checkbox",
+      "id": "check_min_height",
+      "label": "Min Height",
+      "default": true
+    },
+	{
+      "type": "text",
+      "id": "text_min_height",
+      "label": "Min height (in px)",
+      "default": "300px",
+      "info": "Default is 300px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bgimage",
+      "name": "Parralax image",
+      "settings": [
+		{
+          "type": "select",
+          "id": "parralax_style",
+          "label": "Parallax style",
+          "default": "1",
+          "options": [
+            {
+              "value": "1",
+              "label": "Style #1"
+            },
+            {
+              "value": "2",
+              "label": "Style #2"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "Background image",
+          "info": "Only for Style #1"
+        },
+		{
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background color",
+          "default": "#ffffff",
+          "info": "Only for Style #2"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image #1",
+          "info": "Only for Style #2"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image #2",
+          "info": "Only for Style #2"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Image #3",
+          "info": "Only for Style #2"
+        },
+		{
+          "type": "header",
+          "content": "Text Box"
+        },
+		{
+          "type": "select",
+          "id": "align_text",
+          "label": "Text Box Align",
+          "default": "left",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Centered"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+        },
+		{
+          "type": "text",
+          "id": "heading_text",
+          "label": "Text #1",
+          "default": "STREET CAPS"
+        },
+		{
+          "type": "checkbox",
+          "id": "heading_text_bold",
+          "label": "Bold Text #1"
+        },
+		{
+          "type": "color",
+          "id": "heading_color",
+          "label": "Text #1 color",
+          "default": "#3a3a3a"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Text #1 font size",
+          "default": "h2",
+          "options": [
+			{
+              "value": "largest",
+              "label": "Largest"
+            },
+            {
+              "value": "h1",
+              "label": "Heading 1"
+            },
+            {
+              "value": "h2",
+              "label": "Heading 2"
+            },
+            {
+              "value": "h3",
+              "label": "Heading 3"
+            },
+            {
+              "value": "h4",
+              "label": "Heading 4"
+            },
+            {
+              "value": "h5",
+              "label": "Heading 5"
+            },
+            {
+              "value": "h6",
+              "label": "Heading 6"
+            }
+          ]
+        },
+		{
+          "type": "image_picker",
+          "id": "icon_layer",
+          "label": "Icon"
+        },
+		{
+          "type": "text",
+          "id": "icon_layer_size",
+          "label": "Icon size",
+          "default": "150x15",
+          "info": "Default is 150x15, only number, not px"
+        },
+		{
+          "type": "text",
+          "id": "subheading_text",
+          "label": "Text #2",
+          "default": "FROM ONLY $39"
+        },
+		{
+          "type": "color",
+          "id": "subheading_color",
+          "label": "Text #2 color",
+          "default": "#3a3a3a"
+        },
+        {
+          "type": "select",
+          "id": "subheading_size",
+          "label": "Text #2 font size",
+          "default": "h4",
+          "options": [
+            {
+              "value": "h1",
+              "label": "Heading 1"
+            },
+            {
+              "value": "h2",
+              "label": "Heading 2"
+            },
+            {
+              "value": "h3",
+              "label": "Heading 3"
+            },
+            {
+              "value": "h4",
+              "label": "Heading 4"
+            },
+            {
+              "value": "h5",
+              "label": "Heading 5"
+            },
+            {
+              "value": "h6",
+              "label": "Heading 6"
+            }
+          ]
+        },
+		{
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "Discover"
+        },
+		{
+          "type": "text",
+          "id": "button_link",
+          "label": "Button link"
+        },
+		{
+          "type": "color",
+          "id": "button_bg_color",
+          "label": "Button text background color",
+          "default": "#3a3a3a"
+        },
+		{
+          "type": "color",
+          "id": "button_color",
+          "label": "Button text color",
+          "default": "#ffffff"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [		
+        {
+          "type": "header",
+          "content": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "heading_text",
+          "label": "Text",
+          "default": "Talk about your brand"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Color",
+          "default": "#3a3a3a"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Font size",
+          "default": "h2",
+          "options": [
+            {
+              "value": "h1",
+              "label": "Heading 1"
+            },
+            {
+              "value": "h2",
+              "label": "Heading 2"
+            },
+            {
+              "value": "h3",
+              "label": "Heading 3"
+            },
+            {
+              "value": "h4",
+              "label": "Heading 4"
+            },
+            {
+              "value": "h5",
+              "label": "Heading 5"
+            },
+            {
+              "value": "h6",
+              "label": "Heading 6"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Paragraph"
+        },
+        {
+          "type": "richtext",
+          "id": "paragraph_text",
+          "label": "Text",
+          "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+        },
+        {
+          "type": "color",
+          "id": "paragraph_color",
+          "label": "Color",
+          "default": "#4a4a4a"
+        },
+        {
+          "type": "select",
+          "id": "paragraph_size",
+          "label": "Font size",
+          "default": "h6",
+          "options": [
+            {
+              "value": "h1",
+              "label": "Heading 1"
+            },
+            {
+              "value": "h2",
+              "label": "Heading 2"
+            },
+            {
+              "value": "h3",
+              "label": "Heading 3"
+            },
+            {
+              "value": "h4",
+              "label": "Heading 4"
+            },
+            {
+              "value": "h5",
+              "label": "Heading 5"
+            },
+            {
+              "value": "h6",
+              "label": "Heading 6"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "Container width",
+          "default": "50%",
+          "options": [
+            {
+              "value": "25%",
+              "label": "25%"
+            },
+            {
+              "value": "33%",
+              "label": "33%"
+            },
+            {
+              "value": "41%",
+              "label": "41%"
+            },
+            {
+              "value": "50%",
+              "label": "50%"
+            },
+			{
+              "value": "59%",
+              "label": "59%"
+            },
+            {
+              "value": "66%",
+              "label": "66%"
+            },
+            {
+              "value": "75%",
+              "label": "75%"
+            },
+            {
+              "value": "100%",
+              "label": "100%"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Vertical alignment",
+          "info": "Position relative to other content blocks on the same row",
+          "default": "center",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Middle"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "align_text",
+          "label": "Horizontal alignment",
+          "default": "left",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Centered"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "Container width",
+          "default": "50%",
+          "options": [
+            {
+              "value": "25%",
+              "label": "25%"
+            },
+            {
+              "value": "33%",
+              "label": "33%"
+            },
+            {
+              "value": "41%",
+              "label": "41%"
+            },
+            {
+              "value": "50%",
+              "label": "50%"
+            },
+			{
+              "value": "59%",
+              "label": "59%"
+            },
+            {
+              "value": "66%",
+              "label": "66%"
+            },
+            {
+              "value": "75%",
+              "label": "75%"
+            },
+            {
+              "value": "100%",
+              "label": "100%"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Vertical alignment",
+          "info": "Position relative to other content blocks on the same row",
+          "default": "center",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Middle"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "label": "Video link",
+          "accept": ["youtube", "vimeo"],
+          "default": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc"
+        },
+		{
+          "type": "checkbox",
+          "id": "auto_video",
+          "label": "Auto Video",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "Container width",
+          "default": "100%",
+          "options": [
+            {
+              "value": "25%",
+              "label": "25%"
+            },
+            {
+              "value": "33%",
+              "label": "33%"
+            },
+            {
+              "value": "41%",
+              "label": "41%"
+            },
+            {
+              "value": "50%",
+              "label": "50%"
+            },
+			{
+              "value": "59%",
+              "label": "59%"
+            },
+            {
+              "value": "66%",
+              "label": "66%"
+            },
+            {
+              "value": "75%",
+              "label": "75%"
+            },
+            {
+              "value": "100%",
+              "label": "100%"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Vertical alignment",
+          "default": "top",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Middle"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ]
+        },
+		{
+          "type": "image_picker",
+          "id": "image_layer",
+          "label": "Image layer"
+        },
+		{
+          "type": "checkbox",
+          "id": "image_layer_mobile",
+          "label": "Visibility: Hide for Mobile"
+        },
+		{
+          "type": "text",
+          "id": "image_layer_size",
+          "label": "Image layer size",
+          "default": "690x170",
+          "info": "Default is 690x170, only number, not px"
+        },
+		{
+          "type": "select",
+          "id": "image_layer_alignment",
+          "label": "Image layer alignment",
+          "default": "center",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Middle"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "header",
+          "content": "Image"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_spacing",
+          "label": "Enable image spacing"
+        },
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "Container width",
+          "default": "50%",
+          "options": [
+            {
+              "value": "25%",
+              "label": "25%"
+            },
+            {
+              "value": "33%",
+              "label": "33%"
+            },
+            {
+              "value": "41%",
+              "label": "41%"
+            },
+            {
+              "value": "50%",
+              "label": "50%"
+            },
+			{
+              "value": "59%",
+              "label": "59%"
+            },
+            {
+              "value": "66%",
+              "label": "66%"
+            },
+            {
+              "value": "75%",
+              "label": "75%"
+            },
+            {
+              "value": "100%",
+              "label": "100%"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Vertical alignment",
+          "default": "center",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Middle"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "Container width",
+          "default": "50%",
+          "options": [
+            {
+              "value": "25%",
+              "label": "25%"
+            },
+            {
+              "value": "33%",
+              "label": "33%"
+            },
+            {
+              "value": "41%",
+              "label": "41%"
+            },
+            {
+              "value": "50%",
+              "label": "50%"
+            },
+			{
+              "value": "59%",
+              "label": "59%"
+            },
+            {
+              "value": "66%",
+              "label": "66%"
+            },
+            {
+              "value": "75%",
+              "label": "75%"
+            },
+            {
+              "value": "100%",
+              "label": "100%"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Vertical alignment",
+          "info": "Position relative to other content blocks on the same row",
+          "default": "center",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Middle"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "html",
+      "name": "Custom HTML",
+      "settings": [
+        {
+          "type": "html",
+          "id": "code",
+          "label": "HTML",
+          "default": "<div><p>Write your own custom HTML content.</p></div>"
+        },
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "Container width",
+          "default": "50%",
+          "options": [
+            {
+              "value": "25%",
+              "label": "25%"
+            },
+            {
+              "value": "33%",
+              "label": "33%"
+            },
+			{
+              "value": "41%",
+              "label": "41%"
+            },
+            {
+              "value": "50%",
+              "label": "50%"
+            },
+			{
+              "value": "59%",
+              "label": "59%"
+            },
+            {
+              "value": "66%",
+              "label": "66%"
+            },
+            {
+              "value": "75%",
+              "label": "75%"
+            },
+            {
+              "value": "100%",
+              "label": "100%"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Vertical alignment",
+          "info": "Position relative to other content blocks on the same row",
+          "default": "center",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Middle"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Content",
+      "category": "Advanced layout",
+      "blocks": [
+        {
+          "type": "text"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

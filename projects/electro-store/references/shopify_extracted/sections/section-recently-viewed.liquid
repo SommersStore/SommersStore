@@ -1,0 +1,137 @@
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+
+<div class="section-recently-viewed hide layout-{{_layout }}{% if _hide_mobile %} d-none d-md-block{% endif %}">
+  {% if _layout == 'boxed' and settings.left_column_style == 'none' %}<div class="container">{% endif %}
+
+  	<script src="{{ 'jquery.tmpl.min.js' | asset_url }}"> </script>
+    <script src="{{ 'jquery.products.min.js' | asset_url}}"> </script>
+
+
+    {% unless section.settings.recently_viewed_title == blank %}
+      <div class="title-wrapper">
+        <h3>{{ section.settings.recently_viewed_title }}</h3>
+      </div>
+    {% endunless %}
+  
+    <div id="recently-viewed-products" class="collection clearfix"></div>
+
+    {% raw %}
+    <script id="recently-viewed-product-template"  type="text/x-jquery-tmpl">
+    <div id="product-${handle}" class="product">
+        <div class="product-image">
+          <a href="${url}">
+            <img src="${Shopify.Products.resizeImage(featured_image, "160x")}" />
+          </a>
+        </div>
+    </div>
+    </script>
+    {% endraw %}
+
+    <script> 
+      Shopify.Products.showRecentlyViewed({
+        howManyToShow: 24,
+        onComplete: function() {
+
+          jQuery("#recently-viewed-products").length && jQuery("#recently-viewed-products").on('initialize.owl.carousel initialized.owl.carousel', function(e) {
+            $('.section-recently-viewed').removeClass('hide');
+            
+            var current = e.relatedTarget.current()
+            var items = $(this).find('.owl-stage').children()
+            var add = e.type == 'changed' || e.type == 'initialized'
+
+            items.eq(e.relatedTarget.normalize(current )).toggleClass('current', add)
+            
+          }).owlCarousel({
+            loop		: false
+            ,nav		: false
+            ,dots 		: true
+            ,items		: 1
+            ,margin		: 0
+        	,responsive : {
+                0:{
+                	items: 1
+                }
+              	,480:{
+              		items: 2
+            	}
+              	,600:{
+              		items: 4
+            	}
+              	,768:{
+              		items: 5
+            	}
+                ,992:{
+              		items: 6
+            	}
+            	,1024:{
+              		items: 7
+            	}
+            	,1200:{
+              		items: 8
+            	}
+          	}	
+          });
+      
+          jQuery('.section-recently-viewed').show();
+        } 
+      });
+    </script>
+
+  {% if _layout == 'boxed' and settings.left_column_style == 'none' %}</div>{% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Recently Viewed",
+  "settings": [
+	{
+      "type": "paragraph",
+      "content": "Created by 'Recently Viewed' section"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Recently Viewed"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+	{
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+	{
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "full",
+      "options": [
+        {
+          "value": "boxed",
+          "label": "Boxed"
+        },
+        {
+          "value": "full",
+          "label": "Wide"
+        }
+      ]
+    },
+	{
+      "type": "text",
+      "id": "recently_viewed_title",
+      "label": "Heading",
+	  "default": "Your Recently Viewed Products"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recently Viewed",
+      "category": "Advanced layout"
+    }
+  ]
+}
+{% endschema %}

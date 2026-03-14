@@ -1,0 +1,118 @@
+<div class="big-grid-item">
+  {%- assign product = all_products[_product] -%}
+  {%- assign _expire = block.settings.product_expire -%}
+  {%- assign _dueDate = _expire | split: '/' -%}
+
+  <div class="big-grid-item product-wrapper effect-none">
+
+    <div class="product-head">
+
+      <div class="special-product-label">
+        <span class="spl-1"><strong>{{ 'products.big_product.text_special' | t }}</strong>{{ 'products.big_product.text_offer' | t }}</span>
+
+        {% if product.variants.first.price < product.variants.first.compare_at_price %}
+          <span class="spl-2">
+            <span class="spl-text-2">
+              <span class="text">{{ 'products.big_product.text_save' | t }}</span>
+              {%- assign percent_off = product.variants.first.price | times:100.00 | divided_by: product.variants.first.compare_at_price | round -%}
+              <span class="percent">{{ 100 | minus : percent_off }}%</span>
+            </span>
+          </span>
+        {% endif %}
+
+      </div>
+
+      <div class="product-image">
+        {% capture _image_html %}{{ product.featured_image | product_img_url: '370x' }}{% endcapture %}
+
+        <div class="featured-img{% if _lazyload %} lazyload waiting{% endif %}">
+          <a href="{{ product.url | within: collection }}"> 
+            <img class="featured-image front{% if _lazyload %} lazyload{% endif %}" {% if _lazyload %}data-{% endif %}src="{% if product.images.size >= 1%}{{ _image_html }}{% else %}{{ 'default-image.jpg' | asset_url }}{% endif %}" alt="{{ product.title | escape }}" />
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="product-content text-center">
+      <div class="pc-inner">
+
+        <h5 class="product-name"><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h5>
+
+        {% include 'product-price' %}
+
+        <div class="deal-progress">
+          <div class="deal-stock">
+            {% capture stockSold %} {{ block.settings.product_sold }} {% endcapture %}
+
+            {% unless stockSold == blank %}
+              <span class="stock-sold">{{ 'products.big_product.text_sold' | t }}: <strong>{{ stockSold }}</strong></span>
+            {% endunless %}
+
+            {% assign total=0 %}
+            {% for variant in product.variants %}
+              {% capture i %}{{ total | plus:variant.inventory_quantity }}{%endcapture%}
+              {% assign total = i %}
+            {% endfor %}
+
+            <span class="stock-available">{{ 'products.big_product.text_available' | t }}: <strong>{{ total }}</strong></span>
+          </div>
+          
+          {% unless stockSold == blank %}
+            {% capture progress %}{{ stockSold | times:100 | divided_by: total }}{% endcapture %}
+            {% assign progressNumber = progress | plus: 0 %}
+            {% if progressNumber <= 100 %}
+              <div class="progress">
+                <span class="progress-bar" style="width:{{ progress }}%"></span>
+              </div>
+            {% endif %}
+          {% endunless %}
+        </div>
+
+        {% unless _expire == blank %}
+          <div class="wrapper-countdown">
+            <span class="offer-text">{{ 'products.big_product.text_countdown' | t }}</span>
+            <div class="countdown_{{ block.id }}"></div>
+          </div> 
+
+          <script type="text/javascript">
+            jQuery(document).ready(function($){
+
+              var currentDate = new Date();
+              var dueDate = new Date( {{ _dueDate[2] }}, {{ _dueDate[0] | plus:0 }} - 1, {{ _dueDate[1] | plus:0 }} );
+
+              if(currentDate < dueDate){
+                 $('.countdown_{{ block.id }}').countdown({until: dueDate, format: 'DHMS', padZeroes: true});
+              }
+
+              else{
+                 $('.countdown_{{ block.id }}').parent().hide();
+              }
+
+            });
+          </script>
+        {% endunless %}
+        
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="wrap-grid-item">
+  <div class="row">
+
+    {% unless block.settings.collection == blank or collection.products_count == 0 %}
+      {% for product in collection.products limit: _limit %}
+        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+          {% include 'product-item' %}
+        </div>	
+      {% endfor %}
+
+    {% else %}
+      {{ emptyProduct05 }}
+    {% endunless %}
+
+  </div>
+</div>

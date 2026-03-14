@@ -1,0 +1,320 @@
+{% if section.settings.enable_text_box_06 or section.settings.enable_google_translate %}
+  <div class="top-bar-textbox d-none d-lg-block">
+    <div class="textbox-container">
+
+      {% if _layout == 'boxed' %}<div class="container">{% endif %}
+
+        {% if section.settings.enable_text_box_06 %}
+          <ul class="top-bar-list">
+            {% unless section.settings.free_return_text == blank %}
+              <li>{{ section.settings.free_return_text }}</li>
+            {% endunless %}
+
+            {% unless section.settings.free_shipping_text == blank %}
+              <li>{{ section.settings.free_shipping_text }}</li>
+            {% endunless %}
+
+            {% unless section.settings.worldwide_delivery_text == blank %}
+              <li>{{ section.settings.worldwide_delivery_text }}</li>
+            {% endunless %}
+          </ul>
+        {% endif %}
+
+        {% if section.settings.enable_google_translate %}
+          <div id="google_translate_element"></div>
+          <script type="text/javascript">
+            function googleTranslateElementInit() {
+              new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'da,de,en,fr,it,nl,ja,hi,es,sv,pt,la,ko,th'}, 'google_translate_element');
+            }
+          </script>
+          <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        {% endif %}
+
+      {% if _layout == 'boxed' %}</div>{% endif %}
+
+    </div>
+  </div>
+{% endif %}
+
+<div class="header-main">
+  {% if _layout == 'boxed' %}<div class="container">{% endif %}
+    <div class="table-row">
+
+      <div class="navbar navbar-responsive-menu d-lg-none">
+        <div class="responsive-menu">
+          Menu
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+
+      {% if settings.show_cart %}
+      <div class="m-cart-icon cart-target{% if _lazyload %} lazyload waiting{% endif %} d-lg-none">
+        <a href="/cart" class="mobile-basket" title="cart">
+          {% if settings.compare_icon_type == 'font-icon' %}
+          <i class="demo-icon {{ settings.cart_font_icon }}"></i>
+
+          {% else %}
+          {% assign cart_type = settings.cart_icon %}
+
+          <img {% if _lazyload %}class="lazyload"
+               data-srcset="{{ cart_type | img_url: '20x'}} 1x, {{ cart_type | img_url: '40x'}} 2x"
+               {% else %}src="{{ cart_type | img_url: '20x'}}"{% endif %}
+               alt="Cart" />
+
+          {% endif %}
+
+          <span class="number"><span class="n-item">0</span></span>
+        </a>
+      </div>
+      {% endif %}
+
+      {% if section.settings.enable_header_contact %}
+        <div class="header-contact-box d-none d-lg-block">
+          <ul class="list-inline">
+            {% unless section.settings.header_phone_number == blank %}
+            <li class="phone{% if _lazyload %} lazyload waiting{% endif %}">
+              {% if settings.phone_icon_type == 'font-icon' %}
+              <i class="demo-icon {{ settings.phone_font_icon }}"></i>
+
+              {% else %}
+              {% assign phone_icon = settings.phone_icon %}
+
+              <img {% if _lazyload %}class="lazyload"
+                   data-srcset="{{ phone_icon | img_url: '20x'}} 1x, {{ phone_icon | img_url: '40x'}} 2x"
+                   {% else %}src="{{ phone_icon | img_url: '20x'}}"{% endif %}
+                   alt="Phone" />
+
+              {% endif %}
+              <span>{{ section.settings.header_phone_number }}</span>
+            </li>
+            {% endunless %}
+
+            {% unless section.settings.header_email == blank %}
+            <li class="email{% if _lazyload %} lazyload waiting{% endif %}">
+              {% if settings.email_icon_type == 'font-icon' %}
+              <i class="demo-icon {{ settings.email_font_icon }}"></i>
+
+              {% else %}
+              {% assign email_icon = settings.email_icon %}
+
+              <img {% if _lazyload %}class="lazyload"
+                   data-srcset="{{ email_icon | img_url: '20x'}} 1x, {{ email_icon | img_url: '40x'}} 2x"
+                   {% else %}src="{{ email_icon | img_url: '20x'}}"{% endif %}
+                   alt="Phone" />
+
+              {% endif %}
+              <span>{{ section.settings.header_email }}</span>
+            </li>
+            {% endunless %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <div class="header-logo">
+        {% assign _logo_size = section.settings.logo_max_width | append: 'x' %}
+        {% assign _logo_size_2x = section.settings.logo_max_width | times: 2 | append: 'x' %}
+        <a href="/" title="{{ shop.name | escape }}" class="logo-site{% if _lazyload %} lazyload waiting{% endif %}">
+          <img {% if _lazyload %} class="lazyload" data-srcset="{{ section.settings.logo | img_url: _logo_size }} 1x, {{ section.settings.logo | img_url: _logo_size_2x }} 2x"
+               {% else %}src="{{ section.settings.logo | img_url: _logo_size_2x }}"{% endif %} 
+               alt="{{ shop.name | escape }}"
+               style="max-width: {{ section.settings.logo_max_width }}px;" />
+        </a>
+      </div>
+
+      <div class="header-icons d-none d-lg-block">
+        {% if settings.show_search %}
+          <div class="searchbox">
+
+            <form id="search" class="navbar-form search" action="/search" method="get">
+              <input type="hidden" name="type" value="product" />
+              <input id="bc-product-search" type="text" name="q" class="form-control"  placeholder="{{ 'general.text.search_placeholder' | t }}" autocomplete="off" />
+
+              <button type="submit" class="search-icon">
+                <span{% if _lazyload %} class="lazyload waiting"{% endif %}>
+
+                  {% if settings.search_icon_type == 'font-icon' %}
+                  <i class="demo-icon {{ settings.search_font_icon }}"></i>
+
+                  {% else %}
+                  {% assign search_type = settings.search_icon %}
+
+                  <img {% if _lazyload %}class="lazyload"
+                       data-srcset="{{ search_type | img_url: '20x'}} 1x, {{ search_type | img_url: '40x'}} 2x"
+                       {% else %}src="{{ search_type | img_url: '20x'}}"{% endif %}
+                       alt="Search" />
+
+                  {% endif %}
+
+                </span>
+              </button>
+            </form>
+
+            <div id="result-ajax-search">
+              <ul class="search-results"></ul>
+            </div>
+
+          </div>
+        {% endif %}
+        
+        <ul class="list-inline"> 
+          
+          {% if settings.enable_multiple_currencies %}
+            <li class="currency uppercase currency-block">
+              {% include 'currencies-switcher' %}
+            </li>
+          {% endif %}
+
+          {% if shop.customer_accounts_enabled %}
+            <li class="m-customer-account">
+              <a href="/account" title="{{ 'general.header.my_account' | t }}"{% if _lazyload %} class="lazyload waiting"{% endif %}>
+                {% if settings.account_icon_type == 'font-icon' %}
+                  <i class="demo-icon {{ settings.account_font_icon }}"></i>
+
+                {% else %}
+                  {% assign account_type = settings.account_icon %}
+
+                  <img {% if _lazyload %}class="lazyload"
+                       data-srcset="{{ account_type | img_url: '20x'}} 1x, {{ account_type | img_url: '40x'}} 2x"
+                       {% else %}src="{{ account_type | img_url: '20x'}}"{% endif %}
+                       alt="Account" />
+
+                {% endif %}
+              </a>
+            </li>
+          {% endif %}
+
+          {% if settings.enable_product_compare %}
+          {% assign compare_link = '/pages/compare-page'%}
+
+          <li class="compare-target">
+            <a href="{{ compare_link }}" class="num-items-in-compare show-compare{% if _lazyload %} lazyload waiting{% endif %}" title="{{'general.header.compare' | t }}">
+              <span class="compare-icon">
+                {% if settings.compare_icon_type == 'font-icon' %}
+                <i class="demo-icon {{ settings.compare_font_icon }}"></i>
+
+                {% else %}
+                {% assign compare_type = settings.compare_icon %}
+
+                <img {% if _lazyload %}class="lazyload"
+                     data-srcset="{{ compare_type | img_url: '20x'}} 1x, {{ compare_type | img_url: '40x'}} 2x"
+                     {% else %}src="{{ compare_type | img_url: '20x'}}"{% endif %}
+                     alt="Compare" />
+
+                {% endif %}
+                <span id="compare-number" class="number">0</span>
+              </span>
+            </a>
+          </li>
+          {% endif %}
+
+          {% if settings.enable_product_wishlist %}
+          {% assign wishlist_link = '/pages/wishlist-page'%}
+          <li class="wishlist-target">
+            <a href="{{ wishlist_link }}" class="num-items-in-wishlist show-wishlist{% if _lazyload %} lazyload waiting{% endif %}" title="{{ 'general.header.wish_list' | t }}">
+
+              <span class="wishlist-icon">
+                {% if settings.wishlist_icon_type == 'font-icon' %}
+                <i class="demo-icon {{ settings.wishlist_font_icon }}"></i>
+
+                {% else %}
+                {% assign wishlist_type = settings.wishlist_icon %}
+
+                <img {% if _lazyload %}class="lazyload"
+                     data-srcset="{{ wishlist_type | img_url: '20x'}} 1x, {{ wishlist_type | img_url: '40x'}} 2x"
+                     {% else %}src="{{ wishlist_type | img_url: '20x'}}"{% endif %}
+                     alt="Wishlist" />
+
+                {% endif %}
+                <span class="number">0</span>
+              </span>
+
+            </a>
+          </li>
+          {% endif %}
+
+          {% if settings.show_cart %}   
+          <li class="top-cart-holder{% if settings.cart_styles == 'dropdown' %} hover-dropdown{% endif %}">
+            <div class="cart-target">		
+
+              {% if settings.cart_styles == 'dropdown' %}
+              <a href="javascript:void(0)" class="basket dropdown-toggle{% if _lazyload %} lazyload waiting{% endif %}" title="cart">
+                {% if settings.compare_icon_type == 'font-icon' %}
+                <i class="demo-icon {{ settings.cart_font_icon }}"></i>
+
+                {% else %}
+                {% assign cart_type = settings.cart_icon %}
+
+                <img {% if _lazyload %}class="lazyload"
+                     data-srcset="{{ cart_type | img_url: '20x'}} 1x, {{ cart_type | img_url: '40x'}} 2x"
+                     {% else %}src="{{ cart_type | img_url: '20x'}}"{% endif %}
+                     alt="Cart" />
+
+                {% endif %}
+
+                <span class="number"><span class="n-item">{{ cart.item_count }}</span></span>
+              </a>
+
+              <div class="cart-dd">
+                <div id="cart-info">
+                  <div id="cart-content" class="cart-content">
+                    <div class="cart-loading"></div>
+                  </div>
+                </div>
+              </div>
+
+              {% else %}
+              <a href="javascript:void(0)" class="basket cart-toggle{% if _lazyload %} lazyload waiting{% endif %}" title="cart">
+                {% if settings.compare_icon_type == 'font-icon' %}
+                <i class="demo-icon {{ settings.cart_font_icon }}"></i>
+
+                {% else %}
+                {% assign cart_type = settings.cart_icon %}
+
+                <img {% if _lazyload %}class="lazyload"
+                     data-srcset="{{ cart_type | img_url: '20x'}} 1x, {{ cart_type | img_url: '40x'}} 2x"
+                     {% else %}src="{{ cart_type | img_url: '20x'}}"{% endif %}
+                     alt="Cart" />
+
+                {% endif %}
+
+                <span class="number"><span class="n-item">{{ cart.item_count }}</span></span>
+              </a>
+
+              {% endif %}
+
+            </div>
+          </li>            
+          {% endif %}
+
+        </ul>
+      </div>
+
+    </div>
+  {% if _layout == 'boxed' %}</div>{% endif %}
+</div>
+
+{% unless section.settings.nav_linklist == blank %}
+<div class="header-navigation d-none d-lg-block">
+  
+  {% if _layout == 'boxed' %}<div class="container">{% endif %}
+    <div class="horizontal-menu dropdown-fix">
+      <div class="sidemenu-holder">
+
+        <nav class="navbar navbar-expand-lg">
+          <div class="collapse navbar-collapse">
+            <ul class="menu-list">
+              {% for l in linklists[section.settings.nav_linklist ].links %}
+              {% include 'nav-link' %}
+              {% endfor %}
+            </ul>
+          </div>
+        </nav>
+
+      </div>
+    </div>
+  {% if _layout == 'boxed' %}</div>{% endif %}
+  
+</div>
+{% endunless %}

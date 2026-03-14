@@ -1,0 +1,34 @@
+{%- assign _link = block.settings.link -%}
+{%- assign _text = block.settings.text -%}
+{%- assign _expire = block.settings.expire -%}
+{% assign _dueDate = _expire | split: '/' %}
+
+<div class="offer-banner">
+  
+  <a href="{{ _link }}">
+    <img src="{{ _image | img_url: '380x' }}" alt="Offer" />
+  </a>
+  
+  <div class="wrapper-countdown">
+    <span class="offer-text">{{ _text }}</span>
+    <div class="countdown_{{ block.id }}"></div>
+  </div> 
+  
+  <script type="text/javascript">
+      jQuery(document).ready(function($){
+
+            var currentDate = new Date();
+            var dueDate = new Date( {{ _dueDate[2] }}, {{ _dueDate[0] | plus:0 }} - 1, {{ _dueDate[1] | plus:0 }} );
+            
+            if(currentDate < dueDate){
+              $('.countdown_{{ block.id }}').countdown({until: dueDate, format: 'DHMS'});
+            }
+                
+            else{
+              $('.countdown_{{ block.id }}').parent().hide();
+            }
+                
+      });
+  </script>
+  
+</div>

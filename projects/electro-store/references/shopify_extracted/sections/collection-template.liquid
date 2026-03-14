@@ -1,0 +1,374 @@
+{% unless settings.breadcrumb_styles == 'none' %}{% include 'breadcrumb' %}{% endunless %}
+
+{% assign _lazyload = settings.use_lazyload %}
+{% assign _layout = section.settings.collection_layout %}
+{% assign _catalog_sb_placement = section.settings.catalog_sb_placement %}
+
+{% if _layout == 'boxed' %}
+  {% assign _sb_class = 'col-lg-3' %}
+  {% assign _main_class = 'col-lg-9 col-md-12' %}
+{% else %}
+  {% assign _sb_class = 'col-lg-2' %}
+  {% assign _main_class = 'col-lg-10 col-md-12' %}
+{% endif %}
+
+<div class="page-cata{% if _layout == 'full' %} full-layout{% endif %}" data-logic="{{ section.settings.and_logic }}">
+  {% if _layout == 'boxed' %}<div class="container">{% endif %}
+  
+  <div class="row">
+    
+    {% if section.settings.catalog_sb_placement == 'left' %}
+      {% include 'sidebar-catalog' %}
+    {% endif %}
+    
+    {% paginate collection.products by section.settings.item_per_page %}
+    
+    <div class="{% if section.settings.catalog_sb_placement == 'none' %}col-12{% else %}{{ _main_class }}{% endif %}">
+      
+      {% if section.settings.col_des_position == 'top' and collection.description != blank %}
+        <div class="cata-description">{{ collection.description }}</div>
+      {% endif %}
+      
+      {% if section.settings.show_subcategory %}
+        {% assign meta_subcategory = collection.metafields.c_f %}
+        {% assign key = 'subcategory' %}
+
+        {% unless meta_subcategory.subcategory == blank %}  
+          {% assign number_of_links = 0 %}
+      
+          {% unless section.settings.subcategory_title == blank %}
+            <h2 class="subcategory">{{ collection.title }} {{ section.settings.subcategory_title }}</h2>
+          {% endunless %}
+    
+          <ul class="subcategory-list">
+
+            {% for link in linklists[meta_subcategory.subcategory].links %}
+
+              {% if link.type == 'collection_link' %}
+
+                {% comment %}If we have a collection link{% endcomment %}   
+
+                {% assign collection = link.object %}
+                {% assign number_of_links = number_of_links | plus: 1 %}
+
+                <li class="category text-center">
+                  <div class="category-image">
+                    <a href="{{ link.url }}" class="grid-image--centered">
+                      {% if collection.image %}
+                        <img src="{{ collection | img_url: '370x' }}" alt="{{ link.title | escape }}">
+                      {% else %}
+                        <img src="{{ 'default-image.jpg' | asset_url }}" alt="{{ collection.title | escape }}" />
+                      {% endif %}
+                    </a>
+                  </div>
+                  <a class="category-name" href="{{ link.url }}" title="{{ link.title | escape }}">{{ link.title }}</a>
+                </li>
+
+              {% endif %}
+            
+            {% endfor %}
+
+          </ul>
+
+        {% endunless %}   
+      
+      {% endif %}
+
+      <div class="wrap-cata-title">
+        <h2>{{ collection.title }}</h2>
+      </div>
+
+      {% include 'cata-toolbar' %}
+
+      {% if section.settings.catalog_sb_placement == 'none' %}
+        {% include 'filter-sidebar' %}
+      {% endif %}
+      
+      <div id="col-main">
+        {% if collection.products_count > 0 %}
+
+          <div class="cata-product cp-grid{% if section.settings.catalog_sb_placement == 'none' %} no-sidebar{% endif %}">
+            {% if collection.products.size > 0 %}
+
+              {% for product in collection.products %}
+                <div class="product-grid-item mode-view-item">
+                  {% include 'product-item' %}
+                </div>
+              {% endfor %}
+
+            {% endif %}
+          </div>
+        
+        {% else %}
+          <p>{{ 'collections.general.no_product' | t }}</p>
+        
+        {% endif %}
+      </div>
+
+      {% include 'pagination' %}
+      
+      {% if section.settings.col_des_position == 'bottom' and collection.description != blank %}
+        <div class="cata-description">{{ collection.description }}</div>
+      {% endif %}
+    </div>
+    
+    {% endpaginate %}
+    
+    {% if section.settings.catalog_sb_placement == 'right' %}
+      {% include 'sidebar-catalog' %}
+    {% endif %}
+    
+  </div>
+  
+  {% if _layout == 'boxed' %}</div>{% endif %}
+</div>
+
+{% if settings.enable_notify_collection_page %}
+  {% include 'layout-notify' %}
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Collection pages",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "breadcrumb_image",
+        "label": "Breadcrumb image"
+      },
+      {
+        "type": "select",
+        "id": "collection_layout",
+        "label": "Section Layout Mode",
+        "options": [
+          {
+            "value": "boxed",
+            "label": "Boxed"
+          },
+          {
+            "value": "full",
+            "label": "Wide"
+          }
+        ],
+        "default": "boxed"
+      },
+      {
+        "type": "select",
+        "id": "col_des_position",
+        "label": "Position of the collection description",
+        "options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          }
+        ],
+        "default": "top"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_col_gl",
+        "label": "Enable Mode View",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_col_sort_by",
+        "label": "Enable Sort by",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "item_per_page",
+        "label": "Number of products per page",
+        "default": "16"
+      },
+      {
+        "type": "header",
+        "content": "Metafield",
+		"info": "Metafield allow you to attach metadata, which is additional information to a store's resources. Please install the [Custom Fields](http:\/\/freakdesign.com.au\/pages\/shopify-custom-fields) from chrome extension."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_subcategory",
+        "label": "Metafields Subcategory: c_f.subcategory",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "subcategory_title",
+        "label": "Subcategory title",
+        "default": "Categories"
+      },
+      {
+        "type": "header",
+        "content": "Filter",
+        "info": "To setup Filter by Groups like our demo, please add product's tag to format 'Group'_'Value'. For example: Color_Black, Brand_Elle"
+      },
+      {
+        "type": "checkbox",
+        "id": "and_logic",
+        "label": "Disable 'AND' operator in a group filter",
+        "default": true
+      },
+      {
+        "type": "radio",
+        "id": "sb_filters_style",
+		"label": "Filter style",
+        "options": [
+          {
+            "value": "toggle",
+            "label": "Toggle"
+          },
+          {
+            "value": "dropdown",
+            "label": "Dropdown"
+          }
+        ],
+		"default": "dropdown",
+		"info": "Only for Sidebar Placement is None"
+      },
+      {
+        "type": "radio",
+        "id": "sb_filters",
+		"label": "Filter type",
+        "options": [
+          {
+            "value": "tags",
+            "label": "Filter by Tags"
+          },
+          {
+            "value": "groups",
+            "label": "Filter by Groups"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          }
+        ],
+		"default": "groups"
+      },
+      {
+        "type": "text",
+        "id": "group_filter_prefix",
+        "label": "Group use in filter",
+        "default": "brand,color,price,size",
+        "info": "Enter your tag's prefix,separate by comma ie: color,size,brand,price.."
+      },
+      {
+        "type": "header",
+        "content": "Sidebar Placement"
+      },
+      {
+        "type": "select",
+        "id": "catalog_sb_placement",
+		"label": "Sidebar Placement",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Sidebar - Collection"
+      },
+      {
+        "type": "text",
+        "id": "sb_categories_title",
+        "label": "Heading",
+        "default": "#collection"
+      },
+      {
+        "type": "select",
+        "id": "sb_categories_type",
+        "label": "Collection type",
+        "options": [
+          {
+            "value": "categories",
+            "label": "Categories"
+          },
+          {
+            "value": "menu",
+            "label": "Menu"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          }
+        ],
+        "default": "categories"
+      },
+      {
+        "type": "link_list",
+        "id": "sb_categories_menu",
+        "label": "Menu item",
+        "info": "Only for Content Component is Menu"
+      },
+      {
+        "type": "text",
+        "id": "sb_categories_limit",
+        "label": "Total items",
+        "default": "6",
+        "info": "Only for Content Component is Categories"
+      },
+      {
+        "type": "header",
+        "content": "Sidebar Banner"
+      },
+      {
+        "type": "image_picker",
+        "id": "sb_product_banner",
+        "label": "Image",
+        "info": "blank to hide"
+      },
+      {
+        "type": "url",
+        "id": "sb_product_banner_link",
+        "label": "Link to"
+      },
+      {
+        "type": "header",
+        "content": "Sidebar latest products"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_sb_latest_product",
+        "label": "Enable sidebar latest products",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "sb_latest_product_title",
+        "label": "Heading"
+      },
+      {
+        "type": "collection",
+        "id": "sb_latest_product_col",
+        "label": "Collection"
+      },
+      {
+        "type": "text",
+        "id": "sb_latest_product_limit",
+        "label": "Total items",
+		"default": "8"
+      }
+    ]
+  }
+{% endschema %}

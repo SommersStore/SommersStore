@@ -1,0 +1,445 @@
+<div class="left-column-container{% if settings.left_column_style == 'full-slideshow' %} left-margin-top{% endif %}">
+  {% assign _lazyload = section.settings.lazyload %}
+  
+  {% if settings.left_column_style == 'normal-slideshow' and settings.nav_linklist != blank  %}
+    <div class="sb-widget">
+      <div class="sb-vertical-menu">
+        <nav class="navbar vertical-navbar">
+          <div class="collapse navbar-collapse">
+            <ul class="main-nav">
+              {% for l in linklists[settings.nav_linklist].links %}
+              {% include 'vertical-nav-link' %}
+              {% endfor %}
+            </ul>
+          </div>
+        </nav>
+
+      </div>
+    </div>
+  {% endif %}
+  
+  {% for block in section.blocks %}
+  
+    {% case block.type %}
+
+      {% when 'banner' %}
+
+        {% unless block.settings.image == blank %}
+          <div class="sb-widget">
+            <div class="sb-banner">
+
+              <a href="{{ block.settings.link }}"{% if _lazyload %} class="lazyload waiting"{% endif %}>
+                <img {% if _lazyload %}class="lazyload" data-{% endif %}src = "{{ block.settings.image | img_url: '270x' }}" alt="" /> 
+              </a>
+
+            </div>
+          </div>
+        {% endunless %}
+  
+      {% when 'products-listing' %}
+
+        {% assign _listing_col = block.settings.listing_collection %}
+        {% assign _listing_collection = collections[_listing_col] %}
+        {% assign _limit = block.settings.limited_item %}
+        {% assign _listing_title = block.settings.title %}
+
+        {% unless _listing_col == blank %}
+          <div class="sb-widget">
+            <div class="sb-product">
+
+              {% unless _listing_title == blank %}<h5 class="sb-title">{{ _listing_title }}</h5>{% endunless %}
+
+              <div class="sb-product-list">
+                {% for product in _listing_collection.products limit: _limit %}
+                {% capture mod %}{{ forloop.index | modulo: 4 }}{% endcapture %}
+
+                {% if mod == '1' %}
+                <div class="latest-product-item">
+                  {% endif %}
+
+                  {% include 'sb-product-item' %}
+
+                  {% if mod == '0' or forloop.last %}
+                </div>
+                {% endif %}
+
+                {% endfor %}
+              </div>
+
+            </div>
+          </div>
+        {% endunless %}
+  
+      {% when 'service' %}
+  
+        <div class="sb-widget">
+          <div class="sb-service">
+
+            {% for i in (1..5) %}
+              {% assign show = 'enable_sb_services_' | append: i %}
+
+              {% if block.settings[show] %}
+                {% assign icon = 'sb_services_icon_' | append: i %}
+                {% assign title = 'sb_services_title_' | append: i %}
+                {% assign caption = 'sb_services_caption_' | append: i %}
+
+                <div class="sb-service-item">
+                  <ul class="list-si">
+                    {% unless block.settings[icon] == blank %}
+                      <li class="icon">
+                        <span class="demo-icon {{ block.settings[icon] }}"></span>
+                      </li>
+                    {% endunless %}
+
+                    <li class="text">
+                      {% unless block.settings[title] == blank %}<span class="text-1">{{ block.settings[title] }}</span><br />{% endunless %}
+                      {% unless block.settings[caption] == blank %}<span class="text-2">{{ block.settings[caption] }}</span>{% endunless %}
+                    </li>
+                  </ul>
+                </div>
+              {% endif %}
+
+            {% endfor %}
+
+          </div>
+        </div>
+  
+      {% when 'products-grid' %}
+
+        {% assign _grid_col = block.settings.grid_collection %}
+        {% assign _grid_collection = collections[_grid_col] %}
+        {% assign _limit = block.settings.grid_limited_item %}
+        {% assign _grid_title = block.settings.grid_title %}
+
+        {% unless _grid_col == blank %}
+        <div class="sb-widget">
+          <div class="sb-product">
+
+            {% unless _grid_title == blank %}<h5 class="sb-title">{{ _grid_title }}</h5>{% endunless %}
+
+            <div class="sb-product-grid">
+              {% for product in _grid_collection.products limit: _limit %}
+                <div class="sb-grid-item">
+
+                    <div class="product-image">
+                      <a href="{{ product.url | within: collection }}" {% if _lazyload%}class="lazyload waiting"{% endif %}>
+                        <img {% if _lazyload%}class="lazyload" data-{% endif %}src="{% if product.images.size >= 1 %}{{ product.featured_image | product_img_url: '270x' }}{% else %}{{ 'default-image.jpg' | asset_url }}{% endif %}" alt="{{ product.featured_image.alt | escape }}" />
+                      </a>
+                    </div>
+
+                    <div class="product-content">
+                      <div class="product-content-inner">
+
+                        <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+
+                        <div class="product-price">
+                          {% if product.compare_at_price and product.price < product.compare_at_price %}
+                          <span class="price-sale">{{ product.price | money }}</span>
+                          <span class="price-compare"> {{ product.compare_at_price | money }}</span>            
+                          {% else %}
+                          <span class="price">{{ product.price | money }}</span>
+                          {% endif %} 
+                        </div>
+
+                      </div>
+                    </div>
+
+                </div>
+              {% endfor %}
+            </div>
+
+          </div>
+        </div>
+        {% endunless %}
+  
+      {% when 'blog' %}
+
+        {% assign _blog = blogs[block.settings.blog] %}
+        {% assign _limit = block.settings.blog_limited_item %}
+        {% assign _blog_title = block.settings.blog_title %}
+
+        {% unless block.settings.blog == blank %}
+          <div class="sb-widget">
+            <div class="sb-blog">
+
+              {% unless _blog_title == blank %}<h5 class="sb-title">{{ _blog_title }}</h5>{% endunless %}
+
+              <div class="sb-blog-grid">
+                {% for article in _blog.articles limit: _limit %}
+                  <div class="post-item">
+
+                    <div class="post-item-inner">
+                      {% if article.image %}
+                        <div class="post-image">
+                          <a href="{{ article.url }}"{% if _lazyload %} class="lazyload waiting"{% endif %}>
+                            <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ article | img_url: '150x' }}" alt="Blog" />
+                          </a>
+                        </div>
+                      {% endif %}
+
+                      <div class="post-content">
+                        <div class="meta-data">
+                          <span class="date">{{ article.published_at | date: "%d %b, %Y" }}</span>
+                        </div>
+
+                        <div class="info">
+                          <h6><a href="{{ article.url }}">{{ article.title }}</a></h6>
+                        </div>
+                      </div>
+                    </div>         
+
+                  </div>
+                {% endfor %}
+              </div>
+
+            </div>
+          </div>
+        {% endunless %}
+
+    {% endcase %}
+
+  {% endfor %}
+</div>
+
+{% schema %}
+  {
+    "name": "Left column - Homepage",
+    "settings": [ 
+      {
+        "type": "checkbox",
+        "id": "lazyload",
+        "label": "Enable Lazy loading",
+        "default": true
+      }
+    ],
+	"blocks": [
+      {
+        "type": "banner",
+        "name": "Banner",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+			"info": "The default image size is 270x430 pixels"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link to"
+          }
+        ]
+      },
+      {
+        "type": "products-listing",
+        "name": "Products Listing",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Latest Products"
+          },
+          {
+            "id": "listing_collection",
+            "type": "collection",
+            "label": "Collection"
+          },
+          {
+            "type": "text",
+            "id": "limited_item",
+            "label": "Limited items",
+            "default": "8"
+          }
+        ]
+      },
+      {
+        "type": "service",
+        "name": "Service",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Service 01"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_sb_services_1",
+            "label": "Service 01",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "sb_services_icon_1",
+            "label": "Font icon name",
+            "default": "icon-electro-track-order-icon",
+            "info": "Default is icon-electro-track-order-icon"
+          },
+          {
+            "type": "text",
+            "id": "sb_services_title_1",
+            "label": "Text 1"
+          },
+          {
+            "type": "text",
+            "id": "sb_services_caption_1",
+            "label": "Text 2"
+          },
+          {
+            "type": "header",
+            "content": "Service 02"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_sb_services_2",
+            "label": "Service 02",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "sb_services_icon_2",
+            "label": "Font icon name",
+            "default": " icon-electro-thumb",
+            "info": "Default is  icon-electro-thumb"
+          },
+          {
+            "type": "text",
+            "id": "sb_services_title_2",
+            "label": "Text 1"
+          },
+          {
+            "type": "text",
+            "id": "sb_services_caption_2",
+            "label": "Text 2"
+          },
+          {
+            "type": "header",
+            "content": "Service 03"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_sb_services_3",
+            "label": "Service 03",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "sb_services_icon_3",
+            "label": "Font icon name",
+            "default": "icon-electro-return-icon",
+            "info": "Default is icon-electro-return-icon"
+          },
+          {
+            "type": "text",
+            "id": "sb_services_title_3",
+            "label": "Text 1"
+          },
+          {
+            "type": "text",
+            "id": "sb_services_caption_3",
+            "label": "Text 2"
+          },
+          {
+            "type": "header",
+            "content": "Service 04"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_sb_services_4",
+            "label": "Service 04",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "sb_services_icon_4",
+            "label": "Font icon name",
+            "default": "icon-electro-payment",
+            "info": "Default is icon-electro-payment"
+          },
+          {
+            "type": "text",
+            "id": "sb_services_title_4",
+            "label": "Text 1"
+          },
+          {
+            "type": "text",
+            "id": "sb_services_caption_4",
+            "label": "Text 2"
+          },
+          {
+            "type": "header",
+            "content": "Service 05"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_sb_services_5",
+            "label": "Service 05",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "sb_services_icon_5",
+            "label": "Font icon name",
+            "default": "icon-electro-brands-icon",
+            "info": "Default is icon-electro-brands-icon"
+          },
+          {
+            "type": "text",
+            "id": "sb_services_title_5",
+            "label": "Text 1"
+          },
+          {
+            "type": "text",
+            "id": "sb_services_caption_5",
+            "label": "Text 2"
+          }
+        ]
+      },
+      {
+        "type": "products-grid",
+        "name": "Products Grid",
+        "settings": [
+          {
+            "type": "text",
+            "id": "grid_title",
+            "label": "Heading",
+            "default": "Featured Products"
+          },
+          {
+            "id": "grid_collection",
+            "type": "collection",
+            "label": "Collection"
+          },
+          {
+            "type": "text",
+            "id": "grid_limited_item",
+            "label": "Total items",
+            "default": "4"
+          }
+        ]
+      },
+      {
+        "type": "blog",
+        "name": "Blog post",
+        "settings": [
+          {
+            "type": "text",
+            "id": "blog_title",
+            "label": "Heading",
+            "default": "From The Blog"
+          },
+          {
+            "id": "blog",
+            "type": "blog",
+            "label": "Blog item"
+          },
+          {
+            "type": "text",
+            "id": "blog_limited_item",
+            "label": "Total items",
+            "default": "4"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

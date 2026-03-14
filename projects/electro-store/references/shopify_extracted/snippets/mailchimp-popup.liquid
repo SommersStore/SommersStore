@@ -1,0 +1,57 @@
+{% unless settings.mailchip_popup_style == 'none' %}
+  <div id="mailchimp-popup" class="{{ settings.mailchip_popup_style }}" style="display:none;" class="" data-expires="{{settings.mailchip_popup_expires}}" data-style="{{ settings.mailchip_popup_style }}">    
+    
+    {% if settings.mailchip_popup_style == 'delay' %}
+    
+      <div class="mailchimp-popup-content">
+        {% if settings.mailchip_popup_heading != blank %}
+          <h3 class="title">{{settings.mailchip_popup_heading}}</h3>
+        {% endif %}
+
+        {% if settings.mailchip_popup_content_1 != blank %}
+          <div class="mailchimp-caption-1">{{settings.mailchip_popup_content_1}}</div>
+        {% endif %}
+
+        <form id="mc-form" action="{{ settings.mailchip_popup_action }}" method="post" name="mc-embedded-subscribe-form" target="_blank" rel="noopener">
+          <input id="mc-email" class="input-block-level" type="email" name="EMAIL" placeholder="{{ settings.mailchip_popup_placeholder }}" required />
+          <button class="btn btn-1" type="submit">Subscribe</button>
+        </form>
+      </div>   
+
+      {% if settings.mailchip_popup_bg %}
+        <div class="mailchimp-popup-img">
+          <img alt="" src="{{'mailchip_popup_bg.jpg' | asset_url}}" />
+        </div>
+      {% endif %}
+    
+    {% else %}
+      <div class="underlay"></div>
+      <div class="wrap-modal">
+        <a href="javascript:void(0);"><i class="demo-icon icon-close"></i></a>
+        <div class="modal-body">
+          <div class="mailchimp-popup-content">
+            {% if settings.mailchip_popup_heading != blank %}
+            <h3 class="title">{{settings.mailchip_popup_heading}}</h3>
+            {% endif %}
+
+            {% if settings.mailchip_popup_content_1 != blank %}
+            <div class="mailchimp-caption-1">{{settings.mailchip_popup_content_1}}</div>
+            {% endif %}
+
+            <form id="mc-form" action="{{ settings.mailchip_popup_action }}" method="post" name="mc-embedded-subscribe-form" target="_blank" rel="noopener">
+              <input id="mc-email" class="input-block-level" type="email" name="EMAIL" placeholder="{{ settings.mailchip_popup_placeholder }}" required />
+              <button class="btn btn-1" type="submit">Subscribe</button>
+            </form>
+          </div>   
+
+          {% if settings.mailchip_popup_bg %}
+          <div class="mailchimp-popup-img">
+            <img alt="" src="{{'mailchip_popup_bg.jpg' | asset_url}}" />
+          </div>
+          {% endif %}
+        </div>        
+      </div>
+    {% endif %}
+
+  </div>
+{% endunless %}

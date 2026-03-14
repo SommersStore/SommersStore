@@ -1,0 +1,25 @@
+<li class="dropdown{% if l.active %} active{% endif %}">
+  <div class="dropdown-inner">
+    <a href="{{ l.url }}" class="dropdown-link">
+      {% if section.settings.vertical_nav_linklist_icon %}
+      <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ l.handle | append: '.png' | asset_url }}" alt="" />
+      {% endif %}
+
+      <span>{{ l.title }}</span>
+
+      {% capture _menu_label %}
+      {%  if _sale_handles contains l.handle %}{{_sale_menu_html}}{% endif %}
+      {%  if _new_handles contains l.handle %}{{_new_menu_html}}{% endif %}
+      {%  if _hot_handles contains l.handle %}{{_hot_menu_html}}{% endif %}
+      {% endcapture %}
+      {% if _menu_label != blank %}<span class="labels-wrapper">{{_menu_label}}</span>{% endif %}
+    </a>
+    <span class="expand"></span>
+  </div>
+
+  <ul class="dropdown-menu">
+    {% for l in linklists[submenu].links %}
+      {% include 'nav-sub-link' %}
+    {% endfor %}
+  </ul>
+</li>

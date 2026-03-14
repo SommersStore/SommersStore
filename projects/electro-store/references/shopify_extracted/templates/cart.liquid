@@ -1,0 +1,304 @@
+{% unless settings.breadcrumb_styles == 'none' %}{% include 'breadcrumb' %}{% endunless %}
+
+<div id="col-main" class="page-cart">
+  
+  <h1 class="page-heading">{{ 'cart.general.title' | t }}</h1>
+  
+  <div class="container">
+  
+    {% if cart.item_count > 0 %}
+      <form action="/cart" method="post">
+        <div class="cart-table">
+
+            <table>
+              <thead>
+                <tr>
+                  <th class="remove">&nbsp;</th>
+                  <th class="item">{{ 'cart.general.item' | t }}</th>
+                   <th class="price">{{ 'cart.general.price' | t }}</th>
+                  <th class="qty">{{ 'cart.general.quantity' | t }}</th>
+                  <th class="total-price">{{ 'cart.general.total' | t }}</th>              
+                </tr>
+              </thead>
+
+              <tbody>
+                {% for line_item in cart.items %}
+                  <tr class="cart-item" data-id="{{ line_item.id }}">
+                    <td class="action">
+                      <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart-remove-btn remove-{{ line_item.id }}" type="button" title="{{ 'cart.general.remove' | t }}">
+                        <span class="cart-remove-icon"><i class="demo-icon icon-close" aria-hidden="true"></i></span>
+                      </a>
+                    </td>
+                    <td class="item-name">
+                      <div class="item-image">
+                        <a href="{{ line_item.url }}">
+                          <img src="{{ line_item.image | img_url: 'small' }}" alt="{{ line_item.title }}" />
+                        </a>
+                      </div>
+                      <div class="item-title">
+                        <a href="{{ line_item.url }}">
+                          <span class="item-name">{{ line_item.product.title }}</span>
+                        </a>
+
+                        {% unless line_item.variant.title contains 'Default' %}
+                          <div class="wrap-item-variant">
+                            {% for option in line_item.product.options %}
+                              <span class="item-variant">{{ option }}: <span class="variant-title">{{ line_item.variant.options[forloop.index0] }}</span></span>
+                            {% endfor %}
+                          </div>
+                        {% endunless %}
+                      </div>	
+                    </td>
+                    <td class="item-price">{{ line_item.price | money }}</td>
+                    <td class="item-qty">
+                      <div class="quantity ajax-{{ settings.disable_ajax_cart }}">
+                        <input{% unless settings.disable_ajax_cart %} readonly type="text" name="item-quantity"{% else %} type="number" name="updates[]"{% endunless %} class="replace input-cart-qty" id="{{ line_item.id }}" value="{{ line_item.quantity }}" id="updates_{{ line_item.key }}"min="0" pattern="[0-9]*">
+                        {% unless settings.disable_ajax_cart %}
+                          <div class="qty-wrapper">
+                            <span class="qty-inner">
+                              <span class="qty-up-{{ line_item.id }} qty-up">
+                                <i class="demo-icon icon-plus"></i>
+                              </span>
+                              <span class="qty-down-{{ line_item.id }} qty-down">
+                                <i class="demo-icon icon-minus"></i>
+                              </span>
+                            </span>
+                          </div>
+                        {% endunless %}
+                      </div>
+                    </td>
+                    <td class="item-total">{{ line_item.line_price | money }}</td>
+                  </tr>
+                {% endfor %}
+
+                <tr class="last">
+                  <td colspan="5">
+                    <a href="/collections/all" class="btn btn-2 btn-continue">{{ 'cart.general.continue_shopping' | t }}</a>
+                    {% if settings.disable_ajax_cart %}
+                    <input type="submit" name="update" class="btn btn-2 btn-update" value="{{ 'cart.general.update' | t }}">
+                    {% endif %}
+                    <a class="btn btn-1 btn-clear" href="/cart/clear">{{ 'cart.general.clear_cart' | t }}</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+        <div class="cart-row">
+          
+          <div class="cart-left">
+            {% unless settings.shipping_calculator == 'Disabled' %}
+            {% include 'shipping-calculator' %}
+            {% endunless %}
+
+            {% if settings.enable_order_notes %}
+            <div class="cart-order-note">
+              <h3>{{ 'cart.general.add_note' | t }}</h3>
+              <div class="cart-note">
+                <textarea name="note" id="CartSpecialInstructions">{{ cart.note }}</textarea>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="cart-right">
+            <div class="cart-right-table">
+              <div class="total-price">{{ 'cart.general.total' | t }} <span class="cart-total"><span class='hulkapps-cart-original-total'>{{ cart.total_price | money }}</span></span></div>
+              
+              {% if settings.enable_free_shipping %}
+                <div class="free-shipping">
+                  {% assign cart_total = cart.total_price | times: 1 %}
+                  {% assign free_shipping_price = settings.free_shipping_price %}
+                  {% assign free_shipping_price_100 = settings.free_shipping_price | times: 100 %}
+                  
+                  {% if cart_total > free_shipping_price_100 %}
+                    <div class="progress">
+                      <span class="progress-bar" style="width:100%">100%</span>
+                    </div>
+
+                    <div class="text">Free shipping for orders over {{ free_shipping_price_100 | money}}</div>
+                  
+                  {% else %}
+                    {% capture progress %}{{ cart_total | divided_by: free_shipping_price }}{% endcapture %}
+                    {% capture spend %}{{ free_shipping_price_100 | minus: cart_total }}{% endcapture %}
+                    <div class="progress">
+                      <span class="progress-bar" style="width:{{ progress }}%">{{ progress }}%</span>
+                    </div>
+
+                    <div class="text">
+                      Spend {{ spend | money }} reach FREE SHIPPING! Continue shopping to add more products to your cart and receive free shipping for orders over {{ free_shipping_price_100 | money }}.
+                    </div>
+                  {% endif %}
+                  
+                </div>
+              {% endif %}
+              
+              {% if settings.enable_terms_condition %}
+                <div class="terms-conditions">
+                  <input type="checkbox" id="agree" />
+                  <label for="agree">{{ 'cart.general.terms_and_conditions' | t }}</label>
+                  <img src="{{ 'terms_condition_image.png' | asset_url }}" alt="terms and conditions" />
+                </div>
+              {% endif %}
+              
+            </div>
+
+            <div class="cart-action">
+              <button class="btn btn-1" type="submit" name="checkout">{{ 'cart.general.checkout' | t }}</button>
+            </div>
+            
+            {% if additional_checkout_buttons %}
+              <div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>
+            {% endif %}
+          </div>
+        </div>
+
+      </form>
+
+    {% else %}
+      <div class="text-center cart-empty-wrapper">
+        <p class="cart empty">{{ 'cart.general.empty' | t }}</p>
+        <a href="/collections/all" class="btn btn-2">{{ 'cart.general.continue_shopping' | t }}</a>
+      </div>
+
+    {% endif %}
+
+    {% unless settings.disable_ajax_cart %}
+      <script src="{{ 'https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js' }}"></script>
+      <script>
+                var cartObj = (function($,_){
+
+                var cartPage = {
+                    init: function() {
+                        this.qtyUp = $('.qty-up');
+                        this.qtyDown = $('.qty-down');
+                        this.totalPrice = $('.cart-total');
+                        this.actionHandle();
+                    },
+                    showLoading: function() {
+                        $('body').addClass('cart-loading');
+                    },
+                    hideLoading: function() {
+                        $('body').removeClass('cart-loading');
+                    },
+                    actionHandle: function() {
+                        var _this = this;
+                        this.qtyUp.on('click', _.debounce(function(e){
+                            _this.updateCart(e.currentTarget);
+                        }, 250));
+                        this.qtyDown.on('click', _.debounce(function(e){
+                            _this.updateCart(e.currentTarget);
+                        }, 250));
+                    },
+                    updateCart: function(elem){
+                        var _this = this;
+                        var jqElem = $(elem),
+                            patt = /\d+/g,
+                            _class = jqElem.attr('class'),
+                            prodId = patt.exec(_class)[0],
+                            qtyInput = jqElem.parents('.quantity').find('.input-cart-qty'),
+                            linePrice = jqElem.parents('.cart-item').find('.item-total'),
+                            qtyVal = qtyInput.val();
+
+                        if (_class.indexOf('up') != -1) {
+                            qtyInput.val(++qtyVal);
+                        } else {
+                            if (qtyVal != 1) {
+                                qtyInput.val(--qtyVal);
+                            } else {
+                                return false;
+                            }
+                        }
+
+                        var postData = {
+                            quantity: qtyVal,
+                            id: prodId
+                        };
+
+                        _this.showLoading();
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '/cart/change.js',
+                            data: postData,
+                            dataType: 'json',
+                            error: function(err){
+                                _this.hideLoading();
+                                console.log(err);
+                            },
+                            success: function(resp) {
+                                _this.hideLoading();
+                                var line_item_price = '';
+                                // Update cart total price
+                                _this.totalPrice.html(Shopify.formatMoney(resp.total_price, '{{shop.money_format}}'));
+                                // Update item total price
+                                for (var i = 0; i < resp.items.length; i++) {
+                                    if (resp.items[i].id.toString() == prodId) {
+                                        line_item_price = resp.items[i].line_price;
+                                        linePrice.html(Shopify.formatMoney(line_item_price, '{{shop.money_format}}'))
+                                        break;
+                                    } else {
+                                        continue;
+                                    }
+                                }
+                                
+                                Shopify.updateCartInfo(resp, '#cart-info #cart-content');
+                                Currency.convertAll('{{ settings.default_currency }}', Currency.currentCurrency);
+                                
+                               	// Update free shipping
+                                var cart_total = resp.total_price
+                                 	,free_shipping_price = {{ settings.free_shipping_price }}
+                                	,free_shipping_price_100 = {{ settings.free_shipping_price }}*100;
+                                
+                                if (cart_total > free_shipping_price_100){
+                                   $('.progress').html('<span class="progress-bar" style="width: 100%">100%</span>');
+                                   $('.text').html('Free shipping for orders over ' + Shopify.formatMoney(free_shipping_price_100, "{{shop.money_format}}"));
+                                }
+                                                                                                                
+                                else{
+                                   var progress = cart_total / free_shipping_price
+                                       ,spend = free_shipping_price_100 - cart_total;
+                                                                                                          
+                                   $('.progress').html('<span class="progress-bar" style="width:' + progress +'%">' + progress + '%</span>');
+                                   $('.text').html('Spend ' + Shopify.formatMoney(spend, "{{shop.money_format}}") + ' reach FREE SHIPPING! Continue shopping to add more products to your cart and receive free shipping for orders over ' + Shopify.formatMoney(free_shipping_price_100, "{{shop.money_format}}"));
+                                }
+                                                                                  
+                                {% if settings.show_multiple_currencies %}
+                                   currenciesCallbackSpecial('.free-shipping .text span.money');
+                                {% endif %}
+                            }
+                        })
+                    }
+                }
+
+                cartPage.init();
+
+                return {
+                  syncCartSB: function(res, id) {
+                    cartPage.totalPrice.html(Shopify.formatMoney(res.total_price, '{{shop.money_format}}'));
+                    $('.cart-table .cart-item').each(function(index,item){
+                      if($(item).data('id') == id) {
+                        $(item).remove();
+                        return false;
+                      }
+                    });
+                    if (res.item_count == 0) {
+                      location.reload();
+                    }
+                    Currency.convertAll('{{ settings.default_currency }}', Currency.currentCurrency);
+                  }
+                }
+              })(jQuery,_)
+                    
+      </script>
+                                                                      
+    {% endunless %}
+    
+    {% if cart.item_count > 0 and settings.cart_enable_upsell %}
+    {% include 'cart-upsells' %}
+    {% endif %}
+
+  </div>
+</div>
+

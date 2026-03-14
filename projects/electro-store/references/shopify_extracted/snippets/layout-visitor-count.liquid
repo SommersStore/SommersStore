@@ -1,0 +1,119 @@
+{% assign _noti_position = settings.noti_position %}
+{% assign _icon_user = settings.user_icon | img_url: '' %}
+{% assign _text_popup = settings.text_popup %}
+
+<div class="popup-sell-people {{_noti_position}}" style="background-color: {{settings.notify_background_color_product}}">
+    <div class="img-user">
+      <img src="{{ _icon_user }}" alt="User Image" />
+    </div>
+    <div class="text-detail">
+      <h6 class="sell-text"></h6>
+    </div>
+</div>
+      
+<script type="text/javascript">
+      
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        };
+
+        function getCookie(name) {
+            var dc = document.cookie;
+            var prefix = name + "=";
+            var begin = dc.indexOf("; " + prefix);
+            if (begin == -1) {
+                begin = dc.indexOf(prefix);
+                if (begin != 0) return null;
+            }
+            else
+            {
+                begin += 2;
+                var end = document.cookie.indexOf(";", begin);
+                if (end == -1) {
+                end = dc.length;
+                }
+            }
+            return decodeURI(dc.substring(begin + prefix.length, end));
+        };
+
+        function checkCookie($name) {
+            var popup = getCookie($name);
+            if (popup != "") {
+                return popup;
+            } else {
+                return false
+            }
+        };
+  
+        var notifySliderDelay = 4000;
+        var notifySliderHide = 9000;
+        var _hidepopup = checkCookie('hidepopup');
+        var _handle = checkCookie('handle');
+        var _current_handle = '{{product.handle}}';
+      
+        setTimeout(function() {
+          jQuery('.popup-sell-people').addClass('show');
+            var _number = Math.floor(Math.random() * 100) + 1;
+            if(_number == '1') {
+              _number = '2';
+            };
+            if (_hidepopup != null) {
+              var arrayN =  _hidepopup.toString().split(',');
+              var arrayH =  _handle.toString().split(',');
+              for(var i =0; i <arrayH.length; i++)
+              {
+                if (_current_handle == arrayH[i]){
+                  var j = i
+                  };
+
+              };
+              
+              if (_current_handle == arrayH[j]){
+             
+                   $('.sell-text').html('<strong>'+arrayN[j]+'</strong>'+' '+'{{_text_popup}}');
+
+              } else{
+
+                  $('.sell-text').html('<strong>'+_number+'</strong>'+' '+'{{_text_popup}}');
+                  var _array_handle = [];
+                  var _array_number = [];
+                  _array_number.push(_hidepopup);
+                  _array_handle.push(_handle);
+                  _array_number.push(_number);
+                  _array_handle.push(_current_handle);
+
+                  document.cookie = 'hidepopup=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                  document.cookie = 'handle=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                  setCookie('hidepopup', _array_number, 1);
+                  setCookie('handle',_array_handle , 1);
+
+              };
+                                   
+            }else{
+              $('.sell-text').html('<strong>'+_number+'</strong>'+' '+'{{_text_popup}}');
+            };
+                                   
+            if (_hidepopup == null) {
+                var _array_handle = [];
+            var _array_number = [];
+                _array_number.push(_number);
+                _array_handle.push(_current_handle);
+                setCookie('hidepopup', _array_number, 1);
+                setCookie('handle',_array_handle , 1);
+            };
+        }, notifySliderDelay,);
+          
+        setTimeout(function() {
+          jQuery('.popup-sell-people').removeClass('show');
+        }, notifySliderHide,);
+
+        setTimeout(function() {
+          document.cookie = 'hidepopup=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+           document.cookie = 'handle=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        }, 30000); 
+    
+</script>
+  

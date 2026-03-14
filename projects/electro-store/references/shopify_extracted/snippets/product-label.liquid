@@ -1,0 +1,23 @@
+<span class="product-label">
+  {% if settings.enable_new_label %}
+    {% for tag in product.tags %}
+      {% capture t %}{{ tag | downcase }}{% endcapture %}
+
+      {% if t contains 'label new' %}
+        <span class="label-new">
+          <span class="new-text">{{ 'products.label.new' | t }}</span>
+        </span>
+
+      {% endif %}
+
+    {% endfor %}
+  {% endif %}
+  
+  {% if settings.enable_saleoff_label %}
+    {% if product.variants.first.compare_at_price and product.variants.first.price < product.variants.first.compare_at_price %}
+      <span class="label-sale">
+        <span class="sale-text">{{ 'products.label.sale' | t }}</span>  
+      </span>
+    {% endif %}
+  {% endif %}
+</span>

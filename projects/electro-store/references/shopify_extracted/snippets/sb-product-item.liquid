@@ -1,0 +1,32 @@
+<div class="row">
+  
+  <div class="sb-product-head col-sm-5 col-xs-4">
+    <a href="{{ product.url | within: sb_collection }}" class="lazyload waiting">
+      <img class="lazyload" data-src="{% if product.images.size >= 1%}{{ product.featured_image | product_img_url: '90x' }}{% else %}{{ 'default-image.jpg' | asset_url }}{% endif %}" alt="{{ product.featured_image.alt | escape }}" />
+    </a>
+  </div>
+
+  <div class="sb-product-content col-sm-7 col-xs-8">
+    <div class="bp-content-inner">
+      
+      <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+      
+      {% if settings.product_tab_review %}
+        <div class="bp-review">
+          <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+        </div>
+      {% endif %}
+
+      <div class="sb-price">
+        {% if product.compare_at_price and product.price < product.compare_at_price %}
+          <span class="price-compare"> {{ product.compare_at_price | money }}</span>
+          <span class="price-sale">{{ product.price | money }}</span>
+        {% else %}
+          <span class="price">{{ product.price | money }}</span>
+        {% endif %} 
+      </div>
+
+    </div>
+  </div>
+  
+</div>

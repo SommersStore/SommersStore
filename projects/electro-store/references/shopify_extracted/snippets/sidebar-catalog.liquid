@@ -1,0 +1,91 @@
+<div id="sidebar" class="left-column-container {{ _sb_class }}">
+
+  <div class="sb-widget d-none d-lg-block">
+    <div class="sb-menu">
+      {% unless section.settings.sb_categories_type == 'none' %}
+
+        {% unless section.settings.sb_categories_title == blank %}
+          <h5 class="sb-title">{{ section.settings.sb_categories_title }}</h5>
+        {% endunless %}
+
+        <ul class="categories-menu">
+          {% if section.settings.sb_categories_type == 'categories' %}
+
+            {% for collection in collections limit: section.settings.sb_categories_limit %}
+              {% unless collection.handle == 'frontpage' or collection.handle == 'all' %}
+                <li><a href="{{ collection.url }}">{{ collection.title }}</a></li>
+              {% endunless %}
+            {% endfor %}
+
+          {% else %}
+            {% for l in linklists[section.settings.sb_categories_menu].links %}
+              {% assign submenu = l.title | handleize %}
+
+              {% if linklists[submenu].links.size > 0 %}
+                {% include 'sb-dropdown-menu' %}
+              {% else %}
+                <li{% if l.active %} class="active"{% endif %}><a href="{{ l.url }}">{{ l.title }}</a></li>
+              {% endif %}
+
+            {% endfor %}
+
+          {% endif %}
+        </ul>
+
+      {% endunless %}
+    </div>
+  </div>
+  
+  {% include 'filter-sidebar' %}
+  
+  {% unless section.settings.sb_product_banner == blank %}
+    <div class="sb-widget d-none d-lg-block">
+      <div class="sb-banner">
+
+        <a href="{{ section.settings.sb_product_banner_link }}">
+          <img src = "{{ section.settings.sb_product_banner | img_url: '270x' }}" alt="" /> 
+        </a>
+
+      </div>
+    </div>
+  {% endunless %}
+  
+  {% if section.settings.enable_sb_latest_product %}
+    {% assign col = section.settings.sb_latest_product_col %}
+    {% assign sb_collection = collections[col] %}
+    {% assign number = sb_collection.products_count | plus: 0 %}
+    {% assign limit = section.settings.sb_latest_product_limit %}
+
+    {% if number > 0 %}
+      <div class="sb-widget d-none d-lg-block">
+        <div class="sb-product">
+
+          {% unless section.settings.sb_latest_product_title == blank %}
+            <h5 class="sb-title">{{ section.settings.sb_latest_product_title }}</h5>
+          {% endunless %}
+
+          <div class="sb-product-list">
+            {% for product in sb_collection.products limit: limit %}
+            {% capture mod %}{{ forloop.index | modulo: 4 }}{% endcapture %}
+            
+              {% if mod == '1' %}
+              <div class="latest-product-item">
+                {% endif %}
+
+                {% include 'sb-product-item' %}
+
+                {% if mod == '0' or forloop.last %}
+              </div>
+              {% endif %}
+
+            {% endfor %}
+          </div>
+
+        </div>
+      </div>
+
+    {% endif %}
+  
+  {% endif %}
+
+</div>

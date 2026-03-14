@@ -1,0 +1,34 @@
+<div class="listing-item">
+  <div class="row">
+
+    <div class="product-image col-md-5 col-sm-5 col-6">
+      <a href="{{ product.url | within: collection }}" {% if _lazyload%}class="lazyload waiting"{% endif %}>
+        <img {% if _lazyload%}class="lazyload" data-{% endif %}src="{% if product.images.size >= 1 %}{{ product.featured_image | product_img_url: '100x' }}{% else %}{{ 'default-image.jpg' | asset_url }}{% endif %}" alt="{{ product.featured_image.alt | escape }}" />
+      </a>
+    </div>
+
+    <div class="product-content col-md-7 col-sm-7 col-6">
+      <div class="product-content-inner">
+
+        <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+
+        {% if settings.product_tab_review %}
+          <div class="product-review">
+            <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+          </div>
+        {% endif %}
+
+        <div class="product-price">
+          {% if product.compare_at_price and product.price < product.compare_at_price %}
+            <span class="price-sale">{{ product.price | money }}</span>
+            <span class="price-compare"> {{ product.compare_at_price | money }}</span>            
+          {% else %}
+            <span class="price">{{ product.price | money }}</span>
+          {% endif %} 
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

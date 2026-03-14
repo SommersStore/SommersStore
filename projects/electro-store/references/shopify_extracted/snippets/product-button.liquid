@@ -1,0 +1,20 @@
+<div class="product-button">
+    
+    {% if settings.use_quick_view %}
+      <div data-target="#quick-shop-popup" class="quick_shop" data-toggle="modal" title="{{ 'products.product.quick_shop' | t }}">
+        <i class="demo-icon icon-eye-1"></i>
+        {{ 'products.product.quick_shop' | t }}
+        <span class="json hide">{{ product | json }}</span>
+      </div>
+    {% endif %}
+
+    {% if settings.enable_product_wishlist %} 
+      <div class="product-wishlist">
+        <a href="javascript:void(0)" class="add-to-wishlist add-product-wishlist" data-handle-product="{{product.handle}}"{% if customer %} data-user="{{ customer.id }}"{% endif %} title="{{ 'products.product.add_to_wishlist' | t }}">
+          <i class="demo-icon {{ settings.wishlist_font_icon }}"></i>
+          {{ 'products.product.add_to_wishlist' | t }}
+        </a>
+      </div>	
+    {% endif %}
+
+</div>

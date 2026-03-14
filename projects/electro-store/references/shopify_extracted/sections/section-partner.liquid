@@ -1,0 +1,174 @@
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _item_per_row = section.settings.item_per_row -%}
+
+<div class="partner-wrapper layout-{{_layout }}{% if _hide_mobile %} d-none d-md-block{% endif %}">
+  {% if _layout == 'boxed' and settings.left_column_style == 'none' %}<div class="container">{% endif %}
+
+  {% if section.blocks.size > 0 %}
+
+    <div class="widget-partner widget-partner-{{ section.id }}">
+
+        {% for block in section.blocks %}
+
+        <div class="partner-item">
+          {% unless block.settings.image == blank %}
+            <a href="{{ block.settings.link }}"{% if _lazyload %} class="lazyload waiting"{% endif %}>
+              <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ block.settings.image | img_url: '270x' }}" alt="Partner" />
+            </a>
+
+          {% else %}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+
+          {% endunless %}
+        </div>
+
+      {% endfor %}
+
+    </div>
+
+  {% else %}
+      <div class="widget-partner widget-partner-{{ section.id }}">
+        {% for i in (1.._item_per_row) %}
+          <div class="partner-item">
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {% endfor %}
+      </div>
+
+  {% endif %}
+
+  {% if _layout == 'boxed' and settings.left_column_style == 'none' %}</div>{% endif %}
+</div>
+
+<script>
+    jQuery(document).ready(function($) {
+
+        setTimeout(function(){
+          jQuery(".widget-partner-{{ section.id }}").length && jQuery('.widget-partner-{{ section.id }}').owlCarousel({
+            nav			: true
+            ,dots 		: false
+            ,margin		: 30
+            ,responsive : {
+                0:{
+                  items: 1
+                }
+                ,480:{
+                  items: 2
+                }
+                ,768:{
+                  items: 3
+                }
+                ,991:{
+                  items: 3
+                }
+                ,1024:{
+                  items: 4
+                }
+                ,1200:{
+                    items: {{ _item_per_row }}
+                } 
+              }
+            ,navText	: ['<span class="button-prev"></span>', '<span class="button-next"></span>']
+          });
+        }, 1200);
+
+    });
+</script>
+
+{% schema %}
+{
+  "name": "Logo List",
+  "max_blocks": 12,
+  "settings": [
+	{
+      "type": "paragraph",
+      "content": "Created by 'Logo List' section"
+    },
+	{
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Logo List"
+    },
+  	{
+      "type": "checkbox",
+      "id": "lazyload",
+      "label": "Enable Lazy loading",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+	{
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+	{
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        {
+          "value": "boxed",
+          "label": "Boxed"
+        },
+        {
+          "value": "full",
+          "label": "Wide"
+        }
+      ]
+    },
+	{
+      "type": "range",
+      "id": "item_per_row",
+      "label": "Number of items per row",
+      "min": 5,
+      "max": 8,
+      "step": 1,
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "The default image size is 270x70 pixels"
+        },
+		{
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+    
+  ],
+  "presets": [
+    {
+      "name": "Logo List",
+      "category": "Banner",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+		{ "type": "image" },
+		{ "type": "image" },
+		{ "type": "image" },
+		{ "type": "image" },
+		{ "type": "image" },
+		{ "type": "image" },
+		{ "type": "image" },
+		{ "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

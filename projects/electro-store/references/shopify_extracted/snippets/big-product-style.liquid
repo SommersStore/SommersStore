@@ -1,0 +1,14 @@
+<div class="hp-tabs-list tabs-list-row big-product-style big-product-{{ _big_product_style }}">
+  
+  {% case _big_product_style %}
+      {% when 'left-01' %}
+        {% include 'big-product-left-01' %}
+      {% when 'left-02' %}
+        {% include 'big-product-left-02' %}
+      {% when 'center' %}
+        {% include 'big-product-center' %}
+      {% else %}
+        {% include 'big-product-right' %}
+  {% endcase %}
+
+</div>

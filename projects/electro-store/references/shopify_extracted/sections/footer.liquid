@@ -1,0 +1,707 @@
+{% assign _layout = section.settings.layout %}
+{% assign _lazyload = settings.use_lazyload %}
+
+<div class="footer-container layout-{{ _layout }}">
+  
+    {% if section.settings.enable_mailing_list %}
+      <div id="widget-newsletter">
+        <div class="container fix-{{ _layout }}">
+          <div class="newsletter-container">
+
+            {% unless section.settings.mailing_title == blank %}
+              <div class="newsletter-title"><i class="demo-ion icon-paper-plane-empty"></i><span>{{ section.settings.mailing_title }}</span></div>
+            {% endunless %}
+
+            {% unless section.settings.mailing_caption == blank %}
+              <p>{{ section.settings.mailing_caption }}</p>
+            {% endunless %}
+
+            <form action="{{ section.settings.mailing_form_action }}" method="post" id="mc-embedded-subscribe-form" class="form-inline form-subscribe" name="mc-embedded-subscribe-form" target="_blank" rel="noopener">
+              <input class="form-control" type="email" required placeholder="{{ section.settings.mailing_list_email_text }}" name="EMAIL" id="email-input" />
+              <button id="email-submit" type="submit" title="Subscibe" class="btn-custom">{{ 'general.password_page.signup_form_submit' | t }}</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    {% endif %}
+
+    {% if section.settings.footer_menu and section.blocks.size > 0 %}
+      <div class="footer-widget">
+        <div class="footer-inner container fix-{{ _layout }}">
+          <div class="table-row">
+            <div class="row">   
+
+              {% for block in section.blocks %}
+
+                {% case block.type %}
+              
+                  {% when 'logo' %}
+                    {% assign _width = block.settings.width %}
+                    <div class="col-lg-{{ _width }} col-md-12 col-sm-12 col-12">
+                      <div class="footer-block footer-logo">
+
+                        {% unless section.settings.logo == blank %}
+                        {% assign _logo_size = section.settings.logo_max_width | append: 'x' %}
+                        {% assign _logo_size_2x = section.settings.logo_max_width | times: 2 | append: 'x' %}
+                        <a href="/" title="{{ shop.name | escape }}" class="logo-site{% if _lazyload %} lazyload waiting{% endif %}">
+                          <img {% if _lazyload %} class="lazyload" data-srcset="{{ section.settings.logo | img_url: _logo_size }} 1x, {{ section.settings.logo | img_url: _logo_size_2x }} 2x"
+                               {% else %}src="{{ section.settings.logo | img_url: _logo_size }}"{% endif %} 
+                               alt="{{ shop.name | escape }}"
+                               style="max-width: {{ section.settings.logo_max_width }}px;" />
+                        </a>
+                        {% endunless %}
+
+                        {% if block.settings.show_phone_number_box %}
+                        <div class="support-box-1">
+                          {% if block.settings.phone_number_box_icon %}
+                          <i class="demo-icon icon-electro-support-icon"></i>
+                          {% endif %}
+
+                          <div class="text">
+                            <span>{{ block.settings.phone_number_box_text_1 }}</span>
+                            <span>{{ block.settings.phone_number_box_text_2 }}</span>
+                          </div>
+                        </div>
+                        {% endif %}
+
+                        {% if block.settings.show_address_box %}
+                        <div class="support-box-2">
+
+                          <div class="text">
+                            <span>{{ block.settings.address_box_text_1 }}</span>
+                            <span>{{ block.settings.address_box_text_2 }}</span>
+                          </div>
+                        </div>
+                        {% endif %}
+
+                        {% if block.settings.social_icon %}
+                        <div class="widget-social">
+                          {% include 'social-media-icons' %}
+                        </div>
+                        {% endif %}
+
+                      </div>
+                    </div>
+
+                  {% when 'menu' %}
+                    {% assign _f_menu = block.settings.footer_menu %}
+
+                    {% unless _f_menu == blank %}
+                    {% assign _width = block.settings.width %}
+                    <div class="col-lg-{{ _width }} col-md-4 col-sm-4 col-12">
+                      <div class="footer-block footer-menu">
+
+                        {% assign _f_title = block.settings.footer_menu_title  %}
+                        {% unless _f_title == blank %}<h6>{{ _f_title }}</h6>{% endunless %}
+
+                        <ul class="f-list">
+                          {% for l in linklists[_f_menu].links %}
+                          <li><a href="{{ l.url }}"><span>{{ l.title }}</span></a></li>
+                          {% endfor %}
+                        </ul>
+
+                      </div>
+                    </div>      
+                    {% endunless %}
+
+                  {% else %}
+                    {% assign _width = block.settings.width %}
+                    <div class="col-lg-{{ _width }} col-md-12 col-sm-12 col-12">
+                      <div class="footer-block footer-subscribe">
+
+                        {% assign _f_title = block.settings.footer_subscribe_title  %}
+                        {% unless _f_title == blank %}<h6>{{ _f_title }}</h6>{% endunless %}
+
+                        <div class="content">
+
+                          {% unless block.settings.footer_subscribe_action == blank %}
+                          <div class="subscibe-content">
+                            {% unless block.settings.footer_subscribe_caption == blank %}
+                            <p>{{ block.settings.footer_subscribe_caption }}</p>
+                            {% endunless%}
+
+                            <form action="{{ block.settings.footer_subscribe_action }}" method="post" class="form-inline form-subscribe" name="mc-embedded-subscribe-form" target="_blank" rel="noopener">
+                              <input class="form-control" type="email" required placeholder="{{ settings.mailchip_popup_placeholder }}" name="EMAIL" id="email-input" />
+                              <button type="submit" title="Subscibe" class="btn btn-1">Subscibe</button>
+                            </form>
+                          </div>
+                          {% endunless %}
+
+                        </div>
+
+                      </div>
+                    </div>
+
+                {% endcase %}
+
+              {% endfor %}    
+
+            </div>
+          </div>
+        </div>            
+        
+      </div>
+    {% endif %}
+
+    <div class="footer-bot">
+      <div class="container fix-{{ _layout }}">      
+        <div class="table-row">
+
+          <div class="copyright">
+            <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }} by <a href="https://www.arenatheme.com">Arenatheme</a>. All Rights Reserved</p>
+          </div>
+
+          <div class="payment-icons">
+            {% unless section.settings.payment_icon_type == 'none' %}
+              <ul class="list-inline">
+                {% if section.settings.payment_icon_type == 'image' and section.settings.payment_image != blank %}
+                  {% assign _payment_size = section.settings.payment_image_width | append: 'x' %}
+                  {% assign _payment_size_2x = section.settings.payment_image_width | times: 2 | append: 'x' %}
+                  <li {% if _lazyload %} class="lazyload waiting{% endif %}"> 
+                    <img {% if _lazyload %} class="lazyload" data-srcset="{{ section.settings.payment_image | img_url: _payment_size }} 1x, {{ section.settings.payment_image | img_url: _payment_size_2x }} 2x"
+                         {% else %}src="{{ section.settings.payment_image | img_url: _payment_size }}"{% endif %} 
+                         alt="Payment"
+                         style="max-width: {{ section.settings.payment_image_width }}px;" />
+                  </li> 
+                         
+                {% else %}
+                  {% for i in (1..4) %}
+                    {% assign _font_icon = 'payment_icon_' | append: i %}
+
+                    {% unless section.settings[_font_icon] == blank %}
+                      {% assign _icon_title = 'payment_icon_title_' | append: i %}
+                      <li><i class="demo-icon {{ section.settings[_font_icon] }}" title="{{ block.settings[_icon_title] }}"></i></li>
+                    {% endunless %}
+
+                  {% endfor %}
+                
+                {% endif %}
+              </ul>
+            {% endunless %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+</div>
+
+<div id="checkLayout">
+  <span class="d-block d-sm-none"></span>
+  <span class="d-none d-sm-block d-md-none"></span>
+  <span class="d-none d-md-block d-lg-none"></span>
+  <span class="d-none d-lg-block d-xl-none"></span>
+  <span class="d-none d-xl-block"></span>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Footer",
+	"max_blocks": 6,
+    "settings": [
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Section Layout Mode",
+        "default": "full",
+        "options": [
+          {
+            "value": "boxed",
+            "label": "Boxed"
+          },
+          {
+            "value": "full-content",
+            "label": "Wide"
+          },
+          {
+            "value": "full",
+            "label": "Only background full, Content is container"
+          }
+        ]
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Footer logo image"
+      },
+      {
+        "type": "text",
+        "id": "logo_max_width",
+        "label": "Custom logo width (in pixels)",
+        "default": "150"
+      },
+      {
+        "type": "checkbox",
+		"id": "footer_menu",
+        "label": "Footer menu",
+		"default": true,
+		"info": "Please add Footer menu"
+      },
+      {
+        "type": "header",
+        "content": "Newsletter Widget"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_mailing_list",
+        "label": "Enable Newsletter Widget"
+      },
+      {
+        "type": "text",
+        "id": "mailing_title",
+        "label": "Newsletter Title"
+      },
+      {
+        "type": "textarea",
+        "id": "mailing_caption",
+        "label": "Newsletter Caption"
+      },
+      {
+        "type": "textarea",
+        "id": "mailing_form_action",
+        "label": "Newsletter Form Action"
+      },
+      {
+        "type": "paragraph",
+		"content": "[Where do I get my MailChimp Form Action](http:\/\/shopify.barrelny.com\/where-do-i-find-the-mailchimp-signup-url)"
+      },
+      {
+        "type": "text",
+        "id": "mailing_list_email_text",
+        "label": "Text Displayed On The E-mail Field",
+        "default": "enter your email address"
+      },
+      {
+        "type": "header",
+        "content": "Payment icons"
+      },
+      {
+        "type": "select",
+        "id": "payment_icon_type",
+        "label": "Icons type",
+        "default": "image",
+        "options": [
+          {
+            "value": "image",
+            "label": "Upload a image"
+          },
+          {
+            "value": "icon",
+            "label": "Use icon"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          }
+        ]
+      },
+      {
+        "type": "image_picker",
+        "id": "payment_image",
+        "label": "Payment image"
+      },
+      {
+        "type": "text",
+        "id": "payment_image_width",
+        "label": "Custom Payment image width (in pixels)",
+        "default": "325"
+      },
+      {
+        "type": "text",
+        "id": "payment_icon_1",
+        "label": "Font icon name 01",
+        "default": "icon-cc-visa",
+        "info": "Default is icon-cc-visa"
+      },
+      {
+        "type": "text",
+        "id": "payment_icon_title_1",
+        "label": "Font icon title 01",
+        "default": "Visa"
+      },
+      {
+        "type": "text",
+        "id": "payment_icon_2",
+        "label": "Font icon name 02",
+        "default": "icon-cc-paypal",
+        "info": "Default is icon-cc-paypal"
+      },
+      {
+        "type": "text",
+        "id": "payment_icon_title_2",
+        "label": "Font icon title 02",
+        "default": "PayPal"
+      },
+      {
+        "type": "text",
+        "id": "payment_icon_3",
+        "label": "Font icon name 03",
+        "default": "icon-cc-discover",
+        "info": "Default is icon-cc-discover"
+      },
+      {
+        "type": "text",
+        "id": "payment_icon_title_3",
+        "label": "Font icon title 03",
+        "default": "Discover"
+      },
+      {
+        "type": "text",
+        "id": "payment_icon_4",
+        "label": "Font icon name 04",
+        "default": "icon-cc-amex",
+        "info": "Default is icon-cc-amex"	
+      },
+      {
+        "type": "text",
+        "id": "payment_icon_title_4",
+        "label": "Font icon title 04",
+        "default": "American express"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "logo",
+        "name": "Logo",
+        "settings": [
+          {
+            "type": "select",
+            "id": "width",
+            "label": "Width",
+            "options": [
+              {
+                "value": "1",
+                "label": "1\/12 (8.33%)"
+              },
+              {
+                "value": "2",
+                "label": "2\/12 (16,67%)"
+              },
+              {
+                "value": "3",
+                "label": "3\/12 (25.00%)"
+              },
+              {
+                "value": "4",
+                "label": "4\/12 (33.33%)"
+              },
+              {
+                "value": "5",
+                "label": "5\/12 (41.67%)"
+              },
+              {
+                "value": "6",
+                "label": "6\/12 (50.00%)"
+              },
+              {
+                "value": "7",
+                "label": "7\/12 (58.33%)"
+              },
+              {
+                "value": "8",
+                "label": "8\/12 (66.67%)"
+              },
+              {
+                "value": "9",
+                "label": "9\/12 (75.00%)"
+              },
+              {
+                "value": "10",
+                "label": "10\/12 (83.33%)"
+              },
+              {
+                "value": "11",
+                "label": "11\/12 (91.67%)"
+              },
+              {
+                "value": "12",
+                "label": "12\/12 (100.00%)"
+              }
+            ],
+            "default": "4"
+          },
+          {
+            "type": "checkbox",
+            "id": "footer_logo",
+            "label": "Footer logo",
+			"default": true,
+			"info": "Use settings in Footer section"
+          },
+          {
+            "type": "checkbox",
+            "id": "social_icon",
+            "label": "Social icons",
+			"default": true,
+			"info": "Use settings in Extensions > Social icon 01, Social icon 02, Social icon 03, Social icon 04"
+          },
+          {
+            "type": "header",
+            "content": "Phone number box"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_phone_number_box",
+            "label": "Show phone number box",
+			"default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "phone_number_box_icon",
+            "label": "Show icon",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "phone_number_box_text_1",
+            "label": "Text"
+          },
+          {
+            "type": "text",
+            "id": "phone_number_box_text_2",
+            "label": "Phone number"
+          },
+          {
+            "type": "header",
+            "content": "Address box"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_address_box",
+            "label": "Show address box",
+			"default": true
+          },
+          {
+            "type": "text",
+            "id": "address_box_text_1",
+            "label": "Text"
+          },
+          {
+            "type": "textarea",
+            "id": "address_box_text_2",
+            "label": "Address"
+          }
+        ]
+      },
+      {
+        "type": "menu",
+        "name": "Menu item",
+        "settings": [
+          {
+            "type": "select",
+            "id": "width",
+            "label": "Width",
+            "options": [
+              {
+                "value": "1",
+                "label": "1\/12 (8.33%)"
+              },
+              {
+                "value": "2",
+                "label": "2\/12 (16,67%)"
+              },
+              {
+                "value": "3",
+                "label": "3\/12 (25.00%)"
+              },
+              {
+                "value": "4",
+                "label": "4\/12 (33.33%)"
+              },
+              {
+                "value": "5",
+                "label": "5\/12 (41.67%)"
+              },
+              {
+                "value": "6",
+                "label": "6\/12 (50.00%)"
+              },
+              {
+                "value": "7",
+                "label": "7\/12 (58.33%)"
+              },
+              {
+                "value": "8",
+                "label": "8\/12 (66.67%)"
+              },
+              {
+                "value": "9",
+                "label": "9\/12 (75.00%)"
+              },
+              {
+                "value": "10",
+                "label": "10\/12 (83.33%)"
+              },
+              {
+                "value": "11",
+                "label": "11\/12 (91.67%)"
+              },
+              {
+                "value": "12",
+                "label": "12\/12 (100.00%)"
+              }
+            ],
+            "default": "2"
+          },
+          {
+            "type": "text",
+            "id": "footer_menu_title",
+            "label": "Heading",
+			"default": "Information"
+          },
+          {
+            "type": "link_list",
+            "id": "footer_menu",
+            "label": "Menu item"
+          }
+        ]
+      },
+      {
+        "type": "subscribe",
+        "name": "Subscribe",
+        "settings": [
+          {
+            "type": "select",
+            "id": "width",
+            "label": "Width",
+            "options": [
+              {
+                "value": "1",
+                "label": "1\/12 (8.33%)"
+              },
+              {
+                "value": "2",
+                "label": "2\/12 (16,67%)"
+              },
+              {
+                "value": "3",
+                "label": "3\/12 (25.00%)"
+              },
+              {
+                "value": "4",
+                "label": "4\/12 (33.33%)"
+              },
+              {
+                "value": "5",
+                "label": "5\/12 (41.67%)"
+              },
+              {
+                "value": "6",
+                "label": "6\/12 (50.00%)"
+              },
+              {
+                "value": "7",
+                "label": "7\/12 (58.33%)"
+              },
+              {
+                "value": "8",
+                "label": "8\/12 (66.67%)"
+              },
+              {
+                "value": "9",
+                "label": "9\/12 (75.00%)"
+              },
+              {
+                "value": "10",
+                "label": "10\/12 (83.33%)"
+              },
+              {
+                "value": "11",
+                "label": "11\/12 (91.67%)"
+              },
+              {
+                "value": "12",
+                "label": "12\/12 (100.00%)"
+              }
+            ],
+            "default": "4"
+          },
+          {
+            "type": "text",
+            "id": "footer_subscribe_title",
+            "label": "Heading",
+			"default": "Subscribe to our Newsletter"
+          },
+          {
+            "type": "header",
+            "content": "Newsletter"
+          },
+          {
+            "type": "textarea",
+            "id": "footer_subscribe_caption",
+            "label": "Text"
+          },
+          {
+            "type": "textarea",
+            "id": "footer_subscribe_action",
+            "label": "Form Action",
+            "info": "[Where do I get my Subscribe Form Action](http:\/\/shopify.barrelny.com\/where-do-i-find-the-mailchimp-signup-url)"
+          },
+          {
+            "type": "header",
+            "content": "Payment icons"
+          },
+          {
+            "type": "checkbox",
+            "id": "footer_payment_icon",
+            "label": "Enable payment icons",
+			"default": true
+          },
+          {
+            "type": "text",
+            "id": "payment_icon_1",
+            "label": "Font icon name 01",
+            "default": "icon-cc-visa",
+            "info": "Default is icon-cc-visa"
+          },
+          {
+            "type": "text",
+            "id": "payment_icon_title_1",
+            "label": "Font icon title 01",
+            "default": "Visa"
+          },
+          {
+            "type": "text",
+            "id": "payment_icon_2",
+            "label": "Font icon name 02",
+            "default": "icon-cc-paypal",
+            "info": "Default is icon-cc-paypal"
+          },
+          {
+            "type": "text",
+            "id": "payment_icon_title_2",
+            "label": "Font icon title 02",
+            "default": "PayPal"
+          },
+          {
+            "type": "text",
+            "id": "payment_icon_3",
+            "label": "Font icon name 03",
+            "default": "icon-cc-discover",
+            "info": "Default is icon-cc-discover"
+          },
+          {
+            "type": "text",
+            "id": "payment_icon_title_3",
+            "label": "Font icon title 03",
+            "default": "Discover"
+          },
+          {
+            "type": "text",
+            "id": "payment_icon_4",
+            "label": "Font icon name 04",
+            "default": "icon-cc-amex",
+            "info": "Default is icon-cc-amex"
+          },
+          {
+            "type": "text",
+            "id": "payment_icon_title_4",
+            "label": "Font icon title 04",
+            "default": "American express"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

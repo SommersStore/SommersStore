@@ -1,0 +1,46 @@
+<div class="modal fade" id="searchModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="searchbox modal-content">
+
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="demo-icon icon-close"></i></button>
+
+      <div class="content-wrapper">
+        <form id="search" class="navbar-form search" action="/search" method="get">
+          <input type="hidden" name="type" value="product" />
+          <input id="bc-product-search" type="text" name="q" class="form-control" placeholder="{{ 'general.text.search_placeholder' | t }}" autocomplete="off" />
+          <button type="submit" class="search-icon">
+            
+            {% if settings.search_icon_type == 'font-icon' %}
+              <i class="demo-icon {{ settings.search_font_icon }}"></i>
+
+              {% else %}
+              {% assign search_type = settings.search_icon %}
+
+              <img {% if _lazyload %}class="lazyload"
+                   data-srcset="{{ search_type | img_url: '20x'}} 1x, {{ search_type | img_url: '40x'}} 2x"
+                   {% else %}src="{{ search_type | img_url: '20x'}}"{% endif %}
+                   alt="Search" />
+
+              {% endif %}
+            
+          </button>
+        </form>
+	
+        <div id="result-ajax-search">
+          <ul class="search-results"></ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  jQuery(document).ready(function($) {
+    
+    $('#searchModal').on('shown.bs.modal', function () {
+      $('#bc-product-search').focus();
+    })
+    
+  })
+</script>

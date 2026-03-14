@@ -1,0 +1,218 @@
+{% assign _layout = section.settings.layout %}
+{% assign _header_style = section.settings.header_style %}
+{% assign _lazyload = settings.use_lazyload %}
+
+<div class="header-container layout-{{ _layout }} style-{{ _header_style }}" data-style="{{ _header_style }}">
+  
+    {% case _header_style %}
+      {% when '1' %}
+        {% include 'header-style-1' %}
+      {% when '2' %}
+        {% include 'header-style-2' %}
+      {% when '3' %}
+        {% include 'header-style-3' %}
+      {% when '4' %}
+        {% include 'header-style-4' %}
+      {% when '5' %}
+        {% include 'header-style-5' %}
+      {% when '6' %}
+        {% include 'header-style-6' %}
+      {% else %}
+        {% include 'header-style-7' %}
+    {% endcase %}
+  
+</div>
+
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Section Layout Mode",
+        "default": "full",
+        "options": [
+          {
+            "value": "full",
+            "label": "Wide"
+          },
+          {
+            "value": "boxed",
+            "label": "Boxed"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "header_style",
+        "label": "Header Style",
+        "options": [
+          {
+            "value": "1",
+            "label": "Style 01"
+          },
+          {
+            "value": "2",
+            "label": "Style 02"
+          },
+          {
+            "value": "3",
+            "label": "Style 03"
+          },
+          {
+            "value": "4",
+            "label": "Style 04"
+          },
+          {
+            "value": "5",
+            "label": "Style 05"
+          },
+          {
+            "value": "6",
+            "label": "Style 06"
+          },
+          {
+            "value": "7",
+            "label": "Style 07"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "border_top",
+        "label": "Show border top",
+        "default": true,
+		"info": "Only for Header style 03"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image",
+		"info": "Retina Displays require double the pixels to display the same image."
+      },
+      {
+        "type": "text",
+        "id": "logo_max_width",
+        "label": "Custom logo width (in pixels)",
+        "default": "150"
+      },
+      {
+        "type": "url",
+        "id": "header_locator_page",
+        "label": "Store location link",
+		"info": "Blank to hide"
+      },
+      {
+        "type": "url",
+        "id": "header_order_page",
+        "label": "The order link",
+		"info": "Blank to hide"
+      },
+      {
+		"type": "header",
+		"content": "Top Announcement Bar"
+      }, 
+      {
+        "type": "checkbox",
+        "id": "enable_text_box_06",
+        "label": "Show Announcement Bar",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "free_return_text",
+        "label": "Free return",
+        "default": "<span>30 days</span> free return"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_text",
+        "label": "Free shipping",
+        "default": "<span>Free shipping</span> for over $40"
+      },
+      {
+        "type": "text",
+        "id": "worldwide_delivery_text",
+        "label": "Worldwide delivery",
+        "default": "<span>Best</span> worldwide delivery"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_google_translate",
+        "label": "Enable Google Translate",
+        "default": true
+      },
+      {
+		"type": "header",
+		"content": "Text Box"
+      },
+      {
+        "type": "text",
+        "id": "welcome_text",
+        "label": "Welcome text",
+		"default": "Welcome back",
+		"info": "Only for Header style 02, blank to hide"
+      },
+      {
+        "type": "textarea",
+        "id": "shipping_text",
+        "label": "Shipping text",
+		"default": "Free Shipping on Orders $150+",
+		"info": "Only for Header style 01 & 05, blank to hide"
+      },
+      {
+		"type": "header",
+		"content": "Contact Box"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_header_contact",
+        "label": "Enable contact box",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_header_contact_icon",
+        "label": "Show contact box icon",
+        "default": true,
+		"info": "Only for Header style 02"
+      },
+      {
+        "type": "text",
+        "id": "header_phone_number",
+        "label": "Phone Number",
+		"default": "(+800) 123 456 7890"
+      },
+      {
+        "type": "text",
+        "id": "header_email",
+        "label": "Email",
+		"default": "sample@email.com"
+      },
+      {
+		"type": "header",
+		"content": "Navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "nav_linklist",
+        "label": "Main menu",
+        "default": "main-menu",
+		"info": "Not for Mobile"
+      },
+      {
+        "type": "link_list",
+        "id": "vertical_nav_linklist",
+        "label": "Vertical menu",
+		"info": "Only for Header style 01,02,04,07 and not for Mobile"
+      },
+      {
+        "type": "checkbox",
+        "id": "vertical_nav_linklist_icon",
+        "label": "Show thumbnail images for Vertical menu",
+		"info": "Please go to Assets folder, then click 'Add a new asset' to upload the image. The image size is 20x20 pixels, syntax is xxx.png. 'xxx' is menu item handle."
+      }
+    ]
+  }
+{% endschema %}

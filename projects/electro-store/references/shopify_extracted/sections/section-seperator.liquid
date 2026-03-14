@@ -1,0 +1,292 @@
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _margin_top = section.settings.margin_top -%}
+{%- assign _margin_bottom = section.settings.margin_bot -%}
+{%- assign _bg_color = section.settings.bg_color -%}
+
+<div class="section-separator section-separator-{{ section.id }}{% if _hide_mobile %} d-none d-md-block{% endif %} {% if _margin_top %}section-separator-margin-top{% endif %} {% if _margin_bottom %}section-separator-margin-bottom{% endif %}" style="background: {{ _bg_color }};">
+  
+  {% for block in section.blocks %}
+    {%- assign _content = block.settings.content_components -%}
+
+      {% case _content %}
+
+        {% when 'heading_with_line' %}
+          {%- assign _content_hwline_heading_text = block.settings.content_hwline_heading_text -%}
+          {%- assign _content_hwline_heading_color = block.settings.content_hwline_heading_color -%}
+          {%- assign _content_hwline_heading_size = block.settings.content_hwline_heading_size -%}  
+          {%- assign _content_hwline_style = block.settings.content_hwline_style -%}
+          {%- assign _content_hwline_position = block.settings.content_hwline_position -%}
+          {%- assign _content_hwline_subheading_text = block.settings.content_hwline_subheading_text -%}
+          {%- assign _content_hwline_subheading_color = block.settings.content_hwline_subheading_color -%}
+          {%- assign _content_hwline_subheading_size = block.settings.content_hwline_subheading_size -%}
+
+  
+          <div class="separator-heading-line {{ _content_hwline_position }} line-{{ _content_hwline_style }}">
+            {% if _content_hwline_position == 'top_bottom' %}<div class="separator-sub-line sub-double-line"></div>{% endif %}
+            {% if _content_hwline_position == 'top' %}<div class="separator-sub-line sub-line-top"></div>{% endif %}
+            <h2 class="{{ _content_hwline_heading_size }}"><span>{{_content_hwline_heading_text}}</span></h2>
+            {% if _content_hwline_position == 'center' %}<div class="separator-sub-line"></div>{% endif %}
+            <span class="separator-subtext {{ _content_hwline_subheading_size }}">{{_content_hwline_subheading_text}}</span>
+            {% if _content_hwline_position == 'bottom' %}<div class="separator-sub-line sub-line-bt"></div>{% endif %}
+            {% if _content_hwline_position == 'top_bottom' %}<div class="separator-sub-line sub-double-line sub-line-bt"></div>{% endif %}
+          </div>
+
+        {% else %}
+
+      {% endcase %}
+
+    <style type="text/css">    
+        .section-separator-{{ section.id }} h2 {
+          color: {{_content_hwline_heading_color}};
+        }
+        .section-separator-{{ section.id }} .separator-subtext {
+          color: {{_content_hwline_subheading_color}};
+        }
+        .section-separator-{{ section.id }} .separator-sub-line {
+          border-color: {{ _content_hwline_heading_color}};
+        }
+        .section-separator-{{ section.id }} .separator-heading-line.side-line h2:before,
+        .section-separator-{{ section.id }} .separator-heading-line.side-line h2:after {
+          border-color: {{ _content_hwline_heading_color}};
+        }
+    </style>
+  {% endfor %}
+  
+</div>
+
+{% schema %}
+{
+  "name": "Separator",
+  "max_blocks": 1,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Seperator Section use to create spacing between sections and add headings to the sections"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Label",
+      "default": "Separator"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+	{
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+	{
+      "type": "checkbox",
+      "id": "margin_top",
+      "label": "Show Top Margin"
+    },
+	{
+      "type": "checkbox",
+      "id": "margin_bot",
+      "label": "Show Bottom Margin"
+    },
+	{
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Separator Content",
+      "settings": [
+        {
+          "type": "select",
+          "id": "content_components",
+          "label": "Content Components",
+          "options": [
+			{ "value": "spacing", "label": "Spacing" },
+			{ "value": "heading_with_line", "label": "Heading with Line" }
+          ],
+          "default": "heading_with_line"
+        },
+		{
+          "type": "header",
+          "content": "Heading with line"
+        },
+		{
+          "type": "paragraph",
+          "content": "=== Heading"
+        },
+		{
+          "type": "text",
+          "id": "content_hwline_heading_text",
+          "label": "Text",
+          "default": "Heading"
+        },
+		{
+          "type": "color",
+          "id": "content_hwline_heading_color",
+          "label": "Color",
+          "default": "#222222"
+        },
+		{
+          "type": "select",
+          "id": "content_hwline_heading_size",
+          "label": "Font size",
+          "default": "h2",
+          "options": [
+			{
+              "value": "largest-1",
+              "label": "Largest 01"
+            },
+			{
+              "value": "largest-2",
+              "label": "Largest 02"
+            },
+			{
+              "value": "largest-3",
+              "label": "Largest 03"
+            },
+			{
+              "value": "largest-4",
+              "label": "Largest 04"
+            },
+			{
+              "value": "largest-5",
+              "label": "Largest 05"
+            },
+            {
+              "value": "h1",
+              "label": "Heading 1"
+            },
+            {
+              "value": "h2",
+              "label": "Heading 2"
+            },
+            {
+              "value": "h3",
+              "label": "Heading 3"
+            },
+            {
+              "value": "h4",
+              "label": "Heading 4"
+            },
+            {
+              "value": "h5",
+              "label": "Heading 5"
+            },
+            {
+              "value": "h6",
+              "label": "Heading 6"
+            }
+          ]
+        },
+		{
+          "type": "paragraph",
+          "content": "=== Line"
+        },
+        {
+          "type": "select",
+          "id": "content_hwline_style",
+          "label": "Style",
+          "options": [
+            { "value": "solid", "label": "Solid" },
+            { "value": "dashed ", "label": "Dashed " },
+            { "value": "dotted", "label": "Dotted" }
+          ],
+          "default": "solid"
+        },
+		{
+          "type": "select",
+          "id": "content_hwline_position",
+          "label": "Position",
+          "options": [
+            { "value": "top", "label": "Top" },
+            { "value": "center ", "label": "Center " },
+            { "value": "bottom", "label": "Bottom" },
+			{ "value": "side-line", "label": "2-Side" },
+			{ "value": "top_bottom", "label": "Top & Bottom" },
+			{ "value": "left-line", "label": "Left" },
+            { "value": "right-line ", "label": "Right " }
+          ],
+          "default": "bottom"
+        },
+		{
+          "type": "paragraph",
+          "content": "=== Subheading"
+        },
+		{
+          "type": "text",
+          "id": "content_hwline_subheading_text",
+          "label": "Text",
+          "default": "Subheading"
+        },
+		{
+          "type": "color",
+          "id": "content_hwline_subheading_color",
+          "label": "Color",
+          "default": "#222222"
+        },
+		{
+          "type": "select",
+          "id": "content_hwline_subheading_size",
+          "label": "Font size",
+          "default": "h6",
+          "options": [
+			{
+              "value": "largest-1",
+              "label": "Largest 01"
+            },
+			{
+              "value": "largest-2",
+              "label": "Largest 02"
+            },
+			{
+              "value": "largest-3",
+              "label": "Largest 03"
+            },
+			{
+              "value": "largest-4",
+              "label": "Largest 04"
+            },
+			{
+              "value": "largest-5",
+              "label": "Largest 05"
+            },
+            {
+              "value": "h1",
+              "label": "Heading 1"
+            },
+            {
+              "value": "h2",
+              "label": "Heading 2"
+            },
+            {
+              "value": "h3",
+              "label": "Heading 3"
+            },
+            {
+              "value": "h4",
+              "label": "Heading 4"
+            },
+            {
+              "value": "h5",
+              "label": "Heading 5"
+            },
+            {
+              "value": "h6",
+              "label": "Heading 6"
+            }
+          ]
+        }
+      ]
+    }
+    
+  ],
+  "presets": [{
+    "name": "Separator",
+    "category": "Separator"
+  }]
+}
+{% endschema %}

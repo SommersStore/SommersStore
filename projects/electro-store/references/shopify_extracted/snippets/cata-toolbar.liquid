@@ -1,0 +1,35 @@
+<div class="cata-toolbar">
+  <div class="group-toolbar">
+    
+    {% if collection.all_tags.size > 0 and section.settings.sb_filters != 'none' %}
+      {% if section.settings.catalog_sb_placement == 'none' %}
+        <div class="filter-icon {{ section.settings.sb_filters_style }}"><i class="demo-icon icon-sliders"></i>{{ settings.heading_sb_filters }}</div>
+      {% else %}
+        <div class="filter-icon mobile-filter-icon {{ section.settings.sb_filters_style }} d-lg-none"><i class="demo-icon icon-sliders"></i>{{ settings.heading_sb_filters }}</div>
+      {% endif %}
+    {% endif %}    
+    
+    {% if section.settings.show_col_gl %}
+      <div class="grid-list">
+        <span class="text">{{ 'collections.general.view_mode_text' | t }}</span>
+        <span class="grid grid-4{% if settings.mode_view_default == 'cata-grid-4' %} active{% endif %}" title="{{ 'collections.general.view_mode_small' | t }}"><i class="demo-icon icon-electro-grid-view"></i></span>
+        <span class="grid grid-3{% if settings.mode_view_default == 'cata-grid-3' %} active{% endif %}" title="{{ 'collections.general.view_mode_medium' | t }}"><i class="demo-icon icon-electro-large-list-view"></i></span>
+        <span class="grid grid-2{% if settings.mode_view_default == 'cata-grid-2' %} active{% endif %}" title="{{ 'collections.general.view_mode_large' | t }}"><i class="demo-icon icon-electro-list-view"></i></span>
+        <span class="grid grid-1{% if settings.mode_view_default == 'cata-grid-1' %} active{% endif %}" title="{{ 'collections.general.view_mode_huge' | t }}"><i class="demo-icon icon-electro-small-list-view"></i></span>
+      </div>
+    {% endif %}
+    
+    {% include 'collection-sorting' %}
+    
+    <div class="pagination-showing">
+      <div class="showing">
+        {% if paginate.pages > 1 %}
+          {{'general.pagination.showing' | t }} {{ paginate.current_offset | plus: 1 }} - {% if paginate.next %}{{ paginate.current_offset | plus: paginate.page_size }}{% else %}{{ paginate.items }}{% endif %} {{'general.pagination.of' | t }} {{ paginate.items }} {{'general.pagination.items' | t }}
+        {% else %}
+          {{'general.pagination.showing' | t }} {{'general.pagination.all' | t }} {{ paginate.items }} {{'general.pagination.items' | t }}
+        {% endif %}
+      </div>
+    </div>
+    
+  </div>
+</div>

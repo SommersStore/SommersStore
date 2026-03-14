@@ -1,0 +1,295 @@
+<!doctype html>
+<!--[if IE 8]><html lang="en" class="ie8 js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="js{% if template == 'index' %} templateIndex{% endif %}"> <!--<![endif]-->
+
+<head>
+  {% if settings.favicon != empty %}
+    <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+  {% endif %}
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0" />
+  <link rel="canonical" href="{{ canonical_url }}" />
+
+  <!-- Title and description ================================================== -->
+  <title>
+    {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+  </title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  {% include 'fb-open-graph' %}
+  
+  <!-- header-css-file  ================================================== -->
+  {% if template == 'index' %}
+  <link href="{{ 'jquery.swiper.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+  {% endif %}
+  <link href="{{ 'jquery.owl.carousel.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+  <link href="{{ 'arenafont.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+  <link href="{{ 'bootstrap.4x.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+  <link href="{{ 'jquery.plugin.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+  <link href="{{ 'bc.style.scss.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+  
+  <!-- header-js-file  ================================================== -->
+  {% if template contains 'customers' %}
+  <script crossorigin="anonymous" src="{{ 'shopify_common.js' | shopify_asset_url }}"></script>
+  <script crossorigin="anonymous" src="{{ 'bc.customerArea.js'  | asset_url }}"></script>
+  {% endif %}
+
+  <script crossorigin="anonymous" src="{{ 'jquery-1.11.0.min.js' | asset_url }}"></script>
+  <!--[if (gt IE 9)|!(IE)]><!--><script async src="{{ 'lazysizes.min.js' | asset_url }}" async></script><!--<![endif]-->
+  <!--[if lte IE 9]><script src="{{ 'lazysizes.min.js' | asset_url }}"></script><![endif]-->
+
+  <script crossorigin="anonymous" src="{{ 'bootstrap.4x.min.js' | asset_url }}" defer></script>
+
+  <script crossorigin="anonymous" src="{{ 'jquery.easing.1.3.js' | asset_url }}" defer></script>
+
+  <script crossorigin="anonymous" src="{{ 'modernizr.js' | asset_url }}"  async></script>
+
+  {% if template == 'index' or template == 'page.portfolio' %}
+  <script crossorigin="anonymous" src="{{ 'jquery.swiper.js' | asset_url }}" defer></script>
+  <script crossorigin="anonymous" src="{{ 'bc.isotope.min.js' | asset_url }}" defer></script>
+  <script crossorigin="anonymous" src="{{ 'packery-mode.pkgd.min.js' | asset_url }}" defer></script>
+  {% endif %}
+
+  <script crossorigin="anonymous" src="{{ 'cookies.js' | asset_url  }}"></script>
+  <script crossorigin="anonymous" src="{{ 'jquery.fancybox.min.js' | asset_url  }}"></script>
+
+  {% if template contains 'product' or settings.mailchip_popup_style == 'leaves' %}
+  <script crossorigin="anonymous" src="{{ 'ouibounce.min.js' | asset_url  }}" defer></script>
+  {% endif %}
+
+  <script crossorigin="anonymous" src="{{ 'jquery.jgrowl.min.js' | asset_url  }}" defer></script>
+  <script crossorigin="anonymous" src="{{ 'jquery.owl.carousel.min.js' | asset_url  }}" defer></script>
+  <script crossorigin="anonymous" src="{{ 'jquery.plugin.js' | asset_url  }}" defer></script>
+  <script crossorigin="anonymous" src="{{ 'jquery.countdown.js' | asset_url  }}" defer></script>
+
+  <script crossorigin="anonymous" src="{{ 'jquery.mb.YTPlayer.min.js' | asset_url }}" defer></script>
+
+  <script crossorigin="anonymous" src="{{ 'bc.ajax-search.js' | asset_url }}" defer></script>
+
+  {% if template contains 'collection' and settings.show_sb_filters and settings.sb_filters == 'groups' and collection.all_tags.size > 0 %}
+  <script crossorigin="anonymous" src="{{ 'jquery.history.js' | asset_url }}" defer></script>
+  <script crossorigin="anonymous" src="{{ 'bc.ajax-filter.js' | asset_url }}" defer></script> 
+  {% endif %}
+
+  <script crossorigin="anonymous" src="{{ 'option_selection.js' | asset_url  }}" defer></script>
+
+  {% if settings.enable_image_blance %}
+  <script crossorigin="anonymous" src="{{ 'jquery.fakecrop.js' | asset_url  }}" defer></script>
+  {% endif %}
+
+  <script crossorigin="anonymous" src="{{ 'bc.global.js' | asset_url }}"></script>
+  <script crossorigin="anonymous" src="{{ 'bc.script.js' | asset_url }}"></script>
+
+  {% include 'bc_wl_cp_config' %}
+  {{ 'bc_wl_cp_style.scss.css' | asset_url | stylesheet_tag }}
+  
+  {{ content_for_header }}
+</head>
+
+<body class="template{{ template | split: '.' | first | camelize }} category-mode-{{ settings.catalog_mode }} {{ settings.mode_view_default }} lazy-loading-img">
+  
+  <div class="boxed-wrapper">
+    
+    <div class="new-loading"></div>
+    
+    {% include 'navigation-mobile' %}
+    
+    {% if settings.cart_styles == 'sidebar' %}
+      {% include 'cart-sidebar' %}
+    {% endif %}
+    
+    {% unless template == 'index' %}
+      {% assign _have_breadcrumb = true %}
+    {% else %}
+      {% assign _have_breadcrumb = false %}
+    {% endunless %}
+    
+    <div id="page-body" class="{% if _have_breadcrumb %}breadcrumb-{{ settings.breadcrumb_styles }}{% endif %}{% if settings.general_placement == 'boxed' %} boxed{% endif %}">
+
+      <header class="header-content" data-stick="{{ settings.show_sticky_bar }}">
+        {% section 'header' %}
+      </header>
+      
+      <div id="body-content">
+        <div id="main-content">
+          <div class="main-content">{{ content_for_layout }}</div>
+        </div>
+      </div>
+      
+      {% section 'bottom' %}
+      
+      <footer id="footer-content">
+        {% section 'footer' %}
+      </footer>
+
+    </div>
+    
+    {% if settings.show_back_to_top %}
+      <div id="scroll-to-top" title="Back To Top">
+        <a href="javascript:;"><i class="fa fa-angle-up"></i></a>
+      </div>
+    {% endif %}
+    
+    {% if template contains 'product' and settings.enable_visitor_count %}
+      {% include 'layout-visitor-count' %}
+    {% endif %}
+    
+    {{ "api.jquery.js" | shopify_asset_url | script_tag }}
+    
+    {% if settings.cart_styles == 'dropdown' %}
+      {% include 'cart-dd-custom' %}
+    {% else %}
+      {% include 'cart-sb-custom' %}
+    {% endif %}
+    
+    {% if settings.show_add_to_cart_sticky and template contains 'product' %}
+      <div class="add-to-cart-sticky">
+        <form action="/cart/add" method="post" class="product-action variants" enctype="multipart/form-data">
+          <select id="product-select-{{ product.id }}" name="id">
+            {% for variant in product.variants %}
+
+            {% if variant.available %}
+              <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+
+            {% else %}
+              <option disabled="disabled">
+                {{ variant.title }} - {{'products.product.sold_out' | t }}
+              </option>
+
+            {% endif %}
+
+            {% endfor %}
+          </select>
+
+          <button class="add-to-cart btn btn-1" type="button">{{ 'products.product.add_to_cart' | t }}</button> 
+        </form>
+      </div>
+    {% endif %}
+    
+    {% include 'layer-mobile-bar' %}
+    
+    {% if settings.cart_styles == 'dropdown' %}
+      {% include 'layer-cart-modal' %}
+    {% endif %}
+    
+    {% if settings.show_search %}{% include 'layer-search-modal' %}{% endif %}
+    
+    {% include 'currencies' %}
+    {% include 'mailchimp-popup' %}
+    {% include 'quick-shop-product' %}
+    
+    {% if settings.show_discount_popup and template contains 'product' %}{% include 'layer-discount-modal' %}{% endif %}
+
+    {% include 'bc-config-js' %}
+    
+    <!-- Begin Recently Viewed Products -->
+    {% if template contains 'product' %}
+    
+    <script src="{{ 'jquery.tmpl.min.js' | asset_url }}"> </script>
+    <script src="{{ 'jquery.products.min.js' | asset_url}}"> </script>
+
+    <script>
+      Shopify.Products.recordRecentlyViewed();
+    </script>
+
+    {% endif %}
+
+    <!-- End Recently Viewed Products -->
+
+    {% if settings.show_cookie_policy %}
+      <script src="{{ 'cookieconsent.min.js' | asset_url }}" defer></script>
+      <script>
+        window.addEventListener("load", function(){
+          window.cookieconsent.initialise({
+            "palette": {
+              "popup": {
+                "background": "{{ settings.eu_background_color }}",
+                "text": "{{ settings.eu_text_color }}"
+              },
+              "button": {
+                "background": "{{ settings.eu_button_bg }}",
+                "text": "{{ settings.eu_button_text_color }}"
+              }
+            },
+            "position": "{{ settings.eu_cookie_position }}",
+            "content": {
+              "message": "{{ 'general.cookie.message' | t }}",
+              "dismiss": "{{ 'general.cookie.dismiss_button_text' | t }}",
+              "link": "{{ 'general.cookie.policy_link_text' | t }}",
+              "href": "{{ settings.eu_policy_link }}"
+            },
+            "location": {{ settings.cookie_auto_detect }}
+
+          })});
+      </script>
+    {% endif %}
+    
+  </div>
+  
+  {% if settings.auto_currency %}
+    <script type="text/javascript">
+      
+      var expire = 7;
+      
+      if (jQuery.cookie('currencycookie')) {
+        //it hasn't been one days yet
+      }
+      
+      else{
+      
+        var currmap = {"BD": "BDT", "BE": "EUR", "BF": "XOF", "BG": "BGN", "BA": "BAM", "BB": "BBD", "WF": "XPF", "BL": "EUR", "BM": "BMD", "BN": "BND", "BO": "BOB", "BH": "BHD", "BI": "BIF", "BJ": "XOF", "BT": "BTN", "JM": "JMD", "BV": "NOK", "BW": "BWP", "WS": "WST", "BQ": "USD", "BR": "BRL", "BS": "BSD", "JE": "GBP", "BY": "BYR", "BZ": "BZD", "RU": "RUB", "RW": "RWF", "RS": "RSD", "TL": "USD", "RE": "EUR", "TM": "TMT", "TJ": "TJS", "RO": "RON", "TK": "NZD", "GW": "XOF", "GU": "USD", "GT": "GTQ", "GS": "GBP", "GR": "EUR", "GQ": "XAF", "GP": "EUR", "JP": "JPY", "GY": "GYD", "GG": "GBP", "GF": "EUR", "GE": "GEL", "GD": "XCD", "GB": "GBP", "GA": "XAF", "SV": "USD", "GN": "GNF", "GM": "GMD", "GL": "DKK", "GI": "GIP", "GH": "GHS", "OM": "OMR", "TN": "TND", "JO": "JOD", "HR": "HRK", "HT": "HTG", "HU": "HUF", "HK": "HKD", "HN": "HNL", "HM": "AUD", "VE": "VEF", "PR": "USD", "PS": "ILS", "PW": "USD", "PT": "EUR", "SJ": "NOK", "PY": "PYG", "IQ": "IQD", "PA": "PAB", "PF": "XPF", "PG": "PGK", "PE": "PEN", "PK": "PKR", "PH": "PHP", "PN": "NZD", "PL": "PLN", "PM": "EUR", "ZM": "ZMK", "EH": "MAD", "EE": "EUR", "EG": "EGP", "ZA": "ZAR", "EC": "USD", "IT": "EUR", "VN": "VND", "SB": "SBD", "ET": "ETB", "SO": "SOS", "ZW": "ZWL", "SA": "SAR", "ES": "EUR", "ER": "ERN", "ME": "EUR", "MD": "MDL", "MG": "MGA", "MF": "EUR", "MA": "MAD", "MC": "EUR", "UZ": "UZS", "MM": "MMK", "ML": "XOF", "MO": "MOP", "MN": "MNT", "MH": "USD", "MK": "MKD", "MU": "MUR", "MT": "EUR", "MW": "MWK", "MV": "MVR", "MQ": "EUR", "MP": "USD", "MS": "XCD", "MR": "MRO", "IM": "GBP", "UG": "UGX", "TZ": "TZS", "MY": "MYR", "MX": "MXN", "IL": "ILS", "FR": "EUR", "IO": "USD", "SH": "SHP", "FI": "EUR", "FJ": "FJD", "FK": "FKP", "FM": "USD", "FO": "DKK", "NI": "NIO", "NL": "EUR", "NO": "NOK", "NA": "NAD", "VU": "VUV", "NC": "XPF", "NE": "XOF", "NF": "AUD", "NG": "NGN", "NZ": "NZD", "NP": "NPR", "NR": "AUD", "NU": "NZD", "CK": "NZD", "XK": "EUR", "CI": "XOF", "CH": "CHF", "CO": "COP", "CN": "CNY", "CM": "XAF", "CL": "CLP", "CC": "AUD", "CA": "CAD", "CG": "XAF", "CF": "XAF", "CD": "CDF", "CZ": "CZK", "CY": "EUR", "CX": "AUD", "CR": "CRC", "CW": "ANG", "CV": "CVE", "CU": "CUP", "SZ": "SZL", "SY": "SYP", "SX": "ANG", "KG": "KGS", "KE": "KES", "SS": "SSP", "SR": "SRD", "KI": "AUD", "KH": "KHR", "KN": "XCD", "KM": "KMF", "ST": "STD", "SK": "EUR", "KR": "KRW", "SI": "EUR", "KP": "KPW", "KW": "KWD", "SN": "XOF", "SM": "EUR", "SL": "SLL", "SC": "SCR", "KZ": "KZT", "KY": "KYD", "SG": "SGD", "SE": "SEK", "SD": "SDG", "DO": "DOP", "DM": "XCD", "DJ": "DJF", "DK": "DKK", "VG": "USD", "DE": "EUR", "YE": "YER", "DZ": "DZD", "US": "USD", "UY": "UYU", "YT": "EUR", "UM": "USD", "LB": "LBP", "LC": "XCD", "LA": "LAK", "TV": "AUD", "TW": "TWD", "TT": "TTD", "TR": "TRY", "LK": "LKR", "LI": "CHF", "LV": "EUR", "TO": "TOP", "LT": "LTL", "LU": "EUR", "LR": "LRD", "LS": "LSL", "TH": "THB", "TF": "EUR", "TG": "XOF", "TD": "XAF", "TC": "USD", "LY": "LYD", "VA": "EUR", "VC": "XCD", "AE": "AED", "AD": "EUR", "AG": "XCD", "AF": "AFN", "AI": "XCD", "VI": "USD", "IS": "ISK", "IR": "IRR", "AM": "AMD", "AL": "ALL", "AO": "AOA", "AQ": "", "AS": "USD", "AR": "ARS", "AU": "AUD", "AT": "EUR", "AW": "AWG", "IN": "INR", "AX": "EUR", "AZ": "AZN", "IE": "EUR", "ID": "IDR", "UA": "UAH", "QA": "QAR", "MZ": "MZN"};
+        jQuery.ajax( {
+          url: 'https://get.geojs.io/v1/ip/geo.js',
+          type: 'POST',
+          dataType: 'jsonp',
+          success: function(location) {
+            if(location.country_code){
+              var mycurrency = currmap[location.country_code];
+              var _supported_codes = '{{ settings.supported_currencies }}';
+
+              if( mycurrency){
+
+                if(_supported_codes.indexOf(mycurrency) == '-1' ){
+
+                  var currencyItem = $('<li class="currency-'+ mycurrency +'">\
+                                      <a href="javascript:;"><i class="flag-'+ mycurrency.toLowerCase() +'"></i><span>'+ mycurrency +'</span></a>\
+                                      <input type="hidden" value="'+ mycurrency +'">\
+                                    </li>');
+                  $('.currencies').append(currencyItem);
+                  jQuery('.currencies li').off('click').on('click', function() {
+                    jQuery('.currencies li').removeClass('active');
+                    jQuery(this).addClass('active');
+
+                    var selectedValue = jQuery(this).find('input[type=hidden]').val();
+
+                    jQuery('.currencies_src option').attr('selected', false);
+                    jQuery('.currencies_src option[value='+selectedValue+']').attr('selected', true);
+
+                    Currency.convertAll(Currency.currentCurrency, selectedValue);
+
+                    jQuery('.currency_code').html($(this).find('a span').html());
+                  });
+                  currencyItem.trigger('click');
+                }
+
+                else {
+                  $('.currency-' + mycurrency ).trigger('click');
+                }
+
+              }
+            }
+          }
+        });
+      }
+      
+      jQuery.cookie('currencycookie', 'true', { expires: 7 });
+      
+    </script>
+  {% endif %}
+  
+</body>
+</html>

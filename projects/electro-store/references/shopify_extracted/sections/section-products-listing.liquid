@@ -1,0 +1,294 @@
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _lazyload = section.settings.lazyload -%}
+{%- assign _limit = section.settings.limited -%}
+
+{% capture emptyProduct %}
+  {% for i in (1.._limit)  %}
+    <div class="listing-item">
+      <div class="row">
+
+        <div class="product-image col-md-5 col-sm-5 col-6">
+          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+          {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+
+        <div class="product-content col-md-7 col-sm-7 col-6">
+          <div class="product-content-inner">
+            <a>{{ 'homepage.onboarding.product_title' | t }}</a>
+            <div class="product-price"><span class="price">{{ 1999 | money }}</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  {% endfor %}
+{% endcapture %}
+
+<div id="product-listing{{ section.id }}" class="product-listing-section{% if _hide_mobile %} d-none d-md-block{% endif %} layout-{{_layout }}">
+  {% if _layout == 'boxed' and settings.left_column_style == 'none' %}<div class="container">{% endif %}
+    <div class="product-listing-items">
+      <div class="row">
+        
+        {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+
+            {% if block.type == 'collection' %}
+              {%- assign _width = block.settings.width -%}
+              {%- assign collection = collections[block.settings.collection] -%}
+              {%- assign _title = block.settings.block_title -%}
+        
+              {% case _width %}
+                {% when '25' %}
+                  {%- assign _class="col-lg-3 col-md-6 col-sm-12" -%}
+                {% when '33' %}
+                  {%- assign _class="col-lg-4 col-md-6 col-sm-12" -%}
+                {% when '50' %}
+                  {%- assign _class="col-lg-6 col-md-6 col-sm-12" -%}
+                {% when '66' %}
+                  {%- assign _class="col-lg-8 col-md-6 col-sm-12" -%}
+                {% else %}
+                  {%- assign _class="col-lg-9 col-md-6 col-sm-12" -%}
+              {% endcase %}
+
+              <div class="{{ _class }}">
+                <div class="listing-items-col">
+
+                  {% unless block.settings.collection == blank or collection.products_count == 0 %}
+                    <h4>{% unless _title == blank %}{{ _title }}{% else %}{{ collection.title }}{% endunless %}</h4>
+
+                    {% for product in collection.products limit: _limit %}
+                      {% include 'products-listing-item' %}
+                    {% endfor %}
+
+                  {% else %}
+                    <h4>{% unless _title == blank %}{{ _title }}{% else %}{{ 'homepage.onboarding.products_listing_title' | t }}{% endunless %}</h4>
+                    {{ emptyProduct }}
+
+                  {% endunless%}
+
+                </div>
+              </div>
+        
+        	{% else %}
+              {%- assign _width = block.settings.width -%}
+              {%- assign _image = block.settings.image -%}
+              {%- assign _image_size = block.settings.image_size -%}
+        
+              {% case _width %}
+                {% when '25' %}
+                  {%- assign _class="col-lg-3 col-md-6 col-sm-12" -%}
+                {% when '33' %}
+                  {%- assign _class="col-lg-4 col-md-6 col-sm-12" -%}
+                {% when '50' %}
+                  {%- assign _class="col-lg-6 col-md-6 col-sm-12" -%}
+                {% when '66' %}
+                  {%- assign _class="col-lg-8 col-md-6 col-sm-12" -%}
+                {% else %}
+                  {%- assign _class="col-lg-9 col-md-6 col-sm-12" -%}
+              {% endcase %}
+
+              <div class="{{ _class }}">
+                <div class="listing-items-col block-image">
+
+                  {% unless block.settings.image == blank %}
+                    <a href="{{ block.settings.link }}"{% if _lazyload %} class="lazyload waiting"{% endif %}>
+                      <img {% if _lazyload %}class="lazyload" data-{% endif %}src="{{ block.settings.image | img_url: _image_size }}" alt="Banner" />
+                    </a>
+
+                  {% else %}
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+
+                  {% endunless %}
+
+                </div>
+              </div>
+        
+        	{% endif %}
+
+          {% endfor %}
+
+        {% else %}
+        
+          {% for i in (1..4) %}
+            <div class="col-lg-3 col-md-3 col-sm-12">
+              <div class="listing-items-col">
+
+                <h4>{{ 'homepage.onboarding.products_listing_title' | t }}</h4>
+                {{ emptyProduct }}
+
+              </div>
+            </div>
+          {% endfor %}
+        
+        {% endif %}
+
+      </div>
+    </div>
+  {% if _layout == 'boxed' and settings.left_column_style == 'none' %}</div>{% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Products Listing",
+  "max_blocks": 6,
+  "settings": [
+	{
+      "type": "paragraph",
+      "content": "Created by 'Products Listing' section"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Product Listing"
+    },
+    {
+      "type": "checkbox",
+      "id": "lazyload",
+      "label": "Enable Lazy loading",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+	{
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+	{
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        {
+          "value": "boxed",
+          "label": "Boxed"
+        },
+        {
+          "value": "full",
+          "label": "Wide"
+        }
+      ]
+    },
+	{
+      "type": "text",
+      "id": "limited",
+      "label": "Total items for each collection",
+      "default": "3"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+		{
+          "type": "select",
+          "id": "width",
+          "label": "Width",
+          "default": "33",
+          "options": [
+			{
+              "value": "25",
+              "label": "25%"
+            },
+			{
+              "value": "33",
+              "label": "33%"
+            },
+            {
+              "value": "50",
+              "label": "50%"
+            },
+			{
+              "value": "66",
+              "label": "66%"
+            },
+			{
+              "value": "75",
+              "label": "75%"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "block_title",
+          "label": "Heading",
+          "default": "Featured products"
+        },
+        {
+          "id": "collection",
+          "type": "collection",
+          "label": "Collection"
+        }
+      ]
+    },
+	{
+      "type": "image",
+      "name": "Image",
+      "settings": [
+		{
+          "type": "select",
+          "id": "width",
+          "label": "Width",
+          "default": "33",
+          "options": [
+			{
+              "value": "25",
+              "label": "25%"
+            },
+			{
+              "value": "33",
+              "label": "33%"
+            },
+            {
+              "value": "50",
+              "label": "50%"
+            },
+			{
+              "value": "66",
+              "label": "66%"
+            },
+			{
+              "value": "75",
+              "label": "75%"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "image_size",
+          "label": "Image size (pixels)",
+          "default": "330x360",
+          "info": "For exam: 330x360"
+        },
+        {
+          "id": "link",
+          "type": "url",
+          "label": "Link to"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Products Listing",
+      "category": "Collection",
+      "blocks": [
+        { "type": "collection" },
+		{ "type": "collection" },
+		{ "type": "collection" }
+      ]
+    }
+  ]
+}
+{% endschema %}

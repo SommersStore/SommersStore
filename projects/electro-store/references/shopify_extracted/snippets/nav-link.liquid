@@ -1,0 +1,123 @@
+{% assign _sale_menu_html = "" %}
+{% assign _new_menu_html = "" %}
+{% assign _hot_menu_html = "" %}
+
+{% capture _sale_label %}<span class="menu-label label-sale"><span class="sale-text">{{ 'general.header.menus.labels.sale' | t }}</span></span>{% endcapture %} 
+{% capture _new_label %}<span class="menu-label label-new"><span class="new-text">{{ 'general.header.menus.labels.new' | t }}</span></span>{% endcapture %} 
+{% capture _hot_label %}<span class="menu-label label-hot"><span class="hot-text">{{ 'general.header.menus.labels.hot' | t }}</span></span>{% endcapture %} 
+
+{% if settings.enable_menu_sale_label %}
+    {% assign _sale_menu_html = _sale_label %}
+{% endif %}
+{% if settings.enable_menu_hot_label %}
+    {% assign _hot_menu_html = _hot_label %}
+{% endif %}
+{% if settings.enable_menu_new_label %}
+    {% assign _new_menu_html = _new_label %}
+{% endif %}
+
+{% assign _sale_handles = settings.menu_sale_label_handle | newline_to_br | strip_newlines  | split: '<br />' | uniq %}
+{% assign _new_handles = settings.menu_new_label_handle | newline_to_br | strip_newlines | split: '<br />' | uniq %}
+{% assign _hot_handles = settings.menu_hot_label_handle | newline_to_br | strip_newlines  | split: '<br />' | uniq %}
+
+{% assign _work_handles = "" %}
+
+{% for _handle in _sale_handles %}
+	{% capture _striped_handle %}{{  _handle | strip | downcase | replace: ' ',"" }}{% endcapture %}
+    {% if _work_handles == blank %}
+		{% assign _work_handles = _striped_handle %}
+	{% else %}
+		{% assign _work_handles = _work_handles | append: '[|||]' | append: _striped_handle %}
+	{% endif %}
+{% endfor %}
+{% assign _sale_handles = _work_handles | split: '[|||]' %}
+
+{% assign _work_handles = "" %}
+
+{% for _handle in _new_handles %}
+	{% capture _striped_handle %}{{  _handle | strip | downcase | replace: ' ',"" }}{% endcapture %}
+    {% if _work_handles == blank %}
+		{% assign _work_handles = _striped_handle %}
+	{% else %}
+		{% assign _work_handles = _work_handles | append: '[|||]' | append: _striped_handle %}
+	{% endif %}
+{% endfor %}
+{% assign _new_handles = _work_handles | split: '[|||]' %}
+
+{% assign _work_handles = "" %}
+
+{% for _handle in _hot_handles %}
+	{% capture _striped_handle %}{{  _handle | strip | downcase | replace: ' ',"" }}{% endcapture %}
+    {% if _work_handles == blank %}
+		{% assign _work_handles = _striped_handle %}
+	{% else %}
+		{% assign _work_handles = _work_handles | append: '[|||]' | append: _striped_handle %}
+	{% endif %}
+{% endfor %}
+{% assign _hot_handles = _work_handles | split: '[|||]' %}
+
+
+{% assign submenu = l.title | handleize %}
+{% if linklists[submenu].links.size > 0 %}
+
+  {% if settings.use_super_megamenu == false %}
+    {% include 'dropdown-menu' %}
+
+  {% else %}
+	{% assign have_super_menu = false %}
+
+    {% for i in (1..3) %}
+	  {% assign super_menu_handle = 'mega_linklist_' | append : i %}
+      {% assign super_menu_handle = settings[super_menu_handle] %}
+
+      {% if super_menu_handle == l.handle %}
+        {% assign have_super_menu = true %}
+
+        {% if have_super_menu == true %}
+        {% assign number = i %}
+        {% break %}
+        {% endif %}
+
+      {% endif %}
+
+    {% endfor %}
+
+	{% if have_super_menu == true %}
+		<li class="dropdown mega-menu{% if l.active %} active{% endif %}">
+          <div class="dropdown-inner">
+            <a href="{{ l.url }}" class="dropdown-link">
+              <span>{{ l.title }}</span>
+              {% capture _menu_label %}
+              {%  if _sale_handles contains l.handle %}{{_sale_menu_html}}{% endif %}
+              {%  if _new_handles contains l.handle %}{{_new_menu_html}}{% endif %}
+              {%  if _hot_handles contains l.handle %}{{_hot_menu_html}}{% endif %}
+              {% endcapture %}
+              {% if _menu_label != blank %}<span class="labels-wrapper">{{_menu_label}}</span>{% endif %}
+            </a>
+            <span class="expand"></span>
+          </div>
+          {% include 'horizontal-mega-menu' with 'number' %}
+        </li>
+
+	{% else %}
+		{% include 'dropdown-menu' %}
+
+	{% endif %}
+    
+
+  {% endif %}
+
+{% else %}
+  <li class="{% if l.active %}active{% endif %}">
+    <a href="{{ l.url }}">
+      <span>{{ l.title }}</span>
+      {% capture _menu_label %}
+        {%  if _sale_handles contains l.handle %}{{_sale_menu_html}}{% endif %}
+        {%  if _new_handles contains l.handle %}{{_new_menu_html}}{% endif %}
+        {%  if _hot_handles contains l.handle %}{{_hot_menu_html}}{% endif %}
+      {% endcapture %}
+      {% if _menu_label != blank %}<span class="labels-wrapper">{{_menu_label}}</span>{% endif %}
+    </a>
+  </li>
+
+{% endif %}

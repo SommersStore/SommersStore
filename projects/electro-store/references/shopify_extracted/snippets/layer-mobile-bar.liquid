@@ -1,0 +1,103 @@
+{% assign _lazyload = settings.use_lazyload %}
+
+<div class="mobile-layout-bar d-lg-none">
+  <ul class="m-block-icons list-inline">
+    
+    {% if shop.customer_accounts_enabled %}
+    <li class="m-customer-account">
+      <a href="/account" title="{{ 'general.header.my_account' | t }}"{% if _lazyload %} class="lazyload waiting"{% endif %}>
+        {% if settings.account_icon_type == 'font-icon' %}
+          <i class="demo-icon {{ settings.account_font_icon }}"></i>
+        
+        {% else %}
+          {% assign account_type = settings.account_icon %}
+
+          <img {% if _lazyload %}class="lazyload"
+               data-srcset="{{ account_type | img_url: '20x'}} 1x, {{ account_type | img_url: '40x'}} 2x"
+               {% else %}src="{{ account_type | img_url: '20x'}}"{% endif %}
+               alt="Account" />
+        
+        {% endif %}
+      </a>
+    </li>
+    {% endif %}
+     
+    <li class="search-button searchbox" data-toggle="modal" data-target="#searchModal">
+      <a href="javascript:;"{% if _lazyload %} class="lazyload waiting"{% endif %}>
+        {% if settings.search_icon_type == 'font-icon' %}
+          <i class="demo-icon {{ settings.search_font_icon }}"></i>
+        
+        {% else %}
+          {% assign search_type = settings.search_icon %}
+
+          <img {% if _lazyload %}class="lazyload"
+               data-srcset="{{ search_type | img_url: '20x'}} 1x, {{ search_type | img_url: '40x'}} 2x"
+               {% else %}src="{{ search_type | img_url: '20x'}}"{% endif %}
+               alt="Search" />
+        
+        {% endif %}
+      </a>
+    </li>
+    
+    {% if settings.enable_multiple_currencies %}
+      <li class="currency uppercase currency-block">
+          {% include 'currencies-switcher' %}
+      </li>
+    {% endif %}
+    
+    {% if settings.enable_product_wishlist %}
+      {% assign wishlist_link = '/pages/wishlist-page'%}
+      <li class="wishlist-target">
+        <a href="{{ wishlist_link }}" class="num-items-in-wishlist show-wishlist{% if _lazyload %} lazyload waiting{% endif %}" title="{{ 'general.header.wish_list' | t }}">
+
+          <span class="wishlist-icon">
+            {% if settings.wishlist_icon_type == 'font-icon' %}
+              <i class="demo-icon {{ settings.wishlist_font_icon }}"></i>
+
+            {% else %}
+              {% assign wishlist_type = settings.wishlist_icon %}
+
+              <img {% if _lazyload %}class="lazyload"
+                   data-srcset="{{ wishlist_type | img_url: '20x'}} 1x, {{ wishlist_type | img_url: '40x'}} 2x"
+                   {% else %}src="{{ wishlist_type | img_url: '20x'}}"{% endif %}
+                   alt="Wishlist" />
+
+            {% endif %}
+            <span class="number">0</span>
+          </span>
+
+        </a>
+      </li>
+    {% endif %}
+
+    {% if settings.enable_product_compare %}
+      {% assign i = 0 %}
+      {% for tags in customer.tags %}
+      {% if tags contains 'compare--' %}{% assign i = i | plus: 1 %}{% endif %}
+      {% endfor %}
+
+      {% assign compare_link = '/pages/compare-page'%}
+
+      <li class="compare-target">
+        <a href="{{ compare_link }}" class="num-items-in-compare show-compare{% if _lazyload %} lazyload waiting{% endif %}" title="{{'general.header.compare' | t }}">
+          <span class="compare-icon">
+            {% if settings.compare_icon_type == 'font-icon' %}
+              <i class="demo-icon {{ settings.compare_font_icon }}"></i>
+
+            {% else %}
+              {% assign compare_type = settings.compare_icon %}
+
+              <img {% if _lazyload %}class="lazyload"
+                   data-srcset="{{ compare_type | img_url: '20x'}} 1x, {{ compare_type | img_url: '40x'}} 2x"
+                   {% else %}src="{{ compare_type | img_url: '20x'}}"{% endif %}
+                   alt="Compare" />
+
+            {% endif %}
+            <span id="compare-number" class="number">{{ i }}</span>
+          </span>
+        </a>
+      </li>
+    {% endif %}
+    
+  </ul>
+</div>

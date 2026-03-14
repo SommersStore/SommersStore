@@ -1,0 +1,234 @@
+{% unless settings.breadcrumb_styles == 'none' %}{% include 'breadcrumb' %}{% endunless %}
+
+{% assign _layout = section.settings.collection_layout %}
+
+<div class="page-cata order-form{% if _layout == 'full' %} full-layout{% endif %}">
+  {% if _layout == 'boxed' %}<div class="container">{% endif %}
+  
+    <div class="cata-toolbar">
+      <div class="group-toolbar">
+        {% if collection.all_tags.size > 0 and section.settings.sb_filters != 'none' %}
+          <div class="filter-icon-order"><i class="demo-icon icon-sliders"></i>{{ settings.heading_sb_filters }}</div>
+        {% endif %}
+        
+        {% include 'collection-sorting' %}
+      </div>
+    </div>
+  
+  	{% include 'filter-order-form' %}
+  
+    {% paginate collection.products by section.settings.item_per_page %}
+      <div id="col-main">
+
+        <form action="/cart" method="post" id="AddToCartForm">
+
+          {% if collection.products_count > 0 %}
+
+            <div class="cata-product">
+              <div class="row">
+                {% for product in collection.products %}
+
+                  {% if product.available %}
+
+                    {% for variant in product.variants %}
+                      {% if variant.available %}
+
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                          <div class="product-wrapper">
+
+                            <div class="product-head">
+                              <div class="product-image">
+                                <div class="featured-img">
+                                  <a href="{{ variant.url | collection }}">
+                                    <img src="{{ variant.image | default: product.featured_image | img_url: '150x' }}" alt="{{ variant.title | escape }}" />
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="product-content">
+                              <div class="pc-inner">
+								
+                                <div class="product-author">
+                                  {% for tag in product.tags %}
+
+                                    {% if tag contains 'Brand' %}
+                                      <a href="/collections/{{ collection.handle }}/{{ tag | handle }}">
+                                        <span>{{ tag | split: 'Brand_' }}</span>
+                                      </a>
+
+                                    {% elsif tag contains 'brand'  %}
+                                      <a href="/collections/{{ collection.handle }}/{{ tag | handle }}">
+                                        <span>{{ tag | split: 'brand_' }}</span>
+                                      </a>
+
+                                    {% endif %}
+
+                                  {% endfor %}
+                                </div>
+                                
+                                <h5 class="product-name">
+                                  <a href="{{ variant.url | collection }}">{{ product.title }}</a>
+                                </h5>                               
+
+                                {% unless variant.title contains 'Default' %}
+                                  <div class="product-variants">{{ variant.title }}</div>
+                                {% endunless %}
+
+                                <div class="product-price">
+                                  {% if variant.compare_at_price and variant.price < variant.compare_at_price %}
+                                  <span class="price-sale">{{ variant.price | money }}</span>  
+                                  <span class="price-compare"> {{ variant.compare_at_price | money }}</span>                                    
+
+                                  {% else %}
+                                    <span class="price">{{ variant.price | money }}</span>
+                                  {% endif %}
+                                </div>
+
+                                <div class="product-qty">
+                                  <span class="global-product-info-qty-minus"><i class="fa fa-minus"></i></span>
+                                  <input name="updates[{{ variant.id }}]" onfocus="this.select()" class="quantity field" min="0" {% unless variant.inventory_management == blank or variant.inventory_policy == 'continue' %} max="{{ variant.inventory_quantity }}" {% endunless %} type="text" value="0" tabindex="1" />
+                                  <span class="global-product-info-qty-plus"><i class="fa fa-plus"></i></span>
+                                </div>
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+
+                      {% endif %}
+                    {% endfor %}
+
+                  {% endif %}
+
+                {% endfor %}
+              </div>
+            </div>
+
+            {% include 'pagination' %}
+
+            <div class="button text-center">
+              <button class="btn btn-1 add-all-products" type="button">{{ 'products.product.add_to_cart' | t }}</button>
+            </div>
+
+          {% else %}
+            <p>{{ 'collections.general.no_product' | t }}</p>
+          
+          {% endif %}
+
+        </form>
+        
+      </div>
+    {% endpaginate %}
+  
+  {% if _layout == 'boxed' %}</div>{% endif %}
+</div>
+
+
+{% if collection.products_count > 0 %}
+  <script>
+    
+    jQuery(document).ready(function($) {
+      AT_Main.handleOrderFormQty();
+
+      $("body").on('click', '.add-all-products', function(){
+
+          var stop = false;
+
+          $('#AddToCartForm .product-wrapper').each(function(){
+            var _this = $(this)
+            ,_qty = _this.find('.quantity').val();
+
+            if(_qty > 0 ){
+              stop = true;
+            }
+
+          });
+
+          if (stop == true){
+            $("#AddToCartForm").submit();
+          }
+          else{
+            alert('The total quanlity must be greater than zero');
+          }
+
+      });
+
+    });
+ 
+  </script>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Collection order form",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "breadcrumb_image",
+        "label": "Breadcrumb image"
+      },
+      {
+        "type": "select",
+        "id": "collection_layout",
+        "label": "Section Layout Mode",
+        "options": [
+          {
+            "value": "boxed",
+            "label": "Boxed"
+          },
+          {
+            "value": "full",
+            "label": "Wide"
+          }
+        ],
+        "default": "boxed"
+      }, 
+      {
+        "type": "checkbox",
+        "id": "show_col_sort_by",
+        "label": "Enable Sort by",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "item_per_page",
+        "label": "Number of products per page",
+        "default": "9"
+      },
+      {
+        "type": "header",
+        "content": "Filter",
+        "info": "To setup Filter by Groups like our demo, please add product's tag to format 'Group'_'Value'. For example: Color_Black, Brand_Elle"
+      },
+      {
+        "type": "radio",
+        "id": "sb_filters",
+		"label": "Filter type",
+        "options": [
+          {
+            "value": "tags",
+            "label": "Filter by Tags"
+          },
+          {
+            "value": "groups",
+            "label": "Filter by Groups"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          }
+        ],
+		"default": "groups"
+      },
+      {
+        "type": "text",
+        "id": "group_filter_prefix",
+        "label": "Group use in filter",
+        "default": "brand,color,price,size",
+        "info": "Enter your tag's prefix,separate by comma ie: color,size,brand,price.."
+      }
+    ]
+  }
+{% endschema %}

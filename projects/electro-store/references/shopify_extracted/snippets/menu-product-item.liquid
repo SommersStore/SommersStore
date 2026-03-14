@@ -1,0 +1,23 @@
+<div class="sb-product-head">
+  <h5 class="product-name"><a href="{{ prod.url | within: collection }}">{{ prod.title }}</a></h5>
+  <div class="featured-img">
+    <a href="{{ prod.url | within: collection }}">
+      <img src="{% if prod.images.size >= 1%}{{ prod.featured_image | product_img_url: '370x' }}{% else %}{{ 'default-image.jpg' | asset_url }}{% endif %}" alt="{{ prod.featured_image.alt | escape }}" />
+    </a>
+  </div>
+</div>
+
+<div class="sb-product-content">
+  <div class="bp-content-inner">  
+    <div class="sb-price">
+      {% if prod.compare_at_price and prod.price < prod.compare_at_price %}
+        <span class="price-compare"> {{ prod.compare_at_price | money }}</span>
+        <span class="price-sale">{{ prod.price | money }}</span>
+      {% else %}
+        <span class="price">{{ prod.price | money }}</span>
+      {% endif %} 
+    </div>
+
+  </div>
+</div>
+  

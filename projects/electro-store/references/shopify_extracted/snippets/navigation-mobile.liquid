@@ -1,0 +1,26 @@
+<!-- Begin Menu Mobile-->
+<div class="mobile-version d-lg-none">
+  <div class="menu-mobile navbar">
+
+    <div class="m-close"><i class="demo-icon icon-close"></i></div>
+    
+    <div class="mm-wrapper">
+
+      <div class="nav-collapse is-mobile-nav">
+        <ul class="main-nav">
+          <li class="li-on-mobile">
+            <span>{{ 'general.header.menu_text' | t }}</span>
+          </li>
+
+          {% for l in linklists[settings.nav_linklist].links %}
+            {% include 'vertical-nav-link' %}
+          {% endfor %}
+          
+        </ul>   
+      </div>
+
+    </div>
+    
+  </div>
+</div>
+<!-- End Menu Mobile-->

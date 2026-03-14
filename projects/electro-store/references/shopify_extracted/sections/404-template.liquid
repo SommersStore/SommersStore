@@ -1,0 +1,26 @@
+{% unless settings.breadcrumb_styles == 'none' %}{% include 'breadcrumb' %}{% endunless %}
+
+<div id="col-main" class="page-404">
+  <div class="container text-center">
+    
+    <div class="box-404-text">
+      <h1>{{ 'general.404.title' | t }}</h1>
+      <p>{{ 'general.404.text_1' | t }}</p>
+      <a href="/" class="btn btn-1"><i class="demo-icon icon-home"></i>{{ 'general.404.homepage' | t }}</a>
+    </div>
+    
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "404 page",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "breadcrumb_image",
+        "label": "Breadcrumb image"
+      }
+    ]
+  }
+{% endschema %}

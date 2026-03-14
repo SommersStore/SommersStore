@@ -1,0 +1,519 @@
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _lazyload = section.settings.lazyload -%}
+{%- assign _type = section.settings.type -%}
+{%- assign _padding = section.settings.padding_style -%}
+{%- assign _carousel_style = section.settings.carousel_style -%}
+{%- assign _style = section.settings.style -%}
+{%- assign _navigator = section.settings.navigator -%}
+{%- assign _paging = section.settings.paging -%}
+{%- assign _bg_style = section.settings.bg_style -%}
+{%- assign _image_size = section.settings.image_size -%}
+{%- assign text_align = section.settings.text_align -%}
+{%- assign _title = section.settings.section_title -%}
+{%- assign _subtitle = section.settings.subtitle -%}
+{%- assign _limit = section.settings.limited -%}
+{%- assign collection = collections[section.settings.collection] -%}
+{%- assign _product_item_style = section.settings.product_item_style -%}
+{%- assign _deal_section = section.settings.deal_section-%}
+
+{% if _style == 'normal' %}
+  {%- assign _item_per_row = section.settings.item_per_row -%}
+{% else %}
+  {%- assign _item_per_row = '2' -%}
+{% endif %}
+
+{% if _padding == 'no' %}
+  {%- assign _padding_carousel = '0' -%}
+{% else %}
+  {%- assign _padding_carousel = '30' -%}
+{% endif %}
+
+<div id="ps-{{ section.id }}" class="product-slider-section{% if _hide_mobile %} d-none d-md-block{% endif %} layout-{{_layout }} style-{{ _style }}" style="{% if _bg_style == 'color' %}background-color: {{ section.settings.bg_color }};{% else %}background-image:url({{ section.settings.bg_image | img_url: _image_size }});{% endif %}">
+  {% if _layout == 'boxed' and settings.left_column_style == 'none' %}<div class="container">{% endif %}
+
+    {% case _item_per_row %}
+      {% when '2' %}
+        {%- assign _item_class = "col-xl-6 col-lg-6 col-md-6 col-sm-12" -%}
+      {% when '3' %}
+        {%- assign _item_class = "col-xl-4 col-lg-4 col-md-6 col-sm-6" -%}
+      {% when '4' %}
+        {%- assign _item_class = "col-xl-3 col-lg-3 col-md-4 col-sm-6" -%}
+      {% when '5' %}
+        {%- assign _item_class = "column-5" -%}
+      {% when '6' %}
+        {%- assign _item_class = "col-xl-2 col-lg-3 col-md-4 col-sm-6" -%}
+      {% else %} 
+        {%- assign _item_class = "column-7" -%}
+    {% endcase %}
+
+    {% capture emptyProduct %}
+      {% for i in (1.._item_per_row)  %}
+        <div class="{{ _item_class }} col-6">
+          <div class="product-wrapper">
+
+            <div class="product-head">
+              <div class="product-image">
+
+                <div class="featured-img">
+                  {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                  {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+
+              </div>
+            </div> 
+
+            <div class="product-content text-{{ text_align }}">
+              <div class="pc-inner">
+                <h5 class="product-name">{{ 'homepage.onboarding.product_title' | t }}</h5>
+                <div class="product-price"><span class="price">{{ 1999 | money }}</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      {% endfor %}
+    {% endcapture %}
+
+    {% unless _title == blank %}
+      <div class="title-wrapper {% if _deal_section == '2' %}title-wrapper-deal{% endif %}">
+        <h3>{{ _title }}</h3>
+        
+        {% if _deal_section == '2' %}
+          <div class="header-countdown">
+            <span class="countdown-title">{{ section.settings.deal_title }}</span>
+            
+            {%- assign _expire = section.settings.expire -%}
+            {%- assign _dueDate = _expire | split: '/' %}
+            {% unless _expire == blank %}
+
+            <div class="wrapper-countdown">
+              <div class="countdown_{{ section.id }}"></div>
+            </div>
+
+            <script type="text/javascript">
+              jQuery(document).ready(function($){
+
+                var currentDate = new Date();
+                var dueDate = new Date( {{ _dueDate[2] }}, {{ _dueDate[0] | plus:0 }} - 1, {{ _dueDate[1] | plus:0 }} );
+                if(currentDate < dueDate){
+                  $('.countdown_{{ section.id }}').countdown({until: dueDate, format: 'HMS', padZeroes: true});
+                }
+                else{
+                  $('.countdown_{{ section.id }}').parent().hide();
+                }
+               });
+
+            </script>
+            
+            {% endunless %}
+          </div>
+        {% endif %}
+        
+        {% unless _subtitle == blank %}<a href="{{ collection.url }}">{{ _subtitle }}<i class="demo-icon icon-angle-right"></i></a>{% endunless %}
+      </div>
+    {% endunless %}
+
+    {% unless section.settings.collection == blank or collection.products_count == 0 %}
+      <div class="wrap-product-slider{% if _deal_section == '1' %} show-deal{% endif %}">
+        
+        {% if _deal_section == '1' %}
+          <div class="deal-wrapper">
+            
+            <div class="title-wrapper"><h2>{{ section.settings.deal_title }}</h2></div>
+            {% if section.settings.deal_image %}
+              <img src="{{ section.settings.deal_image | img_url: '200x' }}" alt="Deal" />
+            {% endif %}
+
+            {%- assign _expire = section.settings.expire -%}
+            {%- assign _dueDate = _expire | split: '/' %}
+            {% unless _expire == blank %}
+
+            <div class="wrapper-countdown">
+              <div class="countdown_{{ section.id }}"></div>
+            </div>
+
+            <script type="text/javascript">
+              jQuery(document).ready(function($){
+
+                var currentDate = new Date();
+                var dueDate = new Date( {{ _dueDate[2] }}, {{ _dueDate[0] | plus:0 }} - 1, {{ _dueDate[1] | plus:0 }} );
+                if(currentDate < dueDate){
+                  $('.countdown_{{ section.id }}').countdown({until: dueDate, format: 'DHMS', padZeroes: true});
+                }
+                else{
+                  $('.countdown_{{ section.id }}').parent().hide();
+                }
+               });
+
+            </script>
+            
+            {% endunless %}
+            
+          </div>
+        {% endif %}
+        
+        <div class="product-slider-content{% if _padding == 'no' %} no-padding{% endif %} {% unless _subtitle == blank %}subtitle-true{% endunless %}">
+          <div class="{% if _type == 'row' %}row{% else %}ps-list ps-list-{{ section.id }}{% endif %}">
+
+            {% for product in collection.products limit: _limit %}
+
+              {% if _style == 'normal' %}
+                {% if _type == 'row' %}<div class="{{ _item_class }} col-6">{% endif %}
+
+                {% if _type == 'carousel' and _carousel_style == '2' %}
+                  {% capture _mod %}{{ forloop.index | modulo: 2 }}{% endcapture %}
+
+                  {% if _mod == '1' %}<div class="product-two-rows">{% endif %}
+
+                  {% if _product_item_style == '1' %}
+                    {% include 'product-item' %}
+                  {% else %}
+                    {% include 'product-owl-item' %}
+                  {% endif %}
+
+                  {% if _mod == '0' or forloop.last %}</div>{% endif %}
+                {% else %}
+
+                  {% if _product_item_style == '1' %}
+                    {% include 'product-item' %}
+                  {% else %}
+                    {% include 'product-owl-item' %}
+                  {% endif %}
+
+                {% endif %}
+
+                {% if _type == 'row' %}</div>{% endif %}
+
+              {% else %}
+                {% if _type == 'row' %}<div class="col-6">{% endif %}
+                {% include 'product-item' %}
+                {% if _type == 'row' %}</div>{% endif %}
+
+              {% endif %}
+
+            {% endfor %}
+
+          </div>
+        </div>
+        
+      </div>
+  
+      {% if _type == 'carousel' %}
+        <script>
+          jQuery(document).ready(function($) {
+            
+            jQuery(".ps-list-{{ section.id }}").length && jQuery(".ps-list-{{ section.id }}").on('initialize.owl.carousel initialized.owl.carousel change.owl.carousel changed.owl.carousel', function(e) {
+              var current = e.relatedTarget.current()
+              var items = $(this).find('.owl-stage').children()
+              var add = e.type == 'changed' || e.type == 'initialized'
+
+              items.eq(e.relatedTarget.normalize(current )).toggleClass('current', add)
+            }).owlCarousel({
+                nav		: {{ _navigator }}
+                ,dots 	: {{ _paging }}
+                ,margin	: {{ _padding_carousel }}
+                ,responsive : {
+                     0:{
+                       items: 1
+                     }
+                     ,480:{
+                       items: 2
+                     }
+                     ,768:{
+                       items: {% if _item_per_row == '2' or _style == 'half-width' %}2{% else %}3{% endif %}
+                     }
+                     ,992:{
+                       items: {{ _item_per_row }}
+                     }
+                   }
+                ,navText	: ['<span class="button-prev"></span>', '<span class="button-next"></span>']
+            });
+          
+          });
+        </script>
+      {% endif %}
+
+    {% else %}
+
+      <div class="product-slider-content">
+        <div class="row">
+          {{ emptyProduct }}
+        </div>
+      </div>
+
+    {% endunless %}
+
+  {% if _layout == 'boxed' and settings.left_column_style == 'none' %}</div>{% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Products Grid",
+  "settings": [
+	{
+      "type": "paragraph",
+      "content": "Created by 'Products Grid' section"
+    },
+	{
+      "id": "title",
+      "type": "text",
+      "label": "Section Label",
+      "default": "Products Grid"
+    },
+	{
+      "type": "checkbox",
+      "id": "lazyload",
+      "label": "Enable Lazy loading",
+      "default": true
+    },
+	{
+      "type": "header",
+      "content": "Layout"
+    },
+	{
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+	{
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        {
+          "value": "boxed",
+          "label": "Boxed"
+        },
+        {
+          "value": "full",
+          "label": "Wide"
+        }
+      ]
+    },
+	{
+      "type": "select",
+      "id": "style",
+      "label": "Style",
+      "default": "normal",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "half-width",
+          "label": "Half-width"
+        }
+      ]
+    },
+	{
+      "type": "select",
+      "id": "type",
+      "label": "Type",
+      "default": "row",
+      "options": [
+        {
+          "value": "row",
+          "label": "Row"
+        },
+        {
+          "value": "carousel",
+          "label": "Carousel"
+        }
+      ]
+    },
+	{
+      "type": "select",
+      "id": "padding_style",
+      "label": "Padding",
+      "default": "yes",
+      "options": [
+        {
+          "value": "yes",
+          "label": "Yes"
+        },
+        {
+          "value": "no",
+          "label": "No"
+        }
+      ]
+    },
+	{
+      "type": "select",
+      "id": "carousel_style",
+      "label": "Carousel style",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Style 01 - 1 row"
+        },
+        {
+          "value": "2",
+          "label": "Style 02 - 2 rows"
+        }
+      ]
+    },
+	{
+      "type": "checkbox",
+      "id": "navigator",
+      "label": "Navigator",
+      "default": true
+    },
+	{
+      "type": "checkbox",
+      "id": "paging",
+      "label": "Bullet",
+      "default": false
+    },
+	{
+      "type": "text",
+      "id": "section_title",
+      "label": "Heading",
+      "default": "Newarrivals"
+    },
+	{
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Go to section"
+    },
+    {
+      "type": "select",
+      "id": "bg_style",
+      "label": "Background style",
+      "options": [
+        {
+          "value": "color",
+          "label": "Background color"
+        },
+        {
+          "value": "image",
+          "label": "Background image"
+        }
+      ],
+      "default": "color"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "id": "bg_image",
+      "type": "image_picker",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "image_size",
+      "label": "Image size",
+      "default": "1920x",
+      "info": "Default is 1920x980 pixels"
+    },
+	{
+      "type": "select",
+      "id": "text_align",
+      "label": "Text align for product title",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+		{ "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "item_per_row",
+      "label": "Number of items per row",
+      "options": [
+		{ "value": "2", "label": "2 items" },
+        { "value": "3", "label": "3 items" },
+        { "value": "4", "label": "4 items" },
+		{ "value": "5", "label": "5 items" },
+		{ "value": "6", "label": "6 items" },
+		{ "value": "7", "label": "7 items" }
+      ],
+      "default": "4"
+    },
+    {
+      "id": "collection",
+      "type": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "select",
+      "id": "product_item_style",
+      "label": "Style",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Style 01"
+        },
+        {
+          "value": "2",
+          "label": "Style 02"
+        }
+      ],
+      "info": "Use when Big product is empty"
+    },
+    {
+      "type": "text",
+      "id": "limited",
+      "label": "Total items",
+      "default": "8"
+    },
+	{
+      "type": "header",
+      "content": "Deals section"
+	},
+	{
+      "type": "select",
+      "id": "deal_section",
+      "label": "Deals section style",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Style 01"
+        },
+        {
+          "value": "2",
+          "label": "Style 02"
+        },
+		{
+          "value": "none",
+          "label": "None"
+        }
+      ]
+    },
+	{
+      "type": "text",
+      "id": "deal_title",
+      "label": "Text"
+    },
+	{
+      "type": "image_picker",
+      "id": "deal_image",
+      "label": "Image",
+      "info": "Only for Style 01"
+    },
+	{
+      "type": "text",
+      "id": "expire",
+      "label": "Expire",
+      "info": "(mm/dd/yyyy)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Products Grid",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}

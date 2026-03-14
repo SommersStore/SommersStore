@@ -1,0 +1,207 @@
+{% unless settings.breadcrumb_styles == 'none' %}{% include 'breadcrumb' %}{% endunless %}
+
+{%- assign _layout = section.settings.layout -%}
+
+{% if _layout == 'none-sidebar' %}
+  {%- assign _main_class = "col-12" -%}
+{% else %}
+  {%- assign _sb_class = "col-md-3 d-none d-md-block" -%}
+  {%- assign _main_class = "col-md-9 col-sm-12 col-12" -%}
+{% endif %}
+
+<div class="page-blog blog-v1 layout-{{ _layout }}">
+  <div class="container">
+    <div class="row">
+
+      {% if _layout == 'left-sidebar' %}
+        {% include 'sidebar-blog' %}
+      {% endif %}
+
+      <div class="{{ _main_class }}">
+
+        {% paginate blog.articles by section.settings.blog_pagination_limit %}
+
+          {% if blog.articles.size > 0 %}
+
+            <div id="col-main" class="page-blog-content">
+              {% for article in blog.articles %}
+
+                <article class="post-item">
+                  <div class="post-item-inner">
+
+                    {% if article.image %}
+                      <div class="post-image">
+                        <a href="{{ article.url }}">
+                          <img src="{{ article | img_url: '1170x' }}" alt="Blog" />
+                        </a>
+                      </div>
+                    {% endif %}
+
+                    <div class="post-content">
+                      <h3 class="post-title"><a href="{{article.url}}">{{ article.title }}</a></h3>
+                      
+                      <div class="post-info">
+                        <ul class="list-inline">
+                          <li><span class="post-t">{{ blog.title }}</span></li>
+                          <li><span class="post-date">{{ article.created_at | date: "%d %b, %Y" }}</span></li>
+                          <li><span class="post-author">{{ 'blogs.article.posted_by' | t }} {{ article.author | escape }}</span></li>
+                        </ul>
+                      </div>
+                      
+                      <p class="post-des">{{ article.excerpt }}</p>
+                      
+                      <div class="post-button">
+                        <a class="btn btn-2 read-more" href="{{article.url}}">{{ 'blogs.article.read_more' | t }}</a>
+                        <span class="post-comment"><span class="demo-icon icon-comment-empty"></span>{{ article.comments_count }}</span>
+                      </div>
+                    </div>
+
+                  </div>         
+                </article>
+
+              {% endfor %}
+
+            </div>
+
+            {% include 'pagination' %}
+
+          {% else %}
+
+            <p>{{'blogs.article.no_acticles' | t }}</p>
+
+          {% endif %}
+
+        {% endpaginate %}
+
+      </div>
+
+      {% if _layout == 'right-sidebar' %}
+        {% include 'sidebar-blog' %}
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Blog pages",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "breadcrumb_image",
+        "label": "Breadcrumb image"
+      },
+      {
+        "type": "text",
+        "id": "blog_pagination_limit",
+        "label": "Number of articles per page",
+        "default": "5"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Section Layout Mode",
+        "options": [
+          {
+            "value": "left sidebar",
+            "label": "Left-sidebar"
+          },
+          {
+            "value": "right-sidebar",
+            "label": "Right sidebar"
+          },
+          {
+            "value": "none-sidebar",
+            "label": "None sidebar"
+          }
+        ],
+        "default": "right-sidebar"
+      },
+      {
+        "type": "header",
+        "content": "Sidebar Search"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_search_blog",
+        "label": "Enable Search Form",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Sidebar About"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_about_blog",
+        "label": "Enable Sidebar About",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "about_blog_title",
+        "label": "Heading"
+      },
+      {
+        "type": "textarea",
+        "id": "about_blog_caption",
+        "label": "Caption"
+      },
+      {
+        "type": "header",
+        "content": "Sidebar Categories"
+      },
+      {
+        "type": "text",
+        "id": "blog_categories_title",
+        "label": "Heading",
+		"default": "Categories"
+      },
+      {
+        "type": "link_list",
+        "id": "blog_categories_menu",
+        "label": "Menu item",
+        "info": "Blank to hide"
+      },
+      {
+        "type": "header",
+        "content": "Sidebar Posts"
+      },
+      {
+        "type": "text",
+        "id": "sidebar_post_title",
+        "label": "Heading",
+		"default": "Recent posts"
+      },
+      {
+        "type": "blog",
+        "id": "sidebar_post",
+        "label": "Blog item",
+		"info": "Blank to hide"
+      },
+      {
+        "type": "text",
+        "id": "sidebar_post_limit",
+        "label": "Total items",
+        "default": "3"
+      },
+      {
+        "type": "header",
+        "content": "Sidebar Tags"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_sidebar_tags",
+        "label": "Enable Sidebar Tags",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "sidebar_tags_title",
+        "label": "Heading",
+		"default": "Tags"
+      }
+    ]
+  }
+{% endschema %}

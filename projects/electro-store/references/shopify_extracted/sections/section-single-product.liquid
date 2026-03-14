@@ -1,0 +1,290 @@
+{%- assign _hide_mobile = section.settings.hide_mobile -%}
+{%- assign _layout = section.settings.layout -%}
+{%- assign _lazyload = section.settings.lazyload -%}
+{%- assign _style = section.settings.style -%}
+{%- assign _title = section.settings.section_title -%}
+
+<div id="single-product-{{ section.id }}" class="single-product-section{% if _hide_mobile %} d-none d-md-block{% endif %} layout-{{_layout }}">
+  {% if _layout == 'boxed' and settings.left_column_style == 'none' %}<div class="container">{% endif %}
+  
+  {% unless _title == blank %}<div class="title-wrapper"><h3>{{ _title }}</h3></div>{% endunless %}
+  
+  {% capture emptyProduct %}
+  
+    <div class="text-box">
+      <div class="text-1">LIMITED</div>
+      <div class="text-2">WEEK DEAL</div>
+      <div class="text-3">HURRY UP BEFORE OFFER WILL END</div>      
+    </div>
+  
+    <div class="product-wrapper">
+      <div class="product-head">
+        <div class="product-image">
+          {{ 'product-1' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      </div>
+
+      <div class="product-content">
+        <div class="pc-inner">
+          <h5 class="product-name">{{ 'homepage.onboarding.product_title' | t }}</h5>
+          <div class="product-price"><span class="price">{{ 1999 | money }}</span></div>
+        </div>
+      </div>
+    </div>
+    
+  {% endcapture %}
+
+  <div class="single-product-list single-product-{{ section.id }} style-{{ _style }}">
+    {% if section.blocks.size > 0 %}
+
+      {% for block in section.blocks %}
+      {%- assign _product = block.settings.product -%}
+      {%- assign _image_size = block.settings.image_size -%}
+
+      {% unless _product == blank %}
+      {%- assign _bg_style = block.settings.bg_style -%}
+
+      {%- assign _text_1 = block.settings.text_1 -%}  
+      {%- assign _text_2 = block.settings.text_2 -%}  
+      {%- assign _text_3 = block.settings.text_3 -%}
+      {%- assign _text_4 = block.settings.text_4 -%}
+
+      <div class="sp-item sp-item-{{ block.id }}" style="{% if _bg_style == 'color' %}background-color: {{ block.settings.bg_color }};{% else %}background-image:url({{ block.settings.bg_image | img_url: _image_size }});{% endif %}">
+
+        {% assign product = all_products[_product] %}
+        {% include 'single-product-item' %}
+
+        <style type="text/css">
+          .single-product-list .sp-item-{{ block.id }} .text-1,
+          .single-product-list .sp-item-{{ block.id }} .text-2,
+          .single-product-list .sp-item-{{ block.id }} .text-3 { color: {{ block.settings.text_color }};}
+        </style>
+
+      </div>
+    
+      {% else %}
+        <div class="sp-item" style="background-color: #ffffff;">
+          {{ emptyProduct }}
+        </div>
+
+      {% endunless %}
+
+      {% endfor %}
+    
+    {% else %}
+      <div class="sp-item" style="background-color: #ffffff;">
+        {{ emptyProduct }}
+      </div>
+    
+    {% endif %}
+  </div>
+
+  {% if section.settings.type == 'carousel' %}
+    <script>
+      jQuery(document).ready(function($) {
+
+        jQuery(".single-product-{{ section.id }}").length && jQuery('.single-product-{{ section.id }}').owlCarousel({
+               nav		: true
+               ,dots 	: true
+               ,loop	: false
+               ,items	: 1
+               ,navText	: ['<span class="button-prev">Previous Deal</span>', '<span class="button-next">Next Deal</span>']
+        });
+
+      });
+    </script>
+  {% endif %}
+
+  {% if _layout == 'boxed' and settings.left_column_style == 'none' %}</div>{% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Single Product",
+  "max_blocks": 5,
+  "settings": [
+	{
+      "type": "paragraph",
+      "content": "Created by 'Single Product' section"
+    },
+	{
+      "type": "text",
+      "id": "title",
+      "label": "Section Label",
+      "default": "Single Product"
+    },
+	{
+      "type": "checkbox",
+      "id": "lazyload",
+      "label": "Enable Lazy loading",
+      "default": true
+    },
+	{
+      "type": "header",
+      "content": "Layout"
+    },
+	{
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Visibility: Hide for Mobile"
+    },
+	{
+      "type": "select",
+      "id": "layout",
+      "label": "Section Layout Mode",
+      "default": "boxed",
+      "options": [
+        {
+          "value": "boxed",
+          "label": "Boxed"
+        },
+        {
+          "value": "full",
+          "label": "Wide"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "type",
+      "label": "Type",
+      "options": [
+        {
+          "value": "row",
+          "label": "Row"
+        },
+        {
+          "value": "carousel",
+          "label": "Carousel"
+        }
+      ],
+      "default": "row"
+    },
+	{
+      "type": "select",
+      "id": "style",
+      "label": "Style",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Style 01"
+        },
+        {
+          "value": "2",
+          "label": "Style 02"
+        }
+      ]
+    },
+	{
+      "type": "text",
+      "id": "section_title",
+      "label": "Heading",
+      "default": "Deals Of The Week"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+		{
+          "type": "select",
+          "id": "bg_style",
+          "label": "Background style",
+          "options": [
+            {
+              "value": "color",
+              "label": "Background color"
+            },
+            {
+              "value": "image",
+              "label": "Background image"
+            }
+          ],
+          "default": "color"
+        },
+		{
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background color",
+          "default": "#ffffff"
+        },
+		{
+          "id": "bg_image",
+          "type": "image_picker",
+          "label": "Background image"
+        },
+		{
+          "type": "text",
+          "id": "image_size",
+          "label": "Image size",
+          "default": "1920x",
+          "info": "Default is 1920x980 pixels"
+        },
+		{
+          "type": "header",
+          "content": "Product"
+        },
+		{
+          "id": "product",
+          "type": "product",
+          "label": "Product"
+        },
+		{
+          "type": "text",
+          "id": "product_sold",
+          "label": "Number of product already sold",
+          "info": "Only for Big product style 01. Blank to hide."
+        },
+		{
+          "type": "text",
+          "id": "product_expire",
+          "label": "Product expire",
+          "info": "Format is mm/dd/yyyy. Only for Big product style 01."
+        },
+		{
+          "type": "header",
+          "content": "Text Box",
+          "info": "Only for Style 01"
+		},
+		{
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#000000"
+        },
+		{
+          "type": "text",
+          "id": "text_1",
+          "label": "Text #1",
+          "default": "LIMITED"
+        },
+		{
+          "type": "text",
+          "id": "text_2",
+          "label": "Text #2",
+          "default": "WEEK DEAL"
+        },
+		{
+          "type": "text",
+          "id": "text_3",
+          "label": "Text #3",
+          "default": "HURRY UP BEFORE OFFER WILL END"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Single Product",
+      "category": "Collection",
+      "blocks": [
+        { "type": "product" },
+		{ "type": "product" },
+		{ "type": "product" }
+      ]
+    }
+  ]
+}
+{% endschema %}
