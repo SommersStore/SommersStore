@@ -80,7 +80,6 @@ graph TD
 
 | Serviço | Uso |
 |---|---|
-| **Firebase** | Hosting (`sommersstore-c6c23`) |
-| **GitHub** | `SommersStore/SommersStore.git` |
-| **Hostgator** | SSH backup (`serg4041@essenciaativabr.shop`) |
-| **Kiwify** | Checkout e entrega |
+| **Firebase** | Hosting, Backup e Infra Exclusiva (`sommersstore-c6c23`) |
+| **GitHub** | Repositório central (`SommersStore/SommersStore.git`) |
+| **Kiwify** | Checkout e entrega de infoprodutos |
