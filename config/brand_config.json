@@ -1,0 +1,30 @@
+{
+  "brand": {
+    "name": "Sommers Store",
+    "tagline": "Plataforma de Produtos Digitais Premium",
+    "domain": "sommersstoreltda.com",
+    "email": "sommersstoreltda@gmail.com",
+    "currency": "BRL",
+    "locale": "pt-BR"
+  },
+  "projects": {
+    "loja-digital": {
+      "path": "projects/loja-digital",
+      "description": "Plataforma de vendas (Sais de Banho, VSL, Velas, etc.)",
+      "status": "active",
+      "hosting": "firebase"
+    },
+    "electro-store": {
+      "path": "projects/electro-store",
+      "description": "Loja de eletrônicos — tema Electro (Next.js + MedusaJS)",
+      "status": "in-development",
+      "hosting": "vercel"
+    }
+  },
+  "integrations": {
+    "checkout": "kiwify",
+    "hosting": "firebase",
+    "repository": "github",
+    "ai_orchestrator": "antigravity"
+  }
+}
