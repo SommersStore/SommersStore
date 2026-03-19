@@ -106,7 +106,45 @@
     transform: translateY(-2px);
   }
 
-  .node-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  /* HANDLES */
+  .node-handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    box-shadow: 0 0 5px var(--gold);
+  }
+  .handle-in { left: -6px; }
+  .handle-out { right: -6px; }
+
+  /* TOOLTIP */
+  .tooltip {
+    position: absolute;
+    background: #000;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 10000;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 200px;
+    border: 1px solid var(--gold);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  }
+  .node:hover .tooltip { opacity: 1; }
+
+  .node-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; position: relative; }
   .node-icon { 
     font-size: 1rem; 
     background: #2d2d3a; 
@@ -265,6 +303,17 @@ const originalDefaultData = {
         { id: 6, x: 2800, y: 2700, icon: "✍️", title: "Suporte de Conteúdo/UX (4)", desc: "Refinamento e conversão.", status: "done", tasks: [{text: "Copy Specialist", checked: true, desc: "Apoio micro-copy e headlines."}, {text: "Funnel Specialist", checked: true, desc: "Especialista em taxas de conversão por etapa."}, {text: "Traffic Specialist", checked: true, desc: "Gestão técnica de pixels e rastreamento."}, {text: "UX Optimizer", checked: true, desc: "Testes A/B e melhoria de usabilidade."}] },
         { id: 7, x: 2500, y: 2800, icon: "⚡", title: "Skills Library (>200)", desc: "Clique no ícone lateral ⚡ para abrir.", status: "done", tasks: [{text: "Explorar Habilidades", checked: true, desc: "Biblioteca completa de capacidades dos agentes."}] },
         { id: 8, x: 2200, y: 2400, icon: "🧠", title: "Expert Squad & AIOX Core", desc: "Clones de Especialistas (Elite Layer).", status: "done", tasks: [{text: "Russel Brunson Trilogy (Deep)", checked: true, desc: "Dotcom, Expert e Traffic Secrets integrados."}, {text: "Finch / Alan / Pedro (AIOX)", checked: true, desc: "Branding Outlier e Orquestração de Elite."}, {text: "Halbert / Kell (Global)", checked: true, desc: "Direct Response e VSLs de alta performance."}, {text: "Erico / Maccedo (Brasil)", checked: true, desc: "Lançamentos e Autoridade no mercado nacional."}, {text: "Persona: Elisa Claro", checked: true, desc: "Clone de influenciadora para cursos e vídeos."}] }
+      ]
+    },
+    {
+      id: "flow", name: "🏆 AIOX Pipeline",
+      nodes: [
+        { id: 101, x: 2100, y: 2500, icon: "🔍", title: "Discovery", desc: "Análise de mercado e avatar.", status: "done", tasks: [{text: "Análise de Avatar", desc: "@analyst mapeia desejos.", checked: true}, {text: "Dream 100", desc: "Mapeamento de influenciadores.", checked: true}] },
+        { id: 102, x: 2450, y: 2400, icon: "📈", title: "Scale Strategy", desc: "Definição de canais e ROI.", status: "active", tasks: [{text: "Funil de Vendas", desc: "@pm define a jornada.", checked: true}, {text: "Escada de Valor", desc: "Estrutura de LTV.", checked: false}] },
+        { id: 103, x: 2450, y: 2700, icon: "✍️", title: "Copy Engine", desc: "Escrita persuasiva de elite.", status: "active", tasks: [{text: "Script VSL", desc: "@copywriter (Sage) em ação.", checked: true}, {text: "Headlines Shock", desc: "Foco em CTR alto.", checked: false}] },
+        { id: 104, x: 2800, y: 2550, icon: "🎨", title: "Visual Design", desc: "Estética Premium Outlier.", status: "todo", tasks: [{text: "Landing Page V3", desc: "@ux-expert cria a luz.", checked: false}, {text: "Ads Criativos", desc: "Impacto visual imediato.", checked: false}] },
+        { id: 105, x: 3150, y: 2550, icon: "⚙️", title: "Dev & QA", desc: "Implementação e testes.", status: "todo", tasks: [{text: "Setup Firebase", desc: "@devops configura infra.", checked: false}, {text: "Smoke Test", desc: "@qa valida a rota de compra.", checked: false}] },
+        { id: 106, x: 3500, y: 2550, icon: "🚀", title: "Main Event", desc: "Lançamento e otimização.", status: "todo", tasks: [{text: "Live Deploy", checked: false, desc: "Abertura de carrinho."}, {text: "ROI Tracking", checked: false, desc: "Acompanhamento em tempo real."}] }
       ]
     },
     {
@@ -552,6 +601,9 @@ function render() {
     div.style.left = n.x + 'px';
     div.style.top = n.y + 'px';
     div.innerHTML = `
+      <div class="node-handle handle-in"></div>
+      <div class="node-handle handle-out"></div>
+      <div class="tooltip">${n.desc || 'Informação do nó'}</div>
       <div class="node-header">
         <span class="node-icon">${n.icon}</span>
         <span class="node-title" contenteditable="true">${n.title}</span>
@@ -606,14 +658,39 @@ function render() {
 function updateLines() {
   const project = store.projects.find(p => p.id === activeProjId);
   linesLayer.innerHTML = '';
-  project.nodes.forEach(n => {
-    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    const cx = 2500 + 100, cy = 2500 + 30;
-    const nx = n.x, ny = n.y + 20; // Conecta na lateral esquerda do nó
-    path.setAttribute("d", `M ${cx} ${cy} C ${(cx+nx)/2} ${cy}, ${(cx+nx)/2} ${ny}, ${nx} ${ny}`);
-    path.setAttribute("class", "link");
-    linesLayer.appendChild(path);
-  });
+  
+  if (activeProjId === 'flow') {
+    // Conecta em sequência (101->102, 102->104, etc.)
+    const seq = [101, 102, 104, 105, 106];
+    const seq2 = [101, 103, 104]; // Ramificação
+    
+    const drawLine = (fromId, toId) => {
+      const f = project.nodes.find(n => n.id == fromId);
+      const t = project.nodes.find(n => n.id == toId);
+      if (!f || !t) return;
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      const x1 = f.x + 280, y1 = f.y + 70; // Handle Out
+      const x2 = t.x, y2 = t.y + 70;      // Handle In
+      path.setAttribute("d", `M ${x1} ${y1} C ${(x1+x2)/2} ${y1}, ${(x1+x2)/2} ${y2}, ${x2} ${y2}`);
+      path.setAttribute("class", "link");
+      linesLayer.appendChild(path);
+    };
+
+    drawLine(101, 102); drawLine(101, 103);
+    drawLine(102, 104); drawLine(103, 104);
+    drawLine(104, 105); drawLine(105, 106);
+
+  } else {
+    // Estilo Radial Tradicional
+    project.nodes.forEach(n => {
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      const cx = 2500 + 100, cy = 2500 + 30;
+      const nx = n.x, ny = n.y + 70; // Handle In
+      path.setAttribute("d", `M ${cx} ${cy} C ${(cx+nx)/2} ${cy}, ${(cx+nx)/2} ${ny}, ${nx} ${ny}`);
+      path.setAttribute("class", "link");
+      linesLayer.appendChild(path);
+    });
+  }
 }
 
 function applyTransform() {
