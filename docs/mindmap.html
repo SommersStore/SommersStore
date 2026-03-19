@@ -136,6 +136,26 @@
   .task-item.checked .task-check { background: var(--green); border-color: var(--green); color: white; }
   .task-item.checked .task-text { color: var(--green); text-decoration: line-through; opacity: 0.6; }
 
+  /* TASK DESC EXPANSION */
+  .task-text { cursor: pointer; user-select: none; }
+  .task-desc { 
+    font-size: 0.7rem; 
+    color: var(--muted); 
+    padding-left: 0px; 
+    padding-top: 4px;
+    padding-bottom: 8px; 
+    max-height: 0; 
+    overflow: hidden; 
+    transition: all 0.3s ease;
+    width: 100%;
+    opacity: 0;
+  }
+  .task-item.expanded .task-desc {
+    max-height: 150px;
+    opacity: 1;
+  }
+  .task-item { flex-wrap: wrap; cursor: pointer; }
+
   /* CENTER NODE */
   .center-node {
     position: absolute;
@@ -237,14 +257,14 @@ const originalDefaultData = {
     {
       id: "arq", name: "🏗️ Arquitetura Synkra AIOX",
       nodes: [
-        { id: 1, x: 2800, y: 2100, icon: "🗂️", title: "Estrutura (Filesystem)", desc: "Organização de pastas do framework.", status: "done", tasks: [{text: ".aiox-core/ (Core)", checked: true}, {text: "funnels/ (Marketing)", checked: true}, {text: "projects/ (Lojas)", checked: true}] },
-        { id: 2, x: 2200, y: 2100, icon: "🧠", title: "Knowledge Base", desc: "Cérebro que alimenta a inteligência.", status: "done", tasks: [{text: "branding/ (Voz)", checked: true}, {text: "technical/ (Infra)", checked: true}, {text: "marketing/ (Provas)", checked: true}] },
-        { id: 3, x: 2200, y: 2700, icon: "👥", title: "Squads (Equipes)", desc: "Unidades autônomas de agentes.", status: "active", tasks: [{text: "Squad de Lançamento", checked: true}, {text: "Squad de Performance", checked: false}, {text: "Squad de Produto", checked: false}, {text: "Squad Design System", checked: false}] },
-        { id: 4, x: 2500, y: 2100, icon: "🤖", title: "Agentes Core (8)", desc: "Os pilares do sistema.", status: "done", tasks: [{text: "@aiox-master (Orion)", checked: true}, {text: "@architect (Aria)", checked: true}, {text: "@dev (Dex)", checked: true}, {text: "@qa (Quinn)", checked: true}, {text: "@pm (Morgan)", checked: true}, {text: "@sm (River)", checked: true}, {text: "@copywriter (Sage)", checked: true}, {text: "@ux-design-expert (Uma)", checked: true}] },
-        { id: 5, x: 2800, y: 2400, icon: "🔍", title: "Especialistas & Analistas (6)", desc: "Agentes de nicho e dados.", status: "done", tasks: [{text: "@analyst", checked: true}, {text: "@data-engineer", checked: true}, {text: "@devops", checked: true}, {text: "@po", checked: true}, {text: "@squad-creator", checked: true}, {text: "@marketing", checked: true}] },
-        { id: 6, x: 2800, y: 2700, icon: "✍️", title: "Suporte de Conteúdo/UX (4)", desc: "Refinamento e conversão.", status: "done", tasks: [{text: "Copy Specialist", checked: true}, {text: "Funnel Specialist", checked: true}, {text: "Traffic Specialist", checked: true}, {text: "UX Optimizer", checked: true}] },
-        { id: 7, x: 2500, y: 2800, icon: "⚡", title: "Skills Library (>200)", desc: "Clique no ícone lateral ⚡ para abrir.", status: "done", tasks: [{text: "Explorar Habilidades", checked: true}] },
-        { id: 8, x: 2200, y: 2400, icon: "🧠", title: "Expert Squad & AIOX Core", desc: "Clones de Especialistas (Elite Layer).", status: "done", tasks: [{text: "Russel Brunson Trilogy (Deep)", checked: true}, {text: "Finch / Alan / Pedro (AIOX)", checked: true}, {text: "Halbert / Kell (Global)", checked: true}, {text: "Erico / Maccedo (Brasil)", checked: true}, {text: "Persona: Elisa Claro", checked: true}] }
+        { id: 1, x: 2800, y: 2100, icon: "🗂️", title: "Estrutura (Filesystem)", desc: "Organização de pastas do framework.", status: "done", tasks: [{text: ".aiox-core/ (Core)", checked: true, desc: "Núcleo do sistema, agentes e inteligência base."}, {text: "funnels/ (Marketing)", checked: true, desc: "Estruturas de funis de vendas e ativos de marketing."}, {text: "projects/ (Lojas)", checked: true, desc: "Arquivos específicos de cada implementação/loja."}] },
+        { id: 2, x: 2200, y: 2100, icon: "🧠", title: "Knowledge Base", desc: "Cérebro que alimenta a inteligência.", status: "done", tasks: [{text: "branding/ (Voz)", checked: true, desc: "Diretrizes de tom de voz e identidade visual."}, {text: "technical/ (Infra)", checked: true, desc: "Documentação de infraestrutura e deploy."}, {text: "marketing/ (Provas)", checked: true, desc: "Gatilhos mentais e banco de provas sociais."}] },
+        { id: 3, x: 2200, y: 2700, icon: "👥", title: "Squads (Equipes)", desc: "Unidades autônomas de agentes.", status: "active", tasks: [{text: "Squad de Lançamento", checked: true, desc: "Focado em picos de vendas massivos (PLF/Meteórico)."}, {text: "Squad de Performance", checked: false, desc: "Otimização de tráfego pago e ROI diário."}, {text: "Squad de Produto", checked: false, desc: "Desenvolvimento e melhoria de infoprodutos."}, {text: "Squad Design System", checked: false, desc: "Manutenção da estética premium e componentes."}] },
+        { id: 4, x: 2500, y: 2100, icon: "🤖", title: "Agentes Core (8)", desc: "Os pilares do sistema.", status: "done", tasks: [{text: "@aiox-master (Orion)", checked: true, desc: "Orquestrador mestre e tomador de decisões estratégicas."}, {text: "@architect (Aria)", checked: true, desc: "Projeta a arquitetura técnica e de dados."}, {text: "@dev (Dex)", checked: true, desc: "Braço executor para código e integrações."}, {text: "@qa (Quinn)", checked: true, desc: "Garante a qualidade e ausência de bugs."}, {text: "@pm (Morgan)", checked: true, desc: "Gestor de projetos e timelines."}, {text: "@sm (River)", checked: true, desc: "Scrum Master, facilita o fluxo de trabalho."}, {text: "@copywriter (Sage)", checked: true, desc: "Especialista em escrita persuasiva e vendas."}, {text: "@ux-design-expert (Uma)", checked: true, desc: "Designer de experiência e interfaces premium."}] },
+        { id: 5, x: 2800, y: 2400, icon: "🔍", title: "Especialistas & Analistas (6)", desc: "Agentes de nicho e dados.", status: "done", tasks: [{text: "@analyst", checked: true, desc: "Análise fria de dados e comportamento do usuário."}, {text: "@data-engineer", checked: true, desc: "Engenharia de dados e pipes de informação."}, {text: "@devops", checked: true, desc: "Infra e automação de deploys."}, {text: "@po", checked: true, desc: "Representante do produto e priorização."}, {text: "@squad-creator", checked: true, desc: "Criação dinâmica de novos esquadrões de IA."}, {text: "@marketing", checked: true, desc: "Estrategista de growth e aquisição."}] },
+        { id: 6, x: 2800, y: 2700, icon: "✍️", title: "Suporte de Conteúdo/UX (4)", desc: "Refinamento e conversão.", status: "done", tasks: [{text: "Copy Specialist", checked: true, desc: "Apoio micro-copy e headlines."}, {text: "Funnel Specialist", checked: true, desc: "Especialista em taxas de conversão por etapa."}, {text: "Traffic Specialist", checked: true, desc: "Gestão técnica de pixels e rastreamento."}, {text: "UX Optimizer", checked: true, desc: "Testes A/B e melhoria de usabilidade."}] },
+        { id: 7, x: 2500, y: 2800, icon: "⚡", title: "Skills Library (>200)", desc: "Clique no ícone lateral ⚡ para abrir.", status: "done", tasks: [{text: "Explorar Habilidades", checked: true, desc: "Biblioteca completa de capacidades dos agentes."}] },
+        { id: 8, x: 2200, y: 2400, icon: "🧠", title: "Expert Squad & AIOX Core", desc: "Clones de Especialistas (Elite Layer).", status: "done", tasks: [{text: "Russel Brunson Trilogy (Deep)", checked: true, desc: "Dotcom, Expert e Traffic Secrets integrados."}, {text: "Finch / Alan / Pedro (AIOX)", checked: true, desc: "Branding Outlier e Orquestração de Elite."}, {text: "Halbert / Kell (Global)", checked: true, desc: "Direct Response e VSLs de alta performance."}, {text: "Erico / Maccedo (Brasil)", checked: true, desc: "Lançamentos e Autoridade no mercado nacional."}, {text: "Persona: Elisa Claro", checked: true, desc: "Clone de influenciadora para cursos e vídeos."}] }
       ]
     },
     {
@@ -540,9 +560,10 @@ function render() {
       <div class="node-desc" contenteditable="true">${n.desc || 'Sem descrição...'}</div>
       <ul class="task-list">
         ${n.tasks.map((t, idx) => `
-          <li class="task-item ${t.checked ? 'checked' : ''}">
+          <li class="task-item ${t.checked ? 'checked' : ''} ${t.expanded ? 'expanded' : ''}" onclick="toggleTaskDesc('${n.id}', ${idx})">
             <div class="task-check" onclick="event.stopPropagation(); toggleTask('${n.id}', ${idx})">${t.checked ? '✓' : ''}</div>
-            <div class="task-text" contenteditable="true">${t.text}</div>
+            <div class="task-text">${t.text}</div>
+            <div class="task-desc">${t.desc || 'Informação adicional sobre esta habilidade ou fase.'}</div>
           </li>
         `).join('')}
       </ul>
@@ -647,9 +668,15 @@ function toggleTask(nid, tidx) {
   render();
 }
 
+function toggleTaskDesc(nid, tidx) {
+  const n = store.projects.find(p => p.id === activeProjId).nodes.find(node => node.id == nid);
+  n.tasks[tidx].expanded = !n.tasks[tidx].expanded;
+  render();
+}
+
 function addTask(nid) {
   const n = store.projects.find(p => p.id === activeProjId).nodes.find(node => node.id == nid);
-  n.tasks.push({ text: "Nova tarefa", checked: false });
+  n.tasks.push({ text: "Nova tarefa", checked: false, desc: "Pequena descrição da tarefa..." });
   render();
 }
 
