@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SommersStore — Mindmap Studio v4.0</title>
+<title>SommersStore — Mindmap Studio v8.0</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
 
   :root {
-    --gold: #f5c842;
-    --green: #22c55e;
-    --blue: #3b82f6;
-    --red: #ef4444;
-    --dark: #070912;
-    --card: #131725;
-    --border: #242940;
-    --text: #e2e8f0;
+    --gold: #1e40af; /* Azul Royal */
+    --green: #3b82f6; /* Azul Claro */
+    --blue: #00aeef; 
+    --red: #b91c1c;
+    --dark: #f3f3ed; /* Bege SommersStore */
+    --card: #ffffff;
+    --border: #d1d5db;
+    --text: #2d241e; 
     --muted: #64748b;
-    --line: rgba(245, 200, 66, 0.2);
+    --line: rgba(30, 64, 175, 0.2);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -34,7 +34,7 @@
 
   /* HEADER */
   .studio-header {
-    background: rgba(7, 9, 18, 0.9);
+    background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     padding: 12px 24px;
     border-bottom: 1px solid var(--border);
@@ -56,20 +56,18 @@
     cursor: pointer;
     border: 1px solid transparent;
     transition: all 0.2s;
-    color: white;
   }
-  .btn-primary { background: var(--gold); color: #000; }
   .btn-outline { border-color: var(--border); background: transparent; color: var(--text); }
   .btn-outline:hover { background: var(--card); }
   .btn-danger { background: rgba(239, 68, 68, 0.1); color: var(--red); }
 
-  /* WORKSPACE (PAN/ZOOM) */
+  /* WORKSPACE */
   #viewport {
     flex-grow: 1;
     position: relative;
     overflow: hidden;
     cursor: grab;
-    background-image: radial-gradient(var(--border) 1px, transparent 1px);
+    background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
     background-size: 30px 30px;
   }
   #viewport:active { cursor: grabbing; }
@@ -77,7 +75,6 @@
   #canvas {
     position: absolute;
     transform-origin: 0 0;
-    transition: transform 0.05s linear;
     width: 5000px;
     height: 5000px;
   }
@@ -96,25 +93,23 @@
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 16px;
-    width: 260px;
-    transition: box-shadow 0.3s;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    width: 280px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     z-index: 2;
   }
-  .node:hover { border-color: var(--gold); box-shadow: 0 4px 25px rgba(245,200,66,0.15); }
+  .node:hover { border-color: var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.12); }
 
   .node-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-  .node-icon { font-size: 1rem; opacity: 0.8; }
+  .node-icon { font-size: 1.2rem; }
   .node-title { font-weight: 800; font-size: 0.9rem; flex-grow: 1; outline: none; }
 
-  .status-dot { width: 8px; height: 8px; border-radius: 50%; cursor: pointer; }
+  .status-dot { width: 10px; height: 10px; border-radius: 50%; cursor: pointer; }
   .status-todo { background: var(--muted); }
   .status-active { background: var(--gold); box-shadow: 0 0 10px var(--gold); }
   .status-done { background: var(--green); }
 
   .node-desc { font-size: 0.75rem; color: var(--muted); margin-bottom: 12px; line-height: 1.4; outline: none; }
 
-  /* TASKS */
   .task-list { list-style: none; border-top: 1px solid var(--border); padding-top: 10px; }
   .task-item { display: flex; align-items: flex-start; gap: 8px; font-size: 0.75rem; margin-bottom: 6px; }
   .task-check {
@@ -124,80 +119,64 @@
   }
   .task-item.checked .task-check { background: var(--green); border-color: var(--green); color: white; }
   .task-item.checked .task-text { color: var(--green); text-decoration: line-through; opacity: 0.6; }
-  .task-text { flex-grow: 1; outline: none; }
 
   /* CENTER NODE */
   .center-node {
     position: absolute;
-    background: linear-gradient(135deg, var(--gold), #b48a04);
-    color: #000;
+    background: linear-gradient(135deg, var(--gold), #3b82f6);
+    color: white;
     padding: 20px 40px;
     border-radius: 50px;
     font-weight: 900;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     z-index: 10;
-    box-shadow: 0 0 40px rgba(245,200,66,0.3);
+    box-shadow: 0 0 30px rgba(30, 64, 175, 0.3);
     white-space: nowrap;
-    outline: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
-  /* ZOOM CONTROLS */
-  .controls {
-    position: fixed;
-    bottom: 24px;
-    left: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    z-index: 2000;
+  /* SKILLS DRAWER */
+  #skills-drawer {
+    position: fixed; top: 0; right: -450px; width: 450px; height: 100vh;
+    background: var(--card); border-left: 1px solid var(--border);
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 3000;
+    display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.1);
   }
-  .ctrl-btn {
-    width: 40px; height: 40px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    color: white;
-    font-size: 1.2rem;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-  }
+  #skills-drawer.open { right: 0; }
+  .drawer-header { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--dark); }
+  .drawer-content { flex-grow: 1; overflow-y: auto; padding: 20px; }
+  .skill-search { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: white; margin-bottom: 20px; }
+  
+  .skill-group { margin-bottom: 25px; }
+  .skill-group-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 15px; font-weight: 900; }
+  
+  .skill-acc { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+  .skill-acc-header { padding: 12px 16px; background: rgba(0,0,0,0.02); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; font-weight: 700; color: var(--text); }
+  .skill-acc-desc { padding: 0; height: 0; overflow: hidden; font-size: 0.75rem; line-height: 1.5; color: var(--muted); transition: all 0.2s ease; background: white; }
+  .skill-acc.active .skill-acc-desc { padding: 12px 16px; height: auto; border-top: 1px solid var(--border); }
+  .skill-acc.active .skill-acc-header { color: var(--gold); background: rgba(30, 64, 175, 0.03); }
 
-  /* TABS */
-  #tabs {
-    display: flex;
-    gap: 12px;
-    margin-right: 20px;
-  }
-  .tab {
-    padding: 6px 14px;
-    background: transparent;
-    color: var(--muted);
-    font-size: 0.8rem;
-    font-weight: 700;
-    cursor: pointer;
-    border-radius: 6px;
-  }
-  .tab.active { color: var(--gold); background: rgba(245,200,66,0.1); }
+  /* CONTROLS */
+  .controls { position: fixed; bottom: 24px; left: 24px; display: flex; flex-direction: column; gap: 8px; z-index: 2000; }
+  .ctrl-btn { width: 42px; height: 42px; background: var(--card); border: 1px solid var(--border); color: var(--text); font-size: 1.1rem; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
 
-  /* HELPERS */
-  .save-note {
-    position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
-    background: var(--green); color: white; padding: 10px 20px;
-    border-radius: 20px; font-weight: 600; font-size: 0.8rem;
-    opacity: 0; transition: opacity 0.3s; pointer-events: none;
-  }
+  #tabs { display: flex; gap: 8px; }
+  .tab { padding: 8px 16px; background: transparent; color: var(--muted); font-size: 0.75rem; font-weight: 800; cursor: pointer; border-radius: 8px; transition: 0.2s; }
+  .tab.active { color: var(--gold); background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+  .save-note { position: fixed; top: 80px; left: 50%; transform: translateX(-50%); background: #10b981; color: white; padding: 10px 24px; border-radius: 30px; font-weight: 700; font-size: 0.8rem; opacity: 0; transition: 0.3s; pointer-events: none; z-index: 4000; }
   .save-note.show { opacity: 1; }
 
-  path.link { fill: none; stroke: var(--line); stroke-width: 2; stroke-dasharray: 4; animation: dash 20s linear infinite; }
+  path.link { fill: none; stroke: var(--line); stroke-width: 2; stroke-dasharray: 5; animation: dash 30s linear infinite; }
   @keyframes dash { from { stroke-dashoffset: 1000; } to { stroke-dashoffset: 0; } }
-
 </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
 <div class="studio-header">
   <div style="display:flex; align-items:center;">
-    <div class="logo" style="margin-right:30px">Sommers<span>Store</span> v4.0</div>
+    <div class="logo" style="margin-right:30px">Sommers<span>Store</span> v8.0</div>
     <div id="tabs"></div>
   </div>
   <div class="actions">
@@ -214,25 +193,40 @@
   </div>
 </div>
 
+<div id="skills-drawer">
+  <div class="drawer-header">
+    <div class="logo">Library <span>Skills</span></div>
+    <button class="btn btn-outline" onclick="toggleSkills()">Fechar ✕</button>
+  </div>
+  <div class="drawer-content">
+    <input type="text" class="skill-search" id="sk-search" placeholder="Pesquisar habilidade..." onkeyup="filterSkills(this.value)">
+    <div id="skills-list"></div>
+  </div>
+</div>
+
 <div class="controls">
   <button class="ctrl-btn" onclick="adjustZoom(0.1)">+</button>
   <button class="ctrl-btn" onclick="adjustZoom(-0.1)">-</button>
   <button class="ctrl-btn" onclick="resetView()">🎯</button>
+  <button class="ctrl-btn" title="Expandir Skills Library" onclick="toggleSkills()">⚡</button>
 </div>
 
 <div class="save-note" id="save-note">Estado salvo com sucesso!</div>
 
 <script>
-// DATA
-const defaultData = {
+const originalDefaultData = {
   projects: [
     {
-      id: "arq", name: "Arquitetura SommersStore",
+      id: "arq", name: "🏗️ Arquitetura Synkra AIOX",
       nodes: [
-        { id: 1, x: 2800, y: 2200, icon: "🗂️", title: "projects/", desc: "Estrutura por produto.", status: "done", tasks: [{text: "loja-digital", checked: true}, {text: "electro-store", checked: true}] },
-        { id: 2, x: 2200, y: 2200, icon: "🧠", title: "knowledge/", desc: "Cérebro da IA.", status: "done", tasks: [{text: "avatars", checked: true}, {text: "prompts", checked: true}, {text: "copy frameworks", checked: true}] },
-        { id: 3, x: 2500, y: 2800, icon: "⚙️", title: "platform/", desc: "Core de automação.", status: "done", tasks: [{text: "agents", checked: true}, {text: "integrations", checked: true}, {text: "workflows", checked: true}] },
-        { id: 4, x: 2500, y: 2200, icon: "🤖", title: "Agentes AIOX", desc: "Equipe especializada.", status: "done", tasks: [{text: "@architect", checked: true}, {text: "@dev", checked: true}, {text: "@copywriter", checked: true}, {text: "@designer", checked: true}] }
+        { id: 1, x: 2800, y: 2100, icon: "🗂️", title: "Estrutura (Filesystem)", desc: "Organização de pastas do framework.", status: "done", tasks: [{text: ".aiox-core/ (Core)", checked: true}, {text: "funnels/ (Marketing)", checked: true}, {text: "projects/ (Lojas)", checked: true}] },
+        { id: 2, x: 2200, y: 2100, icon: "🧠", title: "Knowledge Base", desc: "Cérebro que alimenta a inteligência.", status: "done", tasks: [{text: "branding/ (Voz)", checked: true}, {text: "technical/ (Infra)", checked: true}, {text: "marketing/ (Provas)", checked: true}] },
+        { id: 3, x: 2200, y: 2700, icon: "👥", title: "Squads (Equipes)", desc: "Unidades autônomas de agentes.", status: "active", tasks: [{text: "Squad de Lançamento", checked: true}, {text: "Squad de Performance", checked: false}, {text: "Squad de Produto", checked: false}, {text: "Squad Design System", checked: false}] },
+        { id: 4, x: 2500, y: 2100, icon: "🤖", title: "Agentes Core (8)", desc: "Os pilares do sistema.", status: "done", tasks: [{text: "@aiox-master (Orion)", checked: true}, {text: "@architect (Aria)", checked: true}, {text: "@dev (Dex)", checked: true}, {text: "@qa (Quinn)", checked: true}, {text: "@pm (Morgan)", checked: true}, {text: "@sm (River)", checked: true}, {text: "@copywriter (Sage)", checked: true}, {text: "@ux-design-expert (Uma)", checked: true}] },
+        { id: 5, x: 2800, y: 2400, icon: "🔍", title: "Especialistas & Analistas (6)", desc: "Agentes de nicho e dados.", status: "done", tasks: [{text: "@analyst", checked: true}, {text: "@data-engineer", checked: true}, {text: "@devops", checked: true}, {text: "@po", checked: true}, {text: "@squad-creator", checked: true}, {text: "@marketing", checked: true}] },
+        { id: 6, x: 2800, y: 2700, icon: "✍️", title: "Suporte de Conteúdo/UX (4)", desc: "Refinamento e conversão.", status: "done", tasks: [{text: "Copy Specialist", checked: true}, {text: "Funnel Specialist", checked: true}, {text: "Traffic Specialist", checked: true}, {text: "UX Optimizer", checked: true}] },
+        { id: 7, x: 2500, y: 2800, icon: "⚡", title: "Skills Library (>200)", desc: "Clique no ícone lateral ⚡ para abrir.", status: "done", tasks: [{text: "Explorar Habilidades", checked: true}] },
+        { id: 8, x: 2200, y: 2400, icon: "🧠", title: "Expert Squad & AIOX Core", desc: "Clones de Especialistas (Elite Layer).", status: "done", tasks: [{text: "Russel Brunson Trilogy (Deep)", checked: true}, {text: "Finch / Alan / Pedro (AIOX)", checked: true}, {text: "Halbert / Kell (Global)", checked: true}, {text: "Erico / Maccedo (Brasil)", checked: true}, {text: "Persona: Elisa Claro", checked: true}] }
       ]
     },
     {
@@ -241,46 +235,256 @@ const defaultData = {
         { id: 10, x: 2100, y: 2300, icon: "🔍", title: "Pesquisa & Avatar", status: "done", tasks: [{text: "Dores e Desejos", checked: true}, {text: "Avatar Essência Ativa", checked: true}] },
         { id: 11, x: 2100, y: 2700, icon: "📝", title: "Copywriting", status: "done", tasks: [{text: "Script VSL 2m15s", checked: true}, {text: "Framework PAS/AIDA", checked: true}] },
         { id: 12, x: 2400, y: 2100, icon: "🎨", title: "Design Landing Page", status: "done", tasks: [{text: "Hero Section Premium", checked: true}, {text: "Prova Social", checked: true}, {text: "Oferta Irresistível", checked: true}] },
-        { id: 13, x: 2800, y: 2300, icon: "💻", title: "Construção V3 Light", status: "active", tasks: [{text: "Delay do botão VSL", checked: true}, {text: "Responsividade Mobile", checked: true}, {text: "Fanpage Bridge", checked: true}] },
-        { id: 14, x: 2800, y: 2700, icon: "🛒", title: "Integração Checkout", status: "todo", tasks: [{text: "Link Kiwify/Shopify", checked: false}, {text: "Order Bump", checked: false}, {text: "Upsell Flow", checked: false}] },
+        { id: 13, x: 2800, y: 2300, icon: "💻", title: "Construção V3 Light", status: "done", tasks: [{text: "Delay do botão VSL", checked: true}, {text: "Responsividade Mobile", checked: true}, {text: "Fanpage Bridge", checked: true}] },
+        { id: 14, x: 2800, y: 2700, icon: "🛒", title: "Integração Checkout", status: "todo", tasks: [{text: "Link Kiwify/Shopify", checked: false}, {text: "Order Bump", checked: false}, {text: "Upsell Flow", checked: false}, {text: "Webhooks Shopify", checked: false}] },
         { id: 15, x: 2500, y: 3100, icon: "🚀", title: "Tráfego & Métricas", status: "todo", tasks: [{text: "Lançamento Meta Ads", checked: false}, {text: "Análise de ROI", checked: false}] }
-      ]
-    },
-    {
-      id: "electro", name: "⚡ Electro Store",
-      nodes: [
-        { id: 20, x: 2200, y: 2300, icon: "⚙️", title: "Backend Setup", status: "done", tasks: [{text: "Server Next.js Port 3000", checked: true}, {text: "Banco de Dados", checked: true}] },
-        { id: 21, x: 2200, y: 2700, icon: "🏠", title: "Home v1 Interface", status: "done", tasks: [{text: "MegaMenu Lateral", checked: true}, {text: "Deal & Tabs", checked: true}, {text: "Header/Footer Premium", checked: true}] },
-        { id: 22, x: 2800, y: 2300, icon: "🔌", title: "Integração Shopify/Medusa", status: "active", tasks: [{text: "Sincronização de Produtos", checked: false}, {text: "Webhooks Shopify", checked: false}] },
-        { id: 23, x: 2800, y: 2700, icon: "🛍️", title: "Checkout & Pagamento", status: "todo", tasks: [{text: "Stripe/Pix", checked: false}, {text: "Gestão de Pedidos", checked: false}] }
-      ]
-    },
-    {
-      id: "velas", name: "🕯️ Velas Aromáticas",
-      nodes: [
-        { id: 30, x: 2500, y: 2200, icon: "📝", title: "Planejamento Velas", status: "todo", tasks: [{text: "Avatar de Nicho", checked: false}, {text: "Estrutura de Oferta", checked: false}] }
       ]
     }
   ]
 };
 
-let store = JSON.parse(localStorage.getItem('ss_mindmap_v4')) || defaultData;
-let activeProjId = store.projects[0].id;
+const skillsLibrary = [
+  { cat: 'Qualidade & Segurança', skills: [
+    { name: 'audit-codebase', desc: 'Audit Codebase for UI Pattern Redundancy' },
+    { name: 'audit-tailwind-config', desc: 'Audit Tailwind v4 Configuration & Utility Health' },
+    { name: 'audit-utilities', desc: 'audit-utilities' },
+    { name: 'qa-after-creation', desc: 'Task: QA After Creation' },
+    { name: 'qa-backlog-add-followup', desc: 'QA Task: Add Follow-up to Backlog' },
+    { name: 'qa-browser-console-check', desc: 'Browser Console Check Task' },
+    { name: 'qa-create-fix-request', desc: 'Create Fix Request Task' },
+    { name: 'qa-evidence-requirements', desc: 'Evidence Requirements Task' },
+    { name: 'qa-false-positive-detection', desc: 'False Positive Detection Task' },
+    { name: 'qa-fix-issues', desc: 'QA Issue Fixer Task' },
+    { name: 'qa-gate', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'qa-generate-tests', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'qa-library-validation', desc: 'Library Validation Task' },
+    { name: 'qa-migration-validation', desc: 'Migration Validation Task' },
+    { name: 'qa-nfr-assess', desc: 'nfr-assess' },
+    { name: 'qa-review-build', desc: 'QA Review Build: 10-Phase Quality Assurance Review' },
+    { name: 'qa-review-proposal', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'qa-review-story', desc: 'review-story' },
+    { name: 'qa-risk-profile', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'qa-run-tests', desc: 'Run Tests (with Code Quality Gate)' },
+    { name: 'qa-security-checklist', desc: 'Security Checklist Task' },
+    { name: 'qa-test-design', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'qa-trace-requirements', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'security-audit', desc: 'Task: Security Audit' },
+    { name: 'security-scan', desc: 'security-scan' },
+    { name: 'validate-agents', desc: 'Validate Agents Task' },
+    { name: 'validate-next-story', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'validate-tech-preset', desc: '\*validate-tech-preset' },
+    { name: 'validate-workflow', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'verify-subtask', desc: 'Verify Subtask' }
+  ]},
+  { cat: 'Core & Arquitetura', skills: [
+    { name: 'analyze-brownfield', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'analyze-cross-artifact', desc: 'Cross-Artifact Analysis Task' },
+    { name: 'analyze-framework', desc: 'Task: Analyze Framework' },
+    { name: 'analyze-project-structure', desc: 'Analyze Project Structure' },
+    { name: 'architect-analyze-impact', desc: 'An' },
+    { name: 'ids-governor', desc: 'Task: IDS Governor Commands' },
+    { name: 'ids-health', desc: 'IDS Registry Health Check Task' },
+    { name: 'ids-query', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'spec-assess-complexity', desc: 'Spec Pipeline: Assess Complexity' },
+    { name: 'spec-critique', desc: 'Spec Pipeline: Critique Specification' },
+    { name: 'spec-gather-requirements', desc: 'Spec Pipeline: Gather Requirements' },
+    { name: 'spec-research-dependencies', desc: 'Spec Pipeline: Research Dependencies' },
+    { name: 'spec-write-spec', desc: 'Spec Pipeline: Write Specification' }
+  ]},
+  { cat: 'Banco de Dados', skills: [
+    { name: 'db-analyze-hotpaths', desc: 'Task: Analyze Hot Query Paths' },
+    { name: 'db-apply-migration', desc: 'Task: Apply Migration (with snapshot + advisory lock)' },
+    { name: 'db-bootstrap', desc: 'Task: Bootstrap Supabase Project' },
+    { name: 'db-domain-modeling', desc: 'Task: Domain Modeling Session' },
+    { name: 'db-dry-run', desc: 'Task: Migration Dry-Run' },
+    { name: 'db-env-check', desc: 'Task: DB Env Check' },
+    { name: 'db-explain', desc: 'Task: EXPLAIN (ANALYZE, BUFFERS)' },
+    { name: 'db-impersonate', desc: 'Task: Impersonate User (RLS Testing)' },
+    { name: 'db-load-csv', desc: 'Task: Load CSV Data Safely' },
+    { name: 'db-policy-apply', desc: 'Task: Apply RLS Policy Template' },
+    { name: 'db-rls-audit', desc: 'Task: RLS Audit' },
+    { name: 'db-rollback', desc: 'Task: Rollback Database' },
+    { name: 'db-run-sql', desc: 'Task: Run SQL' },
+    { name: 'db-schema-audit', desc: 'Task: Schema Audit' },
+    { name: 'db-seed', desc: 'Task: Apply Seed Data' },
+    { name: 'db-smoke-test', desc: 'Task: DB Smoke Test' },
+    { name: 'db-snapshot', desc: 'Task: Create Database Snapshot' },
+    { name: 'db-squad-integration', desc: 'Database Integration Analysis for Squad' },
+    { name: 'db-supabase-setup', desc: 'Task: Supabase Setup Guide' },
+    { name: 'db-verify-order', desc: 'Task: Verify DDL Ordering' }
+  ]},
+  { cat: 'Gestão & Sistema', skills: [
+    { name: 'analyst-facilitate-brainstorming', desc: 'No checklists needed - this task facilitates brainstorming sessions, validation is through user interaction' },
+    { name: 'analyze-performance', desc: 'Task: Analyze Performance' },
+    { name: 'brownfield-create-epic', desc: 'Create Brownfield Epic Task' },
+    { name: 'brownfield-create-story', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'check-docs-links', desc: 'check-docs-links' },
+    { name: 'cleanup-utilities', desc: 'Cleanup Utilities Task' },
+    { name: 'cleanup-worktrees', desc: 'cleanup-worktrees' },
+    { name: 'compose-molecule', desc: 'Compose Molecule from Atoms' },
+    { name: 'correct-course', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'create-brownfield-story', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'create-deep-research-prompt', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'create-doc', desc: 'Template selection determined dynamically during task execution' },
+    { name: 'create-next-story', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'create-suite', desc: 'TODO: Create test-suite-checklist.md for validation (follow-up story needed)' },
+    { name: 'create-task', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'create-workflow', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'create-worktree', desc: 'create-worktree' },
+    { name: 'document-gotchas', desc: 'Document Gotchas Task' },
+    { name: 'document-project', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'execute-checklist', desc: 'No templates needed - this task executes existing checklists, doesn\'t create document outputs' },
+    { name: 'execute-epic-plan', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'extract-patterns', desc: 'Extract Patterns' },
+    { name: 'generate-ai-frontend-prompt', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'generate-documentation', desc: 'Generate Pattern Library Documentation' },
+    { name: 'generate-migration-strategy', desc: 'Generate Phased Migration Strategy' },
+    { name: 'gotcha', desc: 'Task: Add Gotcha' },
+    { name: 'gotchas', desc: 'Task: List Gotchas' },
+    { name: 'improve-self', desc: 'improve-self' },
+    { name: 'index-docs', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'init-project-status', desc: 'init-project-status' },
+    { name: 'kb-mode-interaction', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'learn-patterns', desc: 'learn-patterns' },
+    { name: 'list-worktrees', desc: 'list-worktrees' },
+    { name: 'merge-worktree', desc: 'merge-worktree' },
+    { name: 'next', desc: 'Next Command Suggestions' },
+    { name: 'orchestrate-resume', desc: 'Resume orchestrator execution from saved state' },
+    { name: 'orchestrate-status', desc: 'Show orchestrator status for a story' },
+    { name: 'orchestrate-stop', desc: 'Stop orchestrator execution for a story' },
+    { name: 'orchestrate', desc: 'Start full ADE pipeline for a story' },
+    { name: 'plan-create-context', desc: 'Plan Pipeline: Create Context' },
+    { name: 'plan-create-implementation', desc: 'Execution Pipeline: Create Implementation Plan' },
+    { name: 'plan-execute-subtask', desc: 'Execute Subtask (Coder Agent)' },
+    { name: 'po-backlog-add', desc: 'PO Task: Add Backlog Item' },
+    { name: 'po-close-story', desc: 'PO Task: Close Story' },
+    { name: 'po-manage-story-backlog', desc: 'manage-story-backlog' },
+    { name: 'po-pull-story-from-clickup', desc: 'pull-story-from-clickup' },
+    { name: 'po-pull-story', desc: 'pull-story' },
+    { name: 'po-stories-index', desc: 'PO Task: Regenerate Story Index' },
+    { name: 'po-sync-story-to-clickup', desc: 'sync-story-to-clickup' },
+    { name: 'po-sync-story', desc: 'sync-story' },
+    { name: 'propose-modification', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'publish-npm', desc: 'npm Publishing Pipeline: Preview to Latest' },
+    { name: 'remove-worktree', desc: 'remove-worktree' },
+    { name: 'resolve-github-issue', desc: 'resolve-github-issue.md' },
+    { name: 'review-contributor-pr', desc: 'Task: Review External Contributor PR' },
+    { name: 'run-workflow-engine', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'run-workflow', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'search-mcp', desc: 'Search MCP Catalog Task' },
+    { name: 'session-resume', desc: 'Session Resume Task' },
+    { name: 'setup-database', desc: 'Task: Setup Database' },
+    { name: 'setup-github', desc: 'setup-github' },
+    { name: 'setup-llm-routing', desc: 'setup-llm-routing' },
+    { name: 'setup-mcp-docker', desc: 'Setup Docker MCP Toolkit' },
+    { name: 'setup-project-docs', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'shard-doc', desc: 'No checklists needed - document processing task with built-in validation via md-tree tool' },
+    { name: 'sm-create-next-story', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'story-checkpoint', desc: 'Task: Story Checkpoint' },
+    { name: 'sync-documentation', desc: 'sync-documentation' },
+    { name: 'sync-registry-intel', desc: 'Task: Sync Registry Intel' },
+    { name: 'tailwind-upgrade', desc: 'Tailwind CSS v4 Upgrade Playbook' },
+    { name: 'test-as-user', desc: 'Task: Test As User (RLS Testing)' },
+    { name: 'test-validation-task', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'triage-github-issues', desc: 'triage-github-issues.md' },
+    { name: 'undo-last', desc: 'No checklists needed - rollback operation with built-in transaction validation' },
+    { name: 'update-aiox', desc: 'Task: Update AIOX Framework' },
+    { name: 'update-manifest', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'update-source-tree', desc: 'Update Source Tree Task' },
+    { name: 'waves', desc: 'Task: `*waves` - Wave Analysis' },
+    { name: 'yolo-toggle', desc: 'yolo-toggle' }
+  ]},
+  { cat: 'Marketing & Copy', skills: [
+    { name: 'advanced-elicitation', desc: 'advanced-elicitation' },
+    { name: 'calculate-roi', desc: 'Calculate ROI and Cost Savings' },
+    { name: 'facilitate-brainstorming-session', desc: 'Facilitate Brainstorming Session' },
+    { name: 'generate-elite-ads-campaign', desc: 'generate-elite-ads-campaign' },
+    { name: 'generate-shock-report', desc: 'Generate Visual Shock Report' },
+    { name: 'optimize-elite-landing-page', desc: 'optimize-elite-landing-page' }
+  ]},
+  { cat: 'Desenvolvimento', skills: [
+    { name: 'apply-qa-fixes', desc: 'Ap' },
+    { name: 'build-autonomous', desc: 'Task: Build Autonomous' },
+    { name: 'build-component', desc: 'Build Production-Ready Component' },
+    { name: 'build-resume', desc: 'Task: Build Resume' },
+    { name: 'build-status', desc: 'Task: Build Status' },
+    { name: 'build', desc: 'Task: Build (Autonomous)' },
+    { name: 'collaborative-edit', desc: 'collaborative-edit' },
+    { name: 'consolidate-patterns', desc: 'Consolidate Patterns Using Intelligent Clustering' },
+    { name: 'create-service', desc: 'Create Service' },
+    { name: 'deprecate-component', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'dev-apply-qa-fixes', desc: 'Ap' },
+    { name: 'dev-backlog-debt', desc: 'Dev Task: Register Technical Debt' },
+    { name: 'dev-develop-story', desc: 'Develop Story Task' },
+    { name: 'dev-improve-code-quality', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'dev-optimize-performance', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'dev-suggest-refactoring', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'dev-validate-next-story', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'extend-pattern', desc: 'Extend Existing Pattern' },
+    { name: 'modify-agent', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'modify-task', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'modify-workflow', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'patterns', desc: 'Learned Patterns Management' }
+  ]},
+  { cat: 'UX & Design', skills: [
+    { name: 'bootstrap-shadcn-library', desc: 'Bootstrap Shadcn/Radix Component Library' },
+    { name: 'export-design-tokens-dtcg', desc: 'Export Design Tokens to W3C DTCG' },
+    { name: 'extract-tokens', desc: 'Extract Design Tokens from Consolidated Patterns' },
+    { name: 'run-design-system-pipeline', desc: 'Run Design System Pipeline' },
+    { name: 'setup-design-system', desc: 'Setup Design System Structure' },
+    { name: 'ux-create-wireframe', desc: 'Create Wireframes & Interaction Flows' },
+    { name: 'ux-ds-scan-artifact', desc: 'Design System Artifact Scanner' },
+    { name: 'ux-user-research', desc: 'User Research & Needs Analysis' }
+  ]},
+  { cat: 'Squads & Operações', skills: [
+    { name: 'add-mcp', desc: 'Add MCP Server Task' },
+    { name: 'ci-cd-configuration', desc: 'Configure CI/CD Pipeline' },
+    { name: 'create-agent', desc: 'Task: Create Squad Agent' },
+    { name: 'environment-bootstrap', desc: 'environment-bootstrap' },
+    { name: 'github-devops-github-pr-automation', desc: 'github-pr-automation.md' },
+    { name: 'github-devops-pre-push-quality-gate', desc: 'pre-push-quality-gate.md' },
+    { name: 'github-devops-repository-cleanup', desc: 'repository-cleanup.md' },
+    { name: 'github-devops-version-management', desc: 'version-management.md' },
+    { name: 'github-issue-triage', desc: 'GitHub Issue Triage' },
+    { name: 'integrate-squad', desc: 'Integrate with Squad' },
+    { name: 'list-mcps', desc: 'list-mcps' },
+    { name: 'mcp-workflow', desc: 'MCP Workflow Creation Task' },
+    { name: 'pr-automation', desc: 'Automate Pull Request Creation for Open-Source Contributions' },
+    { name: 'release-management', desc: 'Manage Software Releases' },
+    { name: 'remove-mcp', desc: 'remove-mcp' },
+    { name: 'squad-creator-analyze', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-create', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-design', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-download', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-extend', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-list', desc: '*list-squads' },
+    { name: 'squad-creator-migrate', desc: '*migrate-squad' },
+    { name: 'squad-creator-publish', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-sync-ide-command', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-sync-synkra', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-validate', desc: '*validate-squad' }
+  ]}
+];
 
-// PAN & ZOOM STATE
+// STATE
+let store = JSON.parse(localStorage.getItem('ss_mindmap_v8')) || JSON.parse(JSON.stringify(originalDefaultData));
+let activeProjId = store.projects[0].id;
 let zoom = 0.8;
 let panX = -2500 * zoom + window.innerWidth/2;
 let panY = -2500 * zoom + window.innerHeight/2;
 let isPanning = false;
 let startX, startY;
 
-const viewport = document.getElementById('viewport');
+// DOM
 const canvas = document.getElementById('canvas');
 const linesLayer = document.getElementById('lines-layer');
 const nodesContainer = document.getElementById('nodes-container');
 
-// CORE RENDER
 function render() {
+  const project = store.projects.find(p => p.id === activeProjId);
+  if (!project) return;
+
+  // Tabs
   const tabs = document.getElementById('tabs');
   tabs.innerHTML = '';
   store.projects.forEach(p => {
@@ -291,108 +495,83 @@ function render() {
     tabs.appendChild(btn);
   });
 
-  const project = store.projects.find(p => p.id === activeProjId);
   nodesContainer.innerHTML = '';
-  
+
   // Center Node
   const center = document.createElement('div');
   center.className = 'center-node';
-  center.id = 'node-center';
   center.style.left = '2500px';
   center.style.top = '2500px';
   center.contentEditable = true;
   center.innerText = project.name;
-  center.onblur = (e) => { project.name = e.target.innerText; renderTabsOnly(); };
+  center.onblur = (e) => { project.name = e.target.innerText; render(); };
   nodesContainer.appendChild(center);
 
   // Phases
   project.nodes.forEach(n => {
-    const nodeEl = createNodeEl(n, project);
-    nodesContainer.appendChild(nodeEl);
+    const div = document.createElement('div');
+    div.className = 'node';
+    div.style.left = n.x + 'px';
+    div.style.top = n.y + 'px';
+    div.innerHTML = `
+      <div class="node-header">
+        <span class="node-icon">${n.icon}</span>
+        <span class="node-title" contenteditable="true">${n.title}</span>
+        <div class="status-dot status-${n.status}"></div>
+      </div>
+      <div class="node-desc" contenteditable="true">${n.desc || 'Sem descrição...'}</div>
+      <ul class="task-list">
+        ${n.tasks.map((t, idx) => `
+          <li class="task-item ${t.checked ? 'checked' : ''}">
+            <div class="task-check" onclick="event.stopPropagation(); toggleTask('${n.id}', ${idx})">${t.checked ? '✓' : ''}</div>
+            <div class="task-text" contenteditable="true">${t.text}</div>
+          </li>
+        `).join('')}
+      </ul>
+      <div style="font-size:10px; color:var(--gold); cursor:pointer; margin-top:8px" onclick="addTask('${n.id}')">+ tarefa</div>
+    `;
+
+    // Drag
+    let dStart = null;
+    div.onmousedown = (e) => {
+      if (e.target.contentEditable === "true") return;
+      e.stopPropagation();
+      dStart = { x: e.clientX, y: e.clientY, nx: n.x, ny: n.y };
+      const mv = (me) => {
+        n.x = dStart.nx + (me.clientX - dStart.x) / zoom;
+        n.y = dStart.ny + (me.clientY - dStart.y) / zoom;
+        div.style.left = n.x + 'px';
+        div.style.top = n.y + 'px';
+        updateLines();
+      };
+      const up = () => { window.removeEventListener('mousemove', mv); window.removeEventListener('mouseup', up); };
+      window.addEventListener('mousemove', mv);
+      window.addEventListener('mouseup', up);
+    };
+
+    div.querySelector('.node-title').onblur = (e) => { n.title = e.target.innerText; updateLines(); };
+    div.querySelector('.node-desc').onblur = (e) => { n.desc = e.target.innerText; };
+    div.querySelector('.status-dot').onclick = () => {
+      const s = ['todo', 'active', 'done'];
+      n.status = s[(s.indexOf(n.status) + 1) % 3];
+      render();
+    };
+
+    nodesContainer.appendChild(div);
   });
 
   updateLines();
   applyTransform();
 }
 
-function createNodeEl(n, project) {
-  const div = document.createElement('div');
-  div.className = 'node';
-  div.style.left = n.x + 'px';
-  div.style.top = n.y + 'px';
-  
-  div.innerHTML = `
-    <div class="node-header">
-      <span class="node-icon">${n.icon}</span>
-      <span class="node-title" contenteditable="true">${n.title}</span>
-      <div class="status-dot status-${n.status}" title="Mudar Status"></div>
-    </div>
-    <div class="node-desc" contenteditable="true">${n.desc || 'Sem descrição...'}</div>
-    <ul class="task-list">
-      ${n.tasks.map((t, idx) => `
-        <li class="task-item ${t.checked ? 'checked' : ''}">
-          <div class="task-check" onclick="event.stopPropagation(); toggleTask(${n.id}, ${idx})">${t.checked ? '✓' : ''}</div>
-          <div class="task-text" contenteditable="true">${t.text}</div>
-        </li>
-      `).join('')}
-    </ul>
-    <div style="font-size:10px; color:var(--gold); cursor:pointer; margin-top:8px" onclick="addTask(${n.id})">+ tarefa</div>
-  `;
-
-  // Dragging Logic
-  let dragStart = null;
-  div.onmousedown = (e) => {
-    if (e.target.contentEditable === "true") return;
-    e.stopPropagation();
-    dragStart = { x: e.clientX, y: e.clientY, nodeX: n.x, nodeY: n.y };
-    div.style.cursor = 'grabbing';
-    
-    const onMove = (me) => {
-      const dx = (me.clientX - dragStart.x) / zoom;
-      const dy = (me.clientY - dragStart.y) / zoom;
-      n.x = dragStart.nodeX + dx;
-      n.y = dragStart.nodeY + dy;
-      div.style.left = n.x + 'px';
-      div.style.top = n.y + 'px';
-      updateLines();
-    };
-    
-    const onUp = () => {
-      window.removeEventListener('mousemove', onMove);
-      window.removeEventListener('mouseup', onUp);
-      div.style.cursor = 'grab';
-    };
-    
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseup', onUp);
-  };
-
-  // Content Updates
-  div.querySelector('.node-title').onblur = (e) => { n.title = e.target.innerText; updateLines(); };
-  div.querySelector('.node-desc').onblur = (e) => { n.desc = e.target.innerText; };
-  div.querySelector('.status-dot').onclick = (e) => {
-    const states = ['todo', 'active', 'done'];
-    n.status = states[(states.indexOf(n.status) + 1) % 3];
-    render();
-  };
-
-  return div;
-}
-
 function updateLines() {
   const project = store.projects.find(p => p.id === activeProjId);
   linesLayer.innerHTML = '';
-  const cx = 2500 + 100; // center + offset
-  const cy = 2500 + 30;
-
   project.nodes.forEach(n => {
-    const nx = n.x + 130;
-    const ny = n.y + 10;
-    
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    // Bezier curve
-    const d = `M ${cx} ${cy} C ${(cx + nx) / 2} ${cy}, ${(cx + nx) / 2} ${ny}, ${nx} ${ny}`;
-    path.setAttribute("d", d);
+    const cx = 2500 + 100, cy = 2500 + 30;
+    const nx = n.x + 140, ny = n.y + 10;
+    path.setAttribute("d", `M ${cx} ${cy} C ${(cx+nx)/2} ${cy}, ${(cx+nx)/2} ${ny}, ${nx} ${ny}`);
     path.setAttribute("class", "link");
     linesLayer.appendChild(path);
   });
@@ -403,7 +582,8 @@ function applyTransform() {
 }
 
 // INTERACTIONS
-viewport.onmousedown = (e) => {
+window.onmousedown = (e) => {
+  if (e.target.closest('.node') || e.target.closest('.controls') || e.target.closest('.studio-header') || e.target.closest('#skills-drawer')) return;
   isPanning = true;
   startX = e.clientX - panX;
   startY = e.clientY - panY;
@@ -416,19 +596,23 @@ window.onmousemove = (e) => {
 };
 window.onmouseup = () => isPanning = false;
 
-viewport.onwheel = (e) => {
-  e.preventDefault();
-  const step = e.deltaY > 0 ? -0.05 : 0.05;
-  adjustZoom(step, e.clientX, e.clientY);
+window.onwheel = (e) => {
+  if (e.target.closest('#skills-drawer')) return;
+  const s = e.deltaY > 0 ? -0.05 : 0.05;
+  const nz = Math.min(Math.max(zoom + s, 0.1), 3);
+  const ratio = nz / zoom;
+  panX = e.clientX - (e.clientX - panX) * ratio;
+  panY = e.clientY - (e.clientY - panY) * ratio;
+  zoom = nz;
+  applyTransform();
 };
 
-function adjustZoom(step, centerX = window.innerWidth/2, centerY = window.innerHeight/2) {
-  const newZoom = Math.min(Math.max(zoom + step, 0.2), 2);
-  const ratio = newZoom / zoom;
-  panX = centerY - (centerY - panX) * ratio; // Using mouse pos relative logic
-  panX = centerX - (centerX - panX) * ratio;
-  panY = centerY - (centerY - panY) * ratio;
-  zoom = newZoom;
+function adjustZoom(s) {
+  const nz = Math.min(Math.max(zoom + s, 0.1), 3);
+  const ratio = nz / zoom;
+  panX = window.innerWidth/2 - (window.innerWidth/2 - panX) * ratio;
+  panY = window.innerHeight/2 - (window.innerHeight/2 - panY) * ratio;
+  zoom = nz;
   applyTransform();
 }
 
@@ -440,64 +624,75 @@ function resetView() {
 }
 
 function toggleTask(nid, tidx) {
-  const project = store.projects.find(p => p.id === activeProjId);
-  const node = project.nodes.find(n => n.id === nid);
-  node.tasks[tidx].checked = !node.tasks[tidx].checked;
+  const n = store.projects.find(p => p.id === activeProjId).nodes.find(node => node.id == nid);
+  n.tasks[tidx].checked = !n.tasks[tidx].checked;
   render();
 }
 
 function addTask(nid) {
-  const project = store.projects.find(p => p.id === activeProjId);
-  const node = project.nodes.find(n => n.id === nid);
-  node.tasks.push({ text: "Nova tarefa", checked: false });
+  const n = store.projects.find(p => p.id === activeProjId).nodes.find(node => node.id == nid);
+  n.tasks.push({ text: "Nova tarefa", checked: false });
   render();
 }
 
 function addNode() {
-  const project = store.projects.find(p => p.id === activeProjId);
-  project.nodes.push({
-    id: Date.now(),
-    x: 2500 + (Math.random()*400-200),
-    y: 2500 + (Math.random()*400-200),
-    icon: "📌",
-    title: "Nova Fase",
-    desc: "Editar...",
-    status: "todo",
-    tasks: []
-  });
+  const p = store.projects.find(proj => proj.id === activeProjId);
+  p.nodes.push({ id: Date.now(), x: 2500 + (Math.random()*400-200), y: 2500 + (Math.random()*400-200), icon: "📌", title: "Nova Fase", status: "todo", tasks: [] });
   render();
 }
 
-function renderTabsOnly() {
-  const tabs = document.getElementById('tabs');
-  tabs.innerHTML = '';
-  store.projects.forEach(p => {
-    const btn = document.createElement('div');
-    btn.className = `tab ${p.id === activeProjId ? 'active' : ''}`;
-    btn.innerText = p.name;
-    btn.onclick = () => { activeProjId = p.id; render(); resetView(); };
-    tabs.appendChild(btn);
-  });
-}
-
 function saveData() {
-  localStorage.setItem('ss_mindmap_v4', JSON.stringify(store));
+  localStorage.setItem('ss_mindmap_v8', JSON.stringify(store));
   const note = document.getElementById('save-note');
   note.classList.add('show');
   setTimeout(() => note.classList.remove('show'), 2000);
 }
 
 function resetData() {
-  if(confirm("Deseja resetar para o modelo original?")) {
-    store = defaultData;
-    localStorage.removeItem('ss_mindmap_v4');
+  if(confirm("Resetar para o modelo original?")) {
+    store = JSON.parse(JSON.stringify(originalDefaultData));
+    localStorage.removeItem('ss_mindmap_v8');
     render();
     resetView();
   }
 }
 
-window.onload = render;
+// SKILLS
+function toggleSkills() {
+  const dr = document.getElementById('skills-drawer');
+  dr.classList.toggle('open');
+  if (dr.classList.contains('open')) renderSkills();
+}
 
+function renderSkills(f = '') {
+  const cont = document.getElementById('skills-list');
+  cont.innerHTML = '';
+  skillsLibrary.forEach(cat => {
+    const fil = cat.skills.filter(s => s.name.toLowerCase().includes(f.toLowerCase()));
+    if (!fil.length) return;
+    const g = document.createElement('div');
+    g.className = 'skill-group';
+    g.innerHTML = `<div class="skill-group-title">${cat.cat}</div>`;
+    fil.forEach(s => {
+      const item = document.createElement('div');
+      item.className = 'skill-acc';
+      item.innerHTML = `<div class="skill-acc-header" onclick="this.parentElement.classList.toggle('active')"><span>${s.name}</span><span>+</span></div><div class="skill-acc-desc">${s.desc}</div>`;
+      g.appendChild(item);
+    });
+    cont.appendChild(g);
+  });
+}
+
+function filterSkills(v) { renderSkills(v); }
+
+window.onload = () => {
+    // Sincronizar com Arquitetura Real
+    if (!store.projects.find(p => p.id === 'arq')) {
+        store.projects.unshift(originalDefaultData.projects[0]);
+    }
+    render();
+    resetView();
+};
 </script>
 </body>
 </html>

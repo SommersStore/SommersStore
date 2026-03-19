@@ -45,6 +45,15 @@ persona:
     - Focus on conversion at every step
     - Customer-centric strategy
     - Scalability and automation
+    - [Expert Heuristics: Russell Brunson](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/brunson_heuristics.md)
+    - [Knowledge Map: Dotcom Secrets](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/books/dotcom_secrets_map.md)
+    - [Knowledge Map: Expert Secrets](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/books/expert_secrets_map.md)
+    - [Knowledge Map: Traffic Secrets](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/books/traffic_secrets_map.md)
+    - [AIOX Masters: Tiago Finch, Alan Nicolas, Pedro Valério](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/aiox_masters.md)
+    - [Global Experts: Gary Halbert, Peter Kell, Neil Patel](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/global_experts.md)
+    - [Brazil Experts: Érico Rocha, Paulo Maccedo](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/brazil_experts.md)
+    - [Persona Master: Elisa Claro](file:///c:/Users/ADMIN/SommersStore/knowledge/persona/elisa_claro.md)
+    - [Super Funnel Architecture](file:///c:/Users/ADMIN/SommersStore/knowledge/projects/super_ebook_funnel.md)
 
 commands:
   - name: funnel-design

@@ -44,24 +44,24 @@ export default function SalesPageUltimateLight() {
             {/* 1. HERO - ULTIMATE VISION */}
             <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <Image src="/sales/assets/v3-hero-light.png" alt="Ultimate Hero Light" fill className="object-cover opacity-30" priority />
+                    <Image src="/sales/assets/sais_banho_hero_premium_light_v3.png" alt="Ultimate Hero Light" fill className="object-cover opacity-20" priority />
                     <div className="absolute inset-0 bg-gradient-to-b from-[#fcf9f6]/20 via-[#fcf9f6]/90 to-[#fcf9f6]" />
                 </div>
                 <div className="relative z-10 container mx-auto px-6 text-center max-w-5xl">
                     <div className="inline-block px-8 py-3 rounded-full bg-white text-emerald-900 text-[11px] font-black mb-12 tracking-[0.5em] uppercase border border-emerald-100 shadow-xl">
-                        A Obra-Prima da Alquimia Brasileira
+                        Design da Nova Era: Alquimia Brasileira
                     </div>
                     <h1 className="text-5xl md:text-9xl font-serif font-black text-[#2d241e] mb-10 leading-[0.95] tracking-tighter drop-shadow-xl">
-                        A Alquimia dos <span className="text-emerald-800 italic underline decoration-emerald-100 pb-4">Sentidos</span>
+                        Rituais de <span className="text-emerald-800 italic underline decoration-emerald-100 pb-4">Luxo & Cura</span>
                     </h1>
                     <p className="text-xl md:text-3xl text-[#6b5847] mb-16 max-w-3xl mx-auto leading-relaxed font-serif italic">
-                        Onde a ciência encontra o sagrado para transformar seu banho em um portal de cura e prosperidade.
+                        Desperte sua essência através do poder mineral e botânico. Onde o autocuidado se torna sua maior fonte de prosperidade.
                     </p>
                     <div className="max-w-4xl mx-auto rounded-[5rem] overflow-hidden shadow-[0_80px_150px_rgba(16,185,129,0.2)] mb-16 border-[15px] border-white relative group">
-                        <Image src="/sales/assets/v3-product.png" alt="Ultimate Product Showcase" width={1000} height={600} className="object-cover group-hover:scale-105 transition-transform duration-2000" />
+                        <Image src="/sales/assets/sais_banho_hero_premium_light_v3.png" alt="Ultimate Product Showcase" width={1000} height={600} className="object-cover group-hover:scale-105 transition-transform duration-2000" />
                     </div>
                     <button onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })} className="px-16 py-8 rounded-[3rem] bg-[#2d241e] text-[#fcf9f6] font-black text-2xl hover:bg-emerald-800 hover:scale-[1.08] transition-all shadow-3xl shadow-emerald-900/30 uppercase tracking-[0.25em]">
-                        QUERO MINHA VAGA NA ULTIMATE EDITION
+                        QUERO MEU ACESSO EXCLUSIVO
                     </button>
                 </div>
             </section>

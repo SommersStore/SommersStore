@@ -44,28 +44,28 @@ export default function SalesPageUltimateDark() {
             {/* 1. HERO - ULTIMATE DARK VISION */}
             <section className="relative min-h-screen flex items-center justify-center overflow-hidden border-b border-white/5">
                 <div className="absolute top-[-20%] right-[-10%] w-[60%] h-[60%] bg-emerald-500/10 rounded-full blur-[150px] animate-pulse" />
-                <div className="absolute inset-0 z-0 opacity-40">
-                    <Image src="/sales/assets/v3-hero-dark.png" alt="Ultimate Hero Dark" fill className="object-cover" priority />
+                <div className="absolute inset-0 z-0 opacity-30">
+                    <Image src="/sales/assets/sais_banho_hero_premium_light_v3.png" alt="Ultimate Hero Dark" fill className="object-cover grayscale brightness-[0.4]" priority />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/40 to-transparent" />
                 </div>
                 <div className="relative z-10 container mx-auto px-6 text-center max-w-5xl">
                     <div className="inline-block px-6 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-[11px] font-black mb-12 tracking-[0.4em] uppercase">
-                        Mistério & Transformação • Alquimia de Elite
+                        Sombras de Luxo • Alquimia Brasileira
                     </div>
                     <h1 className="text-6xl md:text-9xl font-serif font-black text-white mb-10 leading-[0.9] tracking-tighter">
-                        O Ritual das <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-indigo-400 to-emerald-500">Sombras de Luxo</span>
+                        Rituais de <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-indigo-400 to-emerald-500">Luxo & Cura</span>
                     </h1>
                     <p className="text-xl md:text-2xl text-slate-400 mb-16 max-w-3xl mx-auto leading-relaxed italic">
-                        Desvende o poder dos rituais noturnos que renovam o espírito e constroem impérios artesanais.
+                        Desperte sua essência através do poder mineral e botânico. Onde o autocuidado se torna sua maior fonte de prosperidade.
                     </p>
                     <div className="relative max-w-4xl mx-auto mb-20 group">
                         <div className="absolute -inset-1 bg-gradient-to-r from-emerald-600 to-indigo-600 rounded-[4rem] blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
                         <div className="relative aspect-video rounded-[3.5rem] overflow-hidden border border-white/10">
-                            <Image src="/sales/assets/v3-product.png" alt="Ultimate Product Display" fill className="object-cover scale-105 group-hover:scale-100 transition-transform duration-1000" />
+                            <Image src="/sales/assets/sais_banho_hero_premium_light_v3.png" alt="Ultimate Product Display" fill className="object-cover scale-105 group-hover:scale-100 transition-transform duration-1000" />
                         </div>
                     </div>
                     <button onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })} className="px-14 py-8 rounded-2xl bg-white text-slate-950 font-black text-2xl hover:bg-emerald-500 hover:text-white hover:scale-110 transition-all shadow-[0_0_80px_rgba(255,255,255,0.1)] uppercase tracking-widest">
-                        REIVINDICAR MINHA VAGA ULTIMATE
+                        QUERO MEU ACESSO EXCLUSIVO
                     </button>
                 </div>
             </section>

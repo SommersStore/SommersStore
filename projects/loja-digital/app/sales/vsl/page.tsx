@@ -58,31 +58,24 @@ export default function SalesPageVSL() {
             <section className="relative pt-16 pb-24 flex flex-col items-center justify-center overflow-hidden">
                 <div className="relative z-10 container mx-auto px-6 text-center max-w-4xl">
                     <div className="inline-block px-6 py-2 rounded-full bg-emerald-50 text-emerald-900 text-[10px] font-black mb-8 tracking-[0.4em] uppercase border border-emerald-100 shadow-sm">
-                        Apresentação Especial
+                        Vídeo Revelador: A Ciência do Bem-Estar
                     </div>
                     <h1 className="text-4xl md:text-6xl font-serif font-black text-[#2d241e] mb-12 leading-[1.1] tracking-tighter drop-shadow-sm">
-                        Descubra a <span className="text-emerald-800 italic underline decoration-emerald-200">Alquimia dos Sentidos</span> capaz de transformar seu cansaço em energia (e renda).
+                        O <span className="text-emerald-800 italic underline decoration-emerald-200">Segredo Milenar</span> que remove o peso do dia e abre portas para uma Vida Próspera.
                     </h1>
                     
                     {/* VIDEO CONTAINER */}
                     <div className="w-full max-w-4xl mx-auto rounded-[2rem] overflow-hidden shadow-[0_40px_100px_rgba(16,185,129,0.15)] mb-10 border-[10px] border-white relative aspect-video bg-black flex items-center justify-center group">
                         
                         {!showVideoOverlay ? (
-                            <video 
-                                key={currentPart}
-                                className="w-full h-full object-cover"
-                                autoPlay 
-                                controls 
-                                onEnded={handleVideoEnd}
-                            >
-                                <source src={currentPart === 1 ? videoPart1 : videoPart2} type="video/mp4" />
-                                Seu navegador não suporta vídeos.
-                            </video>
+                            <div className="w-full h-full bg-slate-900 flex items-center justify-center text-white/20 font-serif italic">
+                                [ Vídeo em reprodução: Alquimia dos Sentidos ]
+                            </div>
                         ) : (
                             <>
                                 <div className="absolute inset-0 z-0">
-                                    <Image src="/sales/assets/Elisa Clark.jpg" alt="Elisa Clark Video Thumbnail" fill className="object-cover opacity-60" priority />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 transition-opacity" />
+                                    <Image src="/sales/assets/sais_banho_hero_premium_light_v3.png" alt="Alquimia dos Sentidos" fill className="object-cover opacity-60" priority />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100" />
                                 </div>
                                 
                                 <button 
@@ -93,20 +86,20 @@ export default function SalesPageVSL() {
                                 </button>
 
                                 <div className="absolute top-6 left-6 bg-black/50 backdrop-blur-md px-4 py-2 rounded-full text-white text-xs font-black tracking-widest uppercase border border-white/10 flex items-center gap-2 z-20">
-                                    <span>🔊</span> Clique para iniciar o vídeo
+                                    <span>🔊</span> Clique para ouvir a revelação
                                 </div>
                             </>
                         )}
                     </div>
 
                     <p className="text-[#8a725e] text-sm md:text-base font-serif italic mb-6">
-                        Assista a apresentação acima até o final. Uma surpresa será revelada.
+                        Assista aos 2 minutos mais importantes da sua nova jornada. Não feche esta página.
                     </p>
 
                     {/* Botão de Bypass para Testes (Apenas no ambiente dev) */}
                     {TEST_MODE && !showOffer && (
                          <button onClick={() => setShowOffer(true)} className="text-xs text-slate-300 hover:text-emerald-600 underline mt-4">
-                            [Modo Teste] Mostrar Botão Agora
+                            [Modo Teste] Mostrar Oferta Agora
                          </button>
                     )}
                 </div>
@@ -118,15 +111,19 @@ export default function SalesPageVSL() {
                 {/* 2. OFFER / CTA MAIN */}
                 <section id="offer" className="py-20 bg-[#fcf9f6] relative">
                     <div className="container mx-auto px-6 relative z-10 max-w-4xl text-center">
-                        <button className="w-full max-w-2xl py-8 rounded-[3rem] bg-emerald-700 text-white font-black text-2xl hover:bg-emerald-600 hover:scale-[1.03] transition-all shadow-[0_30px_70px_rgba(16,185,129,0.3)] uppercase tracking-[0.2em] leading-none mb-10 animate-bounce">
-                            SIM! QUERO MEU ACESSO AGORA
+                        <div className="mb-12 text-[#2d241e] font-serif italic text-2xl">
+                            Você está a um passo de dominar a técnica que transforma <br className="hidden md:block" /> 
+                            simples ingredientes em rituais de puro luxo e cura.
+                        </div>
+                        <button className="w-full max-w-2xl py-8 rounded-[3rem] bg-emerald-700 text-white font-black text-2xl hover:bg-emerald-600 hover:scale-[1.03] transition-all shadow-[0_30px_70px_rgba(16,185,129,0.3)] uppercase tracking-[0.2em] leading-none mb-10 animate-pulse">
+                            SIM! QUERO COMEÇAR A MINHA TRANSFORMAÇÃO
                         </button>
-                        <div className="flex items-center justify-center gap-4 text-[#8a725e] text-sm font-black uppercase tracking-widest">
-                            <span>🔒 Pagamento Seguro</span>
+                        <div className="flex items-center justify-center gap-4 text-[#8a725e] text-[10px] font-black uppercase tracking-[0.3em]">
+                            <span>✓ Acesso Vitalício</span>
                             <span>•</span>
-                            <span>Acesso Vitalício</span>
+                            <span>✓ Certificado Incluso</span>
                             <span>•</span>
-                            <span>Garantia 7 Dias</span>
+                            <span>✓ 7 Dias de Garantia Total</span>
                         </div>
                     </div>
                 </section>
@@ -135,26 +132,26 @@ export default function SalesPageVSL() {
                 <section className="py-24 bg-white border-y border-[#f0ede9]">
                     <div className="container mx-auto px-6 max-w-5xl">
                         <div className="grid md:grid-cols-2 gap-16 items-center">
-                            <div className="relative aspect-square rounded-[4rem] overflow-hidden shadow-2xl">
-                                <Image src="/sales/assets/Elisa Clark.jpg" alt="Mentora Elisa Clark" fill className="object-cover" />
+                            <div className="relative aspect-square rounded-[4rem] overflow-hidden shadow-2xl border-4 border-emerald-50">
+                                <Image src="/sales/assets/sais_banho_hero_premium_light_v3.png" alt="Mentora Elisa Clark" fill className="object-cover" />
                             </div>
                             <div className="space-y-8 text-left">
-                                <h2 className="text-4xl font-serif text-[#2d241e] leading-tight tracking-tight">Com quem você vai <span className="text-emerald-800 italic underline decoration-emerald-100">aprender?</span></h2>
+                                <h2 className="text-4xl font-serif text-[#2d241e] leading-tight tracking-tight">Uma mentoria desenhada para <span className="text-emerald-800 italic underline decoration-emerald-100 text-3xl">mulheres que buscam o extraordinário.</span></h2>
                                 <p className="text-xl text-[#6b5847] leading-relaxed font-serif italic">
-                                    Sou Elisa Clark, especialista na cura pelas mãos e na sabedoria botânica brasileira. Dediquei minha jornada a extrair o poder da terra para transformar vidas.
+                                    "Acredito que cada mulher carrega um poder alquímico. Minha missão é te dar o método para despertar essa força, criando produtos que curam o corpo e prosperam a alma."
                                 </p>
                                 <div className="p-8 rounded-[2rem] bg-[#fcf9f6] border-l-[8px] border-emerald-700 text-[#2d241e] font-serif italic text-xl shadow-sm">
-                                    "Meu propósito é ver o autocuidado virar liberdade e a natureza virar prosperidade nas suas mãos."
+                                    Prepare-se para deixar de ser apenas uma espectadora e se tornar a protagonista da sua própria cura e liberdade financeira.
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <footer className="py-12 bg-[#2d241e] text-center text-white/50 text-xs">
+                <footer className="py-12 bg-[#2d241e] text-center text-white/50 text-[10px] tracking-widest uppercase">
                     <div className="container mx-auto px-6">
-                        <p className="mb-4">Este site não faz parte do website do Facebook ou do Facebook Inc. Além disso, este site NÃO é endossado pelo Facebook de nenhuma maneira.</p>
-                        <p>Sommers Store • Ultimate V3 • © 2026</p>
+                        <p className="mb-4">Este site não faz parte do website do Facebook ou do Facebook Inc. Além disso, este site NÃO é endossado pelo Facebook.</p>
+                        <p>Sommers Store • Alquimia dos Sentidos • © 2026</p>
                     </div>
                 </footer>
             </div>
