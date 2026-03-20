@@ -555,7 +555,21 @@ const skillsLibrary = [
 
 // STATE
 let store = JSON.parse(localStorage.getItem('ss_mindmap_v8')) || JSON.parse(JSON.stringify(originalDefaultData));
-let activeProjId = store.projects[0].id;
+let activeProjId = store.projects && store.projects.length > 0 ? store.projects[0].id : "arq";
+
+// AIOX Dynamic Orchestration Engine (n8n Style)
+fetch('pipeline_state.json?t=' + new Date().getTime())
+  .then(res => res.ok ? res.json() : Promise.reject('No Server JSON'))
+  .then(data => {
+    store = data;
+    if (store.projects && store.projects.length > 0) {
+        // Se quisermos manter o tab atual, não sobrescrevemos: mas ao carregar a primeira vez, garante o id.
+        let projExists = store.projects.find(p => p.id === activeProjId);
+        if(!projExists) activeProjId = store.projects[0].id;
+    }
+    render();
+  })
+  .catch(err => console.log('AIOX Engine: Using local state (No Server JSON linked)'));
 let zoom = 0.8;
 let panX = -2500 * zoom + window.innerWidth/2;
 let panY = -2500 * zoom + window.innerHeight/2;

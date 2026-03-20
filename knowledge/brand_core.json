@@ -1,0 +1,58 @@
+{
+  "last_updated": "2026-03-19T22:00:00Z",
+  "version": "1.0",
+  "projects": {
+    "sommers_store": {
+      "identity": {
+        "brand_name": "SommersStore",
+        "primary_color": "#6366f1",
+        "secondary_color": "#1e1e26",
+        "theme": "Nightshade",
+        "tone_of_voice": "Especialista, Autoridade Terapêutica, Premium, Minimalista",
+        "persona_lead": "Elisa Claro (Foco em infoprodutos, cursos e vídeos persuasivos)"
+      },
+      "memory_vault": {
+        "lessons_learned": [
+          "O público responde bem a provas sociais reais integradas na Hero Section.",
+          "Cores escuras ('Dark Glass') aumentam a percepção de alto valor (Premium)."
+        ],
+        "active_products": [
+          {
+            "id": "sais_banho",
+            "name": "Sais de Banho Terapêuticos",
+            "type": "Ebook / Funil de Vendas V3"
+          }
+        ]
+      }
+    },
+    "elektro": {
+      "identity": {
+        "brand_name": "Elektro",
+        "primary_color": "#00d2ff",
+        "secondary_color": "#000000",
+        "theme": "High-Tech, Dynamic",
+        "tone_of_voice": "Tecnológico, Direto, Oferta Agressiva",
+        "persona_lead": "Narrador VSL Performance (Autoridade Masculina/Tecnológica)"
+      },
+      "memory_vault": {
+        "lessons_learned": [
+          "Imagens do produto precisam de fundo transparente e alto contraste."
+        ],
+        "active_products": [
+          {
+            "id": "eletronicos_geral",
+            "name": "Catálogo de Eletrônicos",
+            "type": "E-commerce Físico"
+          }
+        ]
+      }
+    }
+  },
+  "global_components": {
+    "modules": [
+      "HeroSection_V3_Dark",
+      "SocialProof_Slider",
+      "Checkout_AIOX_Standard"
+    ]
+  }
+}
