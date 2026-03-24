@@ -1,29 +1,56 @@
+# =============================================
+# SommersStore — .gitignore raiz
+# =============================================
 
-
-# Environment & Secrets (AIOX)
-.env
-.env.local
-.env.*.local
-*.key
-*.pem
-
-# Dependencies (AIOX)
+# Dependências
 node_modules/
-node_modules
+.pnp
+.pnp.js
 
-# Build & Logs (AIOX)
+# Build outputs
+.next/
+out/
 dist/
 build/
+
+# Variáveis de ambiente (NUNCA commitar)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# Arquivos de teste temporários na raiz
+/test-*.js
+/test-*.ts
+/test-*.py
+/vt.js
+/tmp/
+
+# Logs
 *.log
-logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# IDE & OS (AIOX)
+# Cache e runtime AIOX
+.aiox/
+.cache/
+*.cache
+
+# Sistemas operacionais
 .DS_Store
+._*
 Thumbs.db
-.idea/
-*.swp
+desktop.ini
 
-# AIOX Local (AIOX)
-.aiox-core/local/
-.claude/settings.local.json
-.aiox/install-log.txt
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+
+# Certificados e chaves
+*.pem
+*.key
+*.cert

@@ -7,12 +7,10 @@ export default function SalesPageUltimateLight() {
     const [openFaq, setOpenFaq] = useState<number | null>(null);
 
     const pains = [
-        "Mente sobrecarregada que não desliga nem ao deitar.",
-        "Tensão física que rouba sua energia e disposição.",
-        "A sensação de que você cuida de todos, menos de si mesma.",
-        "Produtos químicos das prateleiras que agridem sua saúde.",
-        "O desejo de ter algo seu, mas sem saber por onde começar.",
-        "O tempo voa e você sente que não viveu um momento de paz real."
+        "Noites em claro tentando silenciar a mente acelerada.",
+        "A sensação de que o cansaço já faz parte de quem você é.",
+        "Falta de tempo para rituais que realmente restauram sua alma.",
+        "Produtos químicos industriais que prometem alívio, mas causam toxidade."
     ];
 
     const lessons = [
@@ -24,11 +22,33 @@ export default function SalesPageUltimateLight() {
     ];
 
     const benefits = [
-        "Paz interior profunda e redução imediata da ansiedade.",
-        "Sua própria linha de produtos 100% puros e magnéticos.",
-        "Uma nova fonte de lucro produzindo rituais de alto valor.",
-        "Domínio total da saboaria e perfumaria terapêutica nacional.",
-        "Acesso à nossa comunidade exclusiva de Alquimistas de Elite."
+        "Domínio absoluto sobre a criação de 30 blends de elite.",
+        "Transformação de banhos comuns em rituais de cura profunda.",
+        "Capacidade de gerar uma nova fonte de renda em apenas 48h.",
+        "Acesso à sabedoria ancestral da Alquimia Brasileira."
+    ];
+    
+    const testimonials = [
+        {
+            name: "Juliana", age: 31, city: "São Paulo/SP",
+            text: "Comecei com R$ 150 investidos e muita insegurança. Três meses depois, já tinha vendido mais de 200 unidades e conseguido minha primeira renda de R$ 2.800 em um mês. Minha cliente Maria voltou a dormir bem depois de anos de insônia. Isso não tem preço!",
+            img: "/sales/assets/image_151_698_R103.jpg"
+        },
+        {
+            name: "Patrícia", age: 26, city: "Belo Horizonte/MG",
+            text: "Era professora estressada sem tempo. Comecei fazendo para uso próprio. Quando amigas experimentaram e pediram para comprar, percebi que tinha algo nas mãos. Hoje minha renda extra com os sais paga as contas da casa.",
+            img: "/sales/assets/image_151_697_R115.jpg"
+        },
+        {
+            name: "Amanda", age: 43, city: "Curitiba/PR",
+            text: "Nunca tinha vendido nada e nem tinha Instagram. Segui o método e comecei vendendo para vizinhas. Hoje atendo pela internet e já fiz mais de 500 vendas. O método mudou minha vida e minha relação com o trabalho.",
+            img: "/sales/assets/image_152_703_R131.jpg"
+        },
+        {
+            name: "Carolina", age: 39, city: "Rio de Janeiro/RJ",
+            text: "Estava desempregada e desesperada. Comecei com R$ 100 emprestados. Dois meses depois, já tinha faturado R$ 1.500. Hoje meus sais são minha principal fonte de renda. Recuperei minha autoestima.",
+            img: "/sales/assets/image_152_702_R143.jpg"
+        }
     ];
 
     const faqData = [
@@ -44,21 +64,21 @@ export default function SalesPageUltimateLight() {
             {/* 1. HERO - ULTIMATE VISION */}
             <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <Image src="/sales/assets/sais_banho_hero_premium_light_v3.png" alt="Ultimate Hero Light" fill className="object-cover opacity-20" priority />
+                    <Image src="/sales/assets/v3-hero-light.png" alt="Ultimate Hero Light" fill className="object-cover opacity-20" priority />
                     <div className="absolute inset-0 bg-gradient-to-b from-[#fcf9f6]/20 via-[#fcf9f6]/90 to-[#fcf9f6]" />
                 </div>
                 <div className="relative z-10 container mx-auto px-6 text-center max-w-5xl">
                     <div className="inline-block px-8 py-3 rounded-full bg-white text-emerald-900 text-[11px] font-black mb-12 tracking-[0.5em] uppercase border border-emerald-100 shadow-xl">
-                        Design da Nova Era: Alquimia Brasileira
+                        O SEGREDO DOS SPAS DE ALTA CLASSE
                     </div>
-                    <h1 className="text-5xl md:text-9xl font-serif font-black text-[#2d241e] mb-10 leading-[0.95] tracking-tighter drop-shadow-xl">
-                        Rituais de <span className="text-emerald-800 italic underline decoration-emerald-100 pb-4">Luxo & Cura</span>
+                    <h1 className="text-5xl md:text-8xl font-serif font-black text-[#2d241e] mb-10 leading-[1.0] tracking-tighter drop-shadow-xl">
+                        O Código Secreto da <span className="text-emerald-800 italic underline decoration-emerald-100 pb-4">Alquimia Terapêutica</span> em Suas Mãos
                     </h1>
                     <p className="text-xl md:text-3xl text-[#6b5847] mb-16 max-w-3xl mx-auto leading-relaxed font-serif italic">
-                        Desperte sua essência através do poder mineral e botânico. Onde o autocuidado se torna sua maior fonte de prosperidade.
+                        Descubra como criar rituais de bem-estar com alto valor percebido e transformar o artesanal em um império de vendas premium.
                     </p>
                     <div className="max-w-4xl mx-auto rounded-[5rem] overflow-hidden shadow-[0_80px_150px_rgba(16,185,129,0.2)] mb-16 border-[15px] border-white relative group">
-                        <Image src="/sales/assets/sais_banho_hero_premium_light_v3.png" alt="Ultimate Product Showcase" width={1000} height={600} className="object-cover group-hover:scale-105 transition-transform duration-2000" />
+                        <Image src="/sales/assets/v3-hero-light.png" alt="Ultimate Product Showcase" width={1000} height={600} className="object-cover group-hover:scale-105 transition-transform duration-2000" />
                     </div>
                     <button onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })} className="px-16 py-8 rounded-[3rem] bg-[#2d241e] text-[#fcf9f6] font-black text-2xl hover:bg-emerald-800 hover:scale-[1.08] transition-all shadow-3xl shadow-emerald-900/30 uppercase tracking-[0.25em]">
                         QUERO MEU ACESSO EXCLUSIVO
@@ -70,7 +90,7 @@ export default function SalesPageUltimateLight() {
             <section className="py-32 bg-white border-y border-[#f0ede9]">
                 <div className="container mx-auto px-6 max-w-6xl">
                     <h2 className="text-4xl md:text-6xl font-serif text-[#2d241e] text-center mb-24 italic leading-tight">
-                        Você sente que o seu brilho está se <br /><span className="text-emerald-800 underline decoration-emerald-100 underline-offset-8">apagando no cansaço do dia?</span>
+                        Você sente sua energia sendo <br /><span className="text-emerald-800 underline decoration-emerald-100 underline-offset-8">drenada pelo caos diário?</span>
                     </h2>
                     <div className="grid md:grid-cols-2 gap-20 items-center">
                         <div className="relative aspect-[4/5] rounded-[4rem] overflow-hidden group shadow-2xl border-2 border-[#f0ede9]">
@@ -91,9 +111,9 @@ export default function SalesPageUltimateLight() {
             {/* 3 & 4. SOLUTION - Conteúdo Restaurado V2 */}
             <section className="py-32 bg-[#fcf9f6]">
                 <div className="container mx-auto px-6 text-center max-w-5xl">
-                    <h3 className="text-4xl md:text-7xl font-serif text-[#2d241e] mb-12 leading-tight tracking-tight">O Resgate que une Ciência <br /><span className="text-emerald-700 italic">e Sabedoria Botânica.</span></h3>
-                    <p className="text-xl md:text-2xl text-[#3e342b] leading-[1.8] mb-20 font-serif">
-                        Nossa metodologia exclusiva não ensina apenas a misturar ingredientes. Nós ensinamos a orquestrar a <strong>Alquimia Brasileira</strong>: como os sais agem no sistema linfático e os aromas reprogramam o seu estado de espírito em minutos.
+                    <h3 className="text-4xl md:text-7xl font-serif text-[#2d241e] mb-12 leading-tight tracking-tight italic">O Segredo da <br /><span className="text-emerald-700 italic">Alquimia Mineral.</span></h3>
+                    <p className="text-xl md:text-2xl text-[#3e342b] leading-[1.8] mb-20 font-serif italic">
+                        O Método Essência Ativa BR não ensina "receitas". Ele revela o código da transmutação: como unir sais, ervas e intenção para criar produtos com alma e alto valor percebido.
                     </p>
                     <div className="grid lg:grid-cols-2 gap-12 items-stretch text-left">
                         <div className="p-16 rounded-[4rem] bg-white shadow-2xl shadow-emerald-900/5 flex flex-col justify-center border border-[#f0ede9]">
@@ -103,7 +123,7 @@ export default function SalesPageUltimateLight() {
                             </p>
                         </div>
                         <div className="relative aspect-video rounded-[4rem] overflow-hidden shadow-2xl border-[10px] border-white">
-                            <Image src="/sales/assets/vidtsAlwZwTMAwM2Goi8L.png" alt="Técnicas de Alquimia" fill className="object-cover" />
+                            <Image src="/sales/assets/ebook_hero_1.jpg" alt="Técnicas de Alquimia - Ebook" fill className="object-cover" />
                         </div>
                     </div>
                 </div>
@@ -129,9 +149,47 @@ export default function SalesPageUltimateLight() {
                         <div className="order-1 md:order-2">
                             <div className="relative group text-center">
                                 <div className="absolute inset-0 bg-emerald-200 blur-[60px] rounded-full opacity-20 group-hover:opacity-40 transition-opacity" />
-                                <Image src="/sales/assets/ChatGPT Image 5 de fev. de 2026, 21_08_44.png" alt="Transformação Alquimista" width={800} height={600} className="rounded-[5rem] shadow-[0_50px_100px_rgba(0,0,0,0.1)] relative z-10" />
+                                <Image src="/sales/assets/ebook_product_1.jpg" alt="Transformação Alquimista Ebook" width={800} height={600} className="rounded-[5rem] shadow-[0_50px_100px_rgba(0,0,0,0.1)] relative z-10" />
                             </div>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 7. SOCIAL PROOF - VOZES DA TRANSFORMAÇÃO */}
+            <section className="py-32 bg-white">
+                <div className="container mx-auto px-6 max-w-7xl">
+                    <div className="text-center mb-24">
+                        <span className="text-emerald-700 font-black tracking-[0.4em] text-xs uppercase mb-4 block">Vozes da Transformação</span>
+                        <h2 className="text-4xl md:text-6xl font-serif text-[#2d241e] italic leading-tight">Histórias de quem escolheu <br/><span className="text-emerald-800 underline decoration-emerald-100 underline-offset-8">viver a Alquimia.</span></h2>
+                    </div>
+                    
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {testimonials.map((t, i) => (
+                            <div key={i} className="p-10 rounded-[3rem] bg-[#fcf9f6] border border-[#f0ede9] hover:bg-white hover:shadow-2xl transition-all duration-700 group flex flex-col justify-between">
+                                <div>
+                                    <div className="text-emerald-200 text-6xl font-serif mb-6 opacity-40 group-hover:opacity-100 transition-opacity">“</div>
+                                    <p className="text-[#6b5847] leading-relaxed font-serif italic mb-8 text-lg">
+                                        {t.text}
+                                    </p>
+                                </div>
+                                <div className="flex items-center gap-4 mt-auto pt-8 border-t border-[#f0ede9]">
+                                    {t.img ? (
+                                        <div className="relative w-12 h-12 rounded-full overflow-hidden shadow-md border-2 border-white">
+                                            <Image src={t.img} alt={t.name} fill className="object-cover" />
+                                        </div>
+                                    ) : (
+                                        <div className="w-12 h-12 rounded-full bg-emerald-700 flex items-center justify-center text-white font-black shadow-md">
+                                            {t.name.charAt(0)}
+                                        </div>
+                                    )}
+                                    <div>
+                                        <div className="font-serif font-black text-[#2d241e]">{t.name}, {t.age}a</div>
+                                        <div className="text-xs text-emerald-700/60 uppercase tracking-widest">{t.city}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
@@ -157,16 +215,18 @@ export default function SalesPageUltimateLight() {
                     <h2 className="text-4xl md:text-7xl font-serif font-black text-[#2d241e] mb-24 tracking-tighter uppercase opacity-10">PRESENTES DE ELITE</h2>
                     <div className="grid md:grid-cols-3 gap-12 mt-[-120px] max-w-7xl mx-auto">
                         {[
-                            { title: "Presente 1", name: "30 Sinergias de Sucesso (Receitas Prontas)", icon: "💎", color: "bg-emerald-50" },
-                            { title: "Presente 2", name: "Guia Oficial de Fornecedores de Insumos", icon: "🏷️", color: "bg-[#fcf9f6]" },
-                            { title: "Presente 3", name: "Masterclass: O Design do Desejo para Artesãs", icon: "🕯️", color: "bg-stone-50" }
+                            { title: "Presente 1", name: "Lindos Templates de Rótulos Premium (Editáveis)", icon: "💎", color: "bg-emerald-50", img: "/sales/assets/1.png" },
+                            { title: "Presente 2", name: "Guia Secreto de Fornecedores de Insumos", icon: "🏷️", color: "bg-[#fcf9f6]", img: "/sales/assets/2.png" },
+                            { title: "Presente 3", name: <>Script de Vendas:<br/>Venda o Seu 1º Lote<br/>em Apenas 48 Horas</>, icon: "💬", color: "bg-stone-50", img: "/sales/assets/3.png" }
                         ].map((b, i) => (
-                            <div key={i} className={`p-12 rounded-[4rem] ${b.color} border border-black/5 shadow-[0_30px_70px_rgba(0,0,0,0.05)] flex flex-col items-center hover:-translate-y-6 transition-transform duration-700`}>
-                                <div className="text-6xl mb-8 drop-shadow-lg">{b.icon}</div>
-                                <div className="text-[10px] font-black tracking-[0.6em] text-slate-400 mb-4 uppercase">{b.title}</div>
-                                <div className="text-2xl font-serif font-black text-[#2d241e] mb-12 leading-tight min-h-[4rem] flex items-center justify-center px-4">{b.name}</div>
-                                <div className="w-full h-px bg-black/5 mb-10" />
-                                <div className="text-emerald-700 font-black tracking-widest text-xs py-3 px-6 rounded-full bg-emerald-100 shadow-inner">EXCLUSIVO & GRATUITO</div>
+                            <div key={i} className={`p-10 rounded-[3.5rem] ${b.color} border border-black/5 shadow-[0_30px_70px_rgba(0,0,0,0.05)] flex flex-col items-center hover:-translate-y-6 transition-transform duration-700`}>
+                                <div className="relative aspect-square w-full rounded-3xl overflow-hidden mb-8 shadow-inner border border-black/5 bg-white">
+                                    <Image src={b.img} alt={typeof b.name === 'string' ? b.name : b.title} fill className="object-cover" />
+                                </div>
+                                <div className="inline-block px-4 py-1.5 rounded-full bg-emerald-700 text-white text-xs font-black tracking-[0.3em] mb-6 uppercase shadow-md">{b.title}</div>
+                                <div className="text-2xl font-serif font-black text-[#2d241e] mb-10 leading-tight min-h-[4rem] flex items-center justify-center px-4">{b.name}</div>
+                                <div className="w-full h-px bg-black/5 mb-8" />
+                                <div className="w-full py-4 rounded-xl bg-emerald-600 text-white font-black tracking-widest text-sm shadow-[0_10px_30px_rgba(5,150,105,0.3)] animate-pulse uppercase">EXCLUSIVO & GRATUITO</div>
                             </div>
                         ))}
                     </div>
@@ -180,7 +240,7 @@ export default function SalesPageUltimateLight() {
                         <div className="absolute top-[-25px] left-1/2 -translate-x-1/2 bg-[#2d241e] text-white px-10 py-4 rounded-full font-black text-[10px] tracking-[0.5em] uppercase shadow-2xl">
                             Acesso Vitalício Liberado
                         </div>
-                        <h3 className="text-5xl md:text-8xl font-serif font-black mb-12 tracking-tighter leading-none">SUA TRANSFORMAÇÃO COMEÇA AGORA</h3>
+                        <h3 className="text-5xl md:text-7xl lg:text-8xl font-serif font-black mb-12 tracking-tighter leading-none text-center w-full">O SEU RITUAL COMEÇA AGORA</h3>
                         
                         <div className="flex flex-col items-center gap-4 mb-20 bg-emerald-50/30 py-16 rounded-[4rem] border border-emerald-100/50 text-center">
                             <span className="text-[#a89686] line-through text-3xl italic font-serif opacity-50">De R$ 197,00 por apenas</span>
@@ -191,14 +251,14 @@ export default function SalesPageUltimateLight() {
                                     <div className="text-6xl text-emerald-700">,90</div>
                                 </div>
                             </div>
-                            <p className="text-emerald-900 font-black tracking-[0.3em] text-[12px] uppercase mt-10 border-t border-emerald-200 pt-6">Pagamento Único • Sem Mensalidades • 100% Digital</p>
+                            <p className="w-full text-emerald-900 font-black tracking-[0.2em] text-sm md:text-lg uppercase mt-10 bg-emerald-100/50 border-2 border-emerald-200 py-6 px-4 rounded-3xl shadow-lg">Pagamento Único • Sem Mensalidades • 100% Digital</p>
                         </div>
 
                         <div className="grid sm:grid-cols-2 gap-10 text-left max-w-2xl mx-auto mb-20 border-y border-[#f0ede9] py-16">
                             <div className="flex gap-5 text-lg font-black text-[#2d241e] font-serif italic">✨ Manual de Alquimia (144p)</div>
-                            <div className="flex gap-5 text-lg font-black text-[#2d241e] font-serif italic">🌿 Catálogo de 30 Sinergias</div>
-                            <div className="flex gap-5 text-lg font-black text-[#2d241e] font-serif italic">📈 Mapa de Lucro Artesanal</div>
-                            <div className="flex gap-5 text-lg font-black text-emerald-800 italic underline decoration-emerald-200 font-serif">🎁 Bônus Exclusivos Vitalícios</div>
+                            <div className="flex gap-5 text-lg font-black text-[#2d241e] font-serif italic">🎁 3 Presentes Grátis de Elite Inclusos</div>
+                            <div className="flex gap-5 text-lg font-black text-[#2d241e] font-serif italic">🛡️ Garantia Blindada de 7 Dias</div>
+                            <div className="flex gap-5 text-lg font-black text-emerald-800 italic underline decoration-emerald-200 font-serif">🛒 Opcional: Adicione os 2 Order Bumps no Checkout</div>
                         </div>
 
                         <button className="w-full max-w-2xl py-10 rounded-[3rem] bg-[#2d241e] text-[#fcf9f6] font-black text-3xl hover:bg-emerald-800 hover:scale-[1.03] transition-all shadow-[0_30px_70px_rgba(0,0,0,0.2)] uppercase tracking-[0.2em] leading-none">
@@ -217,7 +277,7 @@ export default function SalesPageUltimateLight() {
                             <p>Especialista na cura pelas mãos e na sabedoria botânica brasileira. Dediquei minha jornada a extrair o poder da terra para transformar vidas.</p>
                             <p>Eu não apenas ensino a fazer sais de banho; eu te dou as ferramentas para você ser dona do seu tempo e arquiteta da sua própria felicidade.</p>
                             <div className="p-12 rounded-[3.5rem] bg-[#fcf9f6] border-l-[12px] border-emerald-700 text-[#2d241e] font-serif italic text-3xl leading-tight shadow-xl">
-                                "Meu propósito é ver o autocuidado virar liberdade e a natureza virar prosperidade nas suas mãos."
+                                &quot;Meu propósito é ver o autocuidado virar liberdade e a natureza virar prosperidade nas suas mãos.&quot;
                                 <span className="block mt-6 text-xl font-black uppercase tracking-widest text-emerald-800">— ELISA CLARK BRASIL</span>
                             </div>
                         </div>

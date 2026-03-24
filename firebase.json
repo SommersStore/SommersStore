@@ -27,6 +27,30 @@
       {
         "source": "/vsl",
         "destination": "/sales/vsl.html"
+      },
+      {
+        "source": "/master",
+        "destination": "/sales/master.html"
+      },
+      {
+        "source": "/v3/zen",
+        "destination": "/sales/v3/zen-light.html"
+      },
+      {
+        "source": "/v3/zen-v2",
+        "destination": "/sales/v3/zen-light-v2.html"
+      },
+      {
+        "source": "/v3/zen-dark",
+        "destination": "/sales/v3/zen-dark.html"
+      },
+      {
+        "source": "/v3/zen-dark-v2",
+        "destination": "/sales/v3/zen-dark-v2.html"
+      },
+      {
+        "source": "/v3/premium-black",
+        "destination": "/sales/v3/premium-black.html"
       }
     ]
   }

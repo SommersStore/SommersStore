@@ -1,0 +1,95 @@
+# =============================================================================
+# AIOX Core Configuration — SommersStore
+# Synkra AIOX v2.0 | Atualizado: 2026-03-23
+# =============================================================================
+
+project:
+  name: "SommersStore"
+  version: "2.0.0"
+  description: "Plataforma de vendas de infoprodutos — Alquimia Artesanal de Elite"
+  language: "pt-BR"
+  timezone: "America/Sao_Paulo"
+
+# Proteção de camadas do framework
+boundary:
+  frameworkProtection: true   # true = deny rules ativas (modo projeto)
+  # Mude para false apenas se for contribuir com o framework AIOX
+
+# Configuração de agentes
+agents:
+  defaultLanguage: "pt-BR"
+  primary:
+    - aiox-master     # Orion — Orquestrador mestre
+    - dev             # Dex — Implementação
+    - qa              # Quinn — Qualidade
+    - architect       # Aria — Arquitetura
+    - pm              # Morgan — Product Management
+    - po              # Pax — Product Owner
+    - sm              # River — Scrum Master
+    - devops          # Gage — CI/CD (EXCLUSIVO git push)
+    - copywriter      # Sage — Copywriting persuasivo
+    - ux-design-expert # Uma — UI/UX Design
+    - analyst         # Alex — Pesquisa e análise
+    - data-engineer   # Dara — Banco de dados
+
+# Provedores de IA
+ai:
+  primary: "claude"
+  fallback: "gemini"
+  routing:
+    simple_tasks: "gemini"
+    complex_tasks: "claude"
+    copy_generation: "claude"
+    code_generation: "claude"
+  claude:
+    model: "claude-sonnet-4-6"
+    timeout: 300000
+  gemini:
+    model: "gemini-2.5-flash"
+    timeout: 300000
+
+# Infraestrutura do projeto
+infrastructure:
+  hosting: "firebase"
+  project_id: "sommersstore-c6c23"
+  region: "us-central1"
+  repository: "SommersStore/SommersStore"
+  checkout: "kiwify"
+
+# Caminhos principais
+paths:
+  app: "projects/loja-digital"
+  knowledge: "knowledge"
+  funnels: "funnels"
+  docs: "docs"
+  stories: "docs/stories"
+  platform: "platform"
+
+# Produtos ativos
+products:
+  - id: "essencia-ativa-br"
+    name: "Essência Ativa BR"
+    niche: "Alquimia Artesanal de Elite"
+    price: 47.90
+    currency: "BRL"
+    status: "active"
+    pages:
+      vsl: "/vsl"
+      landing_light: "/v3/sais"
+      landing_dark: "/v3/negocio"
+      fanpage: "/fanpage"
+      master: "/master"
+
+# Qualidade
+quality:
+  lintBeforeCommit: true
+  typecheckBeforeCommit: true
+  qaGateRequired: true
+  qaLoop:
+    maxIterations: 5
+
+# Workflows ativos
+workflows:
+  - story-development-cycle   # Fluxo principal de desenvolvimento
+  - qa-loop                   # Revisão iterativa
+  - spec-pipeline             # Especificação de features complexas

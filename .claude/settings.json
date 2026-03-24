@@ -1,3 +1,40 @@
 {
-  "language": "portuguese"
+  "language": "portuguese",
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git branch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git stash:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm run typecheck:*)",
+      "Bash(npm install:*)"
+    ],
+    "deny": [
+      "Bash(git push:*)",
+      "Bash(git push --force:*)",
+      "Bash(gh pr create:*)",
+      "Bash(gh pr merge:*)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /c/Users/ADMIN/SommersStore && git add -A 2>/dev/null; git diff --cached --quiet 2>/dev/null && echo '{\"systemMessage\": \"📋 Nenhuma mudança para salvar.\"}' || (git commit -m \"chore: auto-save $(date '+%Y-%m-%d %H:%M')\" 2>/dev/null && echo '{\"systemMessage\": \"✅ Mudanças salvas no Git!\\n\\n👉 Lembre-se de executar:\\n  1. git push  →  atualiza o GitHub\\n  2. firebase deploy  →  atualiza o Firebase\"}' )",
+            "timeout": 30,
+            "statusMessage": "Salvando mudanças no Git..."
+          }
+        ]
+      }
+    ]
+  }
 }

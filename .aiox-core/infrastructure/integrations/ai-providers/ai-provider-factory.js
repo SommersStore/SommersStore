@@ -14,6 +14,7 @@ const yaml = require('js-yaml');
 
 const { ClaudeProvider } = require('./claude-provider');
 const { GeminiProvider } = require('./gemini-provider');
+const { VertexAIProvider } = require('./vertex-ai-provider');
 
 /**
  * Cached provider instances (singleton pattern)
@@ -50,6 +51,11 @@ const DEFAULT_CONFIG = {
     previewFeatures: true,
     jsonOutput: false,
   },
+  vertex: {
+    model: 'gemini-1.5-flash',
+    location: 'us-central1',
+    timeout: 300000,
+  },
 };
 
 /**
@@ -79,6 +85,7 @@ function loadConfig(projectRoot = process.cwd()) {
       ai_providers: { ...DEFAULT_CONFIG.ai_providers, ...userConfig?.ai_providers },
       claude: { ...DEFAULT_CONFIG.claude, ...userConfig?.claude },
       gemini: { ...DEFAULT_CONFIG.gemini, ...userConfig?.gemini },
+      vertex: { ...DEFAULT_CONFIG.vertex, ...userConfig?.vertex },
     };
 
     return cachedConfig;
@@ -114,6 +121,10 @@ function getProvider(providerName, config = null) {
 
     case 'gemini':
       provider = new GeminiProvider(providerConfig);
+      break;
+
+    case 'vertex':
+      provider = new VertexAIProvider(providerConfig);
       break;
 
     default:
@@ -213,7 +224,7 @@ async function executeWithFallback(prompt, options = {}) {
  * @returns {Promise<AIProvider[]>} Array of available providers
  */
 async function getAvailableProviders() {
-  const providers = [getProvider('claude'), getProvider('gemini')];
+  const providers = [getProvider('claude'), getProvider('gemini'), getProvider('vertex')];
 
   const available = [];
   for (const provider of providers) {
@@ -232,7 +243,7 @@ async function getAvailableProviders() {
 async function getProvidersStatus() {
   const status = {};
 
-  for (const name of ['claude', 'gemini']) {
+  for (const name of ['claude', 'gemini', 'vertex']) {
     const provider = getProvider(name);
     const isAvailable = await provider.checkAvailability();
 
@@ -282,4 +293,5 @@ module.exports = {
   // Classes for direct use
   ClaudeProvider,
   GeminiProvider,
+  VertexAIProvider,
 };

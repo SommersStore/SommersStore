@@ -1,0 +1,53 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(\"c:\\\\Users\\\\ADMIN\\\\SommersStore\\\\.gitignore\":*)",
+      "Bash(firebase deploy:*)",
+      "Bash(start \"c:\\\\Users\\\\ADMIN\\\\SommersStore\\\\docs\\\\aiox_fluxograma.html\")",
+      "WebSearch",
+      "Bash(where claude:*)",
+      "Bash(npm list:*)",
+      "Read(//c/Users/ADMIN/AppData/Local/**)",
+      "Read(//c/Users/ADMIN/AppData/Roaming/npm/node_modules/**)",
+      "Skill(update-config)",
+      "Skill(update-config:*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\\\Users\\\\ADMIN\\\\SommersStore\\\\.claude\\\\hooks\\\\code-intel-pretool.cjs\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\\\Users\\\\ADMIN\\\\SommersStore\\\\.claude\\\\hooks\\\\precompact-session-digest.cjs\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\\\Users\\\\ADMIN\\\\SommersStore\\\\.claude\\\\hooks\\\\synapse-engine.cjs\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -11,8 +11,8 @@ export default function SalesPageVSL() {
     // Ex: 135000 = 2 minutos e 15 segundos (coincidindo com a parte de oferta no roteiro)
     const OBERTURA_DELAY_MS = 135000; 
     
-    // Para efeito de teste, vamos deixar um tempo menor ou permitir pular no dev environment
-    const TEST_MODE = true; 
+    // Em produção deve ser false. Só ativar true para testes locais.
+    const TEST_MODE = false;
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -38,11 +38,11 @@ export default function SalesPageVSL() {
     const videoPart1 = "/sales/assets/essencia_ativa_parte_1.mp4";
     const videoPart2 = "/sales/assets/essencia_ativa_parte_2.mp4";
 
-    const handleVideoEnd = () => {
-        if (currentPart === 1) {
-            setCurrentPart(2);
-        }
-    };
+    // const handleVideoEnd = () => {
+    //     if (currentPart === 1) {
+    //         setCurrentPart(2);
+    //     }
+    // };
 
     return (
         <div className="min-h-screen bg-[#fcf9f6] text-[#3e342b] font-sans selection:bg-emerald-100 selection:text-emerald-900">
@@ -138,7 +138,7 @@ export default function SalesPageVSL() {
                             <div className="space-y-8 text-left">
                                 <h2 className="text-4xl font-serif text-[#2d241e] leading-tight tracking-tight">Uma mentoria desenhada para <span className="text-emerald-800 italic underline decoration-emerald-100 text-3xl">mulheres que buscam o extraordinário.</span></h2>
                                 <p className="text-xl text-[#6b5847] leading-relaxed font-serif italic">
-                                    "Acredito que cada mulher carrega um poder alquímico. Minha missão é te dar o método para despertar essa força, criando produtos que curam o corpo e prosperam a alma."
+                                    &quot;Acredito que cada mulher carrega um poder alquímico. Minha missão é te dar o método para despertar essa força, criando produtos que curam o corpo e prosperam a alma.&quot;
                                 </p>
                                 <div className="p-8 rounded-[2rem] bg-[#fcf9f6] border-l-[8px] border-emerald-700 text-[#2d241e] font-serif italic text-xl shadow-sm">
                                     Prepare-se para deixar de ser apenas uma espectadora e se tornar a protagonista da sua própria cura e liberdade financeira.
