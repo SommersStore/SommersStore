@@ -177,6 +177,7 @@ code{background:rgba(255,255,255,.07);padding:1px 6px;border-radius:4px;font-siz
   <div class="tab" onclick="sw('agentes',this)">🤖 Agentes</div>
   <div class="tab" onclick="sw('status',this)">📊 Status</div>
   <div class="tab" onclick="sw('problemas',this)">⚠️ Issues & Correções</div>
+  <div class="tab" onclick="sw('creditos',this);initCalc()">💰 Créditos API</div>
 </div>
 
 <!-- ══════════ FLUXO ══════════ -->
@@ -473,6 +474,165 @@ code{background:rgba(255,255,255,.07);padding:1px 6px;border-radius:4px;font-siz
 </div>
 </div>
 
+<!-- ══════════ CRÉDITOS API ══════════ -->
+<div id="pane-creditos" class="pane">
+<p class="sec-title">💰 Calculadora de Créditos API — SommersStore</p>
+
+<style>
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:900px;margin:0 auto 24px;}
+@media(max-width:640px){.calc-grid{grid-template-columns:1fr;}}
+.calc-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;}
+.calc-card.claude-card{border-color:rgba(99,102,241,.35);}
+.calc-card.gemini-card{border-color:rgba(16,185,129,.35);}
+.calc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.calc-title{font-size:.95rem;font-weight:800;display:flex;align-items:center;gap:8px;}
+.calc-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:5px;margin-top:12px;}
+.calc-input{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:8px;padding:9px 12px;color:var(--text);font-size:.85rem;font-family:'Inter',sans-serif;outline:none;transition:.2s;}
+.calc-input:focus{border-color:var(--indigo);background:rgba(99,102,241,.05);}
+.calc-row{display:flex;gap:10px;}
+.calc-row .calc-input{flex:1;}
+.calc-result{margin-top:16px;padding:14px;border-radius:10px;font-size:.78rem;line-height:1.7;}
+.cr-claude{background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);}
+.cr-gemini{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);}
+.cr-val{font-size:1.4rem;font-weight:900;display:block;margin-bottom:2px;}
+.cr-val.ok{color:var(--green);}
+.cr-val.warn{color:var(--amber);}
+.cr-val.danger{color:var(--coral);}
+.cr-sub{color:var(--muted);font-size:.7rem;}
+.cr-bar-wrap{margin-top:10px;}
+.cr-bar-bg{width:100%;height:8px;border-radius:4px;background:rgba(255,255,255,.07);overflow:hidden;}
+.cr-bar{height:100%;border-radius:4px;transition:width .5s;}
+.bar-green{background:var(--green);}
+.bar-amber{background:var(--amber);}
+.bar-red{background:var(--coral);}
+.calc-btn{width:100%;margin-top:14px;padding:10px;border-radius:8px;border:none;background:var(--indigo);color:#fff;font-size:.78rem;font-weight:700;cursor:pointer;transition:.2s;font-family:'Inter',sans-serif;}
+.calc-btn:hover{background:#4f46e5;}
+.countdown-wrap{max-width:900px;margin:0 auto 18px;background:var(--card);border:1px solid rgba(16,185,129,.3);border-radius:14px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.cd-item{text-align:center;}
+.cd-num{font-size:2rem;font-weight:900;color:var(--green);display:block;line-height:1;}
+.cd-lbl{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);}
+.cd-bar-wrap{flex:1;min-width:200px;}
+.cd-bar-bg{width:100%;height:10px;border-radius:5px;background:rgba(255,255,255,.07);overflow:hidden;margin-top:6px;}
+.cd-bar{height:100%;border-radius:5px;background:var(--green);transition:width .5s;}
+.log-wrap{max-width:900px;margin:0 auto;}
+.log-table{width:100%;border-collapse:collapse;font-size:.73rem;}
+.log-table th{text-align:left;padding:7px 10px;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);border-bottom:1px solid var(--border);}
+.log-table td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--dim);}
+.log-table tr:last-child td{border:none;}
+.log-add{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.log-add input,.log-add select{background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:7px;padding:7px 10px;color:var(--text);font-size:.75rem;font-family:'Inter',sans-serif;outline:none;}
+.log-add input{flex:1;min-width:100px;}
+.log-add button{padding:7px 14px;border-radius:7px;border:none;background:var(--indigo);color:#fff;font-size:.73rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;}
+</style>
+
+<!-- Countdown Gemini -->
+<div class="countdown-wrap" style="flex-direction:column;gap:14px">
+  <div style="width:100%">
+    <div style="font-size:.75rem;font-weight:800;color:var(--text);margin-bottom:2px">💳 Total disponível: <span style="color:var(--green)">R$ 7.624,33</span></div>
+    <div style="font-size:.68rem;color:var(--muted)">Dois créditos com prazos diferentes — use o mais urgente primeiro</div>
+  </div>
+
+  <!-- Crédito 1 -->
+  <div style="width:100%;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:12px 16px">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+      <div>
+        <span style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--amber)">⚡ URGENTE — Free Trial</span>
+        <div style="font-size:.8rem;font-weight:700;color:var(--text)">R$ 1.759,46 · expira <strong>19/06/2026</strong></div>
+      </div>
+      <div style="display:flex;gap:16px">
+        <div class="cd-item"><span class="cd-num" id="cd-dias1" style="color:var(--amber)">--</span><span class="cd-lbl">Dias</span></div>
+        <div class="cd-item"><span class="cd-num" id="cd-meta1" style="font-size:1rem;color:var(--amber)">R$--/dia</span><span class="cd-lbl">Meta diária</span></div>
+      </div>
+    </div>
+    <div class="cd-bar-bg"><div class="cd-bar" id="cd-bar1" style="width:0%;background:var(--amber)"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:.6rem;color:var(--muted);margin-top:3px"><span>20/03/2026</span><span>19/06/2026</span></div>
+  </div>
+
+  <!-- Crédito 2 -->
+  <div style="width:100%;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:10px;padding:12px 16px">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+      <div>
+        <span style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--green)">✅ GenAI App Builder</span>
+        <div style="font-size:.8rem;font-weight:700;color:var(--text)">R$ 5.864,87 · expira <strong>21/03/2027</strong></div>
+      </div>
+      <div style="display:flex;gap:16px">
+        <div class="cd-item"><span class="cd-num" id="cd-dias2" style="color:var(--green)">--</span><span class="cd-lbl">Dias</span></div>
+        <div class="cd-item"><span class="cd-num" id="cd-meta2" style="font-size:1rem;color:var(--green)">R$--/dia</span><span class="cd-lbl">Meta diária</span></div>
+      </div>
+    </div>
+    <div class="cd-bar-bg"><div class="cd-bar" id="cd-bar2" style="width:0%;background:var(--green)"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:.6rem;color:var(--muted);margin-top:3px"><span>21/03/2026</span><span>21/03/2027</span></div>
+  </div>
+</div>
+
+<!-- Cards -->
+<div class="calc-grid">
+
+  <!-- Claude -->
+  <div class="calc-card claude-card">
+    <div class="calc-head">
+      <div class="calc-title">🤖 <span style="color:var(--indigo-l)">Claude</span> — Anthropic</div>
+      <span class="sbadge sb-i">Primary</span>
+    </div>
+    <div class="calc-label">Saldo atual (USD)</div>
+    <div class="calc-row">
+      <input class="calc-input" id="cl-saldo" type="number" step="0.01" placeholder="ex: 10.00" value="2.34" oninput="calcClaude()">
+      <input class="calc-input" id="cl-consumo" type="number" step="0.01" placeholder="Consumo/sessão USD" oninput="calcClaude()">
+    </div>
+    <div class="calc-label">Sessões por semana</div>
+    <input class="calc-input" id="cl-sessoes" type="number" placeholder="ex: 5" value="5" oninput="calcClaude()">
+    <div class="calc-result cr-claude" id="cl-result">
+      <span class="cr-val" id="cl-dias">—</span>
+      <span class="cr-sub" id="cl-sub">Preencha o saldo e consumo por sessão</span>
+      <div class="cr-bar-wrap"><div class="cr-bar-bg"><div class="cr-bar bar-green" id="cl-bar" style="width:0%"></div></div></div>
+    </div>
+    <button class="calc-btn" onclick="saveCalc('claude')">💾 Salvar saldo</button>
+  </div>
+
+  <!-- Gemini -->
+  <div class="calc-card gemini-card">
+    <div class="calc-head">
+      <div class="calc-title">🟢 <span style="color:var(--green)">Gemini</span> — Google Cloud</div>
+      <span class="sbadge sb-g">R$ 7.624</span>
+    </div>
+    <div class="calc-label">Saldo atual (R$)</div>
+    <div class="calc-row">
+      <input class="calc-input" id="gm-saldo" type="number" step="1" placeholder="ex: 7624" value="7624" oninput="calcGemini()">
+      <input class="calc-input" id="gm-consumo" type="number" step="0.01" placeholder="Consumo/dia R$" oninput="calcGemini()">
+    </div>
+    <div class="calc-label">Meta de consumo diário sugerida (R$)</div>
+    <input class="calc-input" id="gm-meta" type="number" placeholder="ex: 84.71" value="84.71" oninput="calcGemini()">
+    <div class="calc-result cr-gemini" id="gm-result">
+      <span class="cr-val" id="gm-dias">—</span>
+      <span class="cr-sub" id="gm-sub">Meta: R$ 18,89/dia para zerar em 90 dias</span>
+      <div class="cr-bar-wrap"><div class="cr-bar-bg"><div class="cr-bar bar-green" id="gm-bar" style="width:0%"></div></div></div>
+    </div>
+    <button class="calc-btn" onclick="saveCalc('gemini')" style="background:var(--green)">💾 Salvar saldo</button>
+  </div>
+
+</div>
+
+<!-- Log de sessões -->
+<div class="log-wrap">
+  <p class="sec-title">📋 Registro de Consumo</p>
+  <div class="log-add">
+    <input type="date" id="log-data" style="color:var(--text)">
+    <select id="log-api" style="color:var(--text)">
+      <option value="claude">Claude</option>
+      <option value="gemini">Gemini</option>
+    </select>
+    <input id="log-valor" type="number" step="0.01" placeholder="Valor gasto">
+    <input id="log-desc" type="text" placeholder="Descrição (ex: página zen-dark)">
+    <button onclick="addLog()">+ Registrar</button>
+  </div>
+  <table class="log-table">
+    <thead><tr><th>Data</th><th>API</th><th>Valor</th><th>Descrição</th></tr></thead>
+    <tbody id="log-body"><tr><td colspan="4" style="text-align:center;color:var(--muted);padding:16px">Nenhum registro ainda.</td></tr></tbody>
+  </table>
+</div>
+
+</div>
+
 <script>
 function sw(id,el){
   document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
@@ -510,6 +670,144 @@ const D={
   deploy:{badge:'Deploy — Exclusivo @devops',c:'#71717a',title:'🚀 Deploy Firebase — @devops (Gage)',desc:'Único com autoridade para publicar. Processo: 1) <code>npm run build</code> (gera pasta out/), 2) <code>firebase deploy</code>, 3) verificação das URLs ativas. Projeto: sommersstore-c6c23.',inputs:['Aprovação QA Gate','Build aprovado','firebase.json com rotas corretas'],outputs:['Deploy no Firebase Hosting','URLs ativas por página','Cache invalidado'],tip:'💡 PRÓXIMO PASSO: executar build para publicar as 5 páginas novas (zen-light, zen-dark, zen-dark-v2, zen-light-v2, premium-black). As rotas já estão configuradas no firebase.json.'},
   output:{badge:'Output Final',c:'#10b981',title:'🌐 Páginas de Venda Publicadas — Firebase',desc:'Resultado de todo o processo. Acessíveis via Firebase Hosting. Atualmente em produção: /vsl · /v3/sais · /v3/negocio · /sais · /master · /fanpage. Aguardando build: 5 páginas zen e premium-black.',inputs:['Aprovação @devops','Validação humana (você!)'],outputs:['/vsl — VSL delay 2m15s','/v3/sais — V3 Light Cream & Emerald','/v3/negocio — V3 Dark Premium','/master — Master Orchestrator'],tip:'💡 A IA entrega, mas o olho humano valida. Você é o CEO que aprova antes de ligar o tráfego pago. Só acione os Meta Ads após validar o funil completo.'}
 };
+
+// ── CALCULADORA DE CRÉDITOS ──
+function initCalc(){
+  // Crédito 1 — Free Trial (expira 19/06/2026)
+  const hoje = new Date();
+  const ini1 = new Date('2026-03-20'), fim1 = new Date('2026-06-19');
+  const tot1 = Math.round((fim1 - ini1) / 86400000);
+  const pass1 = Math.max(0, Math.round((hoje - ini1) / 86400000));
+  const rest1 = Math.max(0, Math.round((fim1 - hoje) / 86400000));
+  const pct1 = Math.min(100, Math.round(pass1 / tot1 * 100));
+  document.getElementById('cd-dias1').textContent = rest1;
+  document.getElementById('cd-meta1').textContent = 'R$' + (1759.46 / Math.max(1, rest1)).toFixed(2) + '/dia';
+  const b1 = document.getElementById('cd-bar1');
+  b1.style.width = pct1 + '%';
+  if(pct1 > 70) b1.style.background = 'var(--coral)';
+
+  // Crédito 2 — GenAI App Builder (expira 21/03/2027)
+  const ini2 = new Date('2026-03-21'), fim2 = new Date('2027-03-21');
+  const tot2 = Math.round((fim2 - ini2) / 86400000);
+  const pass2 = Math.max(0, Math.round((hoje - ini2) / 86400000));
+  const rest2 = Math.max(0, Math.round((fim2 - hoje) / 86400000));
+  const pct2 = Math.min(100, Math.round(pass2 / tot2 * 100));
+  document.getElementById('cd-dias2').textContent = rest2;
+  document.getElementById('cd-meta2').textContent = 'R$' + (5864.87 / Math.max(1, rest2)).toFixed(2) + '/dia';
+  document.getElementById('cd-bar2').style.width = pct2 + '%';
+
+  // Data padrão do log
+  const d = document.getElementById('log-data');
+  if(d) d.valueAsDate = new Date();
+
+  // Carregar dados salvos
+  loadSaved();
+  renderLog();
+  calcClaude();
+  calcGemini();
+}
+
+function calcClaude(){
+  const saldo = parseFloat(document.getElementById('cl-saldo').value) || 0;
+  const consumo = parseFloat(document.getElementById('cl-consumo').value) || 0;
+  const sessoes = parseFloat(document.getElementById('cl-sessoes').value) || 5;
+  const el = document.getElementById('cl-dias');
+  const sub = document.getElementById('cl-sub');
+  const bar = document.getElementById('cl-bar');
+
+  if(!saldo || !consumo){ el.textContent='—'; sub.textContent='Preencha o saldo e consumo por sessão'; return; }
+
+  const diasPorSessao = 7 / sessoes;
+  const consumoDia = consumo / diasPorSessao;
+  const dias = Math.floor(saldo / consumoDia);
+  const semanas = (dias / 7).toFixed(1);
+
+  el.textContent = dias + ' dias restantes (~' + semanas + ' sem.)';
+  sub.textContent = 'Saldo: USD ' + saldo.toFixed(2) + ' · Consumo: USD ' + consumoDia.toFixed(3) + '/dia';
+
+  const pct = Math.min(100, Math.round((consumo / saldo) * 100 * sessoes));
+  bar.style.width = Math.min(100, 100 - (dias / 60 * 100)) + '%';
+  if(dias < 7){ el.className='cr-val danger'; bar.className='cr-bar bar-red'; }
+  else if(dias < 21){ el.className='cr-val warn'; bar.className='cr-bar bar-amber'; }
+  else{ el.className='cr-val ok'; bar.className='cr-bar bar-green'; }
+}
+
+function calcGemini(){
+  const saldo = parseFloat(document.getElementById('gm-saldo').value) || 0;
+  const consumo = parseFloat(document.getElementById('gm-consumo').value) || 0;
+  const meta = parseFloat(document.getElementById('gm-meta').value) || 18.89;
+  const el = document.getElementById('gm-dias');
+  const sub = document.getElementById('gm-sub');
+  const bar = document.getElementById('gm-bar');
+
+  const diasRestantes = Math.max(0, Math.floor((new Date('2026-06-21') - new Date()) / 86400000));
+
+  if(!consumo){
+    el.textContent = 'R$ ' + saldo.toFixed(2) + ' disponíveis';
+    sub.textContent = 'Meta: R$ ' + meta.toFixed(2) + '/dia para usar em ' + diasRestantes + ' dias restantes';
+    bar.style.width = ((7624 - saldo) / 7624 * 100) + '%';
+    return;
+  }
+
+  const dias = Math.floor(saldo / consumo);
+  const totalGasto = 7624 - saldo;
+  const pctGasto = Math.min(100, (totalGasto / 7624 * 100));
+
+  el.textContent = 'R$ ' + saldo.toFixed(2) + ' · dura ~' + dias + ' dias';
+  sub.textContent = 'Consumo: R$ ' + consumo.toFixed(2) + '/dia · Meta: R$ ' + meta.toFixed(2) + '/dia';
+  bar.style.width = pctGasto + '%';
+
+  if(saldo < 100){ el.className='cr-val danger'; bar.className='cr-bar bar-red'; }
+  else if(saldo < 400){ el.className='cr-val warn'; bar.className='cr-bar bar-amber'; }
+  else{ el.className='cr-val ok'; bar.className='cr-bar bar-green'; }
+}
+
+function saveCalc(api){
+  if(api === 'claude'){
+    const v = { saldo: document.getElementById('cl-saldo').value, consumo: document.getElementById('cl-consumo').value, sessoes: document.getElementById('cl-sessoes').value };
+    localStorage.setItem('calc_claude', JSON.stringify(v));
+    alert('✅ Saldo Claude salvo!');
+  } else {
+    const v = { saldo: document.getElementById('gm-saldo').value, consumo: document.getElementById('gm-consumo').value };
+    localStorage.setItem('calc_gemini', JSON.stringify(v));
+    alert('✅ Saldo Gemini salvo!');
+  }
+}
+
+function loadSaved(){
+  const cl = localStorage.getItem('calc_claude');
+  if(cl){ const v=JSON.parse(cl); document.getElementById('cl-saldo').value=v.saldo||''; document.getElementById('cl-consumo').value=v.consumo||''; document.getElementById('cl-sessoes').value=v.sessoes||5; }
+  const gm = localStorage.getItem('calc_gemini');
+  if(gm){ const v=JSON.parse(gm); document.getElementById('gm-saldo').value=v.saldo||1700; document.getElementById('gm-consumo').value=v.consumo||''; }
+}
+
+function addLog(){
+  const data = document.getElementById('log-data').value;
+  const api = document.getElementById('log-api').value;
+  const valor = parseFloat(document.getElementById('log-valor').value);
+  const desc = document.getElementById('log-desc').value;
+  if(!data || !valor){ alert('Preencha a data e o valor!'); return; }
+
+  const logs = JSON.parse(localStorage.getItem('api_logs') || '[]');
+  logs.unshift({ data, api, valor, desc });
+  localStorage.setItem('api_logs', JSON.stringify(logs));
+  document.getElementById('log-valor').value = '';
+  document.getElementById('log-desc').value = '';
+  renderLog();
+}
+
+function renderLog(){
+  const logs = JSON.parse(localStorage.getItem('api_logs') || '[]');
+  const tbody = document.getElementById('log-body');
+  if(!logs.length){ tbody.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:16px">Nenhum registro ainda.</td></tr>'; return; }
+  tbody.innerHTML = logs.map(l => `
+    <tr>
+      <td>${l.data}</td>
+      <td><span style="color:${l.api==='claude'?'var(--indigo-l)':'var(--green)'}">⬤</span> ${l.api==='claude'?'Claude':'Gemini'}</td>
+      <td style="font-weight:700">${l.api==='claude'?'USD ':'R$ '}${parseFloat(l.valor).toFixed(2)}</td>
+      <td>${l.desc||'—'}</td>
+    </tr>`).join('');
+}
 
 function show(id){
   document.querySelectorAll('.bx').forEach(b=>b.classList.remove('sel'));

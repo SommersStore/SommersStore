@@ -2,6 +2,28 @@
 
 You are working with Synkra AIOX, an AI-Orchestrated System for Full Stack Development.
 
+## Encerramento do Dia
+
+Quando o usuário indicar que está encerrando o trabalho (ex: "vou fechar", "até amanhã", "terminamos por hoje", "vou desligar", "encerrando"), execute automaticamente:
+
+1. `git add -A` — captura todos os arquivos modificados
+2. `git commit -m "chore: fim do dia $(date '+%Y-%m-%d %H:%M')"` — salva com data/hora
+3. Salvar resumo do dia na memória (`C:\Users\ADMIN\.claude\projects\c--Users-ADMIN-SommersStore\memory\`) com o arquivo `session_YYYY-MM-DD.md` contendo:
+   - O que foi trabalhado hoje
+   - Decisões importantes tomadas
+   - Arquivos criados ou modificados
+   - Próximos passos pendentes
+4. Atualizar `MEMORY.md` com ponteiro para o novo arquivo de sessão
+5. Informar o que foi salvo
+6. Lembrar o usuário de executar manualmente: `git push` e `firebase deploy`
+
+## Início do Dia
+
+Ao iniciar uma nova conversa, antes de responder qualquer tarefa:
+1. Ler `MEMORY.md` para carregar o índice de memórias
+2. Ler o arquivo de sessão mais recente (`session_YYYY-MM-DD.md`) para retomar o contexto
+3. Informar brevemente ao usuário o que foi feito na última sessão e quais são os próximos passos pendentes
+
 <!-- AIOX-MANAGED-START: core-framework -->
 ## Core Framework Understanding
 

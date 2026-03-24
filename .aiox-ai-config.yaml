@@ -1,43 +1,50 @@
 # ============================================
 # AIOX AI Provider Configuration
 # ============================================
-# Estratégia: Maximizar uso do Gemini (R$1.700 / 90 dias)
-# Claude reservado apenas para tarefas críticas
+# Estratégia: Gemini para tarefas técnicas, Claude para copy e estratégia
+# Motivo: economizar créditos Claude (USD 2,34) sem comprometer qualidade
+# Revisão: quando Claude tiver mais créditos, mover copy_writing para claude
 # ============================================
 
 ai_providers:
-  primary: vertex        # Gemini como primário (créditos Google)
-  fallback: claude       # Claude só como backup
+  primary: claude        # Claude conduz a conversa e decisões
+  fallback: vertex       # Gemini como fallback se Claude indisponível
   routing:
-    # Gemini executa tudo que puder
-    simple_tasks: vertex
-    research: vertex
-    summarization: vertex
-    translation: vertex
+    # ── GEMINI (tarefas técnicas — qualidade equivalente, 90% mais barato)
+    code_generation: vertex
     code_review: vertex
     documentation: vertex
     testing: vertex
     analysis: vertex
-    copy_writing: vertex
     data_processing: vertex
-    # Claude apenas para o mais crítico
+    research: vertex
+    summarization: vertex
+    translation: vertex
+    file_analysis: vertex
+
+    # ── CLAUDE (copy e estratégia — qualidade crítica para conversão)
+    copy_writing: claude
+    headlines: claude
+    vsl_script: claude
+    sales_strategy: claude
     complex_tasks: claude
     architecture: claude
     security: claude
+    decision_making: claude
 
-# Configuração do Gemini (provider primário)
-vertex:
-  model: gemini-2.5-flash       # Modelo mais capaz disponível
-  timeout: 300000
-  maxRetries: 3
-
-# Configuração do Claude (reserva)
+# Configuração do Claude
 claude:
   model: claude-sonnet-4-6
   timeout: 300000
   dangerouslySkipPermissions: false
 
-# Configuração legada Gemini (compatibilidade)
+# Configuração do Gemini
+vertex:
+  model: gemini-2.5-flash
+  timeout: 300000
+  maxRetries: 3
+
+# Compatibilidade
 gemini:
   model: gemini-2.5-flash
   timeout: 300000
