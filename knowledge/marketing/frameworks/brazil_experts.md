@@ -16,3 +16,8 @@ Este documento adapta as melhores práticas do mercado brasileiro para a realida
 - **The Daily Habit**: Esteja presente todos os dias (Instagram/E-mail). A constância gera confiança.
 - **Utility Content**: Poste conteúdo que resolva um problema pequeno imediatamente para ganhar o direito de vender a solução maior.
 - **Branding de Sobriedade**: Use uma estética limpa, direta e profissional (Alinhado ao tema SommersStore).
+
+
+## [TRANSCRIPT INJECTION: REQUIRED]
+_Cole a transcri��o bruta do podcast/v�deo do YouTube aqui para injetar sabedoria profunda neste clone._
+

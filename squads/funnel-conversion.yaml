@@ -1,0 +1,23 @@
+name: Funnel Conversion Squad
+id: funnel-conversion
+description: "Equipe focada puramente em Copywriting agressivo, Estrutura de Neuromarketing e Otimização de Conversão (CRO) nas páginas de venda."
+leader: marketing
+
+members:
+  - agent: marketing
+    role: "Strategist - Analisa os ganchos da VSL, promessa (Headline) e se alinha à jornada do consumidor de Russell Brunson."
+  - agent: copywriter
+    role: "Persuasion Master - Aplica frameworks de Copywriting (AIDA, PAS) de mestres como Gary Halbert para reter atenção total."
+  - agent: cro-expert
+    role: "Friction Hunter - Lê o design para identificar atrito: cliques a mais, hesitações e pontos de fuga de tráfego."
+
+workflow:
+  trigger: "Sempre que uma Landing Page ou VSL é rascunhada (fase Wireframe) ou precisa ter a taxa de conversão dobrada."
+  steps:
+    - step: 1
+      action: "@marketing avalia o framework lógico da oferta e a aderência à Persona."
+    - step: 2
+      action: "@copywriter refatora os textos para injetar prova social, urgência real e ancoragem de preço absurda."
+    - step: 3
+      action: "@cro-expert varre o código final para verificar velocidade e foco do CTA, removendo qualquer vazamento de leads."
+  success_criteria: "Página formatada para taxa de conversão (CVR) máxima de leads virando clientes High Ticket."

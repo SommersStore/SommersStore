@@ -16,3 +16,8 @@ Este documento contém as táticas de elite dos maiores nomes do marketing mundi
 - **Ubersuggest Heuristics**: Foque em palavras-chave de "Low Hanging Fruit" (alta intenção de compra, baixa competição).
 - **A/B Testing Rigor**: Nunca assuma que uma página é a melhor. Teste o botão, a cor, o título e a oferta.
 - **Content as Bait**: Use conteúdo educacional profundo para atrair leads qualificados em vez de apenas anúncios diretos.
+
+
+## [TRANSCRIPT INJECTION: REQUIRED]
+_Cole a transcri��o bruta do podcast/v�deo do YouTube aqui para injetar sabedoria profunda neste clone._
+

@@ -31,3 +31,8 @@ Antes de criar, mapeie os competidores que já estão faturando alto.
 - **Urguência/Escassez**: O bônus expira.
 - **Prova Social**: Depoimentos reais focados em transformação.
 - **Autoridade**: O especialista como o guia da jornada.
+
+
+## [TRANSCRIPT INJECTION: REQUIRED]
+_Cole a transcri��o bruta do podcast/v�deo do YouTube aqui para injetar sabedoria profunda neste clone._
+

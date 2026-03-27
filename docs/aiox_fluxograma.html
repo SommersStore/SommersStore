@@ -177,6 +177,8 @@ code{background:rgba(255,255,255,.07);padding:1px 6px;border-radius:4px;font-siz
   <div class="tab" onclick="sw('agentes',this)">🤖 Agentes</div>
   <div class="tab" onclick="sw('status',this)">📊 Status</div>
   <div class="tab" onclick="sw('problemas',this)">⚠️ Issues & Correções</div>
+  <div class="tab" onclick="sw('arquitetura',this)">📂 Estrutura</div>
+  <div class="tab" onclick="sw('skills',this)">⚡ Library Skills</div>
   <div class="tab" onclick="sw('creditos',this);initCalc()">💰 Créditos API</div>
 </div>
 
@@ -631,6 +633,788 @@ code{background:rgba(255,255,255,.07);padding:1px 6px;border-radius:4px;font-siz
   </table>
 </div>
 
+</div>
+
+
+
+<!-- ══════════ ARQUITETURA ══════════ -->
+<div id="pane-arquitetura" class="pane">
+<p class="sec-title">📂 Mapa Estrutural SommersStore</p>
+<div class="flow" style="margin-top:20px;">
+
+  <!-- ROOT -->
+  <div style="display:flex;justify-content:center;margin-bottom:24px;">
+    <div class="bx" style="width:300px;background:var(--card);border:2px solid var(--indigo);text-align:center;">
+      <div class="bx-t" style="font-size:1rem;">📁 SommersStore</div>
+      <div class="bx-s" style="margin-top:5px;opacity:0.8;">C:\Users\ADMIN\SommersStore</div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 .AGENT</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 workflows</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.agent/workflows" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 .AIOX-CORE</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 cli</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/cli" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 core</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/core" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 data</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/data" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 development</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/development" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 docs</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/docs" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 elicitation</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/elicitation" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 infrastructure</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/infrastructure" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 manifests</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/manifests" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 monitor</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/monitor" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 presets</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/presets" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 product</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/product" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 schemas</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/schemas" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 scripts</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/scripts" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 workflow-intelligence</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/workflow-intelligence" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="constitution.md">📝 constitution.md</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/constitution.md" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="core-config.yaml">📝 core-config.yaml</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/core-config.yaml" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="index.esm.js">📝 index.esm.js</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/index.esm.js" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="index.js">📝 index.js</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/index.js" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="install-manifest.yaml">📝 install-manifest.yaml</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/install-manifest.yaml" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="package-lock.json">📝 package-lock.json</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/package-lock.json" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+      <div class="col" style="min-width:160px;"><div class="bx" style="padding:10px;"><div class="bx-s">+ 4 arquivos...</div></div></div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 .ANTIGRAVITY</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 agents</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.antigravity/agents" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 rules</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.antigravity/rules" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="antigravity.json">📝 antigravity.json</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.antigravity/antigravity.json" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="rules.md">📝 rules.md</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.antigravity/rules.md" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="rules.md.backup.2026-03-09T10-51-56-584Z">📝 rules.md.backup.2026-03-09T10-51-56-584Z</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.antigravity/rules.md.backup.2026-03-09T10-51-56-584Z" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 .CODEX</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 agents</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.codex/agents" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 .FIREBASE</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="hosting.cHJvamVjdHNcbG9qYS1kaWdpdGFsXG91dA.cache">📝 hosting.cHJvamVjdHNcbG9qYS1kaWdpdGFsXG91dA.cache</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.firebase/hosting.cHJvamVjdHNcbG9qYS1kaWdpdGFsXG91dA.cache" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="hosting.d2ViXG91dA.cache">📝 hosting.d2ViXG91dA.cache</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.firebase/hosting.d2ViXG91dA.cache" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 .GITHUB</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 agents</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.github/agents" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 .HUSKY</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="pre-commit">📝 pre-commit</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.husky/pre-commit" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="pre-push">📝 pre-push</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.husky/pre-push" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 CONFIG</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="brand_config.json">📝 brand_config.json</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/config/brand_config.json" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 DOCS</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bc" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 marketing</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/docs/marketing" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bc" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 stories</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/docs/stories" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="5_6161471980177464899.md">📝 5_6161471980177464899.md</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/docs/5_6161471980177464899.md" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="aiox_fluxograma.html">📝 aiox_fluxograma.html</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/docs/aiox_fluxograma.html" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="mindmap.html">📝 mindmap.html</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/docs/mindmap.html" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="pipeline_state.json">📝 pipeline_state.json</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/docs/pipeline_state.json" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="project_map.md">📝 project_map.md</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/docs/project_map.md" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 FUNNELS</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 lead-magnet</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/funnels/lead-magnet" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 sais_de_banho</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/funnels/sais_de_banho" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 sales-page</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/funnels/sales-page" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 upsell-flow</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/funnels/upsell-flow" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 KNOWLEDGE</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 audience</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/audience" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 branding</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/branding" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 competitors</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/competitors" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 copy_frameworks</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/copy_frameworks" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 marketing</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/marketing" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 operations</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/operations" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 persona</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/persona" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 projects</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/projects" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 prompts</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/prompts" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 technical</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/technical" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="brand_core.json">📝 brand_core.json</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/brand_core.json" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 PLATFORM</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 agents</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/platform/agents" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 automations</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/platform/automations" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 integrations</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/platform/integrations" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 workflows</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/platform/workflows" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 PROJECTS</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 electro-store</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/projects/electro-store" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 loja-digital</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/projects/loja-digital" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 STOREFRONT</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+      <div class="col" style="min-width:180px;"><div class="bx bi" style="width:100%"><div class="bx-s" style="opacity:0.5;text-align:center;">(vazio)</div></div></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ══════════ SKILLS ══════════ -->
+<div id="pane-skills" class="pane">
+<p class="sec-title">⚡ AIOX Skills Library</p>
+<div class="skills-grid" id="skills-grid-render"></div>
+<style>
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.sk-cat { border: 1px solid var(--border); border-radius: 12px; background: var(--card); padding: 16px; margin-bottom: 20px; }
+.sk-cat-title { font-size: 0.8rem; font-weight: 800; color: var(--indigo); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+.sk-item { margin-bottom: 8px; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background:var(--bg); }
+.sk-head { padding: 10px 14px; font-size: 0.75rem; font-weight: 700; color: var(--text); background: rgba(255,255,255,0.03); }
+.sk-item p { padding: 12px 14px; margin: 0; font-size: 0.7rem; color: var(--dim); background: var(--surface); line-height: 1.5; border-top: 1px solid var(--border2); }
+</style>
+<script>
+const skillsLibrary = [
+  { cat: 'Qualidade & Segurança', skills: [
+    { name: 'audit-codebase', desc: 'Audit Codebase for UI Pattern Redundancy' },
+    { name: 'audit-tailwind-config', desc: 'Audit Tailwind v4 Configuration & Utility Health' },
+    { name: 'audit-utilities', desc: 'audit-utilities' },
+    { name: 'qa-after-creation', desc: 'Task: QA After Creation' },
+    { name: 'qa-backlog-add-followup', desc: 'QA Task: Add Follow-up to Backlog' },
+    { name: 'qa-browser-console-check', desc: 'Browser Console Check Task' },
+    { name: 'qa-create-fix-request', desc: 'Create Fix Request Task' },
+    { name: 'qa-evidence-requirements', desc: 'Evidence Requirements Task' },
+    { name: 'qa-false-positive-detection', desc: 'False Positive Detection Task' },
+    { name: 'qa-fix-issues', desc: 'QA Issue Fixer Task' },
+    { name: 'qa-gate', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'qa-generate-tests', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'qa-library-validation', desc: 'Library Validation Task' },
+    { name: 'qa-migration-validation', desc: 'Migration Validation Task' },
+    { name: 'qa-nfr-assess', desc: 'nfr-assess' },
+    { name: 'qa-review-build', desc: 'QA Review Build: 10-Phase Quality Assurance Review' },
+    { name: 'qa-review-proposal', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'qa-review-story', desc: 'review-story' },
+    { name: 'qa-risk-profile', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'qa-run-tests', desc: 'Run Tests (with Code Quality Gate)' },
+    { name: 'qa-security-checklist', desc: 'Security Checklist Task' },
+    { name: 'qa-test-design', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'qa-trace-requirements', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'security-audit', desc: 'Task: Security Audit' },
+    { name: 'security-scan', desc: 'security-scan' },
+    { name: 'validate-agents', desc: 'Validate Agents Task' },
+    { name: 'validate-next-story', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'validate-tech-preset', desc: '\*validate-tech-preset' },
+    { name: 'validate-workflow', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'verify-subtask', desc: 'Verify Subtask' }
+  ]},
+  { cat: 'Core & Arquitetura', skills: [
+    { name: 'analyze-brownfield', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'analyze-cross-artifact', desc: 'Cross-Artifact Analysis Task' },
+    { name: 'analyze-framework', desc: 'Task: Analyze Framework' },
+    { name: 'analyze-project-structure', desc: 'Analyze Project Structure' },
+    { name: 'architect-analyze-impact', desc: 'An' },
+    { name: 'ids-governor', desc: 'Task: IDS Governor Commands' },
+    { name: 'ids-health', desc: 'IDS Registry Health Check Task' },
+    { name: 'ids-query', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'spec-assess-complexity', desc: 'Spec Pipeline: Assess Complexity' },
+    { name: 'spec-critique', desc: 'Spec Pipeline: Critique Specification' },
+    { name: 'spec-gather-requirements', desc: 'Spec Pipeline: Gather Requirements' },
+    { name: 'spec-research-dependencies', desc: 'Spec Pipeline: Research Dependencies' },
+    { name: 'spec-write-spec', desc: 'Spec Pipeline: Write Specification' }
+  ]},
+  { cat: 'Banco de Dados', skills: [
+    { name: 'db-analyze-hotpaths', desc: 'Task: Analyze Hot Query Paths' },
+    { name: 'db-apply-migration', desc: 'Task: Apply Migration (with snapshot + advisory lock)' },
+    { name: 'db-bootstrap', desc: 'Task: Bootstrap Supabase Project' },
+    { name: 'db-domain-modeling', desc: 'Task: Domain Modeling Session' },
+    { name: 'db-dry-run', desc: 'Task: Migration Dry-Run' },
+    { name: 'db-env-check', desc: 'Task: DB Env Check' },
+    { name: 'db-explain', desc: 'Task: EXPLAIN (ANALYZE, BUFFERS)' },
+    { name: 'db-impersonate', desc: 'Task: Impersonate User (RLS Testing)' },
+    { name: 'db-load-csv', desc: 'Task: Load CSV Data Safely' },
+    { name: 'db-policy-apply', desc: 'Task: Apply RLS Policy Template' },
+    { name: 'db-rls-audit', desc: 'Task: RLS Audit' },
+    { name: 'db-rollback', desc: 'Task: Rollback Database' },
+    { name: 'db-run-sql', desc: 'Task: Run SQL' },
+    { name: 'db-schema-audit', desc: 'Task: Schema Audit' },
+    { name: 'db-seed', desc: 'Task: Apply Seed Data' },
+    { name: 'db-smoke-test', desc: 'Task: DB Smoke Test' },
+    { name: 'db-snapshot', desc: 'Task: Create Database Snapshot' },
+    { name: 'db-squad-integration', desc: 'Database Integration Analysis for Squad' },
+    { name: 'db-supabase-setup', desc: 'Task: Supabase Setup Guide' },
+    { name: 'db-verify-order', desc: 'Task: Verify DDL Ordering' }
+  ]},
+  { cat: 'Gestão & Sistema', skills: [
+    { name: 'analyst-facilitate-brainstorming', desc: 'No checklists needed - this task facilitates brainstorming sessions, validation is through user interaction' },
+    { name: 'analyze-performance', desc: 'Task: Analyze Performance' },
+    { name: 'brownfield-create-epic', desc: 'Create Brownfield Epic Task' },
+    { name: 'brownfield-create-story', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'check-docs-links', desc: 'check-docs-links' },
+    { name: 'cleanup-utilities', desc: 'Cleanup Utilities Task' },
+    { name: 'cleanup-worktrees', desc: 'cleanup-worktrees' },
+    { name: 'compose-molecule', desc: 'Compose Molecule from Atoms' },
+    { name: 'correct-course', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'create-brownfield-story', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'create-deep-research-prompt', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'create-doc', desc: 'Template selection determined dynamically during task execution' },
+    { name: 'create-next-story', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'create-suite', desc: 'TODO: Create test-suite-checklist.md for validation (follow-up story needed)' },
+    { name: 'create-task', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'create-workflow', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'create-worktree', desc: 'create-worktree' },
+    { name: 'document-gotchas', desc: 'Document Gotchas Task' },
+    { name: 'document-project', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'execute-checklist', desc: 'No templates needed - this task executes existing checklists, doesn\'t create document outputs' },
+    { name: 'execute-epic-plan', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'extract-patterns', desc: 'Extract Patterns' },
+    { name: 'generate-ai-frontend-prompt', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'generate-documentation', desc: 'Generate Pattern Library Documentation' },
+    { name: 'generate-migration-strategy', desc: 'Generate Phased Migration Strategy' },
+    { name: 'gotcha', desc: 'Task: Add Gotcha' },
+    { name: 'gotchas', desc: 'Task: List Gotchas' },
+    { name: 'improve-self', desc: 'improve-self' },
+    { name: 'index-docs', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'init-project-status', desc: 'init-project-status' },
+    { name: 'kb-mode-interaction', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'learn-patterns', desc: 'learn-patterns' },
+    { name: 'list-worktrees', desc: 'list-worktrees' },
+    { name: 'merge-worktree', desc: 'merge-worktree' },
+    { name: 'next', desc: 'Next Command Suggestions' },
+    { name: 'orchestrate-resume', desc: 'Resume orchestrator execution from saved state' },
+    { name: 'orchestrate-status', desc: 'Show orchestrator status for a story' },
+    { name: 'orchestrate-stop', desc: 'Stop orchestrator execution for a story' },
+    { name: 'orchestrate', desc: 'Start full ADE pipeline for a story' },
+    { name: 'plan-create-context', desc: 'Plan Pipeline: Create Context' },
+    { name: 'plan-create-implementation', desc: 'Execution Pipeline: Create Implementation Plan' },
+    { name: 'plan-execute-subtask', desc: 'Execute Subtask (Coder Agent)' },
+    { name: 'po-backlog-add', desc: 'PO Task: Add Backlog Item' },
+    { name: 'po-close-story', desc: 'PO Task: Close Story' },
+    { name: 'po-manage-story-backlog', desc: 'manage-story-backlog' },
+    { name: 'po-pull-story-from-clickup', desc: 'pull-story-from-clickup' },
+    { name: 'po-pull-story', desc: 'pull-story' },
+    { name: 'po-stories-index', desc: 'PO Task: Regenerate Story Index' },
+    { name: 'po-sync-story-to-clickup', desc: 'sync-story-to-clickup' },
+    { name: 'po-sync-story', desc: 'sync-story' },
+    { name: 'propose-modification', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'publish-npm', desc: 'npm Publishing Pipeline: Preview to Latest' },
+    { name: 'remove-worktree', desc: 'remove-worktree' },
+    { name: 'resolve-github-issue', desc: 'resolve-github-issue.md' },
+    { name: 'review-contributor-pr', desc: 'Task: Review External Contributor PR' },
+    { name: 'run-workflow-engine', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'run-workflow', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'search-mcp', desc: 'Search MCP Catalog Task' },
+    { name: 'session-resume', desc: 'Session Resume Task' },
+    { name: 'setup-database', desc: 'Task: Setup Database' },
+    { name: 'setup-github', desc: 'setup-github' },
+    { name: 'setup-llm-routing', desc: 'setup-llm-routing' },
+    { name: 'setup-mcp-docker', desc: 'Setup Docker MCP Toolkit' },
+    { name: 'setup-project-docs', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'shard-doc', desc: 'No checklists needed - document processing task with built-in validation via md-tree tool' },
+    { name: 'sm-create-next-story', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'story-checkpoint', desc: 'Task: Story Checkpoint' },
+    { name: 'sync-documentation', desc: 'sync-documentation' },
+    { name: 'sync-registry-intel', desc: 'Task: Sync Registry Intel' },
+    { name: 'tailwind-upgrade', desc: 'Tailwind CSS v4 Upgrade Playbook' },
+    { name: 'test-as-user', desc: 'Task: Test As User (RLS Testing)' },
+    { name: 'test-validation-task', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'triage-github-issues', desc: 'triage-github-issues.md' },
+    { name: 'undo-last', desc: 'No checklists needed - rollback operation with built-in transaction validation' },
+    { name: 'update-aiox', desc: 'Task: Update AIOX Framework' },
+    { name: 'update-manifest', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'update-source-tree', desc: 'Update Source Tree Task' },
+    { name: 'waves', desc: 'Task: `*waves` - Wave Analysis' },
+    { name: 'yolo-toggle', desc: 'yolo-toggle' }
+  ]},
+  { cat: 'Marketing & Copy', skills: [
+    { name: 'advanced-elicitation', desc: 'advanced-elicitation' },
+    { name: 'calculate-roi', desc: 'Calculate ROI and Cost Savings' },
+    { name: 'facilitate-brainstorming-session', desc: 'Facilitate Brainstorming Session' },
+    { name: 'generate-elite-ads-campaign', desc: 'generate-elite-ads-campaign' },
+    { name: 'generate-shock-report', desc: 'Generate Visual Shock Report' },
+    { name: 'optimize-elite-landing-page', desc: 'optimize-elite-landing-page' }
+  ]},
+  { cat: 'Desenvolvimento', skills: [
+    { name: 'apply-qa-fixes', desc: 'Ap' },
+    { name: 'build-autonomous', desc: 'Task: Build Autonomous' },
+    { name: 'build-component', desc: 'Build Production-Ready Component' },
+    { name: 'build-resume', desc: 'Task: Build Resume' },
+    { name: 'build-status', desc: 'Task: Build Status' },
+    { name: 'build', desc: 'Task: Build (Autonomous)' },
+    { name: 'collaborative-edit', desc: 'collaborative-edit' },
+    { name: 'consolidate-patterns', desc: 'Consolidate Patterns Using Intelligent Clustering' },
+    { name: 'create-service', desc: 'Create Service' },
+    { name: 'deprecate-component', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'dev-apply-qa-fixes', desc: 'Ap' },
+    { name: 'dev-backlog-debt', desc: 'Dev Task: Register Technical Debt' },
+    { name: 'dev-develop-story', desc: 'Develop Story Task' },
+    { name: 'dev-improve-code-quality', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'dev-optimize-performance', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'dev-suggest-refactoring', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'dev-validate-next-story', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'extend-pattern', desc: 'Extend Existing Pattern' },
+    { name: 'modify-agent', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'modify-task', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'modify-workflow', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'patterns', desc: 'Learned Patterns Management' }
+  ]},
+  { cat: 'UX & Design', skills: [
+    { name: 'bootstrap-shadcn-library', desc: 'Bootstrap Shadcn/Radix Component Library' },
+    { name: 'export-design-tokens-dtcg', desc: 'Export Design Tokens to W3C DTCG' },
+    { name: 'extract-tokens', desc: 'Extract Design Tokens from Consolidated Patterns' },
+    { name: 'run-design-system-pipeline', desc: 'Run Design System Pipeline' },
+    { name: 'setup-design-system', desc: 'Setup Design System Structure' },
+    { name: 'ux-create-wireframe', desc: 'Create Wireframes & Interaction Flows' },
+    { name: 'ux-ds-scan-artifact', desc: 'Design System Artifact Scanner' },
+    { name: 'ux-user-research', desc: 'User Research & Needs Analysis' }
+  ]},
+  { cat: 'Squads & Operações', skills: [
+    { name: 'add-mcp', desc: 'Add MCP Server Task' },
+    { name: 'ci-cd-configuration', desc: 'Configure CI/CD Pipeline' },
+    { name: 'create-agent', desc: 'Task: Create Squad Agent' },
+    { name: 'environment-bootstrap', desc: 'environment-bootstrap' },
+    { name: 'github-devops-github-pr-automation', desc: 'github-pr-automation.md' },
+    { name: 'github-devops-pre-push-quality-gate', desc: 'pre-push-quality-gate.md' },
+    { name: 'github-devops-repository-cleanup', desc: 'repository-cleanup.md' },
+    { name: 'github-devops-version-management', desc: 'version-management.md' },
+    { name: 'github-issue-triage', desc: 'GitHub Issue Triage' },
+    { name: 'integrate-squad', desc: 'Integrate with Squad' },
+    { name: 'list-mcps', desc: 'list-mcps' },
+    { name: 'mcp-workflow', desc: 'MCP Workflow Creation Task' },
+    { name: 'pr-automation', desc: 'Automate Pull Request Creation for Open-Source Contributions' },
+    { name: 'release-management', desc: 'Manage Software Releases' },
+    { name: 'remove-mcp', desc: 'remove-mcp' },
+    { name: 'squad-creator-analyze', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-create', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-design', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-download', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-extend', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-list', desc: '*list-squads' },
+    { name: 'squad-creator-migrate', desc: '*migrate-squad' },
+    { name: 'squad-creator-publish', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-sync-ide-command', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-sync-synkra', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-validate', desc: '*validate-squad' }
+  ]}
+];
+const sg = document.getElementById('skills-grid-render');
+if(sg) {
+    let sk_html = '';
+    skillsLibrary.forEach(cat => {
+        sk_html += `<div class="sk-cat"><div class="sk-cat-title">${cat.cat} <span style="color:var(--muted);font-size:0.6rem">(${cat.skills.length})</span></div><div style="display:grid;gap:10px;">`;
+        cat.skills.forEach(s => {
+            sk_html += `<div class="sk-item"><div class="sk-head">⚡ ${s.name}</div><p>${s.desc}</p></div>`;
+        });
+        sk_html += `</div></div>`;
+    });
+    sg.innerHTML = sk_html;
+}
+</script>
 </div>
 
 <script>

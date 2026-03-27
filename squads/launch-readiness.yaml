@@ -1,0 +1,23 @@
+name: Launch Readiness Squad
+id: launch-readiness
+description: "Equipe de elite focada em revisar, testar e garantir a qualidade técnica e de interface antes de publicar uma página no Firebase/Kiwify. Previne links quebrados, assets 404 e problemas mobile."
+leader: qa
+
+members:
+  - agent: qa
+    role: "Gatekeeper - Varre todos os links, assets (imagens) e performance."
+  - agent: ux-design-expert
+    role: "Visual Auditor - Garante que as heurísticas de UI, Atomic Design e responsividade (mobile/desktop) estão impecáveis."
+  - agent: devops
+    role: "Deploy Integrator - Confere configurações de CI/CD, rewrites do firebase.json e DNS."
+
+workflow:
+  trigger: "Quando o dev termina de implementar a página e pede aprovação para deploy."
+  steps:
+    - step: 1
+      action: "@qa audita a página em busca de erros 404 de imagem e links inativos nos botões."
+    - step: 2
+      action: "@ux-design-expert revisa o contraste de cores (Morpheus Luxury), alinhamentos no Tailwind e grid responsivo."
+    - step: 3
+      action: "@devops valida a configuração de build (Next.js out/) e caminhos no Firebase Hosting."
+  success_criteria: "A página está renderizando perfeitamente e os links de checkout apontam 100% para o Kiwify."

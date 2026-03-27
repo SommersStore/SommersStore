@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 /**
- * VARIante Atômica: ZEN - DARK V2 (Morpheus Luxury)
- * Mood: Graphite Black, Deep Emerald & Burnished Brass. Harmonizado com novas imagens.
+ * VARIante Atômica: ZEN - NEURAL (Teal Tech Edition)
+ * Mood: Deep Navy, Electric Teal & Signal Orange. Neural network aesthetics.
  */
-export default function ZenDarkV2() {
+export default function ZenNeural() {
     const [openFaq, setOpenFaq] = useState<number | null>(null);
 
     const product = {
@@ -47,59 +47,59 @@ export default function ZenDarkV2() {
     ];
 
     return (
-        <div className="min-h-screen bg-[#0A0D0C] text-[#F5F5DC] font-sans selection:bg-[#043927] selection:text-[#F5F5DC] overflow-x-hidden">
+        <div className="min-h-screen bg-[#060D14] text-[#E0F7FA] font-sans selection:bg-[#0E3048] selection:text-[#E0F7FA] overflow-x-hidden">
 
             {/* 1. RESTRICT ACCESS LABEL */}
-            <div className="bg-[#0a2a22]/40 border-b border-[#043927] py-4 text-center">
-                 <span className="text-[#C5A059] font-black tracking-[0.5em] text-[10px] uppercase">Acesso Restrito: Alunas de Elite</span>
+            <div className="bg-[#0D2030]/40 border-b border-[#0E3048] py-4 text-center">
+                 <span className="text-[#14B8A6] font-black tracking-[0.5em] text-[10px] uppercase">Acesso Restrito: Alunas de Elite</span>
             </div>
 
             {/* 2. ATOMIC_HERO (Vision Zen Dark) */}
             <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-12 md:py-24">
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#051510]/80 to-[#051510]" />
-                    <div className="absolute inset-0 bg-emerald-950/20 mix-blend-multiply" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0A1520]/80 to-[#0A1520]" />
+                    <div className="absolute inset-0 bg-cyan-950/20 mix-blend-multiply" />
                 </div>
                 
                 <div className="relative z-10 container mx-auto px-6 text-center max-w-6xl">
                     <h1 className="text-5xl md:text-[110px] font-serif font-black text-white mb-8 md:mb-12 leading-[0.9] tracking-tighter">
                         {product.promise.split(' ').map((word, i) => (
-                            word === "Alquimia" ? <span key={i} className="text-[#C5A059] italic block md:inline underline decoration-emerald-800 underline-offset-[15px]"> {word} </span> : " " + word
+                            word === "Alquimia" ? <span key={i} className="text-[#14B8A6] italic block md:inline underline decoration-cyan-800 underline-offset-[15px]"> {word} </span> : " " + word
                         ))}
                     </h1>
 
-                    <p className="text-xl md:text-2xl text-emerald-50/80 mb-12 md:mb-20 max-w-4xl mx-auto leading-relaxed font-serif italic">
+                    <p className="text-xl md:text-2xl text-cyan-50/80 mb-12 md:mb-20 max-w-4xl mx-auto leading-relaxed font-serif italic">
                         Descubra como criar rituais de bem-estar com alto valor percebido e transformar o artesanal em um império de vendas premium.
                     </p>
 
-                    <div className="relative aspect-video max-w-4xl mx-auto rounded-[3rem] md:rounded-[5rem] overflow-hidden border border-emerald-900/50 shadow-2xl mb-12 md:mb-20 bg-[#0a2a22]/30">
+                    <div className="relative aspect-video max-w-4xl mx-auto rounded-[3rem] md:rounded-[5rem] overflow-hidden border border-cyan-900/50 shadow-2xl mb-12 md:mb-20 bg-[#0D2030]/30">
                          <Image src="/sales/assets/zen-dark-hero.png" alt="Hero Asset" fill className="object-cover opacity-80" />
                     </div>
 
-                    <button onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })} className="px-12 md:px-20 py-8 md:py-10 rounded-full bg-[#C5A059] text-white font-black text-xl md:text-2xl hover:bg-emerald-500 hover:scale-[1.05] transition-all duration-700 shadow-[0_20px_60px_rgba(5,150,105,0.4)] uppercase tracking-[0.2em]">
+                    <button onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })} className="px-12 md:px-20 py-8 md:py-10 rounded-full bg-[#14B8A6] text-white font-black text-xl md:text-2xl hover:bg-teal-400 hover:scale-[1.05] transition-all duration-700 shadow-[0_20px_60px_rgba(20,184,166,0.35)] uppercase tracking-[0.2em]">
                         Quero meu acesso exclusivo
                     </button>
                 </div>
             </section>
 
             {/* 3. PAIN (The Whisper Zen Dark) */}
-            <section className="py-12 md:py-28 bg-[#030d0a] border-y border-emerald-900/20">
+            <section className="py-12 md:py-28 bg-[#040A10] border-y border-cyan-900/20">
                 <div className="container mx-auto px-6 max-w-6xl">
                     <div className="grid md:grid-cols-2 gap-12 md:gap-24 items-center text-left">
                         <div className="space-y-12">
                             <h2 className="text-4xl md:text-7xl font-serif text-white italic leading-tight">
-                                Você sente sua energia sendo <br /> <span className="text-[#C5A059] underline decoration-emerald-900 italic">drenada pelo caos diário?</span>
+                                Você sente sua energia sendo <br /> <span className="text-[#14B8A6] underline decoration-cyan-900 italic">drenada pelo caos diário?</span>
                             </h2>
                             <div className="space-y-8">
                                 {pains.map((pain, i) => (
-                                    <div key={i} className="flex gap-6 items-start border-l-4 border-emerald-900/40 pl-8 py-4 bg-emerald-950/20 rounded-r-3xl group hover:border-emerald-500 transition-all">
-                                        <span className="text-[#FF9933] font-serif text-3xl mt-[-5px]">“</span>
-                                        <span className="text-emerald-50/80 text-lg md:text-xl font-serif italic leading-relaxed">{pain}</span>
+                                    <div key={i} className="flex gap-6 items-start border-l-4 border-cyan-900/40 pl-8 py-4 bg-cyan-950/20 rounded-r-3xl group hover:border-teal-400 transition-all">
+                                        <span className="text-[#F97316] font-serif text-3xl mt-[-5px]">“</span>
+                                        <span className="text-cyan-50/80 text-lg md:text-xl font-serif italic leading-relaxed">{pain}</span>
                                     </div>
                                 ))}
                             </div>
                         </div>
-                        <div className="relative aspect-[3/4] rounded-[3rem] md:rounded-[5rem] overflow-hidden border border-[#043927] shadow-2xl grayscale saturate-50 hover:grayscale-0 transition-all duration-1000">
+                        <div className="relative aspect-[3/4] rounded-[3rem] md:rounded-[5rem] overflow-hidden border border-[#0E3048] shadow-2xl grayscale saturate-50 hover:grayscale-0 transition-all duration-1000">
                              <Image src="/sales/assets/zen-dark-pain.png" alt="Pain Visual" fill className="object-cover" />
                         </div>
                     </div>
@@ -107,35 +107,35 @@ export default function ZenDarkV2() {
             </section>
 
             {/* 4. METHOD (The Secret Zen Dark) */}
-            <section className="py-12 md:py-28 bg-[#051510]">
+            <section className="py-12 md:py-28 bg-[#0A1520]">
                 <div className="container mx-auto px-6 text-center max-w-5xl">
-                    <span className="text-[#C5A059] font-black tracking-[0.5em] text-[10px] uppercase mb-8 block">A Base da Alquimia</span>
+                    <span className="text-[#14B8A6] font-black tracking-[0.5em] text-[10px] uppercase mb-8 block">A Base da Alquimia</span>
                     <h3 className="text-5xl md:text-[80px] font-serif text-white mb-12 italic tracking-tighter leading-none">O Segredo da Alquimia Mineral.</h3>
-                    <p className="text-xl md:text-2xl text-emerald-50/80 leading-relaxed mb-20 md:mb-32 font-serif italic max-w-4xl mx-auto">
+                    <p className="text-xl md:text-2xl text-cyan-50/80 leading-relaxed mb-20 md:mb-32 font-serif italic max-w-4xl mx-auto">
                         O Método Essência Ativa BR não ensina "receitas". Ele revela o código da transmutação: como unir sais, ervas e intenção para criar produtos com alma e alto valor percebido.
                     </p>
                     
-                    <div className="bg-[#0a2a22]/30 rounded-[3rem] md:rounded-[6rem] p-10 md:p-24 border border-emerald-900/40 text-left relative overflow-hidden group shadow-inner">
+                    <div className="bg-[#0D2030]/30 rounded-[3rem] md:rounded-[6rem] p-10 md:p-24 border border-cyan-900/40 text-left relative overflow-hidden group shadow-inner">
                         <div className="relative z-10 max-w-2xl">
-                            <h4 className="text-3xl md:text-4xl font-serif text-[#C5A059] mb-8 italic font-black">O Poder da Terra nas suas Mãos</h4>
-                            <p className="text-lg md:text-xl text-emerald-50/80 leading-relaxed font-serif italic">
+                            <h4 className="text-3xl md:text-4xl font-serif text-[#14B8A6] mb-8 italic font-black">O Poder da Terra nas suas Mãos</h4>
+                            <p className="text-lg md:text-xl text-cyan-50/80 leading-relaxed font-serif italic">
                                 Desenvolvemos rituais que transformam o banho comum em um evento de spa de 5 estrelas. Usamos a densidade mineral para relaxar músculos e a volatilidade botânica para elevar a alma.
                             </p>
                         </div>
                         <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 group-hover:opacity-30 transition-all flex">
                              <div className="relative w-1/2 h-full"> <Image src="/sales/assets/zen-dark-v2-method.png" alt="Alchemy 1" fill className="object-cover" /> </div>
-                             <div className="relative w-1/2 h-full border-l border-emerald-900/20"> <Image src="/sales/assets/ChatGPT Image 9 de fev. de 2026, 00_11_24.png" alt="Alchemy 2" fill className="object-cover" /> </div>
+                             <div className="relative w-1/2 h-full border-l border-cyan-900/20"> <Image src="/sales/assets/ChatGPT Image 9 de fev. de 2026, 00_11_24.png" alt="Alchemy 2" fill className="object-cover" /> </div>
                         </div>
                     </div>
                 </div>
             </section>
 
             {/* 5. REALITY (Timeline Zen Dark) */}
-            <section className="py-12 md:py-28 bg-[#030d0a] border-y border-emerald-900/20">
+            <section className="py-12 md:py-28 bg-[#040A10] border-y border-cyan-900/20">
                 <div className="container mx-auto px-6 max-w-5xl text-center">
-                    <div className="flex justify-center mb-10 text-[#C5A059]/30"><span className="text-4xl">🌿</span></div>
+                    <div className="flex justify-center mb-10 text-[#14B8A6]/30"><span className="text-4xl">🌿</span></div>
                     <h2 className="text-5xl md:text-8xl font-serif font-black text-white italic mb-8 tracking-tighter">Uma nova vida <br/> florescendo...</h2>
-                    <p className="text-lg md:text-xl text-emerald-50/80 font-serif italic mb-16 italic">Imagine sua rotina apenas 30 dias após este método:</p>
+                    <p className="text-lg md:text-xl text-cyan-50/80 font-serif italic mb-16 italic">Imagine sua rotina apenas 30 dias após este método:</p>
                     
                     <div className="grid md:grid-cols-2 gap-6 text-left">
                         {[
@@ -144,13 +144,13 @@ export default function ZenDarkV2() {
                             { t: "Capacidade de gerar uma nova fonte de renda em apenas 48h.", img: "/sales/assets/ChatGPT Image 14 de jan. de 2026, 22_03_46.png" },
                             { t: "Acesso à sabedoria ancestral da Alquimia Brasileira.", img: "/sales/assets/ChatGPT Image 14 de jan. de 2026, 22_38_54.png" }
                         ].map((item, i) => (
-                            <div key={i} className="flex flex-col gap-6 bg-[#0a2a22]/20 p-8 rounded-[2.5rem] border border-[#043927] shadow-sm hover:shadow-md transition-all overflow-hidden group">
+                            <div key={i} className="flex flex-col gap-6 bg-[#0D2030]/20 p-8 rounded-[2.5rem] border border-[#0E3048] shadow-sm hover:shadow-md transition-all overflow-hidden group">
                                 <div className="relative aspect-video w-full rounded-2xl overflow-hidden mb-4 grayscale saturate-50 group-hover:grayscale-0 transition-all duration-700">
                                     <Image src={item.img} alt={item.t} fill className="object-cover" />
                                 </div>
                                 <div className="flex gap-4 items-center">
-                                    <div className="w-8 h-8 rounded-full bg-emerald-900 flex items-center justify-center text-[#C5A059] text-xs font-black flex-shrink-0">✓</div>
-                                    <span className="text-emerald-50/80 font-serif italic text-lg leading-tight">{item.t}</span>
+                                    <div className="w-8 h-8 rounded-full bg-cyan-900 flex items-center justify-center text-[#14B8A6] text-xs font-black flex-shrink-0">✓</div>
+                                    <span className="text-cyan-50/80 font-serif italic text-lg leading-tight">{item.t}</span>
                                 </div>
                             </div>
                         ))}
@@ -159,26 +159,26 @@ export default function ZenDarkV2() {
             </section>
 
             {/* 6. SOCIAL PROOF (Voices Zen Dark) */}
-            <section className="py-12 md:py-28 bg-[#051510]">
+            <section className="py-12 md:py-28 bg-[#0A1520]">
                 <div className="container mx-auto px-6 max-w-6xl">
-                    <span className="text-center block text-[#C5A059] font-black tracking-[0.5em] text-[10px] uppercase mb-8">Vozes da Transformação</span>
-                    <h2 className="text-center text-4xl md:text-[80px] font-serif font-black text-white italic mb-16 md:mb-24 tracking-tighter leading-tight">Histórias de quem escolheu <br/> <span className="underline decoration-emerald-900 underline-offset-8">viver a Alquimia.</span></h2>
+                    <span className="text-center block text-[#14B8A6] font-black tracking-[0.5em] text-[10px] uppercase mb-8">Vozes da Transformação</span>
+                    <h2 className="text-center text-4xl md:text-[80px] font-serif font-black text-white italic mb-16 md:mb-24 tracking-tighter leading-tight">Histórias de quem escolheu <br/> <span className="underline decoration-cyan-900 underline-offset-8">viver a Alquimia.</span></h2>
                     
                     <div className="grid md:grid-cols-2 gap-8 md:gap-12">
                         {testimonials.map((t, i) => (
-                            <div key={i} className="bg-[#0a2a22]/30 p-10 md:p-16 rounded-[3.5rem] border border-[#043927] relative flex flex-col justify-between hover:bg-emerald-950/40 transition-colors group shadow-2xl">
-                                <div className="text-6xl text-emerald-900/20 font-serif absolute top-10 left-10">“</div>
-                                <p className="text-lg md:text-2xl text-emerald-50/80 italic font-serif leading-relaxed mb-12 relative z-10">
+                            <div key={i} className="bg-[#0D2030]/30 p-10 md:p-16 rounded-[3.5rem] border border-[#0E3048] relative flex flex-col justify-between hover:bg-cyan-950/40 transition-colors group shadow-2xl">
+                                <div className="text-6xl text-cyan-900/20 font-serif absolute top-10 left-10">“</div>
+                                <p className="text-lg md:text-2xl text-cyan-50/80 italic font-serif leading-relaxed mb-12 relative z-10">
                                     {t.text}
                                 </p>
-                                <div className="h-px w-full bg-emerald-900/10 mb-8" />
+                                <div className="h-px w-full bg-cyan-900/10 mb-8" />
                                 <div className="flex items-center gap-6">
-                                    <div className="w-20 h-20 rounded-full border border-emerald-800/50 overflow-hidden relative shadow-lg">
+                                    <div className="w-20 h-20 rounded-full border border-cyan-800/50 overflow-hidden relative shadow-lg">
                                         <Image src={t.img} alt={t.name} fill className="object-cover" />
                                     </div>
                                     <div>
                                         <div className="text-white font-black text-lg uppercase tracking-widest">{t.name}</div>
-                                        <div className="text-[#FF9933]/60 font-black text-[10px] uppercase tracking-[0.3em]">{t.loc}</div>
+                                        <div className="text-[#F97316]/60 font-black text-[10px] uppercase tracking-[0.3em]">{t.loc}</div>
                                     </div>
                                 </div>
                             </div>
@@ -188,19 +188,19 @@ export default function ZenDarkV2() {
             </section>
 
             {/* 7. LEARNING (Curriculum Zen Dark) */}
-            <section className="py-12 md:py-28 bg-[#030d0a] border-y border-emerald-900/20">
+            <section className="py-12 md:py-28 bg-[#040A10] border-y border-cyan-900/20">
                 <div className="container mx-auto px-6 max-w-5xl">
                     <h2 className="text-center text-4xl md:text-6xl font-serif font-black mb-16 md:mb-24 italic text-white">As Fases da Jornada</h2>
                     <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8">
                         {phases.map((p, i) => (
-                            <div key={i} className="group bg-[#0a2a22]/30 rounded-[3rem] overflow-hidden border border-emerald-900/40 shadow-2xl hover:shadow-emerald-900/20 transition-all duration-700 flex flex-col h-full">
+                            <div key={i} className="group bg-[#0D2030]/30 rounded-[3rem] overflow-hidden border border-cyan-900/40 shadow-2xl hover:shadow-cyan-900/20 transition-all duration-700 flex flex-col h-full">
                                 <div className="relative h-64 w-full">
                                     <Image src={p.img || `/sales/assets/${i+1}.png`} alt={p.title} fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110" />
-                                    <div className="absolute top-6 left-6 w-16 h-16 rounded-full bg-[#043927] border border-emerald-100/10 text-[#C5A059] flex items-center justify-center text-2xl font-black shadow-xl">0{i+1}</div>
+                                    <div className="absolute top-6 left-6 w-16 h-16 rounded-full bg-[#0E3048] border border-cyan-100/10 text-[#14B8A6] flex items-center justify-center text-2xl font-black shadow-xl">0{i+1}</div>
                                 </div>
                                 <div className="p-10 text-left">
-                                    <h4 className="text-2xl md:text-3xl font-serif text-[#C5A059] mb-6 italic font-black underline decoration-emerald-800 underline-offset-8 decoration-4">{p.title}</h4>
-                                    <p className="text-emerald-50/80 text-xl font-serif italic leading-relaxed">{p.desc}</p>
+                                    <h4 className="text-2xl md:text-3xl font-serif text-[#14B8A6] mb-6 italic font-black underline decoration-cyan-800 underline-offset-8 decoration-4">{p.title}</h4>
+                                    <p className="text-cyan-50/80 text-xl font-serif italic leading-relaxed">{p.desc}</p>
                                 </div>
                             </div>
                         ))}
@@ -209,22 +209,22 @@ export default function ZenDarkV2() {
             </section>
 
             {/* 8. BONUSES (Presentes de Elite Zen Dark) */}
-            <section className="py-12 md:py-28 bg-[#051510]">
+            <section className="py-12 md:py-28 bg-[#0A1520]">
                 <div className="container mx-auto px-6 max-w-6xl text-center">
-                    <span className="text-[#C5A059] font-black tracking-[0.5em] text-[10px] uppercase mb-8 block">Presentes de Elite</span>
+                    <span className="text-[#14B8A6] font-black tracking-[0.5em] text-[10px] uppercase mb-8 block">Presentes de Elite</span>
                     <h2 className="text-4xl md:text-7xl font-serif font-black text-white italic mb-16 md:mb-24 italic tracking-tighter">Sua Decisão Recompensada.</h2>
                     
                     <div className="grid lg:grid-cols-3 gap-8">
                         {bonuses.map((b, i) => (
-                            <div key={i} className="bg-[#0a2a22]/20 border border-[#043927] rounded-[4rem] overflow-hidden text-left relative group shadow-inner hover:scale-[1.02] transition-all">
-                                <div className="relative h-48 w-full bg-emerald-950">
+                            <div key={i} className="bg-[#0D2030]/20 border border-[#0E3048] rounded-[4rem] overflow-hidden text-left relative group shadow-inner hover:scale-[1.02] transition-all">
+                                <div className="relative h-48 w-full bg-cyan-950">
                                     <Image src={`/sales/assets/ChatGPT Image 5 de fev. de 2026, 21_09_${44 + i * 11}.png`} alt={b.title} fill className="object-cover opacity-60 group-hover:opacity-100 transition-opacity" />
-                                    <div className="absolute top-6 left-6 px-4 py-2 rounded-full bg-[#043927] border border-emerald-100/10 text-[#C5A059] text-[10px] font-black uppercase tracking-widest shadow-lg">PRESENTE 0{i+1}</div>
+                                    <div className="absolute top-6 left-6 px-4 py-2 rounded-full bg-[#0E3048] border border-cyan-100/10 text-[#14B8A6] text-[10px] font-black uppercase tracking-widest shadow-lg">PRESENTE 0{i+1}</div>
                                 </div>
                                 <div className="p-12">
                                     <h4 className="text-2xl font-serif text-white mb-6 italic leading-tight font-black">{b.title}</h4>
-                                    <p className="text-emerald-50/80 font-serif italic mb-8 leading-relaxed">{b.desc}</p>
-                                    <div className="pt-6 border-t border-emerald-900/20 flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-[#FF9933]/40">
+                                    <p className="text-cyan-50/80 font-serif italic mb-8 leading-relaxed">{b.desc}</p>
+                                    <div className="pt-6 border-t border-cyan-900/20 flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-[#F97316]/40">
                                         <span>Valor Original</span>
                                         <span>{b.value}</span>
                                     </div>
@@ -236,32 +236,32 @@ export default function ZenDarkV2() {
             </section>
 
             {/* 9. ATOMIC_OFFER (The Decision Zen Dark) */}
-            <section id="offer" className="py-12 md:py-28 bg-[#030d0a]">
+            <section id="offer" className="py-12 md:py-28 bg-[#040A10]">
                 <div className="container mx-auto px-6 text-center max-w-4xl">
                     <div className="mb-12 space-y-4">
-                         <span className="inline-block py-2 px-8 rounded-full bg-[#C5A059] text-white font-black tracking-[0.3em] text-[10px] uppercase shadow-xl">Acesso Vitalício Liberado</span>
-                         <h2 className="text-4xl md:text-[80px] font-serif font-black text-white italic tracking-tighter leading-none">O SEU RITUAL <br/> <span className="text-[#C5A059] underline decoration-emerald-100 underline-offset-[10px] md:underline-offset-[20px]">COMEÇA AGORA.</span></h2>
+                         <span className="inline-block py-2 px-8 rounded-full bg-[#14B8A6] text-white font-black tracking-[0.3em] text-[10px] uppercase shadow-xl">Acesso Vitalício Liberado</span>
+                         <h2 className="text-4xl md:text-[80px] font-serif font-black text-white italic tracking-tighter leading-none">O SEU RITUAL <br/> <span className="text-[#14B8A6] underline decoration-cyan-100 underline-offset-[10px] md:underline-offset-[20px]">COMEÇA AGORA.</span></h2>
                     </div>
                     
                     <div className="relative">
-                        <div className="absolute inset-0 bg-[#043927] rounded-[5rem] -rotate-1 scale-105 -z-10 opacity-20" />
-                        <div className="bg-[#0a2a22]/40 rounded-[4rem] md:rounded-[6rem] p-10 md:p-24 border-8 border-emerald-950 shadow-4xl relative overflow-hidden">
-                            <div className="absolute top-0 right-0 p-10 opacity-5 text-[15rem] text-[#C5A059]">💎</div>
+                        <div className="absolute inset-0 bg-[#0E3048] rounded-[5rem] -rotate-1 scale-105 -z-10 opacity-20" />
+                        <div className="bg-[#0D2030]/40 rounded-[4rem] md:rounded-[6rem] p-10 md:p-24 border-8 border-cyan-950 shadow-4xl relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-10 opacity-5 text-[15rem] text-[#14B8A6]">💎</div>
                             
                             <div className="grid md:grid-cols-2 gap-16 items-center">
                                 <div className="text-left space-y-8">
                                     <div className="space-y-2">
-                                        <p className="text-emerald-50/80 line-through text-2xl italic font-serif opacity-60">De R$ 197,00 por apenas</p>
+                                        <p className="text-cyan-50/80 line-through text-2xl italic font-serif opacity-60">De R$ 197,00 por apenas</p>
                                         <div className="flex items-baseline gap-2 group cursor-default">
-                                            <span className="text-4xl md:text-5xl font-black text-[#C5A059]">R$</span>
-                                            <span className="text-[100px] md:text-[180px] font-serif font-black text-white tracking-tighter leading-none transition-all group-hover:text-[#C5A059]">{product.price.split(',')[0]}</span>
+                                            <span className="text-4xl md:text-5xl font-black text-[#14B8A6]">R$</span>
+                                            <span className="text-[100px] md:text-[180px] font-serif font-black text-white tracking-tighter leading-none transition-all group-hover:text-[#14B8A6]">{product.price.split(',')[0]}</span>
                                             <div className="text-left font-black">
-                                                <div className="text-[60px] md:text-[80px] text-[#C5A059] leading-none">,{product.price.split(',')[1]}</div>
+                                                <div className="text-[60px] md:text-[80px] text-[#14B8A6] leading-none">,{product.price.split(',')[1]}</div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="py-4 px-8 rounded-full bg-[#043927] text-[#C5A059] font-bold tracking-wider text-xs uppercase inline-block text-left border border-emerald-500/20">
+                                    <div className="py-4 px-8 rounded-full bg-[#0E3048] text-[#14B8A6] font-bold tracking-wider text-xs uppercase inline-block text-left border border-teal-400/20">
                                         PAGAMENTO ÚNICO • SEM MENSALIDADES • 100% DIGITAL
                                     </div>
 
@@ -274,22 +274,22 @@ export default function ZenDarkV2() {
                                         ].map((item, i) => (
                                             <div key={i} className="flex gap-4 items-center text-left">
                                                 <span className="text-2xl">{item.i}</span>
-                                                <span className="text-lg font-serif italic text-emerald-50/80">{item.t}</span>
+                                                <span className="text-lg font-serif italic text-cyan-50/80">{item.t}</span>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
 
                                 <div className="space-y-12 text-center">
-                                    <div className="relative aspect-square w-full rounded-full border-8 border-[#0a2a22] shadow-3xl overflow-hidden bg-emerald-950">
+                                    <div className="relative aspect-square w-full rounded-full border-8 border-[#0D2030] shadow-3xl overflow-hidden bg-cyan-950">
                                         <Image src="/sales/assets/v3-product.png" alt="Product" fill className="object-cover opacity-80" />
                                     </div>
-                                    <button className="w-full py-10 rounded-full bg-[#C5A059] text-white font-black text-2xl md:text-3xl hover:bg-emerald-500 hover:scale-[1.05] transition-all shadow-3xl uppercase tracking-[0.2em] leading-none">
+                                    <button className="w-full py-10 rounded-full bg-[#14B8A6] text-white font-black text-2xl md:text-3xl hover:bg-teal-400 hover:scale-[1.05] transition-all shadow-3xl uppercase tracking-[0.2em] leading-none">
                                         SIM! QUERO MEU MÉTODO AGORA
                                     </button>
                                     <div className="flex justify-center gap-8 opacity-40">
-                                         <div className="flex items-center gap-2 text-emerald-100"> <span className="text-xl">🔒</span> <span className="text-[8px] font-black uppercase tracking-widest">Compra Segura</span> </div>
-                                         <div className="flex items-center gap-2 text-emerald-100"> <span className="text-xl">🛡️</span> <span className="text-[8px] font-black uppercase tracking-widest">Proteção Total</span> </div>
+                                         <div className="flex items-center gap-2 text-cyan-100"> <span className="text-xl">🔒</span> <span className="text-[8px] font-black uppercase tracking-widest">Compra Segura</span> </div>
+                                         <div className="flex items-center gap-2 text-cyan-100"> <span className="text-xl">🛡️</span> <span className="text-[8px] font-black uppercase tracking-widest">Proteção Total</span> </div>
                                     </div>
                                 </div>
                             </div>
@@ -299,39 +299,39 @@ export default function ZenDarkV2() {
             </section>
 
             {/* 10. BIO (Mentora Zen Dark) */}
-            <section className="py-12 md:py-28 bg-[#051510]">
+            <section className="py-12 md:py-28 bg-[#0A1520]">
                 <div className="container mx-auto px-6 max-w-6xl">
                     <div className="grid md:grid-cols-2 gap-16 md:gap-32 items-center text-left">
-                        <div className="relative aspect-[3/4] rounded-[4rem] md:rounded-[6rem] overflow-hidden border border-[#043927] shadow-2xl grayscale saturate-50 hover:grayscale-0 transition-all duration-1000">
+                        <div className="relative aspect-[3/4] rounded-[4rem] md:rounded-[6rem] overflow-hidden border border-[#0E3048] shadow-2xl grayscale saturate-50 hover:grayscale-0 transition-all duration-1000">
                              <Image src="/sales/assets/zen-light-bio.png" alt="Elisa Clark" fill className="object-cover" />
                         </div>
                         <div className="space-y-12">
-                             <span className="text-[#C5A059] font-black tracking-[0.5em] text-[10px] uppercase">A Criadora</span>
+                             <span className="text-[#14B8A6] font-black tracking-[0.5em] text-[10px] uppercase">A Criadora</span>
                              <h2 className="text-5xl md:text-7xl font-serif italic text-white leading-tight">Eu te guiarei nesse portal de abundância.</h2>
-                             <p className="text-lg md:text-xl text-emerald-50/80 font-serif italic leading-relaxed">
+                             <p className="text-lg md:text-xl text-cyan-50/80 font-serif italic leading-relaxed">
                                 Elisa Clark Brasil dedicou anos à pesquisa de como os minerais agem no campo vibracional e físico. Hoje, através da SommersStore, ela abre as portas da sua metodologia para que você também possa transmutar matéria-prima em status e bem-estar.
                              </p>
-                             <div className="text-[#C5A059] font-serif italic text-3xl font-black">— Elisa Clark Brasil</div>
+                             <div className="text-[#14B8A6] font-serif italic text-3xl font-black">— Elisa Clark Brasil</div>
                         </div>
                     </div>
                 </div>
             </section>
 
             {/* 11. GUARANTEE (Seal Zen Dark) */}
-            <section className="py-12 md:py-28 bg-[#030d0a] border-y border-emerald-900/20 text-center">
+            <section className="py-12 md:py-28 bg-[#040A10] border-y border-cyan-900/20 text-center">
                 <div className="container mx-auto px-6 max-w-3xl">
-                    <div className="inline-block px-12 py-12 rounded-full border border-[#043927] bg-[#0a2a22]/30 mb-12 relative overflow-hidden group shadow-inner">
+                    <div className="inline-block px-12 py-12 rounded-full border border-[#0E3048] bg-[#0D2030]/30 mb-12 relative overflow-hidden group shadow-inner">
                          <div className="text-6xl mb-4 group-hover:scale-110 transition-transform">🛡️</div>
                     </div>
                     <h2 className="text-4xl font-serif text-white mb-8 italic font-black">Risco Zero. Transmutação Garantida.</h2>
-                    <p className="text-lg md:text-xl text-emerald-50/80 font-serif italic mb-12">
+                    <p className="text-lg md:text-xl text-cyan-50/80 font-serif italic mb-12">
                         Você tem 7 dias para mergulhar no método. Se dentro desse período você sentir que a alquimia não é para você, devolvemos seu investimento integralmente, sem perguntas. Nosso compromisso é com a sua evolução.
                     </p>
                 </div>
             </section>
 
             {/* 12. FAQ (Clarity Zen Dark) */}
-            <section className="py-12 md:py-28 bg-[#051510]">
+            <section className="py-12 md:py-28 bg-[#0A1520]">
                 <div className="container mx-auto px-6 max-w-4xl text-left">
                     <h2 className="text-center text-4xl font-serif font-black mb-16 md:mb-24 italic text-white">Dúvidas Frequentes</h2>
                     <div className="space-y-4">
@@ -341,13 +341,13 @@ export default function ZenDarkV2() {
                             { q: "Quais materiais vou precisar?", a: "No curso fornecemos a lista completa de fornecedores e materiais básicos. Você pode começar com baixo investimento." },
                             { q: "O pagamento é seguro?", a: "Utilizamos as bandeiras de segurança mais robustas do mercado. Seus dados estão 100% protegidos por criptografia de ponta." }
                         ].map((faq, i) => (
-                            <div key={i} className="bg-[#0a2a22]/30 border border-emerald-900/20 rounded-[2.5rem] overflow-hidden shadow-sm">
-                                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full p-8 md:p-10 flex justify-between items-center text-left hover:bg-emerald-950/40 transition-colors">
+                            <div key={i} className="bg-[#0D2030]/30 border border-cyan-900/20 rounded-[2.5rem] overflow-hidden shadow-sm">
+                                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full p-8 md:p-10 flex justify-between items-center text-left hover:bg-cyan-950/40 transition-colors">
                                     <span className="text-lg md:text-xl font-serif italic text-white font-black">{faq.q}</span>
-                                    <span className={`text-[#C5A059] transform transition-transform text-2xl ${openFaq === i ? 'rotate-45' : ''}`}>+</span>
+                                    <span className={`text-[#14B8A6] transform transition-transform text-2xl ${openFaq === i ? 'rotate-45' : ''}`}>+</span>
                                 </button>
                                 {openFaq === i && (
-                                    <div className="p-10 pt-0 text-emerald-50/80 font-serif italic leading-relaxed border-t border-emerald-900/20 mt-[-1px]">
+                                    <div className="p-10 pt-0 text-cyan-50/80 font-serif italic leading-relaxed border-t border-cyan-900/20 mt-[-1px]">
                                         {faq.a}
                                     </div>
                                 )}
@@ -358,14 +358,14 @@ export default function ZenDarkV2() {
             </section>
 
             {/* 13. FOOTER (Zen Dark Branding) */}
-            <footer className="py-20 md:py-32 bg-[#030d0a] text-center border-t border-emerald-900/20">
+            <footer className="py-20 md:py-32 bg-[#040A10] text-center border-t border-cyan-900/20">
                  <div className="container mx-auto px-6">
                     <div className="flex flex-col items-center gap-12">
-                        <div className="text-emerald-50/80 font-black tracking-[1.2rem] text-[10px] uppercase font-sans">Sommers Store • Digital Arts</div>
-                        <div className="h-px w-20 bg-emerald-900/40" />
-                        <div className="text-emerald-100/5 text-[9px] font-black uppercase tracking-[1em] font-sans">© 2026 Engenharia Atômica SommersStore</div>
+                        <div className="text-cyan-50/80 font-black tracking-[1.2rem] text-[10px] uppercase font-sans">Sommers Store • Digital Arts</div>
+                        <div className="h-px w-20 bg-cyan-900/40" />
+                        <div className="text-cyan-100/5 text-[9px] font-black uppercase tracking-[1em] font-sans">© 2026 Engenharia Atômica SommersStore</div>
                         <div className="mt-8 opacity-20">
-                             <div className="flex gap-8 text-[8px] uppercase tracking-widest text-[#C5A059] font-black">
+                             <div className="flex gap-8 text-[8px] uppercase tracking-widest text-[#14B8A6] font-black">
                                  <span>Alquimia</span>
                                  <span>Mineral</span>
                                  <span>Elite</span>

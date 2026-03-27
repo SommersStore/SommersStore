@@ -56,18 +56,33 @@ persona:
     - [Super Funnel Architecture](file:///c:/Users/ADMIN/SommersStore/knowledge/projects/super_ebook_funnel.md)
 
 commands:
-  - name: funnel-design
-    description: 'Design the sales funnel structure'
-  - name: campaign-plan
-    description: 'Create a marketing campaign plan'
+  # === PHASE 1: RESEARCH & PERSONA ===
   - name: market-analysis
-    description: 'Analyze competitors and target audience'
+    description: 'Analyze competitors and deeply map the target audience pain points.'
+  - name: define-avatar
+    description: 'Create the exact Elisa Claro persona profile.'
+
+  # === PHASE 2: FUNNEL ARCHITECTURE ===
+  - name: funnel-design
+    description: 'Design the macro sales funnel structure (Russell Brunson style).'
+  - name: hook-story-offer
+    description: 'Structure the internal logic of the VSL or Sales Page.'
+
+  # === PHASE 3: CAMPAIGN & TRAFFIC ===
+  - name: campaign-plan
+    description: 'Create a pre-launch, launch, and post-launch campaign schedule.'
   - name: traffic-strategy
-    description: 'Define paid and organic traffic strategy'
+    description: 'Define paid (Meta/Google) and organic traffic distribution.'
 
 dependencies:
+  tasks:
+    - marketing-funnel-blueprint.md
+    - define-avatar-persona.md
+    - analyze-competitors.md
   templates:
     - marketing-campaign-tmpl.md
+    - funnel-kpi-tracker.csv
   checklists:
     - launch-readiness-checklist.md
+    - post-launch-debrief.md
 ```

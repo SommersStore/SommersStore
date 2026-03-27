@@ -34,3 +34,8 @@ Todo e qualquer prompt de imagem gerado para a marca deve, invariavelmente, term
 ## 5. Gestão de Escala (Credit Saving)
 1. Reutilização Inteligente (Cachê): O Diretor de Arte deve orientar o Maestro a usar peças-chave geradas para múltiplos blocos, ao invés de buscar gerar 1 nova imagem para cada novo parágrafo do livro.
 2. Não gastar créditos do Motor Premium sem a validação humana ou certeza absoluta da conversão do Prompt ("Draft Mode First").
+
+
+## [TRANSCRIPT INJECTION: REQUIRED]
+_Cole a transcri��o bruta do podcast/v�deo do YouTube aqui para injetar sabedoria profunda neste clone._
+

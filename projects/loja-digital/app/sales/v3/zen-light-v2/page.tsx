@@ -40,10 +40,10 @@ export default function ZenLightV2() {
     ];
 
     const testimonials = [
-        { name: "Juliana, 31a", loc: "SÃO PAULO/SP", text: "Comecei com R$ 150 investidos e muita insegurança. Três meses depois, já tinha vendido mais de 200 unidades e conseguido minha primeira renda de R$ 2.800 em um mês. Isso não tem preço!", img: "/sales/assets/test-1.png" },
-        { name: "Patrícia, 26a", loc: "BELO HORIZONTE/MG", text: "Era professora estressada sem tempo. Comecei fazendo para uso próprio. Quando amigas experimentaram e pediram para comprar, percebi que tinha algo nas mãos. Hoje minha renda extra com os sais paga as contas da casa.", img: "/sales/assets/test-2.png" },
-        { name: "Marta, 45a", loc: "CURITIBA/PR", text: "Nunca tinha vendido nada e nem tinha Instagram. Segui o método e comecei vendendo para vizinhas. Hoje atendo pela internet e já fiz mais de 500 vendas. O método mudou minha vida e minha relação com o trabalho.", img: "/sales/assets/test-3.png" },
-        { name: "Luciana, 38a", loc: "RECIFE/PE", text: "Estava desempregada e desesperada. Comecei com R$ 100 emprestados. Dois meses depois, já tinha faturado R$ 1.500. Hoje meus sais são minha principal fonte de renda. Recuperei minha autoestima.", img: "/sales/assets/test-4.png" }
+        { name: "Juliana, 31a", loc: "SÃO PAULO/SP", text: "Comecei com R$ 150 investidos e muita insegurança. Três meses depois, já tinha vendido mais de 200 unidades e conseguido minha primeira renda de R$ 2.800 em um mês. Isso não tem preço!", img: "/sales/assets/juliana.jpg" },
+        { name: "Patrícia, 26a", loc: "BELO HORIZONTE/MG", text: "Era professora estressada sem tempo. Comecei fazendo para uso próprio. Quando amigas experimentaram e pediram para comprar, percebi que tinha algo nas mãos. Hoje minha renda extra com os sais paga as contas da casa.", img: "/sales/assets/patricia.jpg" },
+        { name: "Amanda, 45a", loc: "CURITIBA/PR", text: "Nunca tinha vendido nada e nem tinha Instagram. Segui o método e comecei vendendo para vizinhas. Hoje atendo pela internet e já fiz mais de 500 vendas. O método mudou minha vida e minha relação com o trabalho.", img: "/sales/assets/amanda.jpg" },
+        { name: "Carolina, 38a", loc: "RECIFE/PE", text: "Estava desempregada e desesperada. Comecei com R$ 100 emprestados. Dois meses depois, já tinha faturado R$ 1.500. Hoje meus sais são minha principal fonte de renda. Recuperei minha autoestima.", img: "/sales/assets/carolina.jpg" }
     ];
 
     return (
@@ -138,10 +138,10 @@ export default function ZenLightV2() {
                     
                     <div className="grid md:grid-cols-2 gap-6 text-left">
                         {[
-                            { t: "Domínio absoluto sobre a criação de 30 blends de elite.", img: "/sales/assets/ChatGPT Image 14 de jan. de 2026, 21_36_39.png" },
-                            { t: "Transformação de banhos comuns em rituais de cura profunda.", img: "/sales/assets/ChatGPT Image 14 de jan. de 2026, 21_41_30.png" },
-                            { t: "Capacidade de gerar uma nova fonte de renda em apenas 48h.", img: "/sales/assets/ChatGPT Image 14 de jan. de 2026, 22_03_46.png" },
-                            { t: "Acesso à sabedoria ancestral da Alquimia Brasileira.", img: "/sales/assets/ChatGPT Image 14 de jan. de 2026, 22_38_54.png" }
+                            { t: "Domínio absoluto sobre a criação de 30 blends de elite.", img: "/sales/assets/reality-blends.png" },
+                            { t: "Transformação de banhos comuns em rituais de cura profunda.", img: "/sales/assets/reality-rituals.png" },
+                            { t: "Capacidade de gerar uma nova fonte de renda em apenas 48h.", img: "/sales/assets/reality-income.png" },
+                            { t: "Acesso à sabedoria ancestral da Alquimia Brasileira.", img: "/sales/assets/reality-alchemy.png" }
                         ].map((item, i) => (
                             <div key={i} className="flex flex-col gap-6 bg-[#fcf9f6]/60 p-8 rounded-[2.5rem] border border-[#929E85] shadow-sm hover:shadow-md transition-all overflow-hidden">
                                 <div className="relative aspect-video w-full rounded-2xl overflow-hidden mb-4 grayscale hover:grayscale-0 transition-all duration-700">
