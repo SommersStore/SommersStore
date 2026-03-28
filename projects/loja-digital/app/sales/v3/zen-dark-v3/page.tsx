@@ -46,18 +46,18 @@ export default function ZenDarkV3() {
     ];
 
     const phases = [
-        { title: "Fase 01: Conhecendo os Sais", desc: "Sal Marinho, Himalaia, Epsom e Negro — qual usar, quando usar e por quê.", img: "/sales/assets/1.png" },
-        { title: "Fase 02: Óleos Essenciais & Ervas", desc: "Lavanda, alecrim, camomila, eucalipto — como criar blends terapêuticos que encantam.", img: "/sales/assets/2.png" },
-        { title: "Fase 03: Embalagem & Valor Percebido", desc: "Rótulos, sachês e apresentação que transformam seu produto artesanal em presente de luxo.", img: "/sales/assets/3.png" },
-        { title: "Fase 04: Precificação & Primeiras Vendas", desc: "Como lucrar 200-400% vendendo para amigas, feiras, Instagram e WhatsApp.", img: "/sales/assets/4.png" },
-        { title: "Fase 05: Escale Seu Negócio", desc: "De escalda-pés caseiro a kits premium para spas e lojas — cresça no seu ritmo.", img: "/sales/assets/5.png" },
-        { title: "Fase 06: Como Fidelizar Seus Primeiros Clientes", desc: "Estratégias de pós-venda, mimos e atendimento que transformam uma compra em um hábito.", img: "/sales/assets/6.png" }
+        { title: "Fase 01: Conhecendo os Sais", desc: "Sal Marinho, Himalaia, Epsom e Negro — qual usar, quando usar e por quê.", img: "/sales/assets/conhecendo-os-sais.png" },
+        { title: "Fase 02: Óleos Essenciais & Ervas", desc: "Lavanda, alecrim, camomila, eucalipto — como criar blends terapêuticos que encantam.", img: "/sales/assets/oleos-3.png" },
+        { title: "Fase 03: Embalagem & Valor Percebido", desc: "Rótulos, sachês e apresentação que transformam seu produto artesanal em presente de luxo.", img: "/sales/assets/embalagem-e-valor.png" },
+        { title: "Fase 04: Precificação & Primeiras Vendas", desc: "Como lucrar 200-400% vendendo para amigas, feiras, Instagram e WhatsApp.", img: "/sales/assets/precificacao-e-vendas-v3.png" },
+        { title: "Fase 05: Escale Seu Negócio", desc: "De escalda-pés caseiro a kits premium para spas e lojas — cresça no seu ritmo.", img: "/sales/assets/escalar.jpg" },
+        { title: "Fase 06: Como Fidelizar Seus Primeiros Clientes", desc: "Estratégias de pós-venda, mimos e atendimento que transformam uma compra em um hábito.", img: "/sales/assets/fidelizar-cliente-v3.png" }
     ];
 
     const bonuses = [
-        { title: "10 Receitas de Blends Prontos para Vender", value: "R$ 197", desc: "Relaxamento, energia, pós-treino, detox e sono — receitas testadas com proporções exatas." },
-        { title: "Lista de Fornecedores Brasileiros", value: "R$ 97", desc: "Onde comprar sal marinho, sal do Himalaia, óleos essenciais e ervas com os melhores preços." },
-        { title: "Kit de Posts + Script de Vendas WhatsApp", value: "R$ 147", desc: "Textos prontos para Instagram e WhatsApp que convertem curiosas em clientes fiéis." }
+        { title: "10 Receitas de Blends Prontos para Vender", value: "R$ 197", desc: "Relaxamento, energia, pós-treino, detox e sono — receitas testadas com proporções exatas.", img: "/sales/assets/bonus-1-v2.png" },
+        { title: "Lista de Fornecedores Brasileiros", value: "R$ 97", desc: "Onde comprar sal marinho, sal do Himalaia, óleos essenciais e ervas com os melhores preços.", img: "/sales/assets/bonus-2.png" },
+        { title: "Kit de Posts + Script de Vendas WhatsApp", value: "R$ 147", desc: "Textos prontos para Instagram e WhatsApp que convertem curiosas em clientes fiéis.", img: "/sales/assets/bonus-3.png" }
     ];
 
     const testimonials = [
@@ -98,8 +98,8 @@ export default function ZenDarkV3() {
                         Descubra como criar rituais de bem-estar com sais de banho terapêuticos artesanais. Monte seu negócio em casa, com alto valor percebido e construa um império de vendas premium.
                     </p>
 
-                    <div className="relative aspect-video max-w-4xl mx-auto rounded-[3rem] md:rounded-[5rem] overflow-hidden border border-emerald-900/50 shadow-2xl mb-12 md:mb-20 bg-[#0a2a22]/30">
-                         <Image src="/sales/assets/zen-dark-hero.png" alt="Hero Asset" fill className="object-cover opacity-80" />
+                    <div className="relative aspect-video max-w-4xl mx-auto rounded-[3rem] md:rounded-[5rem] overflow-hidden border border-[#C5A059]/40 shadow-[0_0_30px_rgba(197,160,89,0.1)] mb-12 md:mb-20 bg-[#0a2a22]/30">
+                         <Image src="/sales/assets/5.png" alt="Hero Asset" fill className="object-cover opacity-80" />
                     </div>
 
                     <button onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })} className="px-12 md:px-20 py-8 md:py-10 rounded-full bg-[#C5A059] text-white font-black text-xl md:text-2xl hover:bg-emerald-500 hover:scale-[1.05] transition-all duration-700 shadow-[0_20px_60px_rgba(5,150,105,0.4)] uppercase tracking-[0.2em]">
@@ -125,8 +125,8 @@ export default function ZenDarkV3() {
                                 ))}
                             </div>
                         </div>
-                        <div className="relative aspect-[3/4] rounded-[3rem] md:rounded-[5rem] overflow-hidden border border-[#043927] shadow-2xl grayscale saturate-50 hover:grayscale-0 transition-all duration-1000">
-                             <Image src="/sales/assets/zen-pain-2.png" alt="Pain Visual" fill className="object-cover" />
+                        <div className="relative aspect-[3/4] rounded-[3rem] md:rounded-[5rem] overflow-hidden border border-[#C5A059]/40 shadow-[0_0_30px_rgba(197,160,89,0.1)] md:grayscale md:saturate-50 md:hover:grayscale-0 transition-all duration-1000">
+                             <Image src="/sales/assets/zen-pain-3.png" alt="Pain Visual" fill className="object-cover" />
                         </div>
                     </div>
                 </div>
@@ -141,8 +141,8 @@ export default function ZenDarkV3() {
                         Você vai aprender a combinar sal marinho, sal do Himalaia, sal de Epsom, óleos essenciais (lavanda, alecrim, eucalipto) e ervas naturais para criar blends terapêuticos que vendem por 3x a 4x o custo de produção.
                     </p>
                     
-                    <div className="bg-[#0a2a22]/30 rounded-[3rem] md:rounded-[6rem] px-6 py-10 md:px-24 md:py-16 border border-emerald-900/40 text-center md:text-left relative overflow-hidden group shadow-inner">
-                        <div className="relative z-10 max-w-2xl">
+                    <div className="bg-[#0a2a22]/30 rounded-[3rem] md:rounded-[6rem] px-6 py-10 md:px-24 md:py-16 border border-[#C5A059]/40 text-center md:text-left relative overflow-hidden group shadow-[0_0_30px_rgba(197,160,89,0.1)]">
+                        <div className="relative z-10 max-w-full md:max-w-[45%]">
                             <h4 className="text-4xl md:text-[40px] font-serif text-[#C5A059] mb-8 italic font-black text-center md:text-left">
                                 <span className="md:hidden">Seu Spa Artesanal em Casa. Seu<br/>Negócio nas Suas Mãos.</span>
                                 <span className="hidden md:inline">Seu Spa Artesanal em Casa.<br/>Seu Negócio nas Suas Mãos.</span>
@@ -152,13 +152,13 @@ export default function ZenDarkV3() {
                             </p>
                         </div>
                         {/* Mobile Background: Single Image */}
-                        <div className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-all md:hidden">
-                             <Image src="/sales/assets/zen-method-1.png" alt="Alchemy Mobile" fill className="object-cover" />
+                        <div className="absolute inset-0 opacity-50 group-hover:opacity-70 transition-all md:hidden">
+                             <Image src="/sales/assets/zen-method-2.jpg" alt="Alchemy Mobile" fill className="object-cover" />
                         </div>
                         
                         {/* Desktop Background: 50% Width Image */}
-                        <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 group-hover:opacity-40 transition-all hidden md:flex border-l border-emerald-900/20">
-                             <Image src="/sales/assets/zen-method-1.png" alt="Alchemy 2" fill className="object-cover" />
+                        <div className="absolute top-0 right-0 w-1/2 h-full opacity-30 group-hover:opacity-70 transition-all duration-700 hidden md:flex border-l border-emerald-900/20">
+                             <Image src="/sales/assets/zen-method-2.jpg" alt="Alchemy 2" fill className="object-cover" />
                         </div>
                     </div>
                 </div>
@@ -200,17 +200,17 @@ export default function ZenDarkV3() {
                         
                         <div onScroll={handleScroll('reality')} className="flex md:grid md:grid-cols-2 lg:grid-cols-5 gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-12 no-scrollbar px-6 md:px-0 -mx-6 md:mx-0" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                         {[
-                            { t: "Seus primeiros 10 blends exclusivos: do relaxamento profundo ao detox mineral.", img: "/sales/assets/reality-blends.png" },
-                            { t: "O banheiro transformado em um spa particular de alto padrão para seu autocuidado.", img: "/sales/assets/reality-rituals.png" },
-                            { t: "Suas primeiras vendas realizadas com margens de lucro entre 200% e 400%.", img: "/sales/assets/reality-alchemy.png" },
-                            { t: "Domínio das embalagens e rótulos de luxo que elevam seu valor percebido.", img: "/sales/assets/reality-collection.png" },
-                            { t: "Primeiro catálogo montado e parcerias iniciadas com spas e lojas de bem-estar.", img: "/sales/assets/reality-suppliers.png" }
+                            { t: "Seus primeiros 10 blends exclusivos: do relaxamento profundo ao detox mineral.", img: "/sales/assets/10-blends.png" },
+                            { t: "O banheiro transformado em um spa particular de alto padrão para seu autocuidado.", img: "/sales/assets/banho-spa.jpg" },
+                            { t: "Suas primeiras vendas realizadas com margens de lucro entre 200% e 400%.", img: "/sales/assets/prim-vendas.jpg" },
+                            { t: "Domínio das embalagens e rótulos de luxo que elevam seu valor percebido.", img: "/sales/assets/embal-rot-luxo.jpg" },
+                            { t: "Primeiro catálogo montado e parcerias iniciadas com spas e lojas de bem-estar.", img: "/sales/assets/catalogo.jpg" }
                         ].map((item, i) => (
-                            <div key={i} className="min-w-[85vw] md:min-w-0 snap-center flex flex-col bg-[#051510]/80 backdrop-blur-md p-5 md:p-8 rounded-[2.5rem] border border-white/5 hover:border-[#C5A059]/40 shadow-2xl hover:shadow-[0_0_30px_rgba(197,160,89,0.1)] transition-all duration-500 overflow-hidden group relative">
-                                <div className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-[#043927] border border-[#C5A059]/20 flex items-center justify-center text-[#C5A059] font-black text-[10px] shadow-lg group-hover:border-[#C5A059]/60 transition-colors">
+                            <div key={i} className="min-w-[85vw] md:min-w-0 snap-center flex flex-col bg-[#051510]/80 backdrop-blur-md p-5 md:p-8 rounded-[2.5rem] border border-[#C5A059]/40 shadow-[0_0_30px_rgba(197,160,89,0.1)] transition-all duration-500 overflow-hidden relative">
+                                <div className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-[#043927] border border-[#C5A059]/60 flex items-center justify-center text-[#C5A059] font-black text-[10px] shadow-lg transition-colors">
                                     0{i + 1}
                                 </div>
-                                <div className="relative aspect-square w-full rounded-2xl overflow-hidden mb-8 grayscale saturate-50 group-hover:grayscale-0 transition-all duration-700 border border-white/5">
+                                <div className="relative aspect-square w-full rounded-2xl overflow-hidden mb-8 transition-all duration-700 border border-white/5">
                                     <Image src={item.img} alt={item.t} fill className="object-cover" />
                                 </div>
                                 <div className="flex flex-col flex-1">
@@ -258,19 +258,19 @@ export default function ZenDarkV3() {
                         
                         <div onScroll={handleScroll('voices')} className="flex md:grid md:grid-cols-2 gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-12 no-scrollbar -mx-6 px-6 md:mx-0 md:px-0" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                         {testimonials.map((t, i) => (
-                            <div key={i} className="min-w-[85vw] md:min-w-0 snap-center bg-[#0a2a22]/20 p-8 rounded-[2.5rem] border border-[#043927] relative flex flex-col justify-between hover:bg-emerald-950/40 transition-colors group shadow-2xl">
+                            <div key={i} className="min-w-[85vw] md:min-w-0 snap-center bg-[#0a2a22]/20 p-8 rounded-[2.5rem] border border-[#043927] shadow-inner relative flex flex-col justify-between hover:bg-emerald-950/40 transition-colors group">
                                 <div className="text-4xl text-emerald-900/20 font-serif absolute top-8 left-8">“</div>
-                                <p className="text-base md:text-lg text-emerald-50/80 italic font-serif leading-relaxed mb-8 relative z-10 text-center md:text-left">
+                                <p className="text-base md:text-lg text-emerald-50/80 italic font-serif leading-relaxed mb-4 md:mb-8 relative z-10 text-center md:text-left">
                                     &quot;{t.text}&quot;
                                 </p>
-                                <div className="h-px w-full bg-emerald-900/10 mb-6" />
-                                <div className="flex items-center gap-6 justify-center md:justify-start">
-                                    <div className="w-24 h-24 rounded-full border-2 border-emerald-800/50 overflow-hidden relative shadow-lg flex-shrink-0">
+                                <div className="h-px w-full bg-emerald-900/10 mb-3 md:mb-6" />
+                                <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 justify-center md:justify-start">
+                                    <div className="w-28 h-28 md:w-32 md:h-32 rounded-full border-2 border-emerald-800/50 overflow-hidden relative shadow-lg flex-shrink-0">
                                         <Image src={t.img} alt={t.name} fill className="object-cover" />
                                     </div>
-                                    <div>
-                                        <div className="text-white font-black text-xl uppercase tracking-widest">{t.name}</div>
-                                        <div className="text-[#FF9933]/60 font-black text-[10px] uppercase tracking-[0.3em]">{t.loc}</div>
+                                    <div className="text-center md:text-left">
+                                        <div className="text-white font-black text-xl uppercase tracking-widest whitespace-nowrap">{t.name}</div>
+                                        <div className="text-[#FF9933]/60 font-black text-[10px] uppercase tracking-[0.3em] whitespace-nowrap">{t.loc}</div>
                                     </div>
                                 </div>
                             </div>
@@ -318,9 +318,9 @@ export default function ZenDarkV3() {
                         
                         <div onScroll={handleScroll('learn')} className="flex md:grid md:grid-cols-1 lg:grid-cols-2 gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-12 no-scrollbar -mx-6 px-6 md:mx-0 md:px-0" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                         {phases.map((p, i) => (
-                            <div key={i} className="min-w-[85vw] md:min-w-0 snap-center group bg-[#0a2a22]/30 rounded-[3rem] overflow-hidden border border-emerald-900/40 shadow-2xl hover:shadow-emerald-900/20 transition-all duration-700 flex flex-col h-full">
+                            <div key={i} className="min-w-[85vw] md:min-w-0 snap-center group bg-[#0a2a22]/30 rounded-[3rem] overflow-hidden border border-[#043927] shadow-inner transition-all duration-700 flex flex-col h-full">
                                 <div className="relative h-64 w-full">
-                                    <Image src={p.img || `/sales/assets/${i+1}.png`} alt={p.title} fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110" />
+                                    <Image src={p.img || `/sales/assets/${i+1}.png`} alt={p.title} fill className="object-cover md:grayscale md:group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110" />
                                 </div>
                                 <div className="p-10 text-left">
                                     <h4 className="text-2xl md:text-3xl font-serif text-[#C5A059] mb-6 italic font-black underline decoration-emerald-800 underline-offset-8 decoration-4">{p.title}</h4>
@@ -361,14 +361,13 @@ export default function ZenDarkV3() {
                     </div>
 
                     <div className="relative group/carousel-bonus">
-                        {/* Right Fade Indicator Mobile */}
-                        <div className="md:hidden absolute right-0 top-0 bottom-12 w-20 bg-gradient-to-l from-[#051510] to-transparent z-20 pointer-events-none opacity-100 group-hover/carousel-bonus:opacity-40 transition-opacity"></div>
+                        {/* Right Fade Indicator Mobile - removed */}
                         
                         <div onScroll={handleScroll('bonus')} className="flex md:grid lg:grid-cols-3 gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-12 no-scrollbar -mx-6 px-6 md:mx-0 md:px-0" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                         {bonuses.map((b, i) => (
-                            <div key={i} className="min-w-[85vw] md:min-w-0 snap-center bg-[#0a2a22]/20 border border-[#043927] rounded-[4rem] overflow-hidden text-left relative group shadow-inner hover:scale-[1.02] transition-all">
-                                <div className="relative h-48 w-full bg-emerald-950">
-                                    <Image src={`/sales/assets/ChatGPT Image 5 de fev. de 2026, 21_09_${44 + i * 11}.png`} alt={b.title} fill className="object-cover opacity-60 group-hover:opacity-100 transition-opacity" />
+                            <div key={i} className="min-w-[85vw] md:min-w-0 snap-center bg-[#0a2a22]/20 border border-[#043927] rounded-[2.5rem] overflow-hidden text-left relative group hover:scale-[1.02] transition-all shadow-none md:shadow-inner">
+                                <div className="relative h-64 w-full bg-emerald-950">
+                                    <Image src={b.img} alt={b.title} fill className="object-cover opacity-100 md:opacity-60 md:group-hover:opacity-100 transition-opacity" />
                                 </div>
                                 <div className="p-12">
                                     <h4 className="text-2xl font-serif text-white mb-6 italic leading-tight font-black">{b.title}</h4>
@@ -395,7 +394,7 @@ export default function ZenDarkV3() {
                 <div className="container mx-auto px-6 text-center max-w-5xl">
                     <div className="mb-20 space-y-8">
                          <span className="inline-block py-2 px-8 rounded-full bg-[#C5A059]/10 border border-[#C5A059]/20 text-[#C5A059] font-black tracking-[0.3em] text-[10px] uppercase shadow-sm">Acesso Imediato • 100% Digital</span>
-                         <h2 className="text-4xl md:text-[80px] font-serif font-black text-white italic tracking-tighter leading-none">SUA JORNADA <br/> <span className="text-[#C5A059] underline decoration-emerald-100 underline-offset-[10px] md:underline-offset-[20px]">COMEÇA AGORA.</span></h2>
+                         <h2 className="text-4xl md:text-[80px] font-serif font-black text-white italic leading-tight pb-4">SUA JORNADA <br/> <span className="text-[#C5A059] underline decoration-emerald-100 underline-offset-[10px] md:underline-offset-[20px]">COMEÇA AGORA!</span></h2>
                     </div>
                     
                     <div className="relative">
@@ -439,7 +438,7 @@ export default function ZenDarkV3() {
                                 {/* IMAGE AND BUTTON (RIGHT) */}
                                 <div className="space-y-12 text-center">
                                     <div className="relative aspect-square w-full rounded-full border-8 border-[#0a2a22] shadow-3xl overflow-hidden bg-emerald-950">
-                                        <Image src="/sales/assets/v3-product.png" alt="Product" fill className="object-cover opacity-80" />
+                                        <Image src="/sales/assets/circulo-preco-v2.png" alt="Product" fill className="object-cover saturate-125 transition-all" />
                                     </div>
                                     <a href={product.checkoutUrl} className="block w-full py-10 rounded-full bg-[#C5A059] text-center text-white font-black text-2xl md:text-3xl hover:bg-emerald-500 hover:scale-[1.05] transition-all shadow-3xl uppercase tracking-[0.2em] leading-none">
                                         QUERO MEU ACESSO AGORA
@@ -457,16 +456,16 @@ export default function ZenDarkV3() {
 
             {/* 10. BIO (Mentora Zen Dark) */}
             <section className="py-12 md:py-28 bg-[#051510]">
-                <div className="container mx-auto px-6 max-w-6xl">
-                    <div className="grid md:grid-cols-2 gap-16 md:gap-32 items-center text-left">
-                        <div className="relative aspect-[3/4] rounded-[4rem] md:rounded-[6rem] overflow-hidden border border-[#043927] shadow-2xl grayscale saturate-50 hover:grayscale-0 transition-all duration-1000">
-                             <Image src="/sales/assets/zen-light-bio.png" alt="Elisa Clark" fill className="object-cover" />
+                <div className="container mx-auto px-6 max-w-[72rem]">
+                    <div className="grid md:grid-cols-2 gap-16 md:gap-20 items-center text-left">
+                        <div className="relative aspect-[3/4] rounded-[4rem] md:rounded-[6rem] overflow-hidden border border-[#043927] shadow-inner saturate-125 transition-all duration-1000">
+                             <Image src="/sales/assets/elisa-clark-v3.png" alt="Elisa Clark" fill className="object-cover" />
                         </div>
                         <div className="space-y-12">
                              <div className="mb-8">
                                 <span className="inline-block py-2 px-8 rounded-full bg-[#C5A059]/10 border border-[#C5A059]/20 text-[#C5A059] font-black tracking-[0.5em] text-[10px] uppercase shadow-sm">A Criadora</span>
                              </div>
-                             <h2 className="text-5xl md:text-7xl font-serif italic text-white leading-tight">Eu te guiarei nesse portal de abundância.</h2>
+                             <h2 className="text-4xl md:text-6xl font-serif font-black italic text-white leading-tight">Eu te guiarei nesse<br className="md:hidden"/> portal de abundância.</h2>
                              <p className="text-lg md:text-xl text-emerald-50/80 font-serif italic leading-relaxed">
                                 Elisa Clark dedicou mais de 5 anos pesquisando haloterapia, aromaterapia e produção artesanal. O <strong className="text-[#C5A059] font-black">Método Essência Ativa BR</strong> é o resultado dessa jornada: um guia prático para você criar sais de banho terapêuticos com ingredientes brasileiros e transformar isso em renda real.
                              </p>
@@ -505,7 +504,7 @@ export default function ZenDarkV3() {
                             { q: "Quais materiais vou precisar logo de início?", a: "Nada complexo. Você precisará de bacias de vidro ou inox, colheres e os ingredientes básicos (sais e óleos essenciais). No ebook, fornecemos a lista exata de tudo o que você precisa com os melhores preços do Brasil." },
                             { q: "O pagamento é 100% seguro?", a: "Sim, utilizamos as plataformas de pagamento mais seguras e renomadas do mercado digital. Seus dados são criptografados e protegidos por protocolos de segurança bancária." }
                         ].map((faq, i) => (
-                            <div key={i} className="bg-[#0a2a22]/30 border border-emerald-900/20 rounded-[2.5rem] overflow-hidden shadow-sm">
+                            <div key={i} className="bg-[#0a2a22]/30 border border-[#C5A059]/40 rounded-[2.5rem] overflow-hidden shadow-[0_0_20px_rgba(197,160,89,0.05)]">
                                 <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full py-2 px-6 md:py-6 md:px-10 flex justify-between items-center text-left hover:bg-emerald-950/40 transition-colors">
                                     <span className="text-lg md:text-xl font-serif italic text-white font-black">{faq.q}</span>
                                     <span className={`text-[#C5A059] transform transition-transform text-2xl ${openFaq === i ? 'rotate-45' : ''}`}>+</span>
