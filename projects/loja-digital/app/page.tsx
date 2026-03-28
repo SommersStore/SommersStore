@@ -1,8 +1,7 @@
+"use client";
+
+import ZenDarkV3 from "./sales/v3/zen-dark-v3/page";
+
 export default function Home() {
-  return (
-    <main style={{padding:40,fontFamily:"Arial"}}>
-      <h1>Sommers Store</h1>
-      <p>Plataforma iniciada com AIOX + Next.js.</p>
-    </main>
-  )
+  return <ZenDarkV3 />;
 }
