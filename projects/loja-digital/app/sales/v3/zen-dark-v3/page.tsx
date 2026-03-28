@@ -71,6 +71,11 @@ export default function ZenDarkV3() {
         <div className="min-h-screen bg-[#0A0D0C] text-[#F5F5DC] font-sans selection:bg-[#043927] selection:text-[#F5F5DC] overflow-x-hidden">
             <style dangerouslySetInnerHTML={{ __html: swipeAnimationStyle }} />
 
+            {/* Fixed SsS Logo - Bottom Right */}
+            <div className="fixed bottom-6 right-6 z-50 opacity-50 pointer-events-none">
+                <Image src="/sales/assets/sss-logo.png" alt="SsS" width={48} height={48} className="drop-shadow-lg" />
+            </div>
+
             {/* 1. RESTRICT ACCESS LABEL */}
             <div className="bg-[#0a2a22]/40 border-b border-[#043927] py-4 text-center">
                  <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-0">
@@ -438,7 +443,7 @@ export default function ZenDarkV3() {
                                 {/* IMAGE AND BUTTON (RIGHT) */}
                                 <div className="space-y-12 text-center">
                                     <div className="relative aspect-square w-full rounded-full border-8 border-[#0a2a22] shadow-3xl overflow-hidden bg-emerald-950">
-                                        <Image src="/sales/assets/circulo-preco-v2.png" alt="Product" fill className="object-cover saturate-125 transition-all" />
+                                        <Image src="/sales/assets/circulo-preco-v2.png" alt="Product" fill className="object-cover saturate-[0.85] opacity-90 md:saturate-125 md:opacity-100 transition-all" />
                                     </div>
                                     <a href={product.checkoutUrl} className="block w-full py-10 rounded-full bg-[#C5A059] text-center text-white font-black text-2xl md:text-3xl hover:bg-emerald-500 hover:scale-[1.05] transition-all shadow-3xl uppercase tracking-[0.2em] leading-none">
                                         QUERO MEU ACESSO AGORA
@@ -504,7 +509,7 @@ export default function ZenDarkV3() {
                             { q: "Quais materiais vou precisar logo de início?", a: "Nada complexo. Você precisará de bacias de vidro ou inox, colheres e os ingredientes básicos (sais e óleos essenciais). No ebook, fornecemos a lista exata de tudo o que você precisa com os melhores preços do Brasil." },
                             { q: "O pagamento é 100% seguro?", a: "Sim, utilizamos as plataformas de pagamento mais seguras e renomadas do mercado digital. Seus dados são criptografados e protegidos por protocolos de segurança bancária." }
                         ].map((faq, i) => (
-                            <div key={i} className="bg-[#0a2a22]/30 border border-[#C5A059]/40 rounded-[2.5rem] overflow-hidden shadow-[0_0_20px_rgba(197,160,89,0.05)]">
+                            <div key={i} className="bg-[#0a2a22]/30 border border-emerald-900/20 rounded-[2.5rem] overflow-hidden">
                                 <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full py-2 px-6 md:py-6 md:px-10 flex justify-between items-center text-left hover:bg-emerald-950/40 transition-colors">
                                     <span className="text-lg md:text-xl font-serif italic text-white font-black">{faq.q}</span>
                                     <span className={`text-[#C5A059] transform transition-transform text-2xl ${openFaq === i ? 'rotate-45' : ''}`}>+</span>
