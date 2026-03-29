@@ -1,0 +1,26 @@
+{
+  "system_name": "Zen Light",
+  "archetype": "The Healer / The Guide",
+  "vibe": ["Organic", "Calm", "Therapeutic", "Clean", "Breathing"],
+  "best_for": ["Bath Salts", "E-books", "Mental Health", "Wellness Products"],
+  "colors": {
+    "background": "#FAFAFA",
+    "background_secondary": "#F3F4F6",
+    "primary": "#4B5563",
+    "secondary": "#6B7280",
+    "accent": "#10B981",
+    "text_main": "#111827",
+    "text_muted": "#6B7280",
+    "border": "rgba(0, 0, 0, 0.05)"
+  },
+  "typography": {
+    "headings": "Lora / Merriweather",
+    "body": "Nunito / Inter",
+    "vibe": "Soft, rounded serifs mixed with highly readable, friendly geometric body text."
+  },
+  "visual_effects": {
+    "glow": "Soft drop shadows (0px 10px 30px rgba(0,0,0,0.03)).",
+    "glassmorphism": "Frosted white glass (backdrop-filter: blur(20px)).",
+    "patterns": "Subtle organic shapes (blobs) or very light beige/sage green grain."
+  }
+}

@@ -9,48 +9,16 @@
     "cleanUrls": true,
     "rewrites": [
       {
-        "source": "/sais",
-        "destination": "/sales/premium-light.html"
+        "source": "/v3/zen-dark-v3",
+        "destination": "/sales/v3/zen-dark-v3.html"
       },
       {
-        "source": "/vendas/sais-dark",
-        "destination": "/sales/premium-dark.html"
+        "source": "/v3/zen-magic",
+        "destination": "/sales/v3/zen-magic.html"
       },
       {
-        "source": "/v3/sais",
-        "destination": "/sales/v3/light.html"
-      },
-      {
-        "source": "/v3/negocio",
-        "destination": "/sales/v3/dark.html"
-      },
-      {
-        "source": "/vsl",
-        "destination": "/sales/vsl.html"
-      },
-      {
-        "source": "/master",
-        "destination": "/sales/master.html"
-      },
-      {
-        "source": "/v3/zen",
-        "destination": "/sales/v3/zen-light.html"
-      },
-      {
-        "source": "/v3/zen-v2",
-        "destination": "/sales/v3/zen-light-v2.html"
-      },
-      {
-        "source": "/v3/zen-dark",
-        "destination": "/sales/v3/zen-dark.html"
-      },
-      {
-        "source": "/v3/zen-dark-v2",
-        "destination": "/sales/v3/zen-dark-v2.html"
-      },
-      {
-        "source": "/v3/premium-black",
-        "destination": "/sales/v3/premium-black.html"
+        "source": "/v3/zen-cosmic",
+        "destination": "/sales/v3/zen-cosmic.html"
       }
     ]
   }

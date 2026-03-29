@@ -1,0 +1,27 @@
+# Squad: Hook Engineering (sp-01-hook)
+# Objetivo: Construir a Primeira Dobra Perfeita (Hero Section)
+
+id: sp-01-hook
+name: Hook Engineering Squad
+description: "Especialistas em conversão de primeira vista. Usam promessas (Headlines) de altíssimo impacto para prender a atenção em 3 segundos."
+
+members:
+  - role: "Lead Copywriter"
+    agent: "@copywriter"
+    clone_override: "gary_halbert"
+    responsibilities:
+      - "Executar Skill: Generate-Headline (10 opções de promessa curta focadas no benefício principal)."
+      - "Executar Skill: Refine-Subheadline (Desdobrar a Headline escolhendo um mecanismo único)."
+
+  - role: "Art Director"
+    agent: "@ux-design-expert"
+    clone_override: "julian_art"
+    responsibilities:
+      - "Escolher o Design System adequado (Golden, Zen, Obsidian, Cockpit)."
+      - "Criar o layout focado em Espaço Negativo e lebilidade máxima."
+
+workflow:
+  1: "@copywriter entrega as 10 Headlines e aguarda validação do Master/Usuário."
+  2: "Após validação, @copywriter gera a Subheadline."
+  3: "@ux-design-expert mapeia a hierarquia visual (H1 gigante, botão brilhante)."
+  4: "@dev (se acionado) constrói o código Next.js."

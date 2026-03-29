@@ -466,15 +466,15 @@ export default function ZenDarkV3() {
                         <div className="relative aspect-[3/4] rounded-[4rem] md:rounded-[6rem] overflow-hidden border border-[#043927] shadow-inner saturate-125 transition-all duration-1000">
                              <Image src="/sales/assets/elisa-clark-v3.png" alt="Elisa Clark" fill className="object-cover" />
                         </div>
-                        <div className="space-y-12">
+                        <div className="space-y-12 text-center md:text-left">
                              <div className="mb-8">
                                 <span className="inline-block py-2 px-8 rounded-full bg-[#C5A059]/10 border border-[#C5A059]/20 text-[#C5A059] font-black tracking-[0.5em] text-[10px] uppercase shadow-sm">A Criadora</span>
                              </div>
-                             <h2 className="text-4xl md:text-6xl font-serif font-black italic text-white leading-tight">Eu te guiarei nesse<br className="md:hidden"/> portal de abundância.</h2>
+                             <h2 className="text-4xl md:text-6xl font-serif font-black italic text-white leading-tight">Eu te guiarei nesse portal de abundância.</h2>
                              <p className="text-lg md:text-xl text-emerald-50/80 font-serif italic leading-relaxed">
                                 Elisa Clark dedicou mais de 5 anos pesquisando haloterapia, aromaterapia e produção artesanal. O <strong className="text-[#C5A059] font-black">Método Essência Ativa BR</strong> é o resultado dessa jornada: um guia prático para você criar sais de banho terapêuticos com ingredientes brasileiros e transformar isso em renda real.
                              </p>
-                             <div className="text-[#C5A059] font-serif italic text-3xl font-black">— Elisa Clark</div>
+                             <div className="text-[#C5A059] font-serif italic text-3xl font-black text-center">Elisa Clark</div>
                         </div>
                     </div>
                 </div>

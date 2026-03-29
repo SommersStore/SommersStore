@@ -1,0 +1,24 @@
+# Squad: Alchemy Solution (sp-03-solution)
+# Objetivo: Apresentar o Método / Mecanismo Único.
+
+id: sp-03-solution
+name: Alchemy Solution Squad
+description: "Apresentam seu produto não apenas como um produto, mas como um Mecanismo Único, uma invenção revolucionária e lógica."
+
+members:
+  - role: "Orquestrador Lógico"
+    agent: "@aiox-master"
+    clone_override: "alan_nicolas"
+    responsibilities:
+      - "Executar Skill: Frame-Unique-Mechanism (Mapear porque o produto funciona quando todos os outros falharam)."
+      
+  - role: "Copywriter Educacional"
+    agent: "@copywriter"
+    clone_override: "elisa_clark"
+    responsibilities:
+      - "Explicar o processo passo a passo (Fase 1, Fase 2, Fase 3)."
+
+workflow:
+  1: "@aiox-master define o Mecanismo Único."
+  2: "@copywriter transforma isso numa explicação fascinante e fácil de ler."
+  3: "@ux-design-expert desenha grids e cards em vez de blocos massivos de texto."

@@ -1,0 +1,26 @@
+{
+  "system_name": "Dark Cockpit",
+  "archetype": "The Hacker / The Elite Analyst",
+  "vibe": ["Brutalist", "High-Tech", "Matrix", "Underground", "Deep"],
+  "best_for": ["Software", "B2B", "Financial Mentorships", "Aggressive Offers"],
+  "colors": {
+    "background": "#08081A",
+    "background_secondary": "#0E0E2A",
+    "primary": "#8B5CF6",
+    "secondary": "#EC4899",
+    "accent": "#F97316",
+    "text_main": "#F1F0FF",
+    "text_muted": "rgba(241, 240, 255, 0.55)",
+    "border": "rgba(139, 92, 246, 0.15)"
+  },
+  "typography": {
+    "headings": "Playfair Display",
+    "body": "Inter",
+    "vibe": "High contrast between classic serif headings and hyper-modern sans-serif body."
+  },
+  "visual_effects": {
+    "glow": "Heavy use of purple and pink drop-shadows (neon glow).",
+    "glassmorphism": "Dark translucent panels with blur filter.",
+    "patterns": "Dot grids, crosshairs, and tech-inspired framing."
+  }
+}

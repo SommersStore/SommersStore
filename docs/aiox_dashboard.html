@@ -1,0 +1,1761 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SommersStore — AIOX Central</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+:root {
+  --bg: #0a0a0f;
+  --surface: #13131a;
+  --card: #1a1a24;
+  --border: #2a2a38;
+  --border2: #3a3a50;
+  --text: #f1f0f5;
+  --muted: #6b6b80;
+  --dim: #9090a8;
+  --indigo: #6366f1;
+  --indigo-l: #818cf8;
+  --indigo-dim: rgba(99,102,241,0.15);
+  --green: #10b981;
+  --green-dim: rgba(16,185,129,0.15);
+  --amber: #f59e0b;
+  --amber-dim: rgba(245,158,11,0.15);
+  --coral: #ef4444;
+  --coral-dim: rgba(239,68,68,0.15);
+  --teal: #14b8a6;
+  --teal-dim: rgba(20,184,166,0.15);
+  --purple: #a855f7;
+  --purple-dim: rgba(168,85,247,0.15);
+  --pink: #ec4899;
+  --pink-dim: rgba(236,72,153,0.15);
+  --sky: #0ea5e9;
+  --sky-dim: rgba(14,165,233,0.15);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;}
+
+/* HEADER */
+.hdr{background:rgba(10,10,15,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:13px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:999;}
+.hdr-logo{font-size:.95rem;font-weight:900;letter-spacing:-.5px;}
+.hdr-logo em{color:var(--indigo);font-style:normal;}
+.hdr-logo small{font-size:.6rem;font-weight:400;color:var(--muted);margin-left:8px;}
+.hdr-right{display:flex;align-items:center;gap:12px;}
+.hdr-badge{font-size:.6rem;padding:3px 10px;border-radius:20px;font-weight:700;background:var(--green-dim);color:var(--green);border:1px solid rgba(16,185,129,.25);}
+
+/* TABS */
+.tabs{display:flex;gap:2px;padding:0 24px;background:var(--surface);border-bottom:1px solid var(--border);}
+.tab{padding:11px 20px;font-size:.72rem;font-weight:700;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;transition:.2s;letter-spacing:.03em;white-space:nowrap;}
+.tab:hover{color:var(--dim);}
+.tab.on{color:var(--text);border-bottom-color:var(--indigo);}
+
+/* CONTENT */
+.pane{display:none;padding:28px 24px;flex:1;}
+.pane.on{display:block;}
+
+/* SECTION TITLE */
+.sec-title{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--indigo);margin-bottom:22px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+
+/* ─── FLUXO ─── */
+.flow{display:flex;flex-direction:column;align-items:center;gap:0;max-width:1020px;margin:0 auto;}
+
+/* KB bar */
+.kb{width:100%;background:rgba(99,102,241,.05);border:1px dashed rgba(99,102,241,.2);border-radius:10px;padding:9px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:0;}
+.kb-lbl{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--indigo);white-space:nowrap;}
+.kb-tag{font-size:.65rem;padding:3px 10px;border-radius:20px;background:rgba(99,102,241,.12);color:#c7d2fe;border:1px solid rgba(99,102,241,.2);cursor:pointer;transition:.15s;}
+.kb-tag:hover{background:rgba(99,102,241,.25);}
+
+/* Arrow */
+.av{width:2px;background:linear-gradient(to bottom,rgba(99,102,241,.5),rgba(99,102,241,.1));margin:0 auto;position:relative;}
+.av::after{content:'▼';position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);color:rgba(99,102,241,.5);font-size:9px;}
+
+/* Box */
+.bx{border-radius:10px;padding:9px 16px;cursor:pointer;transition:.15s;border:1.5px solid var(--border);text-align:center;user-select:none;position:relative;}
+.bx:hover{transform:translateY(-2px);}
+.bx.sel{box-shadow:0 0 0 2px var(--indigo),0 0 20px rgba(99,102,241,.2);transform:translateY(-2px);}
+.bx-t{font-size:.8rem;font-weight:700;}
+.bx-s{font-size:.66rem;color:var(--muted);margin-top:3px;}
+.bx-a{font-size:.62rem;font-weight:600;margin-top:5px;}
+
+/* Cores */
+.bi{background:var(--indigo-dim);border-color:rgba(99,102,241,.35);}.bi .bx-a{color:var(--indigo-l);}
+.bt{background:var(--teal-dim);border-color:rgba(20,184,166,.35);}.bt .bx-a{color:#5eead4;}
+.bp{background:var(--purple-dim);border-color:rgba(168,85,247,.35);}.bp .bx-a{color:#d8b4fe;}
+.bc{background:var(--coral-dim);border-color:rgba(239,68,68,.35);}.bc .bx-a{color:#fca5a5;}
+.bam{background:var(--amber-dim);border-color:rgba(245,158,11,.35);}.bam .bx-a{color:#fde68a;}
+.bg{background:var(--green-dim);border-color:rgba(16,185,129,.35);}.bg .bx-a{color:#6ee7b7;}
+.bpk{background:var(--pink-dim);border-color:rgba(236,72,153,.35);}.bpk .bx-a{color:#f9a8d4;}
+.bsk{background:var(--sky-dim);border-color:rgba(14,165,233,.35);}.bsk .bx-a{color:#7dd3fc;}
+.bgy{background:rgba(107,107,128,.1);border-color:rgba(107,107,128,.25);}.bgy .bx-a{color:var(--dim);}
+
+/* Row */
+.row{display:flex;justify-content:center;align-items:flex-start;gap:10px;width:100%;}
+.col{display:flex;flex-direction:column;align-items:center;flex:1;}
+
+/* Bracket */
+.brk{border:1.5px dashed rgba(99,102,241,.18);border-radius:14px;padding:14px 12px 16px;width:100%;position:relative;margin-top:6px;}
+.brk-lbl{position:absolute;top:-9px;left:16px;background:var(--bg);padding:0 8px;font-size:.58rem;font-weight:800;color:var(--indigo);letter-spacing:.08em;text-transform:uppercase;}
+
+/* Panel */
+#panel{width:100%;max-width:1020px;margin:22px auto 0;border:1px solid var(--border);border-radius:14px;background:var(--card);padding:20px 22px;min-height:110px;}
+.panel-hint{color:var(--muted);font-size:.78rem;text-align:center;padding:18px 0;}
+#panel h3{font-size:.92rem;font-weight:700;margin-bottom:5px;}
+.p-desc{font-size:.78rem;color:var(--dim);line-height:1.65;margin-bottom:14px;}
+.p-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+.p-sect h4{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:7px;}
+.p-tags{display:flex;flex-wrap:wrap;gap:5px;}
+.p-tag{font-size:.68rem;padding:3px 9px;border-radius:5px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--dim);}
+.p-tip{margin-top:12px;font-size:.73rem;line-height:1.6;padding:9px 13px;border-radius:8px;}
+.p-badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:.62rem;font-weight:700;margin-bottom:7px;border:1px solid;}
+
+/* ─── AGENTS TAB ─── */
+.ag-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;max-width:1100px;margin:0 auto;}
+.ag-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;transition:.2s;}
+.ag-card:hover{border-color:var(--indigo);box-shadow:0 0 18px rgba(99,102,241,.12);}
+.ag-head{display:flex;align-items:center;gap:11px;margin-bottom:11px;}
+.ag-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.ag-name{font-weight:800;font-size:.85rem;}
+.ag-handle{font-size:.68rem;color:var(--indigo);font-weight:600;}
+.ag-scope{font-size:.7rem;color:var(--muted);line-height:1.5;margin-bottom:10px;}
+.ag-skills{display:flex;flex-wrap:wrap;gap:4px;}
+.ag-skill{font-size:.62rem;padding:2px 7px;border-radius:4px;background:rgba(255,255,255,.03);border:1px solid var(--border);color:var(--muted);}
+.ag-excl{font-size:.6rem;color:var(--coral);font-weight:700;margin-top:7px;}
+.ag-excl-g{font-size:.6rem;color:var(--green);font-weight:700;margin-top:7px;}
+
+/* ─── STATUS TAB ─── */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;max-width:1100px;margin:0 auto;}
+.st-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;}
+.st-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;}
+.st-title{font-weight:700;font-size:.85rem;display:flex;align-items:center;gap:7px;}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dot-g{background:var(--green);box-shadow:0 0 5px var(--green);}
+.dot-i{background:var(--indigo);box-shadow:0 0 5px var(--indigo);}
+.dot-m{background:var(--muted);}
+.dot-r{background:var(--coral);box-shadow:0 0 5px var(--coral);}
+.sbadge{font-size:.62rem;font-weight:700;padding:2px 9px;border-radius:20px;border:1px solid;}
+.sb-g{background:var(--green-dim);color:#6ee7b7;border-color:rgba(16,185,129,.25);}
+.sb-i{background:var(--indigo-dim);color:#c7d2fe;border-color:rgba(99,102,241,.25);}
+.sb-m{background:rgba(107,107,128,.1);color:var(--muted);border-color:rgba(107,107,128,.2);}
+.sb-r{background:var(--coral-dim);color:#fca5a5;border-color:rgba(239,68,68,.25);}
+.sb-am{background:var(--amber-dim);color:#fde68a;border-color:rgba(245,158,11,.25);}
+.tk{display:flex;align-items:flex-start;gap:7px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.03);font-size:.72rem;}
+.tk:last-child{border:none;}
+.ck{width:13px;height:13px;border-radius:3px;flex-shrink:0;margin-top:2px;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:9px;}
+.ck.ok{background:var(--green);border-color:var(--green);color:#fff;}
+.ck.warn{background:var(--coral);border-color:var(--coral);color:#fff;}
+.tk-lbl{flex:1;}
+.tk-lbl.done{text-decoration:line-through;color:var(--muted);}
+
+/* ─── PROBLEMAS TAB ─── */
+.prb-wrap{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:8px;}
+.sev-lbl{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:8px 0 5px;}
+.alert{padding:11px 14px;border-radius:9px;font-size:.74rem;line-height:1.65;border-left:3px solid;}
+.alert strong{display:block;margin-bottom:3px;font-size:.77rem;}
+.a-r{background:var(--coral-dim);border-color:var(--coral);color:#fca5a5;}
+.a-am{background:var(--amber-dim);border-color:var(--amber);color:#fde68a;}
+.a-i{background:var(--indigo-dim);border-color:var(--indigo);color:#c7d2fe;}
+.a-g{background:var(--green-dim);border-color:var(--green);color:#6ee7b7;}
+code{background:rgba(255,255,255,.07);padding:1px 6px;border-radius:4px;font-size:.72rem;font-family:monospace;}
+
+/* Responsive */
+@media(max-width:640px){.row{flex-wrap:wrap;}.p-grid{grid-template-columns:1fr;}.ag-grid,.st-grid{grid-template-columns:1fr;}.tabs{overflow-x:auto;}}
+
+/* Relatórios Dinâmicos */
+.hist-item {background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom:10px; cursor: pointer; transition:.2s;}
+.hist-item:hover {border-color: var(--teal);}
+.hist-date {font-size: 0.65rem; color: var(--teal); font-weight:700; margin-bottom: 4px;}
+.hist-title {font-size: 0.8rem; font-weight: 600;}
+.hist-content {display: none; padding-top: 10px; margin-top: 10px; border-top: 1px dashed var(--border); font-size: 0.75rem; color: var(--dim); line-height: 1.6;}
+.hist-content h1, .hist-content h2, .hist-content h3 {color: var(--text); margin: 12px 0 6px;}
+.hist-content code {background: rgba(0,0,0,0.5); padding: 2px 5px;}
+.hist-item.open .hist-content {display: block;}
+
+/* Design Systems Display */
+.ds-card { background: var(--card); border-radius: 12px; padding: 20px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-logo">Sommers<em>Store</em><small>AIOX Tower · Modo Observacional</small></div>
+  <div class="hdr-right">
+    <button onclick="fetchData()" id="btnUpdate" style="font-size:.6rem;padding:6px 14px;border-radius:20px;font-weight:700;background:var(--indigo);color:#fff;border:none;cursor:pointer;margin-right:10px;">🔄 Sincronizar Torre</button>
+
+    <span class="hdr-badge">✓ Corrigido 23/03/2026</span>
+    <span style="font-size:.65rem;color:var(--muted)">Claude Code · Synkra AIOX</span>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab on" onclick="sw('fluxo',this)">🔀 Fluxo de Vendas</div>
+  <div class="tab" onclick="sw('agentes',this)">🤖 Agentes</div>
+  <div class="tab" onclick="sw('status',this)">📊 Status</div>
+  <div class="tab" onclick="sw('problemas',this)">⚠️ Issues & Correções</div>
+  <div class="tab" onclick="sw('arquitetura',this)">📂 Estrutura</div>
+  <div class="tab" onclick="sw('skills',this)">⚡ Library Skills</div>
+  <div class="tab" onclick="sw('creditos',this);initCalc()">💰 Créditos API</div>
+  <div class="tab" onclick="sw('artefatos',this)">📓 Relatórios da IA</div>
+  <div class="tab" onclick="sw('design',this)">🎨 Paletas & Designs</div>
+</div>
+
+<!-- ══════════ FLUXO ══════════ -->
+<div id="pane-fluxo" class="pane on">
+<div class="flow">
+
+  <!-- KB -->
+  <div class="kb">
+    <span class="kb-lbl">📚 Base de Conhecimento</span>
+    <span class="kb-tag" onclick="show('kb-brunson')">Brunson Trilogy</span>
+    <span class="kb-tag" onclick="show('kb-halbert')">Gary Halbert</span>
+    <span class="kb-tag" onclick="show('kb-avatar')">Avatar Essência Ativa</span>
+    <span class="kb-tag" onclick="show('kb-fw')">PAS · AIDA · Storytelling</span>
+    <span class="kb-tag" onclick="show('kb-prova')">Banco de Provas Sociais</span>
+    <span class="kb-tag" onclick="show('kb-voz')">Voz & Tom da Marca</span>
+    <span class="kb-tag" onclick="show('kb-elisa')">Persona Elisa Claro</span>
+  </div>
+
+  <div class="av" style="height:18px"></div>
+
+  <!-- N1 Orquestrador -->
+  <div class="bx bi" style="width:260px" onclick="show('orch')" id="b-orch">
+    <div class="bx-t">🧠 Orquestrador Mestre</div>
+    <div class="bx-s">Recebe briefing · distribui tarefas · governa</div>
+    <div class="bx-a">@aiox-master (Orion)</div>
+  </div>
+
+  <div class="av" style="height:22px"></div>
+
+  <!-- N2 Squads -->
+  <div class="brk">
+    <span class="brk-lbl">Nível 2 — Squads Especializados</span>
+    <div class="row">
+      <div class="col"><div class="bx bt" style="width:100%" onclick="show('sq-copy')" id="b-sq-copy">
+        <div class="bx-t">✍️ Squad Copy</div>
+        <div class="bx-s">Todos os textos persuasivos</div>
+        <div class="bx-a">@copywriter (Sage)</div>
+      </div></div>
+      <div class="col"><div class="bx bp" style="width:100%" onclick="show('sq-design')" id="b-sq-design">
+        <div class="bx-t">🎨 Squad Design</div>
+        <div class="bx-s">UI, visuais, identidade</div>
+        <div class="bx-a">@ux-design-expert (Uma)</div>
+      </div></div>
+      <div class="col"><div class="bx bc" style="width:100%" onclick="show('sq-tech')" id="b-sq-tech">
+        <div class="bx-t">⚙️ Squad Técnico</div>
+        <div class="bx-s">Código, Next.js, Firebase</div>
+        <div class="bx-a">@dev (Dex) + @architect (Aria)</div>
+      </div></div>
+      <div class="col"><div class="bx bam" style="width:100%" onclick="show('sq-qa')" id="b-sq-qa">
+        <div class="bx-t">✅ Squad QA</div>
+        <div class="bx-s">Revisão · aprovação · gate</div>
+        <div class="bx-a">@qa (Quinn)</div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="av" style="height:22px"></div>
+
+  <!-- N3 Granulares Copy -->
+  <div class="brk">
+    <span class="brk-lbl">Nível 3 — Squad Copy · Agentes Granulares (o segredo dos resultados de elite)</span>
+    <div class="row" style="flex-wrap:wrap;gap:8px">
+      <div class="col" style="min-width:130px;max-width:152px"><div class="bx bt" style="width:100%" onclick="show('ag-headline')" id="b-ag-headline"><div class="bx-t">📣 Headline</div><div class="bx-s">Só a manchete principal</div></div></div>
+      <div class="col" style="min-width:130px;max-width:152px"><div class="bx bt" style="width:100%" onclick="show('ag-subhead')" id="b-ag-subhead"><div class="bx-t">💬 Sub-headline</div><div class="bx-s">Complemento e clareza</div></div></div>
+      <div class="col" style="min-width:130px;max-width:152px"><div class="bx bt" style="width:100%" onclick="show('ag-lead')" id="b-ag-lead"><div class="bx-t">🪝 Lead / Abertura</div><div class="bx-s">Primeiras linhas do corpo</div></div></div>
+      <div class="col" style="min-width:130px;max-width:152px"><div class="bx bt" style="width:100%" onclick="show('ag-dores')" id="b-ag-dores"><div class="bx-t">🩺 Dores</div><div class="bx-s">Amplificação emocional</div></div></div>
+      <div class="col" style="min-width:130px;max-width:152px"><div class="bx bt" style="width:100%" onclick="show('ag-mecanismo')" id="b-ag-mecanismo"><div class="bx-t">⚗️ Mecanismo Único</div><div class="bx-s">Por que funciona diferente</div></div></div>
+      <div class="col" style="min-width:130px;max-width:152px"><div class="bx bt" style="width:100%" onclick="show('ag-beneficios')" id="b-ag-beneficios"><div class="bx-t">⭐ Benefícios</div><div class="bx-s">Bullets de valor real</div></div></div>
+      <div class="col" style="min-width:130px;max-width:152px"><div class="bx bt" style="width:100%" onclick="show('ag-prova')" id="b-ag-prova"><div class="bx-t">🏆 Prova Social</div><div class="bx-s">Depoimentos e resultados</div></div></div>
+      <div class="col" style="min-width:130px;max-width:152px"><div class="bx bt" style="width:100%" onclick="show('ag-oferta')" id="b-ag-oferta"><div class="bx-t">💰 Oferta / Preço</div><div class="bx-s">Stack de valor + ancoragem</div></div></div>
+      <div class="col" style="min-width:130px;max-width:152px"><div class="bx bt" style="width:100%" onclick="show('ag-faq')" id="b-ag-faq"><div class="bx-t">❓ FAQ / Objeções</div><div class="bx-s">Destruição das dúvidas</div></div></div>
+      <div class="col" style="min-width:130px;max-width:152px"><div class="bx bt" style="width:100%" onclick="show('ag-cta')" id="b-ag-cta"><div class="bx-t">🎯 CTA</div><div class="bx-s">Chamada para ação</div></div></div>
+      <div class="col" style="min-width:130px;max-width:152px"><div class="bx bpk" style="width:100%" onclick="show('ag-vsl')" id="b-ag-vsl"><div class="bx-t">🎬 Script VSL</div><div class="bx-s">Roteiro · delay 2m15s</div></div></div>
+      <div class="col" style="min-width:130px;max-width:152px"><div class="bx bpk" style="width:100%" onclick="show('ag-upsell')" id="b-ag-upsell"><div class="bx-t">🔼 Upsell Copy</div><div class="bx-s">Ghost Writing · pós-compra</div></div></div>
+    </div>
+  </div>
+
+  <div class="av" style="height:22px"></div>
+
+  
+  <!-- Micro Esquadrões Dinâmicos Injetados -->
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="color:var(--amber);">⚡ Esquadrões Cirúrgicos Ativos (Lidos do HD)</span>
+    <div class="row" id="squads-container" style="min-height:80px; align-items: stretch;">
+        <p style="font-size:0.75rem; color:var(--muted); text-align:center; width:100%; padding:20px;">Clique em Sincronizar Torre para ler os Squads (Hook, Pain, etc)</p>
+    </div>
+  </div>
+  <div class="av" style="height:22px"></div>
+<!-- N4 Revisor + Deploy -->
+  <div class="row" style="max-width:580px;gap:14px">
+    <div class="col"><div class="bx bam" style="width:100%" onclick="show('revisor')" id="b-revisor">
+      <div class="bx-t">🔎 Revisor / Integrador</div>
+      <div class="bx-s">Valida coesão · aprova · QA Gate</div>
+      <div class="bx-a">@qa (Quinn) + @po (Pax)</div>
+    </div></div>
+    <div class="col"><div class="bx bgy" style="width:100%" onclick="show('deploy')" id="b-deploy">
+      <div class="bx-t">🚀 Deploy Firebase</div>
+      <div class="bx-s">Build · publicação · URL ativa</div>
+      <div class="bx-a">@devops (Gage) — EXCLUSIVO</div>
+    </div></div>
+  </div>
+
+  <div class="av" style="height:22px"></div>
+
+  <!-- Output -->
+  <div class="bx bg" style="width:300px" onclick="show('output')" id="b-output">
+    <div class="bx-t">🌐 Página de Vendas Publicada</div>
+    <div class="bx-s">Firebase Hosting · sommersstore-c6c23</div>
+    <div class="bx-a">Essência Ativa BR · /vsl · /v3/sais · /v3/negocio</div>
+  </div>
+
+  <!-- Panel -->
+  <div id="panel"><p class="panel-hint">👆 Clique em qualquer bloco para ver os detalhes</p></div>
+
+</div>
+</div>
+
+<!-- ══════════ AGENTES ══════════ -->
+<div id="pane-agentes" class="pane">
+<p class="sec-title">🤖 Agentes Configurados — SommersStore · AIOX</p>
+<div class="ag-grid">
+
+  <div class="ag-card">
+    <div class="ag-head"><div class="ag-av" style="background:var(--indigo-dim)">🧠</div><div><div class="ag-name">Orion — aiox-master</div><div class="ag-handle">@aiox-master</div></div></div>
+    <div class="ag-scope">Orquestrador mestre. Governa a Constitution, executa qualquer task sem restrições e medeia conflitos entre agentes. É o CEO do AIOX.</div>
+    <div class="ag-skills"><span class="ag-skill">Governança</span><span class="ag-skill">Override</span><span class="ag-skill">Execução direta</span></div>
+    <div class="ag-excl-g">👑 Sem restrições — autoridade máxima</div>
+  </div>
+
+  <div class="ag-card">
+    <div class="ag-head"><div class="ag-av" style="background:var(--teal-dim)">💻</div><div><div class="ag-name">Dex — Dev</div><div class="ag-handle">@dev</div></div></div>
+    <div class="ag-scope">Implementa o código. React, Next.js, Tailwind, TypeScript. Faz commits mas não pode fazer push — isso vai para @devops.</div>
+    <div class="ag-skills"><span class="ag-skill">React/Next.js</span><span class="ag-skill">TypeScript</span><span class="ag-skill">Tailwind CSS</span><span class="ag-skill">git commit</span></div>
+    <div class="ag-excl">⛔ Bloqueado: git push · gh pr</div>
+  </div>
+
+  <div class="ag-card">
+    <div class="ag-head"><div class="ag-av" style="background:var(--amber-dim)">✅</div><div><div class="ag-name">Quinn — QA</div><div class="ag-handle">@qa</div></div></div>
+    <div class="ag-scope">Garante qualidade. QA Gate com 7 checks. Veredictos: PASS / CONCERNS / FAIL / WAIVED. QA Loop até 5 iterações.</div>
+    <div class="ag-skills"><span class="ag-skill">QA Gate 7 checks</span><span class="ag-skill">QA Loop</span><span class="ag-skill">Validação AC</span></div>
+  </div>
+
+  <div class="ag-card">
+    <div class="ag-head"><div class="ag-av" style="background:var(--purple-dim)">🏗️</div><div><div class="ag-name">Aria — Architect</div><div class="ag-handle">@architect</div></div></div>
+    <div class="ag-scope">Decide arquitetura técnica, tecnologias e integrações. Delega DDL e banco de dados para @data-engineer.</div>
+    <div class="ag-skills"><span class="ag-skill">Arquitetura</span><span class="ag-skill">Tech selection</span><span class="ag-skill">Complexidade</span></div>
+  </div>
+
+  <div class="ag-card">
+    <div class="ag-head"><div class="ag-av" style="background:var(--coral-dim)">📋</div><div><div class="ag-name">Morgan — PM</div><div class="ag-handle">@pm</div></div></div>
+    <div class="ag-scope">Cria e executa épicos. Único com *create-epic e *execute-epic. Escreve specs e coleta requisitos.</div>
+    <div class="ag-skills"><span class="ag-skill">*create-epic</span><span class="ag-skill">*execute-epic</span><span class="ag-skill">Spec Pipeline</span></div>
+    <div class="ag-excl-g">👑 Exclusivo: gestão de épicos</div>
+  </div>
+
+  <div class="ag-card">
+    <div class="ag-head"><div class="ag-av" style="background:var(--green-dim)">📖</div><div><div class="ag-name">Pax — Product Owner</div><div class="ag-handle">@po</div></div></div>
+    <div class="ag-scope">Valida stories com checklist de 10 pontos. Decide GO (≥7) ou NO-GO. Prioriza o backlog.</div>
+    <div class="ag-skills"><span class="ag-skill">*validate-story</span><span class="ag-skill">Checklist 10pt</span><span class="ag-skill">Backlog</span></div>
+  </div>
+
+  <div class="ag-card">
+    <div class="ag-head"><div class="ag-av" style="background:var(--indigo-dim)">🌊</div><div><div class="ag-name">River — Scrum Master</div><div class="ag-handle">@sm</div></div></div>
+    <div class="ag-scope">Cria stories a partir de épicos e PRDs. Seleciona template e redige o documento que guia o @dev.</div>
+    <div class="ag-skills"><span class="ag-skill">*draft</span><span class="ag-skill">*create-story</span><span class="ag-skill">Templates</span></div>
+  </div>
+
+  <div class="ag-card">
+    <div class="ag-head"><div class="ag-av" style="background:var(--sky-dim)">🚀</div><div><div class="ag-name">Gage — DevOps</div><div class="ag-handle">@devops</div></div></div>
+    <div class="ag-scope">CI/CD, deploys e infraestrutura. ÚNICO que pode fazer git push e criar PRs. Gerencia também os servidores MCP e o Firebase.</div>
+    <div class="ag-skills"><span class="ag-skill">Firebase deploy</span><span class="ag-skill">MCP management</span><span class="ag-skill">CI/CD</span></div>
+    <div class="ag-excl-g">👑 Exclusivo: git push · gh pr create · deploy</div>
+  </div>
+
+  <div class="ag-card">
+    <div class="ag-head"><div class="ag-av" style="background:var(--teal-dim)">✍️</div><div><div class="ag-name">Sage — Copywriter</div><div class="ag-handle">@copywriter</div></div></div>
+    <div class="ag-scope">Escrita persuasiva de elite. Usa Brunson, Halbert, Kennedy e Ogilvy. Scripts VSL, headlines, bullets e CTAs.</div>
+    <div class="ag-skills"><span class="ag-skill">VSL Scripts</span><span class="ag-skill">PAS / AIDA</span><span class="ag-skill">Direct Response</span><span class="ag-skill">Brunson Trilogy</span></div>
+  </div>
+
+  <div class="ag-card">
+    <div class="ag-head"><div class="ag-av" style="background:var(--pink-dim)">🎨</div><div><div class="ag-name">Uma — UX Design Expert</div><div class="ag-handle">@ux-design-expert</div></div></div>
+    <div class="ag-scope">Design de experiência e interfaces premium. Especifica UI, conduz discovery de design e avalia estética das landing pages.</div>
+    <div class="ag-skills"><span class="ag-skill">UI/UX Spec</span><span class="ag-skill">Design System</span><span class="ag-skill">A/B Visual</span></div>
+  </div>
+
+  <div class="ag-card">
+    <div class="ag-head"><div class="ag-av" style="background:var(--indigo-dim)">🔍</div><div><div class="ag-name">Alex — Analyst</div><div class="ag-handle">@analyst</div></div></div>
+    <div class="ag-scope">Pesquisa e análise de dados. Mercado, avatar (ICP), concorrentes, Dream 100 e relatórios executivos.</div>
+    <div class="ag-skills"><span class="ag-skill">Pesquisa de mercado</span><span class="ag-skill">Avatar / ICP</span><span class="ag-skill">Dream 100</span></div>
+  </div>
+
+  <div class="ag-card">
+    <div class="ag-head"><div class="ag-av" style="background:var(--coral-dim)">🗄️</div><div><div class="ag-name">Dara — Data Engineer</div><div class="ag-handle">@data-engineer</div></div></div>
+    <div class="ag-scope">Schema, queries, RLS e migrations. Trabalho delegado pelo @architect, que define a tecnologia.</div>
+    <div class="ag-skills"><span class="ag-skill">Schema DDL</span><span class="ag-skill">Query Opt.</span><span class="ag-skill">RLS Policies</span><span class="ag-skill">Migrations</span></div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════ STATUS ══════════ -->
+<div id="pane-status" class="pane">
+<p class="sec-title">📊 Status do Projeto · SommersStore · 23/03/2026</p>
+<div class="st-grid">
+
+  <div class="st-card">
+    <div class="st-head"><div class="st-title"><span class="dot dot-g"></span>🔍 Pesquisa & Avatar</div><span class="sbadge sb-g">Concluído</span></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">Dores e desejos do avatar</div></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">Avatar Essência Ativa mapeado</div></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">Brunson Trilogy indexada</div></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">Persona Elisa Claro criada</div></div>
+  </div>
+
+  <div class="st-card">
+    <div class="st-head"><div class="st-title"><span class="dot dot-g"></span>✍️ Copywriting</div><span class="sbadge sb-g">Concluído</span></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">Script VSL 2m15s</div></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">Framework PAS/AIDA aplicado</div></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">Copy Upsell — Ghost Writing</div></div>
+  </div>
+
+  <div class="st-card">
+    <div class="st-head"><div class="st-title"><span class="dot dot-g"></span>💻 Páginas em Produção</div><span class="sbadge sb-g">Ativas</span></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">VSL (/vsl)</div></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">V3 Light (/v3/sais)</div></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">V3 Dark (/v3/negocio)</div></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">Fanpage Bridge (/fanpage)</div></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">Master Orchestrator (/master)</div></div>
+  </div>
+
+  <div class="st-card">
+    <div class="st-head"><div class="st-title"><span class="dot dot-r"></span>🆕 Páginas Novas</div><span class="sbadge sb-am">Aguarda build</span></div>
+    <div class="tk"><div class="ck warn">!</div><div class="tk-lbl">zen-light — rotas Firebase ✓ (falta build)</div></div>
+    <div class="tk"><div class="ck warn">!</div><div class="tk-lbl">zen-light-v2 — rotas Firebase ✓ (falta build)</div></div>
+    <div class="tk"><div class="ck warn">!</div><div class="tk-lbl">zen-dark — rotas Firebase ✓ (falta build)</div></div>
+    <div class="tk"><div class="ck warn">!</div><div class="tk-lbl">zen-dark-v2 — rotas Firebase ✓ (falta build)</div></div>
+    <div class="tk"><div class="ck warn">!</div><div class="tk-lbl">premium-black — rotas Firebase ✓ (falta build)</div></div>
+  </div>
+
+  <div class="st-card">
+    <div class="st-head"><div class="st-title"><span class="dot dot-r"></span>🛒 Checkout</div><span class="sbadge sb-r">Incompleto</span></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">Upsell copy (Ghost Writing)</div></div>
+    <div class="tk"><div class="ck warn">!</div><div class="tk-lbl">Link Kiwify/Shopify</div></div>
+    <div class="tk"><div class="ck warn">!</div><div class="tk-lbl">Order Bump</div></div>
+    <div class="tk"><div class="ck warn">!</div><div class="tk-lbl">Webhooks Shopify</div></div>
+  </div>
+
+  <div class="st-card">
+    <div class="st-head"><div class="st-title"><span class="dot dot-i"></span>📈 Scale Strategy</div><span class="sbadge sb-i">Em progresso</span></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">Funil de vendas definido</div></div>
+    <div class="tk"><div class="ck"></div><div class="tk-lbl">Escada de Valor (LTV)</div></div>
+    <div class="tk"><div class="ck"></div><div class="tk-lbl">Headlines Shock A/B</div></div>
+  </div>
+
+  <div class="st-card">
+    <div class="st-head"><div class="st-title"><span class="dot dot-m"></span>🚀 Tráfego & Métricas</div><span class="sbadge sb-m">Não iniciado</span></div>
+    <div class="tk"><div class="ck"></div><div class="tk-lbl">Meta Ads</div></div>
+    <div class="tk"><div class="ck"></div><div class="tk-lbl">Pixel de conversão</div></div>
+    <div class="tk"><div class="ck"></div><div class="tk-lbl">Análise de ROI</div></div>
+  </div>
+
+  <div class="st-card">
+    <div class="st-head"><div class="st-title"><span class="dot dot-g"></span>🔧 Correções AIOX</div><span class="sbadge sb-g">Aplicadas hoje</span></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">TEST_MODE=false na VSL</div></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">layout.tsx — título + lang pt-BR</div></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">firebase.json — rotas novas</div></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">core-config.yaml criado</div></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">.gitignore criado</div></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">settings.json com deny/allow rules</div></div>
+    <div class="tk"><div class="ck ok">✓</div><div class="tk-lbl done">docs/stories/1.1.story.md criada</div></div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════ PROBLEMAS ══════════ -->
+<div id="pane-problemas" class="pane">
+<p class="sec-title">⚠️ Issues Identificados & Correções — 23/03/2026</p>
+<div class="prb-wrap">
+
+  <div class="sev-lbl" style="color:var(--green)">✅ Resolvido hoje</div>
+
+  <div class="alert a-g"><strong>TEST_MODE=true corrigido na VSL</strong>O botão de compra agora aparece apenas após os 2m15s do vídeo. Arquivo: <code>app/sales/vsl/page.tsx</code> linha 15.</div>
+  <div class="alert a-g"><strong>layout.tsx corrigido</strong>Título: "Essência Ativa BR — Alquimia Artesanal de Elite | SommersStore". Idioma: <code>lang="pt-BR"</code>. Open Graph adicionado para SEO.</div>
+  <div class="alert a-g"><strong>firebase.json atualizado</strong>5 novas rotas adicionadas: /v3/zen, /v3/zen-v2, /v3/zen-dark, /v3/zen-dark-v2, /v3/premium-black.</div>
+  <div class="alert a-g"><strong>core-config.yaml criado</strong>Configuração central do AIOX com agentes, AI providers, infraestrutura e produtos.</div>
+  <div class="alert a-g"><strong>.gitignore criado</strong>Arquivos temporários (test-*.js, tmp/, .env, out/) agora ignorados.</div>
+  <div class="alert a-g"><strong>settings.json atualizado</strong>Deny rules para git push e gh pr. Allow rules para operações de desenvolvimento.</div>
+  <div class="alert a-g"><strong>docs/stories/ criada</strong>Story 1.1 retroativa documenta todo o trabalho realizado até hoje.</div>
+
+  <div class="sev-lbl" style="color:var(--amber);margin-top:8px">🟠 Pendente — Requer ação</div>
+
+  <div class="alert a-am"><strong>Build e deploy das novas páginas</strong>zen-light, zen-light-v2, zen-dark, zen-dark-v2 e premium-black existem no código mas nunca foram buildadas. Execute: <code>cd projects/loja-digital && npm run build</code> e depois peça ao @devops o deploy.</div>
+  <div class="alert a-am"><strong>Integração de checkout incompleta</strong>Kiwify/Shopify, Order Bump e Webhooks estão pendentes. O funil não converte sem o checkout funcional.</div>
+  <div class="alert a-am"><strong>Arquivos temporários ainda no repositório</strong>test-api.js, test-gemini-direct.js, test-provider-full.js, vt.js e tmp/ estão staged no git. O .gitignore foi criado mas os arquivos precisam ser removidos do staging com <code>git rm --cached</code>.</div>
+
+  <div class="sev-lbl" style="color:var(--indigo);margin-top:8px">🔵 Melhoria recomendada</div>
+
+  <div class="alert a-i"><strong>Pasta storefront/ está na raiz errada</strong>Segundo o project_map.md, deveria estar em <code>projects/electro-store/storefront/</code>. Não é urgente mas gera confusão.</div>
+  <div class="alert a-i"><strong>docs/stories/ apenas com story retroativa</strong>A partir de agora, toda nova feature deve começar com uma story criada pelo @sm antes que o @dev escreva código.</div>
+  <div class="alert a-i"><strong>Próximas stories sugeridas</strong>Story 1.2: Integração Checkout Kiwify. Story 1.3: Build e deploy páginas zen. Story 2.1: Meta Ads e pixel de conversão.</div>
+
+</div>
+</div>
+
+<!-- ══════════ CRÉDITOS API ══════════ -->
+<div id="pane-creditos" class="pane">
+<p class="sec-title">💰 Calculadora de Créditos API — SommersStore</p>
+
+<style>
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:900px;margin:0 auto 24px;}
+@media(max-width:640px){.calc-grid{grid-template-columns:1fr;}}
+.calc-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;}
+.calc-card.claude-card{border-color:rgba(99,102,241,.35);}
+.calc-card.gemini-card{border-color:rgba(16,185,129,.35);}
+.calc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.calc-title{font-size:.95rem;font-weight:800;display:flex;align-items:center;gap:8px;}
+.calc-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:5px;margin-top:12px;}
+.calc-input{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:8px;padding:9px 12px;color:var(--text);font-size:.85rem;font-family:'Inter',sans-serif;outline:none;transition:.2s;}
+.calc-input:focus{border-color:var(--indigo);background:rgba(99,102,241,.05);}
+.calc-row{display:flex;gap:10px;}
+.calc-row .calc-input{flex:1;}
+.calc-result{margin-top:16px;padding:14px;border-radius:10px;font-size:.78rem;line-height:1.7;}
+.cr-claude{background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);}
+.cr-gemini{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);}
+.cr-val{font-size:1.4rem;font-weight:900;display:block;margin-bottom:2px;}
+.cr-val.ok{color:var(--green);}
+.cr-val.warn{color:var(--amber);}
+.cr-val.danger{color:var(--coral);}
+.cr-sub{color:var(--muted);font-size:.7rem;}
+.cr-bar-wrap{margin-top:10px;}
+.cr-bar-bg{width:100%;height:8px;border-radius:4px;background:rgba(255,255,255,.07);overflow:hidden;}
+.cr-bar{height:100%;border-radius:4px;transition:width .5s;}
+.bar-green{background:var(--green);}
+.bar-amber{background:var(--amber);}
+.bar-red{background:var(--coral);}
+.calc-btn{width:100%;margin-top:14px;padding:10px;border-radius:8px;border:none;background:var(--indigo);color:#fff;font-size:.78rem;font-weight:700;cursor:pointer;transition:.2s;font-family:'Inter',sans-serif;}
+.calc-btn:hover{background:#4f46e5;}
+.countdown-wrap{max-width:900px;margin:0 auto 18px;background:var(--card);border:1px solid rgba(16,185,129,.3);border-radius:14px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.cd-item{text-align:center;}
+.cd-num{font-size:2rem;font-weight:900;color:var(--green);display:block;line-height:1;}
+.cd-lbl{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);}
+.cd-bar-wrap{flex:1;min-width:200px;}
+.cd-bar-bg{width:100%;height:10px;border-radius:5px;background:rgba(255,255,255,.07);overflow:hidden;margin-top:6px;}
+.cd-bar{height:100%;border-radius:5px;background:var(--green);transition:width .5s;}
+.log-wrap{max-width:900px;margin:0 auto;}
+.log-table{width:100%;border-collapse:collapse;font-size:.73rem;}
+.log-table th{text-align:left;padding:7px 10px;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);border-bottom:1px solid var(--border);}
+.log-table td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--dim);}
+.log-table tr:last-child td{border:none;}
+.log-add{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.log-add input,.log-add select{background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:7px;padding:7px 10px;color:var(--text);font-size:.75rem;font-family:'Inter',sans-serif;outline:none;}
+.log-add input{flex:1;min-width:100px;}
+.log-add button{padding:7px 14px;border-radius:7px;border:none;background:var(--indigo);color:#fff;font-size:.73rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;}
+</style>
+
+<!-- Countdown Gemini -->
+<div class="countdown-wrap" style="flex-direction:column;gap:14px">
+  <div style="width:100%">
+    <div style="font-size:.75rem;font-weight:800;color:var(--text);margin-bottom:2px">💳 Total disponível: <span style="color:var(--green)">R$ 7.624,33</span></div>
+    <div style="font-size:.68rem;color:var(--muted)">Dois créditos com prazos diferentes — use o mais urgente primeiro</div>
+  </div>
+
+  <!-- Crédito 1 -->
+  <div style="width:100%;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:12px 16px">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+      <div>
+        <span style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--amber)">⚡ URGENTE — Free Trial</span>
+        <div style="font-size:.8rem;font-weight:700;color:var(--text)">R$ 1.759,46 · expira <strong>19/06/2026</strong></div>
+      </div>
+      <div style="display:flex;gap:16px">
+        <div class="cd-item"><span class="cd-num" id="cd-dias1" style="color:var(--amber)">--</span><span class="cd-lbl">Dias</span></div>
+        <div class="cd-item"><span class="cd-num" id="cd-meta1" style="font-size:1rem;color:var(--amber)">R$--/dia</span><span class="cd-lbl">Meta diária</span></div>
+      </div>
+    </div>
+    <div class="cd-bar-bg"><div class="cd-bar" id="cd-bar1" style="width:0%;background:var(--amber)"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:.6rem;color:var(--muted);margin-top:3px"><span>20/03/2026</span><span>19/06/2026</span></div>
+  </div>
+
+  <!-- Crédito 2 -->
+  <div style="width:100%;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:10px;padding:12px 16px">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+      <div>
+        <span style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--green)">✅ GenAI App Builder</span>
+        <div style="font-size:.8rem;font-weight:700;color:var(--text)">R$ 5.864,87 · expira <strong>21/03/2027</strong></div>
+      </div>
+      <div style="display:flex;gap:16px">
+        <div class="cd-item"><span class="cd-num" id="cd-dias2" style="color:var(--green)">--</span><span class="cd-lbl">Dias</span></div>
+        <div class="cd-item"><span class="cd-num" id="cd-meta2" style="font-size:1rem;color:var(--green)">R$--/dia</span><span class="cd-lbl">Meta diária</span></div>
+      </div>
+    </div>
+    <div class="cd-bar-bg"><div class="cd-bar" id="cd-bar2" style="width:0%;background:var(--green)"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:.6rem;color:var(--muted);margin-top:3px"><span>21/03/2026</span><span>21/03/2027</span></div>
+  </div>
+</div>
+
+<!-- Cards -->
+<div class="calc-grid">
+
+  <!-- Claude -->
+  <div class="calc-card claude-card">
+    <div class="calc-head">
+      <div class="calc-title">🤖 <span style="color:var(--indigo-l)">Claude</span> — Anthropic</div>
+      <span class="sbadge sb-i">Primary</span>
+    </div>
+    <div class="calc-label">Saldo atual (USD)</div>
+    <div class="calc-row">
+      <input class="calc-input" id="cl-saldo" type="number" step="0.01" placeholder="ex: 10.00" value="2.34" oninput="calcClaude()">
+      <input class="calc-input" id="cl-consumo" type="number" step="0.01" placeholder="Consumo/sessão USD" oninput="calcClaude()">
+    </div>
+    <div class="calc-label">Sessões por semana</div>
+    <input class="calc-input" id="cl-sessoes" type="number" placeholder="ex: 5" value="5" oninput="calcClaude()">
+    <div class="calc-result cr-claude" id="cl-result">
+      <span class="cr-val" id="cl-dias">—</span>
+      <span class="cr-sub" id="cl-sub">Preencha o saldo e consumo por sessão</span>
+      <div class="cr-bar-wrap"><div class="cr-bar-bg"><div class="cr-bar bar-green" id="cl-bar" style="width:0%"></div></div></div>
+    </div>
+    <button class="calc-btn" onclick="saveCalc('claude')">💾 Salvar saldo</button>
+  </div>
+
+  <!-- Gemini -->
+  <div class="calc-card gemini-card">
+    <div class="calc-head">
+      <div class="calc-title">🟢 <span style="color:var(--green)">Gemini</span> — Google Cloud</div>
+      <span class="sbadge sb-g">R$ 7.624</span>
+    </div>
+    <div class="calc-label">Saldo atual (R$)</div>
+    <div class="calc-row">
+      <input class="calc-input" id="gm-saldo" type="number" step="1" placeholder="ex: 7624" value="7624" oninput="calcGemini()">
+      <input class="calc-input" id="gm-consumo" type="number" step="0.01" placeholder="Consumo/dia R$" oninput="calcGemini()">
+    </div>
+    <div class="calc-label">Meta de consumo diário sugerida (R$)</div>
+    <input class="calc-input" id="gm-meta" type="number" placeholder="ex: 84.71" value="84.71" oninput="calcGemini()">
+    <div class="calc-result cr-gemini" id="gm-result">
+      <span class="cr-val" id="gm-dias">—</span>
+      <span class="cr-sub" id="gm-sub">Meta: R$ 18,89/dia para zerar em 90 dias</span>
+      <div class="cr-bar-wrap"><div class="cr-bar-bg"><div class="cr-bar bar-green" id="gm-bar" style="width:0%"></div></div></div>
+    </div>
+    <button class="calc-btn" onclick="saveCalc('gemini')" style="background:var(--green)">💾 Salvar saldo</button>
+  </div>
+
+</div>
+
+<!-- Log de sessões -->
+<div class="log-wrap">
+  <p class="sec-title">📋 Registro de Consumo</p>
+  <div class="log-add">
+    <input type="date" id="log-data" style="color:var(--text)">
+    <select id="log-api" style="color:var(--text)">
+      <option value="claude">Claude</option>
+      <option value="gemini">Gemini</option>
+    </select>
+    <input id="log-valor" type="number" step="0.01" placeholder="Valor gasto">
+    <input id="log-desc" type="text" placeholder="Descrição (ex: página zen-dark)">
+    <button onclick="addLog()">+ Registrar</button>
+  </div>
+  <table class="log-table">
+    <thead><tr><th>Data</th><th>API</th><th>Valor</th><th>Descrição</th></tr></thead>
+    <tbody id="log-body"><tr><td colspan="4" style="text-align:center;color:var(--muted);padding:16px">Nenhum registro ainda.</td></tr></tbody>
+  </table>
+</div>
+
+</div>
+
+
+
+<!-- ══════════ ARQUITETURA ══════════ -->
+<div id="pane-arquitetura" class="pane">
+<p class="sec-title">📂 Mapa Estrutural SommersStore</p>
+<div class="flow" style="margin-top:20px;">
+
+  <!-- ROOT -->
+  <div style="display:flex;justify-content:center;margin-bottom:24px;">
+    <div class="bx" style="width:300px;background:var(--card);border:2px solid var(--indigo);text-align:center;">
+      <div class="bx-t" style="font-size:1rem;">📁 SommersStore</div>
+      <div class="bx-s" style="margin-top:5px;opacity:0.8;">C:\Users\ADMIN\SommersStore</div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 .AGENT</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 workflows</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.agent/workflows" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 .AIOX-CORE</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 cli</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/cli" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 core</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/core" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 data</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/data" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 development</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/development" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 docs</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/docs" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 elicitation</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/elicitation" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 infrastructure</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/infrastructure" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 manifests</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/manifests" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 monitor</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/monitor" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 presets</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/presets" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 product</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/product" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 schemas</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/schemas" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 scripts</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/scripts" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 workflow-intelligence</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/workflow-intelligence" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="constitution.md">📝 constitution.md</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/constitution.md" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="core-config.yaml">📝 core-config.yaml</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/core-config.yaml" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="index.esm.js">📝 index.esm.js</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/index.esm.js" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="index.js">📝 index.js</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/index.js" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="install-manifest.yaml">📝 install-manifest.yaml</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/install-manifest.yaml" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="package-lock.json">📝 package-lock.json</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.aiox-core/package-lock.json" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+      <div class="col" style="min-width:160px;"><div class="bx" style="padding:10px;"><div class="bx-s">+ 4 arquivos...</div></div></div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 .ANTIGRAVITY</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 agents</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.antigravity/agents" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 rules</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.antigravity/rules" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="antigravity.json">📝 antigravity.json</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.antigravity/antigravity.json" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="rules.md">📝 rules.md</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.antigravity/rules.md" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="rules.md.backup.2026-03-09T10-51-56-584Z">📝 rules.md.backup.2026-03-09T10-51-56-584Z</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.antigravity/rules.md.backup.2026-03-09T10-51-56-584Z" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 .CODEX</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 agents</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.codex/agents" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 .FIREBASE</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="hosting.cHJvamVjdHNcbG9qYS1kaWdpdGFsXG91dA.cache">📝 hosting.cHJvamVjdHNcbG9qYS1kaWdpdGFsXG91dA.cache</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.firebase/hosting.cHJvamVjdHNcbG9qYS1kaWdpdGFsXG91dA.cache" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="hosting.d2ViXG91dA.cache">📝 hosting.d2ViXG91dA.cache</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.firebase/hosting.d2ViXG91dA.cache" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 .GITHUB</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 agents</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.github/agents" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 .HUSKY</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="pre-commit">📝 pre-commit</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.husky/pre-commit" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="pre-push">📝 pre-push</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/.husky/pre-push" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 CONFIG</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="brand_config.json">📝 brand_config.json</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/config/brand_config.json" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 DOCS</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bc" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 marketing</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/docs/marketing" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bc" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 stories</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/docs/stories" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="5_6161471980177464899.md">📝 5_6161471980177464899.md</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/docs/5_6161471980177464899.md" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="aiox_fluxograma.html">📝 aiox_fluxograma.html</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/docs/aiox_fluxograma.html" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="mindmap.html">📝 mindmap.html</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/docs/mindmap.html" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="pipeline_state.json">📝 pipeline_state.json</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/docs/pipeline_state.json" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="project_map.md">📝 project_map.md</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/docs/project_map.md" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 FUNNELS</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 lead-magnet</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/funnels/lead-magnet" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 sais_de_banho</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/funnels/sais_de_banho" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 sales-page</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/funnels/sales-page" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 upsell-flow</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/funnels/upsell-flow" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 KNOWLEDGE</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 audience</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/audience" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 branding</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/branding" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 competitors</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/competitors" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 copy_frameworks</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/copy_frameworks" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 marketing</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/marketing" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 operations</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/operations" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 persona</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/persona" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 projects</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/projects" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 prompts</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/prompts" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 technical</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/technical" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx" style="width:100%;height:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:14px;">
+          <div class="bx-t" style="font-size:0.75rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="brand_core.json">📝 brand_core.json</div>
+          <div class="bx-a" style="font-size:0.55rem;margin-top:6px;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/knowledge/brand_core.json" style="color:inherit;text-decoration:none;">Abrir Editor ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 PLATFORM</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 agents</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/platform/agents" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 automations</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/platform/automations" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 integrations</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/platform/integrations" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 workflows</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/platform/workflows" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 PROJECTS</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 electro-store</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/projects/electro-store" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+
+      <div class="col" style="min-width:160px;flex:1;max-width:250px;">
+        <div class="bx bi" style="width:100%;height:100%;padding:14px;">
+          <div class="bx-t" style="font-size:0.85rem;margin-bottom:5px;">📂 loja-digital</div>
+          <div class="bx-a" style="font-size:0.6rem;word-break:break-all;"><a href="vscode://file/c:/Users/ADMIN/SommersStore/projects/loja-digital" style="color:inherit;text-decoration:none;">Abrir Pasta ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk" style="margin-bottom:24px;">
+    <span class="brk-lbl" style="font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--border2);padding-bottom:5px;display:block;margin-bottom:14px;">📁 STOREFRONT</span>
+    <div class="row" style="flex-wrap:wrap;gap:12px;justify-content:flex-start;">
+      <div class="col" style="min-width:180px;"><div class="bx bi" style="width:100%"><div class="bx-s" style="opacity:0.5;text-align:center;">(vazio)</div></div></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+
+<!-- ══════════ RELATORIOS ══════════ -->
+<div id="pane-artefatos" class="pane">
+<p class="sec-title">📓 Bitácora Cronológica de Planejamento e Execução</p>
+<div id="history-container" style="max-width:800px; margin:0 auto;"></div>
+</div>
+
+<!-- ══════════ DESIGN SYSTEMS ══════════ -->
+<div id="pane-design" class="pane">
+<p class="sec-title">🎨 Temas de Coversão Lidos da Pasta de Branding</p>
+<div id="ds-container" class="row" style="flex-wrap: wrap; align-items: stretch;"></div>
+</div>
+
+<!-- ══════════ SKILLS ══════════ -->
+<div id="pane-skills" class="pane">
+<p class="sec-title">⚡ AIOX Skills Library</p>
+<div class="skills-grid" id="skills-grid-render"></div>
+<style>
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.sk-cat { border: 1px solid var(--border); border-radius: 12px; background: var(--card); padding: 16px; margin-bottom: 20px; }
+.sk-cat-title { font-size: 0.8rem; font-weight: 800; color: var(--indigo); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+.sk-item { margin-bottom: 8px; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background:var(--bg); }
+.sk-head { padding: 10px 14px; font-size: 0.75rem; font-weight: 700; color: var(--text); background: rgba(255,255,255,0.03); }
+.sk-item p { padding: 12px 14px; margin: 0; font-size: 0.7rem; color: var(--dim); background: var(--surface); line-height: 1.5; border-top: 1px solid var(--border2); }
+</style>
+<script>
+const skillsLibrary = [
+  { cat: 'Qualidade & Segurança', skills: [
+    { name: 'audit-codebase', desc: 'Audit Codebase for UI Pattern Redundancy' },
+    { name: 'audit-tailwind-config', desc: 'Audit Tailwind v4 Configuration & Utility Health' },
+    { name: 'audit-utilities', desc: 'audit-utilities' },
+    { name: 'qa-after-creation', desc: 'Task: QA After Creation' },
+    { name: 'qa-backlog-add-followup', desc: 'QA Task: Add Follow-up to Backlog' },
+    { name: 'qa-browser-console-check', desc: 'Browser Console Check Task' },
+    { name: 'qa-create-fix-request', desc: 'Create Fix Request Task' },
+    { name: 'qa-evidence-requirements', desc: 'Evidence Requirements Task' },
+    { name: 'qa-false-positive-detection', desc: 'False Positive Detection Task' },
+    { name: 'qa-fix-issues', desc: 'QA Issue Fixer Task' },
+    { name: 'qa-gate', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'qa-generate-tests', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'qa-library-validation', desc: 'Library Validation Task' },
+    { name: 'qa-migration-validation', desc: 'Migration Validation Task' },
+    { name: 'qa-nfr-assess', desc: 'nfr-assess' },
+    { name: 'qa-review-build', desc: 'QA Review Build: 10-Phase Quality Assurance Review' },
+    { name: 'qa-review-proposal', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'qa-review-story', desc: 'review-story' },
+    { name: 'qa-risk-profile', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'qa-run-tests', desc: 'Run Tests (with Code Quality Gate)' },
+    { name: 'qa-security-checklist', desc: 'Security Checklist Task' },
+    { name: 'qa-test-design', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'qa-trace-requirements', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'security-audit', desc: 'Task: Security Audit' },
+    { name: 'security-scan', desc: 'security-scan' },
+    { name: 'validate-agents', desc: 'Validate Agents Task' },
+    { name: 'validate-next-story', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'validate-tech-preset', desc: '\*validate-tech-preset' },
+    { name: 'validate-workflow', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'verify-subtask', desc: 'Verify Subtask' }
+  ]},
+  { cat: 'Core & Arquitetura', skills: [
+    { name: 'analyze-brownfield', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'analyze-cross-artifact', desc: 'Cross-Artifact Analysis Task' },
+    { name: 'analyze-framework', desc: 'Task: Analyze Framework' },
+    { name: 'analyze-project-structure', desc: 'Analyze Project Structure' },
+    { name: 'architect-analyze-impact', desc: 'An' },
+    { name: 'ids-governor', desc: 'Task: IDS Governor Commands' },
+    { name: 'ids-health', desc: 'IDS Registry Health Check Task' },
+    { name: 'ids-query', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'spec-assess-complexity', desc: 'Spec Pipeline: Assess Complexity' },
+    { name: 'spec-critique', desc: 'Spec Pipeline: Critique Specification' },
+    { name: 'spec-gather-requirements', desc: 'Spec Pipeline: Gather Requirements' },
+    { name: 'spec-research-dependencies', desc: 'Spec Pipeline: Research Dependencies' },
+    { name: 'spec-write-spec', desc: 'Spec Pipeline: Write Specification' }
+  ]},
+  { cat: 'Banco de Dados', skills: [
+    { name: 'db-analyze-hotpaths', desc: 'Task: Analyze Hot Query Paths' },
+    { name: 'db-apply-migration', desc: 'Task: Apply Migration (with snapshot + advisory lock)' },
+    { name: 'db-bootstrap', desc: 'Task: Bootstrap Supabase Project' },
+    { name: 'db-domain-modeling', desc: 'Task: Domain Modeling Session' },
+    { name: 'db-dry-run', desc: 'Task: Migration Dry-Run' },
+    { name: 'db-env-check', desc: 'Task: DB Env Check' },
+    { name: 'db-explain', desc: 'Task: EXPLAIN (ANALYZE, BUFFERS)' },
+    { name: 'db-impersonate', desc: 'Task: Impersonate User (RLS Testing)' },
+    { name: 'db-load-csv', desc: 'Task: Load CSV Data Safely' },
+    { name: 'db-policy-apply', desc: 'Task: Apply RLS Policy Template' },
+    { name: 'db-rls-audit', desc: 'Task: RLS Audit' },
+    { name: 'db-rollback', desc: 'Task: Rollback Database' },
+    { name: 'db-run-sql', desc: 'Task: Run SQL' },
+    { name: 'db-schema-audit', desc: 'Task: Schema Audit' },
+    { name: 'db-seed', desc: 'Task: Apply Seed Data' },
+    { name: 'db-smoke-test', desc: 'Task: DB Smoke Test' },
+    { name: 'db-snapshot', desc: 'Task: Create Database Snapshot' },
+    { name: 'db-squad-integration', desc: 'Database Integration Analysis for Squad' },
+    { name: 'db-supabase-setup', desc: 'Task: Supabase Setup Guide' },
+    { name: 'db-verify-order', desc: 'Task: Verify DDL Ordering' }
+  ]},
+  { cat: 'Gestão & Sistema', skills: [
+    { name: 'analyst-facilitate-brainstorming', desc: 'No checklists needed - this task facilitates brainstorming sessions, validation is through user interaction' },
+    { name: 'analyze-performance', desc: 'Task: Analyze Performance' },
+    { name: 'brownfield-create-epic', desc: 'Create Brownfield Epic Task' },
+    { name: 'brownfield-create-story', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'check-docs-links', desc: 'check-docs-links' },
+    { name: 'cleanup-utilities', desc: 'Cleanup Utilities Task' },
+    { name: 'cleanup-worktrees', desc: 'cleanup-worktrees' },
+    { name: 'compose-molecule', desc: 'Compose Molecule from Atoms' },
+    { name: 'correct-course', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'create-brownfield-story', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'create-deep-research-prompt', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'create-doc', desc: 'Template selection determined dynamically during task execution' },
+    { name: 'create-next-story', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'create-suite', desc: 'TODO: Create test-suite-checklist.md for validation (follow-up story needed)' },
+    { name: 'create-task', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'create-workflow', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'create-worktree', desc: 'create-worktree' },
+    { name: 'document-gotchas', desc: 'Document Gotchas Task' },
+    { name: 'document-project', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'execute-checklist', desc: 'No templates needed - this task executes existing checklists, doesn\'t create document outputs' },
+    { name: 'execute-epic-plan', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'extract-patterns', desc: 'Extract Patterns' },
+    { name: 'generate-ai-frontend-prompt', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'generate-documentation', desc: 'Generate Pattern Library Documentation' },
+    { name: 'generate-migration-strategy', desc: 'Generate Phased Migration Strategy' },
+    { name: 'gotcha', desc: 'Task: Add Gotcha' },
+    { name: 'gotchas', desc: 'Task: List Gotchas' },
+    { name: 'improve-self', desc: 'improve-self' },
+    { name: 'index-docs', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'init-project-status', desc: 'init-project-status' },
+    { name: 'kb-mode-interaction', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'learn-patterns', desc: 'learn-patterns' },
+    { name: 'list-worktrees', desc: 'list-worktrees' },
+    { name: 'merge-worktree', desc: 'merge-worktree' },
+    { name: 'next', desc: 'Next Command Suggestions' },
+    { name: 'orchestrate-resume', desc: 'Resume orchestrator execution from saved state' },
+    { name: 'orchestrate-status', desc: 'Show orchestrator status for a story' },
+    { name: 'orchestrate-stop', desc: 'Stop orchestrator execution for a story' },
+    { name: 'orchestrate', desc: 'Start full ADE pipeline for a story' },
+    { name: 'plan-create-context', desc: 'Plan Pipeline: Create Context' },
+    { name: 'plan-create-implementation', desc: 'Execution Pipeline: Create Implementation Plan' },
+    { name: 'plan-execute-subtask', desc: 'Execute Subtask (Coder Agent)' },
+    { name: 'po-backlog-add', desc: 'PO Task: Add Backlog Item' },
+    { name: 'po-close-story', desc: 'PO Task: Close Story' },
+    { name: 'po-manage-story-backlog', desc: 'manage-story-backlog' },
+    { name: 'po-pull-story-from-clickup', desc: 'pull-story-from-clickup' },
+    { name: 'po-pull-story', desc: 'pull-story' },
+    { name: 'po-stories-index', desc: 'PO Task: Regenerate Story Index' },
+    { name: 'po-sync-story-to-clickup', desc: 'sync-story-to-clickup' },
+    { name: 'po-sync-story', desc: 'sync-story' },
+    { name: 'propose-modification', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'publish-npm', desc: 'npm Publishing Pipeline: Preview to Latest' },
+    { name: 'remove-worktree', desc: 'remove-worktree' },
+    { name: 'resolve-github-issue', desc: 'resolve-github-issue.md' },
+    { name: 'review-contributor-pr', desc: 'Task: Review External Contributor PR' },
+    { name: 'run-workflow-engine', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'run-workflow', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'search-mcp', desc: 'Search MCP Catalog Task' },
+    { name: 'session-resume', desc: 'Session Resume Task' },
+    { name: 'setup-database', desc: 'Task: Setup Database' },
+    { name: 'setup-github', desc: 'setup-github' },
+    { name: 'setup-llm-routing', desc: 'setup-llm-routing' },
+    { name: 'setup-mcp-docker', desc: 'Setup Docker MCP Toolkit' },
+    { name: 'setup-project-docs', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'shard-doc', desc: 'No checklists needed - document processing task with built-in validation via md-tree tool' },
+    { name: 'sm-create-next-story', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'story-checkpoint', desc: 'Task: Story Checkpoint' },
+    { name: 'sync-documentation', desc: 'sync-documentation' },
+    { name: 'sync-registry-intel', desc: 'Task: Sync Registry Intel' },
+    { name: 'tailwind-upgrade', desc: 'Tailwind CSS v4 Upgrade Playbook' },
+    { name: 'test-as-user', desc: 'Task: Test As User (RLS Testing)' },
+    { name: 'test-validation-task', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'triage-github-issues', desc: 'triage-github-issues.md' },
+    { name: 'undo-last', desc: 'No checklists needed - rollback operation with built-in transaction validation' },
+    { name: 'update-aiox', desc: 'Task: Update AIOX Framework' },
+    { name: 'update-manifest', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'update-source-tree', desc: 'Update Source Tree Task' },
+    { name: 'waves', desc: 'Task: `*waves` - Wave Analysis' },
+    { name: 'yolo-toggle', desc: 'yolo-toggle' }
+  ]},
+  { cat: 'Marketing & Copy', skills: [
+    { name: 'advanced-elicitation', desc: 'advanced-elicitation' },
+    { name: 'calculate-roi', desc: 'Calculate ROI and Cost Savings' },
+    { name: 'facilitate-brainstorming-session', desc: 'Facilitate Brainstorming Session' },
+    { name: 'generate-elite-ads-campaign', desc: 'generate-elite-ads-campaign' },
+    { name: 'generate-shock-report', desc: 'Generate Visual Shock Report' },
+    { name: 'optimize-elite-landing-page', desc: 'optimize-elite-landing-page' }
+  ]},
+  { cat: 'Desenvolvimento', skills: [
+    { name: 'apply-qa-fixes', desc: 'Ap' },
+    { name: 'build-autonomous', desc: 'Task: Build Autonomous' },
+    { name: 'build-component', desc: 'Build Production-Ready Component' },
+    { name: 'build-resume', desc: 'Task: Build Resume' },
+    { name: 'build-status', desc: 'Task: Build Status' },
+    { name: 'build', desc: 'Task: Build (Autonomous)' },
+    { name: 'collaborative-edit', desc: 'collaborative-edit' },
+    { name: 'consolidate-patterns', desc: 'Consolidate Patterns Using Intelligent Clustering' },
+    { name: 'create-service', desc: 'Create Service' },
+    { name: 'deprecate-component', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'dev-apply-qa-fixes', desc: 'Ap' },
+    { name: 'dev-backlog-debt', desc: 'Dev Task: Register Technical Debt' },
+    { name: 'dev-develop-story', desc: 'Develop Story Task' },
+    { name: 'dev-improve-code-quality', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'dev-optimize-performance', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'dev-suggest-refactoring', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'dev-validate-next-story', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'extend-pattern', desc: 'Extend Existing Pattern' },
+    { name: 'modify-agent', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'modify-task', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'modify-workflow', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'patterns', desc: 'Learned Patterns Management' }
+  ]},
+  { cat: 'UX & Design', skills: [
+    { name: 'bootstrap-shadcn-library', desc: 'Bootstrap Shadcn/Radix Component Library' },
+    { name: 'export-design-tokens-dtcg', desc: 'Export Design Tokens to W3C DTCG' },
+    { name: 'extract-tokens', desc: 'Extract Design Tokens from Consolidated Patterns' },
+    { name: 'run-design-system-pipeline', desc: 'Run Design System Pipeline' },
+    { name: 'setup-design-system', desc: 'Setup Design System Structure' },
+    { name: 'ux-create-wireframe', desc: 'Create Wireframes & Interaction Flows' },
+    { name: 'ux-ds-scan-artifact', desc: 'Design System Artifact Scanner' },
+    { name: 'ux-user-research', desc: 'User Research & Needs Analysis' }
+  ]},
+  { cat: 'Squads & Operações', skills: [
+    { name: 'add-mcp', desc: 'Add MCP Server Task' },
+    { name: 'ci-cd-configuration', desc: 'Configure CI/CD Pipeline' },
+    { name: 'create-agent', desc: 'Task: Create Squad Agent' },
+    { name: 'environment-bootstrap', desc: 'environment-bootstrap' },
+    { name: 'github-devops-github-pr-automation', desc: 'github-pr-automation.md' },
+    { name: 'github-devops-pre-push-quality-gate', desc: 'pre-push-quality-gate.md' },
+    { name: 'github-devops-repository-cleanup', desc: 'repository-cleanup.md' },
+    { name: 'github-devops-version-management', desc: 'version-management.md' },
+    { name: 'github-issue-triage', desc: 'GitHub Issue Triage' },
+    { name: 'integrate-squad', desc: 'Integrate with Squad' },
+    { name: 'list-mcps', desc: 'list-mcps' },
+    { name: 'mcp-workflow', desc: 'MCP Workflow Creation Task' },
+    { name: 'pr-automation', desc: 'Automate Pull Request Creation for Open-Source Contributions' },
+    { name: 'release-management', desc: 'Manage Software Releases' },
+    { name: 'remove-mcp', desc: 'remove-mcp' },
+    { name: 'squad-creator-analyze', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-create', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-design', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-download', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-extend', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-list', desc: '*list-squads' },
+    { name: 'squad-creator-migrate', desc: '*migrate-squad' },
+    { name: 'squad-creator-publish', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-sync-ide-command', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-sync-synkra', desc: 'Tarefa automatizada do sistema AIOX.' },
+    { name: 'squad-creator-validate', desc: '*validate-squad' }
+  ]}
+];
+const sg = document.getElementById('skills-grid-render');
+if(sg) {
+    let sk_html = '';
+    skillsLibrary.forEach(cat => {
+        sk_html += `<div class="sk-cat"><div class="sk-cat-title">${cat.cat} <span style="color:var(--muted);font-size:0.6rem">(${cat.skills.length})</span></div><div style="display:grid;gap:10px;">`;
+        cat.skills.forEach(s => {
+            sk_html += `<div class="sk-item"><div class="sk-head">⚡ ${s.name}</div><p>${s.desc}</p></div>`;
+        });
+        sk_html += `</div></div>`;
+    });
+    sg.innerHTML = sk_html;
+}
+</script>
+</div>
+
+<script>
+function sw(id,el){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('pane-'+id).classList.add('on');
+  el.classList.add('on');
+}
+
+const D={
+  'kb-brunson':{badge:'📚 Base de Conhecimento',c:'#6366f1',title:'Brunson Trilogy — Russell Brunson',desc:'Os 3 livros fundamentais do marketing digital estão indexados na sua base de conhecimento: <strong>DotCom Secrets</strong> (funis e value ladder), <strong>Expert Secrets</strong> (autoridade, origin story e movimento de massa) e <strong>Traffic Secrets</strong> (Dream 100 e aquisição de tráfego). O agente @copywriter (Sage) usa esses frameworks ao gerar qualquer copy.',inputs:['DotCom Secrets — funis, value ladder, checkout flow','Expert Secrets — origin story, epiphany bridge, movimento','Traffic Secrets — Dream 100, tráfego orgânico e pago'],outputs:['Scripts VSL baseados em frameworks testados','Estratégias de funil comprovadas','Copy que cria novos movimentos e crenças'],tip:'💡 Os mapas mentais dos 3 livros estão em <code>knowledge/marketing/books/</code>. O agente acessa automaticamente ao criar copy para o produto Essência Ativa BR.'},
+  'kb-halbert':{badge:'📚 Base de Conhecimento',c:'#6366f1',title:'Gary Halbert — Direct Response Legend',desc:'Considerado o maior copywriter de direct response da história. Seus princípios — especialmente a técnica de "hungry crowd" (vender para quem já quer comprar) e as headlines de resposta direta — estão incorporados nos frameworks de copy do SommersStore.',inputs:['Técnica da hungry crowd','Fórmulas de headline de alto impacto','Princípios de cartas de vendas clássicas'],outputs:['Copy que funciona sem depender de design','Headlines de resposta direta','Estrutura de carta de vendas de alta conversão'],tip:'💡 Combinado com o storytelling de Brunson e a urgência de Kennedy, o Halbert forma a tríade da escola de copy do SommersStore.'},
+  'kb-avatar':{badge:'📚 Base de Conhecimento',c:'#6366f1',title:'Avatar — Essência Ativa BR',desc:'Perfil detalhado do cliente ideal (ICP) do produto. Inclui dores reais ("noites em claro tentando silenciar a mente acelerada"), desejos profundos (liberdade financeira + bem-estar), objeções comuns e o vocabulário exato que o público usa. Toda copy é filtrada por esse avatar.',inputs:['Dores reais pesquisadas no público','Vocabulário e expressões do avatar','Objeções mais comuns mapeadas'],outputs:['Copy com identificação imediata','Headlines que geram "é sobre mim!"','Bullets que falam a língua do cliente'],tip:'💡 Arquivo: <code>knowledge/audience/avatar-essencia-ativa.md</code> — quanto mais detalhado o avatar, mais precisa e conversora é a copy gerada.'},
+  'kb-fw':{badge:'📚 Base de Conhecimento',c:'#6366f1',title:'Frameworks PAS, AIDA e Storytelling',desc:'<strong>PAS:</strong> Problem → Agitation → Solution. Identifica a dor, amplifica emocionalmente, apresenta a solução. Usado na abertura da VSL. <strong>AIDA:</strong> Attention → Interest → Desire → Action. Estrutura completa da landing page. <strong>Storytelling:</strong> A jornada do herói adaptada para infoprodutos — a transformação da aluna.',inputs:['Briefing do produto e avatar','Dores amplificadas do cliente','Benefícios e mecanismo único'],outputs:['Estrutura da landing page completa','Script VSL com PAS na abertura','Storytelling da fundadora para seção "Sobre"'],tip:'💡 O PAS cria urgência. O AIDA cria estrutura. O storytelling cria conexão emocional. Os três juntos = página de alta conversão.'},
+  'kb-prova':{badge:'📚 Base de Conhecimento',c:'#6366f1',title:'Banco de Provas Sociais',desc:'Coleção de depoimentos, resultados de clientes e números de impacto. O agente de Prova Social formata e potencializa esses materiais para maximizar credibilidade e remover objeções de forma orgânica.',inputs:['Depoimentos brutos de clientes','Números reais (vendas, alunos, resultados)','Screenshots e fotos de transformação'],outputs:['Depoimentos formatados com nome + contexto','Bloco de números de impacto ("1.247 alunas")','Mini cases de transformação por seção da página'],tip:'💡 Arquivo: <code>knowledge/marketing/social_proof.md</code>. Prova social é o fator de conversão com maior ROI em páginas de infoprodutos.'},
+  'kb-voz':{badge:'📚 Base de Conhecimento',c:'#6366f1',title:'Voz & Tom da Marca — SommersStore',desc:'Diretrizes de identidade verbal da marca. Define o equilíbrio entre autoridade ("especialista em alquimia artesanal") e proximidade ("mulher que passou pelo mesmo que você"). Todos os agentes de copy seguem este guia.',inputs:['Valores da marca (autenticidade, prosperidade, cura)','Posicionamento premium-artesanal','Persona da fundadora'],outputs:['Tom consistente em todas as páginas','Linguagem que gera confiança e aspiração','Identidade verbal reconhecível'],tip:'💡 Arquivo: <code>knowledge/branding/voice_and_tone.md</code>. Consistência de voz é o que separa marcas premium de marcas genéricas.'},
+  'kb-elisa':{badge:'📚 Base de Conhecimento',c:'#6366f1',title:'Persona — Elisa Claro',desc:'Clone de influenciadora criado para representar a voz da marca no material de vídeo e conteúdo. A persona equilibra autoridade técnica em alquimia artesanal com empatia e proximidade com o público feminino.',inputs:['Perfil comportamental da persona','Tom de voz e vocabulário preferido','Estética visual da persona'],outputs:['Scripts em primeira pessoa para VSL','Conteúdo de redes sociais na voz da persona','Material de aulas e mentorias'],tip:'💡 Arquivo: <code>knowledge/persona/elisa_claro.md</code>. Ter uma persona forte aumenta a identificação do avatar e eleva a conversão.'},
+  orch:{badge:'Nível 1 — Orquestrador',c:'#6366f1',title:'🧠 @aiox-master (Orion) — Orquestrador Mestre',desc:'O "CEO" do sistema. Recebe o briefing completo do produto e distribui o trabalho entre os squads certos. Não escreve nem implementa: delega, monitora e integra entregáveis. Único agente sem restrições de autoridade.',inputs:['Briefing completo do produto','Avatar e objetivo da campanha','Contexto do funil de vendas'],outputs:['Tarefas distribuídas a cada squad','Checklist de entregáveis','Resultado final integrado'],tip:'💡 Dica Alan Nicolas: "Quanto mais estruturado e detalhado o briefing que você dá ao Orquestrador, melhor o output de TODOS os agentes abaixo. Lixo dentro, lixo fora."'},
+  'sq-copy':{badge:'Nível 2 — Squad',c:'#14b8a6',title:'✍️ Squad Copy — @copywriter (Sage)',desc:'Time especializado em textos persuasivos. Vários agentes menores, cada um responsável por UMA seção. Essa granularidade é o segredo do AIOX. O Sage usa Brunson, Halbert, Kennedy e Ogilvy como referência.',inputs:['Briefing do produto','Avatar e dores','Brunson Trilogy como referência'],outputs:['Headline · Sub-headline · Lead','Bullets de benefícios · Prova social','Oferta · FAQ · CTA · Script VSL'],tip:'💡 O Sage já produziu o script VSL 2m15s e a copy do upsell Ghost Writing para o SommersStore. Cada seção pode ser reescrita independentemente sem refazer a página inteira.'},
+  'sq-design':{badge:'Nível 2 — Squad',c:'#a855f7',title:'🎨 Squad Design — @ux-design-expert (Uma)',desc:'Design de experiência e interfaces premium. A Uma especifica o sistema de design, escolhe paleta, define hierarquia visual. No SommersStore os temas existentes são: Light (Cream & Emerald), Dark, Zen e Premium Black.',inputs:['Identidade visual da marca','Briefing de estilo premium-artesanal','Copy aprovada pelo Squad Copy'],outputs:['Especificação de UI para @dev','Paleta + tipografia definidas','Variações de tema para A/B test'],tip:'💡 O tema padrão Cream & Emerald (fundo #fcf9f6, verde esmeralda) transmite naturalidade premium. O Dark usa fundo escuro para o público de negócios.'},
+  'sq-tech':{badge:'Nível 2 — Squad',c:'#ef4444',title:'⚙️ Squad Técnico — @dev (Dex) + @architect (Aria)',desc:'Transforma copy + design em código funcional. A Aria decide arquitetura e tecnologia. O Dex implementa. Stack atual: Next.js 16 + React 19 + Tailwind CSS 4 + TypeScript. Deploy via Firebase Hosting.',inputs:['Copy aprovada','Spec de design','Configurações Firebase'],outputs:['Componentes React/Next.js','Build estático (pasta out/)','Deploy Firebase (sommersstore-c6c23)'],tip:'💡 O @dev não pode fazer git push — sempre solicitar ao @devops (Gage). Após cada implementação, o QA Gate com o @qa (Quinn) é obrigatório.'},
+  'sq-qa':{badge:'Nível 2 — Squad',c:'#f59e0b',title:'✅ Squad QA — @qa (Quinn)',desc:'Aplica o QA Gate com 7 checks antes de qualquer entrega: funcionalidade, fidelidade ao design, responsividade mobile, links e CTAs, performance, SEO básico e consistência de copy. Nada vai a produção sem aprovação.',inputs:['Página montada','Checklist 7 critérios','Briefing original'],outputs:['Relatório de revisão','Score: PASS / CONCERNS / FAIL / WAIVED','Lista de correções se necessário'],tip:'💡 O QA Loop pode repetir até 5 vezes antes de escalar para @aiox-master. Melhor um ciclo a mais de revisão do que uma página com bugs em produção.'},
+  'ag-headline':{badge:'Nível 3 — Granular',c:'#14b8a6',title:'📣 Agente: Headline',desc:'Escreve APENAS a manchete principal. Usa frameworks 4U (Urgent, Unique, Ultra-specific, Useful) e gera 10-20 variações para A/B test. Exemplo no SommersStore: <em>"O Código Secreto da Alquimia Terapêutica em Suas Mãos"</em>.',inputs:['Promessa principal do produto','Dor número 1 do avatar','Tom de voz da marca'],outputs:['5-20 opções de headline','Headline escolhida + justificativa','Variações para A/B'],tip:'💡 A headline é responsável por 80% da decisão de continuar lendo. Um agente FOCADO SOMENTE nela produz resultados infinitamente superiores a um generalista.'},
+  'ag-subhead':{badge:'Nível 3 — Granular',c:'#14b8a6',title:'💬 Agente: Sub-headline',desc:'Complementa, clarifica e aprofunda a promessa da manchete. Responde "como?" ou "para quem?". Deve manter o ritmo de leitura iniciado pela headline.',inputs:['Headline aprovada','Benefício secundário','Mecanismo único'],outputs:['3-8 opções de sub-headline','Sub-headline aprovada'],tip:'💡 A headline provoca. A sub-headline explica. Vozes ligeiramente diferentes, por isso agentes separados.'},
+  'ag-lead':{badge:'Nível 3 — Granular',c:'#14b8a6',title:'🪝 Agente: Lead / Abertura',desc:'Primeiros 2-4 parágrafos do corpo. Cria identificação emocional, confirma que o visitante está no lugar certo e introduz a história ou o problema que o produto resolve.',inputs:['Headline + sub aprovadas','Dores emocionais do avatar','História da marca'],outputs:['Lead de 2-4 parágrafos','Versão storytelling vs. PAS'],tip:'💡 O lead é a primeira cena do filme. Se não prender em 10 segundos, o leitor vai embora. Por isso merece um agente dedicado.'},
+  'ag-dores':{badge:'Nível 3 — Granular',c:'#14b8a6',title:'🩺 Agente: Dores',desc:'Identifica e amplifica as dores reais usando o framework PAS. Primeiro nomeia o problema, depois agita emocionalmente criando urgência. Exemplos do SommersStore: <em>"Noites em claro tentando silenciar a mente acelerada."</em>',inputs:['Avatar mapeado com dores reais','Pesquisa de mercado','Vocabulário do avatar'],outputs:['5-10 dores amplificadas','Bullets de agitação emocional','Transição para a solução'],tip:'💡 A dor deve ser tão específica que o leitor pense "isso é exatamente o que eu sinto". Generalidade mata conversão.'},
+  'ag-mecanismo':{badge:'Nível 3 — Granular',c:'#14b8a6',title:'⚗️ Agente: Mecanismo Único',desc:'Explica por que o produto funciona diferente de tudo que o cliente já tentou. No SommersStore: <em>"Sinergia Mineral-Botânica de Alta Densidade"</em> — a combinação única que ativa o relaxamento profundo.',inputs:['Diferencial técnico do produto','Por que outros métodos falham','Pesquisa científica relevante'],outputs:['Nome do mecanismo único','Explicação em linguagem acessível','Por que funciona quando outros falham'],tip:'💡 O mecanismo único cria uma nova crença: "Não é que os outros métodos são ruins — é que usam o mecanismo errado." Isso remove objeções antes de aparecerem.'},
+  'ag-beneficios':{badge:'Nível 3 — Granular',c:'#14b8a6',title:'⭐ Agente: Bullets de Benefícios',desc:'Transforma features em benefícios concretos. Formato: "Você vai conseguir X, mesmo que Y" ou "Sem precisar de Z". Exemplo: <em>"Domínio absoluto sobre a criação de 30 blends de elite."</em>',inputs:['Features do produto','Objeções do avatar','Resultados de clientes'],outputs:['8-15 bullets de benefício','Organizados por impacto emocional','Versões longa e curta'],tip:'💡 Features dizem o que É. Benefícios dizem o que MUDA na vida do cliente. Essa tradução é o que o agente faz automaticamente.'},
+  'ag-prova':{badge:'Nível 3 — Granular',c:'#14b8a6',title:'🏆 Agente: Prova Social',desc:'Formata e potencializa depoimentos, resultados e cases de sucesso. Pode reescrever depoimentos fracos para extrair máximo impacto sem alterar a veracidade.',inputs:['Depoimentos brutos','Números reais','Screenshots de resultados'],outputs:['Depoimentos formatados com nome + foto','Números de impacto (ex: "1.247 alunas")','Mini cases de transformação'],tip:'💡 "Elas conseguiram, eu também posso." É o fator de conversão com maior ROI em infoprodutos. Uma boa prova social vale mais que qualquer argumento.'},
+  'ag-oferta':{badge:'Nível 3 — Granular',c:'#14b8a6',title:'💰 Agente: Oferta / Preço',desc:'Constrói o stack de valor: lista todos os bônus e itens com seus valores individuais para revelar o preço final com ancoragem. A percepção de valor deve ser 5-10x maior que o preço cobrado.',inputs:['Produto + bônus incluídos','Preço atual (R$ 47,90)','Garantia e urgência disponíveis'],outputs:['Stack de valor detalhado','Preço com ancoragem psicológica','Bloco de garantia + elementos de urgência'],tip:'💡 O stack de valor deve comunicar que o cliente recebe "R$ 297 de conteúdo" por R$ 47,90. A percepção de valor justifica a decisão de compra.'},
+  'ag-faq':{badge:'Nível 3 — Granular',c:'#14b8a6',title:'❓ Agente: FAQ / Objeções',desc:'Antecipa e destrói objeções antes que o cliente abandone. Cada pergunta do FAQ é uma objeção disfarçada: "Isso funciona?", "E se eu não tiver tempo?", "E se não funcionar para mim?".',inputs:['Objeções reais de clientes','Dúvidas frequentes de suporte','Medos específicos do avatar'],outputs:['FAQ com 8-12 perguntas estratégicas','Respostas que destroem objeções','Reforço da garantia'],tip:'💡 O FAQ não é opcional — é a última linha de defesa contra o abandono. Cada pergunta não respondida é uma venda perdida.'},
+  'ag-cta':{badge:'Nível 3 — Granular',c:'#14b8a6',title:'🎯 Agente: CTA (Chamada para Ação)',desc:'Escreve botões, frases de urgência e todas as chamadas para ação. Na VSL do SommersStore, o botão só aparece após 2m15s — exatamente quando a oferta é apresentada no roteiro.',inputs:['Oferta e preço final','Urgência real disponível','Garantia oferecida'],outputs:['Texto do botão principal','Frase de urgência/escassez','Bloco de garantia','CTAs intermediários'],tip:'💡 "SIM! QUERO COMEÇAR MINHA TRANSFORMAÇÃO" é um CTA emocional. Não é só "Compre agora" — é a última ponte entre o desejo criado e a ação.'},
+  'ag-vsl':{badge:'Nível 3 — Especializado',c:'#ec4899',title:'🎬 Agente: Script VSL',desc:'Roteiro completo do vídeo de vendas. Estrutura: Hook → Identificação com a dor → História → Mecanismo único → Prova → Oferta → Urgência → CTA. No SommersStore: calibrado para exatamente 2m15s.',inputs:['Produto e promessa principal','Avatar com dores mapeadas','Tom da persona (Elisa Claro)'],outputs:['Script completo do VSL','Marcações de tempo por seção','Quando mostrar o botão CTA'],tip:'💡 O script da VSL está em <code>knowledge/marketing/examples/sais_de_banho_brunson_vsl.md</code>, estruturado seguindo Expert Secrets + PAS.'},
+  'ag-upsell':{badge:'Nível 3 — Especializado',c:'#ec4899',title:'🔼 Agente: Upsell Copy',desc:'Oferta complementar exibida APÓS a compra principal. Deve ser natural, complementar e ter razão clara para ser adquirida agora (desconto de 1 clique, bônus exclusivo pós-compra).',inputs:['Produto principal comprado','Produto complementar (Ghost Writing)','Lógica do "próximo passo natural"'],outputs:['Headline do upsell','Proposta de valor rápida (30s de leitura)','CTA de 1 clique'],tip:'💡 A copy do upsell Ghost Writing já foi produzida (<code>funnels/sais_de_banho/copy_upsell.md</code>). Próximo passo: criar a página de upsell no Next.js.'},
+  revisor:{badge:'Nível 4 — Revisor',c:'#f59e0b',title:'🔎 Revisor — @qa (Quinn) + @po (Pax)',desc:'Recebe todos os entregáveis e verifica coesão: headline combina com CTA? Benefícios respondem às objeções? Tom é consistente? O @po valida se atende aos critérios de aceitação da story.',inputs:['Todos os outputs dos agentes granulares','Checklist 7 critérios de qualidade','Story original (docs/stories/)'],outputs:['Página completa revisada','Score PASS/CONCERNS/FAIL','Lista de ajustes antes do deploy'],tip:'💡 É aqui que peças separadas se tornam uma página coesa. Nada vai para produção sem aprovação do QA Gate.'},
+  deploy:{badge:'Deploy — Exclusivo @devops',c:'#71717a',title:'🚀 Deploy Firebase — @devops (Gage)',desc:'Único com autoridade para publicar. Processo: 1) <code>npm run build</code> (gera pasta out/), 2) <code>firebase deploy</code>, 3) verificação das URLs ativas. Projeto: sommersstore-c6c23.',inputs:['Aprovação QA Gate','Build aprovado','firebase.json com rotas corretas'],outputs:['Deploy no Firebase Hosting','URLs ativas por página','Cache invalidado'],tip:'💡 PRÓXIMO PASSO: executar build para publicar as 5 páginas novas (zen-light, zen-dark, zen-dark-v2, zen-light-v2, premium-black). As rotas já estão configuradas no firebase.json.'},
+  output:{badge:'Output Final',c:'#10b981',title:'🌐 Páginas de Venda Publicadas — Firebase',desc:'Resultado de todo o processo. Acessíveis via Firebase Hosting. Atualmente em produção: /vsl · /v3/sais · /v3/negocio · /sais · /master · /fanpage. Aguardando build: 5 páginas zen e premium-black.',inputs:['Aprovação @devops','Validação humana (você!)'],outputs:['/vsl — VSL delay 2m15s','/v3/sais — V3 Light Cream & Emerald','/v3/negocio — V3 Dark Premium','/master — Master Orchestrator'],tip:'💡 A IA entrega, mas o olho humano valida. Você é o CEO que aprova antes de ligar o tráfego pago. Só acione os Meta Ads após validar o funil completo.'}
+};
+
+// ── CALCULADORA DE CRÉDITOS ──
+function initCalc(){
+  // Crédito 1 — Free Trial (expira 19/06/2026)
+  const hoje = new Date();
+  const ini1 = new Date('2026-03-20'), fim1 = new Date('2026-06-19');
+  const tot1 = Math.round((fim1 - ini1) / 86400000);
+  const pass1 = Math.max(0, Math.round((hoje - ini1) / 86400000));
+  const rest1 = Math.max(0, Math.round((fim1 - hoje) / 86400000));
+  const pct1 = Math.min(100, Math.round(pass1 / tot1 * 100));
+  document.getElementById('cd-dias1').textContent = rest1;
+  document.getElementById('cd-meta1').textContent = 'R$' + (1759.46 / Math.max(1, rest1)).toFixed(2) + '/dia';
+  const b1 = document.getElementById('cd-bar1');
+  b1.style.width = pct1 + '%';
+  if(pct1 > 70) b1.style.background = 'var(--coral)';
+
+  // Crédito 2 — GenAI App Builder (expira 21/03/2027)
+  const ini2 = new Date('2026-03-21'), fim2 = new Date('2027-03-21');
+  const tot2 = Math.round((fim2 - ini2) / 86400000);
+  const pass2 = Math.max(0, Math.round((hoje - ini2) / 86400000));
+  const rest2 = Math.max(0, Math.round((fim2 - hoje) / 86400000));
+  const pct2 = Math.min(100, Math.round(pass2 / tot2 * 100));
+  document.getElementById('cd-dias2').textContent = rest2;
+  document.getElementById('cd-meta2').textContent = 'R$' + (5864.87 / Math.max(1, rest2)).toFixed(2) + '/dia';
+  document.getElementById('cd-bar2').style.width = pct2 + '%';
+
+  // Data padrão do log
+  const d = document.getElementById('log-data');
+  if(d) d.valueAsDate = new Date();
+
+  // Carregar dados salvos
+  loadSaved();
+  renderLog();
+  calcClaude();
+  calcGemini();
+}
+
+function calcClaude(){
+  const saldo = parseFloat(document.getElementById('cl-saldo').value) || 0;
+  const consumo = parseFloat(document.getElementById('cl-consumo').value) || 0;
+  const sessoes = parseFloat(document.getElementById('cl-sessoes').value) || 5;
+  const el = document.getElementById('cl-dias');
+  const sub = document.getElementById('cl-sub');
+  const bar = document.getElementById('cl-bar');
+
+  if(!saldo || !consumo){ el.textContent='—'; sub.textContent='Preencha o saldo e consumo por sessão'; return; }
+
+  const diasPorSessao = 7 / sessoes;
+  const consumoDia = consumo / diasPorSessao;
+  const dias = Math.floor(saldo / consumoDia);
+  const semanas = (dias / 7).toFixed(1);
+
+  el.textContent = dias + ' dias restantes (~' + semanas + ' sem.)';
+  sub.textContent = 'Saldo: USD ' + saldo.toFixed(2) + ' · Consumo: USD ' + consumoDia.toFixed(3) + '/dia';
+
+  const pct = Math.min(100, Math.round((consumo / saldo) * 100 * sessoes));
+  bar.style.width = Math.min(100, 100 - (dias / 60 * 100)) + '%';
+  if(dias < 7){ el.className='cr-val danger'; bar.className='cr-bar bar-red'; }
+  else if(dias < 21){ el.className='cr-val warn'; bar.className='cr-bar bar-amber'; }
+  else{ el.className='cr-val ok'; bar.className='cr-bar bar-green'; }
+}
+
+function calcGemini(){
+  const saldo = parseFloat(document.getElementById('gm-saldo').value) || 0;
+  const consumo = parseFloat(document.getElementById('gm-consumo').value) || 0;
+  const meta = parseFloat(document.getElementById('gm-meta').value) || 18.89;
+  const el = document.getElementById('gm-dias');
+  const sub = document.getElementById('gm-sub');
+  const bar = document.getElementById('gm-bar');
+
+  const diasRestantes = Math.max(0, Math.floor((new Date('2026-06-21') - new Date()) / 86400000));
+
+  if(!consumo){
+    el.textContent = 'R$ ' + saldo.toFixed(2) + ' disponíveis';
+    sub.textContent = 'Meta: R$ ' + meta.toFixed(2) + '/dia para usar em ' + diasRestantes + ' dias restantes';
+    bar.style.width = ((7624 - saldo) / 7624 * 100) + '%';
+    return;
+  }
+
+  const dias = Math.floor(saldo / consumo);
+  const totalGasto = 7624 - saldo;
+  const pctGasto = Math.min(100, (totalGasto / 7624 * 100));
+
+  el.textContent = 'R$ ' + saldo.toFixed(2) + ' · dura ~' + dias + ' dias';
+  sub.textContent = 'Consumo: R$ ' + consumo.toFixed(2) + '/dia · Meta: R$ ' + meta.toFixed(2) + '/dia';
+  bar.style.width = pctGasto + '%';
+
+  if(saldo < 100){ el.className='cr-val danger'; bar.className='cr-bar bar-red'; }
+  else if(saldo < 400){ el.className='cr-val warn'; bar.className='cr-bar bar-amber'; }
+  else{ el.className='cr-val ok'; bar.className='cr-bar bar-green'; }
+}
+
+function saveCalc(api){
+  if(api === 'claude'){
+    const v = { saldo: document.getElementById('cl-saldo').value, consumo: document.getElementById('cl-consumo').value, sessoes: document.getElementById('cl-sessoes').value };
+    localStorage.setItem('calc_claude', JSON.stringify(v));
+    alert('✅ Saldo Claude salvo!');
+  } else {
+    const v = { saldo: document.getElementById('gm-saldo').value, consumo: document.getElementById('gm-consumo').value };
+    localStorage.setItem('calc_gemini', JSON.stringify(v));
+    alert('✅ Saldo Gemini salvo!');
+  }
+}
+
+function loadSaved(){
+  const cl = localStorage.getItem('calc_claude');
+  if(cl){ const v=JSON.parse(cl); document.getElementById('cl-saldo').value=v.saldo||''; document.getElementById('cl-consumo').value=v.consumo||''; document.getElementById('cl-sessoes').value=v.sessoes||5; }
+  const gm = localStorage.getItem('calc_gemini');
+  if(gm){ const v=JSON.parse(gm); document.getElementById('gm-saldo').value=v.saldo||1700; document.getElementById('gm-consumo').value=v.consumo||''; }
+}
+
+function addLog(){
+  const data = document.getElementById('log-data').value;
+  const api = document.getElementById('log-api').value;
+  const valor = parseFloat(document.getElementById('log-valor').value);
+  const desc = document.getElementById('log-desc').value;
+  if(!data || !valor){ alert('Preencha a data e o valor!'); return; }
+
+  const logs = JSON.parse(localStorage.getItem('api_logs') || '[]');
+  logs.unshift({ data, api, valor, desc });
+  localStorage.setItem('api_logs', JSON.stringify(logs));
+  document.getElementById('log-valor').value = '';
+  document.getElementById('log-desc').value = '';
+  renderLog();
+}
+
+function renderLog(){
+  const logs = JSON.parse(localStorage.getItem('api_logs') || '[]');
+  const tbody = document.getElementById('log-body');
+  if(!logs.length){ tbody.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:16px">Nenhum registro ainda.</td></tr>'; return; }
+  tbody.innerHTML = logs.map(l => `
+    <tr>
+      <td>${l.data}</td>
+      <td><span style="color:${l.api==='claude'?'var(--indigo-l)':'var(--green)'}">⬤</span> ${l.api==='claude'?'Claude':'Gemini'}</td>
+      <td style="font-weight:700">${l.api==='claude'?'USD ':'R$ '}${parseFloat(l.valor).toFixed(2)}</td>
+      <td>${l.desc||'—'}</td>
+    </tr>`).join('');
+}
+
+function show(id){
+  document.querySelectorAll('.bx').forEach(b=>b.classList.remove('sel'));
+  const b=document.getElementById('b-'+id);
+  if(b)b.classList.add('sel');
+  const d=D[id];if(!d)return;
+  const tags=a=>a.map(x=>`<span class="p-tag">${x}</span>`).join('');
+  document.getElementById('panel').innerHTML=`
+    <span class="p-badge" style="background:${d.c}22;color:${d.c};border-color:${d.c}44">${d.badge}</span>
+    <h3>${d.title}</h3>
+    <p class="p-desc">${d.desc}</p>
+    <div class="p-grid">
+      <div class="p-sect"><h4>📥 Inputs</h4><div class="p-tags">${tags(d.inputs)}</div></div>
+      <div class="p-sect"><h4>📤 Outputs</h4><div class="p-tags">${tags(d.outputs)}</div></div>
+    </div>
+    <p class="p-tip" style="background:${d.c}12;border-left:3px solid ${d.c};color:${d.c === '#10b981' ? '#6ee7b7' : d.c === '#6366f1' ? '#c7d2fe' : d.c === '#14b8a6' ? '#5eead4' : d.c === '#ec4899' ? '#f9a8d4' : d.c === '#f59e0b' ? '#fde68a' : '#d4d4d8'}">${d.tip}</p>
+  `;
+}
+</script>
+
+<script>
+async function fetchData() {
+    const btnIcon = document.getElementById('btnUpdate');
+    btnIcon.innerText = "⏳ Lendo arquivos locais...";
+    try {
+        const res = await fetch('http://localhost:4000/api/data');
+        const data = await res.json();
+        
+        // 1. Squads Cirúrgicos
+        let squadsHtml = '';
+        const order = ['sp-01-hook.yaml', 'sp-02-pain.yaml', 'sp-03-solution.yaml', 'sp-04-offer.yaml'];
+        order.forEach(fileName => {
+            if(data.squads[fileName]) {
+                const yaml = data.squads[fileName];
+                let name = "Squad"; let desc = "";
+                const nm = yaml.match(/name:\s*(.*?)\n/);
+                const dm = yaml.match(/description:\s*"(.*?)"/);
+                if(nm) name = nm[1];
+                if(dm) desc = dm[1];
+
+                let boxClass = "bt"; 
+                if(fileName.includes("hook")) boxClass = "bp";
+                if(fileName.includes("pain")) boxClass = "bc";
+                if(fileName.includes("offer")) boxClass = "bi";
+
+                squadsHtml += `
+                <div class="col" style="min-width:180px;">
+                  <div class="bx ${boxClass}" style="width:100%; height:100%;" onclick="this.lastElementChild.style.display=this.lastElementChild.style.display==='block'?'none':'block'">
+                    <div class="bx-t" style="margin-bottom:8px;">${name}</div>
+                    <div class="bx-s">${desc}</div>
+                    <div class="bx-a" style="margin-top:10px;">YAML Source 👁️</div>
+                    <pre style="display:none; text-align:left; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 6px; font-family: monospace; font-size: 0.6rem; color: #a78bfa; overflow-x: auto; margin-top: 10px;">${yaml}</pre>
+                  </div>
+                </div>`;
+            }
+        });
+        document.getElementById('squads-container').innerHTML = squadsHtml || "<p>Nenhum squad extraído do disco.</p>";
+
+        // 2. Design Systems
+        const dsContainer = document.getElementById('ds-container');
+        dsContainer.innerHTML = '';
+        Object.keys(data.design_systems).forEach(k => {
+            const sys = data.design_systems[k];
+            dsContainer.innerHTML += `
+            <div class="col" style="min-width:250px;">
+              <div class="ds-card" style="width:100%; height:100%; border-color: ${sys.colors.primary}; background: ${sys.colors.background};">
+                <div style="color:${sys.colors.primary}; font-weight:900; font-size:1.1rem; margin-bottom:5px;">${sys.system_name}</div>
+                <div style="font-size:0.7rem; color:${sys.colors.text_muted}; margin-bottom:15px; font-style:italic;">${sys.archetype}</div>
+                
+                <div style="font-size:0.7rem; line-height:1.8; color:${sys.colors.text_main};">
+                   <div style="display:flex; align-items:center; gap:8px;">
+                     <div style="width:14px;height:14px;border-radius:3px;background:${sys.colors.primary}"></div>
+                     Primary: ${sys.colors.primary}
+                   </div>
+                   <div style="display:flex; align-items:center; gap:8px;">
+                     <div style="width:14px;height:14px;border-radius:3px;background:${sys.colors.accent}"></div>
+                     Accent: ${sys.colors.accent}
+                   </div>
+                   <div style="display:flex; align-items:center; gap:8px;">
+                     <div style="width:14px;height:14px;border-radius:3px;background:${sys.colors.background}; border: 1px solid #333;"></div>
+                     Background: ${sys.colors.background}
+                   </div>
+                </div>
+              </div>
+            </div>`;
+        });
+
+        // 3. History Logs
+        const histContainer = document.getElementById('history-container');
+        histContainer.innerHTML = '';
+        if(data.history && data.history.length > 0) {
+            data.history.forEach(h => {
+                const dateStr = new Date(h.date).toLocaleString('pt-BR');
+                let htmlContent = h.content
+                    .replace(/^### (.*$)/gim, '<h3 style="color:var(--text);border-bottom:1px solid var(--border);padding-bottom:5px;">$1</h3>')
+                    .replace(/^## (.*$)/gim, '<h2 style="color:var(--indigo);border-bottom:1px solid var(--border);padding-bottom:5px;">$1</h2>')
+                    .replace(/^# (.*$)/gim, '<h1 style="color:white;font-size:1.2rem;">$1</h1>')
+                    .replace(/^\> \[!.*?\]\n\> (.*$)/gim, '<div style="background:var(--indigo-dim);border-left:3px solid var(--indigo);padding:10px;margin:10px 0; border-radius:4px;">$1</div>')
+                    .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+                    .replace(/\n/g, '<br>');
+
+                histContainer.innerHTML += `
+                <div class="hist-item" onclick="this.classList.toggle('open')">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                       <div>
+                         <div class="hist-date">${dateStr}</div>
+                         <div class="hist-title">${h.name.replace('.md', '').toUpperCase()}</div>
+                       </div>
+                       <div style="color:var(--muted); font-size:0.7rem;">▼ Expandir</div>
+                    </div>
+                    <div class="hist-content">${htmlContent}</div>
+                </div>`;
+            });
+        }
+
+        btnIcon.innerText = "✅ Sincronizado com Sucesso!";
+        setTimeout(() => btnIcon.innerText = "🔄 Sincronizar Torre", 3000);
+    } catch (e) {
+        alert("Erro ao conectar ao Node.js. Inicie o start_painel.bat");
+        btnIcon.innerText = "❌ Offline";
+    }
+}
+setTimeout(fetchData, 800);
+</script>
+
+</body>
+</html>

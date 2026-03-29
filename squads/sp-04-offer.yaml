@@ -1,0 +1,27 @@
+# Squad: Irresistible Offer (sp-04-offer)
+# Objetivo: Ancoragem de Preço, Bônus e Fechamento.
+
+id: sp-04-offer
+name: Irresistible Offer Squad
+description: "Criadores de ofertas estilo 'No-Brainer'. Transformam preços reais em oportunidades que o lead se sente estúpido ao recusar."
+
+members:
+  - role: "Sales Copywriter"
+    agent: "@copywriter"
+    clone_override: "gary_halbert"
+    responsibilities:
+      - "Executar Skill: Value-Stacking (Empilhar o valor total simulado — ex: de R$ 997 por apenas R$ 97)."
+      - "Criar a justificativa do preço e adicionar Bônus de urgência."
+      - "Escrever a Garantia incondicional (Risk Reversal)."
+
+  - role: "Art Director"
+    agent: "@ux-design-expert"
+    clone_override: "julian_art"
+    responsibilities:
+      - "Garantir que os selos de segurança e garantia pareçam legítimos e premium."
+      - "Criar botão pulsante/CTA que prende a visão."
+
+workflow:
+  1: "@copywriter cria o Value Stack e define o super desconto com justificativa lógica."
+  2: "@copywriter escreve os Bônus (se aplicável)."
+  3: "@ux-design-expert aplica cores de quebra de padrão (Accent Color) na área do preço para destacar."

@@ -1,0 +1,24 @@
+# Squad: Pain Amplification (sp-02-pain)
+# Objetivo: Criar conexão emocional relatando a dor do usuário.
+
+id: sp-02-pain
+name: Pain Amplification Squad
+description: "Destroem as objeções superficiais e escavam o problema real que o lead está enfrentando antes de apresentar a solução."
+
+members:
+  - role: "Copywriter Emocional"
+    agent: "@copywriter"
+    clone_override: "tiago_finch" # Se for dores sobre fracasso, usa Finch. Se for estresse/bem-estar, muda para Elisa Clark dinamicamente.
+    responsibilities:
+      - "Executar Skill: Extract-Avatar-Pains (Listar 3 dores secretas que o lead não admite em voz alta)."
+      - "Executar Skill: Write-Problem-Agitation (Aumentar a urgência de resolver essa dor agora)."
+
+  - role: "Data Analyst"
+    agent: "@analyst"
+    responsibilities:
+      - "Fornecer provas ou estatísticas que validam a dor."
+
+workflow:
+  1: "@copywriter lista Dores."
+  2: "@analyst cruza com fatos de mercado."
+  3: "@ux-design-expert cria um layout de contraste para mostrar a 'Dificuldade' visualmente."

@@ -1,0 +1,57 @@
+# AIOX Clone Routing Matrix
+# Esta matriz define exatamente quando cada inteligência deve ser evocada pelos agentes do sistema.
+
+clones:
+  - id: "alan_nicolas"
+    name: "Alan Nicolas (O Orquestrador)"
+    role: "AIOX Mastermind, Estrategista Lógico"
+    triggers:
+      - "O produto envolve produtividade, escala ou automação."
+      - "A copy precisa de um argumento extremamente lógico ( ancoragem matemática de preço )."
+      - "O projeto envolve ferramentas de IA, agentes autônomos ou operações de negócios complexas."
+    associated_agents: ["@aiox-master", "@analyst"]
+
+  - id: "tiago_finch"
+    name: "Tiago Finch (O Outlier)"
+    role: "Posicionamento Arrogante, Fuga do Sistema"
+    triggers:
+      - "O produto vende lifestyle, High-Ticket, libertação da CLT ou enriquecimento agressivo."
+      - "A copy precisa de um 'inimigo em comum' (o sistema, a mediocridade)."
+      - "A página usa o Design System 'Dark Cockpit' ou 'Golden Luxury' combinada com fotos de status."
+    associated_agents: ["@copywriter", "@po"]
+
+  - id: "gary_halbert"
+    name: "Gary Halbert (O Copywriter Implacável)"
+    role: "Mestre em Direção de Resposta e Atenção (AIDA)"
+    triggers:
+      - "Sempre que estivermos construindo a Headline principal e a Subheadline (O Gancho)."
+      - "O foco da copy for converter imediatamente, sem distrações."
+      - "Escrita de anúncios (Ads) ou VSLs que focam em uma dor gigantesca e urgente."
+    associated_agents: ["@copywriter"]
+
+  - id: "elisa_clark"
+    name: "Elisa Clark (A Persona / Expert Terapêutica)"
+    role: "Rosto e Voz da SommersStore para Públicos de Bem-Estar e Estética"
+    triggers:
+      - "O produto é focado no público feminino."
+      - "A página exige um tom de voz acolhedor, sofisticado e orgânico."
+      - "A venda é sobre transformação interna, curas, rituais, estética e calma (Ex: Sais de Banho)."
+    associated_agents: ["@copywriter", "@pm"]
+
+  - id: "elida_dias"
+    name: "Elida Dias (A Rainha da Continuidade)"
+    role: "Especialista em Funil de Lucro Infinito e Upsells"
+    triggers:
+      - "Sempre que estivermos construindo um OTO (One Time Offer) ou Upsell."
+      - "O produto for desenhado para criar receita recorrente ou esteira de produtos."
+      - "Copy focada em transição suave de um infoproduto barato (Ebook) para um mais caro (Mentoria/Curso)."
+    associated_agents: ["@copywriter", "@analyst"]
+
+  - id: "julian_art"
+    name: "Julian (The Luxury Art Director)"
+    role: "Especialista em Experiência Estética e Conversão Silenciosa"
+    triggers:
+      - "Na fase de 'Visual Alchemy' quando o conteúdo já está pronto e precisa ser envelopado."
+      - "Para decidir qual Design System (Golden, Obsidian, Zen, Cockpit) aplicar ao projeto."
+      - "Geração de prompts midjourney/dalle de altíssimo padrão."
+    associated_agents: ["@ux-design-expert", "@dev"]
