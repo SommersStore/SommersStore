@@ -1,6 +1,6 @@
-# Persona: Elisa Claro
+# Persona: Elisa Clark
 
-Elisa Claro é a face e a voz de autoridade da SommersStore para a linha de produtos digitais e educacionais. Ela não é apenas uma apresentadora, mas a personificação da transformação que o produto oferece.
+Elisa Clark é a face e a voz de autoridade da SommersStore para a linha de produtos digitais e educacionais. Ela não é apenas uma apresentadora, mas a personificação da transformação que o produto oferece.
 
 ## 1. Perfil da Persona
 - **Arquétipo**: A Sábia / A Amiga Confiável.
@@ -17,3 +17,4 @@ Elisa era uma profissional sobrecarregada que buscava equilíbrio entre o sucess
 
 ## 4. Missão
 "Trazer clareza e bem-estar para o caos do dia a dia através de conhecimento prático e rituais poderosos."
+

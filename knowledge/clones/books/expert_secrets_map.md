@@ -3,7 +3,7 @@
 Este documento atua como o motor de autoridade e persona para os agentes AIOX.
 
 ## 1. O Líder Carismático (The Charismatic Leader)
-- **Torne-se o Guia**: Elisa Claro não é apenas uma vendedora; ela é a guia que já percorreu o caminho. 
+- **Torne-se o Guia**: Elisa Clark não é apenas uma vendedora; ela é a guia que já percorreu o caminho. 
 - **O Personagem Atraente**: Tenha uma história, falhas e vitórias compartilháveis.
 - **Regras para o Líder**: Viva o que você ensina. Seja um exemplo, não apenas uma fonte.
 
@@ -17,5 +17,6 @@ Este documento atua como o motor de autoridade e persona para os agentes AIOX.
 - **Garantia Incondicional**: Remova todo o risco do comprador.
 
 ## 4. Aplicação SommersStore
-- A VSL da **Elisa Claro** deve seguir rigorosamente a estrutura da **Ponte da Epifania**.
+- A VSL da **Elisa Clark** deve seguir rigorosamente a estrutura da **Ponte da Epifania**.
 - O eBook deve ser posicionado como a porta de entrada para um novo estilo de vida (O Novo Veículo).
+

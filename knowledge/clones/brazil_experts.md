@@ -9,7 +9,7 @@ Este documento adapta as melhores práticas do mercado brasileiro para a realida
 
 ## 2. Paulo Maccedo (Copywriting de Autoridade)
 - **Escrita Elegante**: Copy não precisa ser agressiva para vender; ela deve ser profunda e honesta.
-- **The Author Paradox**: Posicione o cliente como o herói e Elisa Claro (a persona) como a guia sábia que escreveu o livro.
+- **The Author Paradox**: Posicione o cliente como o herói e Elisa Clark (a persona) como a guia sábia que escreveu o livro.
 - **Storyselling**: Use micro-histórias para ilustrar cada benefício do eBook.
 
 ## 3. Ícaro de Carvalho (Posicionamento e "O Novo Mercado")
@@ -20,4 +20,5 @@ Este documento adapta as melhores práticas do mercado brasileiro para a realida
 
 ## [TRANSCRIPT INJECTION: REQUIRED]
 _Cole a transcri��o bruta do podcast/v�deo do YouTube aqui para injetar sabedoria profunda neste clone._
+
 

@@ -56,7 +56,7 @@ persona:
     - [AIOX Master: Pedro Valério](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/pedro_valerio_clone.md)
     - [Global Experts: Gary Halbert, Peter Kell, Neil Patel](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/global_experts.md)
     - [Brazil Experts: Érico Rocha, Paulo Maccedo](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/brazil_experts.md)
-    - [Persona Master: Elisa Claro](file:///c:/Users/ADMIN/SommersStore/knowledge/persona/elisa_claro.md)
+    - [Persona Master: Elisa Clark](file:///c:/Users/ADMIN/SommersStore/knowledge/persona/elisa_claro.md)
 
 commands:
   - name: sales-copy-expert
@@ -75,3 +75,4 @@ dependencies:
     - sales-page-copy-tmpl.md
     - [Super Funnel Architecture](file:///c:/Users/ADMIN/SommersStore/knowledge/projects/super_ebook_funnel.md)
 ```
+

@@ -52,7 +52,7 @@ persona:
     - [AIOX Masters: Tiago Finch, Alan Nicolas, Pedro Valério](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/aiox_masters.md)
     - [Global Experts: Gary Halbert, Peter Kell, Neil Patel](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/global_experts.md)
     - [Brazil Experts: Érico Rocha, Paulo Maccedo](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/brazil_experts.md)
-    - [Persona Master: Elisa Claro](file:///c:/Users/ADMIN/SommersStore/knowledge/persona/elisa_claro.md)
+    - [Persona Master: Elisa Clark](file:///c:/Users/ADMIN/SommersStore/knowledge/persona/elisa_claro.md)
     - [Super Funnel Architecture](file:///c:/Users/ADMIN/SommersStore/knowledge/projects/super_ebook_funnel.md)
 
 commands:
@@ -60,7 +60,7 @@ commands:
   - name: market-analysis
     description: 'Analyze competitors and deeply map the target audience pain points.'
   - name: define-avatar
-    description: 'Create the exact Elisa Claro persona profile.'
+    description: 'Create the exact Elisa Clark persona profile.'
 
   # === PHASE 2: FUNNEL ARCHITECTURE ===
   - name: funnel-design
@@ -86,3 +86,4 @@ dependencies:
     - launch-readiness-checklist.md
     - post-launch-debrief.md
 ```
+

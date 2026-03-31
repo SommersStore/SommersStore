@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>O Cofre das Botânicas Secretas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        @page { size: A4 portrait; margin: 0; }
+        :root {
+            --bg-color: #0A0D0C;
+            --text-color: #F5F5DC;
+            --accent-color: #C5A059;
+            --secondary-bg: #141A17;
+            --border-color: #1f2723;
+            --placeholder-bg: #050706;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color); color: var(--text-color);
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .page {
+            width: 210mm; height: 297mm;
+            padding: 25mm 20mm; box-sizing: border-box;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            page-break-after: always; break-after: always;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--accent-color); margin: 0 0 10pt 0; line-height: 1.2; }
+
+        .sensory-img {
+            width: 100%; height: 130mm;
+            background-color: var(--placeholder-bg); border: 1px dashed var(--border-color);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-color); font-size: 10pt; text-transform: uppercase; letter-spacing: 2px;
+            margin-bottom: 15mm; opacity: 0.7; text-align: center; padding: 10mm; box-sizing: border-box;
+        }
+
+        .sensory-title { font-size: 34pt; font-weight: 700; }
+        .sensory-subtitle { font-size: 14pt; font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 3px; opacity: 0.8; margin-bottom: 15mm; text-transform: uppercase; color: var(--text-color); }
+
+        .signature { border-left: 3px solid var(--accent-color); padding-left: 10mm; margin-top: 10mm; }
+        .signature-label { font-size: 10pt; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-color); margin-bottom: 5pt; }
+        .signature-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14pt; line-height: 1.6; }
+
+        .tech-header { font-size: 10pt; text-transform: uppercase; letter-spacing: 3px; opacity: 0.6; margin-bottom: 5mm; border-bottom: 1px solid var(--border-color); padding-bottom: 5mm; color: var(--text-color); }
+        .tech-title { font-size: 24pt; margin-bottom: 10mm; }
+        .tech-container { display: flex; gap: 15mm; }
+        .tech-col { flex: 1; }
+        .tech-img {
+            width: 100%; height: 80mm;
+            background-color: var(--placeholder-bg); border: 1px dashed var(--border-color);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 9pt; text-transform: uppercase; letter-spacing: 1px; margin-top: 10mm; opacity: 0.7; text-align: center; padding: 10mm; box-sizing: border-box; color: var(--text-color);
+        }
+
+        ul { padding-left: 15pt; margin-bottom: 15mm; }
+        li { font-size: 10.5pt; line-height: 1.5; margin-bottom: 6pt; font-weight: 300; }
+        p { font-size: 10.5pt; line-height: 1.6; font-weight: 300; margin-bottom: 6pt; text-align: justify; }
+        h3 { font-size: 12pt; text-transform: uppercase; letter-spacing: 1px; margin-top: 0; }
+        
+        .box-cuidados { background-color: var(--secondary-bg); padding: 10mm; border: 1px solid var(--border-color); margin-top: auto; }
+
+        .footer {
+            position: absolute; bottom: 15mm; width: 170mm;
+            display: flex; justify-content: space-between; font-size: 9pt; opacity: 0.5;
+            border-top: 1px solid var(--border-color); padding-top: 5mm; color: var(--text-color);
+        }
+
+        .cover-content { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; text-align: center; }
+        .cover-content h1 { font-size: 45pt; margin-bottom: 10pt; }
+    </style>
+</head>
+<body>
+
+    <!-- CAPA -->
+    <div class="page">
+        <div class="cover-content">
+            <h2 style="font-size: 12pt; letter-spacing: 4px; margin-bottom: 30pt; font-family: 'Inter', sans-serif;">COLEÇÃO BOTÂNICA AUTORAL</h2>
+            <h1>O Cofre das<br>Botânicas Secretas</h1>
+            <div style="width: 100px; height: 1px; background-color: var(--accent-color); margin: 30pt auto;"></div>
+            <h2 style="font-size: 11pt; letter-spacing: 2px; line-height: 1.8; font-family: 'Inter', sans-serif; opacity: 0.8; max-width: 80%; color: var(--text-color);">Uma coleção botânica autoral criada para transformar fórmulas em experiências sensoriais sofisticadas, desejáveis e visualmente memoráveis.</h2>
+            <br><br><br><br>
+            <h2 style="font-size: 9pt; letter-spacing: 4px; margin-bottom: 30pt; font-family: 'Inter', sans-serif;">SOMMER'S STORE LTDA.</h2>
+        </div>
+        <div style="position: absolute; bottom: 30mm; width: 100%; text-align: center; left: 0;">
+            <p style="margin: 0; font-size: 11pt; color: var(--accent-color); font-weight: 600; letter-spacing: 2px; text-align: center;">ELISA CLARK</p>
+        </div>
+    </div>
+
+    <!-- PÁGINA: O AVISO INICIAL (MANTIDA MAS COM ESTILO) -->
+    <div class="page" style="justify-content: center;">
+        <h2 style="font-size: 14pt; letter-spacing: 2px; text-transform: uppercase;">Por que você está lendo isso?</h2>
+        <div style="width: 50mm; height: 1px; background-color: var(--accent-color); margin: 10mm 0;"></div>
+        <p style="font-size: 12pt; line-height: 2;">Existem fórmulas que cumprem uma função. E existem fórmulas que constroem uma cena.</p>
+        <p style="font-size: 12pt; line-height: 2;">O Cofre das Botânicas Secretas foi concebido para o segundo universo: o das composições que unem beleza, atmosfera, presença e sofisticação. Aqui, cada blend é apresentado não apenas como preparo, mas como ritual. Não apenas como mistura, mas como experiência sensorial cuidadosamente desenhada.</p>
+        <p style="font-size: 12pt; line-height: 2;">O aroma entra como identidade. A imagem entra como valor. O texto entra como refinamento. E a fórmula entra como aquilo que torna a experiência possível. Use com absoluto respeito por si mesma.</p>
+        <br><br><br>
+        <p style="font-family: 'Playfair Display', serif; font-size: 20pt; color: var(--accent-color); margin-bottom: 0;">Elisa Clark</p>
+        <p style="font-size: 10pt; color: #6E7972; font-family: 'Inter', sans-serif; text-align: left;">Alquimista Chefe e Pesquisadora, Sommer's Store Ltda.</p>
+
+        <div class="footer"><span>O COFRE DAS BOTÂNICAS SECRETAS</span><span>01</span></div>
+    </div>
+
+    {{RECIPES_HTML}}
+
+    <!-- CARTA FINAL -->
+    <div class="page" style="justify-content: center;">
+        <h2>O Desfecho Alquimista</h2>
+        <h1>O Juramento da Elite</h1>
+        <div style="width: 50mm; height: 1px; background-color: var(--accent-color); margin: 10mm 0;"></div>
+        <p style="font-size: 13pt;">O que foi entregue fisicamente perante a tela de seu computador na estrutura destas últimas seções não trata-se de um manual barato genérico. Aqui mora poder clínico condensado. Ele opera quimicamente num grau eletromagnético orgânico.</p>
+        <p style="font-size: 13pt;">Use com respeito tático assombroso e disciplina para a própria estrutura orgânica viva que é seu corpo. Se decidir utilizar as patentes dessa engenhosidade aromática somática e vender tratamentos como experiências para os nichos Ultra-Ricos, esteja liberada.</p>
+        <p style="font-size: 13pt; margin-top: 30pt;"><strong style="color: var(--accent-color);">O OTO agora é seu. O Cofre das Botânicas Secretas Alquímico encontra-se permanentemente aberto, vitalício em suas mãos reais terrenas férteis.</strong></p>
+        
+        <div class="footer"><span>SOMMER'S STORE LTDA - CONFIDENCIAL</span><span>FIM</span></div>
+    </div>
+
+</body>
+</html>

@@ -9,8 +9,15 @@ const swipeAnimationStyle = `
   0%, 100% { transform: translateX(0); opacity: 0.5; }
   50% { transform: translateX(8px); opacity: 1; }
 }
+@keyframes pulseGlow {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
+  50% { transform: scale(1.02); box-shadow: 0 0 40px rgba(197, 160, 89, 0.7); }
+}
 .animate-swipe {
   animation: swipeHorizontal 1.5s ease-in-out infinite;
+}
+.animate-pulse-slow {
+  animation: pulseGlow 3s ease-in-out infinite;
 }
 `;
 
@@ -34,7 +41,7 @@ export default function ZenDarkV3() {
         promise: "O Código Secreto da Alquimia Terapêutica em Suas Mãos",
         mechanism: "Método Passo a Passo: Do Primeiro Blend à Primeira Venda",
         price: "47,90",
-        checkoutUrl: "https://pay.hotmart.com/example"
+        checkoutUrl: "https://pay.kiwify.com.br/kjKBBea"
     };
 
     const pains = [
@@ -107,8 +114,9 @@ export default function ZenDarkV3() {
                          <Image src="/sales/assets/5.png" alt="Hero Asset" fill className="object-cover opacity-80" />
                     </div>
 
-                    <button onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })} className="px-12 md:px-20 py-8 md:py-10 rounded-full bg-[#C5A059] text-white font-black text-xl md:text-2xl hover:bg-emerald-500 hover:scale-[1.05] transition-all duration-700 shadow-[0_20px_60px_rgba(5,150,105,0.4)] uppercase tracking-[0.2em]">
-                        QUERO MEU ACESSO AGORA
+                    <button onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })} className="px-12 md:px-20 py-8 md:py-10 rounded-full bg-[#C5A059] text-white font-black text-xl md:text-2xl border-4 border-[#FFD700] hover:bg-[#D4AF37] hover:scale-[1.05] transition-all duration-700 shadow-[0_0_50px_rgba(255,215,0,0.3)] hover:shadow-[0_0_70px_rgba(255,215,0,0.5)] uppercase tracking-[0.2em] relative overflow-hidden group">
+                        <span className="relative z-10">QUERO MEU ACESSO AGORA</span>
+                        <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     </button>
                 </div>
             </section>
@@ -130,7 +138,7 @@ export default function ZenDarkV3() {
                                 ))}
                             </div>
                         </div>
-                        <div className="relative aspect-[3/4] rounded-[3rem] md:rounded-[5rem] overflow-hidden border border-[#C5A059]/40 shadow-[0_0_30px_rgba(197,160,89,0.1)] md:grayscale md:saturate-50 md:hover:grayscale-0 transition-all duration-1000">
+                        <div className="relative aspect-[3/4] rounded-[3rem] md:rounded-[5rem] overflow-hidden border border-[#C5A059]/40 shadow-[0_0_30px_rgba(197,160,89,0.1)] md:grayscale-0 md:saturate-[1.3] transition-all duration-1000">
                              <Image src="/sales/assets/zen-pain-3.png" alt="Pain Visual" fill className="object-cover" />
                         </div>
                     </div>
@@ -146,24 +154,20 @@ export default function ZenDarkV3() {
                         Você vai aprender a combinar sal marinho, sal do Himalaia, sal de Epsom, óleos essenciais (lavanda, alecrim, eucalipto) e ervas naturais para criar blends terapêuticos que vendem por 3x a 4x o custo de produção.
                     </p>
                     
-                    <div className="bg-[#0a2a22]/30 rounded-[3rem] md:rounded-[6rem] px-6 py-10 md:px-24 md:py-16 border border-[#C5A059]/40 text-center md:text-left relative overflow-hidden group shadow-[0_0_30px_rgba(197,160,89,0.1)]">
-                        <div className="relative z-10 max-w-full md:max-w-[45%]">
-                            <h4 className="text-4xl md:text-[40px] font-serif text-[#C5A059] mb-8 italic font-black text-center md:text-left">
-                                <span className="md:hidden">Seu Spa Artesanal em Casa. Seu<br/>Negócio nas Suas Mãos.</span>
-                                <span className="hidden md:inline">Seu Spa Artesanal em Casa.<br/>Seu Negócio nas Suas Mãos.</span>
+                    <div className="bg-[#0a2a22]/30 rounded-[3rem] md:rounded-[6rem] px-6 py-10 md:px-24 md:py-20 border border-[#C5A059]/40 text-center relative overflow-hidden group shadow-[0_0_40px_rgba(197,160,89,0.15)]">
+                        <div className="relative z-10 max-w-4xl mx-auto">
+                            <h4 className="text-4xl md:text-[50px] font-serif text-[#C5A059] mb-8 italic font-black text-center">
+                                Seu Spa Artesanal em Casa.<br className="hidden md:block"/> Seu Negócio nas Suas Mãos.
                             </h4>
-                             <p className="text-lg md:text-xl text-emerald-50/80 leading-relaxed font-serif italic text-center md:text-left">
-                                Com apenas 15-20 minutos, você transforma seu banheiro em um spa terapêutico. Sal marinho relaxa músculos, óleos essenciais acalmam a mente, e ervas como camomila e lavanda completam a experiência de cura. E o melhor: cada sachê custa centavos para produzir e vender <span className="whitespace-nowrap">por até 4x mais.</span>
+                             <p className="text-lg md:text-2xl text-emerald-50/90 leading-relaxed font-serif italic text-center">
+                                Com apenas 15-20 minutos, você transforma seu banheiro em um spa terapêutico. Sal marinho relaxa músculos, óleos essenciais acalmam a mente, e ervas como camomila e lavanda completam a experiência de cura. E o melhor: cada sachê custa centavos para produzir e vender <span className="text-[#C5A059] font-bold">por até 4x mais.</span>
                             </p>
                         </div>
                         {/* Mobile Background: Single Image */}
-                        <div className="absolute inset-0 opacity-50 group-hover:opacity-70 transition-all md:hidden">
-                             <Image src="/sales/assets/zen-method-2.jpg" alt="Alchemy Mobile" fill className="object-cover" />
-                        </div>
-                        
-                        {/* Desktop Background: 50% Width Image */}
-                        <div className="absolute top-0 right-0 w-1/2 h-full opacity-30 group-hover:opacity-70 transition-all duration-700 hidden md:flex border-l border-emerald-900/20">
-                             <Image src="/sales/assets/zen-method-2.jpg" alt="Alchemy 2" fill className="object-cover" />
+                        {/* Desktop/Mobile Background: Full frame coverage with darker overlay */}
+                        <div className="absolute inset-0 opacity-40 group-hover:opacity-60 transition-all duration-1000">
+                             <div className="absolute inset-0 bg-gradient-to-b from-[#051510]/80 via-transparent to-[#051510]/80 z-10" />
+                             <Image src="/sales/assets/zen-method-2.jpg" alt="Alchemy Background" fill className="object-cover" />
                         </div>
                     </div>
                 </div>
@@ -171,7 +175,7 @@ export default function ZenDarkV3() {
 
             {/* INTERMEDIATE CTA 1 */}
             <div className="py-12 bg-[#051510] text-center">
-                 <button onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })} className="px-10 md:px-16 py-6 md:py-8 rounded-full bg-[#C5A059] text-white font-black text-lg md:text-xl hover:bg-emerald-600 hover:scale-[1.05] transition-all duration-500 shadow-2xl uppercase tracking-[0.2em]">
+                 <button onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })} className="px-10 md:px-16 py-6 md:py-8 rounded-full bg-[#C5A059] text-white font-black text-lg md:text-xl border-2 border-[#FFD700] hover:bg-[#D4AF37] hover:scale-[1.05] transition-all duration-500 shadow-[0_0_30px_rgba(255,215,0,0.2)] uppercase tracking-[0.2em] animate-pulse-slow">
                      QUERO MEU ACESSO AGORA
                  </button>
             </div>
@@ -184,18 +188,18 @@ export default function ZenDarkV3() {
                     <p className="text-lg md:text-xl text-[#C5A059] font-serif italic mb-16">Imagine sua rotina apenas 30 dias após aplicar o <strong className="text-white not-italic">Método Essência Ativa BR</strong>:</p>
                     
                     <div className="md:hidden flex flex-col items-center gap-4 mb-10">
-                        <div className="flex items-center gap-4 text-[#C5A059] font-serif italic text-sm group">
-                            <span className="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#C5A059]/40"></span>
+                        <div className="flex items-center gap-4 text-[#FFD700] font-serif italic text-sm group">
+                            <span className="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#FFD700]/60"></span>
                             <div className="flex items-center gap-3">
-                                <div className="relative w-6 h-6 flex items-center justify-center">
-                                    <div className="absolute inset-0 bg-[#C5A059]/10 rounded-full animate-ping opacity-20"></div>
-                                    <svg className="w-5 h-5 animate-[bounce_1.5s_infinite_horizontal] text-[#C5A059]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                <div className="relative w-8 h-8 flex items-center justify-center">
+                                    <div className="absolute inset-0 bg-[#FFD700]/20 rounded-full animate-ping opacity-40"></div>
+                                    <svg className="w-6 h-6 animate-[bounce_1.5s_infinite_horizontal] text-[#FFD700] drop-shadow-[0_0_8px_rgba(255,215,0,0.6)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                     </svg>
                                 </div>
-                                <span className="inline-block py-2 px-8 rounded-full bg-[#C5A059]/10 border border-[#C5A059]/20 text-[#C5A059] font-black tracking-[0.3em] text-[10px] uppercase shadow-sm whitespace-nowrap">Explore a Jornada</span>
+                                <span className="inline-block py-2 px-10 rounded-full bg-[#FFD700]/20 border-2 border-[#FFD700]/40 text-[#FFD700] font-black tracking-[0.3em] text-[11px] uppercase shadow-[0_0_15px_rgba(255,215,0,0.3)] whitespace-nowrap animate-pulse">Explore a Jornada</span>
                             </div>
-                            <span className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#C5A059]/40"></span>
+                            <span className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#FFD700]/60"></span>
                         </div>
                     </div>
 
@@ -242,18 +246,18 @@ export default function ZenDarkV3() {
                     <h2 className="text-center text-5xl md:text-8xl font-serif font-black text-white italic mb-16 md:mb-24 tracking-tighter leading-tight">Mulheres que começaram <br/> <span className="underline decoration-emerald-900 underline-offset-8">do zero com sais de banho.</span></h2>
                     
                     <div className="md:hidden flex flex-col items-center gap-4 mb-10">
-                        <div className="flex items-center gap-4 text-[#C5A059] font-serif italic text-sm">
-                            <span className="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#C5A059]/40"></span>
+                        <div className="flex items-center gap-4 text-[#FFD700] font-serif italic text-sm">
+                            <span className="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#FFD700]/60"></span>
                             <div className="flex items-center gap-3">
-                                <div className="relative w-6 h-6 flex items-center justify-center">
-                                    <div className="absolute inset-0 bg-[#C5A059]/10 rounded-full animate-ping opacity-20"></div>
-                                    <svg className="w-5 h-5 animate-swipe text-[#C5A059]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                <div className="relative w-8 h-8 flex items-center justify-center">
+                                    <div className="absolute inset-0 bg-[#FFD700]/20 rounded-full animate-ping opacity-40"></div>
+                                    <svg className="w-6 h-6 animate-swipe text-[#FFD700] drop-shadow-[0_0_8px_rgba(255,215,0,0.6)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                     </svg>
                                 </div>
-                                <span className="inline-block py-2 px-8 rounded-full bg-[#C5A059]/10 border border-[#C5A059]/20 text-[#C5A059] font-black tracking-[0.3em] text-[10px] uppercase shadow-sm whitespace-nowrap">Conheça as Vozes</span>
+                                <span className="inline-block py-2 px-10 rounded-full bg-[#FFD700]/20 border-2 border-[#FFD700]/40 text-[#FFD700] font-black tracking-[0.3em] text-[11px] uppercase shadow-[0_0_15px_rgba(255,215,0,0.3)] whitespace-nowrap animate-pulse">Conheça as Vozes</span>
                             </div>
-                            <span className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#C5A059]/40"></span>
+                            <span className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#FFD700]/60"></span>
                         </div>
                     </div>
 
@@ -292,7 +296,7 @@ export default function ZenDarkV3() {
 
             {/* INTERMEDIATE CTA 2 */}
             <div className="py-12 bg-[#051510] text-center">
-                 <button onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })} className="px-10 md:px-16 py-6 md:py-8 rounded-full bg-[#C5A059] text-white font-black text-lg md:text-xl hover:bg-emerald-600 hover:scale-[1.05] transition-all duration-500 shadow-2xl uppercase tracking-[0.2em]">
+                 <button onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })} className="px-10 md:px-16 py-6 md:py-8 rounded-full bg-[#C5A059] text-white font-black text-lg md:text-xl border-2 border-[#FFD700] hover:bg-[#D4AF37] hover:scale-[1.05] transition-all duration-500 shadow-[0_0_30px_rgba(255,215,0,0.2)] uppercase tracking-[0.2em]">
                      QUERO MEU ACESSO AGORA
                  </button>
             </div>
@@ -302,18 +306,18 @@ export default function ZenDarkV3() {
                 <div className="container mx-auto px-6 max-w-5xl">
                     <h2 className="text-center text-4xl md:text-6xl font-serif font-black mb-16 md:mb-24 italic text-white">O Que Você Vai Aprender.</h2>
                     <div className="md:hidden flex flex-col items-center gap-4 mb-10">
-                        <div className="flex items-center gap-4 text-[#C5A059] font-serif italic text-sm">
-                            <span className="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#C5A059]/40"></span>
+                        <div className="flex items-center gap-4 text-[#FFD700] font-serif italic text-sm">
+                            <span className="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#FFD700]/60"></span>
                             <div className="flex items-center gap-3">
-                                <div className="relative w-6 h-6 flex items-center justify-center">
-                                    <div className="absolute inset-0 bg-[#C5A059]/10 rounded-full animate-ping opacity-20"></div>
-                                    <svg className="w-5 h-5 animate-swipe text-[#C5A059]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                <div className="relative w-8 h-8 flex items-center justify-center">
+                                    <div className="absolute inset-0 bg-[#FFD700]/20 rounded-full animate-ping opacity-40"></div>
+                                    <svg className="w-6 h-6 animate-swipe text-[#FFD700] drop-shadow-[0_0_8px_rgba(255,215,0,0.6)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                     </svg>
                                 </div>
-                                <span className="inline-block py-2 px-8 rounded-full bg-[#C5A059]/10 border border-[#C5A059]/20 text-[#C5A059] font-black tracking-[0.3em] text-[10px] uppercase shadow-sm whitespace-nowrap">Descubra as Fases</span>
+                                <span className="inline-block py-2 px-10 rounded-full bg-[#FFD700]/20 border-2 border-[#FFD700]/40 text-[#FFD700] font-black tracking-[0.3em] text-[11px] uppercase shadow-[0_0_15px_rgba(255,215,0,0.3)] whitespace-nowrap animate-pulse">Descubra as Fases</span>
                             </div>
-                            <span className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#C5A059]/40"></span>
+                            <span className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#FFD700]/60"></span>
                         </div>
                     </div>
 
@@ -350,18 +354,18 @@ export default function ZenDarkV3() {
                     <h2 className="text-4xl md:text-7xl font-serif font-black text-white italic mb-16 md:mb-24 italic tracking-tighter">Tudo Isso Vai Junto.</h2>
                     
                     <div className="md:hidden flex flex-col items-center gap-4 mb-10">
-                        <div className="flex items-center gap-4 text-[#C5A059] font-serif italic text-sm">
-                            <span className="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#C5A059]/40"></span>
+                        <div className="flex items-center gap-4 text-[#FFD700] font-serif italic text-sm">
+                            <span className="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#FFD700]/60"></span>
                             <div className="flex items-center gap-3">
-                                <div className="relative w-6 h-6 flex items-center justify-center">
-                                    <div className="absolute inset-0 bg-[#C5A059]/10 rounded-full animate-ping opacity-20"></div>
-                                    <svg className="w-5 h-5 animate-swipe text-[#C5A059]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                <div className="relative w-8 h-8 flex items-center justify-center">
+                                    <div className="absolute inset-0 bg-[#FFD700]/20 rounded-full animate-ping opacity-40"></div>
+                                    <svg className="w-6 h-6 animate-swipe text-[#FFD700] drop-shadow-[0_0_8px_rgba(255,215,0,0.6)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                     </svg>
                                 </div>
-                                <span className="inline-block py-2 px-8 rounded-full bg-[#C5A059]/10 border border-[#C5A059]/20 text-[#C5A059] font-black tracking-[0.3em] text-[10px] uppercase shadow-sm whitespace-nowrap">Veja seus Presentes</span>
+                                <span className="inline-block py-2 px-10 rounded-full bg-[#FFD700]/20 border-2 border-[#FFD700]/40 text-[#FFD700] font-black tracking-[0.3em] text-[11px] uppercase shadow-[0_0_15px_rgba(255,215,0,0.3)] whitespace-nowrap animate-pulse">Veja seus Presentes</span>
                             </div>
-                            <span className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#C5A059]/40"></span>
+                            <span className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#FFD700]/60"></span>
                         </div>
                     </div>
 
@@ -445,7 +449,7 @@ export default function ZenDarkV3() {
                                     <div className="relative aspect-square w-full rounded-full border-8 border-[#0a2a22] shadow-3xl overflow-hidden bg-emerald-950">
                                         <Image src="/sales/assets/circulo-preco-v2.png" alt="Product" fill className="object-cover saturate-[0.85] opacity-90 md:saturate-125 md:opacity-100 transition-all" />
                                     </div>
-                                    <a href={product.checkoutUrl} className="block w-full py-10 rounded-full bg-[#C5A059] text-center text-white font-black text-2xl md:text-3xl hover:bg-emerald-500 hover:scale-[1.05] transition-all shadow-3xl uppercase tracking-[0.2em] leading-none">
+                                    <a href={product.checkoutUrl} className="block w-full py-10 rounded-full bg-[#C5A059] text-center text-white font-black text-2xl md:text-3xl border-4 border-[#FFD700] hover:bg-[#D4AF37] hover:scale-[1.05] transition-all shadow-[0_0_70px_rgba(255,215,0,0.4)] hover:shadow-[0_0_90px_rgba(255,215,0,0.6)] uppercase tracking-[0.2em] leading-none animate-pulse-slow font-black">
                                         QUERO MEU ACESSO AGORA
                                     </a>
                                     <div className="flex justify-center gap-8 opacity-40">

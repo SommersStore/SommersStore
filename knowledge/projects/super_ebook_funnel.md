@@ -8,7 +8,7 @@ Este documento detalha o fluxo completo do projeto SommersStore para a venda de 
     - Foco: Solução rápida e imediata.
     - Estrategista: Paulo Maccedo (Escrita de Autoridade).
 - **Fase 2: Vídeo-Aulas (A Expansão)**
-    - Apresentadora: Persona Elisa Claro.
+    - Apresentadora: Persona Elisa Clark.
     - Formato: Aulas gravadas (Curso Online).
     - Estrategista: Peter Kell (Retenção e Storytelling Visual).
 - **Fase 3: Livro Físico (A Tangibilidade)**
@@ -19,7 +19,7 @@ Este documento detalha o fluxo completo do projeto SommersStore para a venda de 
 ## 2. Ecossistema de Vendas (Funnel Architecture)
 - **Atração**: Tráfego Pago (Neil Patel Heuristics) -> Instagram/Facebook.
 - **Engajamento**: Landing Page de Alta Conversão (Unbounce Style).
-- **Conversão**: VSL Cinematográfica com Elisa Claro (Peter Kell Heuristics).
+- **Conversão**: VSL Cinematográfica com Elisa Clark (Peter Kell Heuristics).
 - **Fechamento**: Oferta com Gatilhos de Lançamento (Érico Rocha Heuristics).
 
 ## 3. Matriz de Heurísticas Aplicadas
@@ -29,3 +29,4 @@ Este documento detalha o fluxo completo do projeto SommersStore para a venda de 
 
 ## 4. Próxima Etapa Técnica
 - Criação dos prompts de sistema para os agentes assumirem cada "Clone" de especialista sob demanda.
+

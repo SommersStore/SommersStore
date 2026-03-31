@@ -7,7 +7,7 @@
 ---
 
 ## [HOOK: PARALISAÇÃO IMEDIATA E VALIDAÇÃO]
-**[Vídeo começa com fundo escuro (Nightshade). Elisa Claro sentada com postura impecável, tom de voz quase como um sussurro.]**
+**[Vídeo começa com fundo escuro (Nightshade). Elisa Clark sentada com postura impecável, tom de voz quase como um sussurro.]**
 
 "Pare exatamente o que você está fazendo.
 Não feche essa página e não clique em voltar. 
@@ -51,3 +51,4 @@ Mas sei que você quer o nível máximo. Te espero do lado de dentro."
 - **O Elixir do Fogo Nubiano:** A mistura exata de raízes e sal negro que supostamente devolve 10 anos de vigor após 20 minutos de imersão.
 - **O Protocolo do Sono Real:** Utilizando a lavanda azul que os czares russos requisitavam para o insônia clínica.
 - **O Purificador de Ambientes Escuros:** Como fumaçar seu sal com resinas específicas para banir energia estagnada e miasmas financeiros de qualquer cômodo.
+

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>O Cofre das Botânicas Secretas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        @page { size: A4 portrait; margin: 0; }
+        
+        /* 
+           Variaveis de Tema injetadas pelo Node.js
+           Light/Escuro serão trocados aqui
+        */
+        :root {
+            --bg-color: {{BG_COLOR}};
+            --text-color: {{TEXT_COLOR}};
+            --accent-color: {{ACCENT_COLOR}};
+            --secondary-bg: {{SECONDARY_BG}};
+            --border-color: {{BORDER_COLOR}};
+            --placeholder-bg: {{PLACEHOLDER_BG}};
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 25mm 20mm;
+            box-sizing: border-box;
+            background-color: var(--bg-color);
+            position: relative;
+            page-break-after: always;
+            break-after: always;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-color);
+            margin: 0 0 10pt 0;
+            line-height: 1.2;
+        }
+
+        /* PAGE A: SENSORIAL */
+        .sensory-img {
+            width: 100%;
+            height: 130mm;
+            background-color: var(--placeholder-bg);
+            border: 1px dashed var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            font-size: 10pt;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15mm;
+            opacity: 0.7;
+        }
+
+        .sensory-title {
+            font-size: 34pt;
+            font-weight: 700;
+        }
+
+        .sensory-subtitle {
+            font-size: 14pt;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            letter-spacing: 3px;
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 15mm;
+            text-transform: uppercase;
+        }
+
+        .signature {
+            border-left: 3px solid var(--accent-color);
+            padding-left: 10mm;
+            margin-top: 10mm;
+        }
+
+        .signature-label {
+            font-size: 10pt;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+            margin-bottom: 5pt;
+        }
+
+        .signature-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 16pt;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        /* PAGE B: TECNICA */
+        .tech-header {
+            font-size: 10pt;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-color);
+            opacity: 0.6;
+            margin-bottom: 5mm;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5mm;
+        }
+
+        .tech-title {
+            font-size: 24pt;
+            margin-bottom: 10mm;
+        }
+
+        .tech-container {
+            display: flex;
+            gap: 15mm;
+        }
+
+        .tech-col {
+            flex: 1;
+        }
+
+        .tech-img {
+            width: 100%;
+            height: 80mm;
+            background-color: var(--placeholder-bg);
+            border: 1px dashed var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10mm;
+            opacity: 0.7;
+        }
+
+        ul { padding-left: 15pt; margin-bottom: 15mm; }
+        li { font-size: 11pt; line-height: 1.6; margin-bottom: 6pt; font-weight: 300; }
+        p { font-size: 11pt; line-height: 1.6; font-weight: 300; margin-bottom: 6pt; }
+        h3 { font-size: 12pt; text-transform: uppercase; letter-spacing: 1px; margin-top: 0; }
+        
+        .box-cuidados {
+            background-color: var(--secondary-bg);
+            padding: 10mm;
+            border: 1px solid var(--border-color);
+            margin-top: auto;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 15mm;
+            width: 170mm;
+            display: flex;
+            justify-content: space-between;
+            font-size: 9pt;
+            color: var(--text-color);
+            opacity: 0.5;
+            border-top: 1px solid var(--border-color);
+            padding-top: 5mm;
+        }
+
+        /* CAPA */
+        .cover-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+        }
+        .cover-content h1 { font-size: 45pt; margin-bottom: 10pt; }
+        
+    </style>
+</head>
+<body>
+
+    <!-- CAPA -->
+    <div class="page">
+        <div class="cover-content">
+            <h2 style="font-size: 12pt; letter-spacing: 4px; margin-bottom: 30pt; font-family: 'Inter', sans-serif;">COLEÇÃO BOTÂNICA AUTORAL</h2>
+            <h1>O Cofre das<br>Botânicas Secretas</h1>
+            <div style="width: 100px; height: 1px; background-color: var(--accent-color); margin: 30pt auto;"></div>
+            <h2 style="font-size: 11pt; letter-spacing: 2px; line-height: 1.8; font-family: 'Inter', sans-serif; opacity: 0.8; max-width: 80%;">Uma coleção botânica autoral criada para transformar fórmulas em experiências sensoriais sofisticadas, desejáveis e visualmente memoráveis.</h2>
+        </div>
+        <div style="position: absolute; bottom: 30mm; width: 100%; text-align: center; left: 0;">
+            <p style="margin: 0; font-size: 11pt; color: var(--accent-color); font-weight: 600; letter-spacing: 2px;">ELISA CLARK</p>
+        </div>
+    </div>
+
+    <!-- PÁGINA: O AVISO INICIAL (MANTIDA MAS COM ESTILO) -->
+    <div class="page" style="justify-content: center;">
+        <h2 style="font-size: 14pt; letter-spacing: 2px; text-transform: uppercase;">Por que você está lendo isso?</h2>
+        <div style="width: 50mm; height: 1px; background-color: var(--accent-color); margin: 10mm 0;"></div>
+        <p style="font-size: 12pt; line-height: 2;">Existem fórmulas que cumprem uma função. E existem fórmulas que constroem uma cena.</p>
+        <p style="font-size: 12pt; line-height: 2;">O Cofre das Botânicas Secretas foi concebido para o segundo universo: o das composições que unem beleza, atmosfera, presença e sofisticação. Aqui, cada blend é apresentado não apenas como preparo, mas como ritual. Não apenas como mistura, mas como experiência sensorial cuidadosamente desenhada.</p>
+        <p style="font-size: 12pt; line-height: 2;">O aroma entra como identidade. A imagem entra como valor. O texto entra como refinamento. E a fórmula entra como aquilo que torna a experiência possível. Use com absoluto respeito por si mesma.</p>
+        <div class="footer"><span>O COFRE DAS BOTÂNICAS SECRETAS</span><span>01</span></div>
+    </div>
+
+    <!-- FÓRMULA 01 : PÁGINA A -->
+    <div class="page">
+        <div class="sensory-img">[ INSIRA AQUI IMAGEM DE ATMOSFERA: BANHEIRA DE PEDRA COM VAPOR E VELAS ]</div>
+        <h1 class="sensory-title">O Elixir do Fogo Nubiano</h1>
+        <h2 class="sensory-subtitle">Reinicialização Muscular e Vigor Térmico</h2>
+        
+        <div class="signature">
+            <div class="signature-label">Assinatura da Fórmula</div>
+            <div class="signature-text">
+                "Há composições feitas para o descanso, e há composições desenhadas para o despertar profundo. Esta nasce do encontro entre as areias negras vulcânicas e a vitalidade quente das especiarias primitivas. Seu uso convida o sangue à superfície, enquanto a exaustão acumulada é drenada pela força pura da mirra. Uma centelha termogênica para finais de tarde que exigem que você renasça."
+            </div>
+        </div>
+        <div class="footer"><span>O COFRE DAS BOTÂNICAS SECRETAS</span><span>02</span></div>
+    </div>
+
+    <!-- FÓRMULA 01 : PÁGINA B -->
+    <div class="page">
+        <div class="tech-header">Fórmula Quarenta e Dois // Grau Clínico</div>
+        <h1 class="tech-title">O Elixir do Fogo Nubiano</h1>
+        
+        <div class="tech-container">
+            <div class="tech-col">
+                <h3>A Química Base (Ingredientes)</h3>
+                <ul>
+                    <li><strong>250g</strong> de Sal Negro Vulcânico (Kala Namak)</li>
+                    <li><strong>5 gotas</strong> de Óleo Absoluto de Mirra Pura</li>
+                    <li><strong>4 gotas</strong> de Óleo de Cardamomo Selvagem</li>
+                    <li><strong>2 colheres rasas</strong> de Gengibre orgânico em pó fino</li>
+                    <li><strong>1 colher</strong> de Óleo de Semente de Uva</li>
+                </ul>
+                
+                <h3>Modo de Preparo</h3>
+                <p>Dilua primeiro a Mirra e o Cardamomo no Óleo base de Semente de Uva ameno na colher. Derrame o líquido temperado sobre o sal ressecado com gengibre e misture energicamente numa tigela escura.</p>
+            </div>
+            <div class="tech-col">
+                <h3>Como Usar (O Ritual)</h3>
+                <p>Somente em água extremamente quente (39ºC). Despeje a mistura de forma concêntrica na imersão e mergulhe. Uma vermelhidão biológica local temporária da pele é estritamente esperada, atestando a eficácia circulatória.</p>
+                
+                <div class="tech-img">[ INSIRA IMAGEM DE COMPOSIÇÃO: BOWL DE CERÂMICA COM SAL NEGRO E RAIZ DE GENGIBRE ]</div>
+            </div>
+        </div>
+
+        <div class="box-cuidados">
+            <h3 style="margin-bottom: 5pt; font-size: 10pt;">⚠ Ponto de Atenção</h3>
+            <p style="font-size: 10pt; margin: 0;"><strong>Vigor Extremo:</strong> Jamais permita contato da mistura crua direto com os olhos. Devido ao Efeito Entourage do Cardamomo e Gengibre, o choque quente pode irritar mucosas. Mantenha os olhos enxutos.</p>
+        </div>
+        <div class="footer"><span>O COFRE DAS BOTÂNICAS SECRETAS</span><span>03</span></div>
+    </div>
+
+    <!-- FÓRMULA 02 : PÁGINA A -->
+    <div class="page">
+        <div class="sensory-img">[ INSIRA AQUI IMAGEM DE ATMOSFERA: AMBIENTE NOTURNO À MEIA LUZ, SEDA AZUL ESCURA E FLORES ]</div>
+        <h1 class="sensory-title">O Protocolo do Sono Real</h1>
+        <h2 class="sensory-subtitle">Desligamento Cortical e Silêncio Noturno</h2>
+        
+        <div class="signature">
+            <div class="signature-label">Assinatura da Fórmula</div>
+            <div class="signature-text">
+                "Há noites que não pedem apenas silêncio; elas pedem um comando absoluto de paz. Esta composição magnésica funciona como uma gravidade suave, puxando o cansaço errático da mente diretamente para a água estática. Lavandas azuis raras dançam sob o véu do vetiver, criando uma sala de espera etérea entre o peso do seu dia e o esquecimento de um sono profundo que você não provava há décadas."
+            </div>
+        </div>
+        <div class="footer"><span>O COFRE DAS BOTÂNICAS SECRETAS</span><span>04</span></div>
+    </div>
+
+    <!-- FÓRMULA 02 : PÁGINA B -->
+    <div class="page">
+        <div class="tech-header">Fórmula Sessenta e Três // Aplicação Noturna Unilateral</div>
+        <h1 class="tech-title">O Protocolo do Sono Real</h1>
+        
+        <div class="tech-container">
+            <div class="tech-col">
+                <h3>Os Cristais (Ingredientes)</h3>
+                <ul>
+                    <li><strong>400g</strong> de Sal de Epsom (Magnésio Puríssimo)</li>
+                    <li><strong>8 gotas</strong> de Óleo de Lavanda Azul Francesa (L. angustifolia)</li>
+                    <li><strong>3 gotas</strong> de Óleo de Vetiver Terroso</li>
+                    <li><strong>1 punhado</strong> de Flores Secas Inteiras de Camomila Romana</li>
+                </ul>
+                
+                <h3>A Preparação</h3>
+                <p>O Sal Epsom "beberá" literalmente os óleos sem estragos. Infusione o sal puramente com os aromas líquidos. As flores devem permanecer secas até o segundo que colidirem com os líquidos quentes das águas da imersão.</p>
+            </div>
+            <div class="tech-col">
+                <h3>A Imersão Perfeita</h3>
+                <p>Nenhuma luz branca no banheiro é autorizada; utilize uma solitária vela de pavio de madeira. Consuma-o a 37ºC. A transição da banheira diretamente para os lençóis da cama ao secar o corpo deve demorar menos que dois minutos.</p>
+                
+                <div class="tech-img">[ INSIRA IMAGEM DE COMPOSIÇÃO: COLHER DE BRONZE VERTENDO MAGNÉSIO BRANCO LEVE ]</div>
+            </div>
+        </div>
+        
+        <div class="box-cuidados">
+            <h3 style="margin-bottom: 5pt; font-size: 10pt;">⚠ Ponto de Atenção</h3>
+            <p style="font-size: 10pt; margin: 0;"><strong>A Rotação do Sangue:</strong> O Magnésio transdérmico age forçando os capilares. É estritamente normal sentir as pálpebras descerem vertiginosamente sob o uso imerso. Mantenha os níveis baixos da água do queixo para segurança máxima na letargia do desligamento.</p>
+        </div>
+        <div class="footer"><span>O COFRE DAS BOTÂNICAS SECRETAS</span><span>05</span></div>
+    </div>
+    
+    <!-- (AS OUTRAS 10 FÓRMULAS SEGUIRÃO ESTE MESMO PARADIGMA IMPRESSIONANTE QUANDO VOCÊ GERAR) -->
+
+</body>
+</html>

@@ -9,16 +9,20 @@
     "cleanUrls": true,
     "rewrites": [
       {
-        "source": "/v3/zen-dark-v3",
+        "source": "/sais",
         "destination": "/sales/v3/zen-dark-v3.html"
       },
       {
-        "source": "/v3/zen-magic",
-        "destination": "/sales/v3/zen-magic.html"
+        "source": "/vsl",
+        "destination": "/sales/vsl.html"
       },
       {
-        "source": "/v3/zen-cosmic",
-        "destination": "/sales/v3/zen-cosmic.html"
+        "source": "/vls",
+        "destination": "/sales/vsl.html"
+      },
+      {
+        "source": "/oto",
+        "destination": "/sales/oto.html"
       }
     ]
   }
