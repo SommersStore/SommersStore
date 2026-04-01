@@ -1,28 +1,41 @@
 {
   "hosting": {
-    "public": "projects/loja-digital/out",
+    "public": "projects/loja-digital/out_deploy",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
     "cleanUrls": true,
-    "rewrites": [
-      {
-        "source": "/sais",
-        "destination": "/sales/v3/zen-dark-v3.html"
-      },
+    "redirects": [
       {
         "source": "/vsl",
-        "destination": "/sales/vsl.html"
-      },
-      {
-        "source": "/vls",
-        "destination": "/sales/vsl.html"
+        "destination": "/sais",
+        "type": 301
       },
       {
         "source": "/oto",
-        "destination": "/sales/oto.html"
+        "destination": "/sais/upsell-1",
+        "type": 301
+      },
+      {
+        "source": "/vls",
+        "destination": "/sais",
+        "type": 301
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "/",
+        "destination": "/sais.html"
+      },
+      {
+        "source": "/sais",
+        "destination": "/sais.html"
+      },
+      {
+        "source": "/sais/upsell-1",
+        "destination": "/sais/upsell-1.html"
       }
     ]
   }
