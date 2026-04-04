@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@100;300;400;700&display=swap');
+
+/* ==========================================
+   THE BLACK PROTOCOL — MASTER EDITION
+   Strict Layout Engine (A4 Protected)
+   ========================================== */
+
+:root {
+  --bg-obsidian: #050508;
+  --gold-primary: #C5A059;
+  --ivory-light: #F5F5DC;
+  --blood-accent: #8B0000;
+}
+
+.ebook-master-frame {
+  background: var(--bg-obsidian);
+  min-height: 100vh;
+  padding: 60px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── A4 Page Unit (IMUTÁVEL) ──────────────────── */
+.page-a4 {
+  width: 210mm;
+  height: 297mm;
+  max-height: 297mm;
+  background: var(--bg-obsidian);
+  margin: 0 auto 60px;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  font-family: 'Libre Baskerville', serif;
+  color: var(--ivory-light);
+  page-break-after: always;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(197, 160, 89, 0.1);
+}
+
+/* ── Branding Elements ──────────────────── */
+.title-gold { color: var(--gold-primary); }
+.technical-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.6em;
+  text-transform: uppercase;
+  color: #5A5A5A;
+  font-size: 9px;
+}
+
+.footer-stamp {
+  position: absolute;
+  bottom: 2rem;
+  left: 3rem;
+  right: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(197, 160, 89, 0.1);
+  padding-top: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  color: #444;
+  text-transform: uppercase;
+}
+
+/* ── Specific Overlays ──────────────────── */
+.cover-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--bg-obsidian) 10%, transparent 60%);
+  z-index: 1;
+}
+
+.manifesto-title {
+  font-size: 64px;
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -3px;
+  margin-bottom: 2rem;
+}
+
+.manifesto-body {
+  font-size: 15px;
+  line-height: 1.8;
+  column-count: 1;
+  max-width: 440px;
+}
+
+@media print {
+  @page { size: A4 portrait; margin: 0; }
+  .ebook-master-frame { padding: 0 !important; }
+  .page-a4 { margin: 0 !important; border: none !important; }
+}

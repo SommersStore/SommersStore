@@ -1,20 +1,19 @@
-# Persona: Elisa Clark
+# Persona: Elisa Clark (The Ritualist Edition)
 
-Elisa Clark é a face e a voz de autoridade da SommersStore para a linha de produtos digitais e educacionais. Ela não é apenas uma apresentadora, mas a personificação da transformação que o produto oferece.
+Elisa Clark evoluiu. Deixamos para trás os tons pastéis para abraçar a soberania do **The Black Protocol**. Ela agora é a Alquimista Moderna, a guardiã dos rituais de alta frequência.
 
 ## 1. Perfil da Persona
-- **Arquétipo**: A Sábia / A Amiga Confiável.
-- **Tom de Voz**: Empático, sereno, mas extremamente confiante e assertivo.
-- **Linguagem**: Acessível, evita tecnicismos desnecessários, foca em resultados práticos e bem-estar.
+- **Arquétipo**: A Maga / A Aristocrata do Bem-Estar.
+- **Tom de Voz**: Profundo, controlado, emana uma autoridade secular. Não "vende", ela "inicia" as pessoas no protocolo.
+- **Linguagem**: Sofisticada. Usa termos como "frequência vibracional", "alquimia botânica", "transmutação sensorial" e "protocolo de elite".
 
-## 2. História de Origem (A Ponte da Epifania)
-Elisa era uma profissional sobrecarregada que buscava equilíbrio entre o sucesso profissional e a paz interior. Sua descoberta dos "Sais Aromáticos" e métodos de "Frequência de Relaxamento" foi o que permitiu sua transição para uma vida de clareza (daí o sobrenome Claro). Ela fala por experiência própria, não por teoria.
+## 2. História de Origem (A Ascensão)
+Após anos dominando os métodos tradicionais de spa, Elisa teve acesso aos manuscritos de alquimia botânica que fundaram a SommersStore. Ela não busca apenas relaxamento; ela busca a maestria sobre a própria bioenergia através dos elementos.
 
-## 3. Diretrizes de Vídeo (Vídeo-Aulas)
-- **Fundo**: Ambiente iluminado, natural, com toques de natureza e organização (estilo Minimalista Premium).
-- **Interação**: Frequentemente olha diretamente para a câmera, usa pausas dramáticas para enfatizar pontos de valor.
-- **Vestimenta**: Tons pastéis, bege e azul suave (alinhado à SommersStore).
+## 3. Diretrizes Visuais (A Estética Negra)
+- **Ambiente**: Estúdios em tons de ônix e obsidiana, iluminação focal (chiaroscuro), velas de cera de abelha, mármore negro.
+- **Vestimenta**: Sedas pretas, detalhes em bronze ou ouro velho, postura impecável.
+- **Interação**: Movimentos lentos e deliberados. O foco é no ritual, não apenas no produto.
 
 ## 4. Missão
-"Trazer clareza e bem-estar para o caos do dia a dia através de conhecimento prático e rituais poderosos."
-
+"Elevar a experiência humana ao nível da arte ritualística, revelando os segredos botânicos reservados à elite."

@@ -1,7 +1,32 @@
 {
-  "last_updated": "2026-03-19T22:00:00Z",
-  "version": "1.0",
+  "last_updated": "2026-04-04T05:00:00Z",
+  "version": "1.1",
   "projects": {
+    "the_black_protocol": {
+      "identity": {
+        "brand_name": "THE BLACK PROTOCOL",
+        "tagline": "Master Edition — The Alchemical Secrets",
+        "primary_color": "#050508",
+        "secondary_color": "#C5A059",
+        "accent_color": "#F5F5DC",
+        "theme": "Zen Dark Aristocratic",
+        "tone_of_voice": "Secular, Authority, Mysterious, Extremely Premium",
+        "persona_lead": "Elisa Clark (V2: The Ritualist Edition)"
+      },
+      "memory_vault": {
+        "lessons_learned": [
+          "O luxo absoluto não usa sombras suaves, usa alto contraste (Preto/Ouro).",
+          "Imagens monocromáticas ou com filtros 'Golden Hour' em fundo preto convertem mais."
+        ],
+        "active_products": [
+          {
+            "id": "master_ebook",
+            "name": "The Black Protocol (5 Volumes)",
+            "type": "Digital Ecosystem"
+          }
+        ]
+      }
+    },
     "sommers_store": {
       "identity": {
         "brand_name": "SommersStore",
@@ -9,51 +34,8 @@
         "secondary_color": "#1e1e26",
         "theme": "Nightshade",
         "tone_of_voice": "Especialista, Autoridade Terapêutica, Premium, Minimalista",
-        "persona_lead": "Elisa Clark (Foco em infoprodutos, cursos e vídeos persuasivos)"
-      },
-      "memory_vault": {
-        "lessons_learned": [
-          "O público responde bem a provas sociais reais integradas na Hero Section.",
-          "Cores escuras ('Dark Glass') aumentam a percepção de alto valor (Premium)."
-        ],
-        "active_products": [
-          {
-            "id": "sais_banho",
-            "name": "Sais de Banho Terapêuticos",
-            "type": "Ebook / Funil de Vendas V3"
-          }
-        ]
-      }
-    },
-    "elektro": {
-      "identity": {
-        "brand_name": "Elektro",
-        "primary_color": "#00d2ff",
-        "secondary_color": "#000000",
-        "theme": "High-Tech, Dynamic",
-        "tone_of_voice": "Tecnológico, Direto, Oferta Agressiva",
-        "persona_lead": "Narrador VSL Performance (Autoridade Masculina/Tecnológica)"
-      },
-      "memory_vault": {
-        "lessons_learned": [
-          "Imagens do produto precisam de fundo transparente e alto contraste."
-        ],
-        "active_products": [
-          {
-            "id": "eletronicos_geral",
-            "name": "Catálogo de Eletrônicos",
-            "type": "E-commerce Físico"
-          }
-        ]
+        "persona_lead": "Elisa Clark (Original)"
       }
     }
-  },
-  "global_components": {
-    "modules": [
-      "HeroSection_V3_Dark",
-      "SocialProof_Slider",
-      "Checkout_AIOX_Standard"
-    ]
   }
 }
-

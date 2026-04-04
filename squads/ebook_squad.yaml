@@ -1,0 +1,50 @@
+name: "THE BLACK PROTOCOL - SQUAD"
+version: "1.0"
+description: "Squad isolado construído para orquestrar os 5 Volumes fracionados do E-book de Alta Conversão, gerenciando Design System, UX, Dados e Copywriting."
+mission: "Garantir tolerância a falhas zero, operando arquivos JSON isolados para fórmulas e renderizando o E-book através de subpastas independentes sem vazamento de CSS ou Memory Leaks."
+
+roles:
+  - id: "architect-lead"
+    persona: "@architect"
+    agent_ref: ".aiox-core/development/agents/architect.md"
+    duties:
+      - "Criar hierarquia física das 5 rotas em app/ebook/master-edition/"
+      - "Configurar arquivo manifest para puxar 'the_black_protocol.json' Design System"
+      - "Unir os componentes UI gerados à tela principal"
+      - "Impor Imutabilidade de Layout: A4 Fixo (210x297mm) sem overflow"
+      - "Garantir Rodapé Estático (branding/página) em todas as 60 páginas"
+    skills_active:
+      - "builder-architect"
+      - "layout-immutability-engine"
+
+  - id: "data-guardian"
+    persona: "@data-engineer"
+    agent_ref: ".aiox-core/development/agents/data-engineer.md"
+    duties:
+      - "Particionar banco de dados antigo em arquivos atômicos (.json) de fórmulas"
+      - "Modelar a Skill de leitura e injeção de dados atômicos"
+      - "Proteger as 16 fórmulas originais do overwrite"
+    skills_active:
+      - "formula-database-manager"
+
+  - id: "ux-purist"
+    persona: "@ux-design-expert"
+    agent_ref: ".aiox-core/development/agents/ux-design-expert.md"
+    duties:
+      - "Tradução pixel-perfect das regras The Black Protocol para TailwindCSS"
+      - "Isolamento da grid de ingredientes"
+      - "Prevenção visual de quebra em caso de mídia 404 (tela negra preservada)"
+      - "Governança Tipográfica: Bloquear alterações em H1, H2 e Font-Family"
+    skills_active:
+      - "formula-ux-system"
+      - "media-grid-curator"
+      - "strict-typography-governor"
+
+  - id: "copy-protector"
+    persona: "@copywriter"
+    agent_ref: ".aiox-core/development/agents/copywriter.md"
+    duties:
+      - "Governança literária estrita dos arquivos .json"
+      - "Aplicar padrões de linguagem Luxo Aristocrático/Zen Dark"
+    skills_active:
+      - "formula-copy-master"

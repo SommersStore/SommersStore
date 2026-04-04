@@ -1,0 +1,52 @@
+{
+  "name": "THE BLACK PROTOCOL",
+  "version": "1.0",
+  "description": "Design System exclusivo para o ecossistema de alta conversão e luxo aristocrático. Cores escuras, fontes serifadas finas, elementos minimalistas e alto contraste (Zen Dark).",
+  "colors": {
+    "primary": "#050508",
+    "secondary": "#C5A059",
+    "accent": "#F5F5DC",
+    "text_dark": "#FFFFFF",
+    "text_muted": "#8A8A8C",
+    "border_subtle": "rgba(197, 160, 89, 0.1)",
+    "blood_red": "rgb(153, 27, 27)"
+  },
+  "typography": {
+    "font_family_primary": "Playfair Display, serif",
+    "font_family_secondary": "Inter, sans-serif",
+    "h1": {
+      "font_size": "84px",
+      "font_weight": "italic",
+      "letter_spacing": "-0.05em",
+      "color": "secondary"
+    },
+    "technical_label": {
+      "font_size": "11px",
+      "font_weight": "bold",
+      "letter_spacing": "0.6em",
+      "text_transform": "uppercase",
+      "color": "secondary"
+    }
+  },
+  "components": {
+    "page_shell": {
+      "background": "gradient-to-b from-[#050508] via-[#0a0a10] to-[#050508]",
+      "border": "1px solid rgba(197, 160, 89, 0.1)",
+      "shadow": "none",
+      "spacing_x": "3rem",
+      "spacing_y": "3rem"
+    },
+    "ingredient_grid": {
+      "columns": 3,
+      "gap": "1.5rem",
+      "image_filter": "brightness-90 contrast-110",
+      "error_fallback": "dark_frame_opacity_0"
+    }
+  },
+  "rules": [
+    "Jamais usar sombras difusas ou drop-shadow. Estética plana e cortante.",
+    "Bordas e linhas de separação devem ser ultrafinas e com baixa opacidade.",
+    "Nomes de fórmulas devem sempre usar itálico pesado nas fontes serifadas.",
+    "Evitar cantos arredondados (border-radius) exceto em crachás técnicos de topo."
+  ]
+}
