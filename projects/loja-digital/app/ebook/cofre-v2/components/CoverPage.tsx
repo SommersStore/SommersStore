@@ -3,10 +3,10 @@ import Image from "next/image";
 
 export default function CoverPage() {
   return (
-    <section className="page-a4 px-24 pt-12 pb-8 flex flex-col justify-between items-center text-center bg-[#050508] relative overflow-hidden text-white/90">
+    <section className="page-a4 px-24 pt-12 pb-8 flex flex-col justify-between items-center text-center bg-[#050508] relative overflow-hidden text-[#F5F5DC]/70">
       {/* TÍTULO ORIGINAL */}
       <div className="pt-12 relative z-10 w-full">
-        <h1 className="text-4xl text-neutral-500 font-serif italic mb-2">O Cofre das Botânicas Secretas</h1>
+        <h1 className="text-4xl text-[#F5F5DC]/70 font-serif italic mb-2">O Cofre das Botânicas Secretas</h1>
         <div className="w-12 h-px bg-red-800 mx-auto mb-8" />
         <h2 className="text-7xl title-gold italic tracking-tighter leading-none mb-12">
           THE BLACK <br/> PROTOCOL
@@ -27,9 +27,9 @@ export default function CoverPage() {
             &quot;O verdadeiro luxo é o domínio absoluto sobre a própria paz e descanso.&quot;
           </p>
         </div>
-        <div className="technical-label text-neutral-600 tracking-[0.3em] font-bold uppercase flex flex-col items-center gap-6">
-          <p className="text-[13px] opacity-80 whitespace-nowrap text-neutral-600">Essência Ativa BR™</p>
-          <p className="text-[10px] opacity-100 whitespace-nowrap text-neutral-600">DELUXE MASTER EDITION.</p>
+        <div className="technical-label text-[#F5F5DC]/70 tracking-[0.3em] font-bold uppercase flex flex-col items-center gap-6">
+          <p className="text-[13px] opacity-80 whitespace-nowrap text-[#F5F5DC]/70">Essência Ativa BR™</p>
+          <p className="text-[10px] opacity-100 whitespace-nowrap text-[#F5F5DC]/70">DELUXE MASTER EDITION.</p>
         </div>
       </div>
     </section>

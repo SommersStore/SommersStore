@@ -15,14 +15,14 @@ export default function RulesPage({ pageNum }: { pageNum: string }) {
         <h2 className="title-gold italic text-6xl mb-6">Regras de Ouro</h2>
         <div className="flex flex-col items-center gap-4 mb-16">
           <div className="w-12 h-px bg-red-800" />
-          <p className="technical-label text-[13px] text-[#C5A059] tracking-[0.6em] font-bold uppercase">
+          <p className="technical-label text-[12px] text-[#C5A059] tracking-[1.2em] font-bold uppercase">
             COMO OPERAR ESTE MATERIAL COM SEGURANÇA E ELEGÂNCIA
           </p>
         </div>
         
-        <div className="font-serif italic text-2xl leading-relaxed text-[#F5F5DC]/90 space-y-8 max-w-2xl mx-auto mb-20 text-center">
+        <div className="font-serif italic text-2xl leading-relaxed text-[#F5F5DC]/70 space-y-8 max-w-2xl mx-auto mb-20 text-center">
           <p>&quot;O verdadeiro luxo, no autocuidado artesanal, está situado no absoluto equilíbrio entre o mineral inorgânico e a vitalidade botânica.&quot;</p>
-          <p className="text-lg opacity-80">Um bom blend não precisa gritar no aroma para ser notado. A sofisticação nasce da proporção silenciosa, da pureza dos cristais e da intenção que você deposita em cada grama de maturação.</p>
+          <p className="text-lg text-[#F5F5DC]/70">Um bom blend não precisa gritar no aroma para ser notado. A sofisticação nasce da proporção silenciosa, da pureza dos cristais e da intenção que você deposita em cada grama de maturação.</p>
         </div>
 
         <div className="bg-[#C5A059]/5 border border-[#C5A059]/10 p-12 max-w-2xl mx-auto text-left relative overflow-hidden -mt-6">
@@ -35,7 +35,7 @@ export default function RulesPage({ pageNum }: { pageNum: string }) {
             MANDAMENTOS DA COLEÇÃO
           </h3>
           
-          <ul className="grid grid-cols-1 gap-4 font-serif text-neutral-300 text-base italic">
+          <ul className="grid grid-cols-1 gap-4 font-serif text-[#F5F5DC]/70 text-base italic">
             {[
               "Antes de qualquer comercialização, teste a estabilidade térmica e olfativa da sua mistura por no mínimo 48h.",
               "A estética visual é seu primeiro vendedor. Verifique a harmonia de cores sob luz natural e artificial.",

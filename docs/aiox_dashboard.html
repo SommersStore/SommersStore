@@ -12,321 +12,818 @@
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: { 
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace']
-                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
                     colors: {
-                        background: '#0a0a0f',
-                        surface: '#0d0d14',
-                        card: '#13131f',
+                        background: '#0a0a0f', surface: '#0d0d14', card: '#13131f',
                         border: 'rgba(255, 255, 255, 0.06)',
-                        primary: '#a855f7', // Purple/Indigo from Base44
-                        secondary: '#10b981', // Emerald
-                        accent: '#f59e0b', // Amber
-                        muted: '#6b7280'
+                        primary: '#a855f7', secondary: '#10b981', accent: '#f59e0b',
+                        muted: '#6b7280', coral: '#ef4444', sky: '#0ea5e9',
+                        pink: '#ec4899', teal: '#14b8a6'
                     }
                 }
             }
         }
     </script>
     <style>
-        body { background-color: #0a0a0f; color: #e5e7eb; overflow: hidden; }
-        .sidebar-icon { @apply p-2 rounded-lg transition-all duration-200 cursor-pointer text-muted hover:text-white hover:bg-white/5; }
-        .sidebar-icon.active { @apply bg-primary/10 text-primary border border-primary/20; }
-        
-        .node-card { @apply bg-card border border-border rounded-xl p-4 shadow-xl transition-all cursor-move relative overflow-hidden; min-width: 200px; }
-        .node-card::before { content: ''; position: absolute; left: 0; top: 0; width: 3px; height: 100%; }
-        
-        .flow-line { position: absolute; pointer-events: none; height: 2px; background: linear-gradient(90deg, #a855f7, #10b981); opacity: 0.4; z-index: 0; }
-        
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        
-        .btn-primary { @apply px-4 py-2 bg-primary text-white rounded-lg font-semibold text-sm hover:opacity-90 transition-all flex items-center gap-2; }
-        
-        .tab-pane { display: none; height: calc(100vh - 64px); }
-        .tab-pane.active { display: flex; }
-
-        .tag { @apply px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider; }
-        .tag-active { @apply bg-secondary/10 text-secondary border border-secondary/20; }
+        body { background: #0a0a0f; color: #e5e7eb; overflow: hidden; }
+        .sb-icon { @apply p-2.5 rounded-xl transition-all duration-200 cursor-pointer text-muted hover:text-white hover:bg-white/5 flex flex-col items-center gap-1; }
+        .sb-icon.active { @apply bg-primary/10 text-primary; }
+        .sb-label { font-size: 8px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+        .tab-pane { display: none; height: calc(100vh - 56px); overflow-y: auto; }
+        .tab-pane.active { display: block; }
+        .tab-pane::-webkit-scrollbar { width: 4px; }
+        .tab-pane::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
+        .glass { background: rgba(15, 15, 22, 0.5); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.04); border-radius: 14px; }
+        .glass:hover { border-color: rgba(168, 85, 247, 0.15); }
+        .pipeline-node { @apply relative flex flex-col items-center; }
+        .pipeline-dot { @apply w-4 h-4 rounded-full border-2 z-10 relative; }
+        .pipeline-line { @apply absolute top-2 left-1/2 w-0.5 bg-white/5; transform: translateX(-50%); }
+        .badge { @apply px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider border; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-in { animation: fadeIn 0.3s ease forwards; }
+        /* Funnel Canvas */
+        .funnel-canvas { position: relative; width: 2200px; height: 700px; background-image: radial-gradient(rgba(255,255,255,0.02) 1px, transparent 0); background-size: 28px 28px; }
+        .funnel-node { position: absolute; width: 180px; background: rgba(15,15,22,0.7); backdrop-filter: blur(16px); border: 1.5px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 16px; cursor: pointer; transition: all 0.25s cubic-bezier(.4,0,.2,1); z-index: 2; user-select: none; }
+        .funnel-node:hover { border-color: rgba(168,85,247,0.35); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+        .funnel-node.active-node { border-color: rgba(168,85,247,0.7); box-shadow: 0 0 25px rgba(168,85,247,0.2), 0 8px 30px rgba(0,0,0,0.5); background: rgba(20,15,30,0.85); }
+        .funnel-node .node-icon { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+        .funnel-node .node-title { font-size: 11px; font-weight: 700; color: #f1f0f5; margin-bottom: 3px; }
+        .funnel-node .node-sub { font-size: 9px; color: #6b7280; line-height: 1.4; }
+        .funnel-node .node-port { position: absolute; width: 10px; height: 10px; border-radius: 50%; border: 2px solid; background: #0a0a0f; z-index: 3; }
+        .funnel-node .port-in { left: -5px; top: 50%; transform: translateY(-50%); }
+        .funnel-node .port-out { right: -5px; top: 50%; transform: translateY(-50%); }
+        .layer-label { position: absolute; top: -10px; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 2px 10px; border-radius: 8px; z-index: 5; }
+        .detail-drawer { position: fixed; right: 0; top: 56px; width: 380px; height: calc(100vh - 56px); background: rgba(13,13,20,0.95); backdrop-filter: blur(24px); border-left: 1px solid rgba(255,255,255,0.06); z-index: 100; transform: translateX(100%); transition: transform 0.3s cubic-bezier(.4,0,.2,1); overflow-y: auto; }
+        .detail-drawer.open { transform: translateX(0); }
+        .detail-drawer::-webkit-scrollbar { width: 3px; }
+        .detail-drawer::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 10px; }
+        .sb-sub { display: none; flex-direction: column; gap: 2px; padding-left: 8px; }
+        .sb-sub.open { display: flex; }
+        .sb-sub-item { font-size: 8px; padding: 4px 8px; border-radius: 6px; cursor: pointer; color: #6b7280; transition: all 0.15s; text-align: center; }
+        .sb-sub-item:hover, .sb-sub-item.active { color: #a855f7; background: rgba(168,85,247,0.08); }
     </style>
 </head>
-<body class="h-screen flex flex-col antialiased">
+<body class="h-screen flex flex-col antialiased font-sans">
 
-    <!-- Top Navigation (Header) -->
-    <header class="h-16 border-b border-white/5 flex items-center justify-between px-6 bg-background/80 backdrop-blur-md z-50">
-        <div class="flex items-center gap-4">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded bg-primary flex items-center justify-center font-bold text-white text-xs">AG</div>
-                <h1 class="font-bold text-sm tracking-tight">The Black Protocol <span class="text-muted font-normal">· Master Edition</span></h1>
-            </div>
-            <div class="h-4 w-px bg-white/10 mx-2"></div>
-            <div class="flex items-center gap-2">
-                <div class="h-2 w-2 rounded-full bg-secondary animate-pulse shadow-[0_0_8px_#10b981]"></div>
-                <span class="text-[10px] text-muted uppercase tracking-widest font-bold">Vibration Scale: Active</span>
-            </div>
-        </div>
-        
-        <div class="flex items-center gap-3">
-            <button onclick="syncData()" class="text-xs text-muted hover:text-white flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/5 hover:bg-white/5 transition-all">
-                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Sincronizar
-            </button>
-            <button class="btn-primary">
-                <i data-lucide="save" class="w-4 h-4"></i> Salvar Layout
-            </button>
-        </div>
-    </header>
-
-    <div class="flex flex-1 overflow-hidden">
-        <!-- Sidebar Navigation -->
-        <aside class="w-16 border-r border-white/5 flex flex-col items-center py-6 gap-6 bg-surface/50">
-            <div data-tab="builder" class="sidebar-icon active" title="Ebook Builder"><i data-lucide="layout-grid"></i></div>
-            <div data-tab="squads" class="sidebar-icon" title="Squads"><i data-lucide="users"></i></div>
-            <div data-tab="agents" class="sidebar-icon" title="Agentes"><i data-lucide="bot"></i></div>
-            <div data-tab="skills" class="sidebar-icon" title="Skills Library"><i data-lucide="zap"></i></div>
-            <div class="mt-auto sidebar-icon" title="Settings"><i data-lucide="settings"></i></div>
-        </aside>
-
-        <!-- Main Content Area -->
-        <div class="flex-1 relative bg-background overflow-hidden tab-content">
-            
-            <!-- Tab: Ebook Builder (Flow Style) -->
-            <div id="pane-builder" class="tab-pane active flex-col">
-                <!-- Flow Toolbox -->
-                <div class="absolute left-6 top-6 w-48 z-10 glass-card bg-surface/80 border border-white/5 rounded-xl p-4 flex flex-col gap-3">
-                    <p class="text-[10px] font-bold text-muted uppercase tracking-widest mb-1">Nós Disponíveis</p>
-                    <div class="flex items-center gap-2 p-2 rounded bg-white/5 border border-white/5 text-xs text-secondary"><i data-lucide="play-circle" class="w-3 h-3"></i> Trigger</div>
-                    <div class="flex items-center gap-2 p-2 rounded bg-white/5 border border-white/5 text-xs text-primary"><i data-lucide="cpu" class="w-3 h-3"></i> Agente LLM</div>
-                    <div class="flex items-center gap-2 p-2 rounded bg-white/5 border border-white/5 text-xs text-accent"><i data-lucide="wrench" class="w-3 h-3"></i> Ferramenta</div>
-                    <div class="flex items-center gap-2 p-2 rounded bg-white/5 border border-white/5 text-xs text-blue-400"><i data-lucide="git-branch" class="w-3 h-3"></i> Condição</div>
-                </div>
-
-                <!-- Canvas -->
-                <div class="flex-1 overflow-hidden relative" id="flow-canvas" style="background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 0); background-size: 24px 24px;">
-                    <!-- Flow Nodes will be injected here -->
-                    <div id="flow-nodes" class="relative w-full h-full"></div>
-                </div>
-
-                <!-- Canvas Controls -->
-                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-surface/90 border border-white/10 px-4 py-2 rounded-full flex items-center gap-4 shadow-2xl">
-                    <button class="p-1 px-3 hover:bg-white/10 rounded font-bold text-lg">+</button>
-                    <div class="text-[10px] font-mono text-muted uppercase tracking-widest">Zoom: 100%</div>
-                    <button class="p-1 px-3 hover:bg-white/10 rounded font-bold text-lg">-</button>
-                    <button class="text-[10px] font-bold text-primary hover:underline">RESET VIEW</button>
-                </div>
-            </div>
-
-            <!-- Tab: Squads -->
-            <div id="pane-squads" class="tab-pane flex-col p-8 overflow-y-auto w-full max-w-4xl mx-auto scrollbar-hide">
-                <div class="flex items-center justify-between mb-8">
-                    <div class="flex items-center gap-2">
-                        <i data-lucide="users" class="text-primary w-5 h-5"></i>
-                        <h2 class="text-lg font-bold">Squads Ativos <span id="squad-count" class="ml-2 text-xs font-normal text-muted bg-white/5 px-2 py-0.5 rounded">0</span></h2>
-                    </div>
-                    <button class="btn-primary text-xs"><i data-lucide="plus" class="w-4 h-4"></i> Novo Squad</button>
-                </div>
-                <div id="squad-grid" class="flex flex-col gap-4"></div>
-            </div>
-
-            <!-- Tab: Agentes -->
-            <div id="pane-agents" class="tab-pane flex-col p-8 overflow-y-auto w-full max-w-5xl mx-auto scrollbar-hide">
-                <div class="flex items-center justify-between mb-8">
-                    <div class="flex items-center gap-2">
-                        <i data-lucide="bot" class="text-primary w-5 h-5"></i>
-                        <h2 class="text-lg font-bold">Rede Neural de Agentes</h2>
-                    </div>
-                </div>
-                <div id="agent-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-            </div>
-
-            <!-- Tab: Skills -->
-            <div id="pane-skills" class="tab-pane flex-col p-8 overflow-y-auto w-full max-w-4xl mx-auto scrollbar-hide">
-                <div class="flex items-center justify-between mb-8">
-                    <div class="flex items-center gap-2">
-                        <i data-lucide="zap" class="text-primary w-5 h-5"></i>
-                        <h2 class="text-lg font-bold">Knowledge & Skills</h2>
-                    </div>
-                </div>
-                <div id="skills-list" class="space-y-6"></div>
-            </div>
-
+<!-- Header -->
+<header class="h-14 border-b border-white/5 flex items-center justify-between px-5 bg-background/90 backdrop-blur-md z-50 shrink-0">
+    <div class="flex items-center gap-3">
+        <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-primary to-pink flex items-center justify-center font-bold text-white text-[10px]">AG</div>
+        <div>
+            <h1 class="text-xs font-bold tracking-tight">Antigravity <span class="text-muted font-normal">· Workflow Intelligence</span></h1>
+            <p class="text-[9px] text-muted font-mono">THE BLACK PROTOCOL — Master Edition</p>
         </div>
     </div>
+    <div class="flex items-center gap-3">
+        <button onclick="syncAll()" class="text-[10px] text-muted hover:text-white flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/5 hover:bg-white/5 transition-all font-semibold">
+            <i data-lucide="refresh-cw" class="w-3 h-3"></i> Sync Tower
+        </button>
+        <div class="flex items-center gap-1.5">
+            <div class="h-2 w-2 rounded-full bg-secondary animate-pulse shadow-[0_0_6px_#10b981]"></div>
+            <span class="text-[9px] text-muted uppercase tracking-widest font-bold">Online</span>
+        </div>
+    </div>
+</header>
 
-    <script>
+<div class="flex flex-1 overflow-hidden">
+    <!-- Sidebar -->
+    <aside class="w-[68px] border-r border-white/5 flex flex-col items-center py-4 gap-2 bg-surface/50 shrink-0 overflow-y-auto" style="scrollbar-width:none">
+        <div data-tab="funnel" class="sb-icon" onclick="toggleFunnelSub(this)"><i data-lucide="filter" class="w-4 h-4"></i><span class="sb-label">Funil</span></div>
+        <div class="sb-sub" id="funnel-sub">
+            <div class="sb-sub-item active" onclick="loadFunnel('ebook',this)">E-book</div>
+            <div class="sb-sub-item" onclick="loadFunnel('sais',this)">Sais</div>
+            <div class="sb-sub-item" onclick="loadFunnel('electro',this)">Site Electro</div>
+            <div class="sb-sub-item" onclick="loadFunnel('velas',this)">Velas</div>
+            <div class="sb-sub-item" onclick="loadFunnel('produtos',this)">Produtos</div>
+        </div>
+        <div style="width:80%;height:1px;background:rgba(255,255,255,0.04);margin:2px 0"></div>
+        <div data-tab="pipeline" class="sb-icon active"><i data-lucide="git-branch" class="w-4 h-4"></i><span class="sb-label">Pipeline</span></div>
+        <div data-tab="squads" class="sb-icon"><i data-lucide="users" class="w-4 h-4"></i><span class="sb-label">Squads</span></div>
+        <div data-tab="agents" class="sb-icon"><i data-lucide="bot" class="w-4 h-4"></i><span class="sb-label">Agentes</span></div>
+        <div data-tab="skills" class="sb-icon"><i data-lucide="zap" class="w-4 h-4"></i><span class="sb-label">Skills</span></div>
+        <div data-tab="personas" class="sb-icon"><i data-lucide="drama" class="w-4 h-4"></i><span class="sb-label">Personas</span></div>
+        <div data-tab="integrations" class="sb-icon"><i data-lucide="plug" class="w-4 h-4"></i><span class="sb-label">Integra</span></div>
+        <div data-tab="gates" class="sb-icon"><i data-lucide="shield-check" class="w-4 h-4"></i><span class="sb-label">QA Gate</span></div>
+        <div data-tab="risks" class="sb-icon"><i data-lucide="alert-triangle" class="w-4 h-4"></i><span class="sb-label">Riscos</span></div>
+        <div class="mt-auto">
+            <div data-tab="design" class="sb-icon"><i data-lucide="palette" class="w-4 h-4"></i><span class="sb-label">Design</span></div>
+        </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="flex-1 overflow-hidden">
+
+        <!-- ═══════ 0. FUNNEL CANVAS ═══════ -->
+        <div id="pane-funnel" class="tab-pane" style="overflow:hidden;position:relative;padding:0">
+            <!-- Layer Labels -->
+            <div id="funnel-header" style="position:absolute;top:0;left:0;right:0;z-index:10;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(10,10,15,0.95),transparent);pointer-events:none">
+                <div style="pointer-events:auto">
+                    <h2 class="text-sm font-bold"><span class="text-primary">Funil</span> <span id="funnel-project-name">E-book</span></h2>
+                    <p class="text-[9px] text-muted font-mono mt-0.5" id="funnel-stats">17 etapas · 6 camadas</p>
+                </div>
+            </div>
+            <div id="funnel-viewport" style="width:100%;height:100%;overflow:auto;position:relative" onscroll="">
+                <svg id="funnel-svg" style="position:absolute;top:0;left:0;width:2200px;height:720px;z-index:1;pointer-events:none"></svg>
+                <div class="funnel-canvas" id="funnel-canvas"></div>
+            </div>
+            <!-- Zoom Controls -->
+            <div style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%);z-index:20;display:flex;align-items:center;gap:12px;background:rgba(13,13,20,0.9);border:1px solid rgba(255,255,255,0.06);border-radius:999px;padding:6px 16px;backdrop-filter:blur(12px)">
+                <button onclick="zoomCanvas(0.1)" style="color:#6b7280;font-size:16px;font-weight:bold;cursor:pointer;background:none;border:none">+</button>
+                <span id="zoom-label" style="font-size:9px;color:#6b7280;font-family:'JetBrains Mono',monospace;min-width:40px;text-align:center">100%</span>
+                <button onclick="zoomCanvas(-0.1)" style="color:#6b7280;font-size:16px;font-weight:bold;cursor:pointer;background:none;border:none">−</button>
+                <button onclick="resetZoom()" style="font-size:9px;color:#a855f7;font-weight:700;cursor:pointer;background:none;border:none">RESET</button>
+            </div>
+        </div>
+
+        <!-- Detail Drawer -->
+        <div id="detail-drawer" class="detail-drawer">
+            <div style="padding:20px">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+                    <h3 id="drawer-title" style="font-size:14px;font-weight:700"></h3>
+                    <button onclick="closeDrawer()" style="color:#6b7280;cursor:pointer;background:none;border:none;font-size:18px">✕</button>
+                </div>
+                <div id="drawer-content"></div>
+            </div>
+        </div>
+
+        <!-- ═══════ 1. PIPELINE CRONOLÓGICO ═══════ -->
+        <div id="pane-pipeline" class="tab-pane active p-8">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-base font-bold"><span class="text-primary">Pipeline</span> de Produção Digital</h2>
+                <span class="badge border-primary/30 text-primary bg-primary/10">14 Etapas</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-4 mb-12">
+                <div class="glass p-4 animate-in" style="animation-delay:0s">
+                    <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-primary/20 flex items-center justify-center text-primary text-[10px] font-bold">01</div><span class="text-[10px] font-bold text-primary uppercase tracking-widest">Definição</span></div>
+                    <p class="text-[10px] text-muted leading-relaxed">Definir produto, persona, oferta, branding e público-alvo.</p>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Planejamento</div>
+                </div>
+                <div class="glass p-4 animate-in" style="animation-delay:.05s">
+                    <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-primary/20 flex items-center justify-center text-primary text-[10px] font-bold">02</div><span class="text-[10px] font-bold text-primary uppercase tracking-widest">Referências</span></div>
+                    <p class="text-[10px] text-muted leading-relaxed">Coleta de referências visuais, textuais e comerciais.</p>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Planejamento</div>
+                </div>
+                <div class="glass p-4 animate-in" style="animation-delay:.1s">
+                    <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-teal/20 flex items-center justify-center text-teal text-[10px] font-bold">03</div><span class="text-[10px] font-bold text-teal uppercase tracking-widest">Estratégia</span></div>
+                    <p class="text-[10px] text-muted leading-relaxed">Planejamento tático da arquitetura de volumes e funis.</p>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Planejamento</div>
+                </div>
+                <div class="glass p-4 animate-in" style="animation-delay:.15s">
+                    <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-teal/20 flex items-center justify-center text-teal text-[10px] font-bold">04</div><span class="text-[10px] font-bold text-teal uppercase tracking-widest">Estruturação</span></div>
+                    <p class="text-[10px] text-muted leading-relaxed">Criar esqueleto do conteúdo com capítulos e seções.</p>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Conteúdo</div>
+                </div>
+                <div class="glass p-4 animate-in" style="animation-delay:.2s">
+                    <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-secondary/20 flex items-center justify-center text-secondary text-[10px] font-bold">05</div><span class="text-[10px] font-bold text-secondary uppercase tracking-widest">Escrita</span></div>
+                    <p class="text-[10px] text-muted leading-relaxed">Produção textual: fórmulas, manifestos, introduções.</p>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Conteúdo</div>
+                </div>
+                <div class="glass p-4 animate-in" style="animation-delay:.25s">
+                    <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-accent/20 flex items-center justify-center text-accent text-[10px] font-bold">06</div><span class="text-[10px] font-bold text-accent uppercase tracking-widest">Revisão</span></div>
+                    <p class="text-[10px] text-muted leading-relaxed">QA Gate: validar tom luxo, coerência editorial.</p>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: QA</div>
+                </div>
+                <div class="glass p-4 animate-in" style="animation-delay:.3s">
+                    <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-pink/20 flex items-center justify-center text-pink text-[10px] font-bold">07</div><span class="text-[10px] font-bold text-pink uppercase tracking-widest">Design</span></div>
+                    <p class="text-[10px] text-muted leading-relaxed">Diagramação A4, CSS estrito, layout imutável.</p>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Design</div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-4">
+                <div class="glass p-4 animate-in" style="animation-delay:.35s">
+                    <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-pink/20 flex items-center justify-center text-pink text-[10px] font-bold">08</div><span class="text-[10px] font-bold text-pink uppercase tracking-widest">Imagens</span></div>
+                    <p class="text-[10px] text-muted leading-relaxed">Geração HD de fotos botânicas e ingredientes.</p>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Design</div>
+                </div>
+                <div class="glass p-4 animate-in" style="animation-delay:.4s">
+                    <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-pink/20 flex items-center justify-center text-pink text-[10px] font-bold">09</div><span class="text-[10px] font-bold text-pink uppercase tracking-widest">Montagem</span></div>
+                    <p class="text-[10px] text-muted leading-relaxed">Assemblagem final do PDF por volume (5 peças).</p>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Design</div>
+                </div>
+                <div class="glass p-4 animate-in" style="animation-delay:.45s">
+                    <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-sky/20 flex items-center justify-center text-sky text-[10px] font-bold">10</div><span class="text-[10px] font-bold text-sky uppercase tracking-widest">Sales Page</span></div>
+                    <p class="text-[10px] text-muted leading-relaxed">Criação da página de vendas com Design System.</p>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Comercial</div>
+                </div>
+                <div class="glass p-4 animate-in" style="animation-delay:.5s">
+                    <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-sky/20 flex items-center justify-center text-sky text-[10px] font-bold">11</div><span class="text-[10px] font-bold text-sky uppercase tracking-widest">Checkout</span></div>
+                    <p class="text-[10px] text-muted leading-relaxed">Integração com Kiwify, Stripe, Order Bump.</p>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Comercial</div>
+                </div>
+                <div class="glass p-4 animate-in" style="animation-delay:.55s">
+                    <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-coral/20 flex items-center justify-center text-coral text-[10px] font-bold">12</div><span class="text-[10px] font-bold text-coral uppercase tracking-widest">Publicação</span></div>
+                    <p class="text-[10px] text-muted leading-relaxed">Deploy Firebase Hosting + DNS (essenciaativabr.shop).</p>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Publicação</div>
+                </div>
+                <div class="glass p-4 animate-in" style="animation-delay:.6s">
+                    <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-coral/20 flex items-center justify-center text-coral text-[10px] font-bold">13</div><span class="text-[10px] font-bold text-coral uppercase tracking-widest">Automação</span></div>
+                    <p class="text-[10px] text-muted leading-relaxed">E-mail auto, entrega digital, webhooks pós-compra.</p>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Automação</div>
+                </div>
+                <div class="glass p-4 animate-in" style="animation-delay:.65s">
+                    <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-accent/20 flex items-center justify-center text-accent text-[10px] font-bold">14</div><span class="text-[10px] font-bold text-accent uppercase tracking-widest">Otimização</span></div>
+                    <p class="text-[10px] text-muted leading-relaxed">A/B Headlines, Pixel, ROI, métricas de conversão.</p>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Comercial</div>
+                </div>
+            </div>
+
+            <!-- I/O Summary -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+                <div class="glass p-6">
+                    <h3 class="text-xs font-bold text-secondary uppercase tracking-widest mb-4 flex items-center gap-2"><i data-lucide="log-in" class="w-4 h-4"></i> Entradas do Sistema</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="badge border-secondary/20 text-secondary bg-secondary/5">Prompt Inicial</span>
+                        <span class="badge border-secondary/20 text-secondary bg-secondary/5">Dados do Produto</span>
+                        <span class="badge border-secondary/20 text-secondary bg-secondary/5">Público-Alvo</span>
+                        <span class="badge border-secondary/20 text-secondary bg-secondary/5">Oferta & Preço</span>
+                        <span class="badge border-secondary/20 text-secondary bg-secondary/5">Branding / DS</span>
+                        <span class="badge border-secondary/20 text-secondary bg-secondary/5">Refs Visuais</span>
+                        <span class="badge border-secondary/20 text-secondary bg-secondary/5">Estrutura Comercial</span>
+                    </div>
+                </div>
+                <div class="glass p-6">
+                    <h3 class="text-xs font-bold text-primary uppercase tracking-widest mb-4 flex items-center gap-2"><i data-lucide="log-out" class="w-4 h-4"></i> Saídas do Sistema</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="badge border-primary/20 text-primary bg-primary/5">E-book Final (5 Vols)</span>
+                        <span class="badge border-primary/20 text-primary bg-primary/5">PDF A4 Diagramado</span>
+                        <span class="badge border-primary/20 text-primary bg-primary/5">Imagens HD</span>
+                        <span class="badge border-primary/20 text-primary bg-primary/5">Página de Vendas</span>
+                        <span class="badge border-primary/20 text-primary bg-primary/5">Funil Comercial</span>
+                        <span class="badge border-primary/20 text-primary bg-primary/5">Entrega Automatizada</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════ 2. SQUADS ═══════ -->
+        <div id="pane-squads" class="tab-pane p-8">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-base font-bold"><span class="text-primary">Squads</span> Operacionais</h2>
+                <span class="badge border-primary/30 text-primary bg-primary/10">6 Squads</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="squads-view"></div>
+        </div>
+
+        <!-- ═══════ 3. AGENTES ═══════ -->
+        <div id="pane-agents" class="tab-pane p-8">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-base font-bold"><span class="text-primary">Rede Neural</span> de Agentes</h2>
+                <span class="badge border-primary/30 text-primary bg-primary/10">12 Agentes Core</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="agents-view"></div>
+        </div>
+
+        <!-- ═══════ 4. SKILLS ═══════ -->
+        <div id="pane-skills" class="tab-pane p-8">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-base font-bold"><span class="text-primary">Skills</span> Library</h2>
+                <span class="badge border-primary/30 text-primary bg-primary/10">13 Skills</span>
+            </div>
+            <div id="skills-view" class="space-y-6"></div>
+        </div>
+
+        <!-- ═══════ 5. PERSONAS ═══════ -->
+        <div id="pane-personas" class="tab-pane p-8">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-base font-bold"><span class="text-primary">Personas</span> & Clones</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="personas-view"></div>
+        </div>
+
+        <!-- ═══════ 6. INTEGRAÇÕES ═══════ -->
+        <div id="pane-integrations" class="tab-pane p-8">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-base font-bold"><span class="text-primary">Integrações</span> Externas</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="integrations-view"></div>
+        </div>
+
+        <!-- ═══════ 7. QA GATES ═══════ -->
+        <div id="pane-gates" class="tab-pane p-8">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-base font-bold"><span class="text-primary">Pontos de Decisão</span> & QA Gates</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="gates-view"></div>
+        </div>
+
+        <!-- ═══════ 8. RISCOS ═══════ -->
+        <div id="pane-risks" class="tab-pane p-8">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-base font-bold"><span class="text-coral">Riscos</span> & Gargalos</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="risks-view"></div>
+            <div class="mt-10">
+                <h3 class="text-xs font-bold text-secondary uppercase tracking-widest mb-5 flex items-center gap-2"><i data-lucide="trending-up" class="w-4 h-4"></i> Melhorias & Escalabilidade</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="improvements-view"></div>
+            </div>
+        </div>
+
+        <!-- ═══════ 9. DESIGN SYSTEMS ═══════ -->
+        <div id="pane-design" class="tab-pane p-8">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-base font-bold"><span class="text-primary">Design</span> Systems</h2>
+            </div>
+            <div id="design-view" class="space-y-6"></div>
+        </div>
+
+    </main>
+</div>
+
+<script>
+lucide.createIcons();
+
+// Tab switching
+document.querySelectorAll('.sb-icon[data-tab]').forEach(el => {
+    el.addEventListener('click', () => {
+        document.querySelectorAll('.sb-icon').forEach(i => i.classList.remove('active'));
+        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+        el.classList.add('active');
+        document.getElementById('pane-' + el.dataset.tab).classList.add('active');
+    });
+});
+
+// ══════════════════════════════════════════
+// DATA LAYER
+// ══════════════════════════════════════════
+
+const SQUADS = [
+    { name: 'Squad de Planejamento', color: '#a855f7', icon: 'compass', agents: ['Orion (@aiox-master)', 'Alex (@analyst)'],
+      mission: 'Definir produto, avatar, arquitetura de volumes e estratégia comercial.',
+      inputs: ['Briefing do Projeto', 'Referências', 'Estrutura Comercial'],
+      outputs: ['Mapa Estratégico', 'Arquitetura de Volumes', 'Plano de Oferta'],
+      dependencies: ['→ Squad de Conteúdo', '→ Squad Comercial'] },
+    { name: 'Squad de Conteúdo', color: '#10b981', icon: 'pen-tool', agents: ['Sage (@copywriter)', 'River (@sm)'],
+      mission: 'Produzir todo o conteúdo textual: fórmulas, manifestos, capítulos e introduções.',
+      inputs: ['Mapa Estratégico', 'Persona', 'Tom de Voz'],
+      outputs: ['Textos Aprovados', 'Fórmulas JSON', 'Manifestos'],
+      dependencies: ['← Squad de Planejamento', '→ Squad de Design'] },
+    { name: 'Squad de Design', color: '#ec4899', icon: 'palette', agents: ['Uma (@ux-design-expert)', 'Aria (@architect)', 'Dex (@dev)'],
+      mission: 'Diagramar A4 estrito, gerar imagens HD, montar PDFs finais.',
+      inputs: ['Textos Aprovados', 'Design System', 'Layout Engine Spec'],
+      outputs: ['Páginas A4 Renderizadas', 'PDFs por Volume', 'Imagens HD'],
+      dependencies: ['← Squad de Conteúdo', '→ Squad de Publicação'] },
+    { name: 'Squad QA', color: '#f59e0b', icon: 'shield-check', agents: ['Quinn (@qa)', 'Pax (@po)'],
+      mission: 'Validar qualidade visual, textual e técnica em cada entrega.',
+      inputs: ['Qualquer saída de qualquer Squad'],
+      outputs: ['Parecer PASS/FAIL', 'Relatório de Correções'],
+      dependencies: ['↔ Conectado a TODOS os Squads'] },
+    { name: 'Squad Comercial', color: '#0ea5e9', icon: 'shopping-cart', agents: ['Morgan (@pm)', 'Sage (@copywriter)'],
+      mission: 'Criar página de vendas, integrar checkout, montar funil e otimizar conversão.',
+      inputs: ['Produto Final', 'Oferta', 'Copy de Vendas'],
+      outputs: ['Landing Page', 'Checkout Kiwify', 'Funil VSL/Upsell'],
+      dependencies: ['← Squad de Design', '→ Squad de Publicação'] },
+    { name: 'Squad de Publicação & Automação', color: '#ef4444', icon: 'rocket', agents: ['Gage (@devops)', 'Dara (@data-engineer)'],
+      mission: 'Fazer deploy, configurar hosting, automatizar entrega digital pós-compra.',
+      inputs: ['Build Final', 'Configuração DNS', 'Webhooks'],
+      outputs: ['Site Live', 'Entrega Automática', 'Monitoramento'],
+      dependencies: ['← Squad Comercial', '← Squad de Design'] }
+];
+
+const AGENTS = [
+    { icon: '🧠', name: 'Orion', handle: '@aiox-master', squad: 'Planejamento', role: 'Orquestrador Mestre. Governa a Constitution, comanda todas as operações.', decides: 'Prioridade de execução, resolução de conflitos', needs: 'Briefing do projeto, estado atual', delivers: 'Plano tático, distribuição de tarefas', skills: ['Governança', 'Override'] },
+    { icon: '🏗️', name: 'Aria', handle: '@architect', squad: 'Design', role: 'Define arquitetura técnica e garante layout A4 imutável.', decides: 'Tech stack, estrutura de rotas, CSS master', needs: 'Design System JSON, Layout Engine Spec', delivers: 'Hierarquia de pastas, componentes TSX, config', skills: ['System Design', 'A4 Layout Engine'] },
+    { icon: '✍️', name: 'Sage', handle: '@copywriter', squad: 'Conteúdo', role: 'Escrita de elite com repertório Finch, Halbert, Brunson.', decides: 'Tom da copy, hooks, ângulos persuasivos', needs: 'Persona, avatar, oferta, Brand Core', delivers: 'Copy final (3 opções Ghost Writing)', skills: ['Direct Response', 'Hooks', 'VSL Scripts'] },
+    { icon: '🎨', name: 'Uma', handle: '@ux-design-expert', squad: 'Design', role: 'Tradução pixel-perfect do Design System para componentes.', decides: 'Estética, grid, tipografia, rejeita desvios', needs: 'The Black Protocol DS, Layout Spec', delivers: 'CSS tokens, componentes visuais validados', skills: ['Design System', 'Typography Gov.'] },
+    { icon: '💻', name: 'Dex', handle: '@dev', squad: 'Design', role: 'Implementa lógica complexa em React/Next.js/TS.', decides: 'Implementação técnica, performance', needs: 'Specs do Arquiteto, componentes do UX', delivers: 'Código funcional, pages, componentes', skills: ['React/Next.js', 'TypeScript'] },
+    { icon: '🗄️', name: 'Dara', handle: '@data-engineer', squad: 'Publicação', role: 'Governança de dados atômicos. Schemas JSON imutáveis.', decides: 'Estrutura dos dados, migrations, schemas', needs: 'Dados brutos das fórmulas', delivers: 'JSONs atômicos validados, schemas', skills: ['JSON Imutável', 'Query Opt'] },
+    { icon: '✅', name: 'Quinn', handle: '@qa', squad: 'QA', role: 'QA Gate com 7 checks. Veredictos: PASS/CONCERNS/FAIL.', decides: 'Aprovar ou rejeitar entregas', needs: 'Qualquer output de qualquer Squad', delivers: 'Relatório QA, lista de correções', skills: ['Gate Security', 'Validation'] },
+    { icon: '🚀', name: 'Gage', handle: '@devops', squad: 'Publicação', role: 'ÚNICO que faz deploy, push e configura DNS/Firebase.', decides: 'Quando publicar, configuração de infra', needs: 'Build aprovado pelo QA', delivers: 'Site live, hosting configurado', skills: ['Firebase', 'CI/CD', 'DNS'] },
+    { icon: '📋', name: 'Morgan', handle: '@pm', squad: 'Comercial', role: 'Product Manager. Cria e executa épicos.', decides: 'Prioridade do backlog, escopo do épico', needs: 'Objetivos estratégicos', delivers: 'Épicos, specs, roadmap', skills: ['create-epic', 'Spec Pipeline'] },
+    { icon: '🟢', name: 'Pax', handle: '@po', squad: 'QA', role: 'Product Owner. Valida stories com checklist 10 pts.', decides: 'GO (≥7) ou NO-GO', needs: 'Story completa', delivers: 'Validação formal, feedback', skills: ['validate-story', 'Backlog'] },
+    { icon: '🌊', name: 'River', handle: '@sm', squad: 'Conteúdo', role: 'Scrum Master. Drafta stories e PRDs.', decides: 'Template da story, prioridade da sprint', needs: 'Épico do PM', delivers: 'Story formatada para o Dev', skills: ['create-story', 'Templates'] },
+    { icon: '🔍', name: 'Alex', handle: '@analyst', squad: 'Planejamento', role: 'Pesquisa de mercado, avatar, Dream 100.', decides: 'Validação de mercado, relatórios', needs: 'Nicho, produto, concorrentes', delivers: 'Relatório analítico, ICP, KPIs', skills: ['Avatar ICP', 'Dream 100'] }
+];
+
+const SKILLS = {
+    'RESEARCH': [
+        { name: 'Pesquisa de Mercado', desc: 'Análise de concorrentes, nicho e oportunidades.', agent: '@analyst', stage: 'Etapa 01-02' },
+        { name: 'Geração de Prompts', desc: 'Criação de prompts especializados para cada agente.', agent: '@aiox-master', stage: 'Etapa 01' }
+    ],
+    'CONTENT': [
+        { name: 'Escrita Persuasiva', desc: 'Copy de vendas com gatilhos emocionais e PAS/AIDA.', agent: '@copywriter', stage: 'Etapa 05' },
+        { name: 'Escrita Técnica', desc: 'Fórmulas com dosagem exata e instruções ritualísticas.', agent: '@copywriter', stage: 'Etapa 05' },
+        { name: 'Estruturação de Conteúdo', desc: 'Organizar capítulos, seções e hierarquia dos volumes.', agent: '@sm + @architect', stage: 'Etapa 04' }
+    ],
+    'DESIGN': [
+        { name: 'Diagramação PDF', desc: 'Layout A4 estrito (210x297mm) com overflow: hidden.', agent: '@ux-design-expert', stage: 'Etapa 07' },
+        { name: 'Geração de Imagens', desc: 'Fotos HD botânicas em estilo darkroom premium.', agent: '@ux-design-expert', stage: 'Etapa 08' },
+        { name: 'Design Visual', desc: 'Aplicação do Design System #050508 / #C5A059.', agent: '@architect + @dev', stage: 'Etapa 07' }
+    ],
+    'AUTOMATION': [
+        { name: 'Integração com APIs', desc: 'Kiwify, Firebase, Webhooks, Sendgrid.', agent: '@devops', stage: 'Etapa 11-13' },
+        { name: 'Publicação', desc: 'Deploy Firebase + configuração de domínio.', agent: '@devops', stage: 'Etapa 12' },
+        { name: 'Organização de Arquivos', desc: 'Versionamento, nomeação atômica, backup.', agent: '@data-engineer', stage: 'Etapa 04-09' }
+    ],
+    'QUALITY': [
+        { name: 'Revisão de Qualidade', desc: 'QA Gate 7 checks: tipografia, A4, rodapé, coerência.', agent: '@qa', stage: 'Etapa 06' },
+        { name: 'Governança Tipográfica', desc: 'Bloquear alterações em H1, H2, Font-Family e spacing.', agent: '@ux-design-expert', stage: 'Todas' }
+    ]
+};
+
+const PERSONAS = [
+    { name: 'Elisa Clark', type: 'Persona Comercial', desc: 'Face da marca. Alquimista Moderna / Ritualist Edition. Tom: autoritário, misterioso, luxuoso.', stage: 'Abertura, Manifestos, VSL', connects: '@copywriter + @analyst', color: '#c5a059' },
+    { name: 'Tiago Finch', type: 'Clone Especialista', desc: 'Escrita hipnótica de desejo/fascínio. Método de funis neurolinguísticos e automação de IA.', stage: 'Headlines, VSL Scripts, Funnel Copy', connects: '@copywriter', color: '#a855f7' },
+    { name: 'Gary Halbert', type: 'Clone Especialista', desc: 'Direto ao ponto/impacto. Cartas de venda lendárias. Escrita de urgência visceral.', stage: 'Sales Page, Bullets, CTAs', connects: '@copywriter', color: '#ef4444' },
+    { name: 'Alan Nicolas', type: 'Clone Especialista', desc: 'Brand Guidelines premium. Construção de ecossistemas de IA com identidade visual forte.', stage: 'Design System, Brand Identity', connects: '@ux-design-expert + @architect', color: '#10b981' },
+    { name: 'Pedro Valério', type: 'Clone Especialista', desc: 'Estrutura de funis de alto ticket. Escada de valor e monetização.', stage: 'Oferta, Preço, Escada de Valor', connects: '@pm + @copywriter', color: '#0ea5e9' }
+];
+
+const INTEGRATIONS = [
+    { name: 'Firebase Hosting', desc: 'Deploy estático do site de vendas.', icon: 'cloud', stage: 'Etapa 12', color: '#f59e0b' },
+    { name: 'Kiwify', desc: 'Checkout, Order Bump, Upsell.', icon: 'credit-card', stage: 'Etapa 11', color: '#10b981' },
+    { name: 'GitHub', desc: 'Versionamento e backup do código.', icon: 'github', stage: 'Contínuo', color: '#e5e7eb' },
+    { name: 'Vercel', desc: 'Deploy alternativo com preview.', icon: 'triangle', stage: 'Etapa 12', color: '#e5e7eb' },
+    { name: 'Sendgrid / Mailchimp', desc: 'Automação de e-mail pós-compra.', icon: 'mail', stage: 'Etapa 13', color: '#0ea5e9' },
+    { name: 'APIs de Imagem (DALL-E)', desc: 'Geração de fotos botânicas HD.', icon: 'image', stage: 'Etapa 08', color: '#ec4899' },
+    { name: 'VTurb', desc: 'Hospedagem e player de VSL.', icon: 'play-circle', stage: 'Etapa 10', color: '#a855f7' },
+    { name: 'Google Cloud / Gemini', desc: 'Motor de IA principal.', icon: 'cpu', stage: 'Contínuo', color: '#14b8a6' }
+];
+
+const GATES = [
+    { question: 'O conteúdo textual está no tom "Luxo Aristocrático"?', owner: '@qa + @po', severity: 'critical', action: 'Reenviar para @copywriter com notas de correção.' },
+    { question: 'O layout A4 tem overflow: hidden e 297mm exatos?', owner: '@qa', severity: 'critical', action: 'Rejeitar componente. @architect corrige CSS.' },
+    { question: 'O rodapé está fixo na posição bottom absoluta?', owner: '@qa', severity: 'critical', action: 'Bloquear merge. @ux-design-expert reposiciona.' },
+    { question: 'A imagem atende padrão premium (HD, darkroom)?', owner: '@ux-design-expert', severity: 'high', action: 'Regenerar imagem com prompt refinado.' },
+    { question: 'A página de vendas está coerente com a oferta?', owner: '@po + @copywriter', severity: 'high', action: 'Revisar copy vs oferta na Kiwify.' },
+    { question: 'A automação pós-compra entrega o PDF correto?', owner: '@devops', severity: 'critical', action: 'Testar webhook end-to-end antes do go-live.' }
+];
+
+const RISKS = [
+    { risk: 'Prompt mal definido', impact: 'Alto', prevention: 'Usar templates de prompt por skill. Nunca prompts livres.' },
+    { risk: 'Agente sem contexto suficiente', impact: 'Alto', prevention: 'Alimentar com brand_core.json + persona + spec antes de cada execução.' },
+    { risk: 'Skill mal configurada', impact: 'Médio', prevention: 'Documentar cada skill com entradas/saídas/agente responsável.' },
+    { risk: 'Layout quebrando em A4', impact: 'Crítico', prevention: 'CSS imutável: height: 297mm + overflow: hidden. QA Gate obrigatório.' },
+    { risk: 'Perda de versão/arquivo', impact: 'Crítico', prevention: 'Git commit antes de cada mudança. Backup em GitHub.' },
+    { risk: 'Excesso de retrabalho', impact: 'Alto', prevention: 'Especificar ponto a ponto antes de executar. Micro-spec por página.' },
+    { risk: 'Saída visual inconsistente', impact: 'Alto', prevention: 'Design System JSON obrigatório. Nunca CSS ad-hoc.' },
+    { risk: 'Fórmulas sobrescritas', impact: 'Crítico', prevention: 'JSONs atômicos individuais. Nunca arquivo monolítico.' }
+];
+
+const IMPROVEMENTS = [
+    { title: 'Templates Reutilizáveis', desc: 'Criar modelo-padrão de página para cada tipo (fórmula, intro, capa).' },
+    { title: 'Biblioteca de Agentes', desc: 'Repositório de agentes pré-configurados para novos projetos.' },
+    { title: 'Versionamento Atômico', desc: 'Git tag + changelog automático por volume.' },
+    { title: 'Checklists por Etapa', desc: 'Cada etapa do pipeline tem checklist obrigatório antes de avançar.' },
+    { title: 'Padronização de Prompts', desc: 'Prompt templates por skill, evitando variações genéricas.' },
+    { title: 'Multi-Produto', desc: 'Estrutura pronta para clonar e criar novos e-books (Golden Light, etc.).' }
+];
+
+// ══════════════════════════════════════════
+// RENDER FUNCTIONS
+// ══════════════════════════════════════════
+
+function renderSquads() {
+    const c = document.getElementById('squads-view');
+    c.innerHTML = SQUADS.map(s => `
+        <div class="glass p-6 border-l-4" style="border-left-color:${s.color}">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:${s.color}15"><i data-lucide="${s.icon}" class="w-5 h-5" style="color:${s.color}"></i></div>
+                <div><h3 class="text-sm font-bold">${s.name}</h3><p class="text-[9px] text-muted font-mono">${s.agents.join(' · ')}</p></div>
+            </div>
+            <p class="text-[11px] text-muted leading-relaxed mb-4">${s.mission}</p>
+            <div class="grid grid-cols-3 gap-3 text-[9px]">
+                <div><p class="font-bold text-secondary uppercase tracking-widest mb-1">Entradas</p>${s.inputs.map(i=>`<p class="text-muted mb-0.5">· ${i}</p>`).join('')}</div>
+                <div><p class="font-bold text-primary uppercase tracking-widest mb-1">Entregas</p>${s.outputs.map(o=>`<p class="text-muted mb-0.5">· ${o}</p>`).join('')}</div>
+                <div><p class="font-bold text-accent uppercase tracking-widest mb-1">Relação</p>${s.dependencies.map(d=>`<p class="text-muted mb-0.5">${d}</p>`).join('')}</div>
+            </div>
+        </div>`).join('');
+}
+
+function renderAgents() {
+    const c = document.getElementById('agents-view');
+    c.innerHTML = AGENTS.map(a => `
+        <div class="glass p-4 hover:-translate-y-0.5 transition-transform">
+            <div class="flex items-center gap-2.5 mb-3">
+                <div class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-lg">${a.icon}</div>
+                <div><h4 class="text-xs font-bold">${a.name}</h4><p class="text-[9px] text-primary font-bold tracking-widest">${a.handle}</p></div>
+                <span class="ml-auto badge border-white/10 text-muted bg-white/5">${a.squad}</span>
+            </div>
+            <p class="text-[10px] text-muted mb-3 leading-relaxed">${a.role}</p>
+            <div class="space-y-2 text-[9px] border-t border-white/5 pt-3">
+                <div><span class="text-accent font-bold">Decide:</span> <span class="text-muted">${a.decides}</span></div>
+                <div><span class="text-secondary font-bold">Precisa:</span> <span class="text-muted">${a.needs}</span></div>
+                <div><span class="text-primary font-bold">Entrega:</span> <span class="text-muted">${a.delivers}</span></div>
+            </div>
+            <div class="flex flex-wrap gap-1 mt-3">${a.skills.map(s=>`<span class="px-1.5 py-0.5 rounded text-[8px] bg-primary/10 text-primary border border-primary/15 font-bold uppercase">${s}</span>`).join('')}</div>
+        </div>`).join('');
+}
+
+function renderSkills() {
+    const c = document.getElementById('skills-view');
+    c.innerHTML = Object.entries(SKILLS).map(([cat, items]) => `
+        <div>
+            <div class="flex items-center gap-2 mb-3"><div class="h-2 w-2 rounded-full bg-primary"></div><span class="text-[10px] font-bold text-primary uppercase tracking-widest">${cat} (${items.length})</span></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                ${items.map(s=>`
+                    <div class="glass p-4">
+                        <h4 class="text-xs font-bold mb-1">${s.name}  <span class="badge border-secondary/20 text-secondary bg-secondary/5 ml-2">active</span></h4>
+                        <p class="text-[10px] text-muted leading-relaxed mb-2">${s.desc}</p>
+                        <div class="flex gap-3 text-[9px]">
+                            <span class="text-primary font-bold">Agente: <span class="text-muted font-normal">${s.agent}</span></span>
+                            <span class="text-accent font-bold">Fase: <span class="text-muted font-normal">${s.stage}</span></span>
+                        </div>
+                    </div>`).join('')}
+            </div>
+        </div>`).join('');
+}
+
+function renderPersonas() {
+    const c = document.getElementById('personas-view');
+    c.innerHTML = PERSONAS.map(p => `
+        <div class="glass p-6 border-t-4" style="border-top-color:${p.color}">
+            <div class="flex items-center gap-3 mb-3"><span class="badge bg-white/5 border-white/10">${p.type}</span></div>
+            <h3 class="text-sm font-bold mb-2" style="color:${p.color}">${p.name}</h3>
+            <p class="text-[10px] text-muted leading-relaxed mb-4">${p.desc}</p>
+            <div class="space-y-1 text-[9px] border-t border-white/5 pt-3">
+                <div><span class="text-accent font-bold">Atua em:</span> <span class="text-muted">${p.stage}</span></div>
+                <div><span class="text-primary font-bold">Conecta:</span> <span class="text-muted">${p.connects}</span></div>
+            </div>
+        </div>`).join('');
+}
+
+function renderIntegrations() {
+    const c = document.getElementById('integrations-view');
+    c.innerHTML = INTEGRATIONS.map(i => `
+        <div class="glass p-4 flex flex-col gap-3">
+            <div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:${i.color}15"><i data-lucide="${i.icon}" class="w-4 h-4" style="color:${i.color}"></i></div><h4 class="text-xs font-bold">${i.name}</h4></div>
+            <p class="text-[10px] text-muted leading-relaxed">${i.desc}</p>
+            <div class="mt-auto"><span class="badge border-white/10 text-muted bg-white/5">${i.stage}</span></div>
+        </div>`).join('');
+}
+
+function renderGates() {
+    const c = document.getElementById('gates-view');
+    c.innerHTML = GATES.map(g => `
+        <div class="glass p-5 border-l-4 ${g.severity === 'critical' ? 'border-l-coral' : 'border-l-accent'}">
+            <div class="flex items-center gap-2 mb-2"><span class="badge ${g.severity === 'critical' ? 'border-coral/30 text-coral bg-coral/10' : 'border-accent/30 text-accent bg-accent/10'}">${g.severity}</span></div>
+            <h4 class="text-xs font-bold mb-2">${g.question}</h4>
+            <p class="text-[10px] text-muted mb-2"><span class="text-primary font-bold">Responsável:</span> ${g.owner}</p>
+            <p class="text-[10px] text-muted"><span class="text-coral font-bold">Se FAIL:</span> ${g.action}</p>
+        </div>`).join('');
+}
+
+function renderRisks() {
+    const c = document.getElementById('risks-view');
+    c.innerHTML = RISKS.map(r => `
+        <div class="glass p-4">
+            <div class="flex items-center justify-between mb-2"><h4 class="text-xs font-bold">${r.risk}</h4><span class="badge ${r.impact === 'Crítico' ? 'border-coral/30 text-coral bg-coral/10' : r.impact === 'Alto' ? 'border-accent/30 text-accent bg-accent/10' : 'border-sky/30 text-sky bg-sky/10'}">${r.impact}</span></div>
+            <p class="text-[10px] text-muted"><span class="text-secondary font-bold">Prevenção:</span> ${r.prevention}</p>
+        </div>`).join('');
+    
+    const ic = document.getElementById('improvements-view');
+    ic.innerHTML = IMPROVEMENTS.map(i => `
+        <div class="glass p-4"><h4 class="text-xs font-bold text-secondary mb-1">${i.title}</h4><p class="text-[10px] text-muted leading-relaxed">${i.desc}</p></div>`).join('');
+}
+
+function renderDesign() {
+    fetch('/api/data').then(r=>r.json()).then(data => {
+        const c = document.getElementById('design-view');
+        c.innerHTML = '';
+        for(let key in data.design_systems){
+            let ds = data.design_systems[key];
+            c.innerHTML += `
+            <div class="glass overflow-hidden">
+                <div class="p-6 border-b border-white/5 flex gap-4 items-center">
+                    <div class="w-12 h-12 rounded-full border border-primary/20 flex items-center justify-center" style="background:${ds.colors?.primary}"><i data-lucide="layout-template" class="text-white w-5 h-5"></i></div>
+                    <div><h3 class="text-sm font-bold">${ds.name}</h3><p class="text-[9px] text-muted uppercase tracking-widest">Version ${ds.version}</p></div>
+                </div>
+                <div class="p-6">
+                    <p class="text-[11px] text-muted leading-relaxed mb-4">${ds.description}</p>
+                    <div class="flex gap-3 mb-4">${Object.entries(ds.colors||{}).map(([k,v])=>`<div class="group relative"><div class="w-8 h-8 rounded border border-white/10 cursor-crosshair hover:scale-110 transition-transform" style="background:${v}"></div><div class="absolute -bottom-5 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 text-[7px] bg-black px-1 py-0.5 rounded text-white whitespace-nowrap transition-opacity pointer-events-none z-10">${k}</div></div>`).join('')}</div>
+                    <ul class="text-[10px] text-muted space-y-1 pl-4 list-disc marker:text-primary/40">${(ds.rules||[]).map(r=>`<li>${r}</li>`).join('')}</ul>
+                </div>
+            </div>`;
+        }
         lucide.createIcons();
+    }).catch(()=>{});
+}
 
-        // Switch Tabs
-        document.querySelectorAll('.sidebar-icon[data-tab]').forEach(el => {
-            el.addEventListener('click', () => {
-                document.querySelectorAll('.sidebar-icon').forEach(i => i.classList.remove('active'));
-                document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-                el.classList.add('active');
-                document.getElementById('pane-' + el.dataset.tab).classList.add('active');
-            });
-        });
+// ══════════════════════════════════════════
+// FUNNEL ENGINE
+// ══════════════════════════════════════════
 
-        const volumes = [
-            { id: 'v1', title: 'Vol I: O Preâmbulo', desc: 'Manifesto, Sumário e Abertura', x: 100, y: 150, color: 'primary' },
-            { id: 'v2', title: 'Vol II: Atmosfera Mística', desc: 'Introduções Sensoriais', x: 400, y: 150, color: 'secondary' },
-            { id: 'v3', title: 'Vol III: Assinaturas', desc: 'Arquétipos Visuais', x: 700, y: 150, color: 'accent' },
-            { id: 'v4', title: 'Vol IV: Alquimia', desc: 'Fórmulas e Rituais', x: 400, y: 350, color: 'primary' },
-            { id: 'v5', title: 'Vol V: Matéria Visual', desc: 'Galeria HD Botânica', x: 700, y: 350, color: 'secondary' }
-        ];
+const FUNNEL_NODES = {
+  ebook: [
+    // Acquisition
+    { id:'fb', title:'Facebook Ads', sub:'Tráfego pago Meta', icon:'megaphone', color:'#0ea5e9', x:60, y:40, layer:'Aquisição', status:'active' },
+    { id:'ig', title:'Instagram Ads', sub:'Reels + Stories', icon:'instagram', color:'#ec4899', x:60, y:160, layer:'Aquisição' },
+    { id:'gg', title:'Google Ads', sub:'Search + Display', icon:'search', color:'#f59e0b', x:60, y:280, layer:'Aquisição' },
+    { id:'org', title:'Orgânico', sub:'SEO + Conteúdo', icon:'leaf', color:'#10b981', x:60, y:400, layer:'Aquisição' },
+    // Pre-conversion
+    { id:'quiz', title:'Quiz Interativo', sub:'Segmentação do lead', icon:'help-circle', color:'#a855f7', x:340, y:100, layer:'Pré-conversão' },
+    { id:'cap', title:'Página de Captura', sub:'Lead magnet / Isca', icon:'mail', color:'#14b8a6', x:340, y:280, layer:'Pré-conversão' },
+    // Conversion
+    { id:'vsl', title:'VSL / Vídeo', sub:'Pitch de 2min15s', icon:'play-circle', color:'#ec4899', x:620, y:100, layer:'Conversão' },
+    { id:'sales', title:'Página de Vendas', sub:'Zen Dark V3 — Elite', icon:'layout', color:'#a855f7', x:620, y:260, layer:'Conversão', status:'active' },
+    { id:'ck', title:'Checkout', sub:'Kiwify Integration', icon:'credit-card', color:'#10b981', x:900, y:180, layer:'Conversão' },
+    // Monetization
+    { id:'ob', title:'Order Bump', sub:'+R$27 no checkout', icon:'package-plus', color:'#f59e0b', x:1140, y:60, layer:'Monetização' },
+    { id:'up', title:'Upsell', sub:'Oferta premium pós-compra', icon:'trending-up', color:'#a855f7', x:1140, y:200, layer:'Monetização' },
+    { id:'dw', title:'Downsell', sub:'Oferta alternativa', icon:'trending-down', color:'#ef4444', x:1140, y:340, layer:'Monetização' },
+    // Delivery
+    { id:'ty', title:'Obrigado', sub:'Thank you page + bônus', icon:'heart', color:'#ec4899', x:1400, y:100, layer:'Entrega' },
+    { id:'area', title:'Área de Membros', sub:'Acesso ao conteúdo', icon:'lock', color:'#14b8a6', x:1400, y:260, layer:'Entrega' },
+    // Retention
+    { id:'pos', title:'Pós-Venda', sub:'Nutrição e suporte', icon:'message-circle', color:'#0ea5e9', x:1660, y:100, layer:'Retenção' },
+    { id:'rmk', title:'Remarketing', sub:'Retargeting + Lookalike', icon:'repeat', color:'#f59e0b', x:1660, y:260, layer:'Retenção' },
+    { id:'rec', title:'Recompra', sub:'Cross-sell + novos produtos', icon:'shopping-bag', color:'#10b981', x:1660, y:400, layer:'Retenção' }
+  ]
+};
 
-        function renderFlow() {
-            const container = document.getElementById('flow-nodes');
-            container.innerHTML = '';
-            volumes.forEach(v => {
-                const node = document.createElement('div');
-                node.className = `node-card absolute border-${v.color}/40 p-4`;
-                node.style.left = `${v.x}px`;
-                node.style.top = `${v.y}px`;
-                node.innerHTML = `
-                    <div class="flex items-center gap-2 mb-2">
-                        <div class="w-2 h-2 rounded-full bg-${v.color}"></div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-${v.color}">Workflow Node</span>
-                        <div class="ml-auto flex gap-1">
-                            <i data-lucide="chevron-down" class="w-3 h-3 text-muted"></i>
-                            <i data-lucide="x" class="w-3 h-3 text-muted"></i>
-                        </div>
-                    </div>
-                    <h3 class="text-xs font-bold text-white mb-1">${v.title}</h3>
-                    <p class="text-[10px] text-muted leading-tight">${v.desc}</p>
-                    <div class="mt-4 flex items-center justify-between">
-                        <div class="w-3 h-3 rounded-full border-2 border-${v.color} -ml-6 bg-background"></div>
-                        <div class="w-3 h-3 rounded-full border-2 border-${v.color} -mr-6 bg-background"></div>
-                    </div>
-                `;
-                container.appendChild(node);
-            });
-            lucide.createIcons();
+const FUNNEL_EDGES = {
+  ebook: [
+    ['fb','quiz'],['fb','sales'],['ig','quiz'],['ig','cap'],['gg','sales'],['gg','cap'],['org','cap'],
+    ['quiz','vsl'],['quiz','sales'],['cap','vsl'],['cap','sales'],
+    ['vsl','sales'],['sales','ck'],
+    ['ck','ob'],['ck','up'],['ob','up'],
+    ['up','ty'],['up','dw'],['dw','ty'],
+    ['ty','area'],['ty','pos'],
+    ['area','pos'],['pos','rmk'],['pos','rec'],['rmk','rec']
+  ]
+};
+
+const NODE_DETAILS = {
+  sales: { headline:'O Cofre das Botânicas Secretas', subheadline:'16 Fórmulas Ancestrais de Sais Aromáticos', product:'The Black Protocol — Master Edition (5 Volumes)', offer:'R$ 47,00 + Order Bump R$ 27', bonus:['Guia de Frequências Hz','Checklist de Ingredientes','Acesso VIP Comunidade'], hero:'Zen Dark V3 — Solar Glow CTA', cta:'QUERO MEU PROTOCOLO AGORA', guarantee:'7 dias de garantia incondicional', agents:['@copywriter (Sage)','@ux-design-expert (Uma)','@dev (Dex)'], skills:['Escrita Persuasiva','Design Visual','Diagramação'], tasks:[{t:'Refinar headline A/B',done:false},{t:'Ajustar proof section',done:false},{t:'Deploy final Firebase',done:true}] },
+  ck: { headline:'Checkout Kiwify', product:'Sais de Banho Terapêuticos', offer:'R$ 47,00', agents:['@devops (Gage)'], skills:['Integração API'], tasks:[{t:'Configurar pixel Meta',done:false},{t:'Testar webhook de entrega',done:true}] },
+  vsl: { headline:'VSL Elisa Clark', product:'Script 2min15s', agents:['@copywriter (Sage)'], skills:['VSL Scripts'], tasks:[{t:'Gravar narração final',done:false},{t:'Upload no VTurb',done:false}] }
+};
+
+let currentZoom = 1;
+let activeNodeId = null;
+
+function toggleFunnelSub(el) {
+    const sub = document.getElementById('funnel-sub');
+    sub.classList.toggle('open');
+    // Also switch to funnel pane
+    document.querySelectorAll('.sb-icon').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('pane-funnel').classList.add('active');
+    renderFunnel('ebook');
+}
+
+function loadFunnel(project, el) {
+    document.querySelectorAll('.sb-sub-item').forEach(i => i.classList.remove('active'));
+    if(el) el.classList.add('active');
+    document.getElementById('funnel-project-name').textContent = el ? el.textContent : project;
+    renderFunnel(project);
+}
+
+function renderFunnel(project) {
+    const canvas = document.getElementById('funnel-canvas');
+    const svg = document.getElementById('funnel-svg');
+    const nodes = FUNNEL_NODES[project] || FUNNEL_NODES.ebook;
+    const edges = FUNNEL_EDGES[project] || FUNNEL_EDGES.ebook;
+    
+    // Render nodes
+    canvas.innerHTML = '';
+    const layerColors = { 'Aquisição':'#0ea5e9', 'Pré-conversão':'#a855f7', 'Conversão':'#10b981', 'Monetização':'#f59e0b', 'Entrega':'#ec4899', 'Retenção':'#14b8a6' };
+    const layerPositions = {};
+    
+    nodes.forEach(n => {
+        // Track layer positions for labels
+        if(!layerPositions[n.layer]) layerPositions[n.layer] = { x: n.x, minY: n.y };
+        else { layerPositions[n.layer].x = Math.min(layerPositions[n.layer].x, n.x); layerPositions[n.layer].minY = Math.min(layerPositions[n.layer].minY, n.y); }
+        
+        const isActive = n.status === 'active';
+        const div = document.createElement('div');
+        div.className = 'funnel-node' + (isActive ? ' active-node' : '');
+        div.style.left = n.x + 'px';
+        div.style.top = (n.y + 40) + 'px';
+        div.id = 'fn-' + n.id;
+        div.onclick = () => openNodeDetail(n);
+        div.innerHTML = `
+            <div class="node-port port-in" style="border-color:${n.color}"></div>
+            <div class="node-port port-out" style="border-color:${n.color}"></div>
+            <div class="node-icon" style="background:${n.color}18"><i data-lucide="${n.icon}" style="width:16px;height:16px;color:${n.color}"></i></div>
+            <div class="node-title">${n.title}</div>
+            <div class="node-sub">${n.sub}</div>
+            ${isActive ? '<div style="position:absolute;top:8px;right:8px;width:6px;height:6px;border-radius:50%;background:#10b981;box-shadow:0 0 8px #10b981"></div>' : ''}
+        `;
+        canvas.appendChild(div);
+    });
+    
+    // Layer labels
+    Object.entries(layerPositions).forEach(([label, pos]) => {
+        const lbl = document.createElement('div');
+        lbl.className = 'layer-label';
+        lbl.style.left = pos.x + 'px';
+        lbl.style.top = (pos.minY + 14) + 'px';
+        lbl.style.color = layerColors[label] || '#6b7280';
+        lbl.style.background = (layerColors[label] || '#6b7280') + '12';
+        lbl.style.border = '1px solid ' + (layerColors[label] || '#6b7280') + '25';
+        lbl.textContent = label;
+        canvas.appendChild(lbl);
+    });
+    
+    // Render SVG connections
+    svg.innerHTML = '';
+    edges.forEach(([fromId, toId]) => {
+        const from = nodes.find(n => n.id === fromId);
+        const to = nodes.find(n => n.id === toId);
+        if(!from || !to) return;
+        const x1 = from.x + 180;
+        const y1 = from.y + 40 + 50;
+        const x2 = to.x;
+        const y2 = to.y + 40 + 50;
+        const mx = (x1 + x2) / 2;
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`);
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', 'rgba(168,85,247,0.18)');
+        path.setAttribute('stroke-width', '2');
+        path.setAttribute('stroke-dasharray', '6 4');
+        svg.appendChild(path);
+    });
+    
+    lucide.createIcons();
+}
+
+function openNodeDetail(node) {
+    // Highlight active
+    document.querySelectorAll('.funnel-node').forEach(n => n.classList.remove('active-node'));
+    document.getElementById('fn-' + node.id)?.classList.add('active-node');
+    activeNodeId = node.id;
+    
+    const drawer = document.getElementById('detail-drawer');
+    document.getElementById('drawer-title').textContent = node.title;
+    
+    const detail = NODE_DETAILS[node.id];
+    let html = `
+        <div style="margin-bottom:16px">
+            <span class="badge" style="border-color:${node.color}30;color:${node.color};background:${node.color}10">${node.layer}</span>
+        </div>
+        <p style="font-size:11px;color:#6b7280;line-height:1.6;margin-bottom:20px">${node.sub}</p>
+    `;
+    
+    if(detail) {
+        if(detail.headline) html += `<div style="margin-bottom:16px"><p style="font-size:9px;font-weight:700;color:#a855f7;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Headline</p><p style="font-size:12px;font-weight:600">${detail.headline}</p></div>`;
+        if(detail.subheadline) html += `<p style="font-size:10px;color:#6b7280;margin-bottom:16px">${detail.subheadline}</p>`;
+        if(detail.product) html += `<div style="margin-bottom:16px"><p style="font-size:9px;font-weight:700;color:#10b981;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Produto</p><p style="font-size:11px;color:#e5e7eb">${detail.product}</p></div>`;
+        if(detail.offer) html += `<div style="margin-bottom:16px"><p style="font-size:9px;font-weight:700;color:#f59e0b;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Oferta</p><p style="font-size:11px;color:#e5e7eb">${detail.offer}</p></div>`;
+        if(detail.bonus) html += `<div style="margin-bottom:16px"><p style="font-size:9px;font-weight:700;color:#ec4899;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Bônus</p>${detail.bonus.map(b=>`<p style="font-size:10px;color:#6b7280">· ${b}</p>`).join('')}</div>`;
+        if(detail.cta) html += `<div style="margin-bottom:16px;padding:10px;border-radius:10px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.15);text-align:center"><p style="font-size:10px;font-weight:700;color:#a855f7">${detail.cta}</p></div>`;
+        if(detail.guarantee) html += `<p style="font-size:10px;color:#10b981;margin-bottom:16px">🛡️ ${detail.guarantee}</p>`;
+        
+        // Agents & Skills
+        if(detail.agents) {
+            html += `<div style="border-top:1px solid rgba(255,255,255,0.05);padding-top:16px;margin-top:8px;margin-bottom:16px"><p style="font-size:9px;font-weight:700;color:#a855f7;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">Agentes Vinculados</p><div style="display:flex;flex-wrap:wrap;gap:6px">${detail.agents.map(a=>`<span style="font-size:9px;padding:3px 8px;border-radius:6px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.15);color:#c4b5fd;font-weight:600">${a}</span>`).join('')}</div></div>`;
         }
-
-        async function syncData() {
-            try {
-                const res = await fetch('/api/data');
-                const data = await res.json();
-                
-                // Render Squads
-                const sqGrid = document.getElementById('squad-grid');
-                const sqCount = document.getElementById('squad-count');
-                sqGrid.innerHTML = '';
-                let count = 0;
-                for(let key in data.squads){
-                    count++;
-                    const s = data.squads[key];
-                    const name = s.match(/name:\s*"(.*?)"/)?.[1] || "Squad";
-                    const desc = s.match(/description:\s*"(.*?)"/)?.[1] || "Sem descrição";
-                    const roles = s.split('roles:')[1]?.split('- id:').slice(1).length || 0;
-                    
-                    sqGrid.innerHTML += `
-                        <div class="bg-surface border border-white/5 rounded-xl p-5 hover:border-white/10 transition-all flex items-center gap-6">
-                            <div class="w-12 h-12 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
-                                <i data-lucide="users"></i>
-                            </div>
-                            <div class="flex-1">
-                                <div class="flex items-center gap-3">
-                                    <h3 class="font-bold text-sm">${name}</h3>
-                                    <span class="px-1.5 py-0.5 rounded bg-surface border border-white/10 text-[9px] text-muted-foreground font-bold uppercase">${roles} agentes</span>
-                                </div>
-                                <p class="text-xs text-muted mt-1 leading-relaxed">${desc}</p>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="tag tag-active">Active</span>
-                                <div class="flex flex-col gap-1">
-                                    <button class="p-1.5 rounded bg-white/5 hover:bg-white/10 text-muted"><i data-lucide="edit-3" class="w-3.5 h-3.5"></i></button>
-                                    <button class="p-1.5 rounded bg-white/5 hover:bg-white/10 text-muted"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }
-                sqCount.innerText = count;
-
-                // Render Agents (The 12 Core)
-                const agentGrid = document.getElementById('agent-grid');
-                agentGrid.innerHTML = '';
-                const core = [
-                    { name: 'Orion', handle: '@aiox-master', role: 'Orquestrador Mestre', icon: '🧠', skills: ['Governança', 'Decision Control'] },
-                    { name: 'Aria', handle: '@architect', role: 'Architect & Tech Strategy', icon: '🏗️', skills: ['System Design', 'React/Next'] },
-                    { name: 'Sage', handle: '@copywriter', role: 'High Conversion Copy', icon: '✍️', skills: ['Psychology', 'Hooks'] },
-                    { name: 'Uma', handle: '@ux-design-expert', role: 'UI/UX Visual Expert', icon: '🎨', skills: ['Brand Guide', 'Motion'] },
-                    { name: 'Dex', handle: '@dev', role: 'Frontend Engineer', icon: '💻', skills: ['Tailwind', 'TS/JS'] },
-                    { name: 'Dara', handle: '@data-engineer', role: 'Data Integrity', icon: '🗄️', skills: ['Structure', 'Modeling'] },
-                    { name: 'Quinn', handle: '@qa', role: 'Quality Assurance', icon: '✅', skills: ['Validation', 'Checks'] },
-                    { name: 'Gage', handle: '@devops', role: 'Deployment / Infra', icon: '🚀', skills: ['Vercel', 'Firebase'] },
-                    { name: 'Morgan', handle: '@pm', role: 'Product Manager', icon: '📋', skills: ['Epics', 'Pipeline'] },
-                    { name: 'Pax', handle: '@po', role: 'Product Owner', icon: '🟢', skills: ['Backlog', 'Stories'] },
-                    { name: 'River', handle: '@sm', role: 'Scrum Master', icon: '🌊', skills: ['Sprint', 'Velocity'] },
-                    { name: 'Alex', handle: '@analyst', role: 'Market Analyst', icon: '🔍', skills: ['KPIs', 'Market'] }
-                ];
-                core.forEach(a => {
-                    agentGrid.innerHTML += `
-                        <div class="node-card border-white/5 group hover:border-primary/20 transition-all">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xl">${a.icon}</div>
-                                <div>
-                                    <h4 class="font-bold text-xs text-white">${a.name}</h4>
-                                    <p class="text-[9px] font-bold text-primary uppercase tracking-widest">${a.handle}</p>
-                                </div>
-                            </div>
-                            <p class="text-[10px] text-muted mb-4 leading-tight h-8 overflow-hidden">${a.role}</p>
-                            <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/5">
-                                ${a.skills.map(s => `<span class="px-2 py-0.5 rounded text-[8px] bg-primary/10 text-primary border border-primary/20 font-bold uppercase">${s}</span>`).join('')}
-                            </div>
-                        </div>
-                    `;
-                });
-
-                // Render Skills (Dictionary style)
-                const skillsList = document.getElementById('skills-list');
-                skillsList.innerHTML = `
-                    <div class="flex flex-col gap-6">
-                        <div class="space-y-4">
-                            <div class="flex items-center gap-2 text-[10px] font-bold text-primary tracking-widest uppercase">
-                                <div class="h-2 w-2 rounded-full bg-primary mb-0.5"></div> Analysis (1)
-                            </div>
-                            <div class="bg-surface border border-white/5 rounded-xl p-5">
-                                <div class="flex items-center justify-between mb-2">
-                                    <h3 class="text-xs font-bold font-mono">Análise de Funil <span class="tag tag-active ml-2">active</span></h3>
-                                    <div class="flex gap-2">
-                                        <button class="p-1 text-muted"><i data-lucide="edit-2" class="w-3.5 h-3.5"></i></button>
-                                        <button class="p-1 text-muted"><i data-lucide="trash" class="w-3.5 h-3.5"></i></button>
-                                    </div>
-                                </div>
-                                <p class="text-[11px] text-muted leading-relaxed">Identifica gargalos e oportunidades no funil de vendas baseado no behavior do avatar.</p>
-                                <div class="mt-3"><span class="px-2 py-0.5 rounded text-[9px] font-mono bg-white/5 text-muted-foreground border border-white/10">Lead Qualifier</span></div>
-                            </div>
-                        </div>
-                        <div class="space-y-4">
-                            <div class="flex items-center gap-2 text-[10px] font-bold text-secondary tracking-widest uppercase">
-                                <div class="h-2 w-2 rounded-full bg-secondary mb-0.5"></div> Automation (2)
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="bg-surface border border-white/5 rounded-xl p-5">
-                                    <h3 class="text-xs font-bold font-mono mb-2">Automação de E-mail <span class="tag tag-active ml-2">active</span></h3>
-                                    <p class="text-[11px] text-muted leading-relaxed">Disparo automático via Sendgrid/Mailchimp com réguas de nutrição dinâmica.</p>
-                                </div>
-                                <div class="bg-surface border border-white/5 rounded-xl p-5">
-                                    <h3 class="text-xs font-bold font-mono mb-2">Webhook Integration <span class="tag tag-active ml-2">active</span></h3>
-                                    <p class="text-[11px] text-muted leading-relaxed">Integração via webhooks com plataformas externas e gateways de pagamento.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-
-                lucide.createIcons();
-            } catch(e) {
-                console.error(e);
-            }
+        if(detail.skills) {
+            html += `<div style="margin-bottom:16px"><p style="font-size:9px;font-weight:700;color:#14b8a6;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">Skills Ativas</p><div style="display:flex;flex-wrap:wrap;gap:6px">${detail.skills.map(s=>`<span style="font-size:9px;padding:3px 8px;border-radius:6px;background:rgba(20,184,166,0.08);border:1px solid rgba(20,184,166,0.15);color:#5eead4;font-weight:600">${s}</span>`).join('')}</div></div>`;
         }
+        
+        // Tasks
+        if(detail.tasks) {
+            html += `<div style="border-top:1px solid rgba(255,255,255,0.05);padding-top:16px;margin-top:8px"><p style="font-size:9px;font-weight:700;color:#f59e0b;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Tarefas</p>`;
+            detail.tasks.forEach(t => {
+                html += `<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.02)"><div style="width:14px;height:14px;border-radius:4px;border:1.5px solid ${t.done?'#10b981':'#3a3a50'};background:${t.done?'#10b981':'transparent'};display:flex;align-items:center;justify-content:center;font-size:8px;color:white;flex-shrink:0">${t.done?'✓':''}</div><span style="font-size:10px;color:${t.done?'#6b7280':'#e5e7eb'};${t.done?'text-decoration:line-through':''}">${t.t}</span></div>`;
+            });
+            html += '</div>';
+        }
+    } else {
+        html += `<div style="padding:24px 0;text-align:center"><p style="font-size:11px;color:#6b7280">Clique em "Configurar" para adicionar detalhes a esta etapa.</p><button style="margin-top:12px;font-size:10px;padding:6px 16px;border-radius:8px;border:1px solid rgba(168,85,247,0.3);color:#a855f7;background:rgba(168,85,247,0.05);cursor:pointer;font-weight:600">+ Configurar Etapa</button></div>`;
+    }
+    
+    document.getElementById('drawer-content').innerHTML = html;
+    drawer.classList.add('open');
+}
 
-        document.addEventListener('DOMContentLoaded', () => {
-            renderFlow();
-            syncData();
-        });
-    </script>
+function closeDrawer() {
+    document.getElementById('detail-drawer').classList.remove('open');
+    if(activeNodeId) { document.querySelectorAll('.funnel-node').forEach(n => n.classList.remove('active-node')); }
+}
+
+function zoomCanvas(delta) {
+    currentZoom = Math.max(0.4, Math.min(1.5, currentZoom + delta));
+    const canvas = document.getElementById('funnel-canvas');
+    const svg = document.getElementById('funnel-svg');
+    canvas.style.transform = `scale(${currentZoom})`;
+    canvas.style.transformOrigin = 'top left';
+    svg.style.transform = `scale(${currentZoom})`;
+    svg.style.transformOrigin = 'top left';
+    document.getElementById('zoom-label').textContent = Math.round(currentZoom * 100) + '%';
+}
+
+function resetZoom() {
+    currentZoom = 1;
+    const canvas = document.getElementById('funnel-canvas');
+    const svg = document.getElementById('funnel-svg');
+    canvas.style.transform = 'scale(1)';
+    svg.style.transform = 'scale(1)';
+    document.getElementById('zoom-label').textContent = '100%';
+}
+
+function syncAll() {
+    renderSquads(); renderAgents(); renderSkills();
+    renderPersonas(); renderIntegrations(); renderGates();
+    renderRisks(); renderDesign();
+    lucide.createIcons();
+}
+
+document.addEventListener('DOMContentLoaded', syncAll);
+</script>
 </body>
 </html>

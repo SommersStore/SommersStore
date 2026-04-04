@@ -9,7 +9,7 @@ interface FormulaTechnicalProps {
 
 export default function FormulaSensorial({ item, pageNum }: FormulaTechnicalProps) {
   return (
-    <article className="page-a4 overflow-hidden relative px-16 pt-12 pb-8 flex flex-col">
+    <article className="page-a4 overflow-hidden relative px-24 pt-12 pb-8 flex flex-col">
       <div className="absolute inset-0 z-0 bg-[#050508]">
         <Image src={item.imageSensorial} alt={item.title} fill className="object-cover opacity-50 image-pop" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050508] via-[#050508]/10 to-[#050508]/30" />
@@ -59,9 +59,9 @@ export default function FormulaSensorial({ item, pageNum }: FormulaTechnicalProp
         </div>
       </div>
       
-      <div className="mt-auto pt-4 border-t border-neutral-900/50 flex justify-between relative z-10">
-        <span className="technical-label text-[10px] text-neutral-700 font-bold tracking-widest">THE BLACK PROTOCOL // DELUXE MASTER EDITION.</span>
-        <span className="accent-red font-bold text-[10px]">PAG. {pageNum}</span>
+      <div className="mt-auto pt-4 border-t border-neutral-900/50 flex justify-center items-center relative z-10">
+        <span className="technical-label text-[10px] text-neutral-700 font-bold tracking-widest uppercase">THE BLACK PROTOCOL // DELUXE MASTER EDITION.</span>
+        <span className="accent-red font-bold text-[11px] uppercase tracking-widest absolute -right-8 bg-[#050508] pl-4">PAG. {pageNum}</span>
       </div>
     </article>
   );

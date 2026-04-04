@@ -12,7 +12,7 @@ export default function FormulaTechnical({ item, pageNum }: FormulaTechnicalProp
   const isDensePage = item.id === '07' || item.id === '08' || item.id === '09' || item.id === '11' || item.id === '16';
 
   return (
-    <article className="page-a4 px-16 pt-12 pb-8 justify-between relative border border-neutral-900/50 flex flex-col">
+    <article className="page-a4 px-24 pt-12 pb-8 justify-between relative border border-neutral-900/50 flex flex-col">
       <div className="shadow-flow-container">
         <Image src={item.imageShadow} alt="" fill sizes="50vw" />
         <div className="shadow-flow-mask" />
@@ -75,9 +75,9 @@ export default function FormulaTechnical({ item, pageNum }: FormulaTechnicalProp
         </p>
       </div>
 
-      <div className="pt-4 border-t border-neutral-900/50 flex justify-between relative z-10">
-        <span className="technical-label text-[10px] text-neutral-700 font-bold tracking-widest">THE BLACK PROTOCOL // DELUXE MASTER EDITION.</span>
-        <span className="accent-red font-bold text-[10px]">PAG. {pageNum}</span>
+      <div className="pt-4 border-t border-neutral-900/50 flex justify-center items-center relative z-10">
+        <span className="technical-label text-[10px] text-neutral-700 font-bold tracking-widest uppercase">THE BLACK PROTOCOL // DELUXE MASTER EDITION.</span>
+        <span className="accent-red font-bold text-[11px] uppercase tracking-widest absolute -right-8 bg-[#050508] pl-4">PAG. {pageNum}</span>
       </div>
     </article>
   );

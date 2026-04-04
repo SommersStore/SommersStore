@@ -272,6 +272,7 @@ const protocolChapters: Chapter[] = [
           { name: "Jasmim Sambac", quantity: "4 gotas", imagePath: "/ebook/ingredients/jasmim.png" },
           { name: "Ylang Ylang", quantity: "3 gotas", imagePath: "/ebook/ingredients/ylang.png" },
           { name: "Sândalo", quantity: "2 gotas", imagePath: "/ebook/ingredients/sandalo.png" },
+          { name: "Flor de Lótus", quantity: "2 gotas", imagePath: "/ebook/ingredients/lotus-azul.png" },
         ],
         ritual: "O Jasmim Abre: Mergulhe, feche a visão mecânica do espaço. A base aveludada evoca calma sensual irrestrita profunda noturna do ambiente exótico tropical asiático.",
         preparation: [
@@ -413,8 +414,8 @@ const protocolChapters: Chapter[] = [
         imageSensorial: "/ebook/f01-yuzu.png", imageShadow: "/sais/assets/zen-pain-2.png",
       },
       {
-        id: "EXTRA", category: "A",
-        title: "Protocolo Black\u00A0Master Edition", origin: "SommersStore — Luxury Signature",
+        id: "16", category: "A",
+        title: "Palo Santo &\u00A0Âmbar Ancestral", origin: "SommersStore — Luxury Signature",
         signature: "O fechamento supremo. Uma sinergia oculta de todas as bases minerais com o toque final de Palo Santo e Âmbar real.",
         experienceDesc: "Esta não é apenas uma fórmula; é o selo de encerramento do seu percurso pelo Cofre. O Protocolo Black Master Edition combina a força das resinas ancestrais com a leveza dos citrinos de topo em uma proporção guardada a sete chaves. É o banho da maestria, designado para quando você atinge o ápice do seu poder pessoal e precisa de uma assinatura única que o separe do comum. O ápice do luxo, o fim do mistério.",
         ingredients: ["300g Sais Diversos", "5 gotas Palo Santo", "5 gotas Frankincense", "3 gotas Rosa Taif", "Ouro 24k comestível"],

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function EbookFinalPage({ pageNum }: { pageNum: string }) {
   return (
-    <article className="page-a4 overflow-hidden relative border border-neutral-900/50 flex flex-col items-center justify-center text-center px-16">
+    <article className="page-a4 overflow-hidden relative border border-neutral-900/50 flex flex-col items-center justify-center text-center px-24">
       {/* Conteúdo Original Estável */}
       <div className="absolute inset-0 z-0">
         <Image src="/ebook/master_cover.png" alt="" fill className="object-cover opacity-20 grayscale" />

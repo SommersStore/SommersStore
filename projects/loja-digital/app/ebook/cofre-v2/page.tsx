@@ -43,19 +43,19 @@ export default function MasterEditionEbook() {
 
             {chapter.formulas.map((item: Formula, fIdx: number) => {
               const sensorialPage = chapterPageNum + 1 + (fIdx * 3);
-              const ingredientsPage = sensorialPage + 1;
-              const technicalPage = ingredientsPage + 1;
+              const technicalPage = sensorialPage + 1;
+              const ingredientsPage = technicalPage + 1;
 
               return (
                 <React.Fragment key={item.id}>
                   {/* PÁGINA 1: SENSORIAL (IMAGEM GRANDE) */}
                   <FormulaSensorial item={item} pageNum={String(sensorialPage).padStart(2, '0')} />
                   
-                  {/* PÁGINA 2: INGREDIENTES (GRID DE IMAGENS) */}
-                  <FormulaIngredients item={item} pageNum={String(ingredientsPage).padStart(2, '0')} />
-                  
-                  {/* PÁGINA 3: TÉCNICA (PREPARO E RITUAL) */}
+                  {/* PÁGINA 2: TÉCNICA (PREPARO E RITUAL) */}
                   <FormulaTechnical item={item} pageNum={String(technicalPage).padStart(2, '0')} />
+
+                  {/* PÁGINA 3: INGREDIENTES (GRID DE IMAGENS) */}
+                  <FormulaIngredients item={item} pageNum={String(ingredientsPage).padStart(2, '0')} />
                 </React.Fragment>
               );
             })}

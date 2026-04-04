@@ -7,7 +7,7 @@ export default function AlchemySilencePage({ pageNum }: { pageNum: string }) {
     <PageShell pageNum={pageNum} className="justify-center overflow-hidden">
       <div className="grid grid-cols-2 h-full w-full">
         {/* Coluna Esquerda: Texto Inspirador */}
-        <div className="flex flex-col justify-center px-16 bg-[#050508] relative z-10">
+        <div className="flex flex-col justify-center px-24 bg-[#050508] relative z-10">
           <div className="mb-12">
             <p className="technical-label text-[11px] text-[#C5A059] tracking-[0.8em] font-bold uppercase mb-4 opacity-60">Direção & Visão</p>
             <h2 className="title-gold italic text-6xl leading-tight mb-8">Elisa Clark:<br/>A Guardiã do<br/>Invisível</h2>
