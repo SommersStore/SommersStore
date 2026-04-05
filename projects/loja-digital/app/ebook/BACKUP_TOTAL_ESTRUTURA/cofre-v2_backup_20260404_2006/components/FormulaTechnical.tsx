@@ -68,13 +68,13 @@ export default function FormulaTechnical({ item, pageNum }: FormulaTechnicalProp
           </div>
         </div>
       </div>
-      <div className={`relative z-10 border-t border-neutral-900/50 mt-auto mb-3 ${isDensePage ? 'pt-2 pb-2 px-0' : 'pt-4 pb-1 text-center'}`}>
-        <p className={`title-gold font-serif italic opacity-90 leading-tight ${item.legacyPhrase.length > 150 ? 'text-[19px] px-0' : 'text-[23px] px-0'}`}>
+      <div className={`relative z-10 text-center border-t border-neutral-900/50 mt-auto mb-1 ${isDensePage ? 'pt-4 pb-1' : 'pt-5 pb-1'}`}>
+        <p className={`title-gold font-serif italic opacity-90 leading-tight ${item.legacyPhrase.length > 150 ? 'text-[19px] px-12' : 'text-[23px] px-8'}`}>
           &quot;{item.legacyPhrase}&quot;
         </p>
       </div>
 
-      <div className="pt-2 border-t border-neutral-900/50 flex justify-center items-center relative z-10">
+      <div className="pt-4 border-t border-neutral-900/50 flex justify-center items-center relative z-10">
         <span className="technical-label text-[10px] text-neutral-700 font-bold tracking-widest uppercase">THE BLACK PROTOCOL // DELUXE MASTER EDITION.</span>
         <span className="accent-red font-bold text-[11px] uppercase tracking-widest absolute -right-8 bg-[#050508] pl-4">PAG. {pageNum}</span>
       </div>

@@ -7,11 +7,9 @@ import type { Formula } from "../types/chapters";
 interface FormulaIngredientsProps {
   item: Formula;
   pageNum: string;
-  startIndex?: number;
-  endIndex?: number;
 }
 
-export default function FormulaIngredients({ item, pageNum, startIndex = 0, endIndex = 6 }: FormulaIngredientsProps) {
+export default function FormulaIngredients({ item, pageNum }: FormulaIngredientsProps) {
   // Decomposição da origem para a lista
   const originParts = item.origin.split(/\s*[—-]\s*/);
   const region = originParts[0];
@@ -65,7 +63,7 @@ export default function FormulaIngredients({ item, pageNum, startIndex = 0, endI
 
       {/* Grid de Ingredientes Cinematográfico 9:16 */}
       <div className="formula-grid-container relative z-10">
-        {item.ingredientImages?.slice(startIndex, endIndex).map((ing, i) => (
+        {item.ingredientImages.map((ing, i) => (
           <div key={i} className="ingredient-cinematic-card">
             <div className="img-frame">
               <div className="absolute inset-0 bg-neutral-900/40 z-0" />
@@ -85,7 +83,7 @@ export default function FormulaIngredients({ item, pageNum, startIndex = 0, endI
               {/* ID Tag superior */}
               <div className="absolute top-2 left-2 z-20">
                 <span className="text-[8px] text-red-800 font-bold uppercase tracking-tighter font-[Montserrat,sans-serif]">
-                  INS_{String(i + startIndex + 1).padStart(2, '0')}
+                  INS_0{i + 1}
                 </span>
               </div>
             </div>
@@ -98,7 +96,7 @@ export default function FormulaIngredients({ item, pageNum, startIndex = 0, endI
       </div>
 
       {/* Nota de qualidade sutil junto ao rodapé */}
-      <div className="relative z-10 mb-1 bg-[#C5A059]/5 border-l-2 border-red-800/30 px-4 pt-4 pb-2">
+      <div className="relative z-10 mb-2 bg-[#C5A059]/5 border-l-2 border-red-800/30 p-4">
         <p className="font-serif text-[11px] italic text-neutral-500 leading-relaxed max-w-3xl">
           Todos os insumos devem ser adquiridos de fornecedores certificados com laudo de pureza. 
           A qualidade dos óleos essenciais é determinante para o resultado final da composição e para a segurança dermatológica do produto acabado.

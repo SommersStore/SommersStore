@@ -54,13 +54,8 @@ export default function MasterEditionEbook() {
                   {/* PÁGINA 2: TÉCNICA (PREPARO E RITUAL) */}
                   <FormulaTechnical item={item} pageNum={String(technicalPage).padStart(2, '0')} />
 
-                  {/* PÁGINA 3: INGREDIENTES (GRID DE IMAGENS PARTE 1) */}
-                  <FormulaIngredients item={item} pageNum={String(ingredientsPage).padStart(2, '0')} startIndex={0} endIndex={6} />
-
-                  {/* PÁGINA Extra EXCLUSIVA F-16: INGREDIENTES (GRID PARTE 2) */}
-                  {item.id === "16" && (
-                    <FormulaIngredients item={item} pageNum={String(ingredientsPage + 1).padStart(2, '0')} startIndex={6} endIndex={12} />
-                  )}
+                  {/* PÁGINA 3: INGREDIENTES (GRID DE IMAGENS) */}
+                  <FormulaIngredients item={item} pageNum={String(ingredientsPage).padStart(2, '0')} />
                 </React.Fragment>
               );
             })}
@@ -68,9 +63,12 @@ export default function MasterEditionEbook() {
         );
       })}
 
-      {/* PÁGINA FINAL */}
-      <AlchemySilencePage pageNum="60" />
-      <ClosingPage pageNum="61" />
+      {/* PÁGINA FINAL - ALQUIMIA DO SILÊNCIO (ÚLTIMA FÓRMULA + 2) */}
+      {/* O cálculo dinâmico acima garante que as páginas sigam a sequência correta. 
+          A página final virá logo após a última página da 16ª fórmula. */}
+      
+      <AlchemySilencePage pageNum="59" />
+      <ClosingPage pageNum="60" />
 
     </div>
   );

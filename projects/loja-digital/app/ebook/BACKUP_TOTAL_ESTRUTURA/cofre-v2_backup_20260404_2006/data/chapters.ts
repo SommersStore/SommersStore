@@ -11,7 +11,7 @@ const protocolChapters: Chapter[] = [
     formulas: [
       {
         id: "01", category: "A",
-        title: "Yuzu Imperial\u00A0do Solstício", origin: "Japão — Kyoto Garden Ritual",
+        title: "Yuzu Imperial do Solstício", origin: "Japão — Kyoto Garden Ritual",
         signature: "Fresco, ácido, aristocrático. Um banho cinético que reconecta a mente com a precisão japonesa. Verde-limão translúcido e pó de matcha puro flutuando em sais marinhos.",
         longSignature: "O Yuzu não é apenas um limão; é a assinatura da realeza japonesa. O Matcha não é apenas um chá; é a meditação líquida. Juntos, criam um protocolo de despertar que limpa a fadiga adrenal e instaura uma clarea mental cortante como uma lâmina de katana.",
         experienceDesc: "Você está lidando com a aristocracia dos citrinos. O Yuzu Imperial não grita; ele anuncia sua presença com uma elegância ácida que corta o cansaço mental como uma lâmina. Ao fundir-se com a terra herbácea do Matcha de grau cerimonial, o banho deixa de ser um relaxamento passivo para tornar-se uma ativação estratégica. O vapor carrega moléculas que reorganizam sua percepção, preparando-o para o domínio absoluto do dia. É o amanhecer do império pessoal.",
@@ -97,8 +97,8 @@ const protocolChapters: Chapter[] = [
     imageAbertura: "/ebook/spa.png",
     formulas: [
       {
-        id: "04", category: "B",
-        title: "Vetiver Noturno\u00A0de Ceilão", origin: "Sri Lanka — Night Protocol",
+        id: "04", category: "A",
+        title: "Vetiver Noturno de Ceilão", origin: "Sri Lanka — Night Protocol",
         signature: "Terroso, seco, imponente. O cheiro de uma biblioteca antiga de carvalho fundida com o ar gelado das montanhas marroquinas. Força bruta.",
         longSignature: "O Cedro do Atlas é a árvore da imortalidade. O Musgo de Carvalho é a paciência da floresta. Um protocolo de aterramento extremo, desenhado para quem precisa de solidez emocional e clareza de propósito.",
         experienceDesc: "Mergulhar neste blend é como entrar em uma floresta milenar que não conhece o tempo. O Cedro do Atlas traz a verticalidade, a sensação de espinha ereta e autoridade. O Musgo de Carvalho, úmido e persistente, completa a experiência garantindo que seu sistema nervoso reconheça a segurança da terra. O vapor se torna denso, resinoso, monástico. Não há lugar para a pressa aqui; há apenas o tempo necessário para que você se torne tão sólido quanto a madeira de lei que o cerca.",
@@ -181,7 +181,7 @@ const protocolChapters: Chapter[] = [
     formulas: [
       {
         id: "07", category: "A",
-        title: "Tulipa & Yuzu\u00A0de Amsterdã", origin: "Europa — Edição Limitada",
+        title: "Tulipa & Yuzu de Amsterdã", origin: "Europa — Edição Limitada",
         signature: "Especiado-quente, adocicado, dourado. O banho de Cleópatra reimaginado para o século XXI. Coloração âmbar brilhante com estigmas de açafrão em suspensão.",
         longSignature: "O Açafrão é a especiaria mais cara do mundo. O Damasco é o fruto da juventude. Um protocolo de brilho absoluto, tanto para a pele quanto para a disposição interna, evocando a opulência dos palácios persas.",
         experienceDesc: "O luxo aqui é quase palpável. O Açafrão Real, colhido à mão sob o sol do Irã, libera seus pigmentos e aromas terrosos-doces na água, tingindo-a em um tom de ouro líquido. O extrato de Damasco fornece a textura de seda que envolve a pele, criando uma barreira de hidratação e sofisticação tátil. Na banheira, você não está mergulhado em água; está mergulhado em riqueza líquida. O resultado é um magnetismo dourado, uma sensação de valor pessoal que transborda no seu olhar.",
@@ -207,7 +207,7 @@ const protocolChapters: Chapter[] = [
       },
       {
         id: "08", category: "A",
-        title: "Rosa Taif &\u00A0Neroli Branco", origin: "Oriente Médio — Luxury Spa",
+        title: "Rosa Taif & Neroli Branco", origin: "Oriente Médio — Luxury Spa",
         signature: "Buquê floral-luminoso, absurdamente refinado e de perfume de hotéis resorts hiper-exclusivos nas áridas montanhas e lagos quentes.",
         longSignature: "O luxo silencioso dos resorts mais exclusivos de Dubai transformado em ritual. Rosa Taif é a assinatura de quem não precisa de apresentações. O Neroli traz a luz solar necessária para revitalizar um espírito cansado de excelência.",
         experienceDesc: "Este blend não é sobre se limpar da sujeira física; é sobre espantar a miséria energética diária de conviver com mentes pequenas operando na escassez. O toque cortante do Neroli atua fundindo a nobreza majestosa das Rosas do Oriente. No instante em que os sais tocam a água e seu corpo imerge, aquele luxo invisível dos resorts milionários de Dubai e Bali se teletransportam para dentro do seu ritual sagrado pessoal. Uma assinatura sensorial bilionária.",
@@ -267,7 +267,7 @@ const protocolChapters: Chapter[] = [
     formulas: [
       {
         id: "10", category: "B",
-        title: "Jasmim Sambac\u00A0da Noite", origin: "Sudeste Asiático — Creme Branco",
+        title: "Jasmim Sambac da Noite", origin: "Sudeste Asiático — Creme Branco",
         signature: "Branco, cremoso, aveludado, inesquecível. Como vestir uma túnica alva tecida no mais perfumado e caríssimo dos florais femininos indianos.",
         experienceDesc: "Branco, cremoso, aveludado, inesquecível. Como vestir uma túnica alva tecida no mais perfumado e caríssimo dos florais indianos. Ao deitar nessa água leitosa perfumada pelo caríssimo Jasmim Sambac e enraizada no sândalo, todo o frenesi do mundo colapsa. Você transcende. Você não é mais refém do estresse, nem operária de sua própria vida; o vapor sela as fendas da sua aura e instaura uma calmaria estética absurda, te levando a um estado místico indiano onde sua frequência ressoa diretamente com a nobreza pura e impenetrável.",
         ingredients: ["160g Sal Rosa", "90g Sal Marinho", "4 gotas Jasmine Sambac Absolute", "3 gotas Ylang", "2 gotas Sândalo"],
@@ -317,7 +317,7 @@ const protocolChapters: Chapter[] = [
       },
       {
         id: "12", category: "A",
-        title: "Obsidiana Floral\u00A0com Sal Negro Havaiano", origin: "Havaí — Detox Visual",
+        title: "Obsidiana Floral — Sal Negro Havaiano", origin: "Havaí — Detox Visual",
         signature: "Seco. Resinoso. Incrivelmente Cerimonial. Um abismo aromático adulto, escuro e amadeirado. Alta perfumaria de nicho exótica transmutada em sais esotéricos minéricos purificados esteticamente puros.",
         longSignature: "O Chifre da África entrega o sangue milenar do deserto. Olíbano e Mirra são o código da soberania milenar. Um banho de resinas secas que impõe respeito e restaura a autoridade moral do seu portador.",
         experienceDesc: "Resinas são o sangue milenar do deserto que chora e não morre. Elas sustentam o luxo intransigente que não pede licença para existir, apenas existe e impõe majestade. Essa infusão não quer sua alegria boba; ela quer o encerramento do seu tumulto e a instauração da sua verdadeira autoridade moral monástica sobre o seu próprio eu. Um portal maciço de controle, realeza, solidez. O peso de uma árvore do incenso ancorando seu império isolado nos mares salgados.",
@@ -400,7 +400,7 @@ const protocolChapters: Chapter[] = [
       },
       {
         id: "15", category: "A",
-        title: "Vetiver & Flor\u00A0de Laranjeira Noturna", origin: "Mediterrâneo — Night Protocol",
+        title: "Vetiver & Flor de Laranjeira Noturna", origin: "Mediterrâneo — Night Protocol",
         signature: "Frio, salino, animalesco-sofisticado. O cheiro da maresia profunda fundida com a resina mais cara dos oceanos.",
         experienceDesc: "Este é o banho do explorador aristocrata. O Âmbar Cinza é a nota animal mais refinada da perfumaria, evocando o mistério dos oceanos profundos. O Sal Marinho Bruto traz a integridade da terra e do mar. É um banho de força, de amplidão, de horizontes infinitos. Para quem não teme a frieza do sucesso e precisa de uma energia que limpe e tonifique a alma com o vigor das águas revoltas do Mar do Norte.",
         ingredients: ["250g Sal Marinho Bruto", "4 gotas Ambergris Accord", "3 gotas Algas Marinhas", "2 gotas Pinheiro"],
@@ -424,50 +424,27 @@ const protocolChapters: Chapter[] = [
       },
       {
         id: "16", category: "A",
-        title: "Trono Solar\u00A0das Civilizações", origin: "Egito · Oriente Antigo · Mesoamérica",
-        signature: "Dourado, âmbar, azul profundo e levemente floral. Um banho de coroação, presença e silêncio monumental.",
-        longSignature: "O Lótus Azul é a mística egípcia. O Olíbano e a Mirra trazem o peso inegociável dos templos antigos. Um protocolo concebido não para o cotidiano, mas para encerrar ciclos no ponto mais alto, quando a alma exige altitude.",
-        experienceDesc: "Esta composição é uma descida voluntária ao centro do próprio império interior. Ao tocar a água, os minerais dissolvem-se como um portal. O olíbano ergue a muralha cerimonial enquanto o Lótus Azul paira sublime. O Osmanthus instaura a luz aristocrática e a nota quente de cacau ecoa como um rito sagrado terrestre. O ritual deixa de ser banho e se transmuta em um trono material de soberania.",
-        ingredients: [
-          "160g Sal Rosa do Himalaia",
-          "120g Dead Sea Salt",
-          "60g Sal Epsom",
-          "4 gotas de Lótus Azul",
-          "3 gotas de Olíbano",
-          "2 gotas de Mirra",
-          "2 gotas de Osmanthus",
-          "1 gota de Absoluto de Cacau",
-          "1 cl. (chá) Óleo de Baobá",
-          "1 cl. (chá) Jojoba Dourada",
-          "Pétalas de tom azul-profundo",
-          "Fios Dourados Botânicos"
-        ],
+        title: "Palo Santo & Âmbar Ancestral", origin: "SommersStore — Luxury Signature",
+        signature: "O fechamento supremo. Uma sinergia oculta de todas as bases minerais com o toque final de Palo Santo e Âmbar real.",
+        experienceDesc: "Esta não é apenas uma fórmula; é o selo de encerramento do seu percurso pelo Cofre. O Protocolo Black Master Edition combina a força das resinas ancestrais com a leveza dos citrinos de topo em uma proporção guardada a sete chaves. É o banho da maestria, designado para quando você atinge o ápice do seu poder pessoal e precisa de uma assinatura única que o separe do comum. O ápice do luxo, o fim do mistério.",
+        ingredients: ["300g Sais Diversos", "5 gotas Palo Santo", "5 gotas Frankincense", "3 gotas Rosa Taif", "Ouro 24k comestível"],
         ingredientImages: [
-          { name: "Sal Rosa", quantity: "160g", imagePath: "/ebook/ingredients/sal-rosa.png" },
-          { name: "Dead Sea Salt", quantity: "120g", imagePath: "/ebook/ingredients/sal-marinho.png" },
-          { name: "Sal Epsom", quantity: "60g", imagePath: "/ebook/ingredients/sal-epsom.png" },
-          { name: "Lótus Azul", quantity: "4 gotas", imagePath: "/ebook/botanical.png" },
-          { name: "Olíbano", quantity: "Resinas", imagePath: "/ebook/ingredients/olibano.png" },
-          { name: "Mirra", quantity: "Resinas", imagePath: "/ebook/ingredients/olibano.png" },
-          { name: "Osmanthus", quantity: "2 gotas", imagePath: "/ebook/botanical.png" },
-          { name: "Absoluto Cacau", quantity: "1 gota", imagePath: "/ebook/botanical.png" },
-          { name: "Óleo Baobá", quantity: "1 colher", imagePath: "/ebook/ingredients/oliva.png" },
-          { name: "Jojoba Ouro", quantity: "1 colher", imagePath: "/ebook/ingredients/oliva.png" },
-          { name: "Pétalas Azul", quantity: "Adorno", imagePath: "/ebook/botanical-2.png" },
-          { name: "Fios d'Ouro", quantity: "Açafrão", imagePath: "/ebook/ingredients/acafrao.png" }
+          { name: "Sais Diversos", quantity: "300g", imagePath: "/ebook/ingredients/dead-sea.png" },
+          { name: "Palo Santo", quantity: "5 gotas", imagePath: "/ebook/ingredients/palo-santo.png" },
+          { name: "Olíbano", quantity: "5 gotas", imagePath: "/ebook/ingredients/olibano.png" },
+          { name: "Rosa Taif", quantity: "3 gotas", imagePath: "/ebook/ingredients/rosa.png" },
+          { name: "Ouro 24k", quantity: "Folhas", imagePath: "/ebook/ingredients/acafrao.png" },
+          { name: "Elemento Extra 6", quantity: "Marcação", imagePath: "/ebook/botanical.png" },
         ],
-        ritual: "Coroação do Último Portal: Use à noite, com luz baixa e silêncio absoluto. Quando o vapor abrir primeiro o olíbano, entregue-se à consagração definitiva.",
+        ritual: "A Maestria Final: Silêncio, sombra e a luz dourada do sucesso. Ocupação total do espaço com a fragrância ruiu-se a opulência.",
         preparation: [
-          "No recipiente seco, una o Sal Rosa, o Mar Morto e o Epsom, respeitando a hierarquia escultural dos cristais.",
-          "Em um béquer, combine jojoba pura e óleo de baobá como a matriz líquida vital da formulação.",
-          "Dilua o Lótus Azul, o Olíbano, a Mirra e o Osmanthus nessa fase alquímica com gestos extremamente lentos.",
-          "Incorpore o Cacau aos sais, finalizando com pétalas azul-marfim e pontuais fios dourados botânicos.",
-          "Maturar por 48 horas em ambiente escuro. A maturação nesta fórmula não é um detalhe; é parte estrutural do rito."
+          "Misture todas as vertentes salinas em um cristal gigante unificado.",
+          "Asperja as camadas de óleos em tempos diferentes, criando texturas de odor.",
+          "Finalize com o ouro flutuante.",
+          "Edição Limitada: Apenas para portadores do Master Edition."
         ],
-        presentationBox: "Envase em frasco escurecido pesadíssimo, de preferência com aro dourado. A embalagem deve transpirar relíquia e não cosmético comum. Este é um artefato de soberania sensorial.",
-        legacyPhrase: "Quando civilizações se fundem no vapor, o ritual vira trono.",
-        imageSensorial: "/ebook/master_cover.png", 
-        imageShadow: "/sais/assets/zen-dark-hero.png"
+        legacyPhrase: "Onde o mistério acaba, a lenda começa.",
+        imageShadow: "/sais/assets/zen-dark-hero.png", imageSensorial: "/ebook/master_cover.png"
       }
     ]
   }

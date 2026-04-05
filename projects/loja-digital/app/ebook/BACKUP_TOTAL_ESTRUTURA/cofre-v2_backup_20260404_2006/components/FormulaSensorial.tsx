@@ -29,11 +29,11 @@ export default function FormulaSensorial({ item, pageNum }: FormulaTechnicalProp
         <div className="flex gap-12 justify-between items-start w-full">
           <div className="flex-1">
             <div className="mb-10 bg-[#050508]/20 backdrop-blur-sm border border-red-800/10 px-5 py-2.5 border-l-2 border-l-red-800 inline-block shadow-[0_5px_15px_rgba(0,0,0,0.3)]">
-              <p className="technical-label text-[12px] !text-[#C5A059] font-bold uppercase tracking-[0.5em] p-0 m-0 drop-shadow-lg">
+              <p className="technical-label text-[12px] text-[#C5A059] font-bold uppercase tracking-[0.5em] p-0 m-0 drop-shadow-lg">
                 {item.origin.split(/\s*[—-]\s*/)[0]}
               </p>
               {item.origin.split(/\s*[—-]\s*/)[1] && (
-                <p className="technical-label text-[9px] !text-[#C5A059] font-bold uppercase tracking-[0.3em] p-0 mt-3 opacity-90">
+                <p className="technical-label text-[9px] text-neutral-400 font-bold uppercase tracking-[0.3em] p-0 mt-3 opacity-90">
                   {item.origin.split(/\s*[—-]\s*/)[1]}
                 </p>
               )}
@@ -44,7 +44,7 @@ export default function FormulaSensorial({ item, pageNum }: FormulaTechnicalProp
           </div>
           
           <div className="flex-1 border-l border-neutral-800 p-8 bg-[#050508]/30 backdrop-blur-sm">
-            <h5 className="technical-label text-[10px] !text-[#C5A059] mb-6 uppercase tracking-[0.3em] font-bold">O Arquétipo Sensorial Absoluto</h5>
+            <h5 className="technical-label text-[10px] text-[#C5A059] mb-6 uppercase tracking-[0.3em] font-bold">O Arquétipo Sensorial Absoluto</h5>
             <p className="font-serif text-[16px] leading-relaxed italic text-neutral-400 opacity-90 text-justify">
               {item.experienceDesc}
             </p>
@@ -53,7 +53,7 @@ export default function FormulaSensorial({ item, pageNum }: FormulaTechnicalProp
       </div>
       <div className="absolute top-6 right-8 z-20">
         <div className="[writing-mode:vertical-rl] bg-[#050508]/20 backdrop-blur-sm border border-red-800/10 py-6 px-3 border-t-2 border-t-red-800 inline-block shadow-[0_5px_15px_rgba(0,0,0,0.3)]">
-          <span className="technical-label text-[10px] !text-[#C5A059] inline-block font-bold tracking-[0.8em] drop-shadow-lg">
+          <span className="technical-label text-[10px] text-[#C5A059] inline-block font-bold tracking-[0.8em] drop-shadow-lg">
             LEGACY PROTOCOL – {item.id}
           </span>
         </div>

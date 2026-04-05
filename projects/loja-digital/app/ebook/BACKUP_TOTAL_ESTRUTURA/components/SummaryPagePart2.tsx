@@ -9,26 +9,6 @@ interface SummaryPagePart2Props {
 }
 
 export default function SummaryPagePart2({ chapters, pageNum }: SummaryPagePart2Props) {
-  // Mapa de correção de títulos — referência: "As 12 fórmulas que eu escolheria.md"
-  const titleOverrides: Record<string, string> = {
-    "01": "Yuzu Imperial do Solstício (Japão)",
-    "02": "Hammam de Atlas (Marrocos)",
-    "03": "Rosa de Jaipur com Açafrão (Índia)",
-    "04": "Vetiver Noturno de Ceilão (Sri Lanka)",
-    "05": "Lótus Azul do Nilo (Egito)",
-    "06": "Olíbano & Mirra do Deserto (Arábia)",
-    "07": "Tulipa & Yuzu de Amsterdã (Europa)",
-    "08": "Rosa Taif & Neroli Branco (Oriente Médio)",
-    "09": "Rosa Indiana & Amêndoas Doces (Ayurveda)",
-    "10": "Jasmim Sambac da Noite (Índia/Ásia)",
-    "11": "Mineral do Mar Morto com Lavanda Branca",
-    "12": "Obsidiana Floral — Sal Negro Havaiano",
-    "13": "Chá Branco & Osmanthus Oriental",
-    "14": "Açafrão Branco & Flor de Laranjeira",
-    "15": "Vetiver & Flor de Laranjeira Noturna",
-    "16": "Palo Santo & Âmbar Ancestral (Signature)",
-  };
-
   // Página 2: Capítulos IV e V
   const page2Chapters = chapters.slice(3, 5);
   
@@ -68,20 +48,15 @@ export default function SummaryPagePart2({ chapters, pageNum }: SummaryPagePart2
                       <div className="w-3.5 h-3.5 bg-red-800 rounded-full" />
                       CAP. {cap.chapterId} — {cap.chapterTitle.toUpperCase()}
                     </span>
+                    <span className="text-[12px] opacity-40 font-sans tracking-normal">({cap.formulas.length} FÓRMULAS)</span>
                   </h3>
 
                   <div className="grid grid-cols-1 gap-5">
                     {cap.formulas.map((f: Formula, jIdx: number) => (
                       <div key={f.id} className="flex justify-between items-baseline border-b border-neutral-900/30 pb-2 group hover:border-[#C5A059]/40 transition-colors">
                         <span className="text-[#F5F5DC]/90 text-[20px] italic tracking-tight group-hover:text-[#F5F5DC] transition-all duration-300 leading-none">
-                          {(() => {
-                            const full = titleOverrides[f.id] || f.title.replace(/\u00A0/g, ' ');
-                            const match = full.match(/^(.+?)(\s*\(.+\))$/);
-                            if (match) {
-                              return <>{match[1]}<span className="technical-label text-[10px] text-neutral-500 not-italic tracking-[0.1em] uppercase ml-2">{match[2]}</span></>;
-                            }
-                            return full;
-                          })()}
+                          {f.title.replace(/\u00A0/g, ' ')}
+                          <span className="opacity-20 text-[12px] uppercase tracking-tighter ml-4 font-sans">P_{f.category}</span>
                         </span>
                         <div className="flex-1 border-b border-dotted border-white/10 mx-6" />
                         <span className="text-[#C5A059] text-[16px] font-bold tracking-widest sans-extra-light shrink-0">
