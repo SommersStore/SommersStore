@@ -68,8 +68,10 @@ export default function FormulaTechnical({ item, pageNum }: FormulaTechnicalProp
           </div>
         </div>
       </div>
-      <div className={`relative z-10 border-t border-neutral-900/50 mt-auto mb-3 ${isDensePage ? 'pt-2 pb-2 px-0' : 'pt-4 pb-1 text-center'}`}>
-        <p className={`title-gold font-serif italic opacity-90 leading-tight ${item.legacyPhrase.length > 150 ? 'text-[19px] px-0' : 'text-[23px] px-0'}`}>
+
+      {/* CITAÇÃO FINAL - AGORA SEMPRE CENTRALIZADA PARA TODAS AS FÓRMULAS */}
+      <div className={`relative z-10 border-t border-neutral-900/50 mt-auto mb-3 text-center ${isDensePage ? 'pt-2 pb-2' : 'pt-4 pb-1'}`}>
+        <p className={`title-gold font-serif italic opacity-90 leading-tight mx-auto ${item.legacyPhrase.length > 150 ? 'text-[19px] max-w-2xl' : 'text-[23px] max-w-xl'}`}>
           &quot;{item.legacyPhrase}&quot;
         </p>
       </div>

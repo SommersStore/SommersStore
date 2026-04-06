@@ -33,6 +33,11 @@ export default function SummaryPage({ chapters, pageNum }: SummaryPageProps) {
 
   // Configuração de numeração dinâmica: 3 páginas por fórmula (Sensorial + Ingredientes + Técnica)
   // P06 é a abertura do Cap I
+  const getChapterPageNum = (capIdx: number) => {
+    const formulasBefore = chapters.slice(0, capIdx).reduce((acc: number, c: Chapter) => acc + c.formulas.length, 0);
+    return String(6 + (capIdx * 1) + (formulasBefore * 3)).padStart(2, '0');
+  };
+
   const getPageNum = (capIdx: number, formulaIdx: number) => {
     const formulasBefore = chapters.slice(0, capIdx).reduce((acc: number, c: Chapter) => acc + c.formulas.length, 0);
     // Cada capítulo anterior: 1 abertura + (fórmulas * 3 páginas)
@@ -68,10 +73,16 @@ export default function SummaryPage({ chapters, pageNum }: SummaryPageProps) {
             {chapters.map((cap, i) => (
               <div key={i} className="relative z-10 pb-0">
                 {/* Cabeçalho de Capítulo */}
-                <h3 className="technical-label text-[11px] text-[#C5A059] mb-2 tracking-[0.15em] border-b border-[#C5A059]/20 pb-1.5 font-bold flex items-center italic uppercase">
+                <h3 className="text-[#C5A059] mb-2 border-b border-[#C5A059]/20 pb-1.5 flex justify-between items-baseline transition-colors">
                   <span className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-red-800 rounded-full" />
-                    CAP. {cap.chapterId} — {cap.chapterTitle.toUpperCase()}
+                    <span className="text-[18px] italic tracking-tight leading-none drop-shadow-sm">
+                      <span className="text-[14px] font-bold mr-3 not-italic">CAP. {cap.chapterId} &mdash;</span>
+                      {cap.chapterTitle}
+                    </span>
+                  </span>
+                  <span className="text-[#C5A059] text-[14px] font-bold not-italic shrink-0 pr-3">
+                    Pag. {getChapterPageNum(i)}
                   </span>
                 </h3>
 

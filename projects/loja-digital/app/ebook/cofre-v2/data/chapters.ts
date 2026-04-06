@@ -3,11 +3,11 @@ import { Chapter } from "../types/chapters";
 const protocolChapters: Chapter[] = [
   {
     chapterId: "I",
-    chapterTitle: "Rituais de Luz e Clareza",
+    chapterTitle: "Rituais de Luz e\u00A0Clareza",
     chapterDesc: "Abertura solar, clareza mental e o despertar dos sentidos através de notas cítricas nobres da Itália e do Japão.",
     chapterManifesto: "O início de todo protocolo de luxo é o despertar. Não se constrói um império em um estado de névoa mental. As notas de topo como o Yuzu Real e a Bergamota não são apenas cheiros; são gatilhos neuro-estéticos de prontidão. Este capítulo é o seu portal de entrada para o foco inabalável. Quando o cítrico toca o vapor, o mundo lá fora silencia e a sua visão estratégica assume o comando.",
     chapterSpecs: ["Foco: Clareza e Vitalidade", "Notas: Cítricas e Herbais", "Ação: Despertar Cognitivo"],
-    imageAbertura: "/ebook/master_cover.png",
+    imageAbertura: "/ebook/f01-yuzu.png",
     formulas: [
       {
         id: "01", category: "A",
@@ -173,7 +173,7 @@ const protocolChapters: Chapter[] = [
   },
   {
     chapterId: "III",
-    chapterTitle: "Rituais Florais de Luxo",
+    chapterTitle: "Rituais Florais de\u00A0Luxo",
     chapterDesc: "Fórmulas de extremo valor estético e perfumaria de nicho. Jasmim, Rosas raras e o toque dourado do Açafrão indiano para o brilho da pele e da alma.",
     chapterManifesto: "O luxo sem beleza é apenas utilitarismo. Quando as mentes despertaram e os corpos se ancoraram, é hora de permitir a expansão da alma através da estética floral. A Rosa de Taif e o Açafrão Real não são caprichos; são o ápice do refinamento sensorial. Este capítulo é o seu salão de banquetes privado. Destinado a momentos de deleite, celebração da própria trajetória e o cultivo de uma aura magnética que só a raridade das flores mais nobres pode conferir.",
     chapterSpecs: ["Foco: Magnetismo e Estética", "Notas: Florais e Especiarias", "Ação: Expansão Vibracional"],
@@ -424,7 +424,7 @@ const protocolChapters: Chapter[] = [
       },
       {
         id: "16", category: "A",
-        title: "Trono Solar\u00A0das Civilizações", origin: "Egito · Oriente Antigo · Mesoamérica",
+        title: "Trono Solar\u00A0das Civilizações", origin: "Egito-Oriente — mesoamérica",
         signature: "Dourado, âmbar, azul profundo e levemente floral. Um banho de coroação, presença e silêncio monumental.",
         longSignature: "O Lótus Azul é a mística egípcia. O Olíbano e a Mirra trazem o peso inegociável dos templos antigos. Um protocolo concebido não para o cotidiano, mas para encerrar ciclos no ponto mais alto, quando a alma exige altitude.",
         experienceDesc: "Esta composição é uma descida voluntária ao centro do próprio império interior. Ao tocar a água, os minerais dissolvem-se como um portal. O olíbano ergue a muralha cerimonial enquanto o Lótus Azul paira sublime. O Osmanthus instaura a luz aristocrática e a nota quente de cacau ecoa como um rito sagrado terrestre. O ritual deixa de ser banho e se transmuta em um trono material de soberania.",

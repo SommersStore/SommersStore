@@ -13,7 +13,7 @@ interface FormulaIngredientsProps {
 
 export default function FormulaIngredients({ item, pageNum, startIndex = 0, endIndex = 6 }: FormulaIngredientsProps) {
   // Decomposição da origem para a lista
-  const originParts = item.origin.split(/\s*[—-]\s*/);
+  const originParts = item.origin.split(/\s+[-—–]\s+/);
   const region = originParts[0];
   const concept = originParts[1];
 
@@ -58,7 +58,10 @@ export default function FormulaIngredients({ item, pageNum, startIndex = 0, endI
         </div>
 
         <h3 className="title-gold text-4xl italic leading-tight tracking-tight mb-4 pr-32">
-          {item.title.replace(/\u00A0/g, ' ')}
+          {item.title
+            .replace(/\u00A0/g, ' ')
+            .replace("Sal Negro Havaiano", "Sal\u00A0Negro\u00A0Havaiano")
+            .replace("Flor de Laranjeira", "Flor\u00A0de\u00A0Laranjeira")}
         </h3>
         <div className="w-16 h-px bg-red-800/60 mt-4" />
       </div>
