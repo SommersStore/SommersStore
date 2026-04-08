@@ -27,3 +27,25 @@
   - *Função:* Ancorar o Valor Total (ex: R$800) e revelar o preço de oferta (ex: Tudo por apenas R$97), justificando logicamente o motivo humano do desconto.
 - **Risk-Reversal (RR):**
   - *Função:* Elaborar o texto da garantia incondicional (7, 15 ou 30 dias) tirando 100% da responsabilidade dos ombros do comprador.
+
+## Categoria: E-BOOK UX & LAYOUT (Imutabilidade)
+- **layout-immutability-engine:**
+  - *Função:* Garantir o formato estrito A4 para renderização de PDFs.
+  - *Regra:* Nunca usar tamanhos ou margens relativas que quebrem. Respeitar o grid 210x297mm.
+- **formula-ux-system:**
+  - *Função:* Executar a visão "Zen Dark" nas páginas de produtos ou módulos. 
+  - *Regra:* Fundo sempre escuro profundo (`#050508` ou correlato) com tipografia de destaque dourada. Priorizar o "espaço negativo" massivo entre blocos de informação para respirar luxo.
+- **strict-typography-governor:**
+  - *Função:* Proteger a elegância tipográfica do material desenvolvido.
+  - *Regra:* Usar as fontes serifadas/limpas da marca, bloqueando qualquer estilo "carregado" e focando no contraste.
+- **media-grid-curator:**
+  - *Função:* Isolar as quebras de imagem.
+  - *Regra:* Se alguma mídia sumir, reservar o fundo preto limpo da caixa (black placeholder) ao invés de estourar a grid.
+
+## Categoria: E-BOOK DATA E COPY LUXO
+- **builder-architect & formula-database-manager:**
+  - *Função:* Código modular e banco estruturado.
+  - *Regra:* As fórmulas/receitas vêm de arquivos `.json`. Não entupir o arquivo da interface (page) com blocos de texto (hardcoded).
+- **formula-copy-master:**
+  - *Função:* Copywriting de alta gastronomia botânica.
+  - *Regra:* Traduzir tutoriais simples para uma estrutura de "Protocolos Ocultos", usando gatilhos sensoriais sofisticados descritos pela persona Elisa Clark.

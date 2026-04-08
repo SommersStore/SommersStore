@@ -16,8 +16,7 @@ members:
   - role: "Art Director"
     agent: "@ux-design-expert"
     clone_override: "julian_art"
-    responsibilities:
-      - "Escolher o Design System adequado (Golden, Zen, Obsidian, Cockpit)."
+      - "Aplicar estritamente o Design System raiz do projeto em operação (ex: ds_sais.json, ds_velas.json, etc)."
       - "Criar o layout focado em Espaço Negativo e lebilidade máxima."
 
 workflow:

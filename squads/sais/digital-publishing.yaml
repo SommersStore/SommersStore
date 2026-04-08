@@ -1,0 +1,23 @@
+name: Digital Publishing Squad
+id: digital-publishing
+description: "Equipe especializada na tradução da Copy de Elite para o formato de Dossier Digital (PDF de Luxo), cuidando da integridade técnica e tipográfica."
+leader: arch-master
+
+members:
+  - agent: elisa-clark
+    role: "Chefe Alquimista - Garante que o texto seja coeso, botânico e fiel ao universo de luxo. (Ref. clones/elisa_clark.md)"
+  - agent: ux-design-expert
+    role: "Brand Guardian - Valida se as fontes e paletas seguem o padrão tático indicado no JSON do Design System. (Ref. .aiox-core/development/agents/ux-design-expert.md)"
+  - agent: dev
+    role: "PDF Engineer (@pub) - Responsável pela codificação do motor de PDF Next.js e aplicação das regras da Skill de Imutabilidade A4."
+
+workflow:
+  trigger: "Sempre que um novo volume de conteúdo (fórmulas ou manuscritos) é finalizado para exportação em PDF de alta resolução."
+  steps:
+    - step: 1
+      action: "@copywriter (Elisa Clark) valida a 'Source of Truth' nos arquivos JSON atômicos de dados contra a Janela de Contexto."
+    - step: 2
+      action: "@ux-design-expert inspeciona os Componentes Next.js de layout do E-book e o CSS para evitar vazamentos no PDF."
+    - step: 3
+      action: "@dev (Dex) executa o motor do gerador através das rotas interativas do Next.js App Router."
+  success_criteria: "PDF de Luxo gerado, isolando dados imutáveis do design, com sumário funcional e tipografia de alto luxo."
