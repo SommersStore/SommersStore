@@ -21,6 +21,6 @@ for log in logs:
     except Exception as e:
         pass
 
-with open(r"C:\Users\ADMIN\SommersStore\tmp_chapters.txt", "w", encoding="utf-8") as f:
+with open(os.path.join(os.path.dirname(__file__), "..", "archive", "tmp_chapters.txt"), "w", encoding="utf-8") as f:
     f.write(best_content)
 print("Done extracting!")

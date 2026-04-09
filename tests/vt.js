@@ -1,4 +1,4 @@
-const { VertexAIProvider } = require('./.aiox-core/infrastructure/integrations/ai-providers/vertex-ai-provider');
+const { VertexAIProvider } = require('../.aiox-core/infrastructure/integrations/ai-providers/vertex-ai-provider');
 require('dotenv').config();
 async function run() {
   const provider = new VertexAIProvider({ model: 'gemini-1.5-flash-001' });

@@ -3,6 +3,9 @@ const path = require('path');
 const fs = require('fs');
 
 const { recipes } = require('./data.js');
+const TEST_IMAGE = 'file:///C:/Users/ADMIN/.gemini/antigravity/scratch/SommersStore/projects/loja-digital/public/sais/assets/wUwAYb_d22pPWwRAXUdbi.png';
+
+
 
 async function generateExecutiveEbook() {
     try {
@@ -75,7 +78,7 @@ async function generateExecutiveEbook() {
                 <h2 style="font-size: 16pt; font-family: 'Inter', sans-serif; letter-spacing: 2px; color: var(--text-color); opacity: 0.7; margin-bottom: 10mm;">${r.subname}</h2>
                 
                 <div class="hero-img" style="width: 100%; height: 110mm; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; margin-bottom: 15mm; overflow: hidden;">
-                    <div style="color: var(--accent-color); opacity: 0.3; letter-spacing: 2px; font-size: 9pt;">[ IMAGEM DE ATMOSFERA E RITUAL ]</div>
+                    <img src="${TEST_IMAGE}" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;">
                 </div>
 
                 <div class="signature-box" style="border-left: 3px solid var(--accent-color); padding-left: 10mm; margin-top: auto;">
@@ -101,8 +104,8 @@ async function generateExecutiveEbook() {
                          <h3 style="color: var(--accent-color); font-size: 14pt; border-bottom: 1px solid var(--border-color); padding-bottom: 3mm; margin-bottom: 8mm; text-transform: uppercase; letter-spacing: 2px;">Composição</h3>
                          <ul style="padding-left: 12pt; margin-bottom: 15mm;">${ingredientsList}</ul>
                          
-                         <div class="comp-img" style="width: 100%; height: 60mm; border: 1px dashed rgba(197,160,89, 0.2); display: flex; align-items: center; justify-content: center; font-size: 8pt; opacity: 0.5;">
-                            [ IMAGEM DA COMPOSIÇÃO DOS SAIS E BOTÂNICOS ]
+                         <div class="comp-img" style="width: 100%; height: 60mm; border: 1px dashed rgba(197,160,89, 0.2); display: flex; align-items: center; justify-content: center; font-size: 8pt; opacity: 0.5; overflow: hidden;">
+                            <img src="${TEST_IMAGE}" style="width: 100%; height: 100%; object-fit: cover;">
                          </div>
                     </div>
 
@@ -137,9 +140,10 @@ async function generateExecutiveEbook() {
         // Inserção das receitas processadas no template
         htmlBase = htmlBase.replace('{{RECIPES_HTML}}', recipesHtml);
 
-        const outDir = path.resolve(__dirname, '..', 'loja-digital', 'sales', 'content');
+        const outDir = path.resolve(__dirname, '..', 'loja-digital', 'public', 'downloads');
         if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
-        const outPath = path.resolve(outDir, 'O_Cofre_das_Botanicas_Secretas_Escuro_Completo.pdf');
+        const outPath = path.resolve(outDir, 'O_Cofre_das_Botanicas_Secretas.pdf');
+
 
         console.log(`Gerando PDF Editorial OTO com ${pageCount} páginas em alta resolução...`);
         const page = await browser.newPage();
@@ -149,6 +153,7 @@ async function generateExecutiveEbook() {
             path: outPath,
             format: 'A4',
             printBackground: true,
+            preferCSSPageSize: true, // Garante que respeita o @page do CSS
             margin: { top: '0', right: '0', bottom: '0', left: '0' }
         });
 

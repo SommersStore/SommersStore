@@ -6,7 +6,7 @@ async function testGeminiDirect() {
   console.log('--- Testing Gemini API Content Generation ---');
   
   // Load .env
-  const envPath = path.join(__dirname, '.env');
+  const envPath = path.join(__dirname, '..', '.env');
   if (!fs.existsSync(envPath)) {
     console.error('Error: .env file not found');
     return;

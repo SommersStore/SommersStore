@@ -11,6 +11,8 @@ interface FormulaIngredientsProps {
   endIndex?: number;
 }
 
+const FALLBACK_ING_IMAGE = "/sais/assets/wUwAYb_d22pPWwRAXUdbi.png";
+
 export default function FormulaIngredients({ item, pageNum, startIndex = 0, endIndex = 6 }: FormulaIngredientsProps) {
   // Decomposição da origem para a lista
   const originParts = item.origin.split(/\s+[-—–]\s+/);
@@ -80,7 +82,7 @@ export default function FormulaIngredients({ item, pageNum, startIndex = 0, endI
                 className="object-cover filter brightness-90 contrast-110"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.style.opacity = '0'; // Apenas oculta a imagem quebrada
+                  target.src = FALLBACK_ING_IMAGE;
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent z-10" />

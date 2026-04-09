@@ -1,9 +1,9 @@
-const { GeminiProvider } = require('./.aiox-core/infrastructure/integrations/ai-providers/gemini-provider');
+const { GeminiProvider } = require('../.aiox-core/infrastructure/integrations/ai-providers/gemini-provider');
 const fs = require('fs');
 const path = require('path');
 
 async function test() {
-  const envContent = fs.readFileSync(path.join(__dirname, '.env'), 'utf8');
+  const envContent = fs.readFileSync(path.join(__dirname, '..', '.env'), 'utf8');
   const lines = envContent.split('\n');
   for (const line of lines) {
     const [key, value] = line.split('=');

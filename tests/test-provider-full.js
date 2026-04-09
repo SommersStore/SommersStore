@@ -3,7 +3,7 @@
  */
 require('dotenv').config();
 
-const { VertexAIProvider } = require('./.aiox-core/infrastructure/integrations/ai-providers/vertex-ai-provider');
+const { VertexAIProvider } = require('../.aiox-core/infrastructure/integrations/ai-providers/vertex-ai-provider');
 
 async function main() {
   console.log('=====================================================');
