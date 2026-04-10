@@ -74,7 +74,16 @@
             <p class="text-[9px] text-muted font-mono">THE BLACK PROTOCOL — Master Edition</p>
         </div>
     </div>
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-4">
+        <div id="status-firebase" class="flex items-center gap-1.5 opacity-50">
+            <div id="firebase-dot" class="h-1.5 w-1.5 rounded-full bg-muted"></div>
+            <span class="text-[8px] text-muted uppercase tracking-widest font-bold">Firebase</span>
+        </div>
+        <div id="status-pdf" class="flex items-center gap-1.5 opacity-50">
+            <div id="pdf-dot" class="h-1.5 w-1.5 rounded-full bg-muted"></div>
+            <span class="text-[8px] text-muted uppercase tracking-widest font-bold">PDF Engine</span>
+        </div>
+        <div class="h-6 w-[1px] bg-white/5"></div>
         <button onclick="syncAll()" class="text-[10px] text-muted hover:text-white flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/5 hover:bg-white/5 transition-all font-semibold">
             <i data-lucide="refresh-cw" class="w-3 h-3"></i> Sync Tower
         </button>
@@ -83,6 +92,7 @@
             <span class="text-[9px] text-muted uppercase tracking-widest font-bold">Online</span>
         </div>
     </div>
+
 </header>
 
 <div class="flex flex-1 overflow-hidden">
@@ -107,7 +117,9 @@
         <div data-tab="risks" class="sb-icon"><i data-lucide="alert-triangle" class="w-4 h-4"></i><span class="sb-label">Riscos</span></div>
         <div class="mt-auto">
             <div data-tab="design" class="sb-icon"><i data-lucide="palette" class="w-4 h-4"></i><span class="sb-label">Design</span></div>
+            <div data-tab="system" class="sb-icon"><i data-lucide="activity" class="w-4 h-4"></i><span class="sb-label">System</span></div>
         </div>
+
     </aside>
 
     <!-- Content -->
@@ -325,8 +337,58 @@
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-base font-bold"><span class="text-primary">Design</span> Systems</h2>
             </div>
-            <div id="design-view" class="space-y-6"></div>
+            <!-- ═══════ 10. SYSTEM CENTER ═══════ -->
+        <div id="pane-system" class="tab-pane p-8">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-base font-bold"><span class="text-primary">System</span> Center</h2>
+                <span class="badge border-primary/30 text-primary bg-primary/10">Observability</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Infra Health -->
+                <div class="glass p-6">
+                    <h3 class="text-xs font-bold text-muted uppercase tracking-widest mb-4 flex items-center justify-between">
+                        Infraestrutura
+                        <i data-lucide="cloud" class="w-3 h-3 text-primary"></i>
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] text-muted">Firebase Cloud</span>
+                            <div id="sys-firebase-status" class="flex items-center gap-1.5">
+                                <span class="text-[9px] text-muted">OFF</span>
+                                <div class="h-1.5 w-1.5 rounded-full bg-muted"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] text-muted">Node Runtime</span>
+                            <span id="sys-node-ver" class="text-[9px] font-mono text-primary">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PDF Health -->
+                <div class="glass p-6">
+                    <h3 class="text-xs font-bold text-muted uppercase tracking-widest mb-4 flex items-center justify-between">
+                        PDF Engine
+                        <i data-lucide="file-text" class="w-3 h-3 text-secondary"></i>
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] text-muted">Status Atual</span>
+                            <div id="sys-pdf-status" class="flex items-center gap-1.5">
+                                <span class="text-[9px] text-muted">IDLE</span>
+                                <div class="h-1.5 w-1.5 rounded-full bg-muted"></div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-white/5">
+                            <p class="text-[8px] text-muted uppercase tracking-widest font-bold mb-2">Logs Recentes</p>
+                            <pre id="sys-pdf-logs" class="text-[9px] font-mono text-muted/60 bg-black/20 p-2 rounded max-h-32 overflow-hidden"></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
 
     </main>
 </div>
@@ -817,11 +879,47 @@ function resetZoom() {
 }
 
 function syncAll() {
-    renderSquads(); renderAgents(); renderSkills();
-    renderPersonas(); renderIntegrations(); renderGates();
-    renderRisks(); renderDesign();
-    lucide.createIcons();
+    fetch('/api/data').then(r => r.json()).then(data => {
+        // Status Firebase
+        const fbDot = document.getElementById('firebase-dot');
+        const fbCont = document.getElementById('status-firebase');
+        if(data.environment.firebase) {
+            fbDot.className = 'h-1.5 w-1.5 rounded-full bg-secondary shadow-[0_0_4px_#10b981]';
+            fbCont.classList.remove('opacity-50');
+        }
+
+        // Status PDF
+        const pdfDot = document.getElementById('pdf-dot');
+        const pdfCont = document.getElementById('status-pdf');
+        if(data.pdf_health.status === 'SUCCESS') {
+            pdfDot.className = 'h-1.5 w-1.5 rounded-full bg-secondary shadow-[0_0_4px_#10b981]';
+            pdfCont.classList.remove('opacity-50');
+        } else if(data.pdf_health.status === 'ERROR') {
+            pdfDot.className = 'h-1.5 w-1.5 rounded-full bg-coral shadow-[0_0_4px_#ef4444]';
+            pdfCont.classList.remove('opacity-50');
+        }
+
+        // Renderizado no System Center
+        document.getElementById('sys-firebase-status').innerHTML = data.environment.firebase ? 
+            `<span class="text-[9px] text-secondary font-bold">ONLINE</span><div class="h-1.5 w-1.5 rounded-full bg-secondary shadow-[0_0_4px_#10b981]"></div>` :
+            `<span class="text-[9px] text-coral font-bold">OFFLINE</span><div class="h-1.5 w-1.5 rounded-full bg-coral shadow-[0_0_4px_#ef4444]"></div>`;
+        
+        document.getElementById('sys-node-ver').textContent = data.environment.node_version;
+        
+        document.getElementById('sys-pdf-status').innerHTML = data.pdf_health.status === 'SUCCESS' ?
+            `<span class="text-[9px] text-secondary font-bold">OPERACIONAL</span><div class="h-1.5 w-1.5 rounded-full bg-secondary shadow-[0_0_4px_#10b981]"></div>` :
+            `<span class="text-[9px] text-coral font-bold">ERRO</span><div class="h-1.5 w-1.5 rounded-full bg-coral shadow-[0_0_4px_#ef4444]"></div>`;
+        
+        document.getElementById('sys-pdf-logs').textContent = data.pdf_health.last_run || 'Sem logs disponíveis.';
+
+        renderSquads(); renderAgents(); renderSkills();
+
+        renderPersonas(); renderIntegrations(); renderGates();
+        renderRisks(); renderDesign();
+        lucide.createIcons();
+    }).catch(e => console.error("Sync Error", e));
 }
+
 
 document.addEventListener('DOMContentLoaded', syncAll);
 </script>

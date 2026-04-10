@@ -135,5 +135,20 @@
     overflow: hidden !important;
     page-break-after: always !important;
     break-after: page !important;
+    /* --- FIX PERFORMANCE PDF --- */
+    filter: none !important;
+    transform: none !important;
   }
+  .shadow-flow-container, .shadow-flow-mask {
+      display: none !important; /* Desativar névoas complexas no PDF para evitar borrados */
+  }
+  img {
+      filter: none !important; /* Desativar filtros de brilho que o motor do PDF não processa bem */
+      -webkit-filter: none !important;
+  }
+  .title-gold {
+      -webkit-font-smoothing: antialiased;
+      text-shadow: none !important;
+  }
+
 }

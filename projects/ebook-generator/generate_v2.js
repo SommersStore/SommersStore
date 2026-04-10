@@ -2,7 +2,16 @@ const puppeteer = require('puppeteer');
 const path = require('path');
 const fs = require('fs');
 
+const logFile = path.resolve(__dirname, 'pdf_generation.log');
+function logger(msg) {
+    const time = new Date().toISOString();
+    const formatted = `[${time}] ${msg}`;
+    console.log(formatted);
+    fs.appendFileSync(logFile, formatted + '\n');
+}
+
 async function generatePremiumPDF() {
+
     const browser = await puppeteer.launch({
         headless: "new",
         args: ['--no-sandbox', '--disable-setuid-sandbox']
@@ -14,8 +23,9 @@ async function generatePremiumPDF() {
         // Define viewport para alta resolução
         await page.setViewport({ width: 1200, height: 1600, deviceScaleFactor: 2 });
 
-        console.log("🚀 Iniciando Motor de PDF de Elite (V2)...");
-        console.log("Conectando ao Visualizador Master: http://localhost:3000/ebook/viewer");
+        logger("🚀 Iniciando Motor de PDF de Elite (V2)...");
+        logger("Conectando ao Visualizador Master: http://localhost:3000/ebook/viewer");
+
         
         // Navega para a rota do visualizador
         await page.goto('http://localhost:3000/ebook/viewer', {
@@ -48,9 +58,10 @@ async function generatePremiumPDF() {
         const stats = fs.statSync(outPath);
         const sizeMB = (stats.size / (1024 * 1024)).toFixed(2);
 
-        console.log(`✅ PDF Premium Gerado com Sucesso!`);
-        console.log(`📍 Local: ${outPath}`);
-        console.log(`⚖️ Peso Final: ${sizeMB} MB`);
+        logger(`✅ PDF Premium Gerado com Sucesso!`);
+        logger(`📍 Local: ${outPath}`);
+        logger(`⚖️ Peso Final: ${sizeMB} MB`);
+
 
     } catch (error) {
         console.error("❌ Erro na geração do PDF de Elite:", error);

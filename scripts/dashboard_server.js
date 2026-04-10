@@ -19,7 +19,22 @@ const server = http.createServer((req, res) => {
             res.end(data);
         });
     } else if (req.url === '/api/data') {
-        const data = { squads: {}, design_systems: {}, clones: null, skills: null };
+        const data = { 
+            squads: {}, 
+            design_systems: {}, 
+            clones: null, 
+            skills: null,
+            environment: {
+                firebase: fs.existsSync(path.join(__dirname, '../.firebaserc')),
+                node_version: process.version,
+                platform: process.platform
+            },
+            pdf_health: {
+                last_run: null,
+                status: 'IDLE'
+            }
+        };
+
         try {
             // Read Squads
             const squadsPath = path.join(__dirname, '../squads');
@@ -49,6 +64,15 @@ const server = http.createServer((req, res) => {
             if(fs.existsSync(skillsPath)) {
                 data.skills = fs.readFileSync(skillsPath, 'utf8');
             }
+
+            // --- NOVO: Monitoramento de Saúde do PDF ---
+            const pdfLogPath = path.join(__dirname, '../projects/ebook-generator/pdf_generation.log');
+            if(fs.existsSync(pdfLogPath)) {
+                const logs = fs.readFileSync(pdfLogPath, 'utf8').trim().split('\n');
+                data.pdf_health.last_run = logs.slice(-5).join('\n');
+                data.pdf_health.status = logs.slice(-10).some(l => l.includes('Sucesso')) ? 'SUCCESS' : 'ERROR';
+            }
+
             // Find recent History (Artifacts from brain)
             data.history = [];
             const brainDir = 'C:\\Users\\ADMIN\\.gemini\\antigravity\\brain';
