@@ -14,20 +14,14 @@ const firebaseConfig = {
 // Initialize Firebase only if config is valid
 const isConfigValid = !!firebaseConfig.apiKey;
 
-let app: any;
-let auth: any;
-let db: any;
-
-if (isConfigValid) {
-  app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
-  auth = getAuth(app);
-  db = getFirestore(app);
-} else {
-  console.warn("⚠️ Firebase: Configuração incompleta. Usando modo de simulação visual.");
-  app = null;
-  auth = { onAuthStateChanged: (cb: any) => () => {} } as any; 
-  db = null;
+if (!isConfigValid) {
+  console.error("❌ Firebase: Configuração ausente em .env.local");
 }
 
+const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
 export { app, auth, db, isConfigValid };
+
 

@@ -100,9 +100,56 @@ const server = http.createServer((req, res) => {
             res.writeHead(500);
             res.end(JSON.stringify({error: e.message}));
         }
+    } else if (req.url.startsWith('/api/file?path=')) {
+        const queryFile = decodeURIComponent(req.url.split('?path=')[1]);
+        const absolutePath = path.resolve(__dirname, '..', queryFile);
+        
+        fs.readFile(absolutePath, 'utf8', (err, data) => {
+            if (err) {
+                res.writeHead(404);
+                return res.end('Erro ao ler arquivo: ' + queryFile);
+            }
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+            res.end(data);
+        });
+    } else if (req.url === '/api/save' && req.method === 'POST') {
+        let body = '';
+        req.on('data', chunk => { body += chunk.toString(); });
+        req.on('end', () => {
+            try {
+                const parsed = JSON.parse(body);
+                const absolutePath = path.resolve(__dirname, '..', parsed.path);
+                fs.writeFileSync(absolutePath, parsed.content, 'utf8');
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({success: true}));
+            } catch(e) {
+                res.writeHead(500);
+                res.end(JSON.stringify({error: e.message}));
+            }
+        });
     } else {
-        res.writeHead(404);
-        res.end('Not found');
+        // --- NOVO: Servir arquivos estáticos da pasta DOCS ---
+        const filePath = path.join(__dirname, '../docs', req.url === '/' ? 'aiox_dashboard.html' : req.url);
+        const extname = path.extname(filePath);
+        let contentType = 'text/html';
+
+        switch (extname) {
+            case '.js': contentType = 'text/javascript'; break;
+            case '.css': contentType = 'text/css'; break;
+            case '.json': contentType = 'application/json'; break;
+            case '.png': contentType = 'image/png'; break;
+            case '.jpg': contentType = 'image/jpg'; break;
+        }
+
+        fs.readFile(filePath, (err, content) => {
+            if (err) {
+                res.writeHead(404);
+                res.end('Arquivo não encontrado: ' + req.url);
+            } else {
+                res.writeHead(200, { 'Content-Type': contentType });
+                res.end(content, 'utf-8');
+            }
+        });
     }
 });
 

@@ -36,10 +36,10 @@ export default function ZenDarkV3() {
     };
 
     const product = {
-        name: "Essência Ativa BR",
-        niche: "Sais de Banho Artesanais & Terapêuticos",
-        promise: "O Código Secreto da Alquimia Terapêutica em Suas Mãos",
-        mechanism: "Método Passo a Passo: Do Primeiro Blend à Primeira Venda",
+        name: "O Cofre das Botânicas Secretas",
+        niche: "Alquimia Botânica & Rituais de Elite",
+        promise: "O Código Secreto das Botânicas: Domine a Alquimia de Elite",
+        mechanism: "O Protocolo Black: Do Primeiro Blend ao Seu Império de Luxo",
         price: "47,90",
         checkoutUrl: "https://pay.kiwify.com.br/kjKBBea"
     };
@@ -185,7 +185,7 @@ export default function ZenDarkV3() {
                 <div className="container mx-auto px-6 max-w-5xl text-center">
 
                     <h2 className="text-5xl md:text-8xl font-serif font-black text-white italic mb-8 tracking-tighter leading-tight">Sua vida mudará em apenas 30 dias.</h2>
-                    <p className="text-lg md:text-xl text-[#C5A059] font-serif italic mb-16">Imagine sua rotina apenas 30 dias após aplicar o <strong className="text-white not-italic">Método Essência Ativa BR</strong>:</p>
+                    <p className="text-lg md:text-xl text-[#C5A059] font-serif italic mb-16">Imagine sua rotina apenas 30 dias após aplicar o <strong className="text-white not-italic">The Black Protocol</strong>:</p>
                     
                     <div className="md:hidden flex flex-col items-center gap-4 mb-10">
                         <div className="flex items-center gap-4 text-[#FFD700] font-serif italic text-sm group">
@@ -476,7 +476,7 @@ export default function ZenDarkV3() {
                              </div>
                              <h2 className="text-4xl md:text-6xl font-serif font-black italic text-white leading-tight">Eu te guiarei nesse portal de abundância.</h2>
                              <p className="text-lg md:text-xl text-emerald-50/80 font-serif italic leading-relaxed">
-                                Elisa Clark dedicou mais de 5 anos pesquisando haloterapia, aromaterapia e produção artesanal. O <strong className="text-[#C5A059] font-black">Método Essência Ativa BR</strong> é o resultado dessa jornada: um guia prático para você criar sais de banho terapêuticos com ingredientes brasileiros e transformar isso em renda real.
+                                Elisa Clark dedicou mais de 5 anos pesquisando haloterapia, aromaterapia e produção artesanal. O <strong className="text-[#C5A059] font-black">The Black Protocol</strong> é o resultado dessa jornada: um guia prático para você criar rituais de elite e transformar isso em abundância real.
                              </p>
                              <div className="text-[#C5A059] font-serif italic text-3xl font-black text-center">Elisa Clark</div>
                         </div>

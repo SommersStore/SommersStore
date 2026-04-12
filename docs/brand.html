@@ -1,497 +1,262 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SommersStore — AIOX Design System & Brandbook</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
-<style>
-/* ─── COSMIC PALETTE ─── */
-:root {
-  --bg:        #08081A;
-  --bg2:       #0E0E2A;
-  --card:      rgba(18,18,48,0.6);
-  --card-border: rgba(139,92,246,0.15);
-  --glass:     rgba(255,255,255,0.04);
-  --purple:    #8B5CF6;
-  --purple-l:  #A78BFA;
-  --purple-d:  #5B21B6;
-  --pink:      #EC4899;
-  --pink-l:    #F472B6;
-  --orange:    #F97316;
-  --orange-l:  #FB923C;
-  --coral:     #FF6B6B;
-  --text:      #F1F0FF;
-  --dim:       rgba(241,240,255,0.55);
-  --muted:     rgba(241,240,255,0.3);
-  --border:    rgba(139,92,246,0.12);
-  --glow-purple: rgba(139,92,246,0.25);
-  --glow-pink: rgba(236,72,153,0.2);
-  --gradient-hero: linear-gradient(135deg, #1a0533 0%, #0d0d2b 40%, #080820 100%);
-  --gradient-card: linear-gradient(160deg, rgba(139,92,246,0.08) 0%, rgba(236,72,153,0.05) 100%);
-  --gradient-btn: linear-gradient(135deg, #EC4899 0%, #F97316 100%);
-  --gradient-btn-hover: linear-gradient(135deg, #F97316 0%, #EC4899 100%);
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SommersStore — Master Brandbook 🏛️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C5A059;
+            --gold-bright: #E5C079;
+            --gold-muted: rgba(197, 160, 89, 0.15);
+            --black: #050508;
+            --black-soft: #0C0C0F;
+            --cream: #F5F5DC;
+            --glass: rgba(13, 13, 20, 0.85);
+            --font-main: 'Montserrat', sans-serif;
+            --font-editorial: 'Libre Baskerville', serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --space-xl: 100px;
+        }
 
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Inter', system-ui, sans-serif;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background-color: var(--black);
+            color: var(--cream);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-/* ─── UTILITY ─── */
-.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-.serif { font-family: 'Playfair Display', Georgia, serif; }
-.gradient-text {
-  background: linear-gradient(135deg, var(--purple-l), var(--pink-l), var(--orange-l));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+        /* --- CUSTOM SCROLLBAR --- */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--black); }
+        ::-webkit-scrollbar-thumb { background: var(--gold-muted); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 
-/* ─── ANIMATED BG ORBS ─── */
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  pointer-events: none;
-  animation: float 12s ease-in-out infinite;
-}
-.orb-1 { width:500px; height:500px; background:rgba(139,92,246,0.15); top:-100px; right:-150px; animation-delay:0s; }
-.orb-2 { width:400px; height:400px; background:rgba(236,72,153,0.1); bottom:-50px; left:-100px; animation-delay:4s; }
-.orb-3 { width:300px; height:300px; background:rgba(249,115,22,0.08); top:40%; left:50%; animation-delay:8s; }
+        /* --- LAYOUT --- */
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+        section { padding: var(--space-xl) 0; border-bottom: 1px solid rgba(197, 160, 89, 0.05); }
 
-@keyframes float {
-  0%,100% { transform: translate(0,0) scale(1); }
-  33% { transform: translate(30px,-20px) scale(1.05); }
-  66% { transform: translate(-20px,15px) scale(0.95); }
-}
+        /* --- HERO --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(197, 160, 89, 0.03) 0%, transparent 70%);
+            border-bottom: none;
+        }
+        .hero-grain {
+            position: absolute; inset: 0;
+            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            opacity: 0.1; pointer-events: none;
+        }
+        .hero-content { text-align: center; z-index: 10; }
+        .hero-logo { 
+            font-size: 16px; font-weight: 900; letter-spacing: 12px; 
+            text-transform: uppercase; color: var(--gold); margin-bottom: 30px;
+            animation: fadeIn 2s ease-out;
+        }
+        .hero-title {
+            font-family: var(--font-editorial);
+            font-size: 100px; font-weight: 400; line-height: 0.9;
+            margin-bottom: 40px; animation: fadeInUp 1s ease-out;
+        }
+        .hero-title span { display: block; font-style: italic; color: var(--gold); }
+        .hero-subtitle {
+            font-size: 10px; text-transform: uppercase; letter-spacing: 6px;
+            opacity: 0.4; animation: fadeIn 3s ease-out;
+        }
 
-/* ─── NAV ─── */
-.nav {
-  position: fixed; top:0; left:0; right:0; z-index:100;
-  padding: 16px 0;
-  background: rgba(8,8,26,0.8);
-  backdrop-filter: blur(24px);
-  border-bottom: 1px solid var(--border);
-}
-.nav-inner {
-  display: flex; align-items: center; justify-content: space-between;
-}
-.nav-logo {
-  font-weight: 900; font-size: 1.1rem; letter-spacing: 0.05em;
-  display: flex; align-items: center; gap: 10px;
-}
-.nav-logo span { color: var(--purple-l); }
-.nav-links { display:flex; gap:32px; list-style:none; }
-.nav-links a {
-  color: var(--dim); text-decoration:none; font-size:0.82rem; font-weight:500;
-  letter-spacing:0.02em; transition:color 0.3s;
-}
-.nav-links a:hover, .nav-links a.active { color: var(--text); }
-.nav-cta {
-  padding: 10px 24px; border-radius: 999px;
-  background: var(--gradient-btn);
-  color: #fff; font-weight: 700; font-size: 0.78rem;
-  text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase;
-  transition: all 0.4s; border:none; cursor:pointer;
-}
-.nav-cta:hover { background: var(--gradient-btn-hover); transform:scale(1.05); }
+        /* --- SECTION HEADERS --- */
+        .section-tag {
+            color: var(--gold); font-size: 9px; font-weight: 700;
+            letter-spacing: 4px; text-transform: uppercase; margin-bottom: 15px;
+            display: flex; alignItems: center; gap: 10px;
+        }
+        .section-tag::after { content: ''; flex: 1; h: 1px; background: var(--gold-muted); }
+        .section-title {
+            font-family: var(--font-editorial);
+            font-size: 42px; font-weight: 400; margin-bottom: 30px;
+        }
 
-/* ─── HERO ─── */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex; align-items: center;
-  background: var(--gradient-hero);
-  overflow: hidden;
-  padding-top: 80px;
-}
-.hero-content { position:relative; z-index:2; max-width:700px; }
-.hero-badge {
-  display: inline-block;
-  padding: 6px 16px; border-radius: 999px;
-  background: rgba(139,92,246,0.12); border: 1px solid rgba(139,92,246,0.25);
-  color: var(--purple-l); font-size: 0.65rem; font-weight: 700;
-  letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 32px;
-}
-.hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(3rem, 6vw, 5.5rem);
-  font-weight: 900; line-height: 1.05;
-  margin-bottom: 24px; letter-spacing: -0.02em;
-}
-.hero p {
-  font-size: 1.1rem; color: var(--dim); margin-bottom: 40px;
-  max-width: 520px; line-height: 1.8;
-}
-.hero-btns { display:flex; gap:16px; flex-wrap:wrap; }
-.btn-primary {
-  padding: 16px 40px; border-radius: 999px;
-  background: var(--gradient-btn);
-  color: #fff; font-weight: 800; font-size: 0.85rem;
-  text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase;
-  transition: all 0.5s; border:none; cursor:pointer;
-  box-shadow: 0 12px 40px var(--glow-pink);
-}
-.btn-primary:hover { background: var(--gradient-btn-hover); transform:translateY(-3px); box-shadow: 0 20px 60px var(--glow-pink); }
-.btn-outline {
-  padding: 16px 40px; border-radius: 999px;
-  background: transparent; border: 1px solid rgba(139,92,246,0.3);
-  color: var(--purple-l); font-weight: 700; font-size: 0.85rem;
-  text-decoration: none; letter-spacing: 0.05em;
-  transition: all 0.4s; cursor:pointer;
-}
-.btn-outline:hover { background: rgba(139,92,246,0.1); border-color: var(--purple); }
+        /* --- PALETTE GRID --- */
+        .palette { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .color-card {
+            background: var(--black-soft); border: 1px solid var(--gold-muted);
+            padding: 40px; border-radius: 4px; position: relative;
+            overflow: hidden; transition: all 0.4s;
+        }
+        .color-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .color-hex { font-family: var(--font-mono); font-size: 18px; color: var(--gold); margin-bottom: 10px; }
+        .color-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; }
+        .color-preview { width: 100%; height: 120px; margin-top: 30px; border-radius: 2px; }
 
-.hero-visual {
-  position: absolute; right: -5%; top: 50%; transform: translateY(-50%);
-  width: 55%; max-width: 700px; aspect-ratio: 1;
-  z-index: 1;
-}
-.hero-visual .blob {
-  width: 100%; height: 100%;
-  background: radial-gradient(ellipse at 30% 40%, rgba(139,92,246,0.3), rgba(236,72,153,0.15), transparent 70%);
-  border-radius: 40% 60% 55% 45% / 55% 40% 60% 45%;
-  animation: morph 15s ease-in-out infinite;
-}
-@keyframes morph {
-  0%,100% { border-radius: 40% 60% 55% 45% / 55% 40% 60% 45%; }
-  25% { border-radius: 55% 45% 40% 60% / 45% 55% 50% 50%; }
-  50% { border-radius: 45% 55% 60% 40% / 60% 45% 55% 45%; }
-  75% { border-radius: 60% 40% 45% 55% / 40% 60% 45% 55%; }
-}
+        /* --- TYPOGRAPHY --- */
+        .typo-sample { margin-bottom: 60px; }
+        .sample-label { font-size: 8px; opacity: 0.3; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px; }
+        .h1-sample { font-family: var(--font-editorial); font-size: 64px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 20px; }
+        .p-sample { font-size: 14px; max-width: 600px; color: rgba(245, 245, 220, 0.6); line-height: 1.8; }
 
-/* floating decorative elements */
-.float-leaf { position:absolute; font-size:3rem; opacity:0.15; animation: leafFloat 20s linear infinite; }
-.float-leaf:nth-child(1) { top:15%; right:20%; animation-delay:0s; }
-.float-leaf:nth-child(2) { top:60%; right:35%; animation-delay:5s; font-size:2rem; }
-.float-leaf:nth-child(3) { top:30%; right:10%; animation-delay:10s; font-size:4rem; }
-@keyframes leafFloat { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-30px) rotate(10deg);} }
+        /* --- VISUAL VOID (Figures) --- */
+        .imagery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+        .imagery-card {
+            background: var(--black-soft); border: 1px solid var(--gold-muted);
+            overflow: hidden; border-radius: 4px;
+        }
+        .imagery-img { 
+            width: 100%; aspect-ratio: 16/10; object-fit: cover; 
+            filter: grayscale(0.2) contrast(1.1); transition: all 1s ease;
+        }
+        .imagery-card:hover .imagery-img { transform: scale(1.05); filter: grayscale(0); }
+        .imagery-info { padding: 30px; }
 
-/* ─── SECTIONS ─── */
-section { padding: 100px 0; position: relative; }
-.section-badge {
-  display: inline-block;
-  padding: 5px 14px; border-radius: 999px;
-  background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.15);
-  color: var(--purple-l); font-size: 0.6rem; font-weight: 700;
-  letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px;
-}
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 900; margin-bottom: 16px; line-height: 1.1;
-}
-.section-desc {
-  color: var(--dim); font-size: 1rem; max-width: 600px; margin-bottom: 48px; line-height: 1.7;
-}
+        /* --- ANIMATIONS --- */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ─── SERVICES GRID ─── */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
-}
-.service-card {
-  background: var(--gradient-card);
-  border: 1px solid var(--card-border);
-  border-radius: 24px;
-  padding: 40px 32px;
-  backdrop-filter: blur(12px);
-  transition: all 0.5s;
-  position: relative; overflow: hidden;
-}
-.service-card::before {
-  content:''; position:absolute; top:0; left:0; right:0; height:2px;
-  background: linear-gradient(90deg, var(--purple), var(--pink), var(--orange));
-  opacity:0; transition: opacity 0.5s;
-}
-.service-card:hover::before { opacity:1; }
-.service-card:hover { transform:translateY(-6px); border-color: rgba(139,92,246,0.3); box-shadow: 0 20px 60px rgba(139,92,246,0.1); }
-.service-icon {
-  width: 56px; height: 56px; border-radius: 16px;
-  background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.2);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem; margin-bottom: 24px;
-}
-.service-card h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 12px; }
-.service-card p { color: var(--dim); font-size: 0.88rem; line-height: 1.7; margin-bottom: 20px; }
-.service-link {
-  color: var(--pink-l); font-weight: 700; font-size: 0.78rem;
-  text-decoration: none; letter-spacing: 0.05em;
-  display: flex; align-items: center; gap: 6px; transition: gap 0.3s;
-}
-.service-link:hover { gap: 12px; }
-
-/* ─── PILLARS (numbered) ─── */
-.pillars { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
-.pillar {
-  display: flex; align-items: center; gap: 16px;
-  padding: 20px 24px; border-radius: 16px;
-  background: var(--glass); border: 1px solid var(--border);
-  transition: all 0.4s; cursor:pointer; text-decoration:none; color:var(--text);
-}
-.pillar:hover { background: rgba(139,92,246,0.08); border-color: rgba(139,92,246,0.25); }
-.pillar-num {
-  font-size: 0.65rem; font-weight: 900; color: var(--purple-l);
-  min-width: 28px;
-}
-.pillar-label { font-size: 0.85rem; font-weight: 600; }
-.pillar-arrow { margin-left:auto; color: var(--muted); font-size:0.8rem; transition:transform 0.3s; }
-.pillar:hover .pillar-arrow { transform:translateX(4px); color:var(--pink-l); }
-
-/* ─── SCALE SECTION ─── */
-.scale-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:24px; }
-.scale-card {
-  background: var(--glass); border: 1px solid var(--border); border-radius:20px;
-  padding: 32px; transition: all 0.4s;
-}
-.scale-card:hover { border-color: rgba(139,92,246,0.25); background: rgba(139,92,246,0.05); }
-.scale-card h4 { font-size:1rem; font-weight:800; margin-bottom:10px; }
-.scale-card p { font-size:0.82rem; color:var(--dim); line-height:1.6; }
-
-/* ─── FAQ ─── */
-.faq-list { max-width:800px; display:flex; flex-direction:column; gap:8px; }
-.faq-item {
-  background: var(--glass); border:1px solid var(--border); border-radius:16px;
-  overflow:hidden; transition:all 0.3s;
-}
-.faq-item:hover { border-color: rgba(139,92,246,0.25); }
-.faq-q {
-  width:100%; padding:20px 24px; background:none; border:none; color:var(--text);
-  font-size:0.92rem; font-weight:700; text-align:left; cursor:pointer;
-  display:flex; justify-content:space-between; align-items:center; font-family:'Inter',sans-serif;
-}
-.faq-q .icon { color:var(--purple-l); font-size:1.2rem; transition:transform 0.3s; }
-.faq-a {
-  max-height:0; overflow:hidden; transition: max-height 0.4s ease, padding 0.4s;
-  padding: 0 24px;
-  color:var(--dim); font-size:0.85rem; line-height:1.7;
-}
-.faq-item.open .faq-a { max-height:300px; padding: 0 24px 20px; }
-.faq-item.open .faq-q .icon { transform:rotate(45deg); }
-
-/* ─── CTA FOOTER ─── */
-.cta-section {
-  text-align:center; padding:80px 0;
-  background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
-  border-top: 1px solid var(--border);
-}
-
-/* ─── FOOTER ─── */
-.footer {
-  padding: 40px 0 24px; text-align:center;
-  border-top: 1px solid var(--border);
-}
-.footer-brand { font-weight:900; font-size:0.9rem; margin-bottom:8px; }
-.footer-brand span { color:var(--purple-l); }
-.footer-sub { color:var(--muted); font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; }
-.footer-links { display:flex; justify-content:center; gap:24px; margin:20px 0; flex-wrap:wrap; }
-.footer-links a { color:var(--dim); text-decoration:none; font-size:0.75rem; transition:color 0.3s; }
-.footer-links a:hover { color:var(--pink-l); }
-.footer-copy { color:rgba(255,255,255,0.15); font-size:0.6rem; margin-top:20px; letter-spacing:0.1em; }
-
-/* ─── RESPONSIVE ─── */
-@media (max-width:768px) {
-  .hero-visual { display:none; }
-  .hero-content { max-width:100%; }
-  .nav-links { display:none; }
-  .pillars { grid-template-columns: 1fr; }
-  .services-grid { grid-template-columns: 1fr; }
-}
-</style>
+        /* --- NAV --- */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            padding: 30px 40px; display: flex; justify-content: space-between;
+            align-items: center; z-index: 1000; mix-blend-mode: difference;
+        }
+        .nav-link { 
+            color: var(--cream); text-decoration: none; font-size: 9px; 
+            letter-spacing: 3px; text-transform: uppercase; opacity: 0.6;
+        }
+    </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="container nav-inner">
-    <div class="nav-logo">Sommers<span>Store</span> <small style="font-size:0.55rem;color:var(--muted);font-weight:400;letter-spacing:0.15em;">DESIGN SYSTEM</small></div>
-    <ul class="nav-links">
-      <li><a href="#" class="active">Home</a></li>
-      <li><a href="#system">Sistema</a></li>
-      <li><a href="#services">Serviços</a></li>
-      <li><a href="#pillars">Pilares</a></li>
-      <li><a href="#faq">FAQ</a></li>
-    </ul>
-    <a href="#cta" class="nav-cta">Abrir Brandbook</a>
-  </div>
-</nav>
+    <nav class="nav">
+        <a href="#" class="nav-link">IDENTIDADE</a>
+        <a href="#" class="nav-link">UNIFICAÇÃO</a>
+        <a href="#" class="nav-link">SISTEMA</a>
+        <a href="#" class="nav-link">VOZ</a>
+    </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-  <div class="float-leaf">🍃</div>
-  <div class="float-leaf">✨</div>
-  <div class="float-leaf">🌿</div>
-  <div class="container" style="display:flex;align-items:center;min-height:80vh;">
-    <div class="hero-content">
-      <div class="hero-badge">✦ Design System V1.0 — Dark Cockpit Edition</div>
-      <h1>
-        The <span class="gradient-text">[AIOX]</span> brand<br>design system.
-      </h1>
-      <p>Single source of truth para identidade visual, componentes UI, padrões de design, motion e a voz do movimento <strong style="color:var(--purple-l)">SommersStore</strong>.</p>
-      <div class="hero-btns">
-        <a href="#services" class="btn-primary">Abrir Guidelines</a>
-        <a href="#system" class="btn-outline">Explorar Sistema</a>
-      </div>
-    </div>
-    <div class="hero-visual"><div class="blob"></div></div>
-  </div>
-</section>
+    <section class="hero">
+        <div class="hero-grain"></div>
+        <div class="hero-content">
+            <div class="hero-logo">SommersStore Elite</div>
+            <h1 class="hero-title">O Padrão <span>Aristocrático.</span></h1>
+            <p class="hero-subtitle">Mestre Design System & Brandbook v2.1</p>
+        </div>
+    </section>
 
-<!-- SERVICES -->
-<section id="services" style="background:var(--bg2);">
-  <div class="container">
-    <div class="section-badge">Explorar</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;">
+    <section id="manifesto">
+        <div class="container">
+            <div class="section-tag">Manifesto</div>
+            <h2 class="section-title">Nós não vendemos <br> produtos digitais.</h2>
+            <div style="max-width: 800px; margin-left: auto;">
+                <p class="h1-sample" style="font-size: 32px; font-style: italic; line-height: 1.4; border:none;">
+                    "Vendemos rituais privados de transformação. Cada pixel, cada fórmula e cada palavra deve carregar o peso de um segredo revelado."
+                </p>
+                <p class="p-sample" style="margin-top: 40px;">
+                    A SommersStore é o refúgio para quem busca excelência absoluta. Nossa estética é industrial-aristocrática: um equilíbrio perfeito entre o rústico autêntico da natureza e o refinamento dourado da elite.
+                </p>
+            </div>
+        </div>
+    </section>
 
-      <a href="#" class="service-card" style="text-decoration:none;color:inherit;">
-        <div class="service-icon">📐</div>
-        <h3>Guidelines</h3>
-        <p>Brand identity & voice — Manifesto, posicionamento, arquétipo Morpheus e a jornada do criador.</p>
-        <span class="service-link">Explorar → <span>›</span></span>
-      </a>
+    <section id="palette">
+        <div class="container">
+            <div class="section-tag">Paleta Cromática</div>
+            <div class="palette">
+                <!-- Color 1 -->
+                <div class="color-card">
+                    <div class="color-hex">#050508</div>
+                    <div class="color-label">O Vácuo (Deep Black)</div>
+                    <div class="color-preview" style="background: #050508; border: 1px solid rgba(255,255,255,0.05);"></div>
+                </div>
+                <!-- Color 2 -->
+                <div class="color-card">
+                    <div class="color-hex">#C5A059</div>
+                    <div class="color-label">O Ouro Aristocrático</div>
+                    <div class="color-preview" style="background: #C5A059;"></div>
+                </div>
+                <!-- Color 3 -->
+                <div class="color-card">
+                    <div class="color-hex">#F5F5DC</div>
+                    <div class="color-label">O Creme Editorial</div>
+                    <div class="color-preview" style="background: #F5F5DC;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <a href="#" class="service-card" style="text-decoration:none;color:inherit;">
-        <div class="service-icon">🎨</div>
-        <h3>Foundations</h3>
-        <p>Tokens, cores, tipografia — A paleta cósmica do Deep Purple ao Amber Gold.</p>
-        <span class="service-link">Explorar → <span>›</span></span>
-      </a>
+    <section id="typography">
+        <div class="container">
+            <div class="section-tag">Tipografia</div>
+            <div class="typo-sample">
+                <div class="sample-label">Títulos & Manifestos (Libre Baskerville)</div>
+                <h1 class="h1-sample">A Alquimia da Forma</h1>
+            </div>
+            <div class="typo-sample">
+                <div class="sample-label">Identidade & Labels (Montserrat)</div>
+                <h1 style="font-family: var(--font-main); font-weight: 900; letter-spacing: 12px; text-transform: uppercase;">Sommers Store</h1>
+            </div>
+            <div class="typo-sample">
+                <div class="sample-label">Corpo de Texto (Montserrat Light)</div>
+                <p class="p-sample">
+                    Nossa tipografia secundária garante legibilidade em interfaces complexas, mantendo o ar contemporâneo e limpo que os produtos de luxo exigem.
+                </p>
+            </div>
+        </div>
+    </section>
 
-      <a href="#" class="service-card" style="text-decoration:none;color:inherit;">
-        <div class="service-icon">🧩</div>
-        <h3>Components</h3>
-        <p>UI component catalog — Botões, cards, forms, feedback, tabelas e estados interativos.</p>
-        <span class="service-link">Explorar → <span>›</span></span>
-      </a>
+    <section id="imagery">
+        <div class="container">
+            <div class="section-tag">Visuais de Referência</div>
+            <div class="imagery-grid">
+                <div class="imagery-card">
+                    <img src="./img_elite_vault_reference_sommers.png" alt="Elite Vault" class="imagery-img">
+                    <div class="imagery-info">
+                        <h4 style="font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold);">O Cofre</h4>
+                        <p style="font-size: 11px; opacity: 0.5;">Representação física da segurança e exclusividade da SommersStore.</p>
+                    </div>
+                </div>
+                <div class="imagery-card">
+                    <img src="./img_botanical_luxury_candle_sommers.png" alt="Botanical Candle" class="imagery-img">
+                    <div class="imagery-info">
+                        <h4 style="font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold);">Alquimia Botânica</h4>
+                        <p style="font-size: 11px; opacity: 0.5;">A fusão entre o natural bruto e a sofisticação da marca.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <a href="#" class="service-card" style="text-decoration:none;color:inherit;">
-        <div class="service-icon">🔲</div>
-        <h3>Patterns</h3>
-        <p>Grids, frames & textures — Dot grids, crosshairs, frame tech para visuais de elite.</p>
-        <span class="service-link">Explorar → <span>›</span></span>
-      </a>
+    <section id="voice" style="border-bottom: none;">
+        <div class="container">
+            <div class="section-tag">Voz da Marca</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
+                <div>
+                    <h3 style="font-family: var(--font-editorial); font-size: 28px; margin-bottom: 20px;">Como Falamos</h3>
+                    <p class="p-sample">
+                        Nossa comunicação é **Séria, Inspiradora e Exclusiva**. Não usamos gírias. Chamamos nossos usuários de "Membros" ou "Alquimistas". Usamos pontuação precisa. Nossa escrita é um convite para o andar de cima.
+                    </p>
+                </div>
+                <div>
+                    <h3 style="font-family: var(--font-editorial); font-size: 28px; margin-bottom: 20px;">Nossas Regras</h3>
+                    <ul style="list-style: none; font-size: 12px; line-height: 2.2; letter-spacing: 1px;">
+                        <li><span style="color: var(--gold);">01.</span> Nunca use degradês coloridos. Apenas tons de ouro.</li>
+                        <li><span style="color: var(--gold);">02.</span> O preto deve ser profundo (#050508), nunca cinza.</li>
+                        <li><span style="color: var(--gold);">03.</span> Espaçamento é luxo. Não amontoe informações.</li>
+                        <li><span style="color: var(--gold);">04.</span> Fidelidade total: O que prometemos no Brandbook, entregamos no e-book.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    </div>
-  </div>
-</section>
-
-<!-- SCALE SYSTEM -->
-<section id="system">
-  <div class="container">
-    <div class="section-badge">Arquitetura</div>
-    <h2 class="section-title">Um sistema de <span class="gradient-text">DESIGN</span> construído para <span class="gradient-text">ESCALA</span>.</h2>
-    <p class="section-desc">Cada componente é atômico, modular e escalável. Da identidade visual aos micro-componentes de UI.</p>
-
-    <div class="scale-grid">
-      <div class="scale-card">
-        <h4>🎭 Brand Identity</h4>
-        <p>Guidelines, manifesto, posicionamento, voz da marca, arquétipo e a jornada do criador AIOX.</p>
-      </div>
-      <div class="scale-card">
-        <h4>🏗️ Design Foundations</h4>
-        <p>Tokens de cor, espaçamento, tipografia, sombras e variáveis CSS do sistema inteiro.</p>
-      </div>
-      <div class="scale-card">
-        <h4>📦 UI Component Library</h4>
-        <p>Catálogo de componentes reutilizáveis: botões, cards, inputs, modals, toasts e mais.</p>
-      </div>
-      <div class="scale-card">
-        <h4>🎬 Showcase & Motion</h4>
-        <p>Padrões de animação, micro-interações, transições e efeitos visuais do ecossistema.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PILLARS -->
-<section id="pillars" style="background:var(--bg2);">
-  <div class="container">
-    <div class="section-badge">Navegação</div>
-    <h2 class="section-title">Pilares do <span class="gradient-text">Brandbook</span></h2>
-    <p class="section-desc">Acesse cada seção do design system diretamente.</p>
-    <div class="pillars">
-      <a href="#" class="pillar"><span class="pillar-num">01</span><span class="pillar-label">Guidelines</span><span class="pillar-arrow">→</span></a>
-      <a href="#" class="pillar"><span class="pillar-num">02</span><span class="pillar-label">Logo System</span><span class="pillar-arrow">→</span></a>
-      <a href="#" class="pillar"><span class="pillar-num">03</span><span class="pillar-label">Moodboard</span><span class="pillar-arrow">→</span></a>
-      <a href="#" class="pillar"><span class="pillar-num">04</span><span class="pillar-label">Estratégia de Marca</span><span class="pillar-arrow">→</span></a>
-      <a href="#" class="pillar"><span class="pillar-num">05</span><span class="pillar-label">Foundations</span><span class="pillar-arrow">→</span></a>
-      <a href="#" class="pillar"><span class="pillar-num">06</span><span class="pillar-label">Components</span><span class="pillar-arrow">→</span></a>
-      <a href="#" class="pillar"><span class="pillar-num">07</span><span class="pillar-label">Patterns</span><span class="pillar-arrow">→</span></a>
-      <a href="#" class="pillar"><span class="pillar-num">08</span><span class="pillar-label">Motion & VFX</span><span class="pillar-arrow">→</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section id="faq">
-  <div class="container">
-    <div class="section-badge">Perguntas</div>
-    <h2 class="section-title">Frequently<br><span class="gradient-text">Asked Questions</span></h2>
-    <p class="section-desc">Tudo que você precisa saber sobre o AIOX Design System.</p>
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">O que é o AIOX Design System?<span class="icon">+</span></button>
-        <div class="faq-a">O AIOX Design System é a fonte única de verdade (Single Source of Truth) para toda a identidade visual, componentes UI, padrões de design, motion e a voz da marca SommersStore. Ele garante consistência em todas as plataformas.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">O que é a Dark Cockpit Edition?<span class="icon">+</span></button>
-        <div class="faq-a">É a versão premium do design system otimizada para ambientes escuros. Inclui paleta cósmica (Deep Purple, Amber, Pink), glassmorphism avançado e efeitos de glow calibrados para máxima legibilidade.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">Como usar os componentes?<span class="icon">+</span></button>
-        <div class="faq-a">Cada componente é documentado com código-fonte, variantes, estados (hover, active, disabled) e guidelines de uso. Basta copiar o snippet e adaptar ao seu contexto.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">Quais são os pilares do sistema?<span class="icon">+</span></button>
-        <div class="faq-a">O sistema é construído sobre 4 pilares: Brand Identity (voz e posicionamento), Design Foundations (tokens e tipografia), UI Components (catálogo modular) e Showcase & Motion (animações e efeitos).</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">Posso contribuir ou estender o sistema?<span class="icon">+</span></button>
-        <div class="faq-a">Sim! O sistema é open-contribution dentro do ecossistema AIOX. Novos componentes devem seguir os padrões de tokens e ser validados pelo @qa antes de serem incorporados ao catálogo oficial.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section id="cta" class="cta-section">
-  <div class="container">
-    <div class="section-badge">Ready?</div>
-    <h2 class="section-title" style="margin-bottom:24px;">Design System & <span class="gradient-text">Brandbook</span></h2>
-    <p style="color:var(--dim);font-size:0.85rem;margin-bottom:32px;">Dark Cockpit Edition V1.0</p>
-    <a href="#" class="btn-primary" style="display:inline-block;">Abrir Brandbook</a>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-brand">Sommers<span>Store</span></div>
-    <div class="footer-sub">Design System & Brandbook · Dark Cockpit Edition V1.0</div>
-    <div class="footer-links">
-      <a href="#">Guidelines</a>
-      <a href="#">Movimento</a>
-      <a href="#">Foundations</a>
-      <a href="#">Logo</a>
-      <a href="#">Icons</a>
-      <a href="#">Moodboard</a>
-      <a href="#">Components</a>
-      <a href="#">Patterns</a>
-      <a href="#">Motion</a>
-    </div>
-    <div class="footer-copy">© 2026 SommersStore. All rights reserved. Built with AIOX PRO.</div>
-  </div>
-</footer>
+    <footer style="padding: 60px 0; text-align: center; border-top: 1px solid rgba(197, 160, 89, 0.1);">
+        <p style="font-size: 8px; letter-spacing: 4px; opacity: 0.3; text-transform: uppercase;">Diretriz Mestre SommersStore © 2026</p>
+    </footer>
 
 </body>
 </html>

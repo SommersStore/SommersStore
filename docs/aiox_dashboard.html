@@ -62,6 +62,79 @@
         .sb-sub-item { font-size: 8px; padding: 4px 8px; border-radius: 6px; cursor: pointer; color: #6b7280; transition: all 0.15s; text-align: center; }
         .sb-sub-item:hover, .sb-sub-item.active { color: #a855f7; background: rgba(168,85,247,0.08); }
     </style>
+
+<style>
+.nexus-node {
+    position: absolute; width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(13, 13, 20, 0.95); border: 2px solid rgba(255,255,255,0.08);
+    display: flex; items-center; justify-center; cursor: pointer; transition: all 0.3s;
+    z-index: 5; box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+.nexus-node:hover { border-color: #a855f7; transform: scale(1.1) translateY(-2px); box-shadow: 0 0 15px rgba(168,85,247,0.3); }
+.nexus-node.active-node { border-color: #10b981; box-shadow: 0 0 20px rgba(16,185,129,0.4); }
+.nexus-label {
+    position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    margin-top: 12px; white-space: nowrap; text-align: center; pointer-events: none;
+}
+.nexus-label h4 { font-size: 8px; font-weight: 800; text-transform: uppercase; color: #fff; letter-spacing: 0.05em; margin-bottom: 2px; }
+.nexus-label p { font-size: 7px; color: #6b7280; font-weight: 600; text-transform: uppercase; }
+</style>
+
+
+<style>
+/* Luxury Pulse & Glows */
+@keyframes nodePulse { 0% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(168, 85, 247, 0); } 100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); } }
+@keyframes dashFlow { from { stroke-dashoffset: 20; } to { stroke-dashoffset: 0; } }
+
+.core-node {
+    position: absolute; width: 48px; height: 48px; border-radius: 50%;
+    background: rgba(13, 13, 22, 0.9); border: 2px solid rgba(255,255,255,0.05);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10; backdrop-filter: blur(8px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+}
+.core-node:hover {
+    transform: scale(1.15) translateY(-4px);
+    border-color: #fff;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.9), 0 0 20px var(--node-color);
+}
+.core-node i { transition: transform 0.3s; }
+.core-node:hover i { transform: scale(1.2); }
+
+.core-node.active {
+    animation: nodePulse 2s infinite;
+    border-color: #10b981;
+}
+
+.core-label {
+    position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    margin-top: 15px; text-align: center; pointer-events: none; width: 150px;
+}
+.core-label h4 { 
+    font-size: 9px; font-weight: 900; color: #fff; text-transform: uppercase; 
+    letter-spacing: 0.15em; margin-bottom: 3px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.core-label p { 
+    font-size: 7px; color: #6b7280; font-weight: 600; text-transform: uppercase; 
+    letter-spacing: 0.2em; opacity: 0.8;
+}
+
+.core-connection {
+    stroke-dasharray: 5, 5;
+    animation: dashFlow 1s linear infinite;
+    filter: drop-shadow(0 0 2px rgba(168, 85, 247, 0.3));
+}
+
+#core-viewport {
+    background-color: #050508;
+    background-image: 
+        radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0),
+        radial-gradient(circle at 100px 100px, rgba(168, 85, 247, 0.03) 50px, transparent 150px);
+    background-size: 40px 40px, 800px 800px;
+}
+</style>
+
 </head>
 <body class="h-screen flex flex-col antialiased font-sans">
 
@@ -107,6 +180,11 @@
             <div class="sb-sub-item" onclick="loadFunnel('produtos',this)">Produtos</div>
         </div>
         <div style="width:80%;height:1px;background:rgba(255,255,255,0.04);margin:2px 0"></div>
+                        <div data-tab="engine" class="sb-icon" onclick="switchTab('engine', this)"><i data-lucide="cog" class="w-4 h-4"></i><span class="sb-label">The Machine</span></div>
+                                <div data-tab="core" class="sb-icon" onclick="switchTab('core', this)"><i data-lucide="orbit" class="w-4 h-4"></i><span class="sb-label">The Core</span></div>
+        <div data-tab="nexus" class="sb-icon" onclick="switchTab('nexus', this)"><i data-lucide="layout" class="w-4 h-4"></i><span class="sb-label">The Nexus</span></div>
+        <div data-tab="roadmap" class="sb-icon" onclick="switchTab('roadmap', this)"><i data-lucide="map" class="w-4 h-4"></i><span class="sb-label">Roadmap</span></div>
+        <div data-tab="workflow" class="sb-icon"><i data-lucide="git-branch" class="w-4 h-4"></i><span class="sb-label">Workflow</span></div>
         <div data-tab="pipeline" class="sb-icon active"><i data-lucide="git-branch" class="w-4 h-4"></i><span class="sb-label">Pipeline</span></div>
         <div data-tab="squads" class="sb-icon"><i data-lucide="users" class="w-4 h-4"></i><span class="sb-label">Squads</span></div>
         <div data-tab="agents" class="sb-icon"><i data-lucide="bot" class="w-4 h-4"></i><span class="sb-label">Agentes</span></div>
@@ -158,7 +236,118 @@
             </div>
         </div>
 
+        <!-- ═══════ JANELA DE EDIÇÃO INTERATIVA (MODAL) ═══════ -->
+        <div id="editor-modal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/80 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+            <div class="bg-[#0f0f16] border border-primary/30 rounded-xl w-[900px] max-w-[95vw] h-[85vh] flex flex-col shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300" id="editor-modal-content">
+                <div class="h-14 border-b border-white/10 flex items-center justify-between px-6 bg-white/5 shrink-0">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center"><i data-lucide="edit-3" class="w-4 h-4"></i></div>
+                        <div>
+                            <h3 id="editor-title" class="text-sm font-bold text-white">Visualizador</h3>
+                            <p id="editor-path" class="text-[9px] text-muted font-mono tracking-wider">caminho/do/arquivo.md</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span id="editor-status" class="text-[9px] text-secondary font-bold uppercase tracking-widest hidden">Salvo com sucesso</span>
+                        <button onclick="saveEditorModal()" class="px-4 py-1.5 bg-primary hover:bg-primary/80 text-white text-[10px] font-bold rounded-lg transition-colors flex items-center gap-2">
+                            <i data-lucide="save" class="w-3 h-3"></i> Salvar na Memória
+                        </button>
+                        <button onclick="closeEditorModal()" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 text-muted hover:text-white transition-colors">
+                            <i data-lucide="x" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex-1 p-0 relative">
+                    <textarea id="editor-textarea" class="w-full h-full bg-[#1e1e2d] text-[#e5e7eb] font-mono text-[13px] p-6 resize-none focus:outline-none focus:ring-0 leading-relaxed" style="scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.1) transparent;" autocomplete="off" spellcheck="false"></textarea>
+                </div>
+            </div>
+        </div>
+
         <!-- ═══════ 1. PIPELINE CRONOLÓGICO ═══════ -->
+        
+        <!-- ═══════ 2. MASTER WORKFLOW ═══════ -->
+        
+        <!-- ═══════ 2 (NEW). ELITE MACHINE CONTEXT ═══════ -->
+        <div id="pane-engine" class="tab-pane" style="overflow:hidden;position:relative;padding:0">
+            <div id="engine-header" style="position:absolute;top:0;left:0;right:0;z-index:10;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(10,10,15,0.95),transparent);pointer-events:none">
+                <div style="pointer-events:auto">
+                    <h2 class="text-sm font-black uppercase tracking-tighter italic"><span class="text-primary">Master Engine</span> <span class="text-white">Elite Flow</span></h2>
+                    <p class="text-[9px] text-muted font-mono mt-0.5" id="engine-stats">20 Agentes · 6 Squads · Fluxo N8N Unified</p>
+                </div>
+            </div>
+            <div id="engine-viewport" style="width:100%;height:100%;overflow:auto;position:relative;background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0); background-size: 40px 40px;">
+                <svg id="engine-svg" style="position:absolute;top:0;left:0;width:3000px;height:1000px;z-index:1;pointer-events:none"></svg>
+                <div class="funnel-canvas" id="engine-canvas" style="width:3000px; height:1000px; position:relative; z-index:2"></div>
+            </div>
+        </div>
+
+        
+        <!-- ═══════ 2 (MASTER ROADMAP). UNIFIED STRATEGY ═══════ -->
+        
+        <!-- ═══════ 2 (THE NEXUS). MASTER GRAPH ═══════ -->
+        
+        <!-- ═══════ THE CORE — ELITE NEXUS ═══════ -->
+        <div id="pane-core" class="tab-pane" style="overflow:hidden;position:relative;padding:0">
+            <div id="core-header" style="position:absolute;top:0;left:0;right:0;z-index:20;padding:32px;pointer-events:none">
+                <div style="pointer-events:auto">
+                    <h2 class="text-2xl font-black italic tracking-tighter uppercase leading-none"><span class="text-primary">The Core</span> <span class="text-white">Elite Logic</span></h2>
+                    <p class="text-[10px] text-muted font-bold tracking-[0.4em] uppercase mt-2">Arquitetura Unificada de Alta Performance</p>
+                </div>
+            </div>
+            <div id="core-viewport" style="width:100%;height:100%;overflow:auto;position:relative">
+                <svg id="core-svg" style="position:absolute;top:0;left:0;width:3500px;height:1200px;z-index:1;pointer-events:none"></svg>
+                <div class="funnel-canvas" id="core-canvas" style="width:3500px;height:1200px;position:relative;z-index:5"></div>
+            </div>
+            <!-- HUD Stats -->
+            <div style="position:absolute;bottom:32px;right:32px;z-index:30;display:flex;gap:24px">
+                <div class="glass p-4 text-center border-l-2 border-primary">
+                    <p class="text-[8px] text-muted uppercase tracking-widest font-black">Agentes Ativos</p>
+                    <p class="text-xl font-black text-white">20</p>
+                </div>
+                <div class="glass p-4 text-center border-l-2 border-secondary">
+                    <p class="text-[8px] text-muted uppercase tracking-widest font-black">Sync Health</p>
+                    <p class="text-xl font-black text-secondary">100%</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="pane-nexus" class="tab-pane" style="overflow:hidden;position:relative;padding:0">
+            <div id="nexus-header" style="position:absolute;top:0;left:0;right:0;z-index:10;padding:24px;background:linear-gradient(to bottom,rgba(10,10,15,0.95),transparent);pointer-events:none">
+                <div style="pointer-events:auto">
+                    <h2 class="text-xl font-black italic tracking-tighter uppercase"><span class="text-primary">The Nexus</span> <span class="text-white">Unified Core</span></h2>
+                    <p class="text-[9px] text-muted font-mono tracking-widest uppercase">Cronologia Atômica SommersStore Elite</p>
+                </div>
+            </div>
+            <div id="nexus-viewport" style="width:100%;height:100%;overflow:auto;background:radial-gradient(circle at 1px 1px,rgba(168,85,247,0.03) 1px,transparent 0);background-size:32px 32px">
+                <svg id="nexus-svg" style="position:absolute;top:0;left:0;width:3200px;height:1000px;z-index:1;pointer-events:none"></svg>
+                <div class="funnel-canvas" id="nexus-canvas" style="width:3200px;height:1000px;position:relative;z-index:2"></div>
+            </div>
+        </div>
+
+        <div id="pane-roadmap" class="tab-pane">
+            <div class="p-8 max-w-6xl mx-auto">
+                <div class="mb-12 flex justify-between items-end">
+                    <div>
+                        <h2 class="text-3xl font-black uppercase tracking-tighter mb-2 italic">Elite Roadmap</h2>
+                        <p class="text-[10px] text-muted uppercase tracking-[0.4em] font-bold">A Conexão Suprema: Pipeline + Squads + Workflow</p>
+                    </div>
+                </div>
+                <div id="roadmap-container" class="space-y-4"></div>
+            </div>
+        </div>
+
+        <div id="pane-workflow" class="tab-pane">
+            <div class="p-8 max-w-5xl mx-auto">
+                <div class="mb-12">
+                    <h2 class="text-2xl font-black uppercase tracking-tighter mb-2 italic">AIOX Master Workflow</h2>
+                    <p class="text-xs text-muted uppercase tracking-[0.3em] font-bold">O Ciclo de Vida Cronológico da SommersStore</p>
+                </div>
+                <div id="workflow-container" class="relative pl-12 border-l border-white/5 space-y-16">
+                    <!-- Workflow items will be injected here -->
+                </div>
+            </div>
+        </div>
+
         <div id="pane-pipeline" class="tab-pane active p-8">
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-base font-bold"><span class="text-primary">Pipeline</span> de Produção Digital</h2>
@@ -169,37 +358,37 @@
                 <div class="glass p-4 animate-in" style="animation-delay:0s">
                     <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-primary/20 flex items-center justify-center text-primary text-[10px] font-bold">01</div><span class="text-[10px] font-bold text-primary uppercase tracking-widest">Definição</span></div>
                     <p class="text-[10px] text-muted leading-relaxed">Definir produto, persona, oferta, branding e público-alvo.</p>
-                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Planejamento</div>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: CORE OPERATIONS</div>
                 </div>
                 <div class="glass p-4 animate-in" style="animation-delay:.05s">
                     <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-primary/20 flex items-center justify-center text-primary text-[10px] font-bold">02</div><span class="text-[10px] font-bold text-primary uppercase tracking-widest">Referências</span></div>
                     <p class="text-[10px] text-muted leading-relaxed">Coleta de referências visuais, textuais e comerciais.</p>
-                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Planejamento</div>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: CONTENT FACTORY</div>
                 </div>
                 <div class="glass p-4 animate-in" style="animation-delay:.1s">
                     <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-teal/20 flex items-center justify-center text-teal text-[10px] font-bold">03</div><span class="text-[10px] font-bold text-teal uppercase tracking-widest">Estratégia</span></div>
                     <p class="text-[10px] text-muted leading-relaxed">Planejamento tático da arquitetura de volumes e funis.</p>
-                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Planejamento</div>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: CORE OPERATIONS</div>
                 </div>
                 <div class="glass p-4 animate-in" style="animation-delay:.15s">
                     <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-teal/20 flex items-center justify-center text-teal text-[10px] font-bold">04</div><span class="text-[10px] font-bold text-teal uppercase tracking-widest">Estruturação</span></div>
                     <p class="text-[10px] text-muted leading-relaxed">Criar esqueleto do conteúdo com capítulos e seções.</p>
-                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Conteúdo</div>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: CONTENT FACTORY</div>
                 </div>
                 <div class="glass p-4 animate-in" style="animation-delay:.2s">
                     <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-secondary/20 flex items-center justify-center text-secondary text-[10px] font-bold">05</div><span class="text-[10px] font-bold text-secondary uppercase tracking-widest">Escrita</span></div>
                     <p class="text-[10px] text-muted leading-relaxed">Produção textual: fórmulas, manifestos, introduções.</p>
-                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Conteúdo</div>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: CONTENT FACTORY</div>
                 </div>
                 <div class="glass p-4 animate-in" style="animation-delay:.25s">
                     <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-accent/20 flex items-center justify-center text-accent text-[10px] font-bold">06</div><span class="text-[10px] font-bold text-accent uppercase tracking-widest">Revisão</span></div>
                     <p class="text-[10px] text-muted leading-relaxed">QA Gate: validar tom luxo, coerência editorial.</p>
-                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: QA</div>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: QUALITY & EXPERIENCE</div>
                 </div>
                 <div class="glass p-4 animate-in" style="animation-delay:.3s">
                     <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-pink/20 flex items-center justify-center text-pink text-[10px] font-bold">07</div><span class="text-[10px] font-bold text-pink uppercase tracking-widest">Design</span></div>
                     <p class="text-[10px] text-muted leading-relaxed">Diagramação A4, CSS estrito, layout imutável.</p>
-                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Design</div>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: INFRA-CORE</div>
                 </div>
             </div>
             
@@ -207,37 +396,37 @@
                 <div class="glass p-4 animate-in" style="animation-delay:.35s">
                     <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-pink/20 flex items-center justify-center text-pink text-[10px] font-bold">08</div><span class="text-[10px] font-bold text-pink uppercase tracking-widest">Imagens</span></div>
                     <p class="text-[10px] text-muted leading-relaxed">Geração HD de fotos botânicas e ingredientes.</p>
-                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Design</div>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: CONTENT FACTORY</div>
                 </div>
                 <div class="glass p-4 animate-in" style="animation-delay:.4s">
                     <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-pink/20 flex items-center justify-center text-pink text-[10px] font-bold">09</div><span class="text-[10px] font-bold text-pink uppercase tracking-widest">Montagem</span></div>
                     <p class="text-[10px] text-muted leading-relaxed">Assemblagem final do PDF por volume (5 peças).</p>
-                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Design</div>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: CONTENT FACTORY</div>
                 </div>
                 <div class="glass p-4 animate-in" style="animation-delay:.45s">
                     <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-sky/20 flex items-center justify-center text-sky text-[10px] font-bold">10</div><span class="text-[10px] font-bold text-sky uppercase tracking-widest">Sales Page</span></div>
                     <p class="text-[10px] text-muted leading-relaxed">Criação da página de vendas com Design System.</p>
-                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Comercial</div>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: MARKETING & FUNNEL</div>
                 </div>
                 <div class="glass p-4 animate-in" style="animation-delay:.5s">
                     <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-sky/20 flex items-center justify-center text-sky text-[10px] font-bold">11</div><span class="text-[10px] font-bold text-sky uppercase tracking-widest">Checkout</span></div>
                     <p class="text-[10px] text-muted leading-relaxed">Integração com Kiwify, Stripe, Order Bump.</p>
-                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Comercial</div>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: ENGINEERING</div>
                 </div>
                 <div class="glass p-4 animate-in" style="animation-delay:.55s">
                     <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-coral/20 flex items-center justify-center text-coral text-[10px] font-bold">12</div><span class="text-[10px] font-bold text-coral uppercase tracking-widest">Publicação</span></div>
                     <p class="text-[10px] text-muted leading-relaxed">Deploy Firebase Hosting + DNS (essenciaativabr.shop).</p>
-                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Publicação</div>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: ENGINEERING</div>
                 </div>
                 <div class="glass p-4 animate-in" style="animation-delay:.6s">
                     <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-coral/20 flex items-center justify-center text-coral text-[10px] font-bold">13</div><span class="text-[10px] font-bold text-coral uppercase tracking-widest">Automação</span></div>
                     <p class="text-[10px] text-muted leading-relaxed">E-mail auto, entrega digital, webhooks pós-compra.</p>
-                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Automação</div>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: ENGINEERING</div>
                 </div>
                 <div class="glass p-4 animate-in" style="animation-delay:.65s">
                     <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 rounded bg-accent/20 flex items-center justify-center text-accent text-[10px] font-bold">14</div><span class="text-[10px] font-bold text-accent uppercase tracking-widest">Otimização</span></div>
                     <p class="text-[10px] text-muted leading-relaxed">A/B Headlines, Pixel, ROI, métricas de conversão.</p>
-                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: Comercial</div>
+                    <div class="mt-3 text-[8px] font-mono text-muted/60">Squad: MARKETING & FUNNEL</div>
                 </div>
             </div>
 
@@ -291,7 +480,7 @@
         <div id="pane-skills" class="tab-pane p-8">
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-base font-bold"><span class="text-primary">Skills</span> Library</h2>
-                <span class="badge border-primary/30 text-primary bg-primary/10">13 Skills</span>
+                <span class="badge border-primary/30 text-primary bg-primary/10">30 Skills Core</span>
             </div>
             <div id="skills-view" class="space-y-6"></div>
         </div>
@@ -301,7 +490,7 @@
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-base font-bold"><span class="text-primary">Personas</span> & Clones</h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="personas-view"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="personas-view"></div>
         </div>
 
         <!-- ═══════ 6. INTEGRAÇÕES ═══════ -->
@@ -337,13 +526,57 @@
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-base font-bold"><span class="text-primary">Design</span> Systems</h2>
             </div>
-            <!-- ═══════ 10. SYSTEM CENTER ═══════ -->
+            <div id="ds-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass p-6">
+                    <div style="color:#C5A059; font-weight:900; font-size:1.1rem; margin-bottom:5px;">SommersStore Elite</div>
+                    <div style="font-size:0.7rem; color:#6b7280; margin-bottom:15px; font-style:italic;">Archetype: Aristocratic / Zen Dark</div>
+                    <div style="font-size:0.7rem; line-height:1.8; color:#e5e7eb;">
+                        <div style="display:flex; align-items:center; gap:8px;"><div style="width:14px;height:14px;border-radius:3px;background:#C5A059"></div> Primary: #C5A059 (Gold)</div>
+                        <div style="display:flex; align-items:center; gap:8px;"><div style="width:14px;height:14px;border-radius:3px;background:#050508"></div> Background: #050508 (Deep Black)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════ 10. SYSTEM CENTER & MEMORY ═══════ -->
         <div id="pane-system" class="tab-pane p-8">
             <div class="flex items-center justify-between mb-8">
-                <h2 class="text-base font-bold"><span class="text-primary">System</span> Center</h2>
-                <span class="badge border-primary/30 text-primary bg-primary/10">Observability</span>
+                <h2 class="text-base font-bold"><span class="text-primary">Mesa do Diretor</span> & Observabilidade</h2>
+                <span class="badge border-primary/30 text-primary bg-primary/10">Project Core</span>
+            </div>
+
+            <!-- Memory Hub (Obrigatório) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div class="glass p-6 cursor-pointer border border-primary/30 hover:bg-white/5 transition-colors group" onclick="openEditorModal('docs/memory/PROJECT_STATE.md', '📜 PROJECT STATE (Canônico)')">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform"><i data-lucide="compass" class="w-5 h-5 text-primary"></i></div>
+                        <span class="badge border-primary/30 text-primary bg-primary/10 animate-pulse">LIVRE PARA EDICAO</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-white mb-2">1. Missão Central (State)</h3>
+                    <p class="text-[10px] text-muted leading-relaxed">Onde o projeto inteiro está, a meta macro, e o que a IA deve saber antes de dar qualquer "Bom dia".</p>
+                </div>
+                
+                <div class="glass p-6 cursor-pointer border border-secondary/30 hover:bg-white/5 transition-colors group" onclick="openEditorModal('docs/memory/LOCKED_ASSETS.md', '🛡️ LOCKED ASSETS (Regras Intocáveis)')">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-secondary/20 flex items-center justify-center group-hover:scale-110 transition-transform"><i data-lucide="lock" class="w-5 h-5 text-secondary"></i></div>
+                        <span class="badge border-secondary/30 text-secondary bg-secondary/10">TRANCADO</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-white mb-2">2. Regras & Limites (Locks)</h3>
+                    <p class="text-[10px] text-muted leading-relaxed">Design Systems Aprovados, Assets Prontos, Copys validadas. A IA não pode alterar estes dados.</p>
+                </div>
+
+                <div class="glass p-6 cursor-pointer border border-accent/30 hover:bg-white/5 transition-colors group" onclick="openEditorModal('docs/memory/SESSION_HANDOFF.md', '🔄 HANDOFF (Ato Contínuo)')">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-accent/20 flex items-center justify-center group-hover:scale-110 transition-transform"><i data-lucide="file-output" class="w-5 h-5 text-accent"></i></div>
+                        <span class="badge border-accent/30 text-accent bg-accent/10">DINÂMICO</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-white mb-2">3. Ordem de Passagem (Handoff)</h3>
+                    <p class="text-[10px] text-muted leading-relaxed">Para onde a IA vai a seguir. A tarefa imediata e de curto prazo ditada pelo momento operacional final.</p>
+                </div>
             </div>
             
+            <!-- System Stats -->
+            <h3 class="text-xs font-bold text-muted uppercase tracking-widest mb-5 flex items-center gap-2"><i data-lucide="server" class="w-4 h-4 text-white"></i> Motores de Conectividade</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Infra Health -->
                 <div class="glass p-6">
@@ -394,6 +627,22 @@
 </div>
 
 <script>
+
+function switchTab(tab, el) {
+    document.querySelectorAll('.sb-icon').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    if(el) el.classList.add('active');
+    else document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+    
+    document.getElementById('pane-' + tab).classList.add('active');
+    if(tab === 'workflow') renderWorkflow();
+    if(tab === 'engine') renderEngine();
+    if(tab === 'roadmap') renderRoadmap();
+    if(tab === 'nexus') renderNexus();
+    if(tab === 'core') renderCore();
+    lucide.createIcons();
+}
+
 lucide.createIcons();
 
 // Tab switching
@@ -411,85 +660,400 @@ document.querySelectorAll('.sb-icon[data-tab]').forEach(el => {
 // ══════════════════════════════════════════
 
 const SQUADS = [
-    { name: 'Squad de Planejamento', color: '#a855f7', icon: 'compass', agents: ['Orion (@aiox-master)', 'Alex (@analyst)'],
-      mission: 'Definir produto, avatar, arquitetura de volumes e estratégia comercial.',
-      inputs: ['Briefing do Projeto', 'Referências', 'Estrutura Comercial'],
-      outputs: ['Mapa Estratégico', 'Arquitetura de Volumes', 'Plano de Oferta'],
-      dependencies: ['→ Squad de Conteúdo', '→ Squad Comercial'] },
-    { name: 'Squad de Conteúdo', color: '#10b981', icon: 'pen-tool', agents: ['Sage (@copywriter)', 'River (@sm)'],
-      mission: 'Produzir todo o conteúdo textual: fórmulas, manifestos, capítulos e introduções.',
-      inputs: ['Mapa Estratégico', 'Persona', 'Tom de Voz'],
-      outputs: ['Textos Aprovados', 'Fórmulas JSON', 'Manifestos'],
-      dependencies: ['← Squad de Planejamento', '→ Squad de Design'] },
-    { name: 'Squad de Design', color: '#ec4899', icon: 'palette', agents: ['Uma (@ux-design-expert)', 'Aria (@architect)', 'Dex (@dev)'],
-      mission: 'Diagramar A4 estrito, gerar imagens HD, montar PDFs finais.',
-      inputs: ['Textos Aprovados', 'Design System', 'Layout Engine Spec'],
-      outputs: ['Páginas A4 Renderizadas', 'PDFs por Volume', 'Imagens HD'],
-      dependencies: ['← Squad de Conteúdo', '→ Squad de Publicação'] },
-    { name: 'Squad QA', color: '#f59e0b', icon: 'shield-check', agents: ['Quinn (@qa)', 'Pax (@po)'],
-      mission: 'Validar qualidade visual, textual e técnica em cada entrega.',
-      inputs: ['Qualquer saída de qualquer Squad'],
-      outputs: ['Parecer PASS/FAIL', 'Relatório de Correções'],
-      dependencies: ['↔ Conectado a TODOS os Squads'] },
-    { name: 'Squad Comercial', color: '#0ea5e9', icon: 'shopping-cart', agents: ['Morgan (@pm)', 'Sage (@copywriter)'],
-      mission: 'Criar página de vendas, integrar checkout, montar funil e otimizar conversão.',
-      inputs: ['Produto Final', 'Oferta', 'Copy de Vendas'],
-      outputs: ['Landing Page', 'Checkout Kiwify', 'Funil VSL/Upsell'],
-      dependencies: ['← Squad de Design', '→ Squad de Publicação'] },
-    { name: 'Squad de Publicação & Automação', color: '#ef4444', icon: 'rocket', agents: ['Gage (@devops)', 'Dara (@data-engineer)'],
-      mission: 'Fazer deploy, configurar hosting, automatizar entrega digital pós-compra.',
-      inputs: ['Build Final', 'Configuração DNS', 'Webhooks'],
-      outputs: ['Site Live', 'Entrega Automática', 'Monitoramento'],
-      dependencies: ['← Squad Comercial', '← Squad de Design'] }
+    { name: 'Squad INFRA-CORE', color: '#C5A059', icon: 'shield', agents: ['Atlas (@architect)', 'Aura (@ux-design-expert)'],
+      mission: 'Desenvolver e manter o Master Design System e a infraestrutura de elite da plataforma SommersStore.',
+      inputs: ['Briefing Estratégico', 'Requisitos de Plataforma'],
+      outputs: ['Master Design System', 'Component Library'],
+      dependencies: ['↔ Conectado a TODOS os Projetos'] },
+    { name: 'Squad CONTENT FACTORY', color: '#10b981', icon: 'pen-tool', agents: ['Mercury (@copywriter)', 'Vinci (@art-director)', 'Iris (@liaison)', 'Lumina (@brand-master)'],
+      mission: 'Produção em massa de conteúdo aristocrático para e-books e cursos.',
+      inputs: ['Estrutura de Capítulo', 'Drafts de Fórmulas'],
+      outputs: ['Copy Final', 'Diagramação Editorial'],
+      dependencies: ['← INFRA-CORE', '→ MARKETING'] },
+    { name: 'Squad MARKETING', color: '#ec4899', icon: 'filter', agents: ['Alex (@analyst)', 'Stratego (@marketing)', 'Gauge (@cro-expert)', 'Persona X (@persona)'],
+      mission: 'Arquitetura de desejo, funis de alta conversão e análise de comportamento.',
+      inputs: ['Produto Final', 'Budget de Tráfego'],
+      outputs: ['Sales Funnel', 'Market Analysis'],
+      dependencies: ['← CONTENT FACTORY'] },
+    { name: 'Squad CORE OPERATIONS', color: '#a855f7', icon: 'cpu', agents: ['Orion (@aiox-master)', 'Morgan (@pm)', 'Pax (@po)', 'River (@sm)', 'Forge (@squad-creator)'],
+      mission: 'Governança, gestão de backlog e orquestração de entregas de alto impacto.',
+      inputs: ['Business Goals', 'Market Data'],
+      outputs: ['Project Roadmap', 'Validation Reports'],
+      dependencies: ['↔ Conectado a TODOS os Projetos'] },
+    { name: 'Squad ENGINEERING', color: '#14b8a6', icon: 'terminal', agents: ['Dex (@dev)', 'Dara (@data-engineer)', 'Gage (@devops)', 'Quinn (@qa)', 'Koda (@security)'],
+      mission: 'Desenvolvimento Backend, infraestrutura cloud e segurança cibernética.',
+      inputs: ['MDS Specs', 'Schemas'],
+      outputs: ['Functional Platform', 'Cloud Infra', 'Hardened Vault'],
+      dependencies: ['← INFRA-CORE', '← CONTENT FACTORY'] }
+,
+    { name: 'Squad GROWTH & SCALE', color: '#f97316', icon: 'trending-up', agents: ['Gauge (@cro-expert)', 'Stratego (@marketing)'],
+      mission: 'Otimização contínua de funis, gestão de tráfego e escala de faturamento.',
+      inputs: ['Sales Data', 'Traffic Pixels'],
+      outputs: ['Conversion Reports', 'Scale Playbook'],
+      dependencies: ['← ENGINEERING', '← MARKETING'] }
+    ];
+const AGENTS = [
+    { icon: '🏛️', name: 'Atlas', handle: '@architect', squad: 'INFRA-CORE', role: 'Define a arquitetura técnica imutável da SommersStore.', decides: 'Design System, Tech Stack', needs: 'Master Blueprint', delivers: 'Framework MDS', skills: ['Arquitetura de Sistemas', 'Análise de Viabilidade'] },
+    { icon: '✨', name: 'Aura', handle: '@ux-design-expert', squad: 'INFRA-CORE', role: 'Guardiã da estética de elite e UX refinado.', decides: 'Visual Language, Typography', needs: 'Design Spec', delivers: 'Elite UI Components', skills: ['Componentes UI Luxury', 'Tipografia de Elite'] },
+    { icon: '✒️', name: 'Mercury', handle: '@copywriter', squad: 'CONTENT FACTORY', role: 'Redação de elite baseada em mestres da persuasão.', decides: 'Copy Structure, Hooks', needs: 'Persona Briefing', delivers: 'Sales Copy, E-book Text', skills: ['Copywriting Aristocrático', 'Storytelling de Luxo'] },
+    { icon: '🎨', name: 'Vinci', handle: '@art-director', squad: 'CONTENT FACTORY', role: 'Direção de arte editorial para produtos de luxo.', decides: 'Layout editorial, imagens HD', needs: 'Copy Flow', delivers: 'Diagramação Premium', skills: ['Design Editorial HD', 'Direção de Arte'] },
+    { icon: '🌈', name: 'Iris', handle: '@liaison', squad: 'CONTENT FACTORY', role: 'Mapeamento de dados de conteúdo para a plataforma.', decides: 'Data Mapping, JSON structure', needs: 'Raw Content', delivers: 'Atomic Content JSONs', skills: ['Mapeamento JSON Atômico', 'Curadoria de Conteúdo'] },
+    { icon: '📜', name: 'Lumina', handle: '@brand-master', squad: 'CONTENT FACTORY', role: 'Guardiã da identidade de marca e Brandbooks.', decides: 'Brand Consistency', needs: 'Core values', delivers: 'Official Brandbooks', skills: ['Identidade de Marca'] },
+    { icon: '🧠', name: 'Orion', handle: '@aiox-master', squad: 'CORE OPERATIONS', role: 'Orquestrador Mestre do ecossistema AIOX.', decides: 'General Roadmap', needs: 'Business Goals', delivers: 'Active Strategy', skills: ['Governance & Roadmap'] },
+    { icon: '📋', name: 'Morgan', handle: '@pm', squad: 'CORE OPERATIONS', role: 'Product Manager. Gestão de Épicos e Backlog.', decides: 'Priorities, Specs', needs: 'Market Data', delivers: 'Project Roadmap', skills: ['Gestão de Backlog', 'Governance & Roadmap'] },
+    { icon: '🟢', name: 'Pax', handle: '@po', squad: 'CORE OPERATIONS', role: 'Product Owner. Validador final de entregas.', decides: 'Go/No-Go Approval', needs: 'Finished Story', delivers: 'Quality Approval', skills: ['Governance & Roadmap'] },
+    { icon: '🌊', name: 'River', handle: '@sm', squad: 'CORE OPERATIONS', role: 'Scrum Master. Gerenciador de sprints e fluxos.', decides: 'Sprint flow', needs: 'PM Backlog', delivers: 'Dailies, Story Specs', skills: ['Redação de Stories'] },
+    { icon: '🔍', name: 'Alex', handle: '@analyst', squad: 'MARKETING', role: 'Pesquisa de mercado e Avatar ICP.', decides: 'Target Audience, Positioning', needs: 'Niche Info', delivers: 'Avatar & Dream 100', skills: ['Psicologia de Vendas'] },
+
+    { icon: '📐', name: 'Gauge', handle: '@cro-expert', squad: 'MARKETING', role: 'CRO, Arquitetura de Funis e Otimização de Conversão.', decides: 'A/B Tests, Funnel Path, Order Bumps', needs: 'Traffic Data', delivers: 'CRO Reports, Funnel Map', skills: ['CRO & Testes A/B', 'Otimização de Checkout'] },
+
+    { icon: '💻', name: 'Dex', handle: '@dev', squad: 'ENGINEERING', role: 'Desenvolvedor Master Next.js / TypeScript.', decides: 'Frontend Logic', needs: 'UX/UI Specs', delivers: 'Functional Code', skills: ['Desenvolvimento Fullstack', 'Integração de Webhooks'] },
+    { icon: '🗄️', name: 'Dara', handle: '@data-engineer', squad: 'ENGINEERING', role: 'Engenheira de Dados e Schemas Atômicos.', decides: 'DB Schemas, Migrations', needs: 'System Specs', delivers: 'Immutable JSONs', skills: ['Schemas de Dados Imutáveis'] },
+    { icon: '🚀', name: 'Gage', handle: '@devops', squad: 'ENGINEERING', role: 'Especialista em Deploys e Infraestrutura Cloud.', decides: 'Hosting Params, DNS', needs: 'Final Build', delivers: 'Live Environment', skills: ['CI/CD & Cloud Ops', 'Monitoramento de Erros'] },
+    { icon: '✅', name: 'Quinn', handle: '@qa', squad: 'ENGINEERING', role: 'Garantia de Qualidade e Segurança de código.', decides: 'Testing protocols', needs: 'Dev Output', delivers: 'Bug-Free Reports', skills: ['Testes QA Estritos', 'Audit de Acessibilidade'] },
+
+    { icon: '🔐', name: 'Koda', handle: '@security', squad: 'ENGINEERING', role: 'Especialista em segurança de dados e Firebase Vault.', decides: 'Auth Rules, Encryption', needs: 'Data Schemas', delivers: 'Hardened Vault', skills: ['Segurança de Dados', 'Cibersegurança Vault'] },
+    { icon: '🎭', name: 'Persona X', handle: '@persona', squad: 'MARKETING', role: 'Simulação de comportamento do usuário final.', decides: 'User perspective', needs: 'Product Demo', delivers: 'UX Feedback', skills: ['Copywriting Aristocrático'] }
 ];
 
-const AGENTS = [
-    { icon: '🧠', name: 'Orion', handle: '@aiox-master', squad: 'Planejamento', role: 'Orquestrador Mestre. Governa a Constitution, comanda todas as operações.', decides: 'Prioridade de execução, resolução de conflitos', needs: 'Briefing do projeto, estado atual', delivers: 'Plano tático, distribuição de tarefas', skills: ['Governança', 'Override'] },
-    { icon: '🏗️', name: 'Aria', handle: '@architect', squad: 'Design', role: 'Define arquitetura técnica e garante layout A4 imutável.', decides: 'Tech stack, estrutura de rotas, CSS master', needs: 'Design System JSON, Layout Engine Spec', delivers: 'Hierarquia de pastas, componentes TSX, config', skills: ['System Design', 'A4 Layout Engine'] },
-    { icon: '✍️', name: 'Sage', handle: '@copywriter', squad: 'Conteúdo', role: 'Escrita de elite com repertório Finch, Halbert, Brunson.', decides: 'Tom da copy, hooks, ângulos persuasivos', needs: 'Persona, avatar, oferta, Brand Core', delivers: 'Copy final (3 opções Ghost Writing)', skills: ['Direct Response', 'Hooks', 'VSL Scripts'] },
-    { icon: '🎨', name: 'Uma', handle: '@ux-design-expert', squad: 'Design', role: 'Tradução pixel-perfect do Design System para componentes.', decides: 'Estética, grid, tipografia, rejeita desvios', needs: 'The Black Protocol DS, Layout Spec', delivers: 'CSS tokens, componentes visuais validados', skills: ['Design System', 'Typography Gov.'] },
-    { icon: '💻', name: 'Dex', handle: '@dev', squad: 'Design', role: 'Implementa lógica complexa em React/Next.js/TS.', decides: 'Implementação técnica, performance', needs: 'Specs do Arquiteto, componentes do UX', delivers: 'Código funcional, pages, componentes', skills: ['React/Next.js', 'TypeScript'] },
-    { icon: '🗄️', name: 'Dara', handle: '@data-engineer', squad: 'Publicação', role: 'Governança de dados atômicos. Schemas JSON imutáveis.', decides: 'Estrutura dos dados, migrations, schemas', needs: 'Dados brutos das fórmulas', delivers: 'JSONs atômicos validados, schemas', skills: ['JSON Imutável', 'Query Opt'] },
-    { icon: '✅', name: 'Quinn', handle: '@qa', squad: 'QA', role: 'QA Gate com 7 checks. Veredictos: PASS/CONCERNS/FAIL.', decides: 'Aprovar ou rejeitar entregas', needs: 'Qualquer output de qualquer Squad', delivers: 'Relatório QA, lista de correções', skills: ['Gate Security', 'Validation'] },
-    { icon: '🚀', name: 'Gage', handle: '@devops', squad: 'Publicação', role: 'ÚNICO que faz deploy, push e configura DNS/Firebase.', decides: 'Quando publicar, configuração de infra', needs: 'Build aprovado pelo QA', delivers: 'Site live, hosting configurado', skills: ['Firebase', 'CI/CD', 'DNS'] },
-    { icon: '📋', name: 'Morgan', handle: '@pm', squad: 'Comercial', role: 'Product Manager. Cria e executa épicos.', decides: 'Prioridade do backlog, escopo do épico', needs: 'Objetivos estratégicos', delivers: 'Épicos, specs, roadmap', skills: ['create-epic', 'Spec Pipeline'] },
-    { icon: '🟢', name: 'Pax', handle: '@po', squad: 'QA', role: 'Product Owner. Valida stories com checklist 10 pts.', decides: 'GO (≥7) ou NO-GO', needs: 'Story completa', delivers: 'Validação formal, feedback', skills: ['validate-story', 'Backlog'] },
-    { icon: '🌊', name: 'River', handle: '@sm', squad: 'Conteúdo', role: 'Scrum Master. Drafta stories e PRDs.', decides: 'Template da story, prioridade da sprint', needs: 'Épico do PM', delivers: 'Story formatada para o Dev', skills: ['create-story', 'Templates'] },
-    { icon: '🔍', name: 'Alex', handle: '@analyst', squad: 'Planejamento', role: 'Pesquisa de mercado, avatar, Dream 100.', decides: 'Validação de mercado, relatórios', needs: 'Nicho, produto, concorrentes', delivers: 'Relatório analítico, ICP, KPIs', skills: ['Avatar ICP', 'Dream 100'] }
-];
+
 
 const SKILLS = {
-    'RESEARCH': [
-        { name: 'Pesquisa de Mercado', desc: 'Análise de concorrentes, nicho e oportunidades.', agent: '@analyst', stage: 'Etapa 01-02' },
-        { name: 'Geração de Prompts', desc: 'Criação de prompts especializados para cada agente.', agent: '@aiox-master', stage: 'Etapa 01' }
+    'ESTRATÉGIA & OPS': [
+        { name: 'Governance & Roadmap', desc: 'Orquestração de sprints, épicos e visão de longo prazo.', agent: '@master + @pm', stage: 'Todas' },
+        { name: 'Arquitetura de Sistemas', desc: 'Definição de stack tecnológica e padrões de projeto.', agent: '@architect', stage: 'Etapa 01-03' },
+        { name: 'Redação de Stories', desc: 'Criação de especificações técnicas para desenvolvimento.', agent: '@sm', stage: 'Etapa 04' },
+        { name: 'Gestão de Backlog', desc: 'Priorização de tarefas e controle de prazos da sprint.', agent: '@pm', stage: 'Etapa 03' },
+        { name: 'Análise de Viabilidade', desc: 'Estudo de custos e tempo de implementação técnica.', agent: '@architect', stage: 'Etapa 01' }
     ],
-    'CONTENT': [
-        { name: 'Escrita Persuasiva', desc: 'Copy de vendas com gatilhos emocionais e PAS/AIDA.', agent: '@copywriter', stage: 'Etapa 05' },
-        { name: 'Escrita Técnica', desc: 'Fórmulas com dosagem exata e instruções ritualísticas.', agent: '@copywriter', stage: 'Etapa 05' },
-        { name: 'Estruturação de Conteúdo', desc: 'Organizar capítulos, seções e hierarquia dos volumes.', agent: '@sm + @architect', stage: 'Etapa 04' }
+    'CONTEÚDO & NARRATIVA': [
+        { name: 'Copywriting Aristocrático', desc: 'Narrativa de luxo focada em alto ticket e desejo.', agent: '@copywriter', stage: 'Etapa 05' },
+        { name: 'Mapeamento JSON Atômico', desc: 'Conversão de conteúdo bruto em estruturas de dados.', agent: '@liaison', stage: 'Etapa 04' },
+        { name: 'Identidade de Marca', desc: 'Manutenção de brandbooks e diretrizes de voz da marca.', agent: '@brand-master', stage: 'Todas' },
+        { name: 'Storytelling de Luxo', desc: 'Criação de mitologias e narrativas envolventes para produtos.', agent: '@copywriter', stage: 'Etapa 05' },
+        { name: 'Curadoria de Conteúdo', desc: 'Seleção e refinamento de referências botânicas e alquimia.', agent: '@liaison', stage: 'Etapa 02' }
     ],
-    'DESIGN': [
-        { name: 'Diagramação PDF', desc: 'Layout A4 estrito (210x297mm) com overflow: hidden.', agent: '@ux-design-expert', stage: 'Etapa 07' },
-        { name: 'Geração de Imagens', desc: 'Fotos HD botânicas em estilo darkroom premium.', agent: '@ux-design-expert', stage: 'Etapa 08' },
-        { name: 'Design Visual', desc: 'Aplicação do Design System #050508 / #C5A059.', agent: '@architect + @dev', stage: 'Etapa 07' }
+    'VISUAL & EDITORIAL': [
+        { name: 'Design Editorial HD', desc: 'Diagramação de e-books em formato A4 estrito.', agent: '@art', stage: 'Etapa 07-09' },
+        { name: 'Componentes UI Luxury', desc: 'Desenvolvimento de interfaces premium no Design System.', agent: '@visual + @dev', stage: 'Etapa 10' },
+        { name: 'Curadoria de Imagens', desc: 'Geração e refinamento de ativos visuais via IA.', agent: '@visual + @art', stage: 'Etapa 08' },
+        { name: 'Direção de Arte', desc: 'Supervisão estética e harmonia visual do projeto.', agent: '@art', stage: 'Etapa 07' },
+        { name: 'Tipografia de Elite', desc: 'Seleção e ajuste de fontes serifadas e aristocráticas.', agent: '@visual', stage: 'Etapa 07' }
     ],
-    'AUTOMATION': [
-        { name: 'Integração com APIs', desc: 'Kiwify, Firebase, Webhooks, Sendgrid.', agent: '@devops', stage: 'Etapa 11-13' },
-        { name: 'Publicação', desc: 'Deploy Firebase + configuração de domínio.', agent: '@devops', stage: 'Etapa 12' },
-        { name: 'Organização de Arquivos', desc: 'Versionamento, nomeação atômica, backup.', agent: '@data-engineer', stage: 'Etapa 04-09' }
+    'ENGENHARIA & DADOS': [
+        { name: 'Desenvolvimento Fullstack', desc: 'Implementação Next.js, React e TypeScript.', agent: '@dev', stage: 'Etapa 10' },
+        { name: 'Schemas de Dados Imutáveis', desc: 'Arquitetura de banco de dados e migrações seguras.', agent: '@data', stage: 'Etapa 04-11' },
+        { name: 'CI/CD & Cloud Ops', desc: 'Deploys automatizados e gestão de infraestrutura.', agent: '@devops', stage: 'Etapa 12' },
+        { name: 'Integração de Webhooks', desc: 'Conexão entre Shopify, Kiwify e Firebase.', agent: '@dev', stage: 'Etapa 11' },
+        { name: 'Segurança de Dados', desc: 'Proteção de vault e regras de acesso Firebase.', agent: '@security', stage: 'Todas' }
     ],
-    'QUALITY': [
-        { name: 'Revisão de Qualidade', desc: 'QA Gate 7 checks: tipografia, A4, rodapé, coerência.', agent: '@qa', stage: 'Etapa 06' },
-        { name: 'Governança Tipográfica', desc: 'Bloquear alterações em H1, H2, Font-Family e spacing.', agent: '@ux-design-expert', stage: 'Todas' }
+    'MARKETING & FUNNEL': [
+        { name: 'Arquitetura de Funis', desc: 'Desenho lógico de conversão, bumps e upsells.', agent: '@funnel', stage: 'Etapa 10-11' },
+        { name: 'Inteligência de Tráfego', desc: 'Estratégia de compra de mídia e gestão de pixels.', agent: '@traffic', stage: 'Etapa 13' },
+        { name: 'CRO & Testes A/B', desc: 'Análise de métricas e otimização de conversão.', agent: '@cro', stage: 'Etapa 14' },
+        { name: 'Psicologia de Vendas', desc: 'Aplicação de gatilhos mentais em toda a jornada.', agent: '@analyst', stage: 'Etapa 03' },
+        { name: 'Otimização de Checkout', desc: 'Redução de fricção e aumento de ticket médio.', agent: '@cro', stage: 'Etapa 11' }
+    ],
+    'QUALIDADE & SEGURANÇA': [
+        { name: 'Testes QA Estritos', desc: 'Protocolo de 7 checks antes de qualquer release.', agent: '@qa', stage: 'Etapa 06-12' },
+        { name: 'Cibersegurança Vault', desc: 'Proteção de dados, RLS e criptografia Firebase.', agent: '@security', stage: 'Contínuo' },
+        { name: 'Otimização Performance UX', desc: 'Otimização de velocidade e micro-interações.', agent: '@ux-opt', stage: 'Etapa 10' },
+        { name: 'Audit de Acessibilidade', desc: 'Garantir que a interface seja legível para todos.', agent: '@qa', stage: 'Etapa 06' },
+        { name: 'Monitoramento de Erros', desc: 'Log de exceções e rastreio de bugs em tempo real.', agent: '@devops', stage: 'Contínuo' }
     ]
 };
 
 const PERSONAS = [
-    { name: 'Elisa Clark', type: 'Persona Comercial', desc: 'Face da marca. Alquimista Moderna / Ritualist Edition. Tom: autoritário, misterioso, luxuoso.', stage: 'Abertura, Manifestos, VSL', connects: '@copywriter + @analyst', color: '#c5a059' },
-    { name: 'Tiago Finch', type: 'Clone Especialista', desc: 'Escrita hipnótica de desejo/fascínio. Método de funis neurolinguísticos e automação de IA.', stage: 'Headlines, VSL Scripts, Funnel Copy', connects: '@copywriter', color: '#a855f7' },
-    { name: 'Gary Halbert', type: 'Clone Especialista', desc: 'Direto ao ponto/impacto. Cartas de venda lendárias. Escrita de urgência visceral.', stage: 'Sales Page, Bullets, CTAs', connects: '@copywriter', color: '#ef4444' },
-    { name: 'Alan Nicolas', type: 'Clone Especialista', desc: 'Brand Guidelines premium. Construção de ecossistemas de IA com identidade visual forte.', stage: 'Design System, Brand Identity', connects: '@ux-design-expert + @architect', color: '#10b981' },
-    { name: 'Pedro Valério', type: 'Clone Especialista', desc: 'Estrutura de funis de alto ticket. Escada de valor e monetização.', stage: 'Oferta, Preço, Escada de Valor', connects: '@pm + @copywriter', color: '#0ea5e9' }
+    { icon: '🎭', name: 'Elisa Clark', role: 'Avatar Principal (Expert em Botânica)', traits: ['Aristocrática', 'Sofisticada', 'Naturista'], bio: 'Persona que personifica a marca SommersStore.', agents: ['@brand-master', '@copywriter'] },
+    { icon: '🦅', name: 'Tiago Finch', role: 'Clone de Referência (Outlier)', traits: ['Liberdade', 'Cinematográfico', 'Venda Direta'], bio: 'Inspirador do estilo visual e narrativo cinematográfico.', agents: ['@copywriter', '@visual'] },
+    { icon: '🧠', name: 'Alan Nicolas', role: 'Clone de Referência (Funnel/MEC)', traits: ['Mecanismo Único', 'Lógica', 'Escala'], bio: 'Fonte para a estrutura de mecanismo único e ofertas irresistíveis.', agents: ['@funnel', '@cro'] },
+    { icon: '📉', name: 'João VTurb', role: 'Clone de Referência (VSL)', traits: ['Retenção', 'Direct Response', 'Atenção'], bio: 'Referência para scripts de alta retenção e VSLs imbatíveis.', agents: ['@copywriter'] },
+    { icon: '💎', name: 'Pedro Valério', role: 'Clone de Referência (High Ticket)', traits: ['Exclusividade', 'Posicionamento', 'Status'], bio: 'Guia para o posicionamento de luxo e branding aristocrático.', agents: ['@brand-master'] }
+];
+
+
+const ENGINE_NODES = [
+    { id: 'p1', title: '01. Governança', sub: 'Squad CORE OPERATIONS', icon: 'cpu', color: '#a855f7', x: 50, y: 150, agents: ['@master', '@pm', '@sm'] },
+    { id: 'p2', title: '02. Arquitetura', sub: 'Squad INFRA-CORE', icon: 'shield', color: '#C5A059', x: 350, y: 150, agents: ['@architect', '@ux-expert'] },
+    { id: 'p3', title: '03. Avatar & Research', sub: 'Squad MARKETING', icon: 'search', color: '#ec4899', x: 650, y: 150, agents: ['@analyst', '@persona'] },
+    { id: 'p4', title: '04. Content Factory', sub: 'Squad CONTENT FACTORY', icon: 'pen-tool', color: '#10b981', x: 950, y: 100, agents: ['@copywriter', '@art'] },
+    { id: 'p4b', title: '04. Data Mapping', sub: 'Liaison Layer', icon: 'database', color: '#10b981', x: 950, y: 300, agents: ['@liaison', '@brand-master'] },
+    { id: 'p5', title: '05. Engineering Vault', sub: 'Squad ENGINEERING', icon: 'terminal', color: '#14b8a6', x: 1300, y: 100, agents: ['@dev', '@data'] },
+    { id: 'p5b', title: '05. Security & QA', sub: 'Hardening Layer', icon: 'lock', color: '#14b8a6', x: 1300, y: 300, agents: ['@security', '@qa'] },
+    { id: 'p6', title: '06. Profit Engine', sub: 'Squad GROWTH & SCALE', icon: 'trending-up', color: '#f97316', x: 1650, y: 200, agents: ['@cro-expert', '@marketing'] }
+];
+
+const ENGINE_EDGES = [
+    ['p1', 'p2'], ['p2', 'p3'], ['p3', 'p4'], ['p3', 'p4b'], 
+    ['p4', 'p5'], ['p4b', 'p5'], ['p5', 'p5b'], ['p5b', 'p6']
+];
+
+function renderEngine() {
+    const canvas = document.getElementById('engine-canvas');
+    const svg = document.getElementById('engine-svg');
+    if(!canvas || !svg) return;
+
+    canvas.innerHTML = '';
+    svg.innerHTML = '';
+
+    ENGINE_NODES.forEach(n => {
+        const div = document.createElement('div');
+        div.className = 'funnel-node';
+        div.style.left = n.x + 'px';
+        div.style.top = n.y + 'px';
+        div.innerHTML = `
+            <div class="node-port port-in" style="border-color:${n.color}"></div>
+            <div class="node-port port-out" style="border-color:${n.color}"></div>
+            <div class="node-icon" style="background:${n.color}20"><i data-lucide="${n.icon}" style="width:16px;height:16px;color:${n.color}"></i></div>
+            <div class="node-title">${n.title}</div>
+            <div class="node-sub">${n.sub}</div>
+            <div class="flex gap-1 mt-2 opacity-60">
+                ${n.agents.map(a => `<span class="text-[7px] bg-white/5 border border-white/10 px-1 rounded">${a}</span>`).join('')}
+            </div>
+        `;
+        canvas.appendChild(div);
+    });
+
+    ENGINE_EDGES.forEach(([fromId, toId]) => {
+        const from = ENGINE_NODES.find(n => n.id === fromId);
+        const to = ENGINE_NODES.find(n => n.id === toId);
+        if(!from || !to) return;
+        const x1 = from.x + 180;
+        const y1 = from.y + 40;
+        const x2 = to.x;
+        const y2 = to.y + 40;
+        const mx = (x1 + x2) / 2;
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`);
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', 'rgba(255,255,255,0.08)');
+        path.setAttribute('stroke-width', '2');
+        svg.appendChild(path);
+    });
+    lucide.createIcons();
+}
+
+
+const MASTER_ROADMAP = [
+    { stage: 'PLANNING', phase: 'Fase 01', squad: 'CORE OPERATIONS', title: 'Visão & Roadmap Estratégico', agents: ['@aiox-master', '@pm'], task: 'Mapeamento de Épicos e Sprints do projeto.', status: 'done', color: '#a855f7' },
+    { stage: 'PLANNING', phase: 'Fase 01', squad: 'CORE OPERATIONS', title: 'Governance & Squad Allocation', agents: ['@squad-creator', '@sm'], task: 'Distribuição dinâmica de agentes.', status: 'done', color: '#a855f7' },
+    { stage: 'VISUAL', phase: 'Fase 02', squad: 'INFRA-CORE', title: 'Master Design System (MDS)', agents: ['@architect', '@ux-design-expert'], task: 'Tokens visuais e componentes premium.', status: 'done', color: '#C5A059' },
+    { stage: 'VISUAL', phase: 'Fase 02', squad: 'INFRA-CORE', title: 'Componentes UI Luxury', agents: ['@ux-design-expert', '@dev'], task: 'E-book UI ultra-dark.', status: 'active', color: '#C5A059' },
+    { stage: 'MARKETING', phase: 'Fase 03', squad: 'MARKETING', title: 'Psicologia de Vendas & Avatar', agents: ['@analyst', '@persona'], task: 'Avatar e estudo de comportamento.', status: 'active', color: '#ec4899' },
+    { stage: 'CONTENT', phase: 'Fase 04', squad: 'CONTENT FACTORY', title: 'Storytelling & Content', agents: ['@copywriter', '@art-director'], task: 'Copy e diagramação editorial.', status: 'active', color: '#10b981' },
+    { stage: 'ENGINEERING', phase: 'Fase 05', squad: 'ENGINEERING', title: 'Engineering & Security', agents: ['@dev', '@security'], task: 'Code & Vault implementation.', status: 'todo', color: '#14b8a6' },
+    { stage: 'GROWTH', phase: 'Fase 06', squad: 'GROWTH & SCALE', title: 'Funis & Escala', agents: ['@cro-expert', '@marketing'], task: 'Lançamento e otimização de lucro.', status: 'todo', color: '#f97316' }
+];
+
+function renderRoadmap() {
+    const c = document.getElementById('roadmap-container');
+    if(!c) return;
+    c.innerHTML = MASTER_ROADMAP.map(item => `
+        <div class="glass flex items-center gap-6 p-4 border-l-4 group" style="border-left-color: ${item.color}">
+            <div class="w-16 text-center">
+                <p class="text-[8px] font-black text-muted uppercase">${item.phase}</p>
+                <div class="h-8 w-8 mx-auto rounded-lg flex items-center justify-center bg-white/5 border border-white/10 mt-1">
+                    <i data-lucide="map-pin" class="w-3 h-3 text-white"></i>
+                </div>
+            </div>
+            <div class="flex-1">
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="text-[7px] font-black px-1.5 py-0.5 rounded bg-white/5 text-muted uppercase">${item.stage}</span>
+                    <h3 class="text-xs font-bold text-white uppercase">${item.title}</h3>
+                </div>
+                <p class="text-[10px] text-muted mb-2">${item.task}</p>
+                <div class="flex gap-1">
+                    ${item.agents.map(a => `<span class="text-[7px] font-bold text-primary px-1.5 py-0.5 rounded bg-primary/5 border border-primary/10">${a}</span>`).join('')}
+                </div>
+            </div>
+            <div class="w-32 text-right">
+                <p class="text-[8px] font-bold text-muted uppercase mb-1">Squad</p>
+                <span class="text-[8px] font-black uppercase" style="color:${item.color}">${item.squad}</span>
+            </div>
+            <div class="w-20 text-center">
+                 <span class="text-[8px] font-bold uppercase tracking-widest px-2 py-1 rounded border border-white/10 ${item.status === 'done' ? 'text-green-400' : item.status === 'active' ? 'text-amber-400 animate-pulse' : 'text-muted/40'}">
+                    ${item.status}
+                </span>
+            </div>
+        </div>`).join('');
+    lucide.createIcons();
+}
+
+
+const NEXUS_DATA = [
+    { id:'n1', x:100, y:200, title:'Roadmap Estratégico', phase:'Fase 01', squad:'Core Ops', color:'#a855f7', icon:'map', agents:['@master','@pm'], details: { m:'Definição de visão, épicos e backlog do projeto.', i:'Business Briefing', o:'Master Roadmap' } },
+    { id:'n2', x:250, y:200, title:'MDS & Branding', phase:'Fase 02', squad:'Infra Core', color:'#C5A059', icon:'shield', agents:['@architect','@brand-master'], details: { m:'Criação do Master Design System e diretrizes visuais.', i:'Roadmap', o:'MDS Tokens / Brandbook' } },
+    { id:'n3', x:400, y:300, title:'Pesquisa Avatar', phase:'Fase 03', squad:'Marketing', color:'#ec4899', icon:'users', agents:['@analyst','@persona'], details: { m:'Mapeamento de avatar Marina e estudo de comportamento.', i:'MDS', o:'Persona Profile' } },
+    { id:'n4', x:550, y:200, title:'Copywriting Elite', phase:'Fase 04', squad:'Content', color:'#10b981', icon:'pen-tool', agents:['@copywriter'], details: { m:'Escrita persuasiva aristocrática para o produto.', i:'Persona Profile', o:'Sales Copy V1' } },
+    { id:'n5', x:700, y:150, title:'Direção de Arte', phase:'Fase 04', squad:'Content', color:'#10b981', icon:'palette', agents:['@art-director'], details: { m:'Direção estética editorial e diagramação HD.', i:'Sales Copy', o:'Premium Assets' } },
+    { id:'n6', x:700, y:350, title:'Data Mapping', phase:'Fase 04', squad:'Content', color:'#10b981', icon:'database', agents:['@liaison'], details: { m:'Estruturação JSON atômica das fórmulas do e-book.', i:'Raw Recipes', o:'Content JSONs' } },
+    { id:'n7', x:900, y:200, title:'Engineering Backend', phase:'Fase 05', squad:'Engineering', color:'#14b8a6', icon:'terminal', agents:['@dev','@data-engineer'], details: { m:'Implementação do sistema de entrega e banco imutável.', i:'MDS / JSONs', o:'Live App Backend' } },
+    { id:'n8', x:1050, y:100, title:'Security Vault', phase:'Fase 05', squad:'Engineering', color:'#14b8a6', icon:'lock', agents:['@security'], details: { m:'Configuração de segurança Firebase e proteção de dados.', i:'Data Schemes', o:'Hardened Firebase' } },
+    { id:'n9', x:1050, y:300, title:'QA Protocol', phase:'Fase 05', squad:'Engineering', color:'#14b8a6', icon:'check-square', agents:['@qa'], details: { m:'Protocolo de testes estritos e auditoria de UX.', i:'Dev Output', o:'Certificado QA Alpha' } },
+    { id:'n10', x:1250, y:200, title:'Funnel Mastery', phase:'Fase 06', squad:'Growth', color:'#f97316', icon:'trending-up', agents:['@cro-expert'], details: { m:'Otimização de checkout, upsells e taxas de conversão.', i:'Live App', o:'Profit Funnel' } },
+    { id:'n11', x:1400, y:200, title:'Scale Strategy', phase:'Fase 06', squad:'Growth', color:'#f97316', icon:'megaphone', agents:['@marketing'], details: { m:'Estratégia de tráfego pago e escala de vendas massiva.', i:'Profit Funnel', o:'ROI Scale' } }
+];
+
+const NEXUS_EDGES = [ ['n1','n2'],['n2','n3'],['n3','n4'],['n4','n5'],['n4','n6'],['n5','n7'],['n6','n7'],['n7','n8'],['n7','n9'],['n8','n10'],['n9','n10'],['n10','n11'] ];
+
+function renderNexus() {
+    const canvas = document.getElementById('nexus-canvas');
+    const svg = document.getElementById('nexus-svg');
+    if(!canvas || !svg) return;
+    canvas.innerHTML = '';
+    svg.innerHTML = '';
+
+    NEXUS_DATA.forEach(n => {
+        const div = document.createElement('div');
+        div.className = 'nexus-node';
+        div.style.left = n.x + 'px';
+        div.style.top = n.y + 'px';
+        div.onclick = () => {
+            document.querySelectorAll('.nexus-node').forEach(x => x.classList.remove('active-node'));
+            div.classList.add('active-node');
+            
+            // Open detail manual style for context
+            const detail = n.details;
+            let html = `<div class="p-4"><span class="badge" style="background:${n.color}20; color:${n.color}">${n.phase}</span><h3 class="mt-4 text-white font-bold">${n.title}</h3><p class="text-[10px] text-muted mb-4uppercase">${n.squad}</p><p class="text-[11px] text-muted leading-relaxed mb-6">${detail.m}</p><div class="space-y-4 border-t border-white/5 pt-4"><div><p class="text-[10px] font-bold text-primary">AGENTES</p><p class="text-[11px] text-white">${n.agents.join(' · ')}</p></div><div><p class="text-[10px] font-bold text-muted uppercase tracking-widest">Entrada ➔ Saída</p><p class="text-[10px] italic text-muted">${detail.i} ➔ ${detail.o}</p></div></div></div>`;
+            document.getElementById('drawer-title').textContent = 'Detalhes do Nodo';
+            document.getElementById('drawer-content').innerHTML = html;
+            document.getElementById('detail-drawer').classList.add('open');
+        };
+        div.innerHTML = `<i data-lucide="${n.icon}" style="width:16px;height:16px;color:${n.color}"></i><div class="nexus-label"><h4>${n.title}</h4><p>${n.phase}</p></div>`;
+        canvas.appendChild(div);
+    });
+
+    NEXUS_EDGES.forEach(([fId, tId]) => {
+        const f = NEXUS_DATA.find(n => n.id === fId);
+        const t = NEXUS_DATA.find(n => n.id === tId);
+        const x1 = f.x + 22, y1 = f.y + 22, x2 = t.x + 22, y2 = t.y + 22;
+        const mx = (x1 + x2) / 2;
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`);
+        path.setAttribute('fill', 'none'); path.setAttribute('stroke', 'rgba(255,255,255,0.06)'); path.setAttribute('stroke-width', '2');
+        svg.appendChild(path);
+    });
+    lucide.createIcons();
+}
+
+
+const CORE_DATA = [
+    { id:'c1', x:150, y:300, title:'Governance', phase:'Phase 01', squad:'Core Ops', color:'#a855f7', icon:'orbit', agents:['@aiox-master','@pm'], details: { m:'Orquestração estratégica de alto nível e governança do projeto.', i:'Business Goals', o:'Master Roadmap' } },
+    { id:'c2', x:400, y:300, title:'Elite Identity', phase:'Phase 02', squad:'Infra Core', color:'#C5A059', icon:'shield', agents:['@architect','@brand-master'], details: { m:'Definição dos tokens de luxo e arquitetura visual imutável.', i:'Roadmap', o:'Design System HD' } },
+    { id:'c3', x:650, y:450, title:'Avatar Psycho', phase:'Phase 03', squad:'Marketing', color:'#ec4899', icon:'user-check', agents:['@analyst','@persona'], details: { m:'Mapeamento psicológico profundo e simulação de desejo do avatar.', i:'Identity', o:'Psychology Map' } },
+    { id:'c4', x:900, y:300, title:'Aristocratic Copy', phase:'Phase 04', squad:'Content', color:'#10b981', icon:'pen-tool', agents:['@copywriter'], details: { m:'Redação de elite baseada em mecanismos de vendas cinematográficos.', i:'Avatar Data', o:'Sales Scripts' } },
+    { id:'c5', x:1150, y:200, title:'Editorial Art', phase:'Phase 04', squad:'Content Factory', color:'#10b981', icon:'palette', agents:['@art-director'], details: { m:'Direção de arte editorial A4 para exportação de alta fidelidade.', i:'Copy Scripts', o:'Premium Assets' } },
+    { id:'c6', x:1150, y:500, title:'Liaison Bridge', phase:'Phase 04', squad:'Content Factory', color:'#10b981', icon:'server', agents:['@liaison'], details: { m:'Mapeamento JSON de conteúdo para integração dinâmica com o sistema.', i:'Raw Data', o:'Atomic JSONs' } },
+    { id:'c7', x:1450, y:350, title:'Engineering', phase:'Phase 05', squad:'Engineering', color:'#14b8a6', icon:'terminal', agents:['@dev','@data-engineer'], details: { m:'Implementação de frontend e backend em Next.js com performance crítica.', i:'MDS / JSONs', o:'Live App' } },
+    { id:'c8', x:1700, y:200, title:'The Vault', phase:'Phase 05', squad:'Hardening', color:'#14b8a6', icon:'lock', agents:['@security'], details: { m:'Segurança militar de dados e proteção de regras de acesso Firebase.', i:'App Config', o:'Hardened Vault' } },
+    { id:'c9', x:1700, y:500, title:'Final QA', phase:'Phase 05', squad:'Validation', color:'#14b8a6', icon:'fingerprint', agents:['@qa'], details: { m:'Auditoria final de qualidade, UX e protocolos de lançamento.', i:'Dev Output', o:'Certified Build' } },
+    { id:'c10', x:2000, y:350, title:'Growth Engine', phase:'Phase 06', squad:'Growth & Scale', color:'#f97316', icon:'bar-chart-3', agents:['@cro-expert','@marketing'], details: { m:'Escala massiva de faturamento, otimização de funis e BI em tempo real.', i:'Live Build', o:'Elite ROI' } }
+];
+
+const CORE_EDGES = [ ['c1','c2'],['c2','c3'],['c3','c4'],['c4','c5'],['c4','c6'],['c5','c7'],['c6','c7'],['c7','c8'],['c7','c9'],['c8','c10'],['c9','c10'] ];
+
+function renderCore() {
+    const canvas = document.getElementById('core-canvas');
+    const svg = document.getElementById('core-svg');
+    if(!canvas || !svg) return;
+    canvas.innerHTML = '';
+    svg.innerHTML = '';
+
+    CORE_DATA.forEach(n => {
+        const div = document.createElement('div');
+        div.className = 'core-node';
+        div.style.left = n.x + 'px';
+        div.style.top = n.y + 'px';
+        div.style.setProperty('--node-color', n.color);
+        div.onclick = () => {
+            document.querySelectorAll('.core-node').forEach(x => x.classList.remove('active'));
+            div.classList.add('active');
+            
+            const detail = n.details;
+            let html = `<div class="p-6">
+                <span class="badge" style="background:${n.color}20; color:${n.color}; border: 1px solid ${n.color}30">${n.phase}</span>
+                <h3 class="mt-4 text-xl font-black text-white italic tracking-tighter uppercase">${n.title}</h3>
+                <p class="text-[9px] text-muted mb-6 font-bold tracking-widest">${n.squad}</p>
+                <p class="text-[12px] text-muted leading-relaxed mb-8 border-l-2 border-${n.color}/30 pl-4">${detail.m}</p>
+                <div class="space-y-6 pt-6 border-t border-white/5">
+                    <div><p class="text-[9px] font-black text-primary uppercase tracking-[0.2em] mb-2">Operational Squad</p><div class="flex flex-wrap gap-2">${n.agents.map(a => `<span class="bg-white/5 border border-white/10 px-2 py-1 rounded text-[10px] text-white">${a}</span>`).join('')}</div></div>
+                    <div><p class="text-[9px] font-black text-muted uppercase tracking-[0.2em] mb-2">Protocol Handoff</p><p class="text-[10px] italic text-muted">${detail.i} <i data-lucide="arrow-right" class="w-2 h-2 inline text-primary mx-2"></i> ${detail.o}</p></div>
+                </div>
+            </div>`;
+            document.getElementById('drawer-title').textContent = 'System Node Context';
+            document.getElementById('drawer-content').innerHTML = html;
+            document.getElementById('detail-drawer').classList.add('open');
+            lucide.createIcons();
+        };
+        div.innerHTML = `<i data-lucide="${n.icon}" style="width:20px;height:20px;color:${n.color}"></i><div class="core-label"><h4>${n.title}</h4><p>${n.phase}</p></div>`;
+        canvas.appendChild(div);
+    });
+
+    CORE_EDGES.forEach(([fId, tId]) => {
+        const f = CORE_DATA.find(n => n.id === fId);
+        const t = CORE_DATA.find(n => n.id === tId);
+        const x1 = f.x + 24, y1 = f.y + 24, x2 = t.x + 24, y2 = t.y + 24;
+        const dx = Math.abs(x2 - x1) * 0.5;
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', `M${x1},${y1} C${x1+dx},${y1} ${x2-dx},${y2} ${x2},${y2}`);
+        path.setAttribute('fill', 'none'); 
+        path.setAttribute('stroke', (x1 > 1000 ? 'rgba(20, 184, 166, 0.1)' : 'rgba(168, 85, 247, 0.1)')); 
+        path.setAttribute('stroke-width', '2');
+        path.setAttribute('class', 'core-connection');
+        svg.appendChild(path);
+    });
+    lucide.createIcons();
+}
+
+const WORKFLOW_STEPS = [
+    { 
+        phase: 'Fase 01', title: 'Governança & Estratégia', squad: 'CORE OPERATIONS', color: '#a855f7', icon: 'cpu',
+        agents: ['Orion (@aiox-master)', 'Morgan (@pm)', 'Pax (@po)', 'River (@sm)', 'Forge (@squad-creator)'],
+        action: 'Definição do escopo, roadmap estratégico e alocação de squads de IA para os objetivos de negócio.',
+        input: 'Briefing do Cliente / Business Goals',
+        output: 'Project Roadmap / Sprint Backlog / Squad Structure',
+        status: 'done'
+    },
+    { 
+        phase: 'Fase 02', title: 'Fundação & Identidade', squad: 'INFRA-CORE', color: '#C5A059', icon: 'shield',
+        agents: ['Atlas (@architect)', 'Aura (@ux-design-expert)'],
+        action: 'Construção do Master Design System e definição da arquitetura técnica imutável.',
+        input: 'Roadmap / Tech Stack Docs',
+        output: 'Master Design System / Technical Blueprint',
+        status: 'done'
+    },
+    { 
+        phase: 'Fase 03', title: 'Inteligência de Mercado', squad: 'MARKETING', color: '#ec4899', icon: 'filter',
+        agents: ['Alex (@analyst)', 'Persona X (@persona)'],
+        action: 'Mapeamento de avatar (ICP), análise de mercado "Dream 100" e testes de resonância via Persona Simulation.',
+        input: 'Canais de Venda / Niche Info',
+        output: 'Avatar Blueprint / Market Analysis / Core Hooks',
+        status: 'active'
+    },
+    { 
+        phase: 'Fase 04', title: 'Fábrica de Conteúdo', squad: 'CONTENT FACTORY', color: '#10b981', icon: 'pen-tool',
+        agents: ['Mercury (@copywriter)', 'Vinci (@art-director)', 'Iris (@liaison)', 'Lumina (@brand-master)'],
+        action: 'Produção em massa de narrativa, copy de vendas, diagramação editorial e curadoria botânica.',
+        input: 'Core Hooks / Structure Briefing',
+        output: 'Sales Copy / E-book PDF / Brand consistency Check',
+        status: 'active'
+    },
+    { 
+        phase: 'Fase 05', title: 'Engenharia & Deploy', squad: 'ENGINEERING', color: '#14b8a6', icon: 'terminal',
+        agents: ['Dex (@dev)', 'Dara (@data-engineer)', 'Gage (@devops)', 'Quinn (@qa)', 'Koda (@security)'],
+        action: 'Codificação da plataforma, integração de checkout, auditoria de segurança e controle de qualidade final.',
+        input: 'MDS Tokens / Content JSONs / Design Specs',
+        output: 'Functional Platform / Firebase Vault / QA Report',
+        status: 'todo'
+    },
+    { 
+        phase: 'Fase 06', title: 'Escala & Performance', squad: 'GROWTH & SCALE', color: '#ec4899', icon: 'trending-up',
+        agents: ['Gauge (@cro-expert)', 'Stratego (@marketing)'],
+        action: 'Lançamento de tráfego, otimização de funil (CRO) e análise de ROI diário para escala massiva.',
+        input: 'Live Platform / Traffic Budget',
+        output: 'ROI Dashboard / Funnel Optimization / Multi-channel Scale',
+        status: 'todo'
+    }
 ];
 
 const INTEGRATIONS = [
@@ -536,6 +1100,56 @@ const IMPROVEMENTS = [
 // RENDER FUNCTIONS
 // ══════════════════════════════════════════
 
+
+function renderWorkflow() {
+    const c = document.getElementById('workflow-container');
+    if(!c) return;
+    c.innerHTML = WORKFLOW_STEPS.map((s, idx) => `
+        <div class="relative group">
+            <!-- Connector Dot -->
+            <div class="absolute -left-[53px] top-6 w-10 h-10 rounded-full border-4 border-black flex items-center justify-center z-10" style="background: ${s.color}">
+                <i data-lucide="${s.icon}" class="w-4 h-4 text-black"></i>
+            </div>
+            
+            <div class="glass p-8 border border-white/5 group-hover:border-white/10 transition-colors">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <span class="text-[9px] font-black uppercase tracking-[0.3em] px-2 py-0.5 rounded-full mb-2 inline-block" style="background: ${s.color}20; color: ${s.color}">
+                            ${s.phase} — SQUAD: ${s.squad}
+                        </span>
+                        <h3 class="text-xl font-bold tracking-tight">${s.title}</h3>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[8px] font-bold uppercase tracking-widest px-2 py-1 rounded border border-white/10 ${s.status === 'done' ? 'text-green-400' : s.status === 'active' ? 'text-amber-400 animate-pulse' : 'text-muted'}">
+                            ${s.status}
+                        </span>
+                    </div>
+                </div>
+                
+                <p class="text-[11px] text-muted leading-relaxed mb-6 max-w-2xl">${s.action}</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 border-t border-white/5">
+                    <div>
+                        <h4 class="text-[8px] uppercase tracking-widest font-black text-primary mb-3">Agentes em Ação</h4>
+                        <div class="flex flex-wrap gap-2 text-[10px] font-bold">
+                            ${s.agents.map(a => `<span class="px-2 py-1 rounded bg-white/5 border border-white/5">${a}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-[8px] uppercase tracking-widest font-black text-muted mb-3">Hands-Off (Input ➔ Output)</h4>
+                        <div class="flex items-center gap-3 text-[10px] text-muted italic">
+                            <span>${s.input}</span>
+                            <i data-lucide="arrow-right" class="w-3 h-3 text-primary"></i>
+                            <span class="text-white not-italic font-bold">${s.output}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    lucide.createIcons();
+}
+
 function renderSquads() {
     const c = document.getElementById('squads-view');
     c.innerHTML = SQUADS.map(s => `
@@ -556,7 +1170,7 @@ function renderSquads() {
 function renderAgents() {
     const c = document.getElementById('agents-view');
     c.innerHTML = AGENTS.map(a => `
-        <div class="glass p-4 hover:-translate-y-0.5 transition-transform">
+        <div class="glass p-4 hover:-translate-y-0.5 transition-transform cursor-pointer border border-transparent hover:border-primary/30" onclick="openEditorModal('.codex/agents/' + '${a.handle.replace('@','')}' + '.md', '${a.name} — Matriz Neural')">
             <div class="flex items-center gap-2.5 mb-3">
                 <div class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-lg">${a.icon}</div>
                 <div><h4 class="text-xs font-bold">${a.name}</h4><p class="text-[9px] text-primary font-bold tracking-widest">${a.handle}</p></div>
@@ -575,16 +1189,24 @@ function renderAgents() {
 function renderSkills() {
     const c = document.getElementById('skills-view');
     c.innerHTML = Object.entries(SKILLS).map(([cat, items]) => `
-        <div>
-            <div class="flex items-center gap-2 mb-3"><div class="h-2 w-2 rounded-full bg-primary"></div><span class="text-[10px] font-bold text-primary uppercase tracking-widest">${cat} (${items.length})</span></div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="mb-10">
+            <div class="flex items-center gap-2 mb-6"><div class="h-2 w-2 rounded-full bg-primary"></div><span class="text-[10px] font-bold text-primary uppercase tracking-widest">${cat}</span></div>
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;">
                 ${items.map(s=>`
-                    <div class="glass p-4">
-                        <h4 class="text-xs font-bold mb-1">${s.name}  <span class="badge border-secondary/20 text-secondary bg-secondary/5 ml-2">active</span></h4>
-                        <p class="text-[10px] text-muted leading-relaxed mb-2">${s.desc}</p>
-                        <div class="flex gap-3 text-[9px]">
-                            <span class="text-primary font-bold">Agente: <span class="text-muted font-normal">${s.agent}</span></span>
-                            <span class="text-accent font-bold">Fase: <span class="text-muted font-normal">${s.stage}</span></span>
+                    <div class="glass p-4 hover:-translate-y-0.5 transition-transform cursor-pointer border border-transparent hover:border-secondary/30" onclick="openEditorModal('.codex/skills/' + '${s.name.toLowerCase().replace(/[áàâãä]/g, 'a').replace(/[éèêë]/g, 'e').replace(/[íìîï]/g, 'i').replace(/[óòôõö]/g, 'o').replace(/[úùûü]/g, 'u').replace(/ç/g, 'c').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}' + '.md', 'Skill: ${s.name}')">
+                        <div class="flex items-center gap-2.5 mb-3">
+                            <div class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-lg">⚡</div>
+                            <div><h4 class="text-xs font-bold">${s.name}</h4><p class="text-[9px] text-primary font-bold tracking-widest">${cat}</p></div>
+                        </div>
+                        <p class="text-[10px] text-muted mb-3 leading-relaxed h-12 line-clamp-3">${s.desc}</p>
+                        <div class="space-y-2 text-[9px] border-t border-white/5 pt-3">
+                            <div><span class="text-accent font-bold">Escopo:</span> <span class="text-muted">Ativos SommersStore Elite</span></div>
+                            <div><span class="text-secondary font-bold">Recurso:</span> <span class="text-muted">${s.agent}</span></div>
+                            <div><span class="text-primary font-bold">Processo:</span> <span class="text-muted">Implementação Atômica</span></div>
+                        </div>
+                        <div class="flex flex-wrap gap-1 mt-3">
+                            <span class="px-1.5 py-0.5 rounded text-[8px] bg-secondary/10 text-secondary border border-secondary/15 font-bold uppercase">Pronto</span>
+                            <span class="px-1.5 py-0.5 rounded text-[8px] bg-white/5 text-muted border border-white/10 font-bold uppercase">${s.stage}</span>
                         </div>
                     </div>`).join('')}
             </div>
@@ -594,13 +1216,19 @@ function renderSkills() {
 function renderPersonas() {
     const c = document.getElementById('personas-view');
     c.innerHTML = PERSONAS.map(p => `
-        <div class="glass p-6 border-t-4" style="border-top-color:${p.color}">
-            <div class="flex items-center gap-3 mb-3"><span class="badge bg-white/5 border-white/10">${p.type}</span></div>
-            <h3 class="text-sm font-bold mb-2" style="color:${p.color}">${p.name}</h3>
-            <p class="text-[10px] text-muted leading-relaxed mb-4">${p.desc}</p>
-            <div class="space-y-1 text-[9px] border-t border-white/5 pt-3">
-                <div><span class="text-accent font-bold">Atua em:</span> <span class="text-muted">${p.stage}</span></div>
-                <div><span class="text-primary font-bold">Conecta:</span> <span class="text-muted">${p.connects}</span></div>
+        <div class="glass p-4 hover:-translate-y-0.5 transition-transform cursor-pointer border border-transparent hover:border-accent/30" onclick="openEditorModal('knowledge/clones/' + '${p.name.replace(/ /g,'_').toLowerCase()}' + '_clone.md', 'Avatar: ${p.name}')">
+            <div class="flex items-center gap-2.5 mb-3">
+                <div class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-lg">${p.icon}</div>
+                <div><h4 class="text-xs font-bold">${p.name}</h4><p class="text-[9px] text-primary font-bold tracking-widest">${p.role}</p></div>
+            </div>
+            <p class="text-[10px] text-muted mb-3 leading-relaxed h-12 line-clamp-3">${p.bio}</p>
+            <div class="space-y-2 text-[9px] border-t border-white/5 pt-3">
+                <div><span class="text-accent font-bold">Arquétipo:</span> <span class="text-muted">${p.traits.join(' · ')}</span></div>
+                <div><span class="text-secondary font-bold">Agentes:</span> <span class="text-muted">${p.agents.join(' + ')}</span></div>
+                <div><span class="text-primary font-bold">Impacto:</span> <span class="text-muted">Conversão & Desejo Elite</span></div>
+            </div>
+            <div class="flex flex-wrap gap-1 mt-3">
+                ${p.traits.map(t=>`<span class="px-1.5 py-0.5 rounded text-[8px] bg-primary/10 text-primary border border-primary/15 font-bold uppercase">${t}</span>`).join('')}
             </div>
         </div>`).join('');
 }
@@ -878,6 +1506,94 @@ function resetZoom() {
     document.getElementById('zoom-label').textContent = '100%';
 }
 
+// ══════════════════════════════════════════
+// MODAL EDITOR ENGINE (Ler/Salvar Arquivos)
+// ══════════════════════════════════════════
+
+let currentEditorPath = '';
+
+function openEditorModal(path, title) {
+    const modal = document.getElementById('editor-modal');
+    const modalContent = document.getElementById('editor-modal-content');
+    const textarea = document.getElementById('editor-textarea');
+    
+    document.getElementById('editor-title').textContent = title || 'Lendo Arquivo';
+    document.getElementById('editor-path').textContent = path;
+    currentEditorPath = path;
+    
+    textarea.value = 'Conectando ao sistema de arquivos do Antigravity... aguarde.';
+    document.getElementById('editor-status').classList.add('hidden');
+    
+    modal.classList.remove('hidden');
+    modal.style.display = 'flex';
+    setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        modalContent.classList.remove('scale-95');
+    }, 10);
+
+    fetch('/api/file?path=' + encodeURIComponent(path))
+        .then(r => r.text())
+        .then(txt => {
+            textarea.value = txt;
+        })
+        .catch(e => {
+            textarea.value = "ERRO COGNITIVO: O arquivo especificado (" + path + ") não existe ou não pôde ser lido. Você pode digitá-lo aqui e clicar em Salvar para criá-lo do zero.";
+        });
+}
+
+function closeEditorModal() {
+    const modal = document.getElementById('editor-modal');
+    const modalContent = document.getElementById('editor-modal-content');
+    
+    modal.classList.add('opacity-0');
+    modalContent.classList.add('scale-95');
+    
+    setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+        document.getElementById('editor-textarea').value = '';
+    }, 300);
+}
+
+function saveEditorModal() {
+    const textarea = document.getElementById('editor-textarea');
+    const status = document.getElementById('editor-status');
+    const btn = document.querySelector('button[onclick="saveEditorModal()"]');
+    
+    const content = textarea.value;
+    const oldHtml = btn.innerHTML;
+    btn.innerHTML = '<i data-lucide="loader" class="w-3 h-3 animate-spin"></i> Salvando...';
+    lucide.createIcons();
+    
+    fetch('/api/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: currentEditorPath, content: content })
+    })
+    .then(r => r.json())
+    .then(res => {
+        btn.innerHTML = oldHtml;
+        lucide.createIcons();
+        if(res.success) {
+            status.textContent = 'Salvo com Sucesso';
+            status.className = 'text-[9px] text-secondary font-bold uppercase tracking-widest';
+            status.classList.remove('hidden');
+            setTimeout(() => status.classList.add('hidden'), 3000);
+        } else {
+            status.textContent = 'Erro ao Salvar';
+            status.className = 'text-[9px] text-coral font-bold uppercase tracking-widest';
+            status.classList.remove('hidden');
+        }
+    })
+    .catch(e => {
+        btn.innerHTML = oldHtml;
+        status.textContent = 'Problema de Rede';
+        status.className = 'text-[9px] text-coral font-bold uppercase tracking-widest';
+        status.classList.remove('hidden');
+    });
+}
+
+
 function syncAll() {
     fetch('/api/data').then(r => r.json()).then(data => {
         // Status Firebase
@@ -912,7 +1628,7 @@ function syncAll() {
         
         document.getElementById('sys-pdf-logs').textContent = data.pdf_health.last_run || 'Sem logs disponíveis.';
 
-        renderSquads(); renderAgents(); renderSkills();
+        renderCore(); renderNexus(); renderRoadmap(); renderEngine(); renderWorkflow(); renderSquads(); renderAgents(); renderSkills();
 
         renderPersonas(); renderIntegrations(); renderGates();
         renderRisks(); renderDesign();

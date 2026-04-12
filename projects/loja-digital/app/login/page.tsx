@@ -19,8 +19,9 @@ export default function LoginPage() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push("/ebook/viewer");
+      router.push("/hub");
     } catch (err: any) {
+
       setError("Acesso negado. Verifique seu e-mail e chave de acesso.");
       console.error(err);
     } finally {
@@ -50,10 +51,11 @@ export default function LoginPage() {
 
       <div style={{
         width: "100%",
-        maxSize: "420px",
+        maxWidth: "420px",
         zIndex: 1,
         animation: "fadeIn 1s ease-out"
       }}>
+
         <div style={{
           background: "rgba(10, 10, 20, 0.4)",
           backdropFilter: "blur(20px)",
@@ -160,19 +162,6 @@ export default function LoginPage() {
         </div>
       </div>
       
-      <style jsx>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        input:focus {
-          border-color: rgba(197, 160, 89, 0.4) !important;
-        }
-        button:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 15px 30px rgba(197, 160, 89, 0.2) !important;
-        }
-      `}</style>
     </div>
   );
 }

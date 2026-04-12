@@ -119,13 +119,20 @@
     background: #050508 !important;
     margin: 0 !important;
     padding: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
   }
   .ebook-wrapper {
     background: #050508 !important;
     padding: 0 !important;
     margin: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+    display: block !important; /* remove flex that breaks pagination */
   }
   .page-a4 {
+    position: relative !important;
+    display: block !important; /* Avoid flex breaking pages */
     border: none !important;
     margin: 0 !important;
     box-shadow: none !important;
@@ -134,7 +141,8 @@
     max-height: 297mm !important;
     overflow: hidden !important;
     page-break-after: always !important;
-    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-after: auto !important;
     /* --- FIX PERFORMANCE PDF --- */
     filter: none !important;
     transform: none !important;

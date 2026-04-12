@@ -373,5 +373,3 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 - **@architect (Aria)** - Collaborates on technical decisions
 
 ---
----
-*AIOX Agent - Synced from .aiox-core/development/agents/pm.md*

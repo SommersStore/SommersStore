@@ -131,7 +131,7 @@ export default function UpsellPage() {
                             </span>
                         </h1>
                         <p className="text-xl md:text-2xl text-[#F5F5DC]/70 font-serif italic leading-relaxed max-w-3xl mx-auto">
-                            O acesso ao seu <strong className="text-white not-italic">Método Essência Ativa BR</strong> chegará
+                            O acesso ao seu <strong className="text-white not-italic">O Cofre das Botânicas Secretas</strong> chegará
                             no seu e-mail em exatos 3 minutos. Mas antes... eu preciso te revelar algo que a
                             grande maioria <em className="text-[#C5A059]">nunca vai saber que existe.</em>
                         </p>
@@ -206,7 +206,7 @@ export default function UpsellPage() {
                     </p>
                     <div className="py-6 px-10 rounded-full bg-[#0a0a14] border border-[#C5A059]/20 inline-block">
                         <span className="text-[#C5A059] font-serif italic text-lg md:text-xl">
-                            Mas você já cruzou a linha. <strong className="text-white">Você já mostrou que valoriza a verdadeira sofisticação natural.</strong>
+                            Mas você já cruzou a linha. <strong className="text-white">Você já mostrou que valoriza a verdadeira sofisticação botânica.</strong>
                         </span>
                     </div>
                 </div>
@@ -292,7 +292,7 @@ export default function UpsellPage() {
                             href={upsellCheckoutUrl}
                             className="block w-full max-w-lg mx-auto py-8 md:py-10 rounded-full bg-[#C5A059] text-center text-white font-black text-xl md:text-2xl border-4 border-[#FFD700] hover:bg-[#D4AF37] hover:scale-[1.03] transition-all duration-500 shadow-[0_0_50px_rgba(255,215,0,0.3)] hover:shadow-[0_0_80px_rgba(255,215,0,0.5)] uppercase tracking-[0.15em] leading-none mb-6"
                         >
-                            SIM, ADICIONAR O DOSSIÊ
+                            SIM, ADICIONAR O RITUAL DA MEIA-NOITE
                         </a>
 
                         {/* Trust badges */}
@@ -319,7 +319,7 @@ export default function UpsellPage() {
                     {/* Decline link */}
                     <div className="mt-10">
                         <a
-                            href="/"
+                            href="/hub"
                             className="text-[#F5F5DC]/20 text-[11px] font-serif italic hover:text-[#F5F5DC]/40 transition-colors underline underline-offset-4"
                         >
                             Não, obrigada. Prefiro apenas o básico e recusar o acesso ao Cofre das Botânicas Secretas.

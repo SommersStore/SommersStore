@@ -24,6 +24,22 @@ Este é o documento de referência definitivo para o projeto. Ele deve ser atual
 - **Hospedagem:** Firebase Hosting aponta para `projects/loja-digital/out_deploy`.
 - **Build:** `npm run build` gera exportação estática.
 
+### 🤖 Agentic Architecture (Squads)
+
+A construção da SommersStore é orquestrada por dois núcleos de agentes:
+
+### 1. SQUAD: INFRA-CORE (Plataforma)
+Focado na engenharia, design de sistema e estabilidade do ecossistema.
+- **Atlas (Arquiteto)**: Mantém o Master Design System e a estrutura de dados Firebase.
+- **Aura (Artesã Visual)**: Garante estética elite e refinamento de interface.
+- **Nexus (Automação)**: Responsável pela fidelidade PDF, Deploys e Observabilidade (Tower).
+
+### 2. SQUAD: CONTENT FACTORY (Produtos)
+Focado na criação de copy, design de e-books e funis de venda.
+- **Copywriter (Mercury)**: Estratégia de vendas e narrativa aristocrática.
+- **Art Director (Vinci)**: Design editorial dos e-books e criativos.
+- **Liaison (Iris)**: Integração entre conteúdo bruto e o framework de exibição.
+
 ### 📔 Produção Editorial (E-book)
 - **O Cofre das Botânicas Secretas**: Reconstrução total para fidelidade 1:1 entre Web e PDF.
 - **Decisão Estratégica**: O PDF será gerado via Puppeteer a partir do visualizador Next.js para garantir que cada pixel de sombra e cada fonte sejam idênticos.
