@@ -1,0 +1,172 @@
+{
+  "phases": [
+    {
+      "id": "BLD-01", "name": "Definição & Enquadramento", "state": "completed",
+      "squad": "SQD-CORE", "agents": ["AGT-CORE-01", "AGT-CORE-02", "AGT-CORE-03", "AGT-CORE-04"],
+      "skills": ["SKL-CORE-01", "SKL-CORE-02", "SKL-CORE-03"],
+      "inputs": ["Briefing", "Business Goals"],
+      "outputs": ["DLV-BLUEPRINT-ProductBrief", "DLV-SPEC-OfferThesis", "DLV-SPEC-PersonaPreliminar"],
+      "depends_on": [], "checkpoint": "CHK-01", "decision_gate": "DEC-01",
+      "risk": "low", "rerun_allowed": true, "fallback": "Retornar a briefing e reposicionamento",
+      "memory_scope": ["project_memory", "phase_memory", "decision_memory"],
+      "human_actions": ["aprovar escopo", "redefinir oferta", "ajustar persona", "alterar prioridades"],
+      "last_run": null, "last_run_at": null
+    },
+    {
+      "id": "BLD-02", "name": "Referências & Benchmark", "state": "completed",
+      "squad": "SQD-MKF", "agents": ["AGT-MKF-01", "AGT-MKF-02", "AGT-CNT-02"],
+      "skills": ["SKL-MKF-01", "SKL-MKF-02", "SKL-MKF-03"],
+      "inputs": ["Direção Estratégica"],
+      "outputs": ["DLV-ASSET-ReferenceBoard", "DLV-REPORT-BenchmarkDeck", "DLV-INSIGHT-LinguagemMercado"],
+      "depends_on": [], "checkpoint": "CHK-02", "decision_gate": null,
+      "risk": "low", "rerun_allowed": true, "fallback": "Nova coleta de mercado",
+      "memory_scope": ["phase_memory", "content_memory", "artifact_registry"],
+      "human_actions": ["ajustar benchmark", "substituir referência", "complementar ICP"],
+      "last_run": null, "last_run_at": null
+    },
+    {
+      "id": "BLD-03", "name": "Estratégia & Arquitetura", "state": "completed",
+      "squad": "SQD-CORE", "agents": ["AGT-CORE-01", "AGT-CORE-03", "AGT-MKF-01", "AGT-MKF-03"],
+      "skills": ["SKL-MKF-04", "SKL-CORE-05"],
+      "inputs": ["BLD-01", "BLD-02"],
+      "outputs": ["DLV-BLUEPRINT-Roadmap", "DLV-BLUEPRINT-FunnelBlueprint", "DLV-SPEC-Backlog"],
+      "depends_on": ["BLD-01", "BLD-02"], "checkpoint": "CHK-02", "decision_gate": "DEC-02",
+      "risk": "medium", "rerun_allowed": true, "fallback": "Revisão estratégica",
+      "memory_scope": ["project_memory", "phase_memory", "decision_memory"],
+      "human_actions": ["alterar funil", "sequência de ofertas", "backlog e roadmap"],
+      "last_run": null, "last_run_at": null
+    },
+    {
+      "id": "BLD-04", "name": "Estruturação Editorial", "state": "completed",
+      "squad": "SQD-CNT", "agents": ["AGT-CNT-01", "AGT-CNT-02", "AGT-CNT-03"],
+      "skills": ["SKL-CNT-01", "SKL-CNT-04"],
+      "inputs": ["BLD-03"],
+      "outputs": ["DLV-BLUEPRINT-SkeletonEditorial", "DLV-SPEC-Capitulos", "DLV-SPEC-Secoes"],
+      "depends_on": ["BLD-03"], "checkpoint": "CHK-03", "decision_gate": null,
+      "risk": "low", "rerun_allowed": true, "fallback": "Reestruturação editorial",
+      "memory_scope": ["content_memory", "phase_memory"],
+      "human_actions": ["alterar capítulos", "seções e ordem narrativa"],
+      "last_run": null, "last_run_at": null
+    },
+    {
+      "id": "BLD-05", "name": "Escrita", "state": "completed",
+      "squad": "SQD-CNT", "agents": ["AGT-CNT-01", "AGT-CNT-03"],
+      "skills": ["SKL-CNT-02", "SKL-CNT-03"],
+      "inputs": ["BLD-04"],
+      "outputs": ["DLV-COPY-Manifestos", "DLV-COPY-Introducoes", "DLV-COPY-CorpoConteudo", "DLV-COPY-CopyBase"],
+      "depends_on": ["BLD-04"], "checkpoint": "CHK-04", "decision_gate": null,
+      "risk": "medium", "rerun_allowed": true, "fallback": "Rework de copy",
+      "memory_scope": ["content_memory", "prompt_memory", "artifact_registry"],
+      "human_actions": ["editar copy", "mudar tom", "reescrever blocos", "alterar narrativa"],
+      "last_run": null, "last_run_at": null
+    },
+    {
+      "id": "BLD-06", "name": "Revisão Editorial & Luxo", "state": "completed",
+      "squad": "SQD-QRO", "agents": ["AGT-QRO-01", "AGT-QRO-02"],
+      "skills": ["SKL-QRO-01"],
+      "inputs": ["BLD-05"],
+      "outputs": ["DLV-REPORT-TextoValidado", "DLV-REPORT-ListaCorrecoes"],
+      "depends_on": ["BLD-05"], "checkpoint": "CHK-04", "decision_gate": "DEC-03",
+      "risk": "medium", "rerun_allowed": true, "fallback": "Retorno a BLD-05",
+      "memory_scope": ["decision_memory", "artifact_registry", "incident_memory"],
+      "human_actions": ["aprovar", "reprovar", "devolver para rework"],
+      "last_run": null, "last_run_at": null
+    },
+    {
+      "id": "BLD-07", "name": "Design System & Layout", "state": "in_progress",
+      "squad": "SQD-EXP", "agents": ["AGT-EXP-01", "AGT-EXP-02", "AGT-EXP-03"],
+      "skills": ["SKL-EXP-01", "SKL-EXP-02", "SKL-EXP-03"],
+      "inputs": ["BLD-04", "BLD-06"],
+      "outputs": ["DLV-SPEC-MDS", "DLV-ASSET-LayoutA4", "DLV-SPEC-Grid", "DLV-SPEC-RegrasVisuais"],
+      "depends_on": ["BLD-04", "BLD-06"], "checkpoint": "CHK-05", "decision_gate": "DEC-04",
+      "risk": "high", "rerun_allowed": true, "fallback": "Revisão de layout e MDS",
+      "memory_scope": ["artifact_registry", "phase_memory"],
+      "human_actions": ["alterar layout", "grid", "tokens e regras visuais"],
+      "last_run": null, "last_run_at": null
+    },
+    {
+      "id": "BLD-08", "name": "Imagens & Assets", "state": "in_progress",
+      "squad": "SQD-CNT", "agents": ["AGT-CNT-02", "AGT-EXP-03", "AGT-QRO-02"],
+      "skills": ["SKL-CNT-05", "SKL-EXP-06"],
+      "inputs": ["BLD-02", "BLD-04"],
+      "outputs": ["DLV-ASSET-BibliotecaVisualHD"],
+      "depends_on": ["BLD-02", "BLD-04"], "checkpoint": null, "decision_gate": null,
+      "risk": "medium", "rerun_allowed": true, "fallback": "Rerun isolado de asset",
+      "memory_scope": ["artifact_registry", "content_memory"],
+      "human_actions": ["revisar prompts visuais", "trocar direção de arte", "refazer ativos"],
+      "last_run": null, "last_run_at": null
+    },
+    {
+      "id": "BLD-09", "name": "Montagem dos Volumes", "state": "in_progress",
+      "squad": "SQD-CNT", "agents": ["AGT-CNT-02", "AGT-EXP-03", "AGT-CNT-01"],
+      "skills": ["SKL-CNT-06", "SKL-EXP-05"],
+      "inputs": ["BLD-06", "BLD-07", "BLD-08"],
+      "outputs": ["DLV-ASSET-PDFFinalPorVolume"],
+      "depends_on": ["BLD-06", "BLD-07", "BLD-08"], "checkpoint": "CHK-06", "decision_gate": null,
+      "risk": "high", "rerun_allowed": true, "fallback": "Retorno a design ou conteúdo",
+      "memory_scope": ["artifact_registry", "content_memory"],
+      "human_actions": ["remontar PDF", "trocar ativos", "reordenar conteúdo"],
+      "last_run": null, "last_run_at": null
+    },
+    {
+      "id": "BLD-10", "name": "Sales Page", "state": "draft",
+      "squad": "SQD-MKF", "agents": ["AGT-MKF-04", "AGT-CNT-01", "AGT-EXP-02"],
+      "skills": ["SKL-CNT-03", "SKL-EXP-04"],
+      "inputs": ["BLD-03", "BLD-06", "BLD-07"],
+      "outputs": ["DLV-PAGE-SalesPagePronta"],
+      "depends_on": ["BLD-03", "BLD-06", "BLD-07"], "checkpoint": "CHK-07", "decision_gate": "DEC-05",
+      "risk": "high", "rerun_allowed": true, "fallback": "Revisar page blocks",
+      "memory_scope": ["content_memory", "artifact_registry"],
+      "human_actions": ["alterar blocos da página", "headline", "CTA", "estrutura UX"],
+      "last_run": null, "last_run_at": null
+    },
+    {
+      "id": "BLD-11", "name": "Checkout", "state": "draft",
+      "squad": "SQD-ENG", "agents": ["AGT-ENG-01", "AGT-ENG-02", "AGT-MKF-04"],
+      "skills": ["SKL-ENG-01", "SKL-CORE-03"],
+      "inputs": ["BLD-10"],
+      "outputs": ["DLV-INTEGRATION-Checkout", "DLV-INTEGRATION-OrderBump", "DLV-INTEGRATION-Upsell", "DLV-INTEGRATION-Downsell"],
+      "depends_on": ["BLD-10"], "checkpoint": "CHK-08", "decision_gate": "DEC-05",
+      "risk": "critical", "rerun_allowed": true, "fallback": "Reconstrução do checkout",
+      "memory_scope": ["project_memory", "artifact_registry"],
+      "human_actions": ["alterar regras comerciais", "bump", "upsell", "downsell"],
+      "last_run": null, "last_run_at": null
+    },
+    {
+      "id": "BLD-12", "name": "Publicação", "state": "draft",
+      "squad": "SQD-ENG", "agents": ["AGT-ENG-03", "AGT-ENG-01", "AGT-ENG-04"],
+      "skills": ["SKL-ENG-02", "SKL-QRO-02"],
+      "inputs": ["BLD-10", "BLD-11"],
+      "outputs": ["DLV-DEPLOY-URLPublicada", "DLV-DEPLOY-DNS", "DLV-DEPLOY-AmbienteAtivo"],
+      "depends_on": ["BLD-10", "BLD-11"], "checkpoint": "CHK-09", "decision_gate": null,
+      "risk": "high", "rerun_allowed": true, "fallback": "Rollback de deploy",
+      "memory_scope": ["artifact_registry", "incident_memory"],
+      "human_actions": ["republicar", "alterar DNS", "forçar rollback"],
+      "last_run": null, "last_run_at": null
+    },
+    {
+      "id": "BLD-13", "name": "Automação & Entrega", "state": "draft",
+      "squad": "SQD-ENG", "agents": ["AGT-ENG-02", "AGT-ENG-01", "AGT-ENG-03"],
+      "skills": ["SKL-ENG-03", "SKL-ENG-04", "SKL-ENG-06"],
+      "inputs": ["BLD-11", "BLD-12"],
+      "outputs": ["DLV-AUTOMATION-Emails", "DLV-AUTOMATION-Webhooks", "DLV-AUTOMATION-EntregaDigital"],
+      "depends_on": ["BLD-11", "BLD-12"], "checkpoint": "CHK-10", "decision_gate": "DEC-06",
+      "risk": "high", "rerun_allowed": true, "fallback": "Rerun de integração / entrega",
+      "memory_scope": ["artifact_registry", "incident_memory", "phase_memory"],
+      "human_actions": ["reenfileirar automação", "testar webhooks", "corrigir sync"],
+      "last_run": null, "last_run_at": null
+    },
+    {
+      "id": "BLD-14", "name": "Otimização Inicial", "state": "draft",
+      "squad": "SQD-MKF", "agents": ["AGT-MKF-03", "AGT-MKF-04", "AGT-MKF-01"],
+      "skills": ["SKL-MKF-06", "SKL-ENG-05", "SKL-QRO-05"],
+      "inputs": ["BLD-12", "BLD-13"],
+      "outputs": ["DLV-REPORT-DashboardInicial", "DLV-INSIGHT-HipotesesAB", "DLV-REPORT-BaselineROI"],
+      "depends_on": ["BLD-12", "BLD-13"], "checkpoint": "CHK-11", "decision_gate": null,
+      "risk": "medium", "rerun_allowed": true, "fallback": "Revisão de tracking ou funil",
+      "memory_scope": ["decision_memory", "artifact_registry", "incident_memory"],
+      "human_actions": ["aprovar baseline", "alterar thresholds", "priorizar hipóteses"],
+      "last_run": null, "last_run_at": null
+    }
+  ]
+}

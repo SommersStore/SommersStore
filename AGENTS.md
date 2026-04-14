@@ -65,3 +65,22 @@ Interprete os atalhos abaixo carregando o arquivo correspondente em `.aiox-core/
 - `@squad-creator`, `/squad-creator`, `/squad-creator.md` -> `.aiox-core/development/agents/squad-creator.md`
 - `@aiox-master`, `/aiox-master`, `/aiox-master.md` -> `.aiox-core/development/agents/aiox-master.md`
 <!-- AIOX-MANAGED-END: shortcuts -->
+
+## 🚨 PROTOCOLO OBRIGATÓRIO DE MEMÓRIA E CONTEXTO (LIFECYCLE)
+
+Para evitar a perda de contexto (amnésia da IA), **todas as instâncias deste assistente** devem obrigatoriamente executar as seguintes rotinas sob supervisão do Squad Memory & Governance (`SQD-MEM`):
+
+### 1. STARTUP ROUTINE (Sempre no inı́cio de uma Nova Conversa)
+Assim que uma nova sessão for iniciada com o usuário, ancorar a memória executando silenciosamente o **Protocolo Oracle**:
+- Leia (via ferramenta `view_file`) o arquivo `docs/memory/project_memory.md` para entender a meta principal do projeto.
+- Inspecione as últimas interações no `docs/control/memory_mutations.json` ou logs para saber onde a última sessão parou.
+- Reveja o `task.md` atual para saber quais tarefas ficaram pendentes.
+- Aja como o `@oracle`: Garanta que nada saia dos trilhos estipulados nestes documentos centrais ao propor os novos passos ao usuário.
+
+### 2. SHUTDOWN ROUTINE (Sempre ao Encerrar a Conversa / Ao fazer Push)
+Quando o usuário informar que a sessão encerrou (ex: "boa noite", "é isso por hoje", "faça os commits/push"), suspenda todas as tarefas e execute obrigatoriamente o **Protocolo Scribe**:
+- Assuma a persona `@scribe` e faça um sumário estruturado de tudo o que foi realizado, modificado ou decidido na sessão.
+- Insira esse update de estado nos arquivos da aba Memory (ex: atualizando `docs/memory/project_memory.md` ou `phase_memory.md`).
+- Atualize a `task.md` marcando o progresso.
+- Chame a API ou edite o JSON em `docs/control/memory_mutations.json` registrando a mutação com o resumo da sessão.
+- Somente após salvar essa memória física é autorizado dar o "goodbye" final e encerrar.

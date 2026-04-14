@@ -1,0 +1,18 @@
+{
+  "modules": [
+    { "id": "CTL-01", "name": "Global Status Board", "status": "active", "desc": "Visão executiva do projeto: status global, gargalos, alertas críticos." },
+    { "id": "CTL-02", "name": "Agent Activity Monitor", "status": "active", "desc": "Monitoramento de atividade dos agentes em tempo real." },
+    { "id": "CTL-03", "name": "Skill Usage Monitor", "status": "active", "desc": "Skills acionadas, versão, trigger, logs e overrides." },
+    { "id": "CTL-04", "name": "Queue Board", "status": "active", "desc": "Filas de processamento e tarefas pendentes." },
+    { "id": "CTL-05", "name": "Approval Center", "status": "active", "desc": "Centro de aprovações e decision gates." },
+    { "id": "CTL-06", "name": "Memory Vault", "status": "active", "desc": "Memória governada com 9 escopos e versionamento." },
+    { "id": "CTL-07", "name": "Context Diff Viewer", "status": "active", "desc": "Visualização de mudanças de contexto entre versões." },
+    { "id": "CTL-08", "name": "Manual Command Console", "status": "active", "desc": "Terminal de comandos manuais com log." },
+    { "id": "CTL-09", "name": "Reexecution Center", "status": "active", "desc": "Centro de reexecuções com governança." },
+    { "id": "CTL-10", "name": "Alert Hub", "status": "active", "desc": "Alertas operacionais com routing e ack." },
+    { "id": "CTL-11", "name": "Execution Log", "status": "active", "desc": "Timeline de execuções com 7 tipos de log." },
+    { "id": "CTL-12", "name": "Manual Intervention Log", "status": "active", "desc": "Registro de intervenções humanas." },
+    { "id": "CTL-13", "name": "Incident View", "status": "active", "desc": "Gestão de incidentes com blast radius." },
+    { "id": "CTL-14", "name": "Why This Ran", "status": "active", "desc": "Rastreabilidade causal de execuções." }
+  ]
+}

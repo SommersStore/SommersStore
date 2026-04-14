@@ -1,0 +1,146 @@
+{
+  "squads": [
+    { "id": "SQD-CORE", "name": "CORE STRATEGY", "color": "#a855f7", "icon": "cpu", "mission": "Enquadramento do projeto, definição de produto, oferta, backlog, roadmap e governança macro.", "inputs": ["Briefing", "Business Goals"], "outputs": ["Direction Package", "Product Brief", "Offer Thesis", "Roadmap", "Prioridades"], "agents": ["AGT-CORE-01", "AGT-CORE-02", "AGT-CORE-03", "AGT-CORE-04", "AGT-CORE-05"] },
+    { "id": "SQD-MKF", "name": "MARKET & FUNNEL", "color": "#ec4899", "icon": "filter", "mission": "Inteligência de mercado, benchmark, hooks, arquitetura de funil, tráfego e CRO.", "inputs": ["Direção Estratégica", "Dados Operacionais"], "outputs": ["Market Analysis", "Persona", "Hooks", "Funnel Blueprint", "Hypotheses"], "agents": ["AGT-MKF-01", "AGT-MKF-02", "AGT-MKF-03", "AGT-MKF-04"] },
+    { "id": "SQD-CNT", "name": "CONTENT FACTORY", "color": "#10b981", "icon": "pen-tool", "mission": "Estrutura editorial, longform copy, sales copy, montagem de conteúdo e narrativa.", "inputs": ["Direção Estratégica", "Inteligência de Mercado"], "outputs": ["Skeleton Editorial", "Copy", "PDF Assets", "Blocos Narrativos"], "agents": ["AGT-CNT-01", "AGT-CNT-02", "AGT-CNT-03"] },
+    { "id": "SQD-EXP", "name": "EXPERIENCE & DESIGN SYSTEM", "color": "#C5A059", "icon": "palette", "mission": "Design system, UX, layout, composição visual e consistência estética.", "inputs": ["Estrutura Editorial", "Conteúdo"], "outputs": ["MDS", "Layout", "Landing Structure", "Asset Direction"], "agents": ["AGT-EXP-01", "AGT-EXP-02", "AGT-EXP-03"] },
+    { "id": "SQD-ENG", "name": "PLATFORM ENGINEERING", "color": "#14b8a6", "icon": "terminal", "mission": "Checkout, integrações, deploy, tracking, automação e entrega.", "inputs": ["Sales Page", "Design Specs", "Regras Comerciais"], "outputs": ["Ambiente Ativo", "Checkout Funcional", "Webhooks", "Sync", "Delivery Orchestration"], "agents": ["AGT-ENG-01", "AGT-ENG-02", "AGT-ENG-03", "AGT-ENG-04"] },
+    { "id": "SQD-QRO", "name": "QUALITY, RISK & OBSERVABILITY", "color": "#ef4444", "icon": "shield-check", "mission": "QA, checkpoints, aprovação, bloqueio, logs, alertas, rerun governance, auditoria.", "inputs": ["Outputs de todos os squads"], "outputs": ["Approved/Rework/Blocked", "Incident Handling", "Alert Routing", "Execution Audit"], "agents": ["AGT-QRO-01", "AGT-QRO-02"] },
+    { "id": "SQD-MEM", "name": "MEMORY & GOVERNANCE", "color": "#a855f7", "icon": "brain", "mission": "Governança de contexto, auditoria de inicialização e gravação imutável no final da sessão.", "inputs": ["Conversas", "Logs"], "outputs": ["Mutações de Memória", "Checklists de Encerramento"], "agents": ["AGT-LGC-03", "AGT-LGC-04"] },
+    { "id": "SQD-LGC", "name": "LEGACY & EXTRA", "color": "#6b7280", "icon": "archive", "mission": "Agentes secundários não alocados ou com redundância funcional.", "inputs": ["Opcionais"], "outputs": ["Opcionais"], "agents": ["AGT-LGC-01", "AGT-LGC-02", "AGT-LGC-05", "AGT-LGC-06"] }
+  ],
+  "agents": [
+    { "id": "AGT-CORE-01", "name": "Orion", "handle": "@aiox-master", "squad": "SQD-CORE", "role": "Orquestrador Mestre do ecossistema AIOX.", "icon": "🧠" },
+    { "id": "AGT-CORE-02", "name": "Morgan", "handle": "@pm", "squad": "SQD-CORE", "role": "Product Manager. Gestão de épicos e backlog.", "icon": "📋" },
+    { "id": "AGT-CORE-03", "name": "Pax", "handle": "@po", "squad": "SQD-CORE", "role": "Product Owner. Validador final de entregas.", "icon": "🟢" },
+    { "id": "AGT-CORE-04", "name": "River", "handle": "@sm", "squad": "SQD-CORE", "role": "Scrum Master. Gerenciador de sprints e fluxos.", "icon": "🌊" },
+    { "id": "AGT-CORE-05", "name": "Forge", "handle": "@squad-creator", "squad": "SQD-CORE", "role": "Criação e reconfiguração dinâmica de Squads de IA.", "icon": "🧩" },
+    { "id": "AGT-MKF-01", "name": "Alex", "handle": "@analyst", "squad": "SQD-MKF", "role": "Pesquisa de mercado e Avatar ICP.", "icon": "🔍" },
+    { "id": "AGT-MKF-02", "name": "PersonaX", "handle": "@persona", "squad": "SQD-MKF", "role": "Simulação de comportamento do usuário final.", "icon": "🎭" },
+    { "id": "AGT-MKF-03", "name": "Gauge", "handle": "@cro-expert", "squad": "SQD-MKF", "role": "CRO, Arquitetura de Funis e Otimização de Conversão.", "icon": "📐" },
+    { "id": "AGT-MKF-04", "name": "Stratego", "handle": "@marketing", "squad": "SQD-MKF", "role": "Estrategista de Growth e Aquisição de Clientes.", "icon": "📊" },
+    { "id": "AGT-CNT-01", "name": "Mercury", "handle": "@copywriter", "squad": "SQD-CNT", "role": "Redação de elite baseada em mestres da persuasão.", "icon": "✒️" },
+    { "id": "AGT-CNT-02", "name": "Iris", "handle": "@liaison", "squad": "SQD-CNT", "role": "Mapeamento de dados de conteúdo para a plataforma.", "icon": "🌈" },
+    { "id": "AGT-CNT-03", "name": "Lumina", "handle": "@brand-master", "squad": "SQD-CNT", "role": "Guardiã da identidade de marca e Brandbooks.", "icon": "📜" },
+    { "id": "AGT-EXP-01", "name": "Atlas", "handle": "@architect", "squad": "SQD-EXP", "role": "Define a arquitetura técnica e o Design System.", "icon": "🏛️" },
+    { "id": "AGT-EXP-02", "name": "Aura", "handle": "@ux-design-expert", "squad": "SQD-EXP", "role": "Guardiã da estética de elite e UX refinado.", "icon": "✨" },
+    { "id": "AGT-EXP-03", "name": "Vinci", "handle": "@art-director", "squad": "SQD-EXP", "role": "Direção de arte editorial para produtos de luxo.", "icon": "🎨" },
+    { "id": "AGT-ENG-01", "name": "Dex", "handle": "@dev", "squad": "SQD-ENG", "role": "Desenvolvedor Master Next.js / TypeScript.", "icon": "💻" },
+    { "id": "AGT-ENG-02", "name": "Dara", "handle": "@data-engineer", "squad": "SQD-ENG", "role": "Engenheira de Dados e Schemas Atômicos.", "icon": "🗄️" },
+    { "id": "AGT-ENG-03", "name": "Gage", "handle": "@devops", "squad": "SQD-ENG", "role": "Especialista em Deploys e Infraestrutura Cloud.", "icon": "🚀" },
+    { "id": "AGT-ENG-04", "name": "Koda", "handle": "@security", "squad": "SQD-ENG", "role": "Especialista em segurança de dados e Firebase Vault.", "icon": "🔐" },
+    { "id": "AGT-QRO-01", "name": "Quinn", "handle": "@qa", "squad": "SQD-QRO", "role": "Garantia de Qualidade e QA de código e editorial.", "icon": "✅" },
+    { "id": "AGT-QRO-02", "name": "[AGENT_PENDING]", "handle": "@support", "squad": "SQD-QRO", "role": "[HIPÓTESE] Agente de suporte e intake.", "icon": "🆘" },
+    { "id": "AGT-LGC-01", "name": "Copy Spec", "handle": "@copy-specialist", "squad": "SQD-LGC", "role": "World-Class Copywriter & Sales Strategist.", "icon": "✒️" },
+    { "id": "AGT-LGC-02", "name": "Funnel Spec", "handle": "@funnel-specialist", "squad": "SQD-LGC", "role": "Funnel Strategist e DotCom Secrets.", "icon": "📐" },
+    { "id": "AGT-LGC-03", "name": "Oracle", "handle": "@oracle", "squad": "SQD-MEM", "role": "Guardião do Contexto Imutável.", "icon": "👁️" },
+    { "id": "AGT-LGC-04", "name": "Scribe", "handle": "@scribe", "squad": "SQD-MEM", "role": "Cronista e preservação de dados.", "icon": "📜" },
+    { "id": "AGT-LGC-05", "name": "Traffic Spec", "handle": "@traffic-specialist", "squad": "SQD-LGC", "role": "Elite Media Buyer e Tráfego.", "icon": "🎯" },
+    { "id": "AGT-LGC-06", "name": "UX Optimizer", "handle": "@ux-optimizer", "squad": "SQD-LGC", "role": "UX Conversion Expert.", "icon": "✨" }
+  ],
+  "skills": {
+    "CORE": [
+      { "id": "SKL-CORE-01", "name": "BriefIngestion", "desc": "Ingestão e parse de briefing para estruturar escopo.", "agents": ["AGT-CORE-01"] },
+      { "id": "SKL-CORE-02", "name": "ProductPositioning", "desc": "Posicionamento de produto no mercado.", "agents": ["AGT-CORE-01", "AGT-CORE-02"] },
+      { "id": "SKL-CORE-03", "name": "OfferStructuring", "desc": "Estruturação de oferta, bumps e upsells.", "agents": ["AGT-CORE-03"] },
+      { "id": "SKL-CORE-04", "name": "PersonaFraming", "desc": "Enquadramento de persona e ICP.", "agents": ["AGT-CORE-04"] },
+      { "id": "SKL-CORE-05", "name": "RoadmapPlanning", "desc": "Planejamento de roadmap e backlog.", "agents": ["AGT-CORE-02"] },
+      { "id": "SKL-CORE-06", "name": "SprintOrchestration", "desc": "Orquestração de sprints e squads.", "agents": ["AGT-CORE-05"] }
+    ],
+    "MKF": [
+      { "id": "SKL-MKF-01", "name": "MarketIntelligence", "desc": "Inteligência de mercado e pesquisa de concorrência.", "agents": ["AGT-MKF-01"] },
+      { "id": "SKL-MKF-02", "name": "CompetitorDeconstruction", "desc": "Desconstrução de concorrentes e benchmarks.", "agents": ["AGT-MKF-01"] },
+      { "id": "SKL-MKF-03", "name": "HookMining", "desc": "Mineração de hooks e gatilhos de desejo.", "agents": ["AGT-MKF-01", "AGT-MKF-02"] },
+      { "id": "SKL-MKF-04", "name": "FunnelArchitecture", "desc": "Arquitetura completa de funis de conversão.", "agents": ["AGT-MKF-03"] },
+      { "id": "SKL-MKF-05", "name": "TrafficStrategy", "desc": "Estratégia de tráfego pago e orgânico.", "agents": ["AGT-MKF-04"] },
+      { "id": "SKL-MKF-06", "name": "CROHypothesis", "desc": "Hipóteses de CRO e testes A/B.", "agents": ["AGT-MKF-03"] }
+    ],
+    "CNT": [
+      { "id": "SKL-CNT-01", "name": "EditorialStructuring", "desc": "Estruturação editorial de capítulos e seções.", "agents": ["AGT-CNT-01"] },
+      { "id": "SKL-CNT-02", "name": "LongformCopy", "desc": "Redação longform para e-books e manifestos.", "agents": ["AGT-CNT-01"] },
+      { "id": "SKL-CNT-03", "name": "SalesPageCopy", "desc": "Copy persuasiva para páginas de venda.", "agents": ["AGT-CNT-01"] },
+      { "id": "SKL-CNT-04", "name": "BrandVoiceEnforcement", "desc": "Enforcement do tom de voz e brand guidelines.", "agents": ["AGT-CNT-03"] },
+      { "id": "SKL-CNT-05", "name": "ImagePrompting", "desc": "Geração de prompts para ativos visuais HD.", "agents": ["AGT-CNT-02"] },
+      { "id": "SKL-CNT-06", "name": "PDFAssembly", "desc": "Montagem e assemblagem de PDFs finais.", "agents": ["AGT-CNT-02"] }
+    ],
+    "EXP": [
+      { "id": "SKL-EXP-01", "name": "DesignSystemTokens", "desc": "Criação e manutenção de tokens do Design System.", "agents": ["AGT-EXP-01"] },
+      { "id": "SKL-EXP-02", "name": "LayoutComposition", "desc": "Composição de layouts web responsivos.", "agents": ["AGT-EXP-02"] },
+      { "id": "SKL-EXP-03", "name": "A4Composition", "desc": "Composição de layouts A4 para PDF editorial.", "agents": ["AGT-EXP-03"] },
+      { "id": "SKL-EXP-04", "name": "LandingPageUXMapping", "desc": "Mapeamento UX de landing pages.", "agents": ["AGT-EXP-02"] },
+      { "id": "SKL-EXP-05", "name": "VisualConsistency", "desc": "Auditoria de consistência visual entre ativos.", "agents": ["AGT-EXP-03"] },
+      { "id": "SKL-EXP-06", "name": "AssetDirection", "desc": "Direção de arte para ativos visuais.", "agents": ["AGT-EXP-03"] }
+    ],
+    "ENG": [
+      { "id": "SKL-ENG-01", "name": "CheckoutIntegration", "desc": "Integração de checkout (Kiwify, Stripe).", "agents": ["AGT-ENG-01"] },
+      { "id": "SKL-ENG-02", "name": "DeployPipeline", "desc": "Pipeline de deploy (Firebase, Vercel).", "agents": ["AGT-ENG-03"] },
+      { "id": "SKL-ENG-03", "name": "WebhookAutomation", "desc": "Automação de webhooks pós-compra.", "agents": ["AGT-ENG-02"] },
+      { "id": "SKL-ENG-04", "name": "DeliveryOrchestration", "desc": "Orquestração de entrega digital.", "agents": ["AGT-ENG-02"] },
+      { "id": "SKL-ENG-05", "name": "TrackingInstrumentation", "desc": "Instrumentação de tracking e pixels.", "agents": ["AGT-ENG-02"] },
+      { "id": "SKL-ENG-06", "name": "DataSync", "desc": "Sincronização de dados entre plataformas.", "agents": ["AGT-ENG-02"] }
+    ],
+    "QRO": [
+      { "id": "SKL-QRO-01", "name": "EditorialQA", "desc": "QA editorial: tom, coerência, luxo.", "agents": ["AGT-QRO-01"] },
+      { "id": "SKL-QRO-02", "name": "SecurityScan", "desc": "Scan de segurança em deployments.", "agents": ["AGT-QRO-01"] },
+      { "id": "SKL-QRO-03", "name": "FailureRecovery", "desc": "Recuperação de falhas e rollback.", "agents": ["AGT-QRO-01"] },
+      { "id": "SKL-QRO-04", "name": "AlertRouting", "desc": "Roteamento de alertas para squads.", "agents": ["AGT-QRO-02"] },
+      { "id": "SKL-QRO-05", "name": "ExecutionAudit", "desc": "Auditoria de execuções e rastreabilidade.", "agents": ["AGT-QRO-01"] },
+      { "id": "SKL-QRO-06", "name": "ApprovalGovernance", "desc": "Governança de aprovações e checkpoints.", "agents": ["AGT-QRO-01"] }
+    ]
+  },
+  "checkpoints": [
+    { "id": "CHK-01", "name": "Escopo", "phase": "BLD-01", "status": "approved" },
+    { "id": "CHK-02", "name": "Persona e mercado", "phase": "BLD-02", "status": "approved" },
+    { "id": "CHK-03", "name": "Estrutura editorial", "phase": "BLD-04", "status": "approved" },
+    { "id": "CHK-04", "name": "Voz e luxo", "phase": "BLD-05", "status": "approved" },
+    { "id": "CHK-05", "name": "Design system", "phase": "BLD-07", "status": "in_review" },
+    { "id": "CHK-06", "name": "PDF final", "phase": "BLD-09", "status": "pending" },
+    { "id": "CHK-07", "name": "Sales page validada", "phase": "BLD-10", "status": "pending" },
+    { "id": "CHK-08", "name": "Checkout funcional", "phase": "BLD-11", "status": "pending" },
+    { "id": "CHK-09", "name": "Deploy validado", "phase": "BLD-12", "status": "pending" },
+    { "id": "CHK-10", "name": "Automação ponta a ponta", "phase": "BLD-13", "status": "pending" },
+    { "id": "CHK-11", "name": "Baseline de métricas", "phase": "BLD-14", "status": "pending" }
+  ],
+  "decisions": {
+    "build": [
+      { "id": "DEC-01", "question": "Escopo aprovado?", "status": "approved", "phase": "BLD-01" },
+      { "id": "DEC-02", "question": "Estratégia viável?", "status": "approved", "phase": "BLD-03" },
+      { "id": "DEC-03", "question": "Tom luxo aprovado?", "status": "approved", "phase": "BLD-06" },
+      { "id": "DEC-04", "question": "Design consistente?", "status": "pending", "phase": "BLD-07" },
+      { "id": "DEC-05", "question": "Página e checkout coerentes?", "status": "pending", "phase": "BLD-10" },
+      { "id": "DEC-06", "question": "Entrega ponta a ponta passou?", "status": "pending", "phase": "BLD-13" }
+    ],
+    "ops": [
+      { "id": "DEC-OPS-01", "question": "Engajou?", "status": "pending", "phase": "OPS-04" },
+      { "id": "DEC-OPS-02", "question": "Aceitou bump?", "status": "pending", "phase": "OPS-06" },
+      { "id": "DEC-OPS-03", "question": "Pagamento aprovado?", "status": "pending", "phase": "OPS-07" },
+      { "id": "DEC-OPS-04", "question": "Aceitou upsell?", "status": "pending", "phase": "OPS-08" },
+      { "id": "DEC-OPS-05", "question": "Escalar / manter / corrigir?", "status": "pending", "phase": "OPS-11" }
+    ]
+  },
+  "alerts": [
+    { "id": "ALT-OPS-01", "name": "Tracking quebrado", "severity": "high", "owner": "SQD-ENG" },
+    { "id": "ALT-OPS-02", "name": "Checkout offline", "severity": "critical", "owner": "SQD-ENG" },
+    { "id": "ALT-OPS-03", "name": "Pagamento recusado em alta", "severity": "high", "owner": "SQD-ENG" },
+    { "id": "ALT-OPS-04", "name": "Entrega falhou", "severity": "critical", "owner": "SQD-ENG" },
+    { "id": "ALT-OPS-05", "name": "CVR caiu", "severity": "medium", "owner": "SQD-MKF" },
+    { "id": "ALT-OPS-06", "name": "CAC subiu", "severity": "medium", "owner": "SQD-MKF" },
+    { "id": "ALT-OPS-07", "name": "ROI negativo", "severity": "critical", "owner": "SQD-MKF" }
+  ],
+  "kpis": [
+    { "id": "KPI-OPS-CAC", "name": "Custo de Aquisição de Cliente", "value": null },
+    { "id": "KPI-OPS-CVR", "name": "Taxa de Conversão", "value": null },
+    { "id": "KPI-OPS-AOV", "name": "Ticket Médio (Average Order Value)", "value": null },
+    { "id": "KPI-OPS-ROI", "name": "Retorno sobre Investimento", "value": null },
+    { "id": "KPI-OPS-REFUND", "name": "Taxa de Reembolso [HIPÓTESE]", "value": null },
+    { "id": "KPI-OPS-DELIVERY-RATE", "name": "Taxa de Entrega", "value": null },
+    { "id": "KPI-OPS-ATTRIBUTION-INTEGRITY", "name": "Integridade de Atribuição", "value": null }
+  ],
+  "personas": [
+    { "id": "prs-elisa-clark", "icon": "🎭", "name": "Elisa Clark", "role": "Avatar Principal (Expert em Botânica)", "traits": ["Aristocrática", "Sofisticada", "Naturista"], "bio": "Persona que personifica a marca SommersStore.", "agents": ["@brand-master", "@copywriter"] },
+    { "id": "prs-tiago-finch", "icon": "🦅", "name": "Tiago Finch", "role": "Clone de Referência (Outlier)", "traits": ["Liberdade", "Cinematográfico", "Venda Direta"], "bio": "Inspirador do estilo visual e narrativo cinematográfico.", "agents": ["@copywriter", "@ux-design-expert"] },
+    { "id": "prs-alan-nicolas", "icon": "🧠", "name": "Alan Nicolas", "role": "Clone de Referência (Funnel/MEC)", "traits": ["Mecanismo Único", "Lógica", "Escala"], "bio": "Fonte para a estrutura de mecanismo único e ofertas irresistíveis.", "agents": ["@cro-expert", "@marketing"] },
+    { "id": "prs-joao-vturb", "icon": "📉", "name": "João VTurb", "role": "Clone de Referência (VSL)", "traits": ["Retenção", "Direct Response", "Atenção"], "bio": "Referência para scripts de alta retenção e VSLs.", "agents": ["@copywriter"] },
+    { "id": "prs-pedro-valerio", "icon": "💎", "name": "Pedro Valério", "role": "Clone de Referência (High Ticket)", "traits": ["Exclusividade", "Posicionamento", "Status"], "bio": "Guia para o posicionamento de luxo e branding aristocrático.", "agents": ["@brand-master"] }
+  ]
+}
