@@ -20,7 +20,8 @@ const server = http.createServer((req, res) => {
         });
     } else if (req.url === '/api/data') {
         const data = { 
-            squads: {}, 
+            squads: [], 
+            agents: [],
             design_systems: {}, 
             clones: null, 
             skills: null,
@@ -36,6 +37,12 @@ const server = http.createServer((req, res) => {
         };
 
         try {
+            // Read Pipeline State (Source of Truth)
+            const pipelinePath = path.join(__dirname, '../docs/pipeline_state.json');
+            if(fs.existsSync(pipelinePath)) {
+                data.pipeline = JSON.parse(fs.readFileSync(pipelinePath, 'utf8'));
+            }
+
             // Read Squads
             const squadsPath = path.join(__dirname, '../squads');
             if(fs.existsSync(squadsPath)) {
@@ -99,6 +106,29 @@ const server = http.createServer((req, res) => {
         } catch(e) {
             res.writeHead(500);
             res.end(JSON.stringify({error: e.message}));
+        }
+    } else if (req.url === '/api/recipes') {
+        try {
+            const dataPath = path.join(__dirname, '../projects/ebook-generator/data.js');
+            // Como é um arquivo JS com module.exports, podemos dar um require se for seguro
+            // Mas para o dashboard, vamos ler como string e tentar extrair o array recipes
+            // Ou melhor, usar uma regex simples para pegar o array se for constante ou apenas require se o node permitir
+            delete require.cache[require.resolve(dataPath)];
+            const { recipes } = require(dataPath);
+            
+            // Normalizar para o Dashboard
+            const normalized = recipes.map(r => ({
+                name: r.title,
+                desc: r.signature,
+                category: r.category,
+                tags: [r.category]
+            }));
+
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify({ success: true, recipes: normalized }));
+        } catch(e) {
+            res.writeHead(500);
+            res.end(JSON.stringify({error: 'Erro ao carregar receitas: ' + e.message}));
         }
     } else if (req.url.startsWith('/api/file?path=')) {
         const queryFile = decodeURIComponent(req.url.split('?path=')[1]);

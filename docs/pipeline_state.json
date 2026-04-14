@@ -261,6 +261,32 @@
               "desc": "Clone de influenciadora para cursos e vídeos."
             }
           ]
+        },
+        {
+          "id": 10,
+          "x": 2200,
+          "y": 1700,
+          "icon": "🧠",
+          "title": "Memória & Contexto (SQUAD MEMORY)",
+          "desc": "Governança de persistência e prevenção de alucinações.",
+          "status": "done",
+          "tasks": [
+            {
+              "text": "@oracle (Auditor)",
+              "checked": true,
+              "desc": "Fidelity check e Flash de Contexto inicial."
+            },
+            {
+              "text": "@scribe (Cronista)",
+              "checked": true,
+              "desc": "Snapshot automático e gestão de Hand-offs."
+            },
+            {
+              "text": "The Anchor Protocol",
+              "checked": true,
+              "desc": "Constituição e diretrizes de memória imutável."
+            }
+          ]
         }
       ]
     },

@@ -1,0 +1,30 @@
+name: SQUAD MEMORY
+icon: 🧠
+color: #6366f1
+description: "Guardiões da integridade de contexto, responsáveis por eliminar alucinações e garantir a persistência imutável dos fatos da sessão."
+
+agents:
+  - id: oracle
+    handle: "@oracle"
+    role: "Auditoria de contexto e Prevenção de alucinação"
+  - id: scribe
+    handle: "@scribe"
+    role: "Documentação automática e Handoff de sessão"
+
+workflows:
+  context_recovery:
+    agent: "@oracle"
+    trigger: "SOD (Start of Day)"
+    steps:
+      - read: "docs/memory/*"
+      - analyze: "last session delta"
+      - output: "Flash de Contexto"
+  
+  context_sync:
+    agent: "@scribe"
+    trigger: "Event-based / EOD"
+    steps:
+      - scan: "modified files"
+      - update: "docs/memory/PROJECT_STATE.md"
+      - generate: "docs/memory/SESSION_HANDOFF.md"
+      - commit: "auto-sync"

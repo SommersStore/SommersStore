@@ -139,6 +139,20 @@ A inteligência artificial deve operar como um parceiro estratégico de elite, n
 
 ---
 
+### VIII. Memória e Contexto (The Anchor Protocol) (MUST)
+
+A continuidade do projeto depende da preservação imutável dos fatos de cada sessão.
+
+**Regras:**
+- MUST: O SQUAD MEMORY (@oracle e @scribe) governa a integridade dos dados de sessão.
+- MUST: Todo início de sessão DEVE ter um "Flash de Contexto" validado pelo usuário.
+- MUST: Toda conclusão de etapa significativa DEVE disparar o salvamento automático do estado em `docs/memory/`.
+- MUST NOT: Prosseguir com implementações se houver dúvida ou divergência no histórico (verificado pelo @oracle).
+
+**Gate:** Auditoria obrigatória via Agente @oracle no SOD (Start of Day).
+
+---
+
 ## Governance
 
 ### Amendment Process

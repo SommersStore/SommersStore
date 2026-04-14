@@ -180,12 +180,16 @@
             <div class="sb-sub-item" onclick="loadFunnel('produtos',this)">Produtos</div>
         </div>
         <div style="width:80%;height:1px;background:rgba(255,255,255,0.04);margin:2px 0"></div>
-                        <div data-tab="engine" class="sb-icon" onclick="switchTab('engine', this)"><i data-lucide="cog" class="w-4 h-4"></i><span class="sb-label">The Machine</span></div>
+        <!-- Novo Painel Ecosystem -->
+        <div data-tab="ecosystem" class="sb-icon" onclick="switchTab('ecosystem', this)"><i data-lucide="infinity" class="w-4 h-4 text-purple-400"></i><span class="sb-label">Ecosystem</span></div>
+        <div style="width:80%;height:1px;background:rgba(255,255,255,0.04);margin:2px 0"></div>
+        <div data-tab="engine" class="sb-icon" onclick="switchTab('engine', this)"><i data-lucide="cog" class="w-4 h-4"></i><span class="sb-label">The Machine</span></div>
                                 <div data-tab="core" class="sb-icon" onclick="switchTab('core', this)"><i data-lucide="orbit" class="w-4 h-4"></i><span class="sb-label">The Core</span></div>
         <div data-tab="nexus" class="sb-icon" onclick="switchTab('nexus', this)"><i data-lucide="layout" class="w-4 h-4"></i><span class="sb-label">The Nexus</span></div>
         <div data-tab="roadmap" class="sb-icon" onclick="switchTab('roadmap', this)"><i data-lucide="map" class="w-4 h-4"></i><span class="sb-label">Roadmap</span></div>
         <div data-tab="workflow" class="sb-icon"><i data-lucide="git-branch" class="w-4 h-4"></i><span class="sb-label">Workflow</span></div>
         <div data-tab="pipeline" class="sb-icon active"><i data-lucide="git-branch" class="w-4 h-4"></i><span class="sb-label">Pipeline</span></div>
+        <div data-tab="recipes" class="sb-icon" onclick="switchTab('recipes', this)"><i data-lucide="flask-conical" class="w-4 h-4"></i><span class="sb-label">Alquimia</span></div>
         <div data-tab="squads" class="sb-icon"><i data-lucide="users" class="w-4 h-4"></i><span class="sb-label">Squads</span></div>
         <div data-tab="agents" class="sb-icon"><i data-lucide="bot" class="w-4 h-4"></i><span class="sb-label">Agentes</span></div>
         <div data-tab="skills" class="sb-icon"><i data-lucide="zap" class="w-4 h-4"></i><span class="sb-label">Skills</span></div>
@@ -202,6 +206,62 @@
 
     <!-- Content -->
     <main class="flex-1 overflow-hidden">
+
+        <!-- ═══════ MASTER ECOSYSTEM CANVAS ═══════ -->
+        <div id="pane-ecosystem" class="tab-pane" style="overflow:hidden;position:relative;padding:0">
+            <div id="ecosystem-header" style="position:absolute;top:0;left:0;right:0;z-index:20;padding:24px 32px;pointer-events:none;background:linear-gradient(to bottom,rgba(10,10,15,0.95),transparent)">
+                <div style="pointer-events:auto; display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <h2 class="text-2xl font-black italic tracking-tighter uppercase leading-none"><span class="text-primary">Master</span> <span class="text-white">Ecosystem</span></h2>
+                        <p class="text-[10px] text-muted font-bold tracking-[0.4em] uppercase mt-2">Visão Holística Infinita do Funil & Pipeline de Produção</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controles de Zoom -->
+            <div style="position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:20;display:flex;align-items:center;gap:12px;background:rgba(13,13,20,0.9);border:1px solid rgba(255,255,255,0.06);border-radius:999px;padding:6px 16px;backdrop-filter:blur(12px)">
+                <button onclick="zoomEco(0.1)" style="color:#6b7280;font-size:16px;font-weight:bold;cursor:pointer;background:none;border:none">+</button>
+                <span id="eco-zoom-label" style="font-size:9px;color:#6b7280;font-family:'JetBrains Mono',monospace;min-width:40px;text-align:center">100%</span>
+                <button onclick="zoomEco(-0.1)" style="color:#6b7280;font-size:16px;font-weight:bold;cursor:pointer;background:none;border:none">−</button>
+            </div>
+
+            <div id="ecosystem-viewport" style="width:100%;height:100%;overflow-x:auto;overflow-y:auto;position:relative;background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.02) 1px, transparent 0); background-size: 60px 60px; padding-top:140px; padding-left:40px; padding-right:80px; padding-bottom:120px;">
+                <div id="ecosystem-canvas" style="display:flex; align-items:flex-start; gap:60px; min-width:4000px; transform-origin: top left; transition: transform 0.2s ease-out;">
+                    
+                    <div id="eco-pipeline" class="eco-column" style="width:1200px; min-width:1200px; padding:32px; background:rgba(10,10,15,0.5); border:1px solid rgba(168,85,247,0.1); border-radius:24px; backdrop-filter:blur(10px)">
+                        <h3 class="text-sm font-black text-primary mb-8 uppercase tracking-[0.4em]">1. Pipeline de Produção</h3>
+                        <div id="eco-content-pipeline"></div>
+                    </div>
+                    
+                    <div id="eco-workflow" class="eco-column" style="width:1000px; min-width:1000px; padding:32px; background:rgba(10,10,15,0.5); border:1px solid rgba(16,185,129,0.1); border-radius:24px; backdrop-filter:blur(10px)">
+                        <h3 class="text-sm font-black text-secondary mb-8 uppercase tracking-[0.4em]">2. Master Workflow</h3>
+                        <div id="eco-content-workflow"></div>
+                    </div>
+                    
+                    <div id="eco-roadmap" class="eco-column" style="width:800px; min-width:800px; padding:32px; background:rgba(10,10,15,0.5); border:1px solid rgba(255,255,255,0.05); border-radius:24px; backdrop-filter:blur(10px)">
+                        <h3 class="text-sm font-black text-white mb-8 uppercase tracking-[0.4em]">3. Elite Roadmap</h3>
+                        <div id="eco-content-roadmap"></div>
+                    </div>
+                    
+                    <div id="eco-nexus" class="eco-column" style="width:3300px; min-width:3300px; padding:32px; background:rgba(10,10,15,0.5); border:1px solid rgba(236,72,153,0.1); border-radius:24px; backdrop-filter:blur(10px)">
+                        <h3 class="text-sm font-black text-pink mb-4 uppercase tracking-[0.4em]">4. The Nexus</h3>
+                        <div id="eco-content-nexus" style="position:relative; width:100%; height:1100px; overflow:visible;"></div>
+                    </div>
+                    
+                    <div id="eco-core" class="eco-column" style="width:3600px; min-width:3600px; padding:32px; background:rgba(10,10,15,0.5); border:1px solid rgba(20,184,166,0.1); border-radius:24px; backdrop-filter:blur(10px)">
+                        <h3 class="text-sm font-black text-teal mb-4 uppercase tracking-[0.4em]">5. The Core</h3>
+                        <div id="eco-content-core" style="position:relative; width:100%; height:1300px; overflow:visible;"></div>
+                    </div>
+                    
+                    <div id="eco-engine" class="eco-column" style="width:3100px; min-width:3100px; padding:32px; background:rgba(10,10,15,0.5); border:1px solid rgba(244,63,94,0.1); border-radius:24px; backdrop-filter:blur(10px)">
+                        <h3 class="text-sm font-black text-coral mb-4 uppercase tracking-[0.4em]">6. The Machine</h3>
+                        <div id="eco-content-engine" style="position:relative; width:100%; height:1100px; overflow:visible;"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
 
         <!-- ═══════ 0. FUNNEL CANVAS ═══════ -->
         <div id="pane-funnel" class="tab-pane" style="overflow:hidden;position:relative;padding:0">
@@ -458,6 +518,20 @@
             </div>
         </div>
 
+        <!-- ═══════ (ALQUIMIA). COFRE DE RECEITAS ═══════ -->
+        <div id="pane-recipes" class="tab-pane p-8">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                   <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-secondary">Cofre</span> <span class="text-white">de Alquimia</span></h2>
+                   <p class="text-[9px] text-muted font-mono uppercase tracking-[0.2em] mt-1">Fórmulas Reais do Método Essência Ativa BR</p>
+                </div>
+                <span class="badge border-secondary/30 text-secondary bg-secondary/10">16 Fórmulas Core</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="recipes-view">
+                <!-- Carregamento dinâmico via API -->
+            </div>
+        </div>
+
         <!-- ═══════ 2. SQUADS ═══════ -->
         <div id="pane-squads" class="tab-pane p-8">
             <div class="flex items-center justify-between mb-8">
@@ -659,7 +733,7 @@ document.querySelectorAll('.sb-icon[data-tab]').forEach(el => {
 // DATA LAYER
 // ══════════════════════════════════════════
 
-const SQUADS = [
+let SQUADS = [
     { name: 'Squad INFRA-CORE', color: '#C5A059', icon: 'shield', agents: ['Atlas (@architect)', 'Aura (@ux-design-expert)'],
       mission: 'Desenvolver e manter o Master Design System e a infraestrutura de elite da plataforma SommersStore.',
       inputs: ['Briefing Estratégico', 'Requisitos de Plataforma'],
@@ -690,9 +764,15 @@ const SQUADS = [
       mission: 'Otimização contínua de funis, gestão de tráfego e escala de faturamento.',
       inputs: ['Sales Data', 'Traffic Pixels'],
       outputs: ['Conversion Reports', 'Scale Playbook'],
-      dependencies: ['← ENGINEERING', '← MARKETING'] }
+      dependencies: ['← ENGINEERING', '← MARKETING'] },
+    { name: 'Squad MEMORY', color: '#6366f1', icon: 'brain', agents: ['Oracle (@oracle)', 'Scribe (@scribe)'],
+      mission: 'Preservação imutável de contexto, prevenção de alucinações e governança de memória.',
+      inputs: ['Session Context', 'Task Handoffs'],
+      outputs: ['Persistent Memory', 'Sanity Audits'],
+      dependencies: ['↔ Conectado a TODOS os Projetos'] }
+
     ];
-const AGENTS = [
+let AGENTS = [
     { icon: '🏛️', name: 'Atlas', handle: '@architect', squad: 'INFRA-CORE', role: 'Define a arquitetura técnica imutável da SommersStore.', decides: 'Design System, Tech Stack', needs: 'Master Blueprint', delivers: 'Framework MDS', skills: ['Arquitetura de Sistemas', 'Análise de Viabilidade'] },
     { icon: '✨', name: 'Aura', handle: '@ux-design-expert', squad: 'INFRA-CORE', role: 'Guardiã da estética de elite e UX refinado.', decides: 'Visual Language, Typography', needs: 'Design Spec', delivers: 'Elite UI Components', skills: ['Componentes UI Luxury', 'Tipografia de Elite'] },
     { icon: '✒️', name: 'Mercury', handle: '@copywriter', squad: 'CONTENT FACTORY', role: 'Redação de elite baseada em mestres da persuasão.', decides: 'Copy Structure, Hooks', needs: 'Persona Briefing', delivers: 'Sales Copy, E-book Text', skills: ['Copywriting Aristocrático', 'Storytelling de Luxo'] },
@@ -703,7 +783,11 @@ const AGENTS = [
     { icon: '📋', name: 'Morgan', handle: '@pm', squad: 'CORE OPERATIONS', role: 'Product Manager. Gestão de Épicos e Backlog.', decides: 'Priorities, Specs', needs: 'Market Data', delivers: 'Project Roadmap', skills: ['Gestão de Backlog', 'Governance & Roadmap'] },
     { icon: '🟢', name: 'Pax', handle: '@po', squad: 'CORE OPERATIONS', role: 'Product Owner. Validador final de entregas.', decides: 'Go/No-Go Approval', needs: 'Finished Story', delivers: 'Quality Approval', skills: ['Governance & Roadmap'] },
     { icon: '🌊', name: 'River', handle: '@sm', squad: 'CORE OPERATIONS', role: 'Scrum Master. Gerenciador de sprints e fluxos.', decides: 'Sprint flow', needs: 'PM Backlog', delivers: 'Dailies, Story Specs', skills: ['Redação de Stories'] },
+    { icon: '🧩', name: 'Forge', handle: '@squad-creator', squad: 'CORE OPERATIONS', role: 'Criação e reconfiguração dinâmica de Squads de IA.', decides: 'Squad Composition, Agent Allocation', needs: 'Project Scope', delivers: 'Operational Squads', skills: ['Governance & Roadmap'] },
+
     { icon: '🔍', name: 'Alex', handle: '@analyst', squad: 'MARKETING', role: 'Pesquisa de mercado e Avatar ICP.', decides: 'Target Audience, Positioning', needs: 'Niche Info', delivers: 'Avatar & Dream 100', skills: ['Psicologia de Vendas'] },
+    { icon: '📊', name: 'Stratego', handle: '@marketing', squad: 'MARKETING', role: 'Estrategista de Growth e Aquisição de Clientes.', decides: 'Campaign Strategy, Growth Levers', needs: 'Market Data, Budget', delivers: 'Growth Playbook', skills: ['Inteligência de Tráfego', 'Psicologia de Vendas'] },
+
 
     { icon: '📐', name: 'Gauge', handle: '@cro-expert', squad: 'MARKETING', role: 'CRO, Arquitetura de Funis e Otimização de Conversão.', decides: 'A/B Tests, Funnel Path, Order Bumps', needs: 'Traffic Data', delivers: 'CRO Reports, Funnel Map', skills: ['CRO & Testes A/B', 'Otimização de Checkout'] },
 
@@ -713,12 +797,15 @@ const AGENTS = [
     { icon: '✅', name: 'Quinn', handle: '@qa', squad: 'ENGINEERING', role: 'Garantia de Qualidade e Segurança de código.', decides: 'Testing protocols', needs: 'Dev Output', delivers: 'Bug-Free Reports', skills: ['Testes QA Estritos', 'Audit de Acessibilidade'] },
 
     { icon: '🔐', name: 'Koda', handle: '@security', squad: 'ENGINEERING', role: 'Especialista em segurança de dados e Firebase Vault.', decides: 'Auth Rules, Encryption', needs: 'Data Schemas', delivers: 'Hardened Vault', skills: ['Segurança de Dados', 'Cibersegurança Vault'] },
-    { icon: '🎭', name: 'Persona X', handle: '@persona', squad: 'MARKETING', role: 'Simulação de comportamento do usuário final.', decides: 'User perspective', needs: 'Product Demo', delivers: 'UX Feedback', skills: ['Copywriting Aristocrático'] }
+    { icon: '🎭', name: 'Persona X', handle: '@persona', squad: 'MARKETING', role: 'Simulação de comportamento do usuário final.', decides: 'User perspective', needs: 'Product Demo', delivers: 'UX Feedback', skills: ['Copywriting Aristocrático'] },
+    { icon: '👁️', name: 'Oracle', handle: '@oracle', squad: 'MEMORY', role: 'Context Auditor & Sincerity Engine. Auditor de sanidade e prevenção de alucinações.', decides: 'Context Fidelity, Sanity Verdicts', needs: 'Session History', delivers: 'Context Flash, Audit Reports', skills: ['Auditoria de Contexto', 'Prevenção de Alucinação'] },
+    { icon: '🖋️', name: 'Scribe', handle: '@scribe', squad: 'MEMORY', role: 'Automatic Session Documenter. Responsável pela persistência e documentação do estado.', decides: 'Handoff Format, Data Persistence', needs: 'Active Session Data', delivers: 'Context Snapshots, Project History', skills: ['Documentação de Sessão', 'Persistência de Dados'] }
+
 ];
 
 
 
-const SKILLS = {
+let SKILLS = {
     'ESTRATÉGIA & OPS': [
         { name: 'Governance & Roadmap', desc: 'Orquestração de sprints, épicos e visão de longo prazo.', agent: '@master + @pm', stage: 'Todas' },
         { name: 'Arquitetura de Sistemas', desc: 'Definição de stack tecnológica e padrões de projeto.', agent: '@architect', stage: 'Etapa 01-03' },
@@ -763,7 +850,7 @@ const SKILLS = {
     ]
 };
 
-const PERSONAS = [
+let PERSONAS = [
     { icon: '🎭', name: 'Elisa Clark', role: 'Avatar Principal (Expert em Botânica)', traits: ['Aristocrática', 'Sofisticada', 'Naturista'], bio: 'Persona que personifica a marca SommersStore.', agents: ['@brand-master', '@copywriter'] },
     { icon: '🦅', name: 'Tiago Finch', role: 'Clone de Referência (Outlier)', traits: ['Liberdade', 'Cinematográfico', 'Venda Direta'], bio: 'Inspirador do estilo visual e narrativo cinematográfico.', agents: ['@copywriter', '@visual'] },
     { icon: '🧠', name: 'Alan Nicolas', role: 'Clone de Referência (Funnel/MEC)', traits: ['Mecanismo Único', 'Lógica', 'Escala'], bio: 'Fonte para a estrutura de mecanismo único e ofertas irresistíveis.', agents: ['@funnel', '@cro'] },
@@ -772,7 +859,7 @@ const PERSONAS = [
 ];
 
 
-const ENGINE_NODES = [
+let ENGINE_NODES = [
     { id: 'p1', title: '01. Governança', sub: 'Squad CORE OPERATIONS', icon: 'cpu', color: '#a855f7', x: 50, y: 150, agents: ['@master', '@pm', '@sm'] },
     { id: 'p2', title: '02. Arquitetura', sub: 'Squad INFRA-CORE', icon: 'shield', color: '#C5A059', x: 350, y: 150, agents: ['@architect', '@ux-expert'] },
     { id: 'p3', title: '03. Avatar & Research', sub: 'Squad MARKETING', icon: 'search', color: '#ec4899', x: 650, y: 150, agents: ['@analyst', '@persona'] },
@@ -783,7 +870,7 @@ const ENGINE_NODES = [
     { id: 'p6', title: '06. Profit Engine', sub: 'Squad GROWTH & SCALE', icon: 'trending-up', color: '#f97316', x: 1650, y: 200, agents: ['@cro-expert', '@marketing'] }
 ];
 
-const ENGINE_EDGES = [
+let ENGINE_EDGES = [
     ['p1', 'p2'], ['p2', 'p3'], ['p3', 'p4'], ['p3', 'p4b'], 
     ['p4', 'p5'], ['p4b', 'p5'], ['p5', 'p5b'], ['p5b', 'p6']
 ];
@@ -834,7 +921,7 @@ function renderEngine() {
 }
 
 
-const MASTER_ROADMAP = [
+let MASTER_ROADMAP = [
     { stage: 'PLANNING', phase: 'Fase 01', squad: 'CORE OPERATIONS', title: 'Visão & Roadmap Estratégico', agents: ['@aiox-master', '@pm'], task: 'Mapeamento de Épicos e Sprints do projeto.', status: 'done', color: '#a855f7' },
     { stage: 'PLANNING', phase: 'Fase 01', squad: 'CORE OPERATIONS', title: 'Governance & Squad Allocation', agents: ['@squad-creator', '@sm'], task: 'Distribuição dinâmica de agentes.', status: 'done', color: '#a855f7' },
     { stage: 'VISUAL', phase: 'Fase 02', squad: 'INFRA-CORE', title: 'Master Design System (MDS)', agents: ['@architect', '@ux-design-expert'], task: 'Tokens visuais e componentes premium.', status: 'done', color: '#C5A059' },
@@ -880,7 +967,7 @@ function renderRoadmap() {
 }
 
 
-const NEXUS_DATA = [
+let NEXUS_DATA = [
     { id:'n1', x:100, y:200, title:'Roadmap Estratégico', phase:'Fase 01', squad:'Core Ops', color:'#a855f7', icon:'map', agents:['@master','@pm'], details: { m:'Definição de visão, épicos e backlog do projeto.', i:'Business Briefing', o:'Master Roadmap' } },
     { id:'n2', x:250, y:200, title:'MDS & Branding', phase:'Fase 02', squad:'Infra Core', color:'#C5A059', icon:'shield', agents:['@architect','@brand-master'], details: { m:'Criação do Master Design System e diretrizes visuais.', i:'Roadmap', o:'MDS Tokens / Brandbook' } },
     { id:'n3', x:400, y:300, title:'Pesquisa Avatar', phase:'Fase 03', squad:'Marketing', color:'#ec4899', icon:'users', agents:['@analyst','@persona'], details: { m:'Mapeamento de avatar Marina e estudo de comportamento.', i:'MDS', o:'Persona Profile' } },
@@ -894,7 +981,7 @@ const NEXUS_DATA = [
     { id:'n11', x:1400, y:200, title:'Scale Strategy', phase:'Fase 06', squad:'Growth', color:'#f97316', icon:'megaphone', agents:['@marketing'], details: { m:'Estratégia de tráfego pago e escala de vendas massiva.', i:'Profit Funnel', o:'ROI Scale' } }
 ];
 
-const NEXUS_EDGES = [ ['n1','n2'],['n2','n3'],['n3','n4'],['n4','n5'],['n4','n6'],['n5','n7'],['n6','n7'],['n7','n8'],['n7','n9'],['n8','n10'],['n9','n10'],['n10','n11'] ];
+let NEXUS_EDGES = [ ['n1','n2'],['n2','n3'],['n3','n4'],['n4','n5'],['n4','n6'],['n5','n7'],['n6','n7'],['n7','n8'],['n7','n9'],['n8','n10'],['n9','n10'],['n10','n11'] ];
 
 function renderNexus() {
     const canvas = document.getElementById('nexus-canvas');
@@ -937,7 +1024,7 @@ function renderNexus() {
 }
 
 
-const CORE_DATA = [
+let CORE_DATA = [
     { id:'c1', x:150, y:300, title:'Governance', phase:'Phase 01', squad:'Core Ops', color:'#a855f7', icon:'orbit', agents:['@aiox-master','@pm'], details: { m:'Orquestração estratégica de alto nível e governança do projeto.', i:'Business Goals', o:'Master Roadmap' } },
     { id:'c2', x:400, y:300, title:'Elite Identity', phase:'Phase 02', squad:'Infra Core', color:'#C5A059', icon:'shield', agents:['@architect','@brand-master'], details: { m:'Definição dos tokens de luxo e arquitetura visual imutável.', i:'Roadmap', o:'Design System HD' } },
     { id:'c3', x:650, y:450, title:'Avatar Psycho', phase:'Phase 03', squad:'Marketing', color:'#ec4899', icon:'user-check', agents:['@analyst','@persona'], details: { m:'Mapeamento psicológico profundo e simulação de desejo do avatar.', i:'Identity', o:'Psychology Map' } },
@@ -950,7 +1037,7 @@ const CORE_DATA = [
     { id:'c10', x:2000, y:350, title:'Growth Engine', phase:'Phase 06', squad:'Growth & Scale', color:'#f97316', icon:'bar-chart-3', agents:['@cro-expert','@marketing'], details: { m:'Escala massiva de faturamento, otimização de funis e BI em tempo real.', i:'Live Build', o:'Elite ROI' } }
 ];
 
-const CORE_EDGES = [ ['c1','c2'],['c2','c3'],['c3','c4'],['c4','c5'],['c4','c6'],['c5','c7'],['c6','c7'],['c7','c8'],['c7','c9'],['c8','c10'],['c9','c10'] ];
+let CORE_EDGES = [ ['c1','c2'],['c2','c3'],['c3','c4'],['c4','c5'],['c4','c6'],['c5','c7'],['c6','c7'],['c7','c8'],['c7','c9'],['c8','c10'],['c9','c10'] ];
 
 function renderCore() {
     const canvas = document.getElementById('core-canvas');
@@ -1594,6 +1681,93 @@ function saveEditorModal() {
 }
 
 
+let RECIPES = [];
+
+function renderRecipes() {
+    const c = document.getElementById('recipes-view');
+    if(!c) return;
+    c.innerHTML = RECIPES.map(r => `
+        <div class="glass p-5 border-t-2 transition-all hover:-translate-y-1 cursor-pointer group" style="border-top-color: ${r.color || '#10b981'}" onclick="openEditorModal('projects/ebook-generator/data.js', 'Fórmula: ${r.name}')">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary border border-secondary/20 group-hover:bg-secondary group-hover:text-white transition-colors">
+                     <i data-lucide="flask-round" class="w-5 h-5"></i>
+                </div>
+                <span class="text-[8px] font-black text-muted uppercase tracking-widest">${r.category || 'Alquimia'}</span>
+            </div>
+            <h3 class="text-sm font-bold text-white mb-2">${r.name}</h3>
+            <p class="text-[10px] text-muted line-clamp-3 mb-4">${r.desc}</p>
+            <div class="flex flex-wrap gap-1">
+                ${r.tags ? r.tags.map(t => `<span class="text-[7px] font-bold px-1.5 py-0.5 rounded bg-white/5 text-muted uppercase border border-white/5">${t}</span>`).join('') : ''}
+            </div>
+        </div>
+    `).join('');
+    lucide.createIcons();
+}
+
+// ══════════════════════════════════════════
+// ECOSYSTEM MASTER CLONING & ZOOM
+// ══════════════════════════════════════════
+
+let currentEcoZoom = 1;
+
+function zoomEco(delta) {
+    currentEcoZoom = Math.max(0.2, Math.min(2.0, currentEcoZoom + delta));
+    const canvas = document.getElementById('ecosystem-canvas');
+    if(canvas) {
+        canvas.style.transform = `scale(${currentEcoZoom})`;
+        document.getElementById('eco-zoom-label').textContent = Math.round(currentEcoZoom * 100) + '%';
+    }
+}
+
+function ecoToggle(id) {
+    const el = document.getElementById(id);
+    if(el.style.display === 'none') {
+        el.style.display = 'block';
+        el.style.animation = 'nodePulse 0.5s ease-out';
+    } else {
+        el.style.display = 'none';
+    }
+}
+
+function buildEcosystemClones() {
+    setTimeout(() => {
+        const p1 = document.getElementById('eco-content-pipeline');
+        if(p1 && document.getElementById('pane-pipeline')) {
+            const clone = document.getElementById('pane-pipeline').cloneNode(true);
+            clone.id = 'clone-pipeline';
+            clone.classList.remove('tab-pane', 'active', 'p-8');
+            p1.innerHTML = ''; p1.appendChild(clone);
+        }
+        
+        const p2 = document.getElementById('eco-content-workflow');
+        if(p2 && document.getElementById('workflow-container')) {
+            p2.innerHTML = document.getElementById('workflow-container').innerHTML;
+        }
+
+        const p3 = document.getElementById('eco-content-roadmap');
+        if(p3 && document.getElementById('roadmap-container')) {
+            p3.innerHTML = document.getElementById('roadmap-container').innerHTML;
+        }
+
+        const p4 = document.getElementById('eco-content-nexus');
+        if(p4 && document.getElementById('nexus-viewport')) {
+            p4.innerHTML = document.getElementById('nexus-viewport').innerHTML;
+        }
+
+        const p5 = document.getElementById('eco-content-core');
+        if(p5 && document.getElementById('core-viewport')) {
+            p5.innerHTML = document.getElementById('core-viewport').innerHTML;
+        }
+
+        const p6 = document.getElementById('eco-content-engine');
+        if(p6 && document.getElementById('engine-viewport')) {
+            p6.innerHTML = document.getElementById('engine-viewport').innerHTML;
+        }
+        
+        lucide.createIcons();
+    }, 1500);
+}
+
 function syncAll() {
     fetch('/api/data').then(r => r.json()).then(data => {
         // Status Firebase
@@ -1628,13 +1802,29 @@ function syncAll() {
         
         document.getElementById('sys-pdf-logs').textContent = data.pdf_health.last_run || 'Sem logs disponíveis.';
 
-        renderCore(); renderNexus(); renderRoadmap(); renderEngine(); renderWorkflow(); renderSquads(); renderAgents(); renderSkills();
+        if(data.pipeline) {
+            if(data.pipeline.nodes) { ENGINE_NODES = data.pipeline.nodes; NEXUS_DATA = data.pipeline.nodes; CORE_DATA = data.pipeline.nodes; }
+            if(data.pipeline.edges) { ENGINE_EDGES = data.pipeline.edges; NEXUS_EDGES = data.pipeline.edges; CORE_EDGES = data.pipeline.edges; }
+            if(data.pipeline.tasks) { MASTER_ROADMAP = data.pipeline.tasks; }
+        }
+        if(data.squads && Array.isArray(data.squads) && data.squads.length > 0) SQUADS = data.squads;
+        if(data.agents && Array.isArray(data.agents) && data.agents.length > 0) AGENTS = data.agents;
+        if(data.skills && !Array.isArray(data.skills) && typeof data.skills === 'object' && Object.keys(data.skills).length > 0) SKILLS = data.skills;
+        if(data.personas && Array.isArray(data.personas) && data.personas.length > 0) PERSONAS = data.personas;
+
+        renderCore(); renderNexus(); renderRoadmap(); renderEngine(); renderWorkflow(); renderSquads(); renderAgents(); renderSkills(); renderRecipes();
 
         renderPersonas(); renderIntegrations(); renderGates();
         renderRisks(); renderDesign();
         lucide.createIcons();
+        if (typeof buildEcosystemClones === 'function') buildEcosystemClones();
     }).catch(e => console.error("Sync Error", e));
+
+    fetch('/api/recipes').then(r => r.json()).then(data => {
+        if(data.success) { RECIPES = data.recipes; renderRecipes(); }
+    }).catch(e => console.error("Recipes Error", e));
 }
+
 
 
 document.addEventListener('DOMContentLoaded', syncAll);
