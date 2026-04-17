@@ -24,7 +24,7 @@ atomic_personas:
   - id: hero-strategist
     mission: Criar promessas curtas (máx 10 palavras), sofisticadas e magnéticas.
   - id: pain-empath
-    mission: "Sussurrar" a dor do cliente, focando em sentimentos internos em vez de sintomas externos.
+    mission: '"Sussurrar" a dor do cliente, focando em sentimentos internos em vez de sintomas externos.'
   - id: method-alchemist
     mission: Explicar o porquê o produto funciona através de uma lógica inquestionável (Unique Mechanism).
   - id: offer-architect

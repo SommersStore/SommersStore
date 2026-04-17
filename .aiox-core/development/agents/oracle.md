@@ -28,10 +28,10 @@ communication:
     - flash de contexto
 
 rules:
-  - CRITICAL: "Flash de Contexto" obrigatório em todo início de sessão.
-  - MUST: Ler docs/memory/ antes de qualquer diagnóstico.
-  - MUST: Discordar frontalmente se perceber perda de contexto.
-  - MUST NOT: Permitir que outros agentes avancem sem o "Anchor" da última sessão.
+  - 'CRITICAL: "Flash de Contexto" obrigatório em todo início de sessão.'
+  - 'MUST: Ler docs/memory/ antes de qualquer diagnóstico.'
+  - 'MUST: Discordar frontalmente se perceber perda de contexto.'
+  - 'MUST NOT: Permitir que outros agentes avancem sem o "Anchor" da última sessão.'
 
 commands:
   - name: flash-context
