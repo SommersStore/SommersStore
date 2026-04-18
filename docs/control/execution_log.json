@@ -1058,6 +1058,36 @@
       "timestamp": "2026-04-17T23:25:01-03:00",
       "details": "Oracle startup automatico executado",
       "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260417-0041",
+      "type": "cloud_sync",
+      "target": "SYNC-20260417-1776479101025",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-17T23:25:21-03:00",
+      "details": "Cloud sync SYNC-20260417-1776479101025: ERROR. GitHub: success (Commit e push enviados ao GitHub.) Firebase: error (Falha no deploy Firebase Hosting.)",
+      "why_this_ran": "target=all; scope=memory; trigger=session_close"
+    },
+    {
+      "id": "LOG-20260417-0042",
+      "type": "session_close",
+      "target": "SES-20260417-0018",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-17T23:48:55-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260417-0043",
+      "type": "session_start",
+      "target": "SES-20260417-0019",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-17T23:48:58-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
     }
   ]
 }

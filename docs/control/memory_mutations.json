@@ -665,6 +665,24 @@
       "memory_scope": "session_startup",
       "diff_summary": "Oracle iniciou SES-20260417-0018",
       "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-17T23:25:21-03:00",
+      "memory_scope": "cloud_sync",
+      "diff_summary": "Cloud sync SYNC-20260417-1776479101025: ERROR. GitHub: success (Commit e push enviados ao GitHub.) Firebase: error (Falha no deploy Firebase Hosting.)",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T23:48:55-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260417-0018: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T23:48:58-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260417-0019",
+      "mutated_by": "dashboard"
     }
   ]
 }
