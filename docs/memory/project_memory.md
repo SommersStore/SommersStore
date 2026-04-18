@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-04-18T00:02:10-03:00
+- updated_at: 2026-04-18T00:20:22-03:00
 
 ## Ultimo fechamento
 - timestamp: 2026-04-16T03:08:00-03:00
@@ -29,6 +29,14 @@
 - checkpoint: CHK-MEM-0026
 
 ## Ultimo fechamento automatico
+- timestamp: 2026-04-18T00:20:22-03:00
+- resumo: Fechamento rapido pelo botao Salvar Tudo na Nuvem.
+- proxima_acao: Retomar ajustes no painel e memoria
+- checkpoint: CHK-MEM-0058
+- timestamp: 2026-04-18T00:20:07-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0057
 - timestamp: 2026-04-18T00:02:10-03:00
 - resumo: Encerramento automatico (fechamento de aba/janela).
 - proxima_acao: (nao informada)

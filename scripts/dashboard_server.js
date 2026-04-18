@@ -184,7 +184,7 @@ const MEMORY_SYNC_PREFIXES = [
 
 function cloudSyncDefaultState() {
     return {
-        auto_sync_memory: true,
+        auto_sync_memory: false,
         in_progress: false,
         pending_trigger: null,
         last_sync_id: null,
@@ -226,7 +226,10 @@ function isMemorySyncPath(relativePath) {
 function runCommand(command, args, options = {}) {
     return new Promise((resolve) => {
         const startedAt = Date.now();
-        const child = spawn(command, args, {
+        const useWindowsCmd = process.platform === 'win32' && command === 'firebase';
+        const executable = useWindowsCmd ? 'cmd.exe' : command;
+        const finalArgs = useWindowsCmd ? ['/d', '/s', '/c', 'firebase'].concat(args || []) : (args || []);
+        const child = spawn(executable, finalArgs, {
             cwd: options.cwd || ROOT_DIR,
             shell: false,
             windowsHide: true
@@ -245,7 +248,7 @@ function runCommand(command, args, options = {}) {
                 stdout: stdout.trim(),
                 stderr: `${stderr}\n${error.message}`.trim(),
                 duration_ms: Date.now() - startedAt,
-                command: [command].concat(args || []).join(' ')
+                command: [executable].concat(finalArgs || []).join(' ')
             });
         });
 
@@ -256,7 +259,7 @@ function runCommand(command, args, options = {}) {
                 stdout: stdout.trim(),
                 stderr: stderr.trim(),
                 duration_ms: Date.now() - startedAt,
-                command: [command].concat(args || []).join(' ')
+                command: [executable].concat(finalArgs || []).join(' ')
             });
         });
     });
@@ -449,7 +452,17 @@ async function runCloudSyncJob(payload = {}) {
             github = await runGitHubSync(request.scope, request.commit_message || cloudCommitMessage(request.scope, request.trigger));
         }
         if (request.target === 'all' || request.target === 'firebase') {
-            firebase = await runFirebaseSync();
+            const shouldSkipFirebaseForMemoryNoChanges = request.target === 'all'
+                && request.scope === 'memory'
+                && github.status === 'skipped';
+            if (shouldSkipFirebaseForMemoryNoChanges) {
+                firebase = {
+                    status: 'skipped',
+                    note: 'Sem mudancas de memoria no GitHub; deploy Firebase ignorado.'
+                };
+            } else {
+                firebase = await runFirebaseSync();
+            }
         }
 
         const outcome = [github, firebase]
@@ -514,20 +527,7 @@ async function runCloudSyncJob(payload = {}) {
 }
 
 function scheduleAutoCloudSync(trigger, projectId = null) {
-    const state = loadCloudSyncState();
-    if (!state.auto_sync_memory) return { scheduled: false, reason: 'auto_disabled' };
-    if (cloudAutoSyncTimer) clearTimeout(cloudAutoSyncTimer);
-    cloudAutoSyncTimer = setTimeout(() => {
-        cloudAutoSyncTimer = null;
-        runCloudSyncJob({
-            target: 'all',
-            scope: 'memory',
-            trigger: trigger || 'memory_auto',
-            initiated_by: 'system',
-            project_id: projectId || null
-        }).catch(err => console.error('Auto cloud sync error:', err.message));
-    }, 1200);
-    return { scheduled: true };
+    return { scheduled: false, reason: 'manual_only_mode' };
 }
 
 function coreMemoryFiles() {
@@ -1156,7 +1156,9 @@ function runSessionClose(body) {
         'task.md'
     ]);
     appendMemoryMutation('session_shutdown', `Scribe encerrou ${closedSession.id}: ${summary}`, closedSession.closed_by);
-    scheduleAutoCloudSync('session_close', closeProjectId);
+    if (!body.skip_auto_cloud) {
+        scheduleAutoCloudSync('session_close', closeProjectId);
+    }
 
     return { session: closedSession, checkpoint_id: checkpointId };
 }
@@ -1576,6 +1578,36 @@ const server = http.createServer(async (req, res) => {
                 commit_message: body.commit_message || null
             });
             return sendJson(res, { success: true, ...result });
+        }
+
+        if (pathname === '/api/cloud-sync/save-all' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const closeSummary = String(body.summary || '').trim() || 'Salvar tudo na nuvem pelo painel.';
+            const nextAction = String(body.next_action || '').trim();
+            const completedTasks = asArray(body.completed_tasks).map(v => String(v || '').trim()).filter(Boolean);
+            const closePayload = {
+                summary: closeSummary,
+                next_action: nextAction,
+                completed_tasks: completedTasks,
+                closed_by: body.closed_by || 'human',
+                model_hint: body.model_hint || 'dashboard',
+                project_id: body.project_id || null,
+                skip_auto_cloud: true
+            };
+            const closeResult = runSessionClose(closePayload);
+            const cloudResult = await runCloudSyncJob({
+                target: 'all',
+                scope: 'all',
+                trigger: body.trigger || 'save_all_button',
+                initiated_by: closePayload.closed_by,
+                project_id: closePayload.project_id
+            });
+            return sendJson(res, {
+                success: true,
+                checkpoint_id: closeResult.checkpoint_id || null,
+                session: closeResult.session || null,
+                cloud: cloudResult
+            });
         }
 
         if (pathname.startsWith('/api/file') && req.method === 'GET') {

@@ -1,27 +1,26 @@
 {
-  "auto_sync_memory": true,
+  "auto_sync_memory": false,
   "in_progress": true,
   "pending_trigger": null,
-  "last_sync_id": "SYNC-20260417-1776477781636",
+  "last_sync_id": "SYNC-20260418-1776482422382",
   "last_status": "running",
   "last_summary": "Sincronizacao em andamento...",
-  "last_trigger": "memory_panel",
+  "last_trigger": "save_all_one_click",
   "last_scope": "all",
   "last_target": "all",
-  "last_started_at": "2026-04-17T23:03:01-03:00",
-  "last_completed_at": "2026-04-17T23:00:25-03:00",
+  "last_started_at": "2026-04-18T00:20:22-03:00",
+  "last_completed_at": "2026-04-18T00:03:03-03:00",
   "github": {
     "status": "success",
     "note": "Commit e push enviados ao GitHub.",
     "scope": "memory",
     "changed_files": 20,
-    "commit_message": "chore(memory): cloud sync 2026-04-17 23:00:06 (session_close)",
+    "commit_message": "chore(memory): cloud sync 2026-04-18 00:02:11 (session_close)",
     "branch": "master"
   },
   "firebase": {
-    "status": "error",
-    "note": "Falha no deploy Firebase Hosting.",
-    "error": "spawn firebase ENOENT",
-    "duration_ms": 3
+    "status": "success",
+    "note": "Deploy Firebase Hosting concluido.",
+    "duration_ms": 35157
   }
 }

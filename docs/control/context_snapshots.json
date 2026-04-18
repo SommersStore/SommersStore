@@ -1591,6 +1591,44 @@
         ],
         "tracked_files": []
       }
+    },
+    {
+      "id": "CTX-20260418-0003",
+      "timestamp": "2026-04-18T00:20:07-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260418-0001",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0057"
+    },
+    {
+      "id": "CTX-20260418-0004",
+      "timestamp": "2026-04-18T00:20:09-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260418-0002",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar ajustes no painel e memoria",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0057",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260418-0005",
+      "timestamp": "2026-04-18T00:20:22-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260418-0002",
+      "summary": "Fechamento rapido pelo botao Salvar Tudo na Nuvem.",
+      "checkpoint_id": "CHK-MEM-0058"
     }
   ]
 }

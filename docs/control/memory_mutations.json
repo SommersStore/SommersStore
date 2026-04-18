@@ -725,6 +725,30 @@
       "memory_scope": "session_startup",
       "diff_summary": "Oracle iniciou SES-20260418-0001",
       "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-18T00:03:03-03:00",
+      "memory_scope": "cloud_sync",
+      "diff_summary": "Cloud sync SYNC-20260418-1776481331865: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.)",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-18T00:20:07-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260418-0001: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-18T00:20:09-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260418-0002",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-18T00:20:22-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260418-0002: Fechamento rapido pelo botao Salvar Tudo na Nuvem.",
+      "mutated_by": "human"
     }
   ]
 }

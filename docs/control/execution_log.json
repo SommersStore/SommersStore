@@ -1158,6 +1158,46 @@
       "timestamp": "2026-04-18T00:02:12-03:00",
       "details": "Oracle startup automatico executado",
       "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260418-0004",
+      "type": "cloud_sync",
+      "target": "SYNC-20260418-1776481331865",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T00:03:03-03:00",
+      "details": "Cloud sync SYNC-20260418-1776481331865: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.)",
+      "why_this_ran": "target=all; scope=memory; trigger=session_close"
+    },
+    {
+      "id": "LOG-20260418-0005",
+      "type": "session_close",
+      "target": "SES-20260418-0001",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T00:20:07-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260418-0006",
+      "type": "session_start",
+      "target": "SES-20260418-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T00:20:09-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260418-0007",
+      "type": "session_close",
+      "target": "SES-20260418-0002",
+      "initiated_by": "human",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T00:20:22-03:00",
+      "details": "Fechamento rapido pelo botao Salvar Tudo na Nuvem.",
+      "why_this_ran": "Scribe shutdown automatico"
     }
   ]
 }

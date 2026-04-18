@@ -498,6 +498,7 @@
                         <p class="text-[8px] text-muted font-bold uppercase">Modo</p>
                         <p id="master-active-mode-label" class="text-sm font-black text-primary">Construcao</p>
                     </div>
+                    <button id="btn-save-all-master" class="btn-success" onclick="saveAllNow()"><i data-lucide="cloud-upload" class="w-3 h-3 inline"></i> Salvar Tudo na Nuvem</button>
                 </div>
             </div>
 
@@ -2554,7 +2555,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // Auto-refresh every 10s
-setInterval(async () => { await loadAllData(); renderStatus(); renderMasterHub(); }, 10000);
+setInterval(async () => {
+    await loadAllData();
+    renderStatus();
+    renderMasterHub();
+    if (typeof renderCloudSyncStatus === 'function') renderCloudSyncStatus();
+}, 10000);
 </script>
 <script>
 window.MEMORY_LAYERS = window.MEMORY_LAYERS || {};
@@ -2587,6 +2593,7 @@ function ensureMemoryVisualStyles() {
         .memory-node .memory-dot{width:9px;height:9px;border-radius:999px;display:inline-block;margin-right:6px}
         .memory-session-item{border:1px solid rgba(255,255,255,0.12);background:rgba(12,15,26,0.72);border-radius:12px;padding:10px}
         .memory-metric{border:1px solid rgba(255,255,255,0.1);background:rgba(12,15,26,0.7);border-radius:12px;padding:12px}
+        .memory-advanced-hidden{display:none !important}
     `;
     document.head.appendChild(style);
 }
@@ -2621,12 +2628,10 @@ function ensureMemoryLifecycleUI() {
             <div class="flex flex-wrap items-center justify-between gap-3">
                 <div>
                     <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-teal">Memory</span> <span class="text-white">Control Board</span></h2>
-                    <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">VISUAL · INTERATIVO · EDIÇÃO DIRETA</p>
+                    <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">AUTOMATICO · CONTINUIDADE · 1 CLIQUE</p>
                 </div>
                 <div class="flex gap-2">
-                    <button class="btn-primary" onclick="startSessionRoutine(true)"><i data-lucide="play-circle" class="w-3 h-3 inline"></i> Iniciar Sessao</button>
-                    <button class="btn-success" onclick="closeSessionRoutine()"><i data-lucide="save" class="w-3 h-3 inline"></i> Encerrar e Salvar</button>
-                    <button id="btn-cloud-sync-main" class="btn-success" onclick="runCloudSync('all','all')"><i data-lucide="cloud-upload" class="w-3 h-3 inline"></i> Salvar Tudo na Nuvem</button>
+                    <button id="btn-save-all-main" class="btn-success" onclick="saveAllNow()"><i data-lucide="cloud-upload" class="w-3 h-3 inline"></i> Salvar Tudo na Nuvem</button>
                     <button class="btn-ghost" onclick="loadAllData().then(renderMemory)">Atualizar</button>
                 </div>
             </div>
@@ -2651,7 +2656,7 @@ function ensureMemoryLifecycleUI() {
                 </div>
             </div>
 
-            <div class="glass p-5 space-y-3">
+            <div class="glass p-5 space-y-3 memory-advanced-section memory-advanced-hidden">
                 <div class="flex flex-wrap items-center justify-between gap-2">
                     <h3 class="text-xs font-bold text-secondary uppercase tracking-widest">Sincronizacao em Nuvem</h3>
                     <label class="flex items-center gap-2 text-[10px] text-muted">
@@ -2666,14 +2671,14 @@ function ensureMemoryLifecycleUI() {
                     <div class="memory-metric"><p class="text-[8px] text-muted uppercase tracking-widest mb-1">Firebase</p><p id="cloud-firebase-status" class="text-sm font-bold text-white">-</p></div>
                 </div>
                 <div id="cloud-summary" class="text-[10px] text-muted border border-white/10 rounded-lg px-3 py-2 bg-black/20">Sem execucao.</div>
-                <div class="flex flex-wrap gap-2">
-                    <button id="btn-cloud-sync-all" class="btn-primary" onclick="runCloudSync('all','all')"><i data-lucide="upload-cloud" class="w-3 h-3 inline"></i> GitHub + Firebase</button>
-                    <button id="btn-cloud-sync-github" class="btn-ghost" onclick="runCloudSync('github','memory')"><i data-lucide="github" class="w-3 h-3 inline"></i> GitHub (Memoria)</button>
-                    <button id="btn-cloud-sync-firebase" class="btn-ghost" onclick="runCloudSync('firebase','all')"><i data-lucide="rocket" class="w-3 h-3 inline"></i> Firebase Deploy</button>
-                </div>
+                <p class="text-[10px] text-muted">Fluxo simples: clique em <strong>Salvar Tudo na Nuvem</strong> quando quiser fechar o dia.</p>
             </div>
 
-            <div class="glass p-5">
+            <div class="flex justify-end">
+                <button class="btn-ghost text-[10px]" onclick="toggleMemoryAdvanced()"><i data-lucide="sliders-horizontal" class="w-3 h-3 inline"></i> Mostrar/Ocultar detalhes</button>
+            </div>
+
+            <div class="glass p-5 memory-advanced-section memory-advanced-hidden">
                 <div class="flex items-center justify-between mb-3">
                     <h3 class="text-xs font-bold text-secondary uppercase tracking-widest">Mapa Visual dos 6 Modos</h3>
                     <span class="text-[9px] text-muted">Clique no card para abrir/editar o arquivo</span>
@@ -2684,7 +2689,7 @@ function ensureMemoryLifecycleUI() {
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 xl:grid-cols-5 gap-6">
+            <div class="grid grid-cols-1 xl:grid-cols-5 gap-6 memory-advanced-section memory-advanced-hidden">
                 <div class="glass p-5 xl:col-span-2">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="text-xs font-bold text-sky uppercase tracking-widest">Sessoes (24h)</h3>
@@ -2716,7 +2721,7 @@ function ensureMemoryLifecycleUI() {
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 memory-advanced-section memory-advanced-hidden">
                 <div class="glass p-5">
                     <h3 class="text-xs font-bold text-secondary uppercase tracking-widest mb-3">Contexto Atual</h3>
                     <div id="memory-current-flash" class="space-y-2 text-[10px]"></div>
@@ -2727,12 +2732,12 @@ function ensureMemoryLifecycleUI() {
                 </div>
             </div>
 
-            <div class="glass p-5">
+            <div class="glass p-5 memory-advanced-section memory-advanced-hidden">
                 <h3 class="text-xs font-bold text-accent uppercase tracking-widest mb-3">Camadas de Memoria</h3>
                 <div id="memory-layer-summary" class="space-y-2 max-h-60 overflow-y-auto"></div>
             </div>
 
-            <details class="glass p-5">
+            <details class="glass p-5 memory-advanced-section memory-advanced-hidden">
                 <summary class="cursor-pointer text-[10px] text-muted uppercase tracking-widest font-bold">Fechamento Manual (Opcional)</summary>
                 <div class="space-y-3 mt-3">
                     <div><label class="text-[9px] text-muted font-bold uppercase block mb-1">Resumo (opcional)</label><textarea id="session-close-summary" class="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-[11px] text-white h-20 resize-none" placeholder="Pode deixar em branco."></textarea></div>
@@ -2773,6 +2778,7 @@ window.loadAllData = async function() {
         window.PERSONA_ASSETS = personaAssets || { items: [], materials_file: '' };
         window.CLOUD_SYNC_STATE = cloudSync || { auto_sync_memory: false, last_status: 'unknown' };
         refreshSquadColors();
+        if (typeof renderCloudSyncStatus === 'function') renderCloudSyncStatus();
     } catch (e) {
         console.error('Data load error:', e);
     }
@@ -2931,7 +2937,7 @@ function renderCloudSyncStatus() {
     if (autoToggle) autoToggle.checked = Boolean(state.auto_sync_memory);
 
     const disableActions = running;
-    ['btn-cloud-sync-main', 'btn-cloud-sync-all', 'btn-cloud-sync-github', 'btn-cloud-sync-firebase'].forEach(id => {
+    ['btn-save-all-main', 'btn-save-all-master'].forEach(id => {
         const btn = document.getElementById(id);
         if (!btn) return;
         btn.disabled = disableActions;
@@ -2956,6 +2962,16 @@ window.toggleCloudAutoSync = async function(enabled) {
         await loadAllData();
         renderMemory();
     }
+};
+
+window.toggleMemoryAdvanced = function() {
+    const blocks = Array.from(document.querySelectorAll('.memory-advanced-section'));
+    if (!blocks.length) return;
+    const hidden = blocks.every(el => el.classList.contains('memory-advanced-hidden'));
+    blocks.forEach(el => {
+        if (hidden) el.classList.remove('memory-advanced-hidden');
+        else el.classList.add('memory-advanced-hidden');
+    });
 };
 
 window.runCloudSync = async function(target = 'all', scope = 'memory') {
@@ -3001,6 +3017,60 @@ window.runCloudSync = async function(target = 'all', scope = 'memory') {
         renderCloudSyncStatus();
         alert(`Erro ao sincronizar nuvem: ${e.message}`);
     }
+};
+
+window.saveAllNow = async function() {
+    try {
+        const syncState = window.CLOUD_SYNC_STATE || {};
+        if (syncState.in_progress) {
+            alert('Ja existe uma sincronizacao em andamento. Aguarde concluir.');
+            return;
+        }
+        window.CLOUD_SYNC_STATE = Object.assign({}, syncState, {
+            in_progress: true,
+            last_status: 'running',
+            last_summary: 'Salvando checkpoint e sincronizando tudo na nuvem...',
+            last_started_at: new Date().toISOString()
+        });
+        renderCloudSyncStatus();
+
+        const nextActionFromContext = ((window.MEMORY_LAYERS || {}).current_state || {}).active_task || '';
+        const res = await fetch('/api/cloud-sync/save-all', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                summary: 'Fechamento rapido pelo botao Salvar Tudo na Nuvem.',
+                next_action: nextActionFromContext,
+                completed_tasks: [],
+                closed_by: 'human',
+                model_hint: 'dashboard',
+                trigger: 'save_all_one_click',
+                project_id: getSessionProjectId()
+            })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha no salvar tudo');
+
+        await loadAllData();
+        renderMemory();
+        if (typeof renderMasterHub === 'function') renderMasterHub();
+        if (typeof renderStatus === 'function') renderStatus();
+        const cp = data.checkpoint_id || '-';
+        const cloudStatus = data.cloud && data.cloud.status ? String(data.cloud.status).toUpperCase() : 'OK';
+        alert(`Tudo salvo. Checkpoint: ${cp}. Cloud: ${cloudStatus}.`);
+    } catch (e) {
+        window.CLOUD_SYNC_STATE = Object.assign({}, window.CLOUD_SYNC_STATE || {}, {
+            in_progress: false,
+            last_status: 'error',
+            last_summary: `Falha no Salvar Tudo: ${e.message}`
+        });
+        renderCloudSyncStatus();
+        alert(`Erro no Salvar Tudo na Nuvem: ${e.message}`);
+    }
+};
+
+window.runStartupRecoverySilent = async function() {
+    return;
 };
 
 function getSessionProjectId() {
