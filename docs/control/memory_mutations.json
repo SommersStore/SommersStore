@@ -647,6 +647,24 @@
       "memory_scope": "cloud_sync",
       "diff_summary": "Cloud sync SYNC-20260417-1776477606424: ERROR. GitHub: success (Commit e push enviados ao GitHub.) Firebase: error (Falha no deploy Firebase Hosting.)",
       "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T23:03:15-03:00",
+      "memory_scope": "cloud_sync",
+      "diff_summary": "Cloud sync SYNC-20260417-1776477781636: ERROR. GitHub: success (Commit e push enviados ao GitHub.) Firebase: error (Falha no deploy Firebase Hosting.)",
+      "mutated_by": "human"
+    },
+    {
+      "timestamp": "2026-04-17T23:24:59-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260417-0017: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T23:25:01-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260417-0018",
+      "mutated_by": "dashboard"
     }
   ]
 }
