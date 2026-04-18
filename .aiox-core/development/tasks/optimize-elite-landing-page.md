@@ -1,7 +1,7 @@
 # optimize-elite-landing-page
 
 ## Contexto
-Esta tarefa utiliza a expertise do `funnel-specialist` (Russell) e `ux-optimizer` (Steve) para transformar uma página de vendas comum em uma máquina de conversão.
+Esta tarefa utiliza a expertise do `cro-expert` (Sterling) e `ux-design-expert` (Uma) para transformar uma página de vendas comum em uma máquina de conversão.
 
 ## Passos
 

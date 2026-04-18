@@ -166,7 +166,7 @@ function safeWorkspacePath(relativePath) {
 }
 
 function normalizePathForJson(inputPath) {
-    return String(inputPath || '').replace(/\\/g, '/').replace(/^\/+/, '');
+    return String(inputPath || '').trim().replace(/\\/g, '/').replace(/^\/+/, '');
 }
 
 const MEMORY_SYNC_EXACT_FILES = new Set([
@@ -568,9 +568,11 @@ function loadPersonaMaterials() {
     const merged = personas.map(persona => {
         const base = personaDefaultEntry(persona.id);
         const existing = existingById.get(persona.id) || {};
+        const existingClone = normalizePathForJson(existing.clone_file || '');
+        const baseClone = normalizePathForJson(base.clone_file || '');
         return {
             persona_id: persona.id,
-            clone_file: normalizePathForJson(existing.clone_file || base.clone_file || ''),
+            clone_file: existingClone || baseClone || null,
             transcript_files: uniquePaths([...(base.transcript_files || []), ...(asArray(existing.transcript_files))]),
             book_files: uniquePaths([...(base.book_files || []), ...(asArray(existing.book_files))]),
             support_files: uniquePaths([...(base.support_files || []), ...(asArray(existing.support_files))])
@@ -580,6 +582,334 @@ function loadPersonaMaterials() {
     const normalized = { items: merged };
     writeControlJson(FILES.personaMaterials, normalized);
     return normalized;
+}
+
+function findPersonaMaterialEntry(personaId, createIfMissing = false) {
+    const materials = loadPersonaMaterials();
+    const items = asArray(materials.items);
+    let entry = items.find(item => item && item.persona_id === personaId);
+    if (!entry && createIfMissing) {
+        entry = personaDefaultEntry(personaId);
+        entry.clone_file = entry.clone_file || null;
+        items.push(entry);
+    }
+    materials.items = items;
+    return { materials, entry };
+}
+
+function defaultPersonaAssetDir(kind) {
+    if (kind === 'book') return 'knowledge/clones/books';
+    if (kind === 'transcript') return 'knowledge/clones/transcripts';
+    if (kind === 'support') return 'knowledge/clones/support';
+    return 'knowledge/clones';
+}
+
+function resolveSourceAbsolutePath(rawPath) {
+    const cleaned = String(rawPath || '').trim().replace(/^"(.*)"$/, '$1');
+    if (!cleaned) throw new Error('source_path required');
+    if (path.isAbsolute(cleaned)) return path.resolve(cleaned);
+    return safeWorkspacePath(cleaned);
+}
+
+function toWorkspaceRelativePathIfInside(absolutePath) {
+    const abs = path.resolve(absolutePath);
+    const rootLower = ROOT_DIR.toLowerCase();
+    if (!abs.toLowerCase().startsWith(rootLower)) return null;
+    const rel = path.relative(ROOT_DIR, abs);
+    return normalizePathForJson(rel);
+}
+
+function uniqueDestinationPath(destAbsolute) {
+    if (!fs.existsSync(destAbsolute)) return destAbsolute;
+    const dir = path.dirname(destAbsolute);
+    const ext = path.extname(destAbsolute);
+    const base = path.basename(destAbsolute, ext);
+    let index = 2;
+    while (index < 9999) {
+        const candidate = path.join(dir, `${base}-${index}${ext}`);
+        if (!fs.existsSync(candidate)) return candidate;
+        index += 1;
+    }
+    throw new Error('Could not allocate unique destination filename');
+}
+
+function slugifySegment(value) {
+    return String(value || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '_')
+        .replace(/^_+|_+$/g, '');
+}
+
+function personaBooksWorkspacePath(personaId) {
+    const safePersonaId = slugifySegment(personaId) || 'persona';
+    return normalizePathForJson(`knowledge/clones/personas/${safePersonaId}/books_working.md`);
+}
+
+function resolveExistingBookMapFile(bookRelativePath) {
+    const normalized = normalizePathForJson(bookRelativePath);
+    if (!normalized) return null;
+    const bookDir = normalizePathForJson(path.posix.dirname(normalized));
+    const baseName = path.posix.basename(normalized, path.extname(normalized));
+    const candidates = [];
+    const primary = slugifySegment(baseName.split(' - ')[0] || baseName);
+    const fallback = slugifySegment(baseName);
+    if (primary) candidates.push(normalizePathForJson(`${bookDir}/${primary}_map.md`));
+    if (fallback && fallback !== primary) candidates.push(normalizePathForJson(`${bookDir}/${fallback}_map.md`));
+
+    for (const candidate of candidates) {
+        try {
+            if (fs.existsSync(safeWorkspacePath(candidate))) return candidate;
+        } catch (_) {
+            // ignore invalid candidate
+        }
+    }
+    return null;
+}
+
+function extractExistingBookSections(workspaceContent) {
+    const text = String(workspaceContent || '');
+    const sections = new Map();
+    const sectionRx = /(###\s+\d+\.\s+[^\n]*\n[\s\S]*?)(?=\n###\s+\d+\.\s+|\n## Proxima Acao Recomendada|$)/g;
+    let match = null;
+    while ((match = sectionRx.exec(text)) !== null) {
+        const block = match[1];
+        const source = block.match(/^- source_pdf:\s*(.+)$/m);
+        if (!source || !source[1]) continue;
+        const key = normalizePathForJson(source[1]);
+        if (key) sections.set(key, block.trimEnd());
+    }
+    return sections;
+}
+
+function mapHighlights(mapPath) {
+    if (!mapPath) return [];
+    const content = safeReadWorkspaceText(mapPath);
+    if (!content) return [];
+    const lines = content
+        .split(/\r?\n/)
+        .map(line => line.trim())
+        .filter(line => line && !line.startsWith('#'))
+        .filter(line => line.startsWith('-') || /^\d+\./.test(line))
+        .slice(0, 6);
+    return lines;
+}
+
+function buildDefaultBookSection(bookPath, index) {
+    const mapPath = resolveExistingBookMapFile(bookPath);
+    const highlightLines = mapHighlights(mapPath);
+    const section = [
+        `### ${index + 1}. ${path.basename(bookPath)}`,
+        `- source_pdf: ${bookPath}`,
+        `- map_md: ${mapPath || '(nao encontrado)'}`,
+        '- notes_md: preencha abaixo com aprendizados acionaveis para a persona.',
+        ''
+    ];
+    if (highlightLines.length) {
+        section.push('#### Resumo Inicial (auto do map)');
+        highlightLines.forEach(line => section.push(line));
+        section.push('');
+    }
+    section.push('#### Notas');
+    section.push('- ');
+    return section.join('\n');
+}
+
+function refreshPersonaBooksWorkspace(personaId, personaName) {
+    const materials = loadPersonaMaterials();
+    const entry = asArray(materials.items).find(item => item && item.persona_id === personaId);
+    if (!entry) return null;
+
+    const books = uniquePaths(asArray(entry.book_files));
+    const workspacePath = personaBooksWorkspacePath(personaId);
+    const existingContent = safeReadWorkspaceText(workspacePath);
+    const existingSections = extractExistingBookSections(existingContent);
+    const title = personaName || personaId;
+    const lines = [
+        `# Workspace Livros - ${title}`,
+        '',
+        `- persona_id: ${personaId}`,
+        `- updated_at: ${nowIso()}`,
+        '',
+        '## Objetivo',
+        '- Usar os PDFs como acervo e trabalhar com notas/estruturas em Markdown para acelerar leitura da IA.',
+        '',
+        '## Livros Vinculados'
+    ];
+
+    if (!books.length) {
+        lines.push('- Nenhum livro vinculado ainda.');
+    } else {
+        books.forEach((bookPath, index) => {
+            lines.push('');
+            const existing = existingSections.get(bookPath);
+            if (existing) {
+                let merged = existing;
+                merged = merged.replace(/^###\s+\d+\.\s+[^\n]*/m, `### ${index + 1}. ${path.basename(bookPath)}`);
+                merged = merged.replace(/^- source_pdf:\s*.*$/m, `- source_pdf: ${bookPath}`);
+                if (!/^- map_md:\s*/m.test(merged)) {
+                    const mapPath = resolveExistingBookMapFile(bookPath);
+                    merged = `${merged}\n- map_md: ${mapPath || '(nao encontrado)'}`;
+                }
+                if (!/####\s+Resumo Inicial/i.test(merged)) {
+                    const mapPath = resolveExistingBookMapFile(bookPath);
+                    const highlightLines = mapHighlights(mapPath);
+                    if (highlightLines.length) {
+                        const summaryBlock = [
+                            '',
+                            '#### Resumo Inicial (auto do map)',
+                            ...highlightLines,
+                            ''
+                        ].join('\n');
+                        if (/####\s+Notas/i.test(merged)) {
+                            merged = merged.replace(/####\s+Notas/i, `${summaryBlock}#### Notas`);
+                        } else {
+                            merged = `${merged}\n${summaryBlock}`;
+                        }
+                    }
+                }
+                lines.push(merged);
+            } else {
+                lines.push(buildDefaultBookSection(bookPath, index));
+            }
+        });
+    }
+
+    lines.push('');
+    lines.push('## Proxima Acao Recomendada');
+    lines.push('- Converter trechos-chave para Markdown e anexar como transcricao/nota de suporte da persona.');
+    lines.push('');
+
+    writeText(safeWorkspacePath(workspacePath), `${lines.join('\n')}\n`);
+    return workspacePath;
+}
+
+function syncPersonaBooksWorkspaces() {
+    const registry = ensureControlJson('registry.json', { personas: [] });
+    const personaById = new Map(asArray(registry.personas).map(persona => [persona.id, persona]));
+    const materials = loadPersonaMaterials();
+    asArray(materials.items).forEach(entry => {
+        if (!entry || !entry.persona_id) return;
+        const books = uniquePaths(asArray(entry.book_files));
+        if (!books.length) return;
+        const persona = personaById.get(entry.persona_id);
+        refreshPersonaBooksWorkspace(entry.persona_id, persona ? persona.name : entry.persona_id);
+    });
+}
+
+function detachPersonaAsset({ personaId, kind, targetPath, initiatedBy = 'human' }) {
+    const allowedKinds = new Set(['clone', 'transcript', 'book', 'support']);
+    if (!allowedKinds.has(kind)) throw new Error('kind must be one of: clone, transcript, book, support');
+
+    const registry = ensureControlJson('registry.json', { personas: [] });
+    const personas = asArray(registry.personas);
+    const persona = personas.find(item => item && item.id === personaId);
+    if (!persona) throw new Error(`persona not found: ${personaId}`);
+
+    const { materials, entry } = findPersonaMaterialEntry(personaId, true);
+    if (!entry) throw new Error('could not load material entry');
+
+    let changed = false;
+    if (kind === 'clone') {
+        if (entry.clone_file) changed = true;
+        entry.clone_file = null;
+    } else {
+        const normalizedTarget = normalizePathForJson(targetPath || '');
+        if (!normalizedTarget) throw new Error('path required for transcript/book/support removal');
+        const field = kind === 'transcript' ? 'transcript_files' : kind === 'book' ? 'book_files' : 'support_files';
+        const current = uniquePaths(asArray(entry[field]));
+        const filtered = current.filter(item => normalizePathForJson(item) !== normalizedTarget);
+        changed = filtered.length !== current.length;
+        entry[field] = filtered;
+    }
+
+    if (!changed) {
+        return { persona_id: personaId, kind, removed: false, path: normalizePathForJson(targetPath || '') || null };
+    }
+
+    writeControlJson(FILES.personaMaterials, materials);
+    if (kind === 'book') {
+        refreshPersonaBooksWorkspace(personaId, persona.name || personaId);
+    }
+    appendExecutionLog(
+        'persona_asset',
+        personaId,
+        `Asset ${kind} removido: ${normalizePathForJson(targetPath || '(clone)')}`,
+        initiatedBy || 'human',
+        null,
+        null
+    );
+
+    return { persona_id: personaId, kind, removed: true, path: normalizePathForJson(targetPath || '') || null };
+}
+
+function attachPersonaAsset({ personaId, kind, sourcePath, copyToLibrary = true, initiatedBy = 'human' }) {
+    const allowedKinds = new Set(['clone', 'transcript', 'book', 'support']);
+    if (!allowedKinds.has(kind)) throw new Error('kind must be one of: clone, transcript, book, support');
+
+    const registry = ensureControlJson('registry.json', { personas: [] });
+    const personas = asArray(registry.personas);
+    const persona = personas.find(item => item && item.id === personaId);
+    if (!persona) throw new Error(`persona not found: ${personaId}`);
+
+    const sourceAbsolute = resolveSourceAbsolutePath(sourcePath);
+    if (!fs.existsSync(sourceAbsolute)) throw new Error('source file not found');
+    const sourceStat = fs.statSync(sourceAbsolute);
+    if (!sourceStat.isFile()) throw new Error('source path must point to a file');
+
+    let finalRelativePath = null;
+    const sourceRelativeInsideWorkspace = toWorkspaceRelativePathIfInside(sourceAbsolute);
+    const targetDirRelative = defaultPersonaAssetDir(kind);
+    const sourceBasename = path.basename(sourceAbsolute);
+    const sourceExt = path.extname(sourceBasename);
+    const fallbackName = kind === 'clone' ? `${personaId.replace(/^prs-/, '')}_clone.md` : `${personaId.replace(/^prs-/, '')}_${kind}.md`;
+    const preferredName = sourceBasename || fallbackName;
+
+    if (!copyToLibrary && sourceRelativeInsideWorkspace) {
+        finalRelativePath = sourceRelativeInsideWorkspace;
+    } else {
+        const targetDirAbsolute = safeWorkspacePath(targetDirRelative);
+        ensureDir(targetDirAbsolute);
+        const initialTarget = path.join(targetDirAbsolute, preferredName || fallbackName);
+        const finalTarget = uniqueDestinationPath(initialTarget);
+        fs.copyFileSync(sourceAbsolute, finalTarget);
+        finalRelativePath = normalizePathForJson(path.relative(ROOT_DIR, finalTarget));
+    }
+
+    if (!finalRelativePath) throw new Error('could not resolve final asset path');
+
+    if (kind === 'clone') {
+        if (!/\.(md|markdown|txt)$/i.test(finalRelativePath) && sourceExt.toLowerCase() !== '.md') {
+            throw new Error('clone_file deve ser markdown/texto (.md ou .txt)');
+        }
+    }
+
+    const { materials, entry } = findPersonaMaterialEntry(personaId, true);
+    if (!entry) throw new Error('could not create material entry');
+
+    if (kind === 'clone') {
+        entry.clone_file = finalRelativePath;
+    } else if (kind === 'transcript') {
+        entry.transcript_files = uniquePaths([...(entry.transcript_files || []), finalRelativePath]);
+    } else if (kind === 'book') {
+        entry.book_files = uniquePaths([...(entry.book_files || []), finalRelativePath]);
+    } else if (kind === 'support') {
+        entry.support_files = uniquePaths([...(entry.support_files || []), finalRelativePath]);
+    }
+
+    writeControlJson(FILES.personaMaterials, materials);
+    if (kind === 'book') {
+        refreshPersonaBooksWorkspace(personaId, persona.name || personaId);
+    }
+    appendExecutionLog(
+        'persona_asset',
+        personaId,
+        `Asset ${kind} vinculado: ${finalRelativePath}`,
+        initiatedBy || 'human',
+        null,
+        null
+    );
+
+    return { persona_id: personaId, kind, path: finalRelativePath };
 }
 
 function normalizeLinkedPath(rawTarget) {
@@ -680,6 +1010,8 @@ function buildPersonaAssetsPayload() {
         const bookPaths = uniquePaths([...(entry.book_files || []), ...promptBookPaths]);
         const supportPaths = uniquePaths([...(entry.support_files || []), ...promptSupportPaths]);
         const promptLinkedFiles = uniquePaths(promptLinked);
+        const booksWorkspacePath = personaBooksWorkspacePath(persona.id);
+        const booksWorkspaceFile = safeFileStatView(booksWorkspacePath);
 
         const transcriptFiles = transcriptPaths.map(safeFileStatView).filter(Boolean);
         const bookFiles = bookPaths.map(safeFileStatView).filter(Boolean);
@@ -693,6 +1025,7 @@ function buildPersonaAssetsPayload() {
             clone_file: cloneStat,
             transcript_files: transcriptFiles,
             book_files: bookFiles,
+            books_working_file: (booksWorkspaceFile.exists || bookFiles.length) ? booksWorkspaceFile : null,
             support_files: supportFiles,
             prompt_linked_files: promptLinkedStats,
             transcript_status: {
@@ -1233,6 +1566,7 @@ function ensureBootstrapFiles() {
     ensureControlJson(FILES.cloudSync, cloudSyncDefaultState());
     ensureControlJson(FILES.projectFlows, { projects: {} });
     loadPersonaMaterials();
+    syncPersonaBooksWorkspaces();
     ensureControlJson('manual_interventions.json', { entries: [] });
     ensureControlJson('approvals.json', { items: [] });
     ensureControlJson('alerts.json', { items: [] });
@@ -1272,6 +1606,47 @@ const server = http.createServer(async (req, res) => {
         if (pathname === '/api/memory/layers' && req.method === 'GET') return sendJson(res, loadMemoryLayers());
         if (pathname === '/api/memory/files' && req.method === 'GET') return sendJson(res, listMemoryFilesPayload());
         if (pathname === '/api/personas/assets' && req.method === 'GET') return sendJson(res, buildPersonaAssetsPayload());
+        if (pathname === '/api/personas/assets/link' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const personaId = String(body.persona_id || '').trim();
+            const kind = String(body.kind || '').trim().toLowerCase();
+            const sourcePath = String(body.source_path || '').trim();
+            if (!personaId) return sendJson(res, { error: 'persona_id required' }, 400);
+            if (!kind) return sendJson(res, { error: 'kind required' }, 400);
+            if (!sourcePath) return sendJson(res, { error: 'source_path required' }, 400);
+            const result = attachPersonaAsset({
+                personaId,
+                kind,
+                sourcePath,
+                copyToLibrary: body.copy_to_library !== false,
+                initiatedBy: body.initiated_by || 'human'
+            });
+            return sendJson(res, { success: true, ...result });
+        }
+        if (pathname === '/api/personas/assets/unlink' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const personaId = String(body.persona_id || '').trim();
+            const kind = String(body.kind || '').trim().toLowerCase();
+            const targetPath = String(body.path || '').trim();
+            if (!personaId) return sendJson(res, { error: 'persona_id required' }, 400);
+            if (!kind) return sendJson(res, { error: 'kind required' }, 400);
+            const result = detachPersonaAsset({
+                personaId,
+                kind,
+                targetPath,
+                initiatedBy: body.initiated_by || 'human'
+            });
+            return sendJson(res, { success: true, ...result });
+        }
+        if (pathname === '/api/personas/assets/books-workspace/refresh' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const personaId = String(body.persona_id || '').trim();
+            if (!personaId) return sendJson(res, { error: 'persona_id required' }, 400);
+            const registry = ensureControlJson('registry.json', { personas: [] });
+            const persona = asArray(registry.personas).find(item => item && item.id === personaId);
+            const workspacePath = refreshPersonaBooksWorkspace(personaId, persona ? persona.name : personaId);
+            return sendJson(res, { success: true, persona_id: personaId, workspace_path: workspacePath });
+        }
         if (pathname === '/api/project-flows' && req.method === 'GET') return sendJson(res, ensureControlJson(FILES.projectFlows, { projects: {} }));
         if (pathname === '/api/session' && req.method === 'GET') return sendJson(res, ensureControlJson(FILES.session, { current_session: null, history: [] }));
         if (pathname === '/api/cloud-sync/status' && req.method === 'GET') return sendJson(res, loadCloudSyncState());
@@ -1283,6 +1658,9 @@ const server = http.createServer(async (req, res) => {
             const registry = ensureControlJson('registry.json', {});
             registry.personas = asArray(registry.personas);
             const id = `prs-${body.name.toLowerCase().replace(/\s+/g, '-')}`;
+            if (registry.personas.some(item => item && item.id === id)) {
+                return sendJson(res, { error: 'persona already exists', id }, 409);
+            }
             const persona = {
                 id,
                 icon: body.icon || '👤',
@@ -1298,6 +1676,8 @@ const server = http.createServer(async (req, res) => {
             ensureDir(personaDir);
             const personaFile = path.join(personaDir, `${id}.md`);
             if (!fs.existsSync(personaFile)) writeText(personaFile, `# Persona ${body.name}\n\nGuia da persona.\n`);
+            const synced = findPersonaMaterialEntry(id, true);
+            writeControlJson(FILES.personaMaterials, synced.materials);
             return sendJson(res, { success: true, persona });
         }
 

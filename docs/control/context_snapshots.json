@@ -1629,6 +1629,336 @@
       "session_id": "SES-20260418-0002",
       "summary": "Fechamento rapido pelo botao Salvar Tudo na Nuvem.",
       "checkpoint_id": "CHK-MEM-0058"
+    },
+    {
+      "id": "CTX-20260418-0006",
+      "timestamp": "2026-04-18T00:46:12-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260418-0003",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar ajustes no painel e memoria",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0058",
+        "latest_checkpoint_next_action": "Retomar ajustes no painel e memoria",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260418-0007",
+      "timestamp": "2026-04-18T01:08:16-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260418-0003",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0059"
+    },
+    {
+      "id": "CTX-20260418-0008",
+      "timestamp": "2026-04-18T01:08:21-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260418-0004",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar ajustes no painel e memoria",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0059",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260418-0009",
+      "timestamp": "2026-04-18T01:08:55-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260418-0004",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0060"
+    },
+    {
+      "id": "CTX-20260418-0010",
+      "timestamp": "2026-04-18T01:08:56-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260418-0005",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar ajustes no painel e memoria",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0060",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260418-0011",
+      "timestamp": "2026-04-18T01:12:15-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260418-0005",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0061"
+    },
+    {
+      "id": "CTX-20260418-0012",
+      "timestamp": "2026-04-18T01:12:17-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260418-0006",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar ajustes no painel e memoria",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0061",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260418-0013",
+      "timestamp": "2026-04-18T01:20:46-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260418-0006",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0062"
+    },
+    {
+      "id": "CTX-20260418-0014",
+      "timestamp": "2026-04-18T01:20:49-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260418-0007",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar ajustes no painel e memoria",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0062",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260418-0015",
+      "timestamp": "2026-04-18T01:49:18-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260418-0007",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0063"
+    },
+    {
+      "id": "CTX-20260418-0016",
+      "timestamp": "2026-04-18T01:49:25-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260418-0008",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar ajustes no painel e memoria",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0063",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260418-0017",
+      "timestamp": "2026-04-18T01:50:20-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260418-0008",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0064"
+    },
+    {
+      "id": "CTX-20260418-0018",
+      "timestamp": "2026-04-18T01:50:23-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260418-0009",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar ajustes no painel e memoria",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0064",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260418-0019",
+      "timestamp": "2026-04-18T01:51:54-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260418-0009",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0065"
+    },
+    {
+      "id": "CTX-20260418-0020",
+      "timestamp": "2026-04-18T01:52:04-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260418-0010",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar ajustes no painel e memoria",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0065",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260418-0021",
+      "timestamp": "2026-04-18T02:15:51-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260418-0010",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0066"
+    },
+    {
+      "id": "CTX-20260418-0022",
+      "timestamp": "2026-04-18T02:15:53-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260418-0011",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar ajustes no painel e memoria",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0066",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260418-0023",
+      "timestamp": "2026-04-18T02:23:44-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260418-0011",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0067"
+    },
+    {
+      "id": "CTX-20260418-0024",
+      "timestamp": "2026-04-18T02:23:46-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260418-0012",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar ajustes no painel e memoria",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0067",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260418-0025",
+      "timestamp": "2026-04-18T02:34:11-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260418-0012",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0068"
+    },
+    {
+      "id": "CTX-20260418-0026",
+      "timestamp": "2026-04-18T02:34:13-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260418-0013",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar ajustes no painel e memoria",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0068",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260418-0027",
+      "timestamp": "2026-04-18T02:34:15-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260418-0013",
+      "summary": "Fechamento rapido pelo botao Salvar Tudo na Nuvem.",
+      "checkpoint_id": "CHK-MEM-0069"
     }
   ]
 }

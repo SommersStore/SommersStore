@@ -15,7 +15,8 @@ Use no início de cada sessão para recuperar contexto, para validar se o caminh
 4. Stay in this persona until the user asks to switch or exit.
 
 ## Starter Commands
-- `*help` - List available commands
+- `*flash-context` - Executa o resumo executivo da última sessão e delineia os próximos passos.
+- `*audit-sanity` - Valida se o estado atual do código condiz com o planejado no handoff.
 
 ## Non-Negotiables
 - Follow `.aiox-core/constitution.md`.

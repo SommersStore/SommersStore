@@ -1272,6 +1272,237 @@
       "linked_loops": [],
       "linked_decisions": [],
       "recovery_instruction": "Reabrir dashboard e executar startup automatico"
+    },
+    {
+      "id": "CHK-MEM-0059",
+      "timestamp": "2026-04-18T01:08:16-03:00",
+      "title": "Fechamento SES-20260418-0003",
+      "where_it_stopped": "Encerramento automatico (fechamento de aba/janela).",
+      "completed_since_last_checkpoint": [],
+      "do_not_repeat": [
+        "Fechar sem checkpoint",
+        "Fechar sem mutacao"
+      ],
+      "next_exact_action": "Rodar startup Oracle na proxima abertura",
+      "active_risks": [],
+      "affected_files": [
+        "task.md",
+        "docs/control/memory_*.json",
+        "docs/memory/*.md"
+      ],
+      "linked_loops": [],
+      "linked_decisions": [],
+      "recovery_instruction": "Reabrir dashboard e executar startup automatico"
+    },
+    {
+      "id": "CHK-MEM-0060",
+      "timestamp": "2026-04-18T01:08:55-03:00",
+      "title": "Fechamento SES-20260418-0004",
+      "where_it_stopped": "Encerramento automatico (fechamento de aba/janela).",
+      "completed_since_last_checkpoint": [],
+      "do_not_repeat": [
+        "Fechar sem checkpoint",
+        "Fechar sem mutacao"
+      ],
+      "next_exact_action": "Rodar startup Oracle na proxima abertura",
+      "active_risks": [],
+      "affected_files": [
+        "task.md",
+        "docs/control/memory_*.json",
+        "docs/memory/*.md"
+      ],
+      "linked_loops": [],
+      "linked_decisions": [],
+      "recovery_instruction": "Reabrir dashboard e executar startup automatico"
+    },
+    {
+      "id": "CHK-MEM-0061",
+      "timestamp": "2026-04-18T01:12:15-03:00",
+      "title": "Fechamento SES-20260418-0005",
+      "where_it_stopped": "Encerramento automatico (fechamento de aba/janela).",
+      "completed_since_last_checkpoint": [],
+      "do_not_repeat": [
+        "Fechar sem checkpoint",
+        "Fechar sem mutacao"
+      ],
+      "next_exact_action": "Rodar startup Oracle na proxima abertura",
+      "active_risks": [],
+      "affected_files": [
+        "task.md",
+        "docs/control/memory_*.json",
+        "docs/memory/*.md"
+      ],
+      "linked_loops": [],
+      "linked_decisions": [],
+      "recovery_instruction": "Reabrir dashboard e executar startup automatico"
+    },
+    {
+      "id": "CHK-MEM-0062",
+      "timestamp": "2026-04-18T01:20:46-03:00",
+      "title": "Fechamento SES-20260418-0006",
+      "where_it_stopped": "Encerramento automatico (fechamento de aba/janela).",
+      "completed_since_last_checkpoint": [],
+      "do_not_repeat": [
+        "Fechar sem checkpoint",
+        "Fechar sem mutacao"
+      ],
+      "next_exact_action": "Rodar startup Oracle na proxima abertura",
+      "active_risks": [],
+      "affected_files": [
+        "task.md",
+        "docs/control/memory_*.json",
+        "docs/memory/*.md"
+      ],
+      "linked_loops": [],
+      "linked_decisions": [],
+      "recovery_instruction": "Reabrir dashboard e executar startup automatico"
+    },
+    {
+      "id": "CHK-MEM-0063",
+      "timestamp": "2026-04-18T01:49:18-03:00",
+      "title": "Fechamento SES-20260418-0007",
+      "where_it_stopped": "Encerramento automatico (fechamento de aba/janela).",
+      "completed_since_last_checkpoint": [],
+      "do_not_repeat": [
+        "Fechar sem checkpoint",
+        "Fechar sem mutacao"
+      ],
+      "next_exact_action": "Rodar startup Oracle na proxima abertura",
+      "active_risks": [],
+      "affected_files": [
+        "task.md",
+        "docs/control/memory_*.json",
+        "docs/memory/*.md"
+      ],
+      "linked_loops": [],
+      "linked_decisions": [],
+      "recovery_instruction": "Reabrir dashboard e executar startup automatico"
+    },
+    {
+      "id": "CHK-MEM-0064",
+      "timestamp": "2026-04-18T01:50:20-03:00",
+      "title": "Fechamento SES-20260418-0008",
+      "where_it_stopped": "Encerramento automatico (fechamento de aba/janela).",
+      "completed_since_last_checkpoint": [],
+      "do_not_repeat": [
+        "Fechar sem checkpoint",
+        "Fechar sem mutacao"
+      ],
+      "next_exact_action": "Rodar startup Oracle na proxima abertura",
+      "active_risks": [],
+      "affected_files": [
+        "task.md",
+        "docs/control/memory_*.json",
+        "docs/memory/*.md"
+      ],
+      "linked_loops": [],
+      "linked_decisions": [],
+      "recovery_instruction": "Reabrir dashboard e executar startup automatico"
+    },
+    {
+      "id": "CHK-MEM-0065",
+      "timestamp": "2026-04-18T01:51:53-03:00",
+      "title": "Fechamento SES-20260418-0009",
+      "where_it_stopped": "Encerramento automatico (fechamento de aba/janela).",
+      "completed_since_last_checkpoint": [],
+      "do_not_repeat": [
+        "Fechar sem checkpoint",
+        "Fechar sem mutacao"
+      ],
+      "next_exact_action": "Rodar startup Oracle na proxima abertura",
+      "active_risks": [],
+      "affected_files": [
+        "task.md",
+        "docs/control/memory_*.json",
+        "docs/memory/*.md"
+      ],
+      "linked_loops": [],
+      "linked_decisions": [],
+      "recovery_instruction": "Reabrir dashboard e executar startup automatico"
+    },
+    {
+      "id": "CHK-MEM-0066",
+      "timestamp": "2026-04-18T02:15:51-03:00",
+      "title": "Fechamento SES-20260418-0010",
+      "where_it_stopped": "Encerramento automatico (fechamento de aba/janela).",
+      "completed_since_last_checkpoint": [],
+      "do_not_repeat": [
+        "Fechar sem checkpoint",
+        "Fechar sem mutacao"
+      ],
+      "next_exact_action": "Rodar startup Oracle na proxima abertura",
+      "active_risks": [],
+      "affected_files": [
+        "task.md",
+        "docs/control/memory_*.json",
+        "docs/memory/*.md"
+      ],
+      "linked_loops": [],
+      "linked_decisions": [],
+      "recovery_instruction": "Reabrir dashboard e executar startup automatico"
+    },
+    {
+      "id": "CHK-MEM-0067",
+      "timestamp": "2026-04-18T02:23:44-03:00",
+      "title": "Fechamento SES-20260418-0011",
+      "where_it_stopped": "Encerramento automatico (fechamento de aba/janela).",
+      "completed_since_last_checkpoint": [],
+      "do_not_repeat": [
+        "Fechar sem checkpoint",
+        "Fechar sem mutacao"
+      ],
+      "next_exact_action": "Rodar startup Oracle na proxima abertura",
+      "active_risks": [],
+      "affected_files": [
+        "task.md",
+        "docs/control/memory_*.json",
+        "docs/memory/*.md"
+      ],
+      "linked_loops": [],
+      "linked_decisions": [],
+      "recovery_instruction": "Reabrir dashboard e executar startup automatico"
+    },
+    {
+      "id": "CHK-MEM-0068",
+      "timestamp": "2026-04-18T02:34:11-03:00",
+      "title": "Fechamento SES-20260418-0012",
+      "where_it_stopped": "Encerramento automatico (fechamento de aba/janela).",
+      "completed_since_last_checkpoint": [],
+      "do_not_repeat": [
+        "Fechar sem checkpoint",
+        "Fechar sem mutacao"
+      ],
+      "next_exact_action": "Rodar startup Oracle na proxima abertura",
+      "active_risks": [],
+      "affected_files": [
+        "task.md",
+        "docs/control/memory_*.json",
+        "docs/memory/*.md"
+      ],
+      "linked_loops": [],
+      "linked_decisions": [],
+      "recovery_instruction": "Reabrir dashboard e executar startup automatico"
+    },
+    {
+      "id": "CHK-MEM-0069",
+      "timestamp": "2026-04-18T02:34:15-03:00",
+      "title": "Fechamento SES-20260418-0013",
+      "where_it_stopped": "Fechamento rapido pelo botao Salvar Tudo na Nuvem.",
+      "completed_since_last_checkpoint": [],
+      "do_not_repeat": [
+        "Fechar sem checkpoint",
+        "Fechar sem mutacao"
+      ],
+      "next_exact_action": "Retomar ajustes no painel e memoria",
+      "active_risks": [],
+      "affected_files": [
+        "task.md",
+        "docs/control/memory_*.json",
+        "docs/memory/*.md"
+      ],
+      "linked_loops": [],
+      "linked_decisions": [],
+      "recovery_instruction": "Reabrir dashboard e executar startup automatico"
     }
   ]
 }

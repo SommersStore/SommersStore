@@ -38,10 +38,10 @@ htmlContent = htmlContent.replace(/handle: '@visual'/g, "handle: '@ux-design-exp
 htmlContent = htmlContent.replace(/handle: '@art'/g, "handle: '@art-director'");
 htmlContent = htmlContent.replace(/handle: '@master'/g, "handle: '@aiox-master'");
 htmlContent = htmlContent.replace(/handle: '@market'/g, "handle: '@analyst'");
-htmlContent = htmlContent.replace(/handle: '@funnel'/g, "handle: '@funnel-specialist'");
+htmlContent = htmlContent.replace(/handle: '@funnel'/g, "handle: '@cro-expert'");
 htmlContent = htmlContent.replace(/handle: '@cro'/g, "handle: '@cro-expert'");
-htmlContent = htmlContent.replace(/handle: '@traffic'/g, "handle: '@traffic-specialist'");
-htmlContent = htmlContent.replace(/handle: '@ux-opt'/g, "handle: '@ux-optimizer'");
+htmlContent = htmlContent.replace(/handle: '@traffic'/g, "handle: '@marketing'");
+htmlContent = htmlContent.replace(/handle: '@ux-opt'/g, "handle: '@ux-design-expert'");
 
 fs.writeFileSync(htmlPath, htmlContent, 'utf8');
 

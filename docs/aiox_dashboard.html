@@ -785,7 +785,7 @@
         <div id="pane-agents" class="tab-pane p-8">
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-primary">Rede Neural</span> <span class="text-white">de Agentes</span></h2>
-                <span class="badge border-primary/30 text-primary bg-primary/10">21 Agentes</span>
+                <span id="agents-count" class="badge border-primary/30 text-primary bg-primary/10">0 Agentes</span>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="agents-view"></div>
         </div>
@@ -794,7 +794,7 @@
         <div id="pane-skills" class="tab-pane p-8">
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-primary">Skills</span> <span class="text-white">Library</span></h2>
-                <span class="badge border-primary/30 text-primary bg-primary/10">36 Skills</span>
+                <span id="skills-count" class="badge border-primary/30 text-primary bg-primary/10">0 Skills</span>
             </div>
             <div id="skills-view" class="space-y-8"></div>
         </div>
@@ -2255,6 +2255,8 @@ function renderAgents() {
     const view = document.getElementById('agents-view');
     if (!view) return;
     const agents = REGISTRY.agents || [];
+    const countEl = document.getElementById('agents-count');
+    if (countEl) countEl.textContent = `${agents.length} Agentes`;
     view.innerHTML = agents.map(a => {
         const sq = SQUAD_COLORS[a.squad] || '#6b7280';
         return `<div class="glass p-4 group relative hover:-translate-y-0.5 transition-transform">
@@ -2323,6 +2325,8 @@ function renderAgents() {
     const view = document.getElementById('agents-view');
     if (!view) return;
     const agents = REGISTRY.agents || [];
+    const countEl = document.getElementById('agents-count');
+    if (countEl) countEl.textContent = `${agents.length} Agentes`;
     view.innerHTML = agents.map(a => {
         const sq = SQUAD_COLORS[a.squad] || '#6b7280';
         return `<div class="glass p-4 group relative hover:-translate-y-0.5 transition-transform">
@@ -2409,6 +2413,9 @@ function skillNameToFile(name) {
 
 function renderSkills() {
     const skills = REGISTRY.skills || {};
+    const totalSkills = Object.values(skills).reduce((sum, items) => sum + ((items || []).length), 0);
+    const countEl = document.getElementById('skills-count');
+    if (countEl) countEl.textContent = `${totalSkills} Skills`;
     document.getElementById('skills-view').innerHTML = Object.entries(skills).map(([cat, items]) => `<div>
         <div class="flex items-center gap-2 mb-4"><div class="h-2 w-2 rounded-full bg-primary"></div><span class="text-[10px] font-bold text-primary uppercase tracking-widest">${cat}</span><span class="text-[8px] text-muted">(${items.length} skills)</span></div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px">
@@ -3300,7 +3307,10 @@ window.renderMemory = function() {
 window.renderAgents = function() {
     const view = document.getElementById('agents-view');
     if (!view) return;
-    view.innerHTML = (REGISTRY.agents || []).map(a => {
+    const agents = REGISTRY.agents || [];
+    const countEl = document.getElementById('agents-count');
+    if (countEl) countEl.textContent = `${agents.length} Agentes`;
+    view.innerHTML = agents.map(a => {
         const sq = (SQUAD_COLORS && SQUAD_COLORS[a.squad]) || '#6b7280';
         const filePath = `.codex/agents/${a.handle.replace('@','')}.md`;
         const title = `${a.name} - ${a.squad}`;
@@ -3317,21 +3327,201 @@ function personaAssetMap() {
 
 function personaAssetRow(file) {
     if (!file || !file.path) return '';
+    const isPdf = /\.pdf$/i.test(String(file.path || ''));
     const statusClass = file.exists ? 'text-secondary' : 'text-coral';
     const statusText = file.exists ? 'ok' : 'faltando';
+    const hint = isPdf ? '<span class="text-[8px] text-muted uppercase">pdf (sem clique)</span>' : '';
+    if (isPdf) {
+        return `<div class="w-full text-left px-2 py-2 rounded border border-white/10 mb-2"><div class="flex justify-between items-center"><span class="text-[10px] text-white truncate">${file.name || file.path}</span><span class="text-[8px] ${statusClass} uppercase">${statusText}</span></div><div class="text-[8px] text-muted truncate">${file.path}</div><div class="mt-1">${hint}</div></div>`;
+    }
     return `<button class="w-full text-left px-2 py-2 rounded border border-white/10 hover:border-primary/30 hover:bg-white/5 mb-2" onclick='openEditorModal(${JSON.stringify(file.path)}, ${JSON.stringify(file.name || file.path)})'><div class="flex justify-between items-center"><span class="text-[10px] text-white truncate">${file.name || file.path}</span><span class="text-[8px] ${statusClass} uppercase">${statusText}</span></div><div class="text-[8px] text-muted truncate">${file.path}</div></button>`;
 }
+
+function personaAssetManageRow(file, personaId, kind) {
+    if (!file || !file.path) return '';
+    const isPdf = /\.pdf$/i.test(String(file.path || ''));
+    const statusClass = file.exists ? 'text-secondary' : 'text-coral';
+    const statusText = file.exists ? 'ok' : 'faltando';
+    const head = isPdf
+        ? `<div class="w-full text-left">
+            <div class="flex justify-between items-center"><span class="text-[10px] text-white truncate">${file.name || file.path}</span><span class="text-[8px] ${statusClass} uppercase">${statusText}</span></div>
+            <div class="text-[8px] text-muted truncate">${file.path}</div>
+            <div class="text-[8px] text-muted uppercase mt-1">pdf (sem clique)</div>
+        </div>`
+        : `<button class="w-full text-left" onclick='openEditorModal(${JSON.stringify(file.path)}, ${JSON.stringify(file.name || file.path)})'>
+            <div class="flex justify-between items-center"><span class="text-[10px] text-white truncate">${file.name || file.path}</span><span class="text-[8px] ${statusClass} uppercase">${statusText}</span></div>
+            <div class="text-[8px] text-muted truncate">${file.path}</div>
+        </button>`;
+    return `<div class="mb-2 border border-white/10 rounded p-2 hover:border-primary/30">
+        ${head}
+        <div class="mt-2 flex justify-end">
+            <button class="btn-danger text-[9px] py-1 px-2" onclick='event.stopPropagation();unlinkPersonaAsset(${JSON.stringify(personaId)}, ${JSON.stringify(kind)}, ${JSON.stringify(file.path)})'>Remover</button>
+        </div>
+    </div>`;
+}
+
+window.linkPersonaAsset = async function(personaId, kind) {
+    const kindLabel = {
+        clone: 'arquivo clone (.md/.txt)',
+        transcript: 'transcricao',
+        book: 'PDF/livro',
+        support: 'anexo de suporte'
+    };
+    const sourcePath = prompt(`Cole o caminho do arquivo para ${kindLabel[kind] || kind}.\n\nExemplos:\n- C:/Users/ADMIN/Downloads/arquivo.pdf\n- knowledge/clones/books/arquivo.pdf`);
+    if (!sourcePath) return;
+    const copyToLibrary = confirm('Copiar para a biblioteca padrao do projeto?\n\nOK = sim (recomendado)\nCancelar = apenas vincular caminho atual');
+    try {
+        const res = await fetch('/api/personas/assets/link', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                persona_id: personaId,
+                kind,
+                source_path: sourcePath,
+                copy_to_library: copyToLibrary,
+                initiated_by: 'human'
+            })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha ao vincular arquivo');
+        await loadAllData();
+        renderPersonas();
+        openPersonaAssetsDrawer(personaId);
+        alert(`Arquivo vinculado com sucesso em:\n${data.path}`);
+    } catch (error) {
+        alert(`Nao foi possivel vincular o arquivo: ${error.message}`);
+    }
+};
+
+window.linkPersonaAssetsBatch = async function(personaId, kind) {
+    const kindLabel = {
+        book: 'PDF/livro',
+        transcript: 'transcricao',
+        support: 'anexo'
+    };
+    const raw = prompt(
+        `Cole os caminhos (1 por linha) para ${kindLabel[kind] || kind}.\n\n` +
+        `Exemplo:\n` +
+        `knowledge/clones/books/Dotcom Secrets - Russel Brunson.pdf\n` +
+        `knowledge/clones/books/Expert Secrets - Russell Brunson.pdf`
+    );
+    if (!raw) return;
+
+    const paths = [...new Set(String(raw)
+        .split(/\r?\n/)
+        .map(v => v.trim())
+        .filter(Boolean))];
+    if (!paths.length) return alert('Nenhum caminho valido informado.');
+
+    const copyToLibrary = confirm('Copiar para a biblioteca padrao do projeto?\n\nOK = sim (recomendado)\nCancelar = apenas vincular caminhos atuais');
+    const errors = [];
+    let success = 0;
+
+    for (const sourcePath of paths) {
+        try {
+            const res = await fetch('/api/personas/assets/link', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    persona_id: personaId,
+                    kind,
+                    source_path: sourcePath,
+                    copy_to_library: copyToLibrary,
+                    initiated_by: 'human'
+                })
+            });
+            const data = await res.json();
+            if (!res.ok || !data.success) throw new Error(data.error || 'Falha ao vincular');
+            success += 1;
+        } catch (error) {
+            errors.push(`${sourcePath}: ${error.message}`);
+        }
+    }
+
+    await loadAllData();
+    renderPersonas();
+    openPersonaAssetsDrawer(personaId);
+
+    if (!errors.length) {
+        return alert(`${success} arquivo(s) vinculado(s) com sucesso.`);
+    }
+
+    alert(
+        `${success} arquivo(s) vinculado(s) com sucesso.\n` +
+        `${errors.length} falha(s):\n` +
+        `${errors.slice(0, 5).join('\n')}` +
+        `${errors.length > 5 ? '\n...' : ''}`
+    );
+};
+
+window.unlinkPersonaAsset = async function(personaId, kind, filePath) {
+    const label = { clone: 'clone', transcript: 'transcricao', book: 'livro', support: 'anexo' };
+    const confirmMsg = kind === 'clone'
+        ? 'Tem certeza que deseja limpar o arquivo clone desta persona?'
+        : `Tem certeza que deseja remover este ${label[kind] || 'arquivo'}?`;
+    if (!confirm(confirmMsg)) return;
+    try {
+        const res = await fetch('/api/personas/assets/unlink', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                persona_id: personaId,
+                kind,
+                path: filePath || null,
+                initiated_by: 'human'
+            })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha ao remover arquivo');
+        await loadAllData();
+        renderPersonas();
+        openPersonaAssetsDrawer(personaId);
+    } catch (error) {
+        alert(`Nao foi possivel remover: ${error.message}`);
+    }
+};
+
+window.refreshPersonaBooksWorkspace = async function(personaId) {
+    try {
+        const res = await fetch('/api/personas/assets/books-workspace/refresh', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ persona_id: personaId })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha ao atualizar workspace');
+        await loadAllData();
+        renderPersonas();
+        openPersonaAssetsDrawer(personaId);
+        if (data.workspace_path) {
+            alert(`Workspace atualizado em:\n${data.workspace_path}`);
+        }
+    } catch (error) {
+        alert(`Nao foi possivel atualizar workspace: ${error.message}`);
+    }
+};
 
 window.openPersonaAssetsDrawer = function(personaId) {
     const assets = personaAssetMap()[personaId];
     if (!assets) return;
-    const transcriptRows = (assets.transcript_files || []).map(personaAssetRow).join('') || '<p class="text-[10px] text-muted italic">Sem transcricoes.</p>';
-    const bookRows = (assets.book_files || []).map(personaAssetRow).join('') || '<p class="text-[10px] text-muted italic">Sem livros.</p>';
-    const supportRows = (assets.support_files || []).map(personaAssetRow).join('') || '<p class="text-[10px] text-muted italic">Sem anexos adicionais.</p>';
+    const transcriptRows = (assets.transcript_files || []).map(file => personaAssetManageRow(file, personaId, 'transcript')).join('') || '<p class="text-[10px] text-muted italic">Sem transcricoes.</p>';
+    const bookRows = (assets.book_files || []).map(file => personaAssetManageRow(file, personaId, 'book')).join('') || '<p class="text-[10px] text-muted italic">Sem livros.</p>';
+    const supportRows = (assets.support_files || []).map(file => personaAssetManageRow(file, personaId, 'support')).join('') || '<p class="text-[10px] text-muted italic">Sem anexos adicionais.</p>';
     const linkedRows = (assets.prompt_linked_files || []).map(personaAssetRow).join('') || '<p class="text-[10px] text-muted italic">Sem links no prompt clone.</p>';
     document.getElementById('drawer-title').textContent = `${assets.persona_name} · Arquivos`;
     document.getElementById('drawer-content').innerHTML = `
         <div class="space-y-4">
+            <div class="glass p-3">
+                <p class="text-[9px] text-muted uppercase tracking-widest mb-2">Acoes Rapidas</p>
+                <div class="grid grid-cols-2 gap-2">
+                    <button class="btn-ghost text-[10px]" onclick='linkPersonaAsset(${JSON.stringify(personaId)}, "book")'>+ PDF (Livro)</button>
+                    <button class="btn-ghost text-[10px]" onclick='linkPersonaAssetsBatch(${JSON.stringify(personaId)}, "book")'>+ Varios PDFs</button>
+                    <button class="btn-ghost text-[10px]" onclick='linkPersonaAsset(${JSON.stringify(personaId)}, "transcript")'>+ Transcricao</button>
+                    <button class="btn-ghost text-[10px]" onclick='linkPersonaAsset(${JSON.stringify(personaId)}, "support")'>+ Anexo</button>
+                    <button class="btn-ghost text-[10px]" onclick='linkPersonaAsset(${JSON.stringify(personaId)}, "clone")'>Definir Clone</button>
+                    <button class="btn-ghost text-[10px]" onclick='refreshPersonaBooksWorkspace(${JSON.stringify(personaId)})'>Atualizar Workspace</button>
+                </div>
+            </div>
             <div class="glass p-3">
                 <p class="text-[9px] text-muted uppercase tracking-widest mb-2">Status Transcricao</p>
                 <p class="text-[11px] text-white">Disponiveis: ${assets.transcript_status?.available || 0} / ${assets.transcript_status?.total || 0}</p>
@@ -3341,7 +3531,9 @@ window.openPersonaAssetsDrawer = function(personaId) {
                 <p class="text-[9px] text-muted uppercase tracking-widest mb-2">Arquivo de Persona</p>
                 ${personaAssetRow(assets.instruction_file)}
                 <p class="text-[9px] text-muted uppercase tracking-widest mb-2 mt-3">Arquivo Clone</p>
-                ${assets.clone_file ? personaAssetRow(assets.clone_file) : '<p class="text-[10px] text-muted italic">Sem clone configurado.</p>'}
+                ${assets.clone_file ? personaAssetManageRow(assets.clone_file, personaId, 'clone') : '<p class="text-[10px] text-muted italic">Sem clone configurado.</p>'}
+                <p class="text-[9px] text-muted uppercase tracking-widest mb-2 mt-3">Workspace Livros (Markdown)</p>
+                ${assets.books_working_file ? personaAssetRow(assets.books_working_file) : '<p class="text-[10px] text-muted italic">Sem workspace de livros ainda.</p>'}
             </div>
             <div class="glass p-3"><p class="text-[9px] text-muted uppercase tracking-widest mb-2">Transcricoes</p>${transcriptRows}</div>
             <div class="glass p-3"><p class="text-[9px] text-muted uppercase tracking-widest mb-2">Livros</p>${bookRows}</div>

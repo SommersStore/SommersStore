@@ -156,25 +156,6 @@
         "AGT-MEM-01",
         "AGT-MEM-02"
       ]
-    },
-    {
-      "id": "SQD-LGC",
-      "name": "LEGACY & EXTRA",
-      "color": "#6b7280",
-      "icon": "archive",
-      "mission": "Agentes secundários não alocados ou com redundância funcional.",
-      "inputs": [
-        "Opcionais"
-      ],
-      "outputs": [
-        "Opcionais"
-      ],
-      "agents": [
-        "AGT-LGC-01",
-        "AGT-LGC-02",
-        "AGT-LGC-05",
-        "AGT-LGC-06"
-      ]
     }
   ],
   "agents": [
@@ -347,22 +328,6 @@
       "icon": "🆘"
     },
     {
-      "id": "AGT-LGC-01",
-      "name": "Copy Spec",
-      "handle": "@copy-specialist",
-      "squad": "SQD-LGC",
-      "role": "World-Class Copywriter & Sales Strategist.",
-      "icon": "✒️"
-    },
-    {
-      "id": "AGT-LGC-02",
-      "name": "Funnel Spec",
-      "handle": "@funnel-specialist",
-      "squad": "SQD-LGC",
-      "role": "Funnel Strategist e DotCom Secrets.",
-      "icon": "📐"
-    },
-    {
       "id": "AGT-MEM-01",
       "name": "Oracle",
       "handle": "@oracle",
@@ -377,22 +342,6 @@
       "squad": "SQD-MEM",
       "role": "Cronista e preservação de dados.",
       "icon": "📜"
-    },
-    {
-      "id": "AGT-LGC-05",
-      "name": "Traffic Spec",
-      "handle": "@traffic-specialist",
-      "squad": "SQD-LGC",
-      "role": "Elite Media Buyer e Tráfego.",
-      "icon": "🎯"
-    },
-    {
-      "id": "AGT-LGC-06",
-      "name": "UX Optimizer",
-      "handle": "@ux-optimizer",
-      "squad": "SQD-LGC",
-      "role": "UX Conversion Expert.",
-      "icon": "✨"
     }
   ],
   "skills": {
@@ -423,27 +372,11 @@
         ]
       },
       {
-        "id": "SKL-CORE-04",
-        "name": "PersonaFraming",
-        "desc": "Enquadramento de persona e ICP.",
-        "agents": [
-          "AGT-CORE-04"
-        ]
-      },
-      {
         "id": "SKL-CORE-05",
         "name": "RoadmapPlanning",
         "desc": "Planejamento de roadmap e backlog.",
         "agents": [
           "AGT-CORE-02"
-        ]
-      },
-      {
-        "id": "SKL-CORE-06",
-        "name": "SprintOrchestration",
-        "desc": "Orquestração de sprints e squads.",
-        "agents": [
-          "AGT-CORE-05"
         ]
       }
     ],
@@ -666,14 +599,6 @@
         ]
       },
       {
-        "id": "SKL-QRO-03",
-        "name": "FailureRecovery",
-        "desc": "Recuperação de falhas e rollback.",
-        "agents": [
-          "AGT-QRO-01"
-        ]
-      },
-      {
         "id": "SKL-QRO-04",
         "name": "AlertRouting",
         "desc": "Roteamento de alertas para squads.",
@@ -688,13 +613,40 @@
         "agents": [
           "AGT-QRO-01"
         ]
+      }
+    ],
+    "MEM": [
+      {
+        "id": "SKL-MEM-01",
+        "name": "MemoryBootstrap",
+        "desc": "Inicializacao de contexto no inicio da sessao (Oracle startup routine).",
+        "agents": [
+          "AGT-MEM-01"
+        ]
       },
       {
-        "id": "SKL-QRO-06",
-        "name": "ApprovalGovernance",
-        "desc": "Governança de aprovações e checkpoints.",
+        "id": "SKL-MEM-02",
+        "name": "ContextRecovery",
+        "desc": "Recuperacao de continuidade a partir de checkpoints, tarefas e mutacoes.",
         "agents": [
-          "AGT-QRO-01"
+          "AGT-MEM-01",
+          "AGT-MEM-02"
+        ]
+      },
+      {
+        "id": "SKL-MEM-03",
+        "name": "SessionSnapshotting",
+        "desc": "Registro estruturado de estado da sessao e fechamento com checkpoint.",
+        "agents": [
+          "AGT-MEM-02"
+        ]
+      },
+      {
+        "id": "SKL-MEM-04",
+        "name": "ContinuityAudit",
+        "desc": "Auditoria de consistencia entre memoria ativa, loops pendentes e plano.",
+        "agents": [
+          "AGT-MEM-01"
         ]
       }
     ]
@@ -998,6 +950,15 @@
       "agents": [
         "@brand-master"
       ]
+    },
+    {
+      "id": "prs-russell-brunson",
+      "icon": "👤",
+      "name": "Russell Brunson",
+      "role": "Especialista em Funil de Vendas",
+      "traits": [],
+      "bio": "",
+      "agents": []
     }
   ]
 }

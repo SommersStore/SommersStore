@@ -1198,6 +1198,316 @@
       "timestamp": "2026-04-18T00:20:22-03:00",
       "details": "Fechamento rapido pelo botao Salvar Tudo na Nuvem.",
       "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260418-0008",
+      "type": "cloud_sync",
+      "target": "SYNC-20260418-1776482422382",
+      "initiated_by": "human",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T00:20:54-03:00",
+      "details": "Cloud sync SYNC-20260418-1776482422382: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.)",
+      "why_this_ran": "target=all; scope=all; trigger=save_all_one_click"
+    },
+    {
+      "id": "LOG-20260418-0009",
+      "type": "session_start",
+      "target": "SES-20260418-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T00:46:12-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260418-0010",
+      "type": "session_close",
+      "target": "SES-20260418-0003",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T01:08:16-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260418-0011",
+      "type": "session_start",
+      "target": "SES-20260418-0004",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T01:08:21-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260418-0012",
+      "type": "session_close",
+      "target": "SES-20260418-0004",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T01:08:55-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260418-0013",
+      "type": "session_start",
+      "target": "SES-20260418-0005",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T01:08:56-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260418-0014",
+      "type": "session_close",
+      "target": "SES-20260418-0005",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T01:12:15-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260418-0015",
+      "type": "session_start",
+      "target": "SES-20260418-0006",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T01:12:17-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260418-0016",
+      "type": "session_close",
+      "target": "SES-20260418-0006",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T01:20:46-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260418-0017",
+      "type": "session_start",
+      "target": "SES-20260418-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T01:20:49-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260418-0018",
+      "type": "persona_asset",
+      "target": "prs-russell-brunson",
+      "initiated_by": "human",
+      "project_id": null,
+      "timestamp": "2026-04-18T01:42:10-03:00",
+      "details": "Asset book vinculado: knowledge/clones/books/Dotcom Secrets - Russel Brunson.pdf",
+      "why_this_ran": null
+    },
+    {
+      "id": "LOG-20260418-0019",
+      "type": "persona_asset",
+      "target": "prs-russell-brunson",
+      "initiated_by": "human",
+      "project_id": null,
+      "timestamp": "2026-04-18T01:42:10-03:00",
+      "details": "Asset book vinculado: knowledge/clones/books/Expert Secrets - Russell Brunson.pdf",
+      "why_this_ran": null
+    },
+    {
+      "id": "LOG-20260418-0020",
+      "type": "persona_asset",
+      "target": "prs-russell-brunson",
+      "initiated_by": "human",
+      "project_id": null,
+      "timestamp": "2026-04-18T01:42:10-03:00",
+      "details": "Asset book vinculado: knowledge/clones/books/Traffic Secrets - Russel Brunson.pdf",
+      "why_this_ran": null
+    },
+    {
+      "id": "LOG-20260418-0021",
+      "type": "persona_asset",
+      "target": "prs-russell-brunson",
+      "initiated_by": "human",
+      "project_id": null,
+      "timestamp": "2026-04-18T01:43:11-03:00",
+      "details": "Asset book vinculado: knowledge/clones/books/Dotcom Secrets - Russel Brunson.pdf",
+      "why_this_ran": null
+    },
+    {
+      "id": "LOG-20260418-0022",
+      "type": "persona_asset",
+      "target": "prs-russell-brunson",
+      "initiated_by": "human",
+      "project_id": null,
+      "timestamp": "2026-04-18T01:43:36-03:00",
+      "details": "Asset clone vinculado: knowledge/clones/brunson_heuristics.md",
+      "why_this_ran": null
+    },
+    {
+      "id": "LOG-20260418-0023",
+      "type": "session_close",
+      "target": "SES-20260418-0007",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T01:49:21-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260418-0024",
+      "type": "session_start",
+      "target": "SES-20260418-0008",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T01:49:25-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260418-0025",
+      "type": "session_close",
+      "target": "SES-20260418-0008",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T01:50:20-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260418-0026",
+      "type": "session_start",
+      "target": "SES-20260418-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T01:50:23-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260418-0027",
+      "type": "session_close",
+      "target": "SES-20260418-0009",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T01:51:54-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260418-0028",
+      "type": "session_start",
+      "target": "SES-20260418-0010",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T01:52:04-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260418-0029",
+      "type": "persona_asset",
+      "target": "prs-russell-brunson",
+      "initiated_by": "human",
+      "project_id": null,
+      "timestamp": "2026-04-18T01:57:52-03:00",
+      "details": "Asset book vinculado: knowledge/clones/books/Dotcom Secrets - Russel Brunson.pdf",
+      "why_this_ran": null
+    },
+    {
+      "id": "LOG-20260418-0030",
+      "type": "persona_asset",
+      "target": "prs-russell-brunson",
+      "initiated_by": "human",
+      "project_id": null,
+      "timestamp": "2026-04-18T02:06:19-03:00",
+      "details": "Asset support vinculado: knowledge/clones/global_experts.md",
+      "why_this_ran": null
+    },
+    {
+      "id": "LOG-20260418-0031",
+      "type": "persona_asset",
+      "target": "prs-russell-brunson",
+      "initiated_by": "human",
+      "project_id": null,
+      "timestamp": "2026-04-18T02:06:19-03:00",
+      "details": "Asset support removido: knowledge/clones/global_experts.md",
+      "why_this_ran": null
+    },
+    {
+      "id": "LOG-20260418-0032",
+      "type": "session_close",
+      "target": "SES-20260418-0010",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T02:15:51-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260418-0033",
+      "type": "session_start",
+      "target": "SES-20260418-0011",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T02:15:53-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260418-0034",
+      "type": "session_close",
+      "target": "SES-20260418-0011",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T02:23:44-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260418-0035",
+      "type": "session_start",
+      "target": "SES-20260418-0012",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T02:23:46-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260418-0036",
+      "type": "session_close",
+      "target": "SES-20260418-0012",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T02:34:11-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260418-0037",
+      "type": "session_start",
+      "target": "SES-20260418-0013",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T02:34:13-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260418-0038",
+      "type": "session_close",
+      "target": "SES-20260418-0013",
+      "initiated_by": "human",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T02:34:15-03:00",
+      "details": "Fechamento rapido pelo botao Salvar Tudo na Nuvem.",
+      "why_this_ran": "Scribe shutdown automatico"
     }
   ]
 }
