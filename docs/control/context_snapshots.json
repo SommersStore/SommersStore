@@ -1531,6 +1531,36 @@
         ],
         "tracked_files": []
       }
+    },
+    {
+      "id": "CTX-20260417-0038",
+      "timestamp": "2026-04-17T23:54:27-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260417-0019",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0055"
+    },
+    {
+      "id": "CTX-20260417-0039",
+      "timestamp": "2026-04-17T23:54:29-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260417-0020",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar ajustes no painel e memoria",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0055",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
     }
   ]
 }
