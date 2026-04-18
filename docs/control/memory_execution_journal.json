@@ -2758,6 +2758,375 @@
         "docs/control/memory_mutations.json",
         "task.md"
       ]
+    },
+    {
+      "id": "RUN-MEM-20260418-0028",
+      "timestamp_start": "2026-04-18T03:01:00-03:00",
+      "timestamp_end": "2026-04-18T03:01:00-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_start",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260418-0014 iniciada",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_open_loops.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_decision_log.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260418-0029",
+      "timestamp_start": "2026-04-18T03:27:36-03:00",
+      "timestamp_end": "2026-04-18T03:27:36-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_close",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260418-0014 encerrada com CHK-MEM-0070",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_mutations.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260418-0030",
+      "timestamp_start": "2026-04-18T12:14:46-03:00",
+      "timestamp_end": "2026-04-18T12:14:46-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_start",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260418-0015 iniciada",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_open_loops.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_decision_log.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260418-0031",
+      "timestamp_start": "2026-04-18T14:18:33-03:00",
+      "timestamp_end": "2026-04-18T14:18:33-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_close",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260418-0015 encerrada com CHK-MEM-0071",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_mutations.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260418-0032",
+      "timestamp_start": "2026-04-18T14:18:37-03:00",
+      "timestamp_end": "2026-04-18T14:18:37-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_start",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260418-0016 iniciada",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_open_loops.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_decision_log.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260418-0033",
+      "timestamp_start": "2026-04-18T14:28:19-03:00",
+      "timestamp_end": "2026-04-18T14:28:19-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_close",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260418-0016 encerrada com CHK-MEM-0072",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_mutations.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260418-0034",
+      "timestamp_start": "2026-04-18T14:28:22-03:00",
+      "timestamp_end": "2026-04-18T14:28:22-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_start",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260418-0017 iniciada",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_open_loops.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_decision_log.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260418-0035",
+      "timestamp_start": "2026-04-18T15:04:54-03:00",
+      "timestamp_end": "2026-04-18T15:04:54-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_close",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260418-0017 encerrada com CHK-MEM-0073",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_mutations.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260418-0036",
+      "timestamp_start": "2026-04-18T15:04:57-03:00",
+      "timestamp_end": "2026-04-18T15:04:57-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_start",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260418-0018 iniciada",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_open_loops.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_decision_log.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260418-0037",
+      "timestamp_start": "2026-04-18T15:52:14-03:00",
+      "timestamp_end": "2026-04-18T15:52:14-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_close",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260418-0018 encerrada com CHK-MEM-0074",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_mutations.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260418-0038",
+      "timestamp_start": "2026-04-18T15:52:17-03:00",
+      "timestamp_end": "2026-04-18T15:52:17-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_start",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260418-0019 iniciada",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_open_loops.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_decision_log.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260418-0039",
+      "timestamp_start": "2026-04-18T15:59:28-03:00",
+      "timestamp_end": "2026-04-18T15:59:28-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_close",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260418-0019 encerrada com CHK-MEM-0075",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_mutations.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260418-0040",
+      "timestamp_start": "2026-04-18T15:59:30-03:00",
+      "timestamp_end": "2026-04-18T15:59:30-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_start",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260418-0020 iniciada",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_open_loops.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_decision_log.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260418-0041",
+      "timestamp_start": "2026-04-18T16:56:07-03:00",
+      "timestamp_end": "2026-04-18T16:56:07-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_close",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260418-0020 encerrada com CHK-MEM-0077",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_mutations.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260418-0042",
+      "timestamp_start": "2026-04-18T16:56:15-03:00",
+      "timestamp_end": "2026-04-18T16:56:15-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_start",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260418-0021 iniciada",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_open_loops.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_decision_log.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260418-0043",
+      "timestamp_start": "2026-04-18T16:56:21-03:00",
+      "timestamp_end": "2026-04-18T16:56:21-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_close",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260418-0021 encerrada com CHK-MEM-0078",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_mutations.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260418-0044",
+      "timestamp_start": "2026-04-18T16:56:23-03:00",
+      "timestamp_end": "2026-04-18T16:56:23-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_start",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260418-0022 iniciada",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_open_loops.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_decision_log.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260418-0045",
+      "timestamp_start": "2026-04-18T16:56:38-03:00",
+      "timestamp_end": "2026-04-18T16:56:38-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_close",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260418-0022 encerrada com CHK-MEM-0079",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_mutations.json",
+        "task.md"
+      ]
     }
   ]
 }

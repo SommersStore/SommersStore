@@ -14,6 +14,56 @@
 ## Done in this session
 - [x] Sessao encerrada automaticamente
 - [x] Resumo: Fechamento rapido pelo botao Salvar Tudo na Nuvem.
+- [x] Proxima acao: Retomar configuracao de squads com interacao por drag-and-drop
+- [x] Checkpoint: CHK-MEM-0079
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0078
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0077
+
+- [x] Sessao encerrada pelo usuario
+- [x] Resumo: Pausa solicitada com salvamento de contexto e handoff dos 3 ultimos questionamentos/respostas sobre squads, drag, agentes, skills, persona e clone.
+- [x] Proxima acao: Retomar desenho da configuracao de squads via drag-and-drop com base no handoff em docs/memory/session_handoff_latest.md.
+- [x] Checkpoint: CHK-MEM-0076
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0075
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0074
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0073
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0072
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0071
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0070
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Fechamento rapido pelo botao Salvar Tudo na Nuvem.
 - [x] Proxima acao: Retomar ajustes no painel e memoria
 - [x] Checkpoint: CHK-MEM-0069
 
@@ -368,4 +418,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-04-18T02:34:15-03:00
+- updated_at: 2026-04-18T16:56:38-03:00

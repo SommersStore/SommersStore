@@ -36,3 +36,8 @@ Antes de criar, mapeie os competidores que jÃ¡ estÃ£o faturando alto.
 ## [TRANSCRIPT INJECTION: REQUIRED]
 _Cole a transcrição bruta do podcast/vídeo do YouTube aqui para injetar sabedoria profunda neste clone._
 
+
+## [BOOK TRANSCRIPTS: FULL PDF -> MD]
+- [Dotcom Secrets - full transcript](knowledge/clones/personas/prs_russell_brunson/book_transcripts/dotcom_secrets_russel_brunson_p87ti6_full.md)
+- [Expert Secrets - full transcript](knowledge/clones/personas/prs_russell_brunson/book_transcripts/expert_secrets_russell_brunson_axeu56_full.md)
+- [Traffic Secrets - full transcript](knowledge/clones/personas/prs_russell_brunson/book_transcripts/traffic_secrets_russel_brunson_1n9nsrf_full.md)

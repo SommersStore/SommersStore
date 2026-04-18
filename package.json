@@ -16,6 +16,7 @@
     "close:day": "node scripts/daily_close.cjs",
     "close:day:push": "node scripts/daily_close.cjs --push",
     "logs:backfill:project-id": "node scripts/maintenance/backfill_project_log_ids.cjs",
+    "personas:clean-md": "node scripts/maintenance/clean_persona_markdown_assets.cjs",
     "prepare": "husky"
   },
   "keywords": [],
@@ -30,6 +31,9 @@
     "dotenv": "^17.4.1",
     "firebase": "^12.12.0",
     "google-auth-library": "^10.6.2",
-    "puppeteer": "^24.40.0"
+    "pdf-parse": "^1.1.1",
+    "pdf-to-img": "^4.4.0",
+    "puppeteer": "^24.40.0",
+    "tesseract.js": "^6.0.1"
   }
 }

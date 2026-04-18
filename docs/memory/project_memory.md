@@ -20,15 +20,51 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-04-18T02:34:15-03:00
+- updated_at: 2026-04-18T16:56:38-03:00
 
 ## Ultimo fechamento
-- timestamp: 2026-04-16T03:08:00-03:00
-- resumo: Sessao encerrada a pedido do usuario (boa noite). Painel estabilizado, nova Hub Master Hub funcional e navegacao destravada.
-- proxima_acao: Retomar a partir da fase BLD-07 no ciclo de construcao.
-- checkpoint: CHK-MEM-0026
+- timestamp: 2026-04-18T16:49:48-03:00
+- resumo: Sessao pausada a pedido do usuario para retorno posterior com contexto preservado, incluindo handoff dos 3 ultimos questionamentos sobre squads (drag), agentes, skills e relacao persona x clone.
+- proxima_acao: Retomar pela configuracao manual de squads com foco em drag-and-drop (agente, skill e persona/clone) usando o handoff salvo na memoria.
+- checkpoint: CHK-MEM-0076
 
 ## Ultimo fechamento automatico
+- timestamp: 2026-04-18T16:56:38-03:00
+- resumo: Fechamento rapido pelo botao Salvar Tudo na Nuvem.
+- proxima_acao: Retomar configuracao de squads com interacao por drag-and-drop
+- checkpoint: CHK-MEM-0079
+- timestamp: 2026-04-18T16:56:21-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0078
+- timestamp: 2026-04-18T16:56:07-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0077
+- timestamp: 2026-04-18T15:59:28-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0075
+- timestamp: 2026-04-18T15:52:14-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0074
+- timestamp: 2026-04-18T15:04:54-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0073
+- timestamp: 2026-04-18T14:28:18-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0072
+- timestamp: 2026-04-18T14:18:33-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0071
+- timestamp: 2026-04-18T03:27:36-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0070
 - timestamp: 2026-04-18T02:34:15-03:00
 - resumo: Fechamento rapido pelo botao Salvar Tudo na Nuvem.
 - proxima_acao: Retomar ajustes no painel e memoria

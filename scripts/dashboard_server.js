@@ -1,6 +1,8 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const pdfParse = require('pdf-parse');
+const { createWorker } = require('tesseract.js');
 const { spawn } = require('child_process');
 
 const PORT = Number(process.env.AIOX_PORT || 4000);
@@ -48,6 +50,8 @@ const DEFAULT_TRANSCRIPT_FILES = [
     'knowledge/clones/transcripts/elida_dias_vturb.md',
     'knowledge/clones/transcripts/iox_squad_masterclass_1.md'
 ];
+
+const SESSION_PULSE_LOG_INTERVAL_MS = 10 * 60 * 1000;
 
 function nowIso() {
     const d = new Date();
@@ -545,11 +549,163 @@ function uniquePaths(paths) {
     return [...new Set(asArray(paths).map(normalizePathForJson).filter(Boolean))];
 }
 
+const MARKDOWN_BASE64_MIN_LENGTH = 600;
+
+function isMarkdownAssetPath(relativePath) {
+    const rel = normalizePathForJson(relativePath);
+    return /\.(md|markdown|txt)$/i.test(rel);
+}
+
+function sanitizeMarkdownContent(rawContent) {
+    const original = String(rawContent || '');
+    let cleaned = original;
+    const stats = {
+        changed: false,
+        original_bytes: Buffer.byteLength(original, 'utf8'),
+        cleaned_bytes: 0,
+        removed_markdown_images: 0,
+        removed_html_images: 0,
+        removed_data_uri_refs: 0,
+        removed_base64_chunks: 0,
+        removed_base64_chars: 0
+    };
+
+    cleaned = cleaned.replace(/!\[[^\]]*]\(([^)]+)\)/g, (_match, target) => {
+        stats.removed_markdown_images += 1;
+        return '';
+    });
+
+    cleaned = cleaned.replace(/<img\b[^>]*>/gi, () => {
+        stats.removed_html_images += 1;
+        return '';
+    });
+
+    cleaned = cleaned.replace(/^\s*\[[^\]]+]\s*:\s*<?\s*data:image\/[^\n>]+>?\s*$/gim, match => {
+        stats.removed_data_uri_refs += 1;
+        stats.removed_base64_chars += match.length;
+        return '';
+    });
+
+    const base64ChunkPattern = new RegExp(`[A-Za-z0-9+/=]{${MARKDOWN_BASE64_MIN_LENGTH},}`, 'g');
+    cleaned = cleaned.replace(base64ChunkPattern, chunk => {
+        stats.removed_base64_chunks += 1;
+        stats.removed_base64_chars += chunk.length;
+        return '';
+    });
+
+    cleaned = cleaned
+        .replace(/\r\n/g, '\n')
+        .replace(/\n{3,}/g, '\n\n')
+        .trimEnd();
+    cleaned = cleaned ? `${cleaned}\n` : '';
+
+    stats.cleaned_bytes = Buffer.byteLength(cleaned, 'utf8');
+    stats.changed = cleaned !== original;
+
+    return { cleaned, stats };
+}
+
+function cleanMarkdownFile(relativePath) {
+    const rel = normalizePathForJson(relativePath);
+    if (!isMarkdownAssetPath(rel)) {
+        return {
+            path: rel,
+            exists: false,
+            cleaned: false,
+            skipped: true,
+            reason: 'not_markdown'
+        };
+    }
+
+    let absolutePath = null;
+    try {
+        absolutePath = safeWorkspacePath(rel);
+    } catch (_) {
+        return {
+            path: rel,
+            exists: false,
+            cleaned: false,
+            skipped: true,
+            reason: 'outside_workspace'
+        };
+    }
+
+    if (!fs.existsSync(absolutePath) || !fs.statSync(absolutePath).isFile()) {
+        return {
+            path: rel,
+            exists: false,
+            cleaned: false,
+            skipped: true,
+            reason: 'not_found'
+        };
+    }
+
+    const original = fs.readFileSync(absolutePath, 'utf8');
+    const { cleaned, stats } = sanitizeMarkdownContent(original);
+    if (stats.changed) {
+        writeText(absolutePath, cleaned);
+    }
+
+    return {
+        path: rel,
+        exists: true,
+        cleaned: stats.changed,
+        skipped: false,
+        stats
+    };
+}
+
+function collectPersonaMarkdownPaths(entry) {
+    if (!entry || typeof entry !== 'object') return [];
+    return uniquePaths([
+        entry.clone_file || null,
+        ...asArray(entry.transcript_files),
+        ...asArray(entry.full_transcript_files),
+        ...asArray(entry.support_files)
+    ]).filter(isMarkdownAssetPath);
+}
+
+function cleanPersonaMarkdownAssets(personaId, initiatedBy = 'human') {
+    const registry = ensureControlJson('registry.json', { personas: [] });
+    const persona = asArray(registry.personas).find(item => item && item.id === personaId);
+    if (!persona) throw new Error(`persona not found: ${personaId}`);
+
+    const { entry } = findPersonaMaterialEntry(personaId, false);
+    if (!entry) throw new Error(`persona materials not found: ${personaId}`);
+
+    const paths = collectPersonaMarkdownPaths(entry);
+    const fileResults = paths.map(pathValue => cleanMarkdownFile(pathValue));
+    const cleanedFiles = fileResults.filter(item => item.cleaned);
+    const cleanedBytes = cleanedFiles.reduce((acc, item) => {
+        const before = item && item.stats ? item.stats.original_bytes : 0;
+        const after = item && item.stats ? item.stats.cleaned_bytes : 0;
+        return acc + Math.max(0, before - after);
+    }, 0);
+
+    appendExecutionLog(
+        'persona_asset_cleanup',
+        personaId,
+        `Limpeza de markdown concluida: ${cleanedFiles.length}/${paths.length} arquivo(s) alterado(s), ${cleanedBytes} byte(s) removido(s).`,
+        initiatedBy || 'human',
+        'Remocao automatica de imagens/base64',
+        null
+    );
+
+    return {
+        persona_id: personaId,
+        total_files: paths.length,
+        changed_files: cleanedFiles.length,
+        removed_bytes: cleanedBytes,
+        files: fileResults
+    };
+}
+
 function personaDefaultEntry(personaId) {
     return {
         persona_id: personaId,
         clone_file: PERSONA_CLONE_DEFAULTS[personaId] || null,
         transcript_files: [],
+        full_transcript_files: [],
         book_files: [],
         support_files: personaId === 'prs-elisa-clark' ? ['docs/content/ebooks/oto-vault/original_master_at_2026_03_31.md'] : []
     };
@@ -574,6 +730,7 @@ function loadPersonaMaterials() {
             persona_id: persona.id,
             clone_file: existingClone || baseClone || null,
             transcript_files: uniquePaths([...(base.transcript_files || []), ...(asArray(existing.transcript_files))]),
+            full_transcript_files: uniquePaths([...(base.full_transcript_files || []), ...(asArray(existing.full_transcript_files))]),
             book_files: uniquePaths([...(base.book_files || []), ...(asArray(existing.book_files))]),
             support_files: uniquePaths([...(base.support_files || []), ...(asArray(existing.support_files))])
         };
@@ -598,8 +755,8 @@ function findPersonaMaterialEntry(personaId, createIfMissing = false) {
 }
 
 function defaultPersonaAssetDir(kind) {
-    if (kind === 'book') return 'knowledge/clones/books';
     if (kind === 'transcript') return 'knowledge/clones/transcripts';
+    if (kind === 'full_transcript') return 'knowledge/clones/personas';
     if (kind === 'support') return 'knowledge/clones/support';
     return 'knowledge/clones';
 }
@@ -643,6 +800,299 @@ function slugifySegment(value) {
 function personaBooksWorkspacePath(personaId) {
     const safePersonaId = slugifySegment(personaId) || 'persona';
     return normalizePathForJson(`knowledge/clones/personas/${safePersonaId}/books_working.md`);
+}
+
+function shortStableHash(value) {
+    const text = String(value || '');
+    let hash = 0;
+    for (let i = 0; i < text.length; i += 1) {
+        hash = ((hash * 31) + text.charCodeAt(i)) >>> 0;
+    }
+    return hash.toString(36).padStart(6, '0').slice(0, 8);
+}
+
+function personaBookFullTranscriptPath(personaId, bookRelativePath) {
+    const safePersonaId = slugifySegment(personaId) || 'persona';
+    const normalizedBook = normalizePathForJson(bookRelativePath);
+    const baseName = path.posix.basename(normalizedBook, path.extname(normalizedBook));
+    const slugBase = slugifySegment(baseName) || 'book';
+    const hash = shortStableHash(`${safePersonaId}:${normalizedBook}`);
+    return normalizePathForJson(
+        `knowledge/clones/personas/${safePersonaId}/book_transcripts/${slugBase}_${hash}_full.md`
+    );
+}
+
+function cleanPdfExtractedText(rawText) {
+    const lines = String(rawText || '')
+        .replace(/\u0000/g, '')
+        .replace(/\r\n/g, '\n')
+        .split('\n')
+        .map(line => line.replace(/[ \t]+$/g, ''));
+    return lines.join('\n').replace(/\n{4,}/g, '\n\n\n').trim();
+}
+
+function textDensityMetrics(rawText) {
+    const text = String(rawText || '').trim();
+    const lines = text ? text.split(/\r?\n/) : [];
+    const nonEmptyLines = lines.filter(line => line.trim().length > 0);
+    const alphaLines = nonEmptyLines.filter(line => /[A-Za-zÀ-ÿ]/.test(line));
+    const words = text.match(/[A-Za-zÀ-ÿ0-9]{2,}/g) || [];
+    return {
+        chars: text.length,
+        lines: lines.length,
+        non_empty_lines: nonEmptyLines.length,
+        alpha_lines: alphaLines.length,
+        words: words.length
+    };
+}
+
+function shouldUseOcrFallback(metrics, pagesDetected) {
+    const pages = Math.max(1, Number(pagesDetected || 0));
+    if (!metrics || typeof metrics !== 'object') return true;
+    if (metrics.alpha_lines === 0) return true;
+    if (metrics.words < pages * 5) return true;
+    if (metrics.chars < pages * 30) return true;
+    return false;
+}
+
+function buildTranscriptMarkdown({
+    personaId,
+    sourcePdf,
+    extractionEngine,
+    pagesDetected,
+    text,
+    extraMeta = []
+}) {
+    const normalizedSource = normalizePathForJson(sourcePdf);
+    const lines = [
+        `# Transcricao Completa - ${path.posix.basename(normalizedSource)}`,
+        '',
+        `- persona_id: ${personaId}`,
+        `- source_pdf: ${normalizedSource}`,
+        `- generated_at: ${nowIso()}`,
+        `- extraction_engine: ${extractionEngine}`,
+        `- pages_detected: ${Number(pagesDetected || 0)}`,
+        '- fidelity_note: transcricao automatica em alta densidade; o layout do PDF pode sofrer pequenas perdas.'
+    ];
+
+    asArray(extraMeta).forEach(item => {
+        if (!item || !item.key) return;
+        lines.push(`- ${item.key}: ${item.value}`);
+    });
+
+    lines.push('');
+    lines.push(text || '_Nao foi possivel extrair texto legivel deste PDF._');
+    lines.push('');
+    return lines.join('\n');
+}
+
+async function ocrPdfToText(sourceAbsolutePath) {
+    const pdfToImg = await import('pdf-to-img');
+    const document = await pdfToImg.pdf(sourceAbsolutePath, { scale: 1.0 });
+    const worker = await createWorker('eng+por');
+
+    let pageIndex = 0;
+    let nonEmptyPages = 0;
+    const pageBlocks = [];
+
+    try {
+        for await (const image of document) {
+            pageIndex += 1;
+            const result = await worker.recognize(image);
+            const pageText = cleanPdfExtractedText((result && result.data && result.data.text) || '');
+            if (pageText) nonEmptyPages += 1;
+            pageBlocks.push(`## Pagina ${pageIndex}\n\n${pageText || '_Sem texto detectado por OCR nesta pagina._'}\n`);
+        }
+    } finally {
+        await worker.terminate();
+    }
+
+    return {
+        text: cleanPdfExtractedText(pageBlocks.join('\n')),
+        pages_detected: pageIndex,
+        ocr_non_empty_pages: nonEmptyPages
+    };
+}
+
+async function extractPdfAsMarkdown(sourceAbsolutePath, personaId, bookRelativePath) {
+    const pdfBuffer = fs.readFileSync(sourceAbsolutePath);
+    let pageCount = 0;
+    const parsed = await pdfParse(pdfBuffer, {
+        pagerender: async pageData => {
+            pageCount += 1;
+            const content = await pageData.getTextContent({
+                normalizeWhitespace: false,
+                disableCombineTextItems: false
+            });
+
+            const lines = [];
+            let lastY = null;
+            let line = '';
+            content.items.forEach(item => {
+                const str = String(item.str || '');
+                if (!str) return;
+                const y = Number(item.transform && item.transform[5]);
+                if (lastY === null) {
+                    line = str;
+                    lastY = y;
+                    return;
+                }
+                if (Math.abs(y - lastY) <= 0.5) {
+                    const needsSpace = !/\s$/.test(line) && !/^[,.;:!?)]/.test(str);
+                    line += `${needsSpace ? ' ' : ''}${str}`;
+                } else {
+                    lines.push(line);
+                    line = str;
+                    lastY = y;
+                }
+            });
+            if (line) lines.push(line);
+
+            const pageBody = cleanPdfExtractedText(lines.join('\n'));
+            return `\n\n## Pagina ${pageCount}\n\n${pageBody}\n`;
+        }
+    });
+
+    const parsedText = cleanPdfExtractedText(parsed.text || '');
+    const effectivePageCount = Number(parsed.numpages || pageCount || 0);
+    const parsedMetrics = textDensityMetrics(parsedText);
+
+    if (!shouldUseOcrFallback(parsedMetrics, effectivePageCount)) {
+        return buildTranscriptMarkdown({
+            personaId,
+            sourcePdf: bookRelativePath,
+            extractionEngine: 'pdf-parse',
+            pagesDetected: effectivePageCount,
+            text: parsedText,
+            extraMeta: [
+                { key: 'chars_extracted', value: parsedMetrics.chars },
+                { key: 'alpha_lines', value: parsedMetrics.alpha_lines }
+            ]
+        });
+    }
+
+    try {
+        const ocr = await ocrPdfToText(sourceAbsolutePath);
+        const ocrMetrics = textDensityMetrics(ocr.text);
+        if (!ocrMetrics.alpha_lines) {
+            return buildTranscriptMarkdown({
+                personaId,
+                sourcePdf: bookRelativePath,
+                extractionEngine: 'pdf-parse (fallback: ocr unavailable)',
+                pagesDetected: effectivePageCount,
+                text: parsedText,
+                extraMeta: [
+                    { key: 'chars_extracted', value: parsedMetrics.chars },
+                    { key: 'alpha_lines', value: parsedMetrics.alpha_lines },
+                    { key: 'fallback_ocr', value: 'executado_sem_melhora' }
+                ]
+            });
+        }
+
+        return buildTranscriptMarkdown({
+            personaId,
+            sourcePdf: bookRelativePath,
+            extractionEngine: 'tesseract.js (fallback OCR)',
+            pagesDetected: ocr.pages_detected || effectivePageCount,
+            text: ocr.text,
+            extraMeta: [
+                { key: 'ocr_non_empty_pages', value: ocr.ocr_non_empty_pages },
+                { key: 'chars_extracted', value: ocrMetrics.chars },
+                { key: 'alpha_lines', value: ocrMetrics.alpha_lines },
+                { key: 'fallback_trigger', value: 'pdf_parse_low_density' }
+            ]
+        });
+    } catch (error) {
+        return buildTranscriptMarkdown({
+            personaId,
+            sourcePdf: bookRelativePath,
+            extractionEngine: 'pdf-parse (fallback OCR error)',
+            pagesDetected: effectivePageCount,
+            text: parsedText,
+            extraMeta: [
+                { key: 'chars_extracted', value: parsedMetrics.chars },
+                { key: 'alpha_lines', value: parsedMetrics.alpha_lines },
+                { key: 'fallback_ocr_error', value: String(error.message || 'unknown_error') }
+            ]
+        });
+    }
+}
+
+async function generateFullTranscriptForBook({ personaId, bookRelativePath }) {
+    const normalizedBook = normalizePathForJson(bookRelativePath);
+    if (!normalizedBook || !/\.pdf$/i.test(normalizedBook)) return null;
+
+    const sourceAbsolute = safeWorkspacePath(normalizedBook);
+    if (!fs.existsSync(sourceAbsolute)) {
+        throw new Error(`PDF nao encontrado no workspace: ${normalizedBook}`);
+    }
+
+    const transcriptRelativePath = personaBookFullTranscriptPath(personaId, normalizedBook);
+    const markdown = await extractPdfAsMarkdown(sourceAbsolute, personaId, normalizedBook);
+    writeText(safeWorkspacePath(transcriptRelativePath), markdown);
+    return transcriptRelativePath;
+}
+
+async function generatePersonaFullTranscripts(personaId, initiatedBy = 'human', selectedBooks = null) {
+    const registry = ensureControlJson('registry.json', { personas: [] });
+    const persona = asArray(registry.personas).find(item => item && item.id === personaId);
+    if (!persona) throw new Error(`persona not found: ${personaId}`);
+
+    const { materials, entry } = findPersonaMaterialEntry(personaId, true);
+    if (!entry) throw new Error('could not load material entry');
+
+    const configuredBooks = uniquePaths(asArray(entry.book_files)).filter(item => /\.pdf$/i.test(item));
+    const selectedSet = new Set(
+        uniquePaths(asArray(selectedBooks).map(item => normalizePathForJson(item)).filter(Boolean))
+    );
+    const books = selectedSet.size
+        ? configuredBooks.filter(book => selectedSet.has(normalizePathForJson(book)))
+        : configuredBooks;
+    const generated = [];
+    const errors = [];
+
+    for (const bookPath of books) {
+        try {
+            const transcriptPath = await generateFullTranscriptForBook({ personaId, bookRelativePath: bookPath });
+            if (transcriptPath) {
+                generated.push(transcriptPath);
+                entry.full_transcript_files = uniquePaths([...(entry.full_transcript_files || []), transcriptPath]);
+                writeControlJson(FILES.personaMaterials, materials);
+            }
+        } catch (error) {
+            errors.push({
+                source_pdf: bookPath,
+                message: error.message
+            });
+        }
+    }
+
+    writeControlJson(FILES.personaMaterials, materials);
+    if (generated.length) {
+        appendExecutionLog(
+            'persona_asset',
+            personaId,
+            `Transcricoes completas geradas: ${generated.length}`,
+            initiatedBy || 'human',
+            null,
+            null
+        );
+    }
+
+    refreshPersonaBooksWorkspace(personaId, persona.name || personaId);
+    return {
+        persona_id: personaId,
+        generated_files: generated,
+        errors
+    };
+}
+
+function personaAssetFieldForKind(kind) {
+    if (kind === 'transcript') return 'transcript_files';
+    if (kind === 'full_transcript') return 'full_transcript_files';
+    if (kind === 'book') return 'book_files';
+    if (kind === 'support') return 'support_files';
+    return null;
 }
 
 function resolveExistingBookMapFile(bookRelativePath) {
@@ -694,13 +1144,14 @@ function mapHighlights(mapPath) {
     return lines;
 }
 
-function buildDefaultBookSection(bookPath, index) {
+function buildDefaultBookSection(bookPath, index, fullTranscriptPath = null) {
     const mapPath = resolveExistingBookMapFile(bookPath);
     const highlightLines = mapHighlights(mapPath);
     const section = [
         `### ${index + 1}. ${path.basename(bookPath)}`,
         `- source_pdf: ${bookPath}`,
         `- map_md: ${mapPath || '(nao encontrado)'}`,
+        `- full_transcript_md: ${fullTranscriptPath || '(nao gerado)'}`,
         '- notes_md: preencha abaixo com aprendizados acionaveis para a persona.',
         ''
     ];
@@ -720,6 +1171,7 @@ function refreshPersonaBooksWorkspace(personaId, personaName) {
     if (!entry) return null;
 
     const books = uniquePaths(asArray(entry.book_files));
+    const fullTranscripts = uniquePaths(asArray(entry.full_transcript_files));
     const workspacePath = personaBooksWorkspacePath(personaId);
     const existingContent = safeReadWorkspaceText(workspacePath);
     const existingSections = extractExistingBookSections(existingContent);
@@ -740,6 +1192,16 @@ function refreshPersonaBooksWorkspace(personaId, personaName) {
         lines.push('- Nenhum livro vinculado ainda.');
     } else {
         books.forEach((bookPath, index) => {
+            const expectedFullTranscriptPath = personaBookFullTranscriptPath(personaId, bookPath);
+            const resolvedFullTranscriptPath = fullTranscripts.includes(expectedFullTranscriptPath)
+                ? expectedFullTranscriptPath
+                : (() => {
+                    try {
+                        return fs.existsSync(safeWorkspacePath(expectedFullTranscriptPath)) ? expectedFullTranscriptPath : null;
+                    } catch (_) {
+                        return null;
+                    }
+                })();
             lines.push('');
             const existing = existingSections.get(bookPath);
             if (existing) {
@@ -749,6 +1211,14 @@ function refreshPersonaBooksWorkspace(personaId, personaName) {
                 if (!/^- map_md:\s*/m.test(merged)) {
                     const mapPath = resolveExistingBookMapFile(bookPath);
                     merged = `${merged}\n- map_md: ${mapPath || '(nao encontrado)'}`;
+                }
+                if (!/^- full_transcript_md:\s*/m.test(merged)) {
+                    merged = `${merged}\n- full_transcript_md: ${resolvedFullTranscriptPath || '(nao gerado)'}`;
+                } else {
+                    merged = merged.replace(
+                        /^- full_transcript_md:\s*.*$/m,
+                        `- full_transcript_md: ${resolvedFullTranscriptPath || '(nao gerado)'}`
+                    );
                 }
                 if (!/####\s+Resumo Inicial/i.test(merged)) {
                     const mapPath = resolveExistingBookMapFile(bookPath);
@@ -769,7 +1239,7 @@ function refreshPersonaBooksWorkspace(personaId, personaName) {
                 }
                 lines.push(merged);
             } else {
-                lines.push(buildDefaultBookSection(bookPath, index));
+                lines.push(buildDefaultBookSection(bookPath, index, resolvedFullTranscriptPath));
             }
         });
     }
@@ -797,8 +1267,8 @@ function syncPersonaBooksWorkspaces() {
 }
 
 function detachPersonaAsset({ personaId, kind, targetPath, initiatedBy = 'human' }) {
-    const allowedKinds = new Set(['clone', 'transcript', 'book', 'support']);
-    if (!allowedKinds.has(kind)) throw new Error('kind must be one of: clone, transcript, book, support');
+    const allowedKinds = new Set(['clone', 'transcript', 'full_transcript', 'support']);
+    if (!allowedKinds.has(kind)) throw new Error('kind must be one of: clone, transcript, full_transcript, support');
 
     const registry = ensureControlJson('registry.json', { personas: [] });
     const personas = asArray(registry.personas);
@@ -814,12 +1284,14 @@ function detachPersonaAsset({ personaId, kind, targetPath, initiatedBy = 'human'
         entry.clone_file = null;
     } else {
         const normalizedTarget = normalizePathForJson(targetPath || '');
-        if (!normalizedTarget) throw new Error('path required for transcript/book/support removal');
-        const field = kind === 'transcript' ? 'transcript_files' : kind === 'book' ? 'book_files' : 'support_files';
+        if (!normalizedTarget) throw new Error('path required for transcript/full_transcript/book/support removal');
+        const field = personaAssetFieldForKind(kind);
+        if (!field) throw new Error('invalid asset field');
         const current = uniquePaths(asArray(entry[field]));
         const filtered = current.filter(item => normalizePathForJson(item) !== normalizedTarget);
         changed = filtered.length !== current.length;
         entry[field] = filtered;
+
     }
 
     if (!changed) {
@@ -827,9 +1299,6 @@ function detachPersonaAsset({ personaId, kind, targetPath, initiatedBy = 'human'
     }
 
     writeControlJson(FILES.personaMaterials, materials);
-    if (kind === 'book') {
-        refreshPersonaBooksWorkspace(personaId, persona.name || personaId);
-    }
     appendExecutionLog(
         'persona_asset',
         personaId,
@@ -842,9 +1311,9 @@ function detachPersonaAsset({ personaId, kind, targetPath, initiatedBy = 'human'
     return { persona_id: personaId, kind, removed: true, path: normalizePathForJson(targetPath || '') || null };
 }
 
-function attachPersonaAsset({ personaId, kind, sourcePath, copyToLibrary = true, initiatedBy = 'human' }) {
-    const allowedKinds = new Set(['clone', 'transcript', 'book', 'support']);
-    if (!allowedKinds.has(kind)) throw new Error('kind must be one of: clone, transcript, book, support');
+async function attachPersonaAsset({ personaId, kind, sourcePath, copyToLibrary = true, initiatedBy = 'human' }) {
+    const allowedKinds = new Set(['clone', 'transcript', 'full_transcript', 'support']);
+    if (!allowedKinds.has(kind)) throw new Error('kind must be one of: clone, transcript, full_transcript, support');
 
     const registry = ensureControlJson('registry.json', { personas: [] });
     const personas = asArray(registry.personas);
@@ -860,7 +1329,10 @@ function attachPersonaAsset({ personaId, kind, sourcePath, copyToLibrary = true,
     const sourceRelativeInsideWorkspace = toWorkspaceRelativePathIfInside(sourceAbsolute);
     const targetDirRelative = defaultPersonaAssetDir(kind);
     const sourceBasename = path.basename(sourceAbsolute);
-    const sourceExt = path.extname(sourceBasename);
+    const sourceExt = path.extname(sourceBasename).toLowerCase();
+    if (sourceExt === '.pdf') {
+        throw new Error('Upload de PDF bloqueado neste fluxo. Converta para markdown (.md/.txt) antes de vincular.');
+    }
     const fallbackName = kind === 'clone' ? `${personaId.replace(/^prs-/, '')}_clone.md` : `${personaId.replace(/^prs-/, '')}_${kind}.md`;
     const preferredName = sourceBasename || fallbackName;
 
@@ -883,33 +1355,47 @@ function attachPersonaAsset({ personaId, kind, sourcePath, copyToLibrary = true,
         }
     }
 
+    if (kind === 'full_transcript' || kind === 'transcript' || kind === 'support') {
+        if (!/\.(md|markdown|txt)$/i.test(finalRelativePath)) {
+            throw new Error(`${kind} deve ser markdown/texto (.md ou .txt)`);
+        }
+    }
+
     const { materials, entry } = findPersonaMaterialEntry(personaId, true);
     if (!entry) throw new Error('could not create material entry');
 
+    let markdownCleanup = null;
+
     if (kind === 'clone') {
         entry.clone_file = finalRelativePath;
-    } else if (kind === 'transcript') {
-        entry.transcript_files = uniquePaths([...(entry.transcript_files || []), finalRelativePath]);
-    } else if (kind === 'book') {
-        entry.book_files = uniquePaths([...(entry.book_files || []), finalRelativePath]);
     } else if (kind === 'support') {
         entry.support_files = uniquePaths([...(entry.support_files || []), finalRelativePath]);
+    } else {
+        const field = personaAssetFieldForKind(kind);
+        if (!field) throw new Error('invalid asset kind');
+        entry[field] = uniquePaths([...(entry[field] || []), finalRelativePath]);
+    }
+
+    if (isMarkdownAssetPath(finalRelativePath)) {
+        markdownCleanup = cleanMarkdownFile(finalRelativePath);
     }
 
     writeControlJson(FILES.personaMaterials, materials);
-    if (kind === 'book') {
-        refreshPersonaBooksWorkspace(personaId, persona.name || personaId);
-    }
     appendExecutionLog(
         'persona_asset',
         personaId,
-        `Asset ${kind} vinculado: ${finalRelativePath}`,
+        `Asset ${kind} vinculado: ${finalRelativePath}${(markdownCleanup && markdownCleanup.cleaned) ? ' | markdown limpo automaticamente' : ''}`,
         initiatedBy || 'human',
         null,
         null
     );
 
-    return { persona_id: personaId, kind, path: finalRelativePath };
+    return {
+        persona_id: personaId,
+        kind,
+        path: finalRelativePath,
+        markdown_cleanup: markdownCleanup
+    };
 }
 
 function normalizeLinkedPath(rawTarget) {
@@ -988,6 +1474,20 @@ function safeReadWorkspaceText(relativePath) {
     }
 }
 
+function inferredFullTranscriptsFromBooks(personaId, bookPaths) {
+    const files = [];
+    uniquePaths(asArray(bookPaths)).forEach(bookPath => {
+        if (!/\.pdf$/i.test(String(bookPath || ''))) return;
+        const expectedPath = personaBookFullTranscriptPath(personaId, bookPath);
+        try {
+            if (fs.existsSync(safeWorkspacePath(expectedPath))) files.push(expectedPath);
+        } catch (_) {
+            // ignore invalid path
+        }
+    });
+    return uniquePaths(files);
+}
+
 function buildPersonaAssetsPayload() {
     const registry = ensureControlJson('registry.json', { squads: [], agents: [], personas: [] });
     const personas = asArray(registry.personas);
@@ -1002,21 +1502,30 @@ function buildPersonaAssetsPayload() {
         const cloneContent = clonePath ? safeReadWorkspaceText(clonePath) : '';
         const promptLinked = markdownLinkedPaths(cloneContent);
 
-        const promptTranscriptPaths = promptLinked.filter(p => p.includes('/transcripts/') || p.includes('/raw_transcripts/'));
-        const promptBookPaths = promptLinked.filter(p => p.includes('/books/'));
-        const promptSupportPaths = promptLinked.filter(p => !p.includes('/transcripts/') && !p.includes('/books/'));
+        const isFullTranscriptPath = p => p.includes('/book_transcripts/') || p.includes('/full_transcripts/');
+        const isTranscriptPath = p => (p.includes('/transcripts/') || p.includes('/raw_transcripts/')) && !isFullTranscriptPath(p);
+        const isBookPath = p => p.includes('/books/');
 
-        const transcriptPaths = uniquePaths([...(entry.transcript_files || []), ...promptTranscriptPaths]);
+        const promptTranscriptPaths = promptLinked.filter(isTranscriptPath);
+        const promptFullTranscriptPaths = promptLinked.filter(isFullTranscriptPath);
+        const promptBookPaths = promptLinked.filter(isBookPath);
+        const promptSupportPaths = promptLinked.filter(p => !isTranscriptPath(p) && !isFullTranscriptPath(p) && !isBookPath(p));
+
         const bookPaths = uniquePaths([...(entry.book_files || []), ...promptBookPaths]);
+        const inferredFullTranscriptPaths = inferredFullTranscriptsFromBooks(persona.id, bookPaths);
+        const transcriptPaths = uniquePaths([...(entry.transcript_files || []), ...promptTranscriptPaths]);
+        const fullTranscriptPaths = uniquePaths([...(entry.full_transcript_files || []), ...promptFullTranscriptPaths, ...inferredFullTranscriptPaths]);
         const supportPaths = uniquePaths([...(entry.support_files || []), ...promptSupportPaths]);
         const promptLinkedFiles = uniquePaths(promptLinked);
         const booksWorkspacePath = personaBooksWorkspacePath(persona.id);
         const booksWorkspaceFile = safeFileStatView(booksWorkspacePath);
 
         const transcriptFiles = transcriptPaths.map(safeFileStatView).filter(Boolean);
+        const fullTranscriptFiles = fullTranscriptPaths.map(safeFileStatView).filter(Boolean);
         const bookFiles = bookPaths.map(safeFileStatView).filter(Boolean);
         const supportFiles = supportPaths.map(safeFileStatView).filter(Boolean);
         const promptLinkedStats = promptLinkedFiles.map(safeFileStatView).filter(Boolean);
+        const expectedFullTranscriptCount = bookFiles.filter(file => file.exists && /\.pdf$/i.test(file.path || '')).length;
 
         return {
             persona_id: persona.id,
@@ -1024,6 +1533,7 @@ function buildPersonaAssetsPayload() {
             instruction_file: safeFileStatView(instructionPath),
             clone_file: cloneStat,
             transcript_files: transcriptFiles,
+            full_transcript_files: fullTranscriptFiles,
             book_files: bookFiles,
             books_working_file: (booksWorkspaceFile.exists || bookFiles.length) ? booksWorkspaceFile : null,
             support_files: supportFiles,
@@ -1033,10 +1543,21 @@ function buildPersonaAssetsPayload() {
                 available: transcriptFiles.filter(file => file.exists).length,
                 linked_in_clone: promptTranscriptPaths.length
             },
+            full_transcript_status: {
+                total: fullTranscriptFiles.length,
+                available: fullTranscriptFiles.filter(file => file.exists).length,
+                linked_in_clone: promptFullTranscriptPaths.length,
+                expected_from_books: expectedFullTranscriptCount
+            },
             book_status: {
                 total: bookFiles.length,
                 available: bookFiles.filter(file => file.exists).length,
                 linked_in_clone: promptBookPaths.length
+            },
+            support_status: {
+                total: supportFiles.length,
+                available: supportFiles.filter(file => file.exists).length,
+                linked_in_clone: promptSupportPaths.length
             }
         };
     });
@@ -1135,9 +1656,40 @@ function inferProjectIdFromText(text) {
     return null;
 }
 
+function loadSessionArchiveById(sessionId) {
+    const safeId = String(sessionId || '').trim();
+    if (!/^SES-\d{8}-\d{4}$/i.test(safeId)) return null;
+    const filePath = path.join(SESSIONS_DIR, `${safeId}.json`);
+    if (!fs.existsSync(filePath)) return null;
+    try {
+        return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    } catch (_) {
+        return null;
+    }
+}
+
+function inferProjectIdFromSessionArchive(sessionId) {
+    const session = loadSessionArchiveById(sessionId);
+    if (!session || typeof session !== 'object') return null;
+    return normalizeProjectId(session.project_id || null)
+        || inferProjectIdFromText(session.close_summary)
+        || inferProjectIdFromText(session.next_action)
+        || inferProjectIdFromText(session.last_context_note)
+        || inferProjectIdFromText(session.source)
+        || null;
+}
+
+function inferProjectIdFromCurrentSession() {
+    const state = readControlJson(FILES.session, { current_session: null, history: [] });
+    if (!state || typeof state !== 'object' || !state.current_session) return null;
+    return normalizeProjectId(state.current_session.project_id || null);
+}
+
 function appendExecutionLog(type, target, details, initiatedBy = 'system', why = null, projectId = null) {
     const normalizedProjectId =
         normalizeProjectId(projectId)
+        || inferProjectIdFromSessionArchive(target)
+        || inferProjectIdFromCurrentSession()
         || inferProjectIdFromText(target)
         || inferProjectIdFromText(details)
         || inferProjectIdFromText(why)
@@ -1534,15 +2086,57 @@ function touchSessionPulse(body) {
     if (!state.current_session || state.current_session.status !== 'active') {
         return { active: false };
     }
-    state.current_session.last_seen_at = nowIso();
+    const timestamp = nowIso();
+    state.current_session.last_seen_at = timestamp;
     const pulseProjectId = normalizeProjectId(body.project_id || null);
     if (pulseProjectId) state.current_session.project_id = pulseProjectId;
-    if (body && typeof body.context_note === 'string' && body.context_note.trim()) {
-        state.current_session.last_context_note = body.context_note.trim();
+    const pulseNote = body && typeof body.context_note === 'string' ? body.context_note.trim() : '';
+    if (pulseNote) {
+        state.current_session.last_context_note = pulseNote;
     }
+
+    const lastPulseLogAt = new Date(state.current_session.last_pulse_logged_at || 0).getTime();
+    const pulseTooOld = !Number.isFinite(lastPulseLogAt) || (Date.now() - lastPulseLogAt) >= SESSION_PULSE_LOG_INTERVAL_MS;
+    const previousPulseNote = String(state.current_session.last_pulse_note || '').trim();
+    const noteChanged = Boolean(pulseNote) && pulseNote !== previousPulseNote;
+    const shouldLogPulse = pulseTooOld || noteChanged;
+    const resolvedProjectId = pulseProjectId || normalizeProjectId(state.current_session.project_id || null) || null;
+
+    if (shouldLogPulse) {
+        const summary = pulseNote || 'Heartbeat da sessao ativa';
+        appendExecutionLog(
+            'session_pulse',
+            state.current_session.id,
+            summary,
+            body.initiated_by || 'dashboard',
+            'Pulse keepalive',
+            resolvedProjectId
+        );
+
+        const snapshots = ensureControlJson(FILES.snapshots, { snapshots: [] });
+        snapshots.snapshots = asArray(snapshots.snapshots);
+        snapshots.snapshots.push({
+            id: nextSerial('CTX', snapshots.snapshots.map(item => item.id)),
+            timestamp,
+            type: 'session_pulse',
+            session_id: state.current_session.id,
+            summary,
+            project_id: resolvedProjectId
+        });
+        writeControlJson(FILES.snapshots, snapshots);
+
+        state.current_session.last_pulse_logged_at = timestamp;
+        if (pulseNote) state.current_session.last_pulse_note = pulseNote;
+    }
+
     writeControlJson(FILES.session, state);
     persistSessionArchive(state.current_session);
-    return { active: true, session_id: state.current_session.id };
+    return {
+        active: true,
+        session_id: state.current_session.id,
+        pulse_logged: shouldLogPulse,
+        project_id: resolvedProjectId
+    };
 }
 
 function ensureBootstrapFiles() {
@@ -1614,7 +2208,7 @@ const server = http.createServer(async (req, res) => {
             if (!personaId) return sendJson(res, { error: 'persona_id required' }, 400);
             if (!kind) return sendJson(res, { error: 'kind required' }, 400);
             if (!sourcePath) return sendJson(res, { error: 'source_path required' }, 400);
-            const result = attachPersonaAsset({
+            const result = await attachPersonaAsset({
                 personaId,
                 kind,
                 sourcePath,
@@ -1638,6 +2232,13 @@ const server = http.createServer(async (req, res) => {
             });
             return sendJson(res, { success: true, ...result });
         }
+        if (pathname === '/api/personas/assets/clean-md' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const personaId = String(body.persona_id || '').trim();
+            if (!personaId) return sendJson(res, { error: 'persona_id required' }, 400);
+            const result = cleanPersonaMarkdownAssets(personaId, body.initiated_by || 'human');
+            return sendJson(res, { success: true, ...result });
+        }
         if (pathname === '/api/personas/assets/books-workspace/refresh' && req.method === 'POST') {
             const body = await parseBody(req);
             const personaId = String(body.persona_id || '').trim();
@@ -1646,6 +2247,13 @@ const server = http.createServer(async (req, res) => {
             const persona = asArray(registry.personas).find(item => item && item.id === personaId);
             const workspacePath = refreshPersonaBooksWorkspace(personaId, persona ? persona.name : personaId);
             return sendJson(res, { success: true, persona_id: personaId, workspace_path: workspacePath });
+        }
+        if (pathname === '/api/personas/assets/full-transcripts/generate' && req.method === 'POST') {
+            return sendJson(
+                res,
+                { error: 'Fluxo PDF desativado. Use apenas transcricoes em markdown (.md/.txt).' },
+                410
+            );
         }
         if (pathname === '/api/project-flows' && req.method === 'GET') return sendJson(res, ensureControlJson(FILES.projectFlows, { projects: {} }));
         if (pathname === '/api/session' && req.method === 'GET') return sendJson(res, ensureControlJson(FILES.session, { current_session: null, history: [] }));

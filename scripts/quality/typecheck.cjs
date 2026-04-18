@@ -258,6 +258,18 @@ function validatePersonaMaterials(registryPersonaIds) {
         });
       }
     });
+
+    if (item.full_transcript_files !== undefined) {
+      expectStringArray(item.full_transcript_files, `${label}.full_transcript_files`);
+      if (Array.isArray(item.full_transcript_files)) {
+        item.full_transcript_files.forEach((filePath, fileIndex) => {
+          assert(
+            isSafeRelativePath(filePath),
+            `${label}.full_transcript_files[${fileIndex}] must be a safe relative path`
+          );
+        });
+      }
+    }
   });
 }
 

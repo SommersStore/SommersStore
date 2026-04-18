@@ -75,7 +75,17 @@ function testIntegrationPoints() {
   assert.match(serverJs, /const payloadProjectId = normalizeProjectId\(body\.project_id \|\| null\)/, 'server should normalize project_id in session flows');
   assert.match(serverJs, /project_id:\s*closeProjectId/, 'server should persist project_id when closing session');
   assert.match(serverJs, /haystack\.includes\('SIZ'\)/, 'server inference should include legacy SIZ alias');
+  assert.match(serverJs, /SESSION_PULSE_LOG_INTERVAL_MS/, 'server should throttle recurring pulse logs');
+  assert.match(serverJs, /type:\s*'session_pulse'/, 'server should persist session_pulse snapshots');
+  assert.match(serverJs, /'session_pulse'/, 'server should append session_pulse execution logs');
+  assert.match(serverJs, /inferProjectIdFromSessionArchive\(/, 'server should infer project_id from session archives for log fallback');
+  assert.match(serverJs, /\/api\/personas\/assets\/clean-md/, 'server should expose markdown cleanup endpoint for persona assets');
+  assert.match(serverJs, /cleanMarkdownFile\(/, 'server should sanitize markdown files for persona assets');
+  assert.match(serverJs, /Upload de PDF bloqueado neste fluxo/, 'server should block PDF uploads in persona assets flow');
+  assert.match(serverJs, /kind must be one of: clone, transcript, full_transcript, support/, 'server should reject legacy "book" kind in persona assets flow');
+  assert.match(serverJs, /Fluxo PDF desativado\. Use apenas transcricoes em markdown/, 'server should disable legacy PDF transcript generation endpoint');
   assert.equal(packageJson.scripts['logs:backfill:project-id'], 'node scripts/maintenance/backfill_project_log_ids.cjs', 'package script for log backfill should exist');
+  assert.equal(packageJson.scripts['personas:clean-md'], 'node scripts/maintenance/clean_persona_markdown_assets.cjs', 'package script for persona markdown cleanup should exist');
   assert.match(backfillScript, /inferProjectIdFromSession\(/, 'backfill script should infer project id from session archives');
 }
 

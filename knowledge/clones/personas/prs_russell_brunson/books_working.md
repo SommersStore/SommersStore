@@ -1,7 +1,7 @@
 # Workspace Livros - Russell Brunson
 
 - persona_id: prs-russell-brunson
-- updated_at: 2026-04-18T02:19:06-03:00
+- updated_at: 2026-04-18T13:52:53-03:00
 
 ## Objetivo
 - Usar os PDFs como acervo e trabalhar com notas/estruturas em Markdown para acelerar leitura da IA.
@@ -10,6 +10,7 @@
 
 ### 1. Dotcom Secrets - Russel Brunson.pdf
 - source_pdf: knowledge/clones/books/Dotcom Secrets - Russel Brunson.pdf
+- full_transcript_md: knowledge/clones/personas/prs_russell_brunson/book_transcripts/dotcom_secrets_russel_brunson_p87ti6_full.md
 - map_md: knowledge/clones/books/dotcom_secrets_map.md
 - notes_md: preencha abaixo com aprendizados acionaveis para a persona.
 
@@ -27,6 +28,7 @@
 ### 2. Expert Secrets - Russell Brunson.pdf
 - source_pdf: knowledge/clones/books/Expert Secrets - Russell Brunson.pdf
 - map_md: knowledge/clones/books/expert_secrets_map.md
+- full_transcript_md: knowledge/clones/personas/prs_russell_brunson/book_transcripts/expert_secrets_russell_brunson_axeu56_full.md
 - notes_md: preencha abaixo com aprendizados acionaveis para a persona.
 
 #### Resumo Inicial (auto do map)
@@ -43,6 +45,7 @@
 ### 3. Traffic Secrets - Russel Brunson.pdf
 - source_pdf: knowledge/clones/books/Traffic Secrets - Russel Brunson.pdf
 - map_md: knowledge/clones/books/traffic_secrets_map.md
+- full_transcript_md: knowledge/clones/personas/prs_russell_brunson/book_transcripts/traffic_secrets_russel_brunson_1n9nsrf_full.md
 - notes_md: preencha abaixo com aprendizados acionaveis para a persona.
 
 #### Resumo Inicial (auto do map)

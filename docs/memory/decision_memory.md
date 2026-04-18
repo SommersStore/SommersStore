@@ -12,4 +12,4 @@
 - Nao tomar decisao estrutural sem rationale e criterio de revisao.
 
 ## Ultima atualizacao
-- updated_at: 2026-04-18T02:34:15-03:00
+- updated_at: 2026-04-18T16:56:38-03:00
