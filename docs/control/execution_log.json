@@ -978,6 +978,16 @@
       "timestamp": "2026-04-17T22:56:43-03:00",
       "details": "Oracle startup automatico executado",
       "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260417-0033",
+      "type": "cloud_sync",
+      "target": "SYNC-20260417-1776477402681",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-17T22:57:05-03:00",
+      "details": "Cloud sync SYNC-20260417-1776477402681: ERROR. GitHub: success (Commit e push enviados ao GitHub.) Firebase: error (Falha no deploy Firebase Hosting.)",
+      "why_this_ran": "target=all; scope=memory; trigger=session_close"
     }
   ]
 }
