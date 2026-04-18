@@ -1,0 +1,329 @@
+{
+  "updated_at": "2026-04-16T23:10:00-03:00",
+  "projects": {
+    "sais": {
+      "label": "Sais",
+      "description": "Projeto editorial principal (ebook + pagina de vendas).",
+      "construcao": [
+        {
+          "id": "CZ-01",
+          "nome": "Estrategia",
+          "squad": "SQD-CORE",
+          "status": "em_execucao",
+          "resumo": "Definicao de oferta, promessa e escopo.",
+          "entrega": "Direction package",
+          "entrega_para": "SQD-CNT",
+          "depends_on": [],
+          "metric_main": "Definicao de escopo aprovada"
+        },
+        {
+          "id": "CZ-02",
+          "nome": "Estrutura PDF",
+          "squad": "SQD-CNT",
+          "status": "em_preparacao",
+          "resumo": "Arquitetura editorial dos capitulos e blocos.",
+          "entrega": "Skeleton editorial",
+          "entrega_para": "SQD-CNT",
+          "depends_on": [
+            "CZ-01"
+          ],
+          "metric_main": "Indice aprovado"
+        },
+        {
+          "id": "CZ-03",
+          "nome": "Producao E-book",
+          "squad": "SQD-CNT",
+          "status": "nao_iniciado",
+          "resumo": "Redacao longform e revisao de consistencia.",
+          "entrega": "E-book pronto",
+          "entrega_para": "SQD-EXP",
+          "depends_on": [
+            "CZ-02"
+          ],
+          "metric_main": "Capitulos finalizados"
+        },
+        {
+          "id": "CZ-04",
+          "nome": "Pagina de Vendas",
+          "squad": "SQD-EXP",
+          "status": "nao_iniciado",
+          "resumo": "Composicao visual da landing e copy principal.",
+          "entrega": "Landing page",
+          "entrega_para": "SQD-ENG",
+          "depends_on": [
+            "CZ-03"
+          ],
+          "metric_main": "LCP/UX validos"
+        },
+        {
+          "id": "CZ-05",
+          "nome": "QA e Publicacao",
+          "squad": "SQD-QRO",
+          "status": "nao_iniciado",
+          "resumo": "Validacao final e liberacao operacional.",
+          "entrega": "Release aprovado",
+          "entrega_para": "Operacao",
+          "depends_on": [
+            "CZ-04"
+          ],
+          "metric_main": "Checklist QA completo"
+        }
+      ],
+      "vendas": [
+        {
+          "id": "VZ-01",
+          "nome": "Anuncio Meta",
+          "squad": "SQD-MKF",
+          "status": "em_preparacao",
+          "resumo": "Criativos e segmentacao de aquisicao.",
+          "entrega": "Cliques qualificados",
+          "entrega_para": "VZ-02",
+          "depends_on": [],
+          "metric_main": "CTR"
+        },
+        {
+          "id": "VZ-02",
+          "nome": "Landing",
+          "squad": "SQD-EXP",
+          "status": "nao_iniciado",
+          "resumo": "Convencimento inicial e transicao para checkout.",
+          "entrega": "Lead aquecido",
+          "entrega_para": "VZ-03",
+          "depends_on": [
+            "VZ-01"
+          ],
+          "metric_main": "Taxa de scroll"
+        },
+        {
+          "id": "VZ-03",
+          "nome": "Checkout",
+          "squad": "SQD-ENG",
+          "status": "nao_iniciado",
+          "resumo": "Conversao e confirmacao de pagamento.",
+          "entrega": "Pedido aprovado",
+          "entrega_para": "VZ-04",
+          "depends_on": [
+            "VZ-02"
+          ],
+          "metric_main": "CVR checkout"
+        },
+        {
+          "id": "VZ-04",
+          "nome": "Remarketing",
+          "squad": "SQD-MKF",
+          "status": "nao_iniciado",
+          "resumo": "Recaptura de abandono e reforco da oferta.",
+          "entrega": "Retorno de lead",
+          "entrega_para": "VZ-02",
+          "depends_on": [
+            "VZ-03"
+          ],
+          "metric_main": "ROAS recaptura"
+        }
+      ]
+    },
+    "velas": {
+      "label": "Velas",
+      "description": "Linha de produto com foco em conteudo + conversao.",
+      "construcao": [
+        {
+          "id": "CV-01",
+          "nome": "Brief e Oferta",
+          "squad": "SQD-CORE",
+          "status": "em_preparacao",
+          "resumo": "Definicao do recorte comercial da linha.",
+          "entrega": "Brief aprovado",
+          "entrega_para": "SQD-CNT",
+          "depends_on": [],
+          "metric_main": "Hipotese validada"
+        },
+        {
+          "id": "CV-02",
+          "nome": "Conteudo E-book",
+          "squad": "SQD-CNT",
+          "status": "nao_iniciado",
+          "resumo": "Estrutura e texto de suporte ao produto.",
+          "entrega": "Conteudo editorial",
+          "entrega_para": "SQD-EXP",
+          "depends_on": [
+            "CV-01"
+          ],
+          "metric_main": "Capitulos prontos"
+        },
+        {
+          "id": "CV-03",
+          "nome": "Pagina de Vendas",
+          "squad": "SQD-EXP",
+          "status": "nao_iniciado",
+          "resumo": "Landing final com CTA e provas.",
+          "entrega": "Landing pronta",
+          "entrega_para": "SQD-ENG",
+          "depends_on": [
+            "CV-02"
+          ],
+          "metric_main": "Taxa de clique CTA"
+        }
+      ],
+      "vendas": [
+        {
+          "id": "VV-01",
+          "nome": "Ads",
+          "squad": "SQD-MKF",
+          "status": "nao_iniciado",
+          "resumo": "Campanhas de aquisicao inicial.",
+          "entrega": "Trafego",
+          "entrega_para": "VV-02",
+          "depends_on": [],
+          "metric_main": "CPC"
+        },
+        {
+          "id": "VV-02",
+          "nome": "Landing",
+          "squad": "SQD-EXP",
+          "status": "nao_iniciado",
+          "resumo": "Conversao de visita em intencao.",
+          "entrega": "Lead aquecido",
+          "entrega_para": "VV-03",
+          "depends_on": [
+            "VV-01"
+          ],
+          "metric_main": "Bounce rate"
+        },
+        {
+          "id": "VV-03",
+          "nome": "Checkout",
+          "squad": "SQD-ENG",
+          "status": "nao_iniciado",
+          "resumo": "Pagamento e confirmacao.",
+          "entrega": "Venda",
+          "entrega_para": "VV-04",
+          "depends_on": [
+            "VV-02"
+          ],
+          "metric_main": "CVR"
+        },
+        {
+          "id": "VV-04",
+          "nome": "Remarketing",
+          "squad": "SQD-MKF",
+          "status": "nao_iniciado",
+          "resumo": "Recuperacao de abandono.",
+          "entrega": "Nova visita",
+          "entrega_para": "VV-02",
+          "depends_on": [
+            "VV-03"
+          ],
+          "metric_main": "Recuperacao de carrinho"
+        }
+      ]
+    },
+    "electro": {
+      "label": "Electro",
+      "description": "Site de produtos fisicos com catalogo e checkout.",
+      "construcao": [
+        {
+          "id": "CE-01",
+          "nome": "Arquitetura do Site",
+          "squad": "SQD-CORE",
+          "status": "em_preparacao",
+          "resumo": "Mapa de categorias e proposta comercial.",
+          "entrega": "Mapa do site",
+          "entrega_para": "SQD-EXP",
+          "depends_on": [],
+          "metric_main": "Taxonomia definida"
+        },
+        {
+          "id": "CE-02",
+          "nome": "Catalogo de Produtos",
+          "squad": "SQD-CNT",
+          "status": "nao_iniciado",
+          "resumo": "Descricao e assets por produto.",
+          "entrega": "Catalogo",
+          "entrega_para": "SQD-EXP",
+          "depends_on": [
+            "CE-01"
+          ],
+          "metric_main": "SKUs com copy completa"
+        },
+        {
+          "id": "CE-03",
+          "nome": "UX e Vitrine",
+          "squad": "SQD-EXP",
+          "status": "nao_iniciado",
+          "resumo": "Layout de PLP/PDP e navegacao.",
+          "entrega": "Interface pronta",
+          "entrega_para": "SQD-ENG",
+          "depends_on": [
+            "CE-02"
+          ],
+          "metric_main": "Usabilidade mobile"
+        },
+        {
+          "id": "CE-04",
+          "nome": "Integracao Checkout",
+          "squad": "SQD-ENG",
+          "status": "nao_iniciado",
+          "resumo": "Pagamento, frete e confirmacao.",
+          "entrega": "Checkout funcional",
+          "entrega_para": "SQD-QRO",
+          "depends_on": [
+            "CE-03"
+          ],
+          "metric_main": "Taxa de erro transacional"
+        }
+      ],
+      "vendas": [
+        {
+          "id": "VE-01",
+          "nome": "Ads",
+          "squad": "SQD-MKF",
+          "status": "nao_iniciado",
+          "resumo": "Aquisicao para catalogo.",
+          "entrega": "Visitantes",
+          "entrega_para": "VE-02",
+          "depends_on": [],
+          "metric_main": "CTR"
+        },
+        {
+          "id": "VE-02",
+          "nome": "Catalogo para PDP",
+          "squad": "SQD-EXP",
+          "status": "nao_iniciado",
+          "resumo": "Navegacao para pagina de produto.",
+          "entrega": "Intencao de compra",
+          "entrega_para": "VE-03",
+          "depends_on": [
+            "VE-01"
+          ],
+          "metric_main": "Taxa de clique em produto"
+        },
+        {
+          "id": "VE-03",
+          "nome": "Checkout",
+          "squad": "SQD-ENG",
+          "status": "nao_iniciado",
+          "resumo": "Pagamento e captura do pedido.",
+          "entrega": "Pedido",
+          "entrega_para": "VE-04",
+          "depends_on": [
+            "VE-02"
+          ],
+          "metric_main": "Conversao de carrinho"
+        },
+        {
+          "id": "VE-04",
+          "nome": "Remarketing",
+          "squad": "SQD-MKF",
+          "status": "nao_iniciado",
+          "resumo": "Recaptura de abandono.",
+          "entrega": "Retorno de cliente",
+          "entrega_para": "VE-02",
+          "depends_on": [
+            "VE-03"
+          ],
+          "metric_main": "ROAS"
+        }
+      ]
+    }
+  }
+}

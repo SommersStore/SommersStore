@@ -1,0 +1,90 @@
+M .claude/settings.local.json
+ M "Painel AIOX.vbs"
+ M docs/aiox_dashboard.html
+ M docs/control/context_snapshots.json
+ M docs/control/execution_log.json
+ M docs/control/memory_mutations.json
+ M docs/control/registry.json
+ M docs/memory/agent_session_memory.md
+ M docs/memory/artifact_registry.md
+ M docs/memory/content_memory.md
+ M docs/memory/decision_memory.md
+ M docs/memory/incident_memory.md
+ M docs/memory/node_memory.md
+ M docs/memory/phase_memory.md
+ M docs/memory/project_memory.md
+ M docs/memory/prompt_memory.md
+ M knowledge/clones/alan_nicolas_clone.md
+ M knowledge/clones/elida_dias_clone.md
+ M knowledge/clones/elisa_clark.md
+ M knowledge/clones/joao_vturb_clone.md
+ M knowledge/clones/pedro_valerio_clone.md
+ M knowledge/clones/tiago_finch_clone.md
+ M knowledge/project_memory.md
+ M package.json
+ M scripts/dashboard_server.js
+ M start_painel.bat
+?? .codex/skills/aiox-analyst/
+?? .codex/skills/aiox-architect/
+?? .codex/skills/aiox-art-director/
+?? .codex/skills/aiox-copy-specialist/
+?? .codex/skills/aiox-copywriter/
+?? .codex/skills/aiox-cro-expert/
+?? .codex/skills/aiox-data-engineer/
+?? .codex/skills/aiox-dev/
+?? .codex/skills/aiox-devops/
+?? .codex/skills/aiox-funnel-specialist/
+?? .codex/skills/aiox-marketing/
+?? .codex/skills/aiox-master/
+?? .codex/skills/aiox-oracle/
+?? .codex/skills/aiox-pm/
+?? .codex/skills/aiox-po/
+?? .codex/skills/aiox-qa/
+?? .codex/skills/aiox-scribe/
+?? .codex/skills/aiox-sm/
+?? .codex/skills/aiox-squad-creator/
+?? .codex/skills/aiox-traffic-specialist/
+?? .codex/skills/aiox-ux-design-expert/
+?? .codex/skills/aiox-ux-optimizer/
+?? artifacts/
+?? docs/control/memory_artifact_index.json
+?? docs/control/memory_checkpoints.json
+?? docs/control/memory_current_state.json
+?? docs/control/memory_decision_log.json
+?? docs/control/memory_execution_journal.json
+?? docs/control/memory_open_loops.json
+?? docs/control/memory_registry.json
+?? docs/control/persona_materials.json
+?? docs/control/project_flows.json
+?? docs/control/session_state.json
+?? docs/control/sessions/
+?? "docs/external-specs/Ajuste no Painel de Controle n8n. 2.md"
+?? docs/external-specs/conversa_antigravity_backlog_v1.md
+?? docs/external-specs/conversa_antigravity_literal.md
+?? docs/external-specs/conversa_antigravity_spec_exec_v1.md
+?? docs/memory/README.md
+?? docs/stories/1.4.story.md
+?? docs/stories/1.5.story.md
+?? docs/stories/1.6.story.md
+?? docs/stories/1.7.story.md
+?? docs/stories/1.8.story.md
+?? docs/stories/1.9.story.md
+?? docs/stories/2.0.story.md
+?? docs/stories/2.1.story.md
+?? docs/stories/2.2.story.md
+?? docs/stories/2.3.story.md
+?? docs/stories/2.4.story.md
+?? docs/stories/2.5.story.md
+?? docs/stories/2.6.story.md
+?? fechar_dia.bat
+?? fechar_dia_local.bat
+?? scratch/final_polish.js
+?? scratch/fix_dashboard_encoding.js
+?? scratch_fix_html_backticks.js
+?? scratch_fix_html_bugs.js
+?? scripts/daily_close.cjs
+?? scripts/maintenance/
+?? scripts/quality/
+?? task.md
+?? temp.js
+?? tests/quality/

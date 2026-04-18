@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anti-Gravity Â· Intelligence Tower</title>
+    <title>Anti-Gravity · Intelligence Tower</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -95,17 +95,315 @@
         .btn-danger:hover { background: rgba(239,68,68,0.3); }
         .btn-ghost { background: transparent; color: #6b7280; border: 1px solid rgba(255,255,255,0.06); padding: 6px 14px; border-radius: 8px; font-size: 10px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
         .btn-ghost:hover { color: #fff; background: rgba(255,255,255,0.05); }
+
+        /* Master Hub Styles */
+        .master-canvas {
+            position: relative;
+            width: 3200px;
+            height: 520px;
+            background-image:
+                radial-gradient(rgba(255,255,255,0.03) 1px, transparent 0),
+                linear-gradient(180deg, rgba(168,85,247,0.04) 0%, rgba(16,185,129,0.02) 100%);
+            background-size: 30px 30px, 100% 100%;
+        }
+        .master-subviewport {
+            flex: 1;
+            min-height: 0;
+            overflow: auto;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+            background: rgba(0,0,0,0.2);
+        }
+        .master-lane {
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            top: 90px;
+            height: 300px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(8px);
+            z-index: 2;
+        }
+        .master-lane.build {
+            background: linear-gradient(180deg, rgba(168,85,247,0.10), rgba(168,85,247,0.03));
+            border-color: rgba(168,85,247,0.25);
+        }
+        .master-lane.ops {
+            background: linear-gradient(180deg, rgba(16,185,129,0.10), rgba(16,185,129,0.03));
+            border-color: rgba(16,185,129,0.25);
+        }
+        .master-node {
+            position: absolute;
+            width: 192px;
+            min-height: 74px;
+            background: rgba(14,14,22,0.82);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 14px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.22s cubic-bezier(.2,.8,.2,1);
+            z-index: 10;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+        }
+        .master-node.build { border-color: rgba(168,85,247,0.35); }
+        .master-node.ops { border-color: rgba(16,185,129,0.35); }
+        .master-node:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 28px rgba(0,0,0,0.45);
+            border-color: rgba(255,255,255,0.32);
+        }
+        .master-node.active-node {
+            border-color: #a855f7;
+            box-shadow: 0 0 0 2px rgba(168,85,247,0.24), 0 16px 34px rgba(0,0,0,0.45);
+            background: rgba(168,85,247,0.08);
+        }
+        .master-node .status-dot {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 2px solid #0a0a0f;
+        }
+        .master-sidebar-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 8px;
+        }
+        .master-mini-btn {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 8px;
+            padding: 6px 10px;
+            color: #cbd5e1;
+            background: rgba(255,255,255,0.03);
+            transition: all .2s;
+        }
+        .master-mini-btn:hover {
+            color: #fff;
+            border-color: rgba(168,85,247,0.45);
+            background: rgba(168,85,247,0.13);
+        }
+        .master-tab-btn, .master-panel-btn, .master-view-btn {
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.10);
+            color: #94a3b8;
+            background: rgba(255,255,255,0.02);
+            transition: all .2s;
+        }
+        .master-tab-btn:hover, .master-panel-btn:hover, .master-view-btn:hover {
+            color: #fff;
+            border-color: rgba(168,85,247,0.35);
+            background: rgba(168,85,247,0.10);
+        }
+        .master-tab-btn.active, .master-panel-btn.active, .master-view-btn.active {
+            color: #fff;
+            border-color: rgba(168,85,247,0.5);
+            background: rgba(168,85,247,0.2);
+            box-shadow: 0 0 0 1px rgba(168,85,247,0.25) inset;
+        }
+        .master-view {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
+        }
+        .master-panel-view {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            padding-right: 2px;
+        }
+        .master-status-lists {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .master-workspace {
+            display: grid;
+            grid-template-columns: 220px minmax(0, 1fr) 320px;
+            gap: 12px;
+            flex: 1;
+            min-height: 0;
+        }
+        .master-col {
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            background: rgba(8,10,18,0.55);
+            min-height: 0;
+        }
+        .master-project-list {
+            padding: 10px;
+            overflow-y: auto;
+        }
+        .master-kpi-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .master-kpi-card {
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 10px;
+            padding: 8px;
+            background: rgba(255,255,255,0.02);
+        }
+        .master-kpi-value {
+            font-size: 14px;
+            font-weight: 800;
+            color: #f8fafc;
+            line-height: 1.2;
+        }
+        .master-timeline {
+            margin-top: 10px;
+            max-height: 320px;
+            overflow-y: auto;
+            padding-right: 2px;
+        }
+        .master-timeline-item {
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 10px;
+            padding: 8px;
+            background: rgba(255,255,255,0.02);
+            margin-bottom: 8px;
+        }
+        .master-timeline-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+        .master-project-btn {
+            width: 100%;
+            text-align: left;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 8px;
+            transition: all .2s;
+        }
+        .master-project-btn:hover {
+            border-color: rgba(168,85,247,0.45);
+            background: rgba(168,85,247,0.12);
+        }
+        .master-project-btn.active {
+            border-color: rgba(168,85,247,0.6);
+            background: rgba(168,85,247,0.2);
+            box-shadow: 0 0 0 1px rgba(168,85,247,0.2) inset;
+        }
+        .master-mode-bar {
+            padding: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .master-canvas-wrap {
+            padding: 10px;
+            height: calc(100% - 54px);
+            overflow: auto;
+        }
+        .master-canvas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 10px;
+        }
+        .master-filter-input, .master-filter-select {
+            height: 28px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.04);
+            color: #e2e8f0;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 0 8px;
+            outline: none;
+        }
+        .master-filter-input::placeholder { color: #94a3b8; }
+        .master-filter-input:focus, .master-filter-select:focus {
+            border-color: rgba(168,85,247,0.55);
+            box-shadow: 0 0 0 2px rgba(168,85,247,0.18);
+        }
+        .master-card {
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+            background: rgba(12,15,24,0.85);
+            padding: 10px;
+            transition: all .2s;
+            cursor: pointer;
+        }
+        .master-card:hover {
+            border-color: rgba(168,85,247,0.4);
+            transform: translateY(-1px);
+        }
+        .master-card.active {
+            border-color: rgba(168,85,247,0.7);
+            box-shadow: 0 0 0 1px rgba(168,85,247,0.2) inset;
+            background: rgba(168,85,247,0.08);
+        }
+        .master-edit-btn {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            border: 1px solid rgba(168,85,247,0.35);
+            color: #d8b4fe;
+            border-radius: 8px;
+            padding: 4px 8px;
+            background: rgba(168,85,247,0.08);
+        }
+        .master-edit-btn:hover { background: rgba(168,85,247,0.22); }
+        .master-inspector {
+            padding: 10px;
+            overflow-y: auto;
+        }
+        .master-inspector-empty {
+            border: 1px dashed rgba(255,255,255,0.2);
+            border-radius: 10px;
+            padding: 12px;
+            color: #9ca3af;
+            font-size: 11px;
+            line-height: 1.45;
+        }
+        @media (max-width: 1280px) {
+            .master-workspace { grid-template-columns: 200px minmax(0, 1fr); }
+            .master-col.master-col-inspector { grid-column: 1 / -1; }
+        }
+        @media (max-width: 900px) {
+            .master-workspace { grid-template-columns: 1fr; }
+            .master-col { min-height: 220px; }
+        }
     </style>
 </head>
 <body class="h-screen flex flex-col antialiased font-sans">
 
-<!-- â•â•â•â•â•â•â• HEADER â•â•â•â•â•â•â• -->
+<!-- ═══════ HEADER ═══════ -->
 <header class="h-14 border-b border-white/5 flex items-center justify-between px-5 bg-background/90 backdrop-blur-md z-50 shrink-0">
     <div class="flex items-center gap-3">
         <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-primary to-pink flex items-center justify-center font-bold text-white text-[10px]">AG</div>
         <div>
-            <h1 class="text-xs font-bold tracking-tight">Anti-Gravity <span class="text-muted font-normal">Â· Intelligence Tower</span></h1>
-            <p class="text-[9px] text-muted font-mono">BUILD Â· OPS Â· CONTROL â€” n8n Governance Protocol</p>
+            <h1 class="text-xs font-bold tracking-tight">Anti-Gravity <span class="text-muted font-normal">· Intelligence Tower</span></h1>
+            <p class="text-[9px] text-muted font-mono">BUILD · OPS · CONTROL · n8n Governance Protocol</p>
         </div>
     </div>
     <div class="flex items-center gap-4">
@@ -131,10 +429,19 @@
 </header>
 
 <div class="flex flex-1 overflow-hidden">
-    <!-- â•â•â•â•â•â•â• SIDEBAR â•â•â•â•â•â•â• -->
+    <!-- ═ ═ ═ ═ ═ ═ ═  SIDEBAR ═ ═ ═ ═ ═ ═ ═  -->
     <aside class="w-[72px] border-r border-white/5 flex flex-col items-center py-3 gap-1 bg-surface/50 shrink-0 overflow-y-auto" style="scrollbar-width:none">
+        <!-- MASTER HUB -->
+        <div class="sb-icon active" data-tab="master" onclick="switchTab('master')">
+            <div class="p-1 rounded-lg bg-primary/10 text-primary border border-primary/20 mb-1">
+                <i data-lucide="crown" class="w-4 h-4"></i>
+            </div>
+            <span class="sb-label font-black text-primary">MASTER</span>
+        </div>
+        <div class="sb-divider"></div>
+
         <!-- STATUS GLOBAL -->
-        <div class="sb-icon active" data-tab="status" onclick="switchTab('status')"><i data-lucide="layout-dashboard" class="w-4 h-4"></i><span class="sb-label">Status</span></div>
+        <div class="sb-icon" data-tab="status" onclick="switchTab('status')"><i data-lucide="layout-dashboard" class="w-4 h-4"></i><span class="sb-label">Status</span></div>
         <div class="sb-divider"></div>
 
         <!-- BUILD -->
@@ -172,14 +479,98 @@
         <div class="sb-icon" data-tab="personas" onclick="switchTab('personas')"><i data-lucide="drama" class="w-4 h-4"></i><span class="sb-label">Personas</span></div>
     </aside>
 
-    <!-- â•â•â•â•â•â•â• MAIN CONTENT â•â•â•â•â•â•â• -->
+    <!-- ═ ═ ═ ═ ═ ═ ═  MAIN CONTENT ═ ═ ═ ═ ═ ═ ═  -->
     <main class="flex-1 overflow-hidden">
 
-        <!-- â•â•â•â•â•â•â• STATUS GLOBAL (CTL-01) â•â•â•â•â•â•â• -->
-        <div id="pane-status" class="tab-pane active p-8">
+        <!-- ═ ═ ═ ═ ═ ═ ═  AIOX MASTER HUB (CENTRAL) ═ ═ ═ ═ ═ ═ ═  -->
+        <div id="pane-master" class="tab-pane active p-4" style="background:#050508">
+            <div class="glass p-4 mb-4 flex items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-black uppercase tracking-tighter italic"><span class="text-primary">AIOX</span> <span class="text-white">MASTER</span></h2>
+                    <p class="text-[10px] text-muted font-bold tracking-[0.3em] uppercase mt-1">Painel unico: Projetos + Fluxos + Estrutura</p>
+                </div>
+                <div class="glass px-4 py-2 flex items-center gap-4">
+                    <div class="text-right">
+                        <p class="text-[8px] text-muted font-bold uppercase">Projeto ativo</p>
+                        <p id="master-active-project-label" class="text-sm font-black text-white">Sais</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[8px] text-muted font-bold uppercase">Modo</p>
+                        <p id="master-active-mode-label" class="text-sm font-black text-primary">Construcao</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass p-4 h-[calc(100vh-148px)] flex flex-col min-h-0">
+                <div class="master-workspace">
+                    <aside class="master-col master-project-list">
+                        <p class="text-[8px] text-muted uppercase tracking-widest mb-2">Projetos</p>
+                        <button id="master-project-sais" class="master-project-btn" onclick="setMasterProject('sais')">
+                            <p class="text-[11px] font-bold text-white">Sais</p>
+                            <p class="text-[9px] text-muted mt-1">E-book e oferta principal.</p>
+                        </button>
+                        <button id="master-project-velas" class="master-project-btn" onclick="setMasterProject('velas')">
+                            <p class="text-[11px] font-bold text-white">Velas</p>
+                            <p class="text-[9px] text-muted mt-1">Linha de produto editorial/comercial.</p>
+                        </button>
+                        <button id="master-project-electro" class="master-project-btn" onclick="setMasterProject('electro')">
+                            <p class="text-[11px] font-bold text-white">Electro</p>
+                            <p class="text-[9px] text-muted mt-1">Site de produtos fisicos.</p>
+                        </button>
+                        <p class="text-[8px] text-muted uppercase tracking-widest mt-3 mb-2">Metricas do projeto</p>
+                        <div id="master-project-kpis" class="master-kpi-grid"></div>
+                        <p class="text-[8px] text-muted uppercase tracking-widest mt-3 mb-2">Execucoes / Historico</p>
+                        <div id="master-project-timeline" class="master-timeline"></div>
+                    </aside>
+
+                    <section class="master-col">
+                        <div class="master-mode-bar">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <button id="master-view-tab-construcao" class="master-view-btn" onclick="setMasterView('construcao')">Construcao</button>
+                                <button id="master-view-tab-vendas" class="master-view-btn" onclick="setMasterView('vendas')">Vendas</button>
+                                <button id="master-view-tab-squads" class="master-view-btn" onclick="setMasterView('squads')">Squads</button>
+                                <button id="master-view-tab-agentes" class="master-view-btn" onclick="setMasterView('agentes')">Agentes</button>
+                                <button id="master-view-tab-skills" class="master-view-btn" onclick="setMasterView('skills')">Skills</button>
+                                <button id="master-view-tab-clones" class="master-view-btn" onclick="setMasterView('clones')">Clones</button>
+                            </div>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <input id="master-filter-query" class="master-filter-input w-[130px]" placeholder="Buscar item" oninput="setMasterFilters({query:this.value})" />
+                                <select id="master-filter-status" class="master-filter-select w-[118px]" onchange="setMasterFilters({status:this.value})">
+                                    <option value="all">Status: todos</option>
+                                    <option value="nao_iniciado">nao_iniciado</option>
+                                    <option value="em_preparacao">em_preparacao</option>
+                                    <option value="em_execucao">em_execucao</option>
+                                    <option value="em_revisao">em_revisao</option>
+                                    <option value="aprovado">aprovado</option>
+                                    <option value="bloqueado">bloqueado</option>
+                                    <option value="publicado">publicado</option>
+                                    <option value="ativo">ativo</option>
+                                </select>
+                                <input id="master-filter-owner" class="master-filter-input w-[118px]" placeholder="Owner" oninput="setMasterFilters({owner:this.value})" />
+                                <button class="master-mini-btn" onclick="resetMasterFilters()">Limpar</button>
+                            </div>
+                            <span id="master-mode-caption" class="text-[9px] text-muted">Visualizacao operacional</span>
+                        </div>
+                        <div class="master-canvas-wrap">
+                            <div id="master-project-canvas" class="master-canvas-grid"></div>
+                        </div>
+                    </section>
+
+                    <aside class="master-col master-col-inspector master-inspector">
+                        <p class="text-[8px] text-muted uppercase tracking-widest mb-2">Inspector</p>
+                        <div id="master-project-inspector" class="master-inspector-empty">
+                            Selecione um item no canvas para ver resumo, owner, status, dependencias e editar.
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═ ═ ═ ═ ═ ═ ═  STATUS GLOBAL (CTL-01) ═ ═ ═ ═ ═ ═ ═  -->
+        <div id="pane-status" class="tab-pane p-8">
             <div class="mb-8">
                 <h2 class="text-2xl font-black uppercase tracking-tighter italic"><span class="text-primary">Status</span> <span class="text-white">Global</span></h2>
-                <p class="text-[10px] text-muted font-bold tracking-[0.3em] uppercase mt-1">CTL-01 Â· VisÃ£o Executiva do Projeto Anti-Gravity</p>
+                <p class="text-[10px] text-muted font-bold tracking-[0.3em] uppercase mt-1">CTL-01 · Visão Executiva do Projeto Anti-Gravity</p>
             </div>
             <!-- KPI Cards -->
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8" id="status-kpis"></div>
@@ -201,16 +592,16 @@
             </div>
         </div>
 
-        <!-- â•â•â•â•â•â•â• BUILD MAP â•â•â•â•â•â•â• -->
+        <!-- ═══════ BUILD MAP ═══════ -->
         <div id="pane-build" class="tab-pane" style="overflow:hidden;position:relative;padding:0">
             <div style="position:absolute;top:0;left:0;right:0;z-index:20;padding:20px 28px;pointer-events:none;background:linear-gradient(to bottom,rgba(10,10,15,0.95) 60%,transparent)">
                 <div style="pointer-events:auto;display:flex;justify-content:space-between;align-items:center">
                     <div>
                         <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-primary">Build</span> <span class="text-white">Map</span></h2>
-                        <p class="text-[9px] text-muted font-mono uppercase tracking-widest mt-1">14 Fases Â· DependÃªncias Â· Estados Vivos</p>
+                        <p class="text-[9px] text-muted font-mono uppercase tracking-widest mt-1">14 Fases · Dependências · Estados Vivos</p>
                     </div>
                     <div class="flex gap-2">
-                        <button class="btn-ghost" onclick="setBuildZoom(-0.1)">âˆ’</button>
+                        <button class="btn-ghost" onclick="setBuildZoom(-0.1)">−</button>
                         <span id="build-zoom-label" class="text-[9px] text-muted font-mono self-center w-10 text-center">100%</span>
                         <button class="btn-ghost" onclick="setBuildZoom(0.1)">+</button>
                     </div>
@@ -222,12 +613,12 @@
             </div>
         </div>
 
-        <!-- â•â•â•â•â•â•â• OPS FLOW â•â•â•â•â•â•â• -->
+        <!-- ═══════ OPS FLOW ═══════ -->
         <div id="pane-ops" class="tab-pane" style="overflow:hidden;position:relative;padding:0">
             <div style="position:absolute;top:0;left:0;right:0;z-index:20;padding:20px 28px;pointer-events:none;background:linear-gradient(to bottom,rgba(10,10,15,0.95) 60%,transparent)">
                 <div style="pointer-events:auto">
                     <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-secondary">Ops</span> <span class="text-white">Flow</span></h2>
-                    <p class="text-[9px] text-muted font-mono uppercase tracking-widest mt-1">11 Etapas Â· Funil Operacional ao Vivo</p>
+                    <p class="text-[9px] text-muted font-mono uppercase tracking-widest mt-1">11 Etapas · Funil Operacional ao Vivo</p>
                 </div>
             </div>
             <div id="ops-viewport" style="width:100%;height:100%;overflow:auto;position:relative;padding-top:90px;background-image:radial-gradient(circle at 1px 1px,rgba(16,185,129,0.02) 1px,transparent 0);background-size:40px 40px">
@@ -236,14 +627,14 @@
             </div>
         </div>
 
-        <!-- â•â•â•â•â•â•â• APPROVAL CENTER (CTL-05) â•â•â•â•â•â•â• -->
+        <!-- ═══════ APPROVAL CENTER (CTL-05) ═══════ -->
         <div id="pane-approvals" class="tab-pane p-8">
             <div class="mb-8 flex justify-between items-end">
                 <div>
                     <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-primary">Approval</span> <span class="text-white">Center</span></h2>
-                    <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">CTL-05 Â· Decision Gates & AprovaÃ§Ãµes</p>
+                    <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">CTL-05 · Decision Gates & Aprovações</p>
                 </div>
-                <button class="btn-primary" onclick="createApproval()"><i data-lucide="plus" class="w-3 h-3 inline"></i> Nova AprovaÃ§Ã£o</button>
+                <button class="btn-primary" onclick="createApproval()"><i data-lucide="plus" class="w-3 h-3 inline"></i> Nova Aprovação</button>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 <div class="glass p-6">
@@ -256,30 +647,30 @@
                 </div>
             </div>
             <div class="glass p-6">
-                <h3 class="text-xs font-bold text-muted uppercase tracking-widest mb-4">Fila de AprovaÃ§Ãµes</h3>
+                <h3 class="text-xs font-bold text-muted uppercase tracking-widest mb-4">Fila de Aprovações</h3>
                 <div id="approvals-queue" class="space-y-3"></div>
             </div>
         </div>
 
-        <!-- â•â•â•â•â•â•â• MEMORY VAULT (CTL-06) â•â•â•â•â•â•â• -->
+        <!-- ═══════ MEMORY VAULT (CTL-06) ═══════ -->
         <div id="pane-memory" class="tab-pane p-8">
             <div class="mb-8">
                 <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-teal">Memory</span> <span class="text-white">Vault</span></h2>
-                <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">CTL-06 Â· 9 Escopos de MemÃ³ria Governada</p>
+                <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">CTL-06 · 9 Escopos de Memória Governada</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8" id="memory-scopes"></div>
             <div class="glass p-6">
-                <h3 class="text-xs font-bold text-muted uppercase tracking-widest mb-4">HistÃ³rico de MutaÃ§Ãµes</h3>
+                <h3 class="text-xs font-bold text-muted uppercase tracking-widest mb-4">Histórico de Mutações</h3>
                 <div id="memory-mutations" class="space-y-2 max-h-80 overflow-y-auto"></div>
             </div>
         </div>
 
-        <!-- â•â•â•â•â•â•â• ALERT HUB (CTL-10) â•â•â•â•â•â•â• -->
+        <!-- ═══════ ALERT HUB (CTL-10) ═══════ -->
         <div id="pane-alerts" class="tab-pane p-8">
             <div class="mb-8 flex justify-between items-end">
                 <div>
                     <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-coral">Alert</span> <span class="text-white">Hub</span></h2>
-                    <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">CTL-10 Â· Alertas Operacionais</p>
+                    <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">CTL-10 · Alertas Operacionais</p>
                 </div>
                 <button class="btn-danger" onclick="createAlert()"><i data-lucide="plus" class="w-3 h-3 inline"></i> Novo Alerta</button>
             </div>
@@ -289,57 +680,57 @@
                     <div id="alerts-active" class="space-y-3"></div>
                 </div>
                 <div class="glass p-6">
-                    <h3 class="text-xs font-bold text-muted uppercase tracking-widest mb-4">DefiniÃ§Ãµes de Alerta (Registry)</h3>
+                    <h3 class="text-xs font-bold text-muted uppercase tracking-widest mb-4">Definições de Alerta (Registry)</h3>
                     <div id="alerts-registry" class="space-y-3"></div>
                 </div>
             </div>
         </div>
 
-        <!-- â•â•â•â•â•â•â• EXECUTION LOG (CTL-11) â•â•â•â•â•â•â• -->
+        <!-- ═══════ EXECUTION LOG (CTL-11) ═══════ -->
         <div id="pane-logs" class="tab-pane p-8">
             <div class="mb-8">
                 <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-accent">Execution</span> <span class="text-white">Log</span></h2>
-                <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">CTL-11 Â· Timeline de ExecuÃ§Ãµes e Auditoria</p>
+                <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">CTL-11 · Timeline de Execuções e Auditoria</p>
             </div>
             <div class="flex gap-2 mb-6" id="log-filters">
                 <button class="btn-ghost active" onclick="filterLogs('all',this)">Todos</button>
                 <button class="btn-ghost" onclick="filterLogs('state_change',this)">Estado</button>
                 <button class="btn-ghost" onclick="filterLogs('approval',this)">Approvals</button>
                 <button class="btn-ghost" onclick="filterLogs('manual_intervention',this)">Manual</button>
-                <button class="btn-ghost" onclick="filterLogs('execution',this)">ExecuÃ§Ã£o</button>
+                <button class="btn-ghost" onclick="filterLogs('execution',this)">Execução</button>
             </div>
             <div id="logs-timeline" class="space-y-3"></div>
         </div>
 
-        <!-- â•â•â•â•â•â•â• RERUN CENTER (CTL-09) â•â•â•â•â•â•â• -->
+        <!-- ═══════ RERUN CENTER (CTL-09) ═══════ -->
         <div id="pane-reruns" class="tab-pane p-8">
             <div class="mb-8 flex justify-between items-end">
                 <div>
                     <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-sky">Rerun</span> <span class="text-white">Center</span></h2>
-                    <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">CTL-09 Â· GovernanÃ§a de ReexecuÃ§Ã£o</p>
+                    <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">CTL-09 · Governança de Reexecução</p>
                 </div>
                 <button class="btn-primary" onclick="createRerun()"><i data-lucide="plus" class="w-3 h-3 inline"></i> Solicitar Rerun</button>
             </div>
             <div id="reruns-queue" class="space-y-4"></div>
         </div>
 
-        <!-- â•â•â•â•â•â•â• INCIDENTS (CTL-13) â•â•â•â•â•â•â• -->
+        <!-- ═══════ INCIDENTS (CTL-13) ═══════ -->
         <div id="pane-incidents" class="tab-pane p-8">
             <div class="mb-8 flex justify-between items-end">
                 <div>
                     <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-coral">Incident</span> <span class="text-white">View</span></h2>
-                    <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">CTL-13 Â· GestÃ£o de Incidentes</p>
+                    <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">CTL-13 · Gestão de Incidentes</p>
                 </div>
                 <button class="btn-danger" onclick="createIncident()"><i data-lucide="plus" class="w-3 h-3 inline"></i> Reportar Incidente</button>
             </div>
             <div id="incidents-list" class="space-y-4"></div>
         </div>
 
-        <!-- â•â•â•â•â•â•â• COMMAND CONSOLE (CTL-08) â•â•â•â•â•â•â• -->
+        <!-- ═══════ COMMAND CONSOLE (CTL-08) ═══════ -->
         <div id="pane-commands" class="tab-pane p-8">
             <div class="mb-8">
                 <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-teal">Command</span> <span class="text-white">Console</span></h2>
-                <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">CTL-08 Â· Comandos Manuais com Log</p>
+                <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">CTL-08 · Comandos Manuais com Log</p>
             </div>
             <div class="glass p-6 mb-6">
                 <div class="grid grid-cols-3 gap-4 mb-4">
@@ -347,20 +738,20 @@
                         <select id="cmd-scope" class="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-[11px] text-white"><option>node</option><option>phase</option><option>squad</option><option>agent</option><option>skill</option></select></div>
                     <div><label class="text-[9px] text-muted font-bold uppercase block mb-1">Alvo (ID)</label>
                         <input id="cmd-target" class="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-[11px] text-white" placeholder="BLD-07"></div>
-                    <div><label class="text-[9px] text-muted font-bold uppercase block mb-1">AÃ§Ã£o</label>
+                    <div><label class="text-[9px] text-muted font-bold uppercase block mb-1">Ação</label>
                         <select id="cmd-action" class="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-[11px] text-white"><option>edit_copy</option><option>pause</option><option>resume</option><option>rerun</option><option>rollback</option><option>change_priority</option><option>enable_skill</option><option>disable_skill</option><option>annotate</option></select></div>
                 </div>
-                <div class="mb-4"><label class="text-[9px] text-muted font-bold uppercase block mb-1">InstruÃ§Ã£o / Payload</label>
-                    <textarea id="cmd-payload" class="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-[11px] text-white h-20 resize-none" placeholder="Descreva a intervenÃ§Ã£o..."></textarea></div>
+                <div class="mb-4"><label class="text-[9px] text-muted font-bold uppercase block mb-1">Instrução / Payload</label>
+                    <textarea id="cmd-payload" class="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-[11px] text-white h-20 resize-none" placeholder="Descreva a intervenção..."></textarea></div>
                 <button class="btn-success" onclick="sendCommand()"><i data-lucide="send" class="w-3 h-3 inline"></i> Executar Comando</button>
             </div>
             <div class="glass p-6">
-                <h3 class="text-xs font-bold text-muted uppercase tracking-widest mb-4">HistÃ³rico de Comandos</h3>
+                <h3 class="text-xs font-bold text-muted uppercase tracking-widest mb-4">Histórico de Comandos</h3>
                 <div id="commands-history" class="space-y-2 max-h-80 overflow-y-auto"></div>
             </div>
         </div>
 
-        <!-- â•â•â•â•â•â•â• WHY THIS RAN (CTL-14) â•â•â•â•â•â•â• -->
+        <!-- ═══════ WHY THIS RAN (CTL-14) ═══════ -->
         <div id="pane-why" class="tab-pane p-8">
             <div class="mb-8">
                 <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-accent">Why This</span> <span class="text-white">Ran</span></h2>
@@ -427,7 +818,7 @@
     <div style="padding:20px">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
             <h3 id="drawer-title" style="font-size:14px;font-weight:700"></h3>
-            <button onclick="closeDrawer()" style="color:#6b7280;cursor:pointer;background:none;border:none;font-size:18px">✕</button>
+            <button onclick="closeDrawer()" style="color:#6b7280;cursor:pointer;background:none;border:none;font-size:18px">×</button>
         </div>
         <div id="drawer-content"></div>
     </div>
@@ -444,7 +835,7 @@
             <div class="flex items-center gap-3">
                 <span id="editor-status" class="text-[9px] text-secondary font-bold uppercase tracking-widest hidden">Salvo</span>
                 <button onclick="saveEditorModal()" class="btn-primary"><i data-lucide="save" class="w-3 h-3 inline"></i> Salvar</button>
-                <button onclick="closeEditorModal()" class="btn-ghost">✕</button>
+                <button onclick="closeEditorModal()" class="btn-ghost">×</button>
             </div>
         </div>
         <textarea id="editor-textarea" class="flex-1 bg-[#1e1e2d] text-[#e5e7eb] font-mono text-[13px] p-6 resize-none focus:outline-none leading-relaxed" spellcheck="false"></textarea>
@@ -459,7 +850,7 @@
                 <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center"><i data-lucide="user-plus" class="w-4 h-4"></i></div>
                 <h3 class="text-sm font-bold text-white uppercase tracking-wider">Nova Persona</h3>
             </div>
-            <button onclick="document.getElementById('add-persona-modal').style.display='none'" class="btn-ghost">✕</button>
+            <button onclick="document.getElementById('add-persona-modal').style.display='none'" class="btn-ghost">×</button>
         </div>
         <div class="p-6 space-y-4">
             <div><label class="text-[9px] text-muted font-bold uppercase block mb-1">Nome da Persona</label>
@@ -512,91 +903,941 @@ const FUNNEL_NODES = { ebook: [
 ]};
 const FUNNEL_EDGES = { ebook: [['fb','quiz'],['fb','sales'],['ig','quiz'],['ig','cap'],['org','cap'],['quiz','vsl'],['quiz','sales'],['cap','vsl'],['cap','sales'],['vsl','sales'],['sales','ck'],['ck','ob'],['ck','up'],['ob','up'],['up','ty'],['up','dw'],['dw','ty'],['ty','area'],['ty','pos'],['area','pos'],['pos','rmk']] };
 
-// ══════════════════════════════════════════
-// TAB SWITCHING
-// ══════════════════════════════════════════
 function switchTab(tab) {
-    document.querySelectorAll('.sb-icon').forEach(i => i.classList.remove('active'));
-    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-    const el = document.querySelector(`[data-tab="${tab}"]`);
-    if (el) el.classList.add('active');
-    const pane = document.getElementById('pane-' + tab);
-    if (pane) pane.classList.add('active');
-    // Render on switch
-    if (tab === 'build') renderBuild();
-    if (tab === 'ops') renderOps();
-    if (tab === 'status') renderStatus();
-    if (tab === 'approvals') renderApprovals();
-    if (tab === 'alerts') renderAlerts();
-    if (tab === 'logs') renderLogs();
-    if (tab === 'reruns') renderReruns();
-    if (tab === 'incidents') renderIncidents();
-    if (tab === 'commands') renderCommands();
-    if (tab === 'why') renderWhy();
-    if (tab === 'memory') renderMemory();
-    if (tab === 'squads') renderSquads();
-    if (tab === 'agents') renderAgents();
-    if (tab === 'skills') renderSkills();
-    if (tab === 'personas') renderPersonas();
-    lucide.createIcons();
+    try {
+        document.querySelectorAll('.sb-icon').forEach(i => i.classList.remove('active'));
+        const icon = document.querySelector(`.sb-icon[data-tab="${tab}"]`);
+        if (icon) icon.classList.add('active');
+
+        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+        const pane = document.getElementById(`pane-${tab}`);
+        if (pane) pane.classList.add('active');
+
+        if (tab === 'master') renderMasterHub();
+        if (tab === 'status') renderStatus();
+        if (tab === 'build') renderBuild();
+        if (tab === 'ops') renderOps();
+        if (tab === 'approvals') renderApprovals();
+        if (tab === 'memory') renderMemory();
+        if (tab === 'alerts') renderAlerts();
+        if (tab === 'logs') renderLogs();
+        if (tab === 'reruns') renderReruns();
+        if (tab === 'incidents') renderIncidents();
+        if (tab === 'commands') renderCommands();
+        if (tab === 'funnel') renderFunnel(window.activeFunnelProject || 'ebook');
+        if (tab === 'squads') renderSquads();
+        if (tab === 'personas') renderPersonas();
+        if (tab === 'agents') renderAgents();
+        if (tab === 'skills') renderSkills();
+        
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    } catch(e) { console.error('SwitchTab Error:', e); }
 }
 
-// ══════════════════════════════════════════
-// STATUS GLOBAL RENDER
-// ══════════════════════════════════════════
 function renderStatus() {
-    const phases = BUILD_STATE.phases || [];
-    const completed = phases.filter(p => p.state === 'completed').length;
-    const inProgress = phases.filter(p => p.state === 'in_progress').length;
-    const blocked = phases.filter(p => p.state === 'blocked').length;
-    const failed = phases.filter(p => p.state === 'failed').length;
-    const waiting = phases.filter(p => p.state === 'waiting_approval').length;
-    const currentPhase = phases.find(p => p.state === 'in_progress') || phases.find(p => p.state !== 'completed') || {};
+    try {
+        const phases = (BUILD_STATE && BUILD_STATE.phases) ? BUILD_STATE.phases : [];
+        const completed = phases.filter(p => p.state === 'completed').length;
+        const inProgress = phases.filter(p => p.state === 'in_progress').length;
+        const blocked = phases.filter(p => p.state === 'blocked').length;
+        const failed = phases.filter(p => p.state === 'failed').length;
+        const waiting = phases.filter(p => p.state === 'waiting_approval').length;
+        const currentPhase = phases.find(p => p.state === 'in_progress') || phases.find(p => p.state !== 'completed') || {};
 
-    document.getElementById('hdr-build-phase').textContent = currentPhase.id || '—';
-    document.getElementById('hdr-alert-count').textContent = (ALERTS.items || []).filter(a => a.status === 'open').length;
-    document.getElementById('hdr-approval-count').textContent = (APPROVALS.items || []).filter(a => a.status === 'pending').length;
+        const hdrPhase = document.getElementById('hdr-build-phase');
+        if (hdrPhase) hdrPhase.textContent = currentPhase.id || '—';
+        
+        const hdrAlerts = document.getElementById('hdr-alert-count');
+        if (hdrAlerts) hdrAlerts.textContent = (ALERTS && ALERTS.items) ? ALERTS.items.filter(a => a.status === 'open').length : 0;
+        
+        const hdrApprovals = document.getElementById('hdr-approval-count');
+        if (hdrApprovals) hdrApprovals.textContent = (APPROVALS && APPROVALS.items) ? APPROVALS.items.filter(a => a.status === 'pending').length : 0;
 
-    document.getElementById('status-kpis').innerHTML = [
-        { label: 'Fases BUILD', value: `${completed}/14`, color: '#10b981' },
-        { label: 'Em Progresso', value: inProgress, color: '#f59e0b' },
-        { label: 'Bloqueadas', value: blocked, color: '#ef4444' },
-        { label: 'Aguardando', value: waiting, color: '#a855f7' },
-        { label: 'Alertas Abertos', value: (ALERTS.items || []).filter(a => a.status === 'open').length, color: '#ef4444' },
-        { label: 'Agentes', value: (REGISTRY.agents || []).length, color: '#14b8a6' }
-    ].map(k => `<div class="glass p-4 text-center border-t-2" style="border-top-color:${k.color}">
-        <p class="text-2xl font-black text-white">${k.value}</p>
-        <p class="text-[8px] text-muted font-bold uppercase tracking-widest mt-1">${k.label}</p>
-    </div>`).join('');
+        const kpiContainer = document.getElementById('status-kpis');
+        if (kpiContainer) {
+            kpiContainer.innerHTML = [
+                { label: 'Fases BUILD', value: `${completed}/14`, color: '#10b981' },
+                { label: 'Em Progresso', value: inProgress, color: '#f59e0b' },
+                { label: 'Bloqueadas', value: blocked, color: '#ef4444' },
+                { label: 'Aguardando', value: waiting, color: '#a855f7' },
+                { label: 'Alertas Abertos', value: (ALERTS && ALERTS.items) ? ALERTS.items.filter(a => a.status === 'open').length : 0, color: '#ef4444' },
+                { label: 'Agentes', value: (REGISTRY && REGISTRY.agents) ? REGISTRY.agents.length : 0, color: '#14b8a6' }
+            ].map(k => `<div class="glass p-4 text-center border-t-2" style="border-top-color:${k.color}">
+                <p class="text-2xl font-black text-white">${k.value}</p>
+                <p class="text-[8px] text-muted font-bold uppercase tracking-widest mt-1">${k.label}</p>
+            </div>`).join('');
+        }
 
-    document.getElementById('status-build-progress').innerHTML = phases.map(p => {
-        const sq = SQUAD_COLORS[p.squad] || '#6b7280';
-        return `<div class="flex items-center gap-3 py-1.5 border-b border-white/5 last:border-0">
-            <span class="text-[9px] font-mono text-muted w-16">${p.id}</span>
-            <span class="text-[10px] text-white font-bold flex-1">${p.name}</span>
-            <span class="badge state-${p.state}" style="font-size:8px">${p.state}</span>
-        </div>`;
-    }).join('');
+        const buildProgContainer = document.getElementById('status-build-progress');
+        if (buildProgContainer) {
+            buildProgContainer.innerHTML = phases.map(p => {
+                return `<div class="flex items-center gap-3 py-1.5 border-b border-white/5 last:border-0">
+                    <span class="text-[9px] font-mono text-muted w-16">${p.id}</span>
+                    <span class="text-[10px] text-white font-bold flex-1">${p.name}</span>
+                    <span class="badge state-${p.state}" style="font-size:8px">${p.state}</span>
+                </div>`;
+            }).join('');
+        }
+        const chkContainer = document.getElementById('status-checkpoints');
+        if (chkContainer) {
+            const chks = (REGISTRY && Array.isArray(REGISTRY.checkpoints)) ? REGISTRY.checkpoints : [];
+            chkContainer.innerHTML = chks.map(c => `<div class="flex items-center gap-3 py-1.5 border-b border-white/5 last:border-0">
+                <span class="text-[9px] font-mono text-muted w-14">${c.id}</span>
+                <span class="text-[10px] text-white flex-1">${c.name}</span>
+                <span class="badge state-${c.status === 'approved' ? 'completed' : c.status === 'in_review' ? 'in_progress' : 'draft'}" style="font-size:8px">${c.status}</span>
+            </div>`).join('');
+        }
 
-    const chks = REGISTRY.checkpoints || [];
-    document.getElementById('status-checkpoints').innerHTML = chks.map(c => `<div class="flex items-center gap-3 py-1.5 border-b border-white/5 last:border-0">
-        <span class="text-[9px] font-mono text-muted w-14">${c.id}</span>
-        <span class="text-[10px] text-white flex-1">${c.name}</span>
-        <span class="badge state-${c.status === 'approved' ? 'completed' : c.status === 'in_review' ? 'in_progress' : 'draft'}" style="font-size:8px">${c.status}</span>
-    </div>`).join('');
+        const activityContainer = document.getElementById('status-activity');
+        if (activityContainer) {
+            const logs = (LOGS && LOGS.entries) ? LOGS.entries.slice(-10).reverse() : [];
+            activityContainer.innerHTML = logs.length ? logs.map(l =>
+                `<div class="flex items-center gap-3 text-[10px] py-1 border-b border-white/5 last:border-0">
+                    <span class="text-muted font-mono text-[8px] w-24">${new Date(l.timestamp).toLocaleString('pt-BR',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit'})}</span>
+                    <span class="badge border-white/10 text-muted bg-white/5" style="font-size:7px">${l.type}</span>
+                    <span class="text-white">${l.target || ''}</span>
+                    <span class="text-muted">${l.details || l.why_this_ran || l.verdict || ''}</span>
+                </div>
+            `).join('') : '<p class="text-[10px] text-muted italic">Nenhuma atividade registrada.</p>';
+        }
 
-    const logs = (LOGS.entries || []).slice(-10).reverse();
-    document.getElementById('status-activity').innerHTML = logs.length ? logs.map(l =>
-        `<div class="flex items-center gap-3 text-[10px] py-1 border-b border-white/5 last:border-0">
-            <span class="text-muted font-mono text-[8px] w-24">${new Date(l.timestamp).toLocaleString('pt-BR',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit'})}</span>
-            <span class="badge border-white/10 text-muted bg-white/5" style="font-size:7px">${l.type}</span>
-            <span class="text-white">${l.target || ''}</span>
-            <span class="text-muted">${l.details || l.why_this_ran || l.verdict || ''}</span>
-        </div>`
-    ).join('') : '<p class="text-[10px] text-muted italic">Nenhuma atividade registrada.</p>';
+        // Also render Master Hub if active
+        if (document.getElementById('pane-master').classList.contains('active')) {
+            renderMasterHub();
+        }
+    } catch(e) { console.error('Render Status Error:', e); }
 }
 
-// ══════════════════════════════════════════
+window.MASTER_PROJECT = window.MASTER_PROJECT || 'sais';
+window.MASTER_VIEW = window.MASTER_VIEW || 'construcao';
+window.MASTER_SELECTED_ID = window.MASTER_SELECTED_ID || '';
+window.PROJECT_FLOWS = window.PROJECT_FLOWS || { projects: {} };
+window.MASTER_FILTERS = window.MASTER_FILTERS || { query: '', status: 'all', owner: '' };
+
+const MASTER_UI_STORAGE_KEY = 'aiox.master.ui.v2';
+
+const MASTER_MODE_CAPTIONS = {
+    construcao: 'Fluxo de producao do projeto',
+    vendas: 'Fluxo comercial do projeto',
+    squads: 'Estrutura de squads e entregas',
+    agentes: 'Catalogo global de agentes',
+    skills: 'Catalogo global de skills',
+    clones: 'Catalogo global de clones'
+};
+const MASTER_VIEW_ORDER = ['construcao', 'vendas', 'squads', 'agentes', 'skills', 'clones'];
+const MASTER_PROJECT_VIEWS = ['construcao', 'vendas'];
+const MASTER_CATALOG_VIEWS = ['squads', 'agentes', 'skills', 'clones'];
+
+const MASTER_DONE_STATUSES = new Set(['aprovado', 'publicado']);
+const MASTER_ACTIVE_STATUSES = new Set(['em_preparacao', 'em_execucao', 'em_revisao', 'ativo']);
+const MASTER_BLOCKED_STATUSES = new Set(['bloqueado']);
+const MASTER_TIMELINE_LIMIT = 12;
+
+const MASTER_PROJECT_FLOWS = {
+    sais: {
+        label: 'Sais',
+        construcao: [
+            { id: 'CZ-01', nome: 'Estrategia', squad: 'SQD-CORE', status: 'em_execucao', resumo: 'Definicao de oferta e tese.', entrega: 'Direction Package', entrega_para: 'SQD-CNT' },
+            { id: 'CZ-02', nome: 'Estrutura PDF', squad: 'SQD-CNT', status: 'em_preparacao', resumo: 'Estrutura editorial do material.', entrega: 'Skeleton editorial', entrega_para: 'SQD-EXP' },
+            { id: 'CZ-03', nome: 'E-book', squad: 'SQD-CNT', status: 'nao_iniciado', resumo: 'Producao longform e revisao.', entrega: 'E-book final', entrega_para: 'SQD-EXP' },
+            { id: 'CZ-04', nome: 'Pagina de vendas', squad: 'SQD-EXP', status: 'nao_iniciado', resumo: 'Landing principal e copy visual.', entrega: 'Sales page', entrega_para: 'SQD-ENG' },
+            { id: 'CZ-05', nome: 'QA/Publicacao', squad: 'SQD-QRO', status: 'nao_iniciado', resumo: 'Validacao final e publicacao.', entrega: 'Release aprovado', entrega_para: 'Operacao' }
+        ],
+        vendas: [
+            { id: 'VZ-01', nome: 'Anuncio Meta', squad: 'SQD-MKF', status: 'em_preparacao', resumo: 'Campanhas de aquisicao.', entrega: 'Cliques qualificados', entrega_para: 'Landing' },
+            { id: 'VZ-02', nome: 'Clique -> Landing', squad: 'SQD-MKF', status: 'nao_iniciado', resumo: 'Transicao para pagina de vendas.', entrega: 'Visita qualificada', entrega_para: 'Checkout' },
+            { id: 'VZ-03', nome: 'Checkout', squad: 'SQD-ENG', status: 'nao_iniciado', resumo: 'Conversao e pagamento.', entrega: 'Pedido aprovado', entrega_para: 'Pos-compra' },
+            { id: 'VZ-04', nome: 'Remarketing', squad: 'SQD-MKF', status: 'nao_iniciado', resumo: 'Recuperacao de abandono.', entrega: 'Retorno de lead', entrega_para: 'Landing' }
+        ]
+    },
+    velas: {
+        label: 'Velas',
+        construcao: [
+            { id: 'CV-01', nome: 'Brief e Oferta', squad: 'SQD-CORE', status: 'em_preparacao', resumo: 'Escopo e publico.', entrega: 'Brief aprovado', entrega_para: 'SQD-CNT' },
+            { id: 'CV-02', nome: 'Conteudo E-book', squad: 'SQD-CNT', status: 'nao_iniciado', resumo: 'Estrutura e conteudo de referencia.', entrega: 'Capitulos', entrega_para: 'SQD-EXP' },
+            { id: 'CV-03', nome: 'Pagina de vendas', squad: 'SQD-EXP', status: 'nao_iniciado', resumo: 'Composicao visual e copy.', entrega: 'Landing pronta', entrega_para: 'SQD-ENG' }
+        ],
+        vendas: [
+            { id: 'VV-01', nome: 'Anuncio', squad: 'SQD-MKF', status: 'nao_iniciado', resumo: 'Ativacao de campanha.', entrega: 'Trafego', entrega_para: 'Landing' },
+            { id: 'VV-02', nome: 'Landing', squad: 'SQD-EXP', status: 'nao_iniciado', resumo: 'Captura e convencimento.', entrega: 'Lead aquecido', entrega_para: 'Checkout' },
+            { id: 'VV-03', nome: 'Checkout', squad: 'SQD-ENG', status: 'nao_iniciado', resumo: 'Transacao.', entrega: 'Venda', entrega_para: 'Remarketing' },
+            { id: 'VV-04', nome: 'Remarketing', squad: 'SQD-MKF', status: 'nao_iniciado', resumo: 'Recuperacao.', entrega: 'Nova visita', entrega_para: 'Landing' }
+        ]
+    },
+    electro: {
+        label: 'Electro',
+        construcao: [
+            { id: 'CE-01', nome: 'Arquitetura do site', squad: 'SQD-CORE', status: 'em_preparacao', resumo: 'Mapa de categorias e oferta.', entrega: 'Mapa do site', entrega_para: 'SQD-EXP' },
+            { id: 'CE-02', nome: 'Catalogo de produtos', squad: 'SQD-CNT', status: 'nao_iniciado', resumo: 'Descricoes e ativos.', entrega: 'Catalogo', entrega_para: 'SQD-ENG' },
+            { id: 'CE-03', nome: 'UX e vitrine', squad: 'SQD-EXP', status: 'nao_iniciado', resumo: 'Layout de vitrine e PDP.', entrega: 'Interface pronta', entrega_para: 'SQD-ENG' },
+            { id: 'CE-04', nome: 'Integracao checkout', squad: 'SQD-ENG', status: 'nao_iniciado', resumo: 'Pagamento e entrega.', entrega: 'Checkout funcional', entrega_para: 'SQD-QRO' }
+        ],
+        vendas: [
+            { id: 'VE-01', nome: 'Ads', squad: 'SQD-MKF', status: 'nao_iniciado', resumo: 'Aquisicao de trafego.', entrega: 'Visitantes', entrega_para: 'Catalogo' },
+            { id: 'VE-02', nome: 'Catalogo -> PDP', squad: 'SQD-EXP', status: 'nao_iniciado', resumo: 'Navegacao e escolha.', entrega: 'Intencao de compra', entrega_para: 'Checkout' },
+            { id: 'VE-03', nome: 'Checkout', squad: 'SQD-ENG', status: 'nao_iniciado', resumo: 'Compra final.', entrega: 'Pedido', entrega_para: 'CRM' },
+            { id: 'VE-04', nome: 'Remarketing', squad: 'SQD-MKF', status: 'nao_iniciado', resumo: 'Carrinho abandonado e recaptura.', entrega: 'Retorno de cliente', entrega_para: 'Catalogo' }
+        ]
+    }
+};
+
+function getMasterProjectFlows() {
+    const remote = (window.PROJECT_FLOWS && window.PROJECT_FLOWS.projects) || {};
+    return Object.keys(remote).length ? remote : MASTER_PROJECT_FLOWS;
+}
+
+function loadMasterUiState() {
+    try {
+        const raw = localStorage.getItem(MASTER_UI_STORAGE_KEY);
+        if (!raw) return;
+        const state = JSON.parse(raw);
+        if (state && typeof state === 'object') {
+            if (typeof state.project === 'string' && state.project.trim()) window.MASTER_PROJECT = state.project.trim();
+            if (typeof state.view === 'string' && state.view.trim()) window.MASTER_VIEW = state.view.trim();
+            if (typeof state.selected === 'string') window.MASTER_SELECTED_ID = state.selected;
+            if (state.filters && typeof state.filters === 'object') {
+                window.MASTER_FILTERS = {
+                    query: String(state.filters.query || ''),
+                    status: String(state.filters.status || 'all'),
+                    owner: String(state.filters.owner || '')
+                };
+            }
+        }
+        const allowedViews = ['construcao', 'vendas', 'squads', 'agentes', 'skills', 'clones'];
+        if (!allowedViews.includes(window.MASTER_VIEW)) window.MASTER_VIEW = 'construcao';
+        const allowedProjects = ['sais', 'velas', 'electro'];
+        if (!allowedProjects.includes(window.MASTER_PROJECT)) window.MASTER_PROJECT = 'sais';
+    } catch (_) {}
+}
+
+function persistMasterUiState() {
+    try {
+        localStorage.setItem(MASTER_UI_STORAGE_KEY, JSON.stringify({
+            project: window.MASTER_PROJECT,
+            view: window.MASTER_VIEW,
+            selected: window.MASTER_SELECTED_ID,
+            filters: window.MASTER_FILTERS
+        }));
+    } catch (_) {}
+}
+
+function applyMasterFilters(items) {
+    const filters = window.MASTER_FILTERS || { query: '', status: 'all', owner: '' };
+    const query = String(filters.query || '').trim().toLowerCase();
+    const owner = String(filters.owner || '').trim().toLowerCase();
+    const status = String(filters.status || 'all').trim().toLowerCase();
+    return (items || []).filter(item => {
+        const itemStatus = String(item.status || '').toLowerCase();
+        const haystack = [
+            item.label,
+            item.id,
+            item.type,
+            item.summary,
+            item.owner,
+            item.entrega,
+            item.entrega_para,
+            item.context_project_id,
+            item.context_project_label,
+            item.context_view,
+            item.context_view_label
+        ].map(v => String(v || '').toLowerCase()).join(' ');
+        const statusOk = status === 'all' || itemStatus === status;
+        const queryOk = !query || haystack.includes(query);
+        const ownerOk = !owner || String(item.owner || '').toLowerCase().includes(owner);
+        return statusOk && queryOk && ownerOk;
+    });
+}
+
+function summarizeMasterStatuses(items) {
+    const base = { total: 0, done: 0, active: 0, blocked: 0, pct: 0 };
+    const list = Array.isArray(items) ? items : [];
+    base.total = list.length;
+    list.forEach(item => {
+        const status = String((item && item.status) || '').toLowerCase();
+        if (MASTER_DONE_STATUSES.has(status)) base.done += 1;
+        if (MASTER_ACTIVE_STATUSES.has(status)) base.active += 1;
+        if (MASTER_BLOCKED_STATUSES.has(status)) base.blocked += 1;
+    });
+    base.pct = base.total ? Math.round((base.done / base.total) * 100) : 0;
+    return base;
+}
+
+function renderMasterProjectKpis(filteredModeItems, allModeItems) {
+    const container = document.getElementById('master-project-kpis');
+    if (!container) return;
+
+    const flows = getMasterProjectFlows();
+    const fallbackProject = flows.sais || Object.values(flows)[0] || { label: '-', construcao: [], vendas: [] };
+    const project = flows[window.MASTER_PROJECT] || fallbackProject;
+
+    const build = summarizeMasterStatuses(project.construcao || []);
+    const sales = summarizeMasterStatuses(project.vendas || []);
+    const combined = summarizeMasterStatuses([...(project.construcao || []), ...(project.vendas || [])]);
+    const visible = Array.isArray(filteredModeItems) ? filteredModeItems.length : 0;
+    const modeTotal = Array.isArray(allModeItems) ? allModeItems.length : 0;
+
+    const globalSearch = isMasterGlobalSearchActive();
+    const visibleSummary = summarizeMasterStatuses(filteredModeItems || []);
+
+    container.innerHTML = `
+        <div class="master-kpi-card">
+            <p class="text-[8px] text-muted uppercase tracking-widest mb-1">Progresso</p>
+            <p class="master-kpi-value">${combined.pct}%</p>
+            <p class="text-[8px] text-muted">${combined.done}/${combined.total} concluidas</p>
+        </div>
+        <div class="master-kpi-card">
+            <p class="text-[8px] text-muted uppercase tracking-widest mb-1">Construcao</p>
+            <p class="master-kpi-value">${build.done}/${build.total}</p>
+            <p class="text-[8px] text-muted">${build.active} em andamento</p>
+        </div>
+        <div class="master-kpi-card">
+            <p class="text-[8px] text-muted uppercase tracking-widest mb-1">Vendas</p>
+            <p class="master-kpi-value">${sales.done}/${sales.total}</p>
+            <p class="text-[8px] text-muted">${sales.active} em andamento</p>
+        </div>
+        <div class="master-kpi-card">
+            <p class="text-[8px] text-muted uppercase tracking-widest mb-1">${globalSearch ? 'Busca Global' : 'Modo Atual'}</p>
+            <p class="master-kpi-value">${visible}/${modeTotal}</p>
+            <p class="text-[8px] text-muted">${globalSearch ? `${visibleSummary.active} ativos na busca` : `${combined.blocked} bloqueios no projeto`}</p>
+        </div>
+    `;
+}
+
+function getMasterProjectForTimeline() {
+    const flows = getMasterProjectFlows();
+    const fallbackProject = flows.sais || Object.values(flows)[0] || { label: '-', construcao: [], vendas: [] };
+    return flows[window.MASTER_PROJECT] || fallbackProject;
+}
+
+function getMasterTimelineFlowNodes(project) {
+    const buildNodes = (project.construcao || []).map(node => ({ ...node, lane: 'construcao' }));
+    const salesNodes = (project.vendas || []).map(node => ({ ...node, lane: 'vendas' }));
+    if (window.MASTER_VIEW === 'construcao') return buildNodes;
+    if (window.MASTER_VIEW === 'vendas') return salesNodes;
+    return buildNodes.concat(salesNodes);
+}
+
+function normalizeMasterProjectId(raw) {
+    const value = String(raw || '').trim().toLowerCase();
+    if (value === 'sais' || value === 'velas' || value === 'electro') return value;
+    return null;
+}
+
+function statusPriority(status) {
+    const map = {
+        bloqueado: 0,
+        em_execucao: 1,
+        em_revisao: 2,
+        em_preparacao: 3,
+        aprovado: 4,
+        publicado: 5,
+        ativo: 6,
+        nao_iniciado: 7
+    };
+    return Object.prototype.hasOwnProperty.call(map, status) ? map[status] : 99;
+}
+
+function timelineDotColor(event) {
+    const status = String(event.status || '').toLowerCase();
+    if (MASTER_BLOCKED_STATUSES.has(status)) return '#ef4444';
+    if (MASTER_ACTIVE_STATUSES.has(status)) return '#f59e0b';
+    if (MASTER_DONE_STATUSES.has(status)) return '#10b981';
+    return event.kind === 'log' ? '#38bdf8' : '#94a3b8';
+}
+
+function formatTimelineWhen(value) {
+    if (!value) return 'snapshot';
+    const ts = new Date(value);
+    if (Number.isNaN(ts.getTime())) return 'snapshot';
+    return ts.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+}
+
+function summarizeLaneEvent(project, lane, nodes, timestamp) {
+    const summary = summarizeMasterStatuses(nodes);
+    const laneTitle = lane === 'construcao' ? 'Construcao' : 'Vendas';
+    return {
+        kind: 'snapshot',
+        timestamp: timestamp || null,
+        status: summary.blocked > 0 ? 'bloqueado' : summary.active > 0 ? 'em_execucao' : summary.done > 0 ? 'aprovado' : 'nao_iniciado',
+        title: `${project.label} - ${laneTitle}`,
+        subtitle: `${summary.done}/${summary.total} concluidas, ${summary.active} em andamento, ${summary.blocked} bloqueadas`,
+        detail: `Percentual do lane: ${summary.pct}%`
+    };
+}
+
+function buildMasterTimelineEvents() {
+    const project = getMasterProjectForTimeline();
+    const activeProjectId = normalizeMasterProjectId(window.MASTER_PROJECT);
+    const flowMetaTs = (window.PROJECT_FLOWS && window.PROJECT_FLOWS.updated_at) || null;
+    const buildNodes = (project.construcao || []);
+    const salesNodes = (project.vendas || []);
+    const visibleNodes = getMasterTimelineFlowNodes(project);
+
+    const allProjectIds = new Set(buildNodes.concat(salesNodes).map(node => String(node.id || '').toUpperCase()).filter(Boolean));
+    const logs = (LOGS && LOGS.entries) ? LOGS.entries.slice() : [];
+
+    const matchedLogEvents = logs
+        .map(entry => {
+            const timestamp = entry.timestamp || null;
+            const haystack = [
+                entry.target,
+                entry.details,
+                entry.why_this_ran,
+                entry.action,
+                entry.type
+            ].map(v => String(v || '').toUpperCase()).join(' ');
+            const hasProjectNode = Array.from(allProjectIds).some(id => haystack.includes(id));
+            const entryProjectId = normalizeMasterProjectId(entry.project_id);
+            if (entryProjectId && activeProjectId && entryProjectId !== activeProjectId) return null;
+            const matchesByProjectId = Boolean(activeProjectId && entryProjectId === activeProjectId);
+            if (!matchesByProjectId && !hasProjectNode) return null;
+            return {
+                kind: 'log',
+                timestamp,
+                status: 'em_execucao',
+                title: `${entry.type || 'log'} - ${entry.target || 'evento'}`,
+                subtitle: entry.details || entry.why_this_ran || '-',
+                detail: `Iniciado por: ${entry.initiated_by || '-'}${entryProjectId ? ` | Projeto: ${entryProjectId}` : ''}`
+            };
+        })
+        .filter(Boolean)
+        .sort((a, b) => new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime());
+
+    const laneEvents = [];
+    if (window.MASTER_VIEW === 'construcao') {
+        laneEvents.push(summarizeLaneEvent(project, 'construcao', buildNodes, flowMetaTs));
+    } else if (window.MASTER_VIEW === 'vendas') {
+        laneEvents.push(summarizeLaneEvent(project, 'vendas', salesNodes, flowMetaTs));
+    } else {
+        laneEvents.push(summarizeLaneEvent(project, 'construcao', buildNodes, flowMetaTs));
+        laneEvents.push(summarizeLaneEvent(project, 'vendas', salesNodes, flowMetaTs));
+    }
+
+    const nodeSnapshotEvents = visibleNodes
+        .slice()
+        .sort((a, b) => statusPriority(String(a.status || '')) - statusPriority(String(b.status || '')))
+        .map(node => ({
+            kind: 'snapshot',
+            timestamp: flowMetaTs,
+            status: node.status || 'nao_iniciado',
+            title: `${node.id} - ${node.nome}`,
+            subtitle: `${node.lane === 'vendas' ? 'Vendas' : 'Construcao'} | ${node.squad || '-'}`,
+            detail: node.resumo || '-'
+        }));
+
+    const events = [];
+    matchedLogEvents.forEach(event => {
+        if (events.length < MASTER_TIMELINE_LIMIT) events.push(event);
+    });
+    laneEvents.forEach(event => {
+        if (events.length < MASTER_TIMELINE_LIMIT) events.push(event);
+    });
+    nodeSnapshotEvents.forEach(event => {
+        if (events.length < MASTER_TIMELINE_LIMIT) events.push(event);
+    });
+
+    return events;
+}
+
+function renderMasterProjectTimeline() {
+    const container = document.getElementById('master-project-timeline');
+    if (!container) return;
+
+    const events = buildMasterTimelineEvents();
+    if (!events.length) {
+        container.innerHTML = '<p class="text-[10px] text-muted italic">Sem eventos no historico.</p>';
+        return;
+    }
+
+    container.innerHTML = events.map(event => `
+        <article class="master-timeline-item">
+            <div class="flex items-center justify-between gap-2 mb-1">
+                <p class="text-[10px] font-bold text-white truncate">
+                    <span class="master-timeline-dot" style="background:${timelineDotColor(event)}"></span>${masterEscape(event.title)}
+                </p>
+                <span class="text-[8px] text-muted font-mono shrink-0">${masterEscape(formatTimelineWhen(event.timestamp))}</span>
+            </div>
+            <p class="text-[9px] text-muted">${masterEscape(event.subtitle || '-')}</p>
+            <p class="text-[8px] text-muted mt-1">${masterEscape(event.detail || '')}</p>
+        </article>
+    `).join('');
+}
+
+function setMasterFilters(partial) {
+    const next = {
+        query: String((partial && partial.query) !== undefined ? partial.query : window.MASTER_FILTERS.query || ''),
+        status: String((partial && partial.status) !== undefined ? partial.status : window.MASTER_FILTERS.status || 'all'),
+        owner: String((partial && partial.owner) !== undefined ? partial.owner : window.MASTER_FILTERS.owner || '')
+    };
+    window.MASTER_FILTERS = next;
+    window.MASTER_SELECTED_ID = '';
+    persistMasterUiState();
+    renderMasterHub();
+}
+
+function resetMasterFilters() {
+    window.MASTER_FILTERS = { query: '', status: 'all', owner: '' };
+    window.MASTER_SELECTED_ID = '';
+    persistMasterUiState();
+    renderMasterHub();
+}
+
+function isMasterGlobalSearchActive() {
+    return String((window.MASTER_FILTERS && window.MASTER_FILTERS.query) || '').trim().length > 0;
+}
+
+function masterViewLabel(view) {
+    return {
+        construcao: 'Construcao',
+        vendas: 'Vendas',
+        squads: 'Squads',
+        agentes: 'Agentes',
+        skills: 'Skills',
+        clones: 'Clones'
+    }[view] || 'Master';
+}
+
+function withMasterContext(items, projectId, view) {
+    const flows = getMasterProjectFlows();
+    const fallbackProject = flows.sais || Object.values(flows)[0] || { label: '-' };
+    const project = projectId === 'global'
+        ? { label: 'Global' }
+        : (flows[projectId] || fallbackProject);
+    const projectLabel = project.label || String(projectId || '-').toUpperCase();
+    const viewLabel = masterViewLabel(view);
+    return (items || []).map(item => ({
+        ...item,
+        context_project_id: projectId,
+        context_project_label: projectLabel,
+        context_view: view,
+        context_view_label: viewLabel
+    }));
+}
+
+loadMasterUiState();
+
+function getSkillNodes() {
+    const groups = REGISTRY.skills || {};
+    return Object.entries(groups).flatMap(([group, skills]) =>
+        (skills || []).map(skill => ({
+            id: skill.id,
+            name: skill.name,
+            group,
+            desc: skill.desc || '',
+            agent_ids: (skill.agents || []).slice()
+        }))
+    );
+}
+
+function getCloneNodes() {
+    const assets = (window.PERSONA_ASSETS && window.PERSONA_ASSETS.items) || [];
+    const personasById = {};
+    (REGISTRY.personas || []).forEach(persona => { personasById[persona.id] = persona; });
+
+    const agentsByHandle = {};
+    const agentsById = {};
+    (REGISTRY.agents || []).forEach(agent => {
+        agentsByHandle[agent.handle] = agent;
+        agentsById[agent.id] = agent;
+    });
+
+    return assets
+        .filter(asset => asset && asset.persona_id)
+        .map(asset => {
+            const persona = personasById[asset.persona_id] || {};
+            const ownerHandles = (persona.agents || []).filter(Boolean);
+            const ownerAgentIds = ownerHandles
+                .map(handle => (agentsByHandle[handle] || {}).id)
+                .filter(Boolean);
+            const ownerNames = ownerHandles
+                .map(handle => (agentsByHandle[handle] || {}).name || handle)
+                .filter(Boolean);
+            const primarySquad = ownerAgentIds.length
+                ? (agentsById[ownerAgentIds[0]] || {}).squad || '-'
+                : '-';
+            const availableTranscripts = (asset.transcript_status && asset.transcript_status.available) || 0;
+            const totalTranscripts = (asset.transcript_status && asset.transcript_status.total) || 0;
+            const availableBooks = (asset.book_status && asset.book_status.available) || 0;
+            const totalBooks = (asset.book_status && asset.book_status.total) || 0;
+            const clonePath = asset.clone_file && asset.clone_file.path ? asset.clone_file.path : '';
+            const exists = Boolean(asset.clone_file && asset.clone_file.exists);
+
+            return {
+                key: `clone-${asset.persona_id}`,
+                id: `CLN-${asset.persona_id.replace(/^prs-/, '').toUpperCase()}`,
+                label: persona.name ? `${persona.name} Clone` : `Clone ${asset.persona_id}`,
+                type: 'Clone',
+                status: exists ? 'ativo' : 'bloqueado',
+                owner: ownerNames.join(', ') || 'Sem owner',
+                summary: persona.role || 'Clone de referencia operacional.',
+                entrega: `Transcricoes ${availableTranscripts}/${totalTranscripts} | Livros ${availableBooks}/${totalBooks}`,
+                entrega_para: primarySquad,
+                depends_on: clonePath || 'Sem arquivo clone',
+                metric_main: `Arquivos vinculados ${(asset.prompt_linked_files || []).length}`,
+                owner_agent_ids: ownerAgentIds,
+                owner_handles: ownerHandles,
+                agents_list: ownerNames.join(', ') || '-',
+                skills_list: '-',
+                clones_list: '-',
+                editPath: clonePath || 'docs/control/persona_materials.json',
+                editTitle: persona.name ? `Clone ${persona.name}` : `Clone ${asset.persona_id}`
+            };
+        });
+}
+
+function masterEscape(value) {
+    return String(value || '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+}
+
+function statusBadgeStyle(status) {
+    const map = {
+        nao_iniciado: 'border:1px solid rgba(148,163,184,.35);background:rgba(148,163,184,.12);color:#94a3b8',
+        em_preparacao: 'border:1px solid rgba(245,158,11,.35);background:rgba(245,158,11,.12);color:#f59e0b',
+        em_execucao: 'border:1px solid rgba(16,185,129,.35);background:rgba(16,185,129,.12);color:#10b981',
+        em_revisao: 'border:1px solid rgba(56,189,248,.35);background:rgba(56,189,248,.12);color:#38bdf8',
+        aprovado: 'border:1px solid rgba(34,197,94,.35);background:rgba(34,197,94,.12);color:#22c55e',
+        bloqueado: 'border:1px solid rgba(239,68,68,.35);background:rgba(239,68,68,.12);color:#ef4444',
+        publicado: 'border:1px solid rgba(168,85,247,.35);background:rgba(168,85,247,.12);color:#a855f7',
+        ativo: 'border:1px solid rgba(16,185,129,.35);background:rgba(16,185,129,.12);color:#10b981'
+    };
+    return map[status] || map.nao_iniciado;
+}
+
+function setMasterProject(projectId) {
+    const flows = getMasterProjectFlows();
+    if (!flows[projectId]) return;
+    window.MASTER_PROJECT = projectId;
+    window.MASTER_SELECTED_ID = '';
+    persistMasterUiState();
+    renderMasterHub();
+}
+
+function setMasterView(view) {
+    const allowed = ['construcao', 'vendas', 'squads', 'agentes', 'skills', 'clones'];
+    window.MASTER_VIEW = allowed.includes(view) ? view : 'construcao';
+    window.MASTER_SELECTED_ID = '';
+    persistMasterUiState();
+    renderMasterHub();
+}
+
+function setMasterSubtab(tab) {
+    setMasterView(tab === 'ops' ? 'vendas' : 'construcao');
+}
+
+function setMasterPanel(panel) {
+    if (panel === 'approvals') {
+        switchTab('approvals');
+        return;
+    }
+    if (panel === 'pulse') {
+        switchTab('logs');
+        return;
+    }
+    setMasterView('construcao');
+}
+
+function getFlattenedSkills() {
+    const agentById = {};
+    (REGISTRY.agents || []).forEach(a => { agentById[a.id] = a; });
+    const cloneNodes = getCloneNodes();
+    return getSkillNodes().map(skill => {
+            const linkedClones = cloneNodes.filter(clone => (clone.owner_agent_ids || []).some(agentId => (skill.agent_ids || []).includes(agentId)));
+            return {
+            key: `skill-${skill.id}`,
+            id: skill.id,
+            label: skill.name,
+            type: 'Skill',
+            status: 'ativo',
+            owner: skill.group,
+            summary: skill.desc || 'Sem descricao.',
+            entrega: `${(skill.agent_ids || []).length} agente(s) vinculados`,
+            entrega_para: (skill.agent_ids || []).map(agentId => (agentById[agentId] || {}).name).filter(Boolean).join(', ') || '-',
+            depends_on: '-',
+            metric_main: `${(skill.agent_ids || []).length} owners | ${linkedClones.length} clones`,
+            agents_list: (skill.agent_ids || []).map(agentId => (agentById[agentId] || {}).name).filter(Boolean).join(', ') || '-',
+            skills_list: '-',
+            clones_list: linkedClones.map(clone => clone.label).slice(0, 8).join(', ') || '-',
+            editPath: 'docs/control/registry.json',
+            editTitle: `Skill ${skill.name}`
+        };
+    });
+}
+
+function getMasterViewItemsFor(projectId, view) {
+    const flows = getMasterProjectFlows();
+    const fallbackProject = flows.sais || Object.values(flows)[0] || { label: '-', construcao: [], vendas: [] };
+    const activeProjectId = flows[projectId] ? projectId : (flows.sais ? 'sais' : Object.keys(flows)[0]);
+    const project = flows[activeProjectId] || fallbackProject;
+    const activeView = MASTER_VIEW_ORDER.includes(view) ? view : 'construcao';
+    if (activeView === 'construcao' || activeView === 'vendas') {
+        return (project[activeView] || []).map(node => ({
+            key: `${activeProjectId}-${activeView}-${node.id}`,
+            id: node.id,
+            label: node.nome,
+            type: activeView === 'construcao' ? 'Etapa de Construcao' : 'Etapa de Vendas',
+            status: node.status || 'nao_iniciado',
+            owner: node.squad || '-',
+            summary: node.resumo || '-',
+            entrega: node.entrega || '-',
+            entrega_para: node.entrega_para || '-',
+            depends_on: (node.depends_on || []).join(', ') || '-',
+            metric_main: node.metric_main || '-',
+            editPath: 'docs/control/project_flows.json',
+            editTitle: `${project.label} - ${node.nome}`
+        }));
+    }
+    if (activeView === 'squads') {
+        const agents = REGISTRY.agents || [];
+        const skillNodes = getSkillNodes();
+        const cloneNodes = getCloneNodes();
+        return (REGISTRY.squads || []).map(squad => {
+            const squadAgents = agents.filter(agent => agent.squad === squad.id);
+            const squadAgentIds = new Set(squadAgents.map(agent => agent.id));
+            const squadSkills = skillNodes.filter(skill => (skill.agent_ids || []).some(agentId => squadAgentIds.has(agentId)));
+            const squadClones = cloneNodes.filter(clone => (clone.owner_agent_ids || []).some(agentId => squadAgentIds.has(agentId)));
+            return ({
+            key: `squad-${squad.id}`,
+            id: squad.id,
+            label: squad.name,
+            type: 'Squad',
+            status: 'ativo',
+            owner: squad.id,
+            summary: squad.mission || 'Sem resumo.',
+            entrega: `Agentes ${squadAgents.length} | Skills ${squadSkills.length} | Clones ${squadClones.length}`,
+            entrega_para: (squad.outputs || []).join(', ') || '-',
+            depends_on: (squad.inputs || []).join(', ') || '-',
+            metric_main: `Handoffs ${Math.max(0, (squad.outputs || []).length)}`,
+            agents_list: squadAgents.map(agent => `${agent.name} (${agent.handle})`).join(', ') || '-',
+            skills_list: squadSkills.map(skill => skill.name).slice(0, 8).join(', ') || '-',
+            clones_list: squadClones.map(clone => clone.label).slice(0, 8).join(', ') || '-',
+            editPath: `.codex/squads/${(squad.name || squad.id).toLowerCase().replaceAll(' ', '-').replaceAll('&', 'and')}.md`,
+            editTitle: `Squad ${squad.name}`
+        });
+        });
+    }
+    if (activeView === 'agentes') {
+        const skillNodes = getSkillNodes();
+        const cloneNodes = getCloneNodes();
+        return (REGISTRY.agents || []).map(agent => ({
+            key: `agent-${agent.id}`,
+            id: agent.id,
+            label: agent.name,
+            type: 'Agente',
+            status: 'ativo',
+            owner: agent.squad || '-',
+            summary: agent.role || 'Sem papel definido.',
+            entrega: agent.handle || '-',
+            entrega_para: '-',
+            depends_on: '-',
+            metric_main: `Skills ${skillNodes.filter(skill => (skill.agent_ids || []).includes(agent.id)).length} | Clones ${cloneNodes.filter(clone => (clone.owner_agent_ids || []).includes(agent.id)).length}`,
+            agents_list: agent.name || '-',
+            skills_list: skillNodes.filter(skill => (skill.agent_ids || []).includes(agent.id)).map(skill => skill.name).slice(0, 8).join(', ') || '-',
+            clones_list: cloneNodes.filter(clone => (clone.owner_agent_ids || []).includes(agent.id)).map(clone => clone.label).slice(0, 8).join(', ') || '-',
+            editPath: `.codex/agents/${(agent.handle || '').replace('@', '')}.md`,
+            editTitle: `Agente ${agent.name}`
+        }));
+    }
+    if (activeView === 'clones') {
+        return getCloneNodes();
+    }
+    return getFlattenedSkills();
+}
+
+function getMasterViewItems() {
+    return getMasterViewItemsFor(window.MASTER_PROJECT, window.MASTER_VIEW);
+}
+
+function getMasterGlobalSearchItems() {
+    const flows = getMasterProjectFlows();
+    const flowProjectIds = Object.keys(flows);
+    const activeProjectId = flows[window.MASTER_PROJECT] ? window.MASTER_PROJECT : (flows.sais ? 'sais' : flowProjectIds[0]);
+    const results = [];
+    const seen = new Set();
+
+    flowProjectIds.forEach(projectId => {
+        MASTER_PROJECT_VIEWS.forEach(view => {
+            const contextual = withMasterContext(getMasterViewItemsFor(projectId, view), projectId, view);
+            contextual.forEach(item => {
+                const dedupKey = `${item.key}|${projectId}|${view}`;
+                if (seen.has(dedupKey)) return;
+                seen.add(dedupKey);
+                results.push(item);
+            });
+        });
+    });
+
+    MASTER_CATALOG_VIEWS.forEach(view => {
+        const contextual = withMasterContext(getMasterViewItemsFor(activeProjectId, view), 'global', view);
+        contextual.forEach(item => {
+            const dedupKey = `${item.key}|global|${view}`;
+            if (seen.has(dedupKey)) return;
+            seen.add(dedupKey);
+            results.push(item);
+        });
+    });
+
+    return results;
+}
+
+function updateMasterViewUI() {
+    const modes = MASTER_VIEW_ORDER;
+    modes.forEach(mode => {
+        const tab = document.getElementById(`master-view-tab-${mode}`);
+        if (tab) tab.classList.toggle('active', window.MASTER_VIEW === mode);
+    });
+
+    ['sais', 'velas', 'electro'].forEach(project => {
+        const btn = document.getElementById(`master-project-${project}`);
+        if (btn) btn.classList.toggle('active', window.MASTER_PROJECT === project);
+    });
+
+    const flows = getMasterProjectFlows();
+    const fallbackProject = flows.sais || Object.values(flows)[0] || { label: '-' };
+    const labelProject = document.getElementById('master-active-project-label');
+    if (labelProject) labelProject.textContent = (flows[window.MASTER_PROJECT] || fallbackProject).label;
+
+    const modeText = {
+        construcao: 'Construcao',
+        vendas: 'Vendas',
+        squads: 'Squads',
+        agentes: 'Agentes',
+        skills: 'Skills',
+        clones: 'Clones'
+    }[window.MASTER_VIEW] || 'Construcao';
+
+    const labelMode = document.getElementById('master-active-mode-label');
+    if (labelMode) labelMode.textContent = modeText;
+
+    const filters = window.MASTER_FILTERS || { query: '', status: 'all', owner: '' };
+    const queryInput = document.getElementById('master-filter-query');
+    if (queryInput && queryInput.value !== filters.query) queryInput.value = filters.query;
+    const statusInput = document.getElementById('master-filter-status');
+    if (statusInput && statusInput.value !== filters.status) statusInput.value = filters.status;
+    const ownerInput = document.getElementById('master-filter-owner');
+    if (ownerInput && ownerInput.value !== filters.owner) ownerInput.value = filters.owner;
+
+    const caption = document.getElementById('master-mode-caption');
+    if (caption) caption.textContent = MASTER_MODE_CAPTIONS[window.MASTER_VIEW] || '';
+}
+
+function selectMasterItem(itemKey) {
+    window.MASTER_SELECTED_ID = itemKey || '';
+    persistMasterUiState();
+    renderMasterHub();
+}
+
+function renderMasterInspector(items) {
+    const inspector = document.getElementById('master-project-inspector');
+    if (!inspector) return;
+    const selected = items.find(item => item.key === window.MASTER_SELECTED_ID);
+    if (!selected) {
+        const flows = getMasterProjectFlows();
+        const fallbackProject = flows.sais || Object.values(flows)[0] || { label: '-' };
+        const project = flows[window.MASTER_PROJECT] || fallbackProject;
+        inspector.innerHTML = `
+            <div class="master-inspector-empty">
+                Selecione um item no canvas para abrir detalhes e editar.
+            </div>
+            <div class="master-sidebar-card mt-3">
+                <p class="text-[8px] text-muted uppercase tracking-widest mb-1">Contexto Atual</p>
+                <p class="text-[10px] text-white"><strong>Projeto:</strong> ${masterEscape(project.label)}</p>
+                <p class="text-[10px] text-white mt-1"><strong>Modo:</strong> ${masterEscape(window.MASTER_VIEW)}</p>
+                <p class="text-[10px] text-white mt-1"><strong>Itens no canvas:</strong> ${items.length}</p>
+            </div>
+        `;
+        return;
+    }
+
+    const editAction = selected.editPath
+        ? `<button class="master-edit-btn mt-3" onclick='openEditorModal(${JSON.stringify(selected.editPath)}, ${JSON.stringify(selected.editTitle || selected.label)})'>Editar</button>`
+        : '';
+    const contextRows = [
+        selected.context_project_label ? `<p><span class="text-white">Projeto origem:</span> ${masterEscape(selected.context_project_label)}</p>` : '',
+        selected.context_view_label ? `<p><span class="text-white">Modo origem:</span> ${masterEscape(selected.context_view_label)}</p>` : ''
+    ].filter(Boolean).join('');
+    const relationRows = [
+        selected.agents_list && selected.agents_list !== '-' ? `<p><span class="text-white">Agentes:</span> ${masterEscape(selected.agents_list)}</p>` : '',
+        selected.skills_list && selected.skills_list !== '-' ? `<p><span class="text-white">Skills:</span> ${masterEscape(selected.skills_list)}</p>` : '',
+        selected.clones_list && selected.clones_list !== '-' ? `<p><span class="text-white">Clones:</span> ${masterEscape(selected.clones_list)}</p>` : ''
+    ].filter(Boolean).join('');
+
+    inspector.innerHTML = `
+        <div class="master-sidebar-card mb-2">
+            <div class="flex items-center justify-between gap-2">
+                <p class="text-[11px] font-bold text-white">${masterEscape(selected.label)}</p>
+                <span class="badge" style="font-size:7px;${statusBadgeStyle(selected.status)}">${masterEscape(selected.status)}</span>
+            </div>
+            <p class="text-[9px] text-muted mt-1 uppercase tracking-widest">${masterEscape(selected.type)}</p>
+            <p class="text-[10px] text-white mt-3">${masterEscape(selected.summary)}</p>
+            <div class="mt-3 text-[10px] text-muted space-y-1">
+                <p><span class="text-white">Owner:</span> ${masterEscape(selected.owner)}</p>
+                <p><span class="text-white">Entrega:</span> ${masterEscape(selected.entrega)}</p>
+                <p><span class="text-white">Entrega para:</span> ${masterEscape(selected.entrega_para)}</p>
+                <p><span class="text-white">Dependencias:</span> ${masterEscape(selected.depends_on || '-')}</p>
+                <p><span class="text-white">Metrica principal:</span> ${masterEscape(selected.metric_main || '-')}</p>
+                <p><span class="text-white">ID:</span> ${masterEscape(selected.id || '-')}</p>
+                ${contextRows}
+                ${relationRows}
+            </div>
+            ${editAction}
+        </div>
+    `;
+}
+
+function renderMasterHub() {
+    try {
+        updateMasterViewUI();
+        const canvas = document.getElementById('master-project-canvas');
+        if (!canvas) return;
+        const globalSearch = isMasterGlobalSearchActive();
+        const allItems = globalSearch
+            ? getMasterGlobalSearchItems()
+            : withMasterContext(getMasterViewItems(), window.MASTER_PROJECT, window.MASTER_VIEW);
+        const items = applyMasterFilters(allItems);
+        if (!items.some(item => item.key === window.MASTER_SELECTED_ID)) {
+            window.MASTER_SELECTED_ID = '';
+            persistMasterUiState();
+        }
+
+        const caption = document.getElementById('master-mode-caption');
+        if (caption) {
+            const base = globalSearch
+                ? 'Busca global no Master Hub'
+                : (MASTER_MODE_CAPTIONS[window.MASTER_VIEW] || 'Visualizacao operacional');
+            caption.textContent = `${base} (${items.length}/${allItems.length} itens)`;
+        }
+
+        renderMasterProjectKpis(items, allItems);
+        renderMasterProjectTimeline();
+
+        canvas.innerHTML = items.length ? items.map(item => `
+            <article class="master-card ${window.MASTER_SELECTED_ID === item.key ? 'active' : ''}" onclick='selectMasterItem(${JSON.stringify(item.key)})'>
+                <div class="flex items-start justify-between gap-2 mb-2">
+                    <p class="text-[11px] font-bold text-white truncate">${masterEscape(item.label)}</p>
+                    <span class="badge" style="font-size:7px;${statusBadgeStyle(item.status)}">${masterEscape(item.status)}</span>
+                </div>
+                <p class="text-[8px] text-muted uppercase tracking-widest mb-2">${masterEscape(item.type)}</p>
+                <p class="text-[8px] text-primary/80 uppercase tracking-widest mb-2">${masterEscape(`${item.context_project_label || '-'} · ${item.context_view_label || '-'}`)}</p>
+                <p class="text-[10px] text-muted min-h-[34px]">${masterEscape(item.summary)}</p>
+                <div class="mt-3 flex items-center justify-between gap-2">
+                    <span class="text-[8px] text-muted font-mono truncate">${masterEscape(item.owner)}</span>
+                    ${item.editPath ? `<button class="master-edit-btn" onclick='event.stopPropagation();openEditorModal(${JSON.stringify(item.editPath)}, ${JSON.stringify(item.editTitle || item.label)})'>Editar</button>` : ''}
+                </div>
+            </article>
+        `).join('') : '<p class="text-[10px] text-muted italic">Nenhum item para os filtros atuais.</p>';
+
+        renderMasterInspector(items);
+    } catch (e) {
+        console.error('Render Master Hub Error:', e);
+    }
+}
+
+
 // BUILD MAP RENDER
 // ══════════════════════════════════════════
 let buildZoom = 1;
@@ -698,7 +1939,7 @@ function openBuildDetail(phase) {
         <div class="flex gap-2 border-t border-white/5 pt-4">
             <button class="btn-success" onclick="updateBuildState('${phase.id}','completed')">✅ Concluir</button>
             <button class="btn-primary" onclick="updateBuildState('${phase.id}','in_progress')">▶️ Iniciar</button>
-            <button class="btn-danger" onclick="updateBuildState('${phase.id}','blocked')">🚫 Bloquear</button>
+            <button class="btn-danger" onclick="updateBuildState('${phase.id}','blocked')">⛔ Bloquear</button>
             <button class="btn-ghost" onclick="updateBuildState('${phase.id}','draft')">↩️ Reset</button>
         </div>
     </div>`;
@@ -986,19 +2227,19 @@ function renderSquads() {
                 <div>
                     <h4 class="text-[9px] font-bold uppercase text-secondary mb-3 tracking-widest">Agentes</h4>
                     <ul class="space-y-2 text-[11px] text-muted">
-                        ${squadAgents.map(a => `<li class="flex items-center gap-2 hover:text-white cursor-pointer transition-colors" onclick="openEditorModal('.codex/agents/${a.handle.replace('@','')}.md', '${a.name} â€” ${s.name}')"><span>${a.icon}</span> <span>${a.name} <span class="opacity-50">(${a.handle})</span></span></li>`).join('')}
+                        ${squadAgents.map(a => `<li class="flex items-center gap-2 hover:text-white cursor-pointer transition-colors" onclick="openEditorModal('.codex/agents/${a.handle.replace('@','')}.md', '${a.name} — ${s.name}')"><span>${a.icon}</span> <span>${a.name} <span class="opacity-50">(${a.handle})</span></span></li>`).join('')}
                     </ul>
                 </div>
                 <div>
                     <h4 class="text-[9px] font-bold uppercase text-accent mb-3 tracking-widest">Entregas</h4>
                     <ul class="space-y-2 text-[11px] text-muted">
-                        ${s.outputs.map(o => `<li class="flex items-center gap-2 before:content-['Â·'] before:text-white/30">${o.replace('DLV-','')}</li>`).join('')}
+                        ${s.outputs.map(o => `<li class="flex items-center gap-2 before:content-['·'] before:text-white/30">${o.replace('DLV-','')}</li>`).join('')}
                     </ul>
                 </div>
                 <div>
                     <h4 class="text-[9px] font-bold uppercase text-warning mb-3 tracking-widest">Entradas</h4>
                     <ul class="space-y-2 text-[11px] text-muted">
-                        ${s.inputs.map(i => `<li class="flex items-center gap-2 before:content-['Â·'] before:text-white/30">${i}</li>`).join('')}
+                        ${s.inputs.map(i => `<li class="flex items-center gap-2 before:content-['·'] before:text-white/30">${i}</li>`).join('')}
                     </ul>
                 </div>
             </div>
@@ -1015,33 +2256,33 @@ function renderAgents() {
     const agents = REGISTRY.agents || [];
     view.innerHTML = agents.map(a => {
         const sq = SQUAD_COLORS[a.squad] || '#6b7280';
-        return \`<div class="glass p-4 group relative hover:-translate-y-0.5 transition-transform">
+        return `<div class="glass p-4 group relative hover:-translate-y-0.5 transition-transform">
             <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button class="btn-ghost text-primary text-[10px] py-1 px-2" onclick="openEditorModal('\${a.name} — \${a.squad}', '.codex/agents/\${a.handle.replace('@','')}.md')">
+                <button class="btn-ghost text-primary text-[10px] py-1 px-2" onclick="openEditorModal('${a.name} — ${a.squad}', '.codex/agents/${a.handle.replace('@','')}.md')">
                     <i data-lucide="edit-3" class="w-3 h-3 inline"></i> Editar
                 </button>
             </div>
             <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-inner shadow-black shrink-0 border border-white/5 bg-white/5">\${a.icon}</div>
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-inner shadow-black shrink-0 border border-white/5 bg-white/5">${a.icon}</div>
                     <div>
-                        <h3 class="text-xs font-bold text-white">\${a.name}</h3>
-                        <p class="text-[9px] text-muted font-mono">\${a.handle}</p>
+                        <h3 class="text-xs font-bold text-white">${a.name}</h3>
+                        <p class="text-[9px] text-muted font-mono">${a.handle}</p>
                     </div>
                 </div>
             </div>
-            <p class="text-[10px] text-muted mb-4 leading-relaxed">\${a.role}</p>
+            <p class="text-[10px] text-muted mb-4 leading-relaxed">${a.role}</p>
             <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
-                <span class="text-[9px] font-bold text-white uppercase tracking-widest px-2 py-0.5 rounded" style="background:\${sq}20;color:\${sq}">\${a.squad}</span>
+                <span class="text-[9px] font-bold text-white uppercase tracking-widest px-2 py-0.5 rounded" style="background:${sq}20;color:${sq}">${a.squad}</span>
             </div>
-        </div>\`;
+        </div>`;
     }).join('');
     if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════
 // PERSONAS RENDER
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════
 function renderPersonas() {
     const personas = REGISTRY.personas || [];
     document.getElementById('personas-count').textContent = `${personas.length} Personas`;
@@ -1083,33 +2324,33 @@ function renderAgents() {
     const agents = REGISTRY.agents || [];
     view.innerHTML = agents.map(a => {
         const sq = SQUAD_COLORS[a.squad] || '#6b7280';
-        return \`<div class="glass p-4 group relative hover:-translate-y-0.5 transition-transform">
+        return `<div class="glass p-4 group relative hover:-translate-y-0.5 transition-transform">
             <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button class="btn-ghost text-primary text-[10px] py-1 px-2" onclick="openEditorModal('\${a.name} — \${a.squad}', '.codex/agents/\${a.handle.replace('@','')}.md')">
+                <button class="btn-ghost text-primary text-[10px] py-1 px-2" onclick="openEditorModal('${a.name} — ${a.squad}', '.codex/agents/${a.handle.replace('@','')}.md')">
                     <i data-lucide="edit-3" class="w-3 h-3 inline"></i> Editar
                 </button>
             </div>
             <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-inner shadow-black shrink-0 border border-white/5 bg-white/5">\${a.icon}</div>
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-inner shadow-black shrink-0 border border-white/5 bg-white/5">${a.icon}</div>
                     <div>
-                        <h3 class="text-xs font-bold text-white">\${a.name}</h3>
-                        <p class="text-[9px] text-muted font-mono">\${a.handle}</p>
+                        <h3 class="text-xs font-bold text-white">${a.name}</h3>
+                        <p class="text-[9px] text-muted font-mono">${a.handle}</p>
                     </div>
                 </div>
             </div>
-            <p class="text-[10px] text-muted mb-4 leading-relaxed">\${a.role}</p>
+            <p class="text-[10px] text-muted mb-4 leading-relaxed">${a.role}</p>
             <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
-                <span class="text-[9px] font-bold text-white uppercase tracking-widest px-2 py-0.5 rounded" style="background:\${sq}20;color:\${sq}">\${a.squad}</span>
+                <span class="text-[9px] font-bold text-white uppercase tracking-widest px-2 py-0.5 rounded" style="background:${sq}20;color:${sq}">${a.squad}</span>
             </div>
-        </div>\`;
+        </div>`;
     }).join('');
     if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════
 // ADD PERSONA MODAL
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════
 function openAddPersonaModal() {
     document.getElementById('add-persona-modal').style.display = 'flex';
     document.getElementById('new-persona-name').value = '';
@@ -1119,9 +2360,9 @@ function openAddPersonaModal() {
 async function submitNewPersona() {
     const name = document.getElementById('new-persona-name').value.trim();
     const role = document.getElementById('new-persona-role').value.trim();
-    const icon = document.getElementById('new-persona-icon').value.trim() || 'ðŸ‘¤';
+    const icon = document.getElementById('new-persona-icon').value.trim() || '👤';
     
-    if (!name) return alert('Nome Ã© obrigatÃ³rio');
+    if (!name) return alert('Nome é obrigatório');
     
     try {
         const res = await fetch('/api/registry/personas', {
@@ -1172,10 +2413,10 @@ function renderSkills() {
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px">
             ${items.map(s => {
                 const file = '.codex/skills/' + skillNameToFile(s.name) + '.md';
-                return `<div class="glass p-4 cursor-pointer hover:-translate-y-0.5 transition-transform" onclick="openEditorModal('${file}','${s.name} â€” Skill')">
-                <div class="flex items-center gap-2 mb-2"><span class="text-lg">âš¡</span><div><h4 class="text-[10px] font-bold">${s.name}</h4><p class="text-[8px] text-muted font-mono">${s.id}</p></div></div>
+                return `<div class="glass p-4 cursor-pointer hover:-translate-y-0.5 transition-transform" onclick="openEditorModal('${file}','${s.name} — Skill')">
+                <div class="flex items-center gap-2 mb-2"><span class="text-lg">⚡</span><div><h4 class="text-[10px] font-bold">${s.name}</h4><p class="text-[8px] text-muted font-mono">${s.id}</p></div></div>
                 <p class="text-[9px] text-muted leading-relaxed">${s.desc}</p>
-                <div class="mt-2 text-[8px] text-primary font-bold uppercase tracking-widest">âœï¸ Editar</div>
+                <div class="mt-2 text-[8px] text-primary font-bold uppercase tracking-widest">✏️ Editar</div>
             </div>`;
             }).join('')}
         </div>
@@ -1195,19 +2436,23 @@ function renderPersonas() {
 
 // Funnel (legacy)
 let activeNodeId = null;
+window.activeFunnelProject = window.activeFunnelProject || 'ebook';
 function toggleFunnelSub(el) {
     document.getElementById('funnel-sub').classList.toggle('open');
-    switchTab('funnel'); renderFunnel('ebook');
+    window.activeFunnelProject = 'ebook';
+    switchTab('funnel');
 }
 function loadFunnel(p, el) {
     document.querySelectorAll('.sb-sub-item').forEach(i=>i.classList.remove('active')); if(el)el.classList.add('active');
-    document.getElementById('funnel-project-name').textContent = el?el.textContent:p; renderFunnel(p);
+    window.activeFunnelProject = p || 'ebook';
+    document.getElementById('funnel-project-name').textContent = el?el.textContent:p;
+    renderFunnel(window.activeFunnelProject);
 }
 function renderFunnel(project) {
     const canvas = document.getElementById('funnel-canvas'), svg = document.getElementById('funnel-svg');
     const nodes = FUNNEL_NODES[project]||FUNNEL_NODES.ebook, edges = FUNNEL_EDGES[project]||FUNNEL_EDGES.ebook;
     canvas.innerHTML = ''; svg.innerHTML = '';
-    const layerColors = {'AquisiÃ§Ã£o':'#0ea5e9','PrÃ©-conversÃ£o':'#a855f7','ConversÃ£o':'#10b981','MonetizaÃ§Ã£o':'#f59e0b','Entrega':'#ec4899','RetenÃ§Ã£o':'#14b8a6'};
+    const layerColors = {'Aquisição':'#0ea5e9','Pré-conversão':'#a855f7','Conversão':'#10b981','Monetização':'#f59e0b','Entrega':'#ec4899','Retenção':'#14b8a6'};
     const layerPos = {};
     nodes.forEach(n => {
         if(!layerPos[n.layer]) layerPos[n.layer]={x:n.x,minY:n.y}; else { layerPos[n.layer].x=Math.min(layerPos[n.layer].x,n.x); layerPos[n.layer].minY=Math.min(layerPos[n.layer].minY,n.y); }
@@ -1224,9 +2469,9 @@ function renderFunnel(project) {
     lucide.createIcons();
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════
 // EDITOR MODAL
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════
 let currentEditorPath = '';
 function openEditorModal(path, title) {
     document.getElementById('editor-title').textContent = title||'Editor';
@@ -1235,18 +2480,43 @@ function openEditorModal(path, title) {
     document.getElementById('editor-textarea').value = 'Carregando...';
     document.getElementById('editor-status').classList.add('hidden');
     document.getElementById('editor-modal').classList.add('open');
-    fetch('/api/file?path='+encodeURIComponent(path)).then(r=>r.text()).then(t=>{document.getElementById('editor-textarea').value=t;}).catch(()=>{document.getElementById('editor-textarea').value='Arquivo nÃ£o encontrado. Escreva conteÃºdo e salve para criar.';});
+    fetch('/api/file?path='+encodeURIComponent(path)).then(r=>r.text()).then(t=>{document.getElementById('editor-textarea').value=t;}).catch(()=>{document.getElementById('editor-textarea').value='Arquivo não encontrado. Escreva conteúdo e salve para criar.';});
 }
 function closeEditorModal() { document.getElementById('editor-modal').classList.remove('open'); }
 function saveEditorModal() {
-    fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({path:currentEditorPath,content:document.getElementById('editor-textarea').value})})
-    .then(r=>r.json()).then(r=>{if(r.success){const s=document.getElementById('editor-status');s.textContent='Salvo âœ“';s.classList.remove('hidden');setTimeout(()=>s.classList.add('hidden'),3000);}});
+    const payload = {
+        path: currentEditorPath,
+        content: document.getElementById('editor-textarea').value,
+        initiated_by: 'human',
+        project_id: (typeof getSessionProjectId === 'function') ? getSessionProjectId() : null
+    };
+    fetch('/api/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+    .then(r => r.json())
+    .then(r => {
+        if (!r.success) throw new Error(r.error || 'Falha ao salvar');
+        const s = document.getElementById('editor-status');
+        const cloudHint = r.cloud_sync_scheduled ? ' + Sync Cloud em fila' : '';
+        s.textContent = `Salvo OK${cloudHint}`;
+        s.classList.remove('hidden');
+        setTimeout(() => s.classList.add('hidden'), 3000);
+        if (typeof loadAllData === 'function') {
+            loadAllData().then(() => {
+                if (typeof renderMemory === 'function') renderMemory();
+                if (typeof renderStatus === 'function') renderStatus();
+            });
+        }
+    })
+    .catch(err => {
+        const s = document.getElementById('editor-status');
+        s.textContent = `Erro: ${err.message}`;
+        s.classList.remove('hidden');
+    });
 }
 function closeDrawer() { document.getElementById('detail-drawer').classList.remove('open'); }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════
 // DATA LOADING & SYNC
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════
 async function loadAllData() {
     try {
         const [reg, bld, ops, apr, alt, inc, rer, log, cmd, mem] = await Promise.all([
@@ -1268,22 +2538,810 @@ async function loadAllData() {
 }
 
 async function syncAll() {
-    await loadAllData();
-    renderStatus();
-    lucide.createIcons();
+    try {
+        await loadAllData();
+        renderStatus();
+        lucide.createIcons();
+    } catch(e) { console.error('SyncAll Global Error:', e); }
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════
 // INIT
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', async () => {
     await syncAll();
     lucide.createIcons();
 });
 
 // Auto-refresh every 10s
-setInterval(async () => { await loadAllData(); renderStatus(); }, 10000);
+setInterval(async () => { await loadAllData(); renderStatus(); renderMasterHub(); }, 10000);
+</script>
+<script>
+window.MEMORY_LAYERS = window.MEMORY_LAYERS || {};
+window.SESSION_STATE = window.SESSION_STATE || { current_session: null, history: [] };
+window.MEMORY_FILES = window.MEMORY_FILES || { canonical_files: [], tracked_files: [], sessions_last_24h: [], sessions_total: 0 };
+window.PERSONA_ASSETS = window.PERSONA_ASSETS || { items: [], materials_file: '' };
+window.CLOUD_SYNC_STATE = window.CLOUD_SYNC_STATE || { auto_sync_memory: false, last_status: 'idle' };
+window.SQUAD_COLORS = window.SQUAD_COLORS || {};
+
+function isPathLike(value) {
+    return typeof value === 'string' && (/[/\\]/.test(value) || value.endsWith('.md') || value.endsWith('.json') || value.startsWith('.codex') || value.startsWith('docs/'));
+}
+
+function refreshSquadColors() {
+    window.SQUAD_COLORS = {};
+    (REGISTRY.squads || []).forEach(s => { window.SQUAD_COLORS[s.id] = s.color; });
+}
+
+function ensureMemoryVisualStyles() {
+    if (document.getElementById('memory-visual-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'memory-visual-styles';
+    style.textContent = `
+        .memory-board-viewport{position:relative;overflow:auto;border:1px solid rgba(255,255,255,0.1);border-radius:16px;background:rgba(6,8,15,0.45)}
+        .memory-board-canvas{position:relative;width:1500px;height:440px;background-image:radial-gradient(rgba(255,255,255,0.05) 1px, transparent 0);background-size:24px 24px}
+        .memory-node{position:absolute;width:240px;padding:14px;border-radius:14px;border:1px solid rgba(255,255,255,0.18);background:rgba(13,16,28,0.8);text-align:left;transition:all .2s ease;cursor:pointer;z-index:2}
+        .memory-node:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(0,0,0,0.35)}
+        .memory-node .memory-node-title{font-size:11px;font-weight:700;color:#f3f4f6}
+        .memory-node .memory-node-meta{font-size:9px;color:#9ca3af;line-height:1.45}
+        .memory-node .memory-dot{width:9px;height:9px;border-radius:999px;display:inline-block;margin-right:6px}
+        .memory-session-item{border:1px solid rgba(255,255,255,0.12);background:rgba(12,15,26,0.72);border-radius:12px;padding:10px}
+        .memory-metric{border:1px solid rgba(255,255,255,0.1);background:rgba(12,15,26,0.7);border-radius:12px;padding:12px}
+    `;
+    document.head.appendChild(style);
+}
+
+window.openEditorModal = function(pathOrTitle, titleOrPath) {
+    let path = pathOrTitle;
+    let title = titleOrPath;
+    if (!isPathLike(pathOrTitle) && isPathLike(titleOrPath)) {
+        path = titleOrPath;
+        title = pathOrTitle;
+    }
+    if (!path) return;
+    document.getElementById('editor-title').textContent = title || 'Editor';
+    document.getElementById('editor-path').textContent = path;
+    currentEditorPath = path;
+    document.getElementById('editor-textarea').value = 'Carregando...';
+    document.getElementById('editor-status').classList.add('hidden');
+    document.getElementById('editor-modal').classList.add('open');
+    fetch('/api/file?path=' + encodeURIComponent(path))
+        .then(r => r.text())
+        .then(t => { document.getElementById('editor-textarea').value = t; })
+        .catch(() => { document.getElementById('editor-textarea').value = 'Arquivo nao encontrado. Escreva e salve para criar.'; });
+};
+
+function ensureMemoryLifecycleUI() {
+    const pane = document.getElementById('pane-memory');
+    if (!pane) return;
+    ensureMemoryVisualStyles();
+    if (document.getElementById('memory-visual-shell')) return;
+    pane.innerHTML = `
+        <div id="memory-visual-shell" class="p-8 space-y-6">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                    <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-teal">Memory</span> <span class="text-white">Control Board</span></h2>
+                    <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">VISUAL · INTERATIVO · EDIÇÃO DIRETA</p>
+                </div>
+                <div class="flex gap-2">
+                    <button class="btn-primary" onclick="startSessionRoutine(true)"><i data-lucide="play-circle" class="w-3 h-3 inline"></i> Iniciar Sessao</button>
+                    <button class="btn-success" onclick="closeSessionRoutine()"><i data-lucide="save" class="w-3 h-3 inline"></i> Encerrar e Salvar</button>
+                    <button id="btn-cloud-sync-main" class="btn-success" onclick="runCloudSync('all','all')"><i data-lucide="cloud-upload" class="w-3 h-3 inline"></i> Salvar Tudo na Nuvem</button>
+                    <button class="btn-ghost" onclick="loadAllData().then(renderMemory)">Atualizar</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+                <div class="memory-metric"><p class="text-[8px] text-muted uppercase tracking-widest mb-1">Status</p><p id="session-status-badge" class="text-sm font-bold text-white">-</p></div>
+                <div class="memory-metric"><p class="text-[8px] text-muted uppercase tracking-widest mb-1">Ultimo Salvamento</p><p id="memory-last-save" class="text-sm font-bold text-white">-</p></div>
+                <div class="memory-metric"><p class="text-[8px] text-muted uppercase tracking-widest mb-1">Sessao Atual</p><p id="memory-active-session" class="text-sm font-mono text-white">-</p></div>
+                <div class="memory-metric"><p class="text-[8px] text-muted uppercase tracking-widest mb-1">Checkpoint Atual</p><p id="memory-latest-checkpoint" class="text-sm font-mono text-white">-</p></div>
+            </div>
+
+            <div id="cloud-sync-banner" class="glass p-4 border border-white/10 bg-black/20">
+                <div class="flex items-center justify-between gap-3">
+                    <div>
+                        <p id="cloud-banner-title" class="text-xs font-black uppercase tracking-wider text-white">Cloud Sync: IDLE</p>
+                        <p id="cloud-banner-subtitle" class="text-[10px] text-muted">Sem sincronizacao executada.</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[8px] uppercase tracking-widest text-muted">Ultimo cloud save</p>
+                        <p id="cloud-banner-time" class="text-[11px] font-mono text-white">-</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass p-5 space-y-3">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <h3 class="text-xs font-bold text-secondary uppercase tracking-widest">Sincronizacao em Nuvem</h3>
+                    <label class="flex items-center gap-2 text-[10px] text-muted">
+                        <input id="cloud-auto-sync-toggle" type="checkbox" onchange="toggleCloudAutoSync(this.checked)" />
+                        Auto-sync memoria
+                    </label>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                    <div class="memory-metric"><p class="text-[8px] text-muted uppercase tracking-widest mb-1">Cloud Status</p><p id="cloud-status" class="text-sm font-bold text-white">-</p></div>
+                    <div class="memory-metric"><p class="text-[8px] text-muted uppercase tracking-widest mb-1">Ultimo Cloud Save</p><p id="cloud-last-save" class="text-sm font-bold text-white">-</p></div>
+                    <div class="memory-metric"><p class="text-[8px] text-muted uppercase tracking-widest mb-1">GitHub</p><p id="cloud-github-status" class="text-sm font-bold text-white">-</p></div>
+                    <div class="memory-metric"><p class="text-[8px] text-muted uppercase tracking-widest mb-1">Firebase</p><p id="cloud-firebase-status" class="text-sm font-bold text-white">-</p></div>
+                </div>
+                <div id="cloud-summary" class="text-[10px] text-muted border border-white/10 rounded-lg px-3 py-2 bg-black/20">Sem execucao.</div>
+                <div class="flex flex-wrap gap-2">
+                    <button id="btn-cloud-sync-all" class="btn-primary" onclick="runCloudSync('all','all')"><i data-lucide="upload-cloud" class="w-3 h-3 inline"></i> GitHub + Firebase</button>
+                    <button id="btn-cloud-sync-github" class="btn-ghost" onclick="runCloudSync('github','memory')"><i data-lucide="github" class="w-3 h-3 inline"></i> GitHub (Memoria)</button>
+                    <button id="btn-cloud-sync-firebase" class="btn-ghost" onclick="runCloudSync('firebase','all')"><i data-lucide="rocket" class="w-3 h-3 inline"></i> Firebase Deploy</button>
+                </div>
+            </div>
+
+            <div class="glass p-5">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-xs font-bold text-secondary uppercase tracking-widest">Mapa Visual dos 6 Modos</h3>
+                    <span class="text-[9px] text-muted">Clique no card para abrir/editar o arquivo</span>
+                </div>
+                <div id="memory-board-viewport" class="memory-board-viewport">
+                    <svg id="memory-board-svg" style="position:absolute;top:0;left:0;width:1500px;height:440px;z-index:1;pointer-events:none"></svg>
+                    <div id="memory-board-canvas" class="memory-board-canvas"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-5 gap-6">
+                <div class="glass p-5 xl:col-span-2">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-xs font-bold text-sky uppercase tracking-widest">Sessoes (24h)</h3>
+                        <span id="memory-sessions-count" class="badge border-sky/30 text-sky bg-sky/10">0</span>
+                    </div>
+                    <div id="memory-sessions-24h" class="space-y-2 max-h-72 overflow-y-auto"></div>
+                </div>
+                <div class="glass p-5 xl:col-span-3">
+                    <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                        <div>
+                            <p class="text-[9px] text-muted font-bold uppercase mb-2">Core</p>
+                            <div id="memory-files-core" class="space-y-1 max-h-72 overflow-y-auto"></div>
+                        </div>
+                        <div>
+                            <p class="text-[9px] text-muted font-bold uppercase mb-2">Extras Rastreados</p>
+                            <div id="memory-files-extra" class="space-y-1 max-h-72 overflow-y-auto"></div>
+                        </div>
+                        <div>
+                            <p class="text-[9px] text-muted font-bold uppercase mb-2">Adicionar Arquivo</p>
+                            <div class="space-y-2">
+                                <input id="memory-new-file-name" class="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-[11px] text-white" placeholder="novo-arquivo-memoria" />
+                                <select id="memory-new-file-type" class="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-[11px] text-white"><option value="md">Markdown (.md)</option><option value="json">JSON (.json)</option></select>
+                                <button class="btn-primary w-full" onclick="createMemoryExtraFile()">Criar Arquivo Extra</button>
+                                <input id="memory-register-path" class="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-[11px] text-white" placeholder="docs/control/memory_extra/meu_arquivo.md" />
+                                <button class="btn-ghost w-full" onclick="registerMemoryFilePath()">Registrar Arquivo Existente</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                <div class="glass p-5">
+                    <h3 class="text-xs font-bold text-secondary uppercase tracking-widest mb-3">Contexto Atual</h3>
+                    <div id="memory-current-flash" class="space-y-2 text-[10px]"></div>
+                </div>
+                <div class="glass p-5">
+                    <h3 class="text-xs font-bold text-muted uppercase tracking-widest mb-3">Mutacoes Recentes</h3>
+                    <div id="memory-mutations" class="space-y-2 max-h-72 overflow-y-auto"></div>
+                </div>
+            </div>
+
+            <div class="glass p-5">
+                <h3 class="text-xs font-bold text-accent uppercase tracking-widest mb-3">Camadas de Memoria</h3>
+                <div id="memory-layer-summary" class="space-y-2 max-h-60 overflow-y-auto"></div>
+            </div>
+
+            <details class="glass p-5">
+                <summary class="cursor-pointer text-[10px] text-muted uppercase tracking-widest font-bold">Fechamento Manual (Opcional)</summary>
+                <div class="space-y-3 mt-3">
+                    <div><label class="text-[9px] text-muted font-bold uppercase block mb-1">Resumo (opcional)</label><textarea id="session-close-summary" class="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-[11px] text-white h-20 resize-none" placeholder="Pode deixar em branco."></textarea></div>
+                    <div><label class="text-[9px] text-muted font-bold uppercase block mb-1">Proxima Acao Exata</label><input id="session-next-action" class="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-[11px] text-white" placeholder="Primeiro passo da proxima sessao" /></div>
+                    <div><label class="text-[9px] text-muted font-bold uppercase block mb-1">Tarefas Concluidas (uma por linha)</label><textarea id="session-completed-tasks" class="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-[11px] text-white h-16 resize-none"></textarea></div>
+                </div>
+            </details>
+        </div>`;
+}
+
+window.loadAllData = async function() {
+    try {
+        const [reg, bld, ops, apr, alt, inc, rer, log, cmd, mem, layers, session, memoryFiles, projectFlows, personaAssets, cloudSync] = await Promise.all([
+            fetch('/api/registry').then(r => r.json()).catch(() => ({})),
+            fetch('/api/build').then(r => r.json()).catch(() => ({ phases: [] })),
+            fetch('/api/ops').then(r => r.json()).catch(() => ({ stages: [] })),
+            fetch('/api/approvals').then(r => r.json()).catch(() => ({ items: [] })),
+            fetch('/api/alerts').then(r => r.json()).catch(() => ({ items: [] })),
+            fetch('/api/incidents').then(r => r.json()).catch(() => ({ items: [] })),
+            fetch('/api/reruns').then(r => r.json()).catch(() => ({ items: [] })),
+            fetch('/api/logs').then(r => r.json()).catch(() => ({ entries: [] })),
+            fetch('/api/commands').then(r => r.json()).catch(() => ({ entries: [] })),
+            fetch('/api/memory').then(r => r.json()).catch(() => ({ mutations: [] })),
+            fetch('/api/memory/layers').then(r => r.json()).catch(() => ({})),
+            fetch('/api/session').then(r => r.json()).catch(() => ({ current_session: null, history: [] })),
+            fetch('/api/memory/files').then(r => r.json()).catch(() => ({ canonical_files: [], tracked_files: [], sessions_last_24h: [], sessions_total: 0 })),
+            fetch('/api/project-flows').then(r => r.json()).catch(() => ({ projects: {} })),
+            fetch('/api/personas/assets').then(r => r.json()).catch(() => ({ items: [], materials_file: '' })),
+            fetch('/api/cloud-sync/status').then(r => r.json()).catch(() => ({ auto_sync_memory: false, last_status: 'unknown' }))
+        ]);
+        REGISTRY = reg; BUILD_STATE = bld; OPS_STATE = ops;
+        APPROVALS = apr; ALERTS = alt; INCIDENTS = inc;
+        RERUNS = rer; LOGS = log; COMMANDS = cmd; MEMORY = mem;
+        window.MEMORY_LAYERS = layers || {};
+        window.SESSION_STATE = session || { current_session: null, history: [] };
+        window.MEMORY_FILES = memoryFiles || { canonical_files: [], tracked_files: [], sessions_last_24h: [], sessions_total: 0 };
+        window.PROJECT_FLOWS = projectFlows || { projects: {} };
+        window.PERSONA_ASSETS = personaAssets || { items: [], materials_file: '' };
+        window.CLOUD_SYNC_STATE = cloudSync || { auto_sync_memory: false, last_status: 'unknown' };
+        refreshSquadColors();
+    } catch (e) {
+        console.error('Data load error:', e);
+    }
+};
+</script>
+<script>
+function formatDatePt(value) {
+    if (!value) return '-';
+    try { return new Date(value).toLocaleString('pt-BR'); } catch (_) { return value; }
+}
+
+function latestMemorySaveTs() {
+    const allFiles = []
+        .concat(MEMORY_FILES.canonical_files || [])
+        .concat(MEMORY_FILES.tracked_files || []);
+    const stamps = allFiles.map(f => new Date(f.modified_at || 0).getTime()).filter(v => Number.isFinite(v) && v > 0);
+    return stamps.length ? new Date(Math.max(...stamps)).toISOString() : null;
+}
+
+function renderMemoryModeBoard() {
+    const canvas = document.getElementById('memory-board-canvas');
+    const svg = document.getElementById('memory-board-svg');
+    if (!canvas || !svg) return;
+
+    const filesByName = {};
+    (MEMORY_FILES.canonical_files || []).forEach(f => { if (f && f.name) filesByName[f.name] = f; });
+    const nodeDefs = [
+        { id: 'state', key: 'memory_current_state.json', title: 'Estado Atual', color: '#14b8a6', x: 70, y: 150, info: 'Contexto vivo do projeto' },
+        { id: 'loops', key: 'memory_open_loops.json', title: 'Loops Pendentes', color: '#a855f7', x: 380, y: 40, info: 'Pendencias abertas para retomar' },
+        { id: 'decisions', key: 'memory_decision_log.json', title: 'Decisoes', color: '#38bdf8', x: 380, y: 260, info: 'Escolhas e racional tecnico' },
+        { id: 'execution', key: 'memory_execution_journal.json', title: 'Execucoes', color: '#22c55e', x: 700, y: 40, info: 'Rastro de execucao por sessao' },
+        { id: 'checkpoints', key: 'memory_checkpoints.json', title: 'Checkpoint', color: '#f59e0b', x: 700, y: 260, info: 'Onde parou e como retomar' },
+        { id: 'mutations', key: 'memory_mutations.json', title: 'Mutacoes', color: '#ef4444', x: 1030, y: 150, info: 'Auditoria de alteracoes' }
+    ].map(n => {
+        const file = filesByName[n.key] || {
+            path: `docs/control/${n.key}`,
+            name: n.key,
+            modified_at: null,
+            bytes: 0
+        };
+        return { ...n, file };
+    });
+
+    canvas.innerHTML = nodeDefs.map(n => `
+        <button class="memory-node" style="left:${n.x}px;top:${n.y}px;border-color:${n.color}55" onclick="openEditorModal('${n.file.path}','${n.title}')">
+            <div class="mb-1"><span class="memory-dot" style="background:${n.color}"></span><span class="memory-node-title">${n.title}</span></div>
+            <div class="memory-node-meta">${n.info}</div>
+            <div class="memory-node-meta mt-2">Arquivo: ${n.file.name}</div>
+            <div class="memory-node-meta">Atualizado: ${formatDatePt(n.file.modified_at)}</div>
+        </button>
+    `).join('');
+
+    const edges = [
+        ['state', 'loops'],
+        ['state', 'decisions'],
+        ['loops', 'execution'],
+        ['decisions', 'checkpoints'],
+        ['execution', 'mutations'],
+        ['checkpoints', 'mutations']
+    ];
+
+    svg.setAttribute('viewBox', '0 0 1500 440');
+    svg.innerHTML = '';
+    const idx = {};
+    nodeDefs.forEach(n => { idx[n.id] = n; });
+    edges.forEach(([fromId, toId]) => {
+        const from = idx[fromId];
+        const to = idx[toId];
+        if (!from || !to) return;
+        const x1 = from.x + 240;
+        const y1 = from.y + 74;
+        const x2 = to.x;
+        const y2 = to.y + 74;
+        const cx = (x1 + x2) / 2;
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', `M${x1},${y1} C${cx},${y1} ${cx},${y2} ${x2},${y2}`);
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', 'rgba(168,85,247,0.26)');
+        path.setAttribute('stroke-width', '2');
+        path.setAttribute('stroke-dasharray', '7 5');
+        svg.appendChild(path);
+    });
+}
+
+function renderSessionStatus() {
+    ensureMemoryLifecycleUI();
+    const current = SESSION_STATE.current_session;
+    const last = (SESSION_STATE.history || []).slice(-1)[0] || null;
+    const active = current && current.status === 'active';
+    const status = document.getElementById('session-status-badge');
+    if (status) {
+        status.textContent = active ? 'ATIVA' : 'IDLE';
+        status.className = active
+            ? 'text-sm font-black text-secondary'
+            : 'text-sm font-black text-muted';
+    }
+    const context = current ? current.context_flash || {} : (MEMORY_LAYERS.current_state || {});
+    const flash = document.getElementById('memory-current-flash');
+    if (flash) {
+        flash.innerHTML = [
+            ['Projeto', context.project || '-'],
+            ['Objetivo ativo', context.active_goal || '-'],
+            ['Tarefa ativa', context.active_task || '-'],
+            ['Build phase', context.build_phase || '-'],
+            ['Ops stage', context.ops_stage || '-'],
+            ['Checkpoint', context.latest_checkpoint_id || '-'],
+            ['Loops abertos', context.open_loops_count != null ? context.open_loops_count : '-']
+        ].map(([k, v]) => `<div class=\"flex justify-between gap-3 py-1 border-b border-white/5\"><span class=\"text-muted\">${k}</span><span class=\"text-white text-right\">${v}</span></div>`).join('');
+    }
+    const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    const checkpoint = context.latest_checkpoint_id || ((MEMORY_LAYERS.current_state || {}).latest_checkpoint_id) || '-';
+    setTxt('memory-last-save', formatDatePt(latestMemorySaveTs()));
+    setTxt('memory-active-session', active ? current.id : 'Sem sessao ativa');
+    setTxt('memory-latest-checkpoint', checkpoint || '-');
+    setTxt('session-active-id', active ? current.id : '-');
+    setTxt('session-model-hint', active ? (current.model_hint || '-') : (last && last.model_hint ? last.model_hint : '-'));
+    setTxt('session-last-start', active ? formatDatePt(current.started_at) : (last ? formatDatePt(last.started_at) : '-'));
+    setTxt('session-last-close', last ? formatDatePt(last.ended_at) : '-');
+}
+
+function renderCloudSyncStatus() {
+    const state = window.CLOUD_SYNC_STATE || {};
+    const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    const normalize = (value) => String(value || '-').toUpperCase();
+
+    setTxt('cloud-status', normalize(state.last_status || (state.in_progress ? 'running' : 'idle')));
+    setTxt('cloud-last-save', formatDatePt(state.last_completed_at || state.last_started_at));
+    setTxt('cloud-github-status', normalize((state.github && state.github.status) || 'idle'));
+    setTxt('cloud-firebase-status', normalize((state.firebase && state.firebase.status) || 'idle'));
+    setTxt('cloud-summary', state.last_summary || 'Sem execucao.');
+
+    const banner = document.getElementById('cloud-sync-banner');
+    const bannerTitle = document.getElementById('cloud-banner-title');
+    const bannerSubtitle = document.getElementById('cloud-banner-subtitle');
+    const bannerTime = document.getElementById('cloud-banner-time');
+    const status = String(state.last_status || 'idle').toLowerCase();
+    const running = Boolean(state.in_progress);
+
+    if (banner) {
+        banner.style.borderColor = running ? 'rgba(56,189,248,0.45)'
+            : status === 'success' ? 'rgba(34,197,94,0.45)'
+            : status === 'error' ? 'rgba(239,68,68,0.45)'
+            : status === 'partial' ? 'rgba(245,158,11,0.45)'
+            : 'rgba(255,255,255,0.12)';
+        banner.style.background = running ? 'rgba(8,25,45,0.45)'
+            : status === 'success' ? 'rgba(8,32,18,0.45)'
+            : status === 'error' ? 'rgba(40,12,12,0.45)'
+            : status === 'partial' ? 'rgba(48,30,8,0.45)'
+            : 'rgba(0,0,0,0.2)';
+    }
+    if (bannerTitle) bannerTitle.textContent = `Cloud Sync: ${running ? 'EM EXECUCAO' : normalize(status)}`;
+    if (bannerSubtitle) bannerSubtitle.textContent = state.last_summary || 'Sem sincronizacao executada.';
+    if (bannerTime) bannerTime.textContent = formatDatePt(state.last_completed_at || state.last_started_at);
+
+    const autoToggle = document.getElementById('cloud-auto-sync-toggle');
+    if (autoToggle) autoToggle.checked = Boolean(state.auto_sync_memory);
+
+    const disableActions = running;
+    ['btn-cloud-sync-main', 'btn-cloud-sync-all', 'btn-cloud-sync-github', 'btn-cloud-sync-firebase'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        btn.disabled = disableActions;
+        btn.style.opacity = disableActions ? '0.55' : '1';
+        btn.style.cursor = disableActions ? 'not-allowed' : 'pointer';
+    });
+}
+
+window.toggleCloudAutoSync = async function(enabled) {
+    try {
+        const res = await fetch('/api/cloud-sync/auto', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ enabled: Boolean(enabled) })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha ao atualizar auto-sync');
+        await loadAllData();
+        renderMemory();
+    } catch (e) {
+        alert(`Nao foi possivel alterar auto-sync: ${e.message}`);
+        await loadAllData();
+        renderMemory();
+    }
+};
+
+window.runCloudSync = async function(target = 'all', scope = 'memory') {
+    try {
+        const syncState = window.CLOUD_SYNC_STATE || {};
+        if (syncState.in_progress) {
+            alert('Ja existe uma sincronizacao em andamento. Aguarde concluir.');
+            return;
+        }
+        window.CLOUD_SYNC_STATE = Object.assign({}, syncState, {
+            in_progress: true,
+            last_status: 'running',
+            last_summary: 'Sincronizacao iniciada... aguarde.',
+            last_started_at: new Date().toISOString()
+        });
+        renderCloudSyncStatus();
+        const res = await fetch('/api/cloud-sync/run', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                target,
+                scope,
+                trigger: 'memory_panel',
+                initiated_by: 'human',
+                project_id: getSessionProjectId()
+            })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha na sincronizacao');
+        await loadAllData();
+        renderMemory();
+        if (data.queued) {
+            alert('Sincronizacao ja estava em andamento. Seu pedido entrou na fila.');
+        } else {
+            alert(`Cloud sync concluido: ${String(data.status || 'ok').toUpperCase()}`);
+        }
+    } catch (e) {
+        window.CLOUD_SYNC_STATE = Object.assign({}, window.CLOUD_SYNC_STATE || {}, {
+            in_progress: false,
+            last_status: 'error',
+            last_summary: `Falha na sincronizacao: ${e.message}`
+        });
+        renderCloudSyncStatus();
+        alert(`Erro ao sincronizar nuvem: ${e.message}`);
+    }
+};
+
+function getSessionProjectId() {
+    return normalizeMasterProjectId(window.MASTER_PROJECT) || null;
+}
+
+window.startSessionRoutine = async function(manual = true) {
+    try {
+        const res = await fetch('/api/session/start', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                started_by: manual ? 'human' : 'dashboard',
+                source: manual ? 'dashboard_manual_start' : 'dashboard_auto_boot',
+                model_hint: 'dashboard',
+                project_id: getSessionProjectId()
+            })
+        });
+        if (!res.ok) {
+            const errData = await res.json().catch(() => ({}));
+            throw new Error(errData.error || 'Erro no servidor: ' + res.status);
+        }
+        await loadAllData();
+        renderMemory();
+        renderStatus();
+        if (manual) alert('Startup Oracle concluido com sucesso.');
+    } catch (e) {
+        console.error('Session Startup Error:', e);
+        alert('Falha ao executar startup Oracle. Verifique o console para detalhes.');
+    }
+};
+
+window.closeSessionRoutine = async function() {
+    const summary = (document.getElementById('session-close-summary') || {}).value || '';
+    const nextAction = (document.getElementById('session-next-action') || {}).value || '';
+    const tasksRaw = (document.getElementById('session-completed-tasks') || {}).value || '';
+    const completedTasks = tasksRaw.split('\n').map(v => v.trim()).filter(Boolean);
+    const effectiveSummary = summary.trim() || 'Encerramento automatico pelo painel (sem resumo manual).';
+    try {
+        const res = await fetch('/api/session/close', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                summary: effectiveSummary,
+                next_action: nextAction.trim(),
+                completed_tasks: completedTasks,
+                closed_by: 'human',
+                model_hint: 'dashboard',
+                project_id: getSessionProjectId()
+            })
+        });
+        const payload = await res.json();
+        await loadAllData();
+        renderMemory();
+        renderStatus();
+        alert(`Shutdown Scribe concluido. Checkpoint: ${payload.checkpoint_id || '-'}`);
+    } catch (e) {
+        console.error(e);
+        alert('Falha ao executar shutdown Scribe.');
+    }
+};
+
+window.sessionPulse = async function(contextNote = '') {
+    try {
+        await fetch('/api/session/pulse', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                context_note: contextNote || '',
+                project_id: getSessionProjectId()
+            })
+        });
+    } catch (_) {}
+};
+
+function buildAutoClosePayload(reason) {
+    const summaryField = (document.getElementById('session-close-summary') || {}).value || '';
+    const nextAction = (document.getElementById('session-next-action') || {}).value || '';
+    const tasksRaw = (document.getElementById('session-completed-tasks') || {}).value || '';
+    const completedTasks = tasksRaw.split('\n').map(v => v.trim()).filter(Boolean);
+    return {
+        summary: summaryField.trim() || `Encerramento automatico (${reason}).`,
+        next_action: nextAction.trim(),
+        completed_tasks: completedTasks,
+        closed_by: 'system',
+        model_hint: 'dashboard',
+        project_id: getSessionProjectId()
+    };
+}
+
+function sendAutoClose(reason) {
+    const payload = JSON.stringify(buildAutoClosePayload(reason));
+    if (navigator.sendBeacon) {
+        const blob = new Blob([payload], { type: 'application/json' });
+        navigator.sendBeacon('/api/session/close', blob);
+        return;
+    }
+    fetch('/api/session/close', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        keepalive: true,
+        body: payload
+    }).catch(() => {});
+}
+
+function renderMemoryFileLine(file, icon = 'file-json') {
+    const modified = file && file.modified_at ? formatDatePt(file.modified_at) : '-';
+    const size = file && typeof file.bytes === 'number' ? `${file.bytes}b` : '-';
+    const path = file && file.path ? file.path : '';
+    if (!path) return '';
+    return `<button class=\"w-full text-left px-2 py-2 rounded border border-white/10 hover:border-primary/30 hover:bg-white/5\" onclick=\"openEditorModal('${path}','${file.name || path}')\"><div class=\"flex items-center justify-between gap-2\"><span class=\"text-[10px] text-white truncate\">${file.name || path}</span><span class=\"text-[8px] text-muted\">${size}</span></div><div class=\"text-[8px] text-muted truncate\">${path}</div><div class=\"text-[8px] text-primary\">Editar arquivo</div><div class=\"text-[8px] text-muted\">${modified}</div></button>`;
+}
+
+function renderSessions24h() {
+    const list = document.getElementById('memory-sessions-24h');
+    const count = document.getElementById('memory-sessions-count');
+    if (count) count.textContent = `${(MEMORY_FILES.sessions_last_24h || []).length} em 24h`;
+    if (!list) return;
+    const sessions = (MEMORY_FILES.sessions_last_24h || []);
+    if (!sessions.length) {
+        list.innerHTML = '<p class=\"text-[10px] text-muted italic\">Nenhuma sessao nas ultimas 24h.</p>';
+        return;
+    }
+    list.innerHTML = sessions.map(s => `
+        <button class=\"memory-session-item w-full text-left hover:border-sky/30\" onclick=\"openEditorModal('${s.path}','Sessao ${s.id}')\">
+            <div class=\"flex justify-between items-center mb-1\">
+                <span class=\"text-[10px] text-white font-mono\">${s.id}</span>
+                <span class=\"badge ${s.status === 'closed' ? 'state-completed' : 'state-in_progress'}\" style=\"font-size:7px\">${s.status}</span>
+            </div>
+            <div class=\"text-[9px] text-muted\">Inicio: ${formatDatePt(s.started_at)}</div>
+            <div class=\"text-[9px] text-muted\">Fim: ${formatDatePt(s.ended_at)}</div>
+            <div class=\"text-[9px] text-muted\">Checkpoint: ${s.checkpoint_id || '-'}</div>
+        </button>
+    `).join('');
+}
+
+function renderMemoryFiles() {
+    const coreNode = document.getElementById('memory-files-core');
+    const extraNode = document.getElementById('memory-files-extra');
+    if (coreNode) {
+        const core = MEMORY_FILES.canonical_files || [];
+        coreNode.innerHTML = core.length ? core.map(f => renderMemoryFileLine(f, 'file-json')).join('') : '<p class=\"text-[10px] text-muted italic\">Sem arquivos core.</p>';
+    }
+    if (extraNode) {
+        const extra = MEMORY_FILES.tracked_files || [];
+        extraNode.innerHTML = extra.length ? extra.map(f => renderMemoryFileLine(f, 'file-text')).join('') : '<p class=\"text-[10px] text-muted italic\">Nenhum arquivo extra registrado.</p>';
+    }
+}
+
+window.createMemoryExtraFile = async function() {
+    const name = (document.getElementById('memory-new-file-name') || {}).value || '';
+    const type = (document.getElementById('memory-new-file-type') || {}).value || 'md';
+    if (!name.trim()) {
+        alert('Informe um nome para o novo arquivo.');
+        return;
+    }
+    try {
+        const res = await fetch('/api/memory/files/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ file_name: name.trim(), type, by: 'human' })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha ao criar arquivo');
+        await loadAllData();
+        renderMemory();
+        openEditorModal(data.path, data.path.split('/').pop());
+    } catch (e) {
+        alert(`Nao foi possivel criar arquivo: ${e.message}`);
+    }
+};
+
+window.registerMemoryFilePath = async function() {
+    const path = (document.getElementById('memory-register-path') || {}).value || '';
+    if (!path.trim()) {
+        alert('Informe um caminho de arquivo para registrar.');
+        return;
+    }
+    try {
+        const res = await fetch('/api/memory/files/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ path: path.trim(), by: 'human' })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha ao registrar arquivo');
+        await loadAllData();
+        renderMemory();
+    } catch (e) {
+        alert(`Nao foi possivel registrar: ${e.message}`);
+    }
+};
+
+window.renderMemory = function() {
+    ensureMemoryLifecycleUI();
+    renderMemoryModeBoard();
+    renderSessions24h();
+    renderMemoryFiles();
+
+    const mutations = (MEMORY.mutations || []).slice(-30).reverse();
+    const mutNode = document.getElementById('memory-mutations');
+    if (mutNode) {
+        mutNode.innerHTML = mutations.length ? mutations.map(m => `<div class=\"flex items-start gap-3 py-2 border-b border-white/5\"><span class=\"text-[8px] text-muted font-mono w-32 shrink-0\">${formatDatePt(m.timestamp)}</span><div><span class=\"badge border-white/10 text-muted bg-white/5\" style=\"font-size:7px\">${m.memory_scope || 'memory'}</span><p class=\"text-[9px] text-white mt-1\">${m.diff_summary || 'Mutacao registrada'}</p></div></div>`).join('') : '<p class=\"text-[10px] text-muted italic\">Nenhuma mutacao registrada.</p>';
+    }
+
+    const layersNode = document.getElementById('memory-layer-summary');
+    if (layersNode) {
+        const loops = (MEMORY_LAYERS.open_loops && MEMORY_LAYERS.open_loops.items) || [];
+        const checkpoints = (MEMORY_LAYERS.checkpoints && MEMORY_LAYERS.checkpoints.items) || [];
+        const decisions = (MEMORY_LAYERS.decisions && MEMORY_LAYERS.decisions.items) || [];
+        const runs = (MEMORY_LAYERS.execution_journal && MEMORY_LAYERS.execution_journal.items) || [];
+        const artifacts = (MEMORY_LAYERS.artifact_index && MEMORY_LAYERS.artifact_index.items) || [];
+        layersNode.innerHTML = [
+            `Loops abertos: ${loops.filter(v => v.status !== 'closed').length}`,
+            `Checkpoints: ${checkpoints.length}`,
+            `Decisoes: ${decisions.length}`,
+            `Runs: ${runs.length}`,
+            `Artefatos: ${artifacts.length}`
+        ].map(line => `<div class=\"py-2 border-b border-white/5 text-[10px] text-white\">${line}</div>`).join('');
+    }
+
+    renderSessionStatus();
+    renderCloudSyncStatus();
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+};
+
+window.renderAgents = function() {
+    const view = document.getElementById('agents-view');
+    if (!view) return;
+    view.innerHTML = (REGISTRY.agents || []).map(a => {
+        const sq = (SQUAD_COLORS && SQUAD_COLORS[a.squad]) || '#6b7280';
+        const filePath = `.codex/agents/${a.handle.replace('@','')}.md`;
+        const title = `${a.name} - ${a.squad}`;
+        return `<div class="glass p-4 cursor-pointer hover:-translate-y-0.5 transition-transform" onclick='openEditorModal(${JSON.stringify(filePath)}, ${JSON.stringify(title)})'><div class="flex items-center justify-between mb-3"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full flex items-center justify-center text-lg border border-white/10 bg-white/5">${a.icon}</div><div><h3 class="text-xs font-bold text-white">${a.name}</h3><p class="text-[9px] text-muted font-mono">${a.handle}</p></div></div><button class="btn-ghost text-primary text-[10px] py-1 px-2" onclick='event.stopPropagation();openEditorModal(${JSON.stringify(filePath)}, ${JSON.stringify(title)})'>Editar</button></div><p class="text-[10px] text-muted mb-3">${a.role}</p><span class="text-[9px] font-bold px-2 py-0.5 rounded" style="background:${sq}20;color:${sq}">${a.squad}</span></div>`;
+    }).join('');
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+};
+
+function personaAssetMap() {
+    const map = {};
+    (PERSONA_ASSETS.items || []).forEach(item => { if (item && item.persona_id) map[item.persona_id] = item; });
+    return map;
+}
+
+function personaAssetRow(file) {
+    if (!file || !file.path) return '';
+    const statusClass = file.exists ? 'text-secondary' : 'text-coral';
+    const statusText = file.exists ? 'ok' : 'faltando';
+    return `<button class="w-full text-left px-2 py-2 rounded border border-white/10 hover:border-primary/30 hover:bg-white/5 mb-2" onclick='openEditorModal(${JSON.stringify(file.path)}, ${JSON.stringify(file.name || file.path)})'><div class="flex justify-between items-center"><span class="text-[10px] text-white truncate">${file.name || file.path}</span><span class="text-[8px] ${statusClass} uppercase">${statusText}</span></div><div class="text-[8px] text-muted truncate">${file.path}</div></button>`;
+}
+
+window.openPersonaAssetsDrawer = function(personaId) {
+    const assets = personaAssetMap()[personaId];
+    if (!assets) return;
+    const transcriptRows = (assets.transcript_files || []).map(personaAssetRow).join('') || '<p class="text-[10px] text-muted italic">Sem transcricoes.</p>';
+    const bookRows = (assets.book_files || []).map(personaAssetRow).join('') || '<p class="text-[10px] text-muted italic">Sem livros.</p>';
+    const supportRows = (assets.support_files || []).map(personaAssetRow).join('') || '<p class="text-[10px] text-muted italic">Sem anexos adicionais.</p>';
+    const linkedRows = (assets.prompt_linked_files || []).map(personaAssetRow).join('') || '<p class="text-[10px] text-muted italic">Sem links no prompt clone.</p>';
+    document.getElementById('drawer-title').textContent = `${assets.persona_name} · Arquivos`;
+    document.getElementById('drawer-content').innerHTML = `
+        <div class="space-y-4">
+            <div class="glass p-3">
+                <p class="text-[9px] text-muted uppercase tracking-widest mb-2">Status Transcricao</p>
+                <p class="text-[11px] text-white">Disponiveis: ${assets.transcript_status?.available || 0} / ${assets.transcript_status?.total || 0}</p>
+                <p class="text-[10px] text-muted">Referenciadas no clone: ${assets.transcript_status?.linked_in_clone || 0}</p>
+            </div>
+            <div class="glass p-3">
+                <p class="text-[9px] text-muted uppercase tracking-widest mb-2">Arquivo de Persona</p>
+                ${personaAssetRow(assets.instruction_file)}
+                <p class="text-[9px] text-muted uppercase tracking-widest mb-2 mt-3">Arquivo Clone</p>
+                ${assets.clone_file ? personaAssetRow(assets.clone_file) : '<p class="text-[10px] text-muted italic">Sem clone configurado.</p>'}
+            </div>
+            <div class="glass p-3"><p class="text-[9px] text-muted uppercase tracking-widest mb-2">Transcricoes</p>${transcriptRows}</div>
+            <div class="glass p-3"><p class="text-[9px] text-muted uppercase tracking-widest mb-2">Livros</p>${bookRows}</div>
+            <div class="glass p-3"><p class="text-[9px] text-muted uppercase tracking-widest mb-2">Anexos Suporte</p>${supportRows}</div>
+            <div class="glass p-3"><p class="text-[9px] text-muted uppercase tracking-widest mb-2">Links Detectados no Clone</p>${linkedRows}</div>
+            <div class="glass p-3">
+                <button class="btn-ghost w-full" onclick='openEditorModal(${JSON.stringify(PERSONA_ASSETS.materials_file || "docs/control/persona_materials.json")}, "persona_materials.json")'>Editar Mapa de Anexos (JSON)</button>
+            </div>
+        </div>`;
+    document.getElementById('detail-drawer').classList.add('open');
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+};
+
+window.renderPersonas = function() {
+    const personas = REGISTRY.personas || [];
+    const assetsByPersona = personaAssetMap();
+    const count = document.getElementById('personas-count');
+    const view = document.getElementById('personas-view');
+    if (count) count.textContent = `${personas.length} Personas`;
+    if (!view) return;
+    view.innerHTML = personas.map(p => {
+        const filePath = `.codex/personas/${p.id}.md`;
+        const title = `Persona ${p.name}`;
+        const assets = assetsByPersona[p.id] || {};
+        const tTotal = (assets.transcript_status && assets.transcript_status.total) || 0;
+        const tOk = (assets.transcript_status && assets.transcript_status.available) || 0;
+        const bTotal = (assets.book_status && assets.book_status.total) || 0;
+        const bOk = (assets.book_status && assets.book_status.available) || 0;
+        const hasGap = (tTotal > tOk) || (bTotal > bOk);
+        const statusBadge = hasGap ? '<span class="badge border-coral/30 text-coral bg-coral/10">anexo faltando</span>' : '<span class="badge border-secondary/30 text-secondary bg-secondary/10">anexos ok</span>';
+        return `<div class="glass p-4 cursor-pointer hover:-translate-y-0.5 transition-transform" onclick='openPersonaAssetsDrawer(${JSON.stringify(p.id)})'><div class="flex items-center justify-between mb-3"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-lg">${p.icon || '👤'}</div><div><h4 class="text-xs font-bold text-white">${p.name}</h4><p class="text-[9px] text-primary font-bold tracking-widest">${p.role || '-'}</p></div></div><button class="btn-ghost text-primary text-[10px] py-1 px-2" onclick='event.stopPropagation();openEditorModal(${JSON.stringify(filePath)}, ${JSON.stringify(title)})'>Editar Persona</button></div><p class="text-[10px] text-muted mb-2">${p.bio || ''}</p><div class="flex flex-wrap gap-1 mb-3">${(p.traits || []).map(t => `<span class="px-1.5 py-0.5 rounded text-[8px] bg-primary/10 text-primary border border-primary/15 font-bold uppercase">${t}</span>`).join('')}</div><div class="grid grid-cols-2 gap-2 mb-3"><div class="bg-black/20 border border-white/10 rounded px-2 py-1"><p class="text-[8px] text-muted uppercase">Transcricoes</p><p class="text-[10px] text-white font-bold">${tOk}/${tTotal}</p></div><div class="bg-black/20 border border-white/10 rounded px-2 py-1"><p class="text-[8px] text-muted uppercase">Livros</p><p class="text-[10px] text-white font-bold">${bOk}/${bTotal}</p></div></div><div class="flex items-center justify-between">${statusBadge}<button class="btn-ghost text-[10px]" onclick='event.stopPropagation();openPersonaAssetsDrawer(${JSON.stringify(p.id)})'>Abrir Estrutura</button></div></div>`;
+    }).join('');
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+};
+
+window.syncAll = async function() {
+    await loadAllData();
+    renderStatus();
+    const active = document.querySelector('.sb-icon.active');
+    if (active && active.dataset && active.dataset.tab && active.dataset.tab !== 'status') switchTab(active.dataset.tab);
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(async () => {
+        await loadAllData();
+        if (!SESSION_STATE.current_session || SESSION_STATE.current_session.status !== 'active') {
+            await startSessionRoutine(false);
+        } else {
+            renderMemory();
+        }
+    }, 500);
+    setInterval(() => {
+        const active = SESSION_STATE.current_session && SESSION_STATE.current_session.status === 'active';
+        if (!active) return;
+        const task = ((MEMORY_LAYERS.current_state || {}).active_task) || '';
+        sessionPulse(task);
+    }, 60000);
+    window.addEventListener('beforeunload', () => {
+        const active = SESSION_STATE.current_session && SESSION_STATE.current_session.status === 'active';
+        if (!active) return;
+        sendAutoClose('fechamento de aba/janela');
+    });
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState !== 'hidden') return;
+        const active = SESSION_STATE.current_session && SESSION_STATE.current_session.status === 'active';
+        if (!active) return;
+        sessionPulse('background');
+    });
+});
 </script>
 </body>
 </html>
-

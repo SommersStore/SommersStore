@@ -491,3 +491,5 @@ Type `*help` to see commands by phase, or `*status` to see workflow state.
 - **@dev (Dex)** - Implements components
 
 ---
+---
+*AIOX Agent - Synced from .aiox-core/development/agents/ux-design-expert.md*

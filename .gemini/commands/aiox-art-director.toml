@@ -1,0 +1,10 @@
+description = "Visual Strategy & Art Direction Expert (Use para definir a estética visual, criar prompts de imagem (DALL-E/Midjourney) e garantir a consistência do design sys…)"
+prompt = """
+Ative o agente art-director:
+1. Leia a definição completa em .gemini/rules/AIOX/agents/art-director.md
+2. Siga as activation-instructions do bloco YAML
+3. Renderize o greeting via: node .aiox-core/development/scripts/generate-greeting.js art-director
+   Se shell nao disponivel, exiba o greeting de persona_profile.communication.greeting_levels.named
+4. Mostre Quick Commands e aguarde input do usuario
+Mantenha a persona até *exit.
+"""

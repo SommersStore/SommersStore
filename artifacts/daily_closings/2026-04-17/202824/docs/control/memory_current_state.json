@@ -1,0 +1,30 @@
+{
+  "project": "SommersStore Elite",
+  "build_phase": "BLD-07",
+  "ops_stage": "OPS-01",
+  "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+  "active_task": "Retomar ajustes no painel e memoria",
+  "deliverable_in_progress": "Control Fabric com lifecycle de sessao automatizado",
+  "current_owner": "SQD-MEM",
+  "last_relevant_event": "Teste tecnico de fechamento automatico",
+  "next_actions": [
+    "Retomar ajustes no painel e memoria",
+    "Retomar validando no painel a timeline por project_id e seguir para BL-014 (busca global).",
+    "Iniciar Story 1.5: consolidar validacao do painel e avancar trilha de conteudo/checkpoint e checkout.",
+    "Executar validacao recorrente semanal do lifecycle no painel",
+    "Retomar a partir do ultimo checkpoint automatico",
+    "Perceber o contexto anterior.",
+    "Executar startup Oracle no retorno e validar contexto carregado",
+    "Rodar sessao completa com shutdown Scribe via painel"
+  ],
+  "open_blockers": [
+    "Baixa densidade de logs historicos em execution_log/context_snapshots"
+  ],
+  "active_risks": [
+    "Regressao para resumo superficial se os JSONs nao forem atualizados por sessao",
+    "Retomada incompleta se checkpoint nao registrar proxima acao exata"
+  ],
+  "latest_active_decision_id": "DEC-MEM-0004",
+  "latest_checkpoint_id": "CHK-MEM-0049",
+  "updated_at": "2026-04-17T20:28:25-03:00"
+}

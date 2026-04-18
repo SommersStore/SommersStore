@@ -1,7 +1,8 @@
-Set WshShell = CreateObject("WScript.Shell")
-' Roda o servidor Node.js invisível (o 0 significa "Hide window")
-WshShell.Run "cmd /c node scripts\dashboard_server.js", 0, false
-' Aguarda 1 segundinho para o servidor iniciar
-WScript.Sleep 1000
-' Abre o navegador padrão direto no painel
-WshShell.Run "http://localhost:4000"
+Set shell = CreateObject("WScript.Shell")
+Set fso = CreateObject("Scripting.FileSystemObject")
+
+root = fso.GetParentFolderName(WScript.ScriptFullName)
+starter = """" & fso.BuildPath(root, "start_painel.bat") & """"
+
+' Delega para o bootstrap robusto no .bat (healthcheck + abertura do navegador)
+shell.Run "cmd /c " & starter, 0, false

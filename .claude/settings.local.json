@@ -2,9 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(npm run:*)",
-      "Bash(\"c:\\\\Users\\\\ADMIN\\\\SommersStore\\\\.gitignore\":*)",
+      "Bash(\"c:\\\\Users\\\\ADMIN\\\\.gemini\\\\antigravity\\\\scratch\\\\SommersStore\\\\.gitignore\":*)",
       "Bash(firebase deploy:*)",
-      "Bash(start \"c:\\\\Users\\\\ADMIN\\\\SommersStore\\\\docs\\\\aiox_fluxograma.html\")",
+      "Bash(start \"c:\\\\Users\\\\ADMIN\\\\.gemini\\\\antigravity\\\\scratch\\\\SommersStore\\\\docs\\\\aiox_fluxograma.html\")",
       "WebSearch",
       "Bash(where claude:*)",
       "Bash(npm list:*)",
@@ -21,7 +21,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"C:\\\\Users\\\\ADMIN\\\\SommersStore\\\\.claude\\\\hooks\\\\code-intel-pretool.cjs\"",
+            "command": "node \".claude/hooks/code-intel-pretool.cjs\"",
             "timeout": 10
           }
         ]
@@ -32,7 +32,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"C:\\\\Users\\\\ADMIN\\\\SommersStore\\\\.claude\\\\hooks\\\\precompact-session-digest.cjs\"",
+            "command": "node \".claude/hooks/precompact-session-digest.cjs\"",
             "timeout": 10
           }
         ]
@@ -43,7 +43,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"C:\\\\Users\\\\ADMIN\\\\SommersStore\\\\.claude\\\\hooks\\\\synapse-engine.cjs\"",
+            "command": "node \".claude/hooks/synapse-engine.cjs\"",
             "timeout": 10
           }
         ]

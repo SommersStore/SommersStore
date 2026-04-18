@@ -24,9 +24,13 @@ if errorlevel 1 (
 
 echo.
 echo [3/3] Gemini
-rem O Gemini pode usar login web ou chave API.
-rem Se abrir navegador, conclua o login e volte.
-gemini auth login
+rem O Gemini CLI NAO usa "gemini auth login".
+rem Abra o Gemini, escolha "Sign in with Google", conclua no navegador
+rem e depois digite /quit para voltar ao terminal.
+echo.
+echo Abra o Gemini e escolha "Sign in with Google".
+echo Quando terminar, digite /quit para fechar e voltar.
+gemini
 if errorlevel 1 (
   echo.
   echo [ATENCAO] Nao foi possivel concluir o login do Gemini agora.
@@ -47,7 +51,7 @@ vercel whoami
 
 echo.
 echo Gemini:
-gemini auth status
+gemini -p "Responda apenas OK"
 
 echo.
 echo [OK] Processo finalizado.
