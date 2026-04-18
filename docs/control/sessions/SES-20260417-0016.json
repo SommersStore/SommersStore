@@ -1,19 +1,19 @@
 {
-  "id": "SES-20260417-0015",
-  "status": "closed",
-  "started_at": "2026-04-17T22:56:02-03:00",
+  "id": "SES-20260417-0016",
+  "status": "active",
+  "started_at": "2026-04-17T22:56:43-03:00",
   "started_by": "dashboard",
   "source": "dashboard_auto_boot",
   "model_hint": "dashboard",
   "project_id": "sais",
-  "last_seen_at": "2026-04-17T22:56:02-03:00",
+  "last_seen_at": "2026-04-17T22:56:43-03:00",
   "context_flash": {
     "project": "SommersStore Elite",
     "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
     "active_task": "Retomar ajustes no painel e memoria",
     "build_phase": "BLD-07",
     "ops_stage": "OPS-01",
-    "latest_checkpoint_id": "CHK-MEM-0050",
+    "latest_checkpoint_id": "CHK-MEM-0051",
     "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
     "latest_active_decision_id": "DEC-MEM-0004",
     "open_loops_count": 2,
@@ -22,11 +22,5 @@
       "LOOP-0003"
     ],
     "tracked_files": []
-  },
-  "ended_at": "2026-04-17T22:56:41-03:00",
-  "close_summary": "Encerramento automatico (fechamento de aba/janela).",
-  "next_action": null,
-  "completed_tasks": [],
-  "checkpoint_id": "CHK-MEM-0051",
-  "closed_by": "system"
+  }
 }
