@@ -1,0 +1,138 @@
+{
+  "items": [
+    {
+      "id": "ART-0001",
+      "title": "Control Dashboard Frontend",
+      "type": "implementation",
+      "path": "docs/aiox_dashboard.html",
+      "module": "control",
+      "version": "current",
+      "status": "active",
+      "summary": "Interface principal do painel Anti-Gravity",
+      "generated_by": "historico",
+      "generated_at": "2026-04-14T15:53:38-03:00",
+      "supersedes": "",
+      "linked_runs": [],
+      "linked_decisions": [
+        "DEC-MEM-0001"
+      ],
+      "linked_checkpoints": []
+    },
+    {
+      "id": "ART-0002",
+      "title": "Control Server API",
+      "type": "implementation",
+      "path": "scripts/dashboard_server.js",
+      "module": "control",
+      "version": "current",
+      "status": "active",
+      "summary": "Servidor local com APIs de estado, logs e memoria",
+      "generated_by": "historico",
+      "generated_at": "2026-04-14T15:53:38-03:00",
+      "supersedes": "",
+      "linked_runs": [],
+      "linked_decisions": [
+        "DEC-MEM-0001"
+      ],
+      "linked_checkpoints": []
+    },
+    {
+      "id": "ART-0003",
+      "title": "Layered Memory Control Files",
+      "type": "data",
+      "path": "docs/control/memory_*.json",
+      "module": "memory",
+      "version": "v1",
+      "status": "active",
+      "summary": "Estrutura em camadas para estado, loops, checkpoints, decisoes, execucao e artefatos",
+      "generated_by": "codex",
+      "generated_at": "2026-04-14T23:36:23-03:00",
+      "supersedes": "",
+      "linked_runs": [
+        "RUN-MEM-20260414-0001"
+      ],
+      "linked_decisions": [
+        "DEC-MEM-0003"
+      ],
+      "linked_checkpoints": [
+        "CHK-MEM-0001"
+      ]
+    },
+    {
+      "id": "ART-0004",
+      "title": "Session Protocol Rules",
+      "type": "governance",
+      "path": "AGENTS.md",
+      "module": "memory-governance",
+      "version": "current",
+      "status": "active",
+      "summary": "Protocolos de startup e shutdown para continuidade",
+      "generated_by": "historico",
+      "generated_at": "2026-04-14T15:53:38-03:00",
+      "supersedes": "",
+      "linked_runs": [],
+      "linked_decisions": [
+        "DEC-MEM-0002"
+      ],
+      "linked_checkpoints": []
+    },
+    {
+      "id": "ART-0005",
+      "title": "Memory Canonical Human Docs",
+      "type": "document",
+      "path": "docs/memory/*.md",
+      "module": "memory",
+      "version": "v2",
+      "status": "active",
+      "summary": "Documentacao humana canonica alinhada a arquitetura em camadas",
+      "generated_by": "codex",
+      "generated_at": "2026-04-14T23:36:23-03:00",
+      "supersedes": "",
+      "linked_runs": [
+        "RUN-MEM-20260414-0001"
+      ],
+      "linked_decisions": [
+        "DEC-MEM-0003"
+      ],
+      "linked_checkpoints": [
+        "CHK-MEM-0001"
+      ]
+    },
+    {
+      "id": "ART-0006",
+      "title": "Session Lifecycle State",
+      "type": "data",
+      "path": "docs/control/session_state.json",
+      "module": "memory-governance",
+      "version": "v1",
+      "status": "active",
+      "summary": "Estado de sessao ativa e historico para Oracle/Scribe automaticos",
+      "generated_by": "codex",
+      "generated_at": "2026-04-15T00:58:00-03:00",
+      "supersedes": "",
+      "linked_runs": [],
+      "linked_decisions": [
+        "DEC-MEM-0004"
+      ],
+      "linked_checkpoints": []
+    },
+    {
+      "id": "ART-0007",
+      "title": "Memory Automation Story",
+      "type": "document",
+      "path": "docs/stories/1.4.story.md",
+      "module": "governance",
+      "version": "v1",
+      "status": "active",
+      "summary": "Story operacional da automacao de memoria e continuidade no painel",
+      "generated_by": "codex",
+      "generated_at": "2026-04-15T00:58:00-03:00",
+      "supersedes": "",
+      "linked_runs": [],
+      "linked_decisions": [
+        "DEC-MEM-0004"
+      ],
+      "linked_checkpoints": []
+    }
+  ]
+}

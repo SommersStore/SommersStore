@@ -1,17 +1,223 @@
-# 🧠 Memória Principal do Projeto (Project Memory)
+# Project Memory
 
-## Identidade do Projeto
-- **Nome:** SommersStore Elite
-- **Visão:** Plataforma de membros escalável de alta performance e vitrine de infoprodutos (E-books, etc).
-- **Design System:** Estética "Glassmorphism" premium, Cores em tons obscuros com destaques neons (Ametista, Esmeralda, Rubi). A estética e a conversão andam lado a lado.
-- **Objetivo Central Atual:** Finalizar a arquitetura principal do ecossistema e ferramentas de observabilidade para, em seguida, ir ao front faturar com produtos digitais.
+## Projeto
+- Nome: SommersStore Elite
+- Missao atual: estabilizar painel/control fabric e blindar continuidade de execucao
+- Norte estrategico: concluir base operacional e depois avancar em conteudo + checkout
 
-## Governança e Orquestração (The Control Fabric)
-A plataforma é desenvolvida autonomamente sob a orquestração do painel **Anti-Gravity**.
-- **Regra Base:** Toda alteração de estado é gravada. Amnésia do sistema é evitada usando o protocolo de Inicialização (Oracle) e Encerramento (Scribe).
-- **Força de Trabalho:** 27 Agentes divididos em 7 Squads (incluindo o Squad de Memória & Governança SQD-MEM e a aba Legado SQD-LGC).
+## Fonte canonica de contexto
+- Sessao ativa/historico: `docs/control/session_state.json`
+- Estado atual: `docs/control/memory_current_state.json`
+- Loops abertos: `docs/control/memory_open_loops.json`
+- Checkpoints: `docs/control/memory_checkpoints.json`
+- Decisoes: `docs/control/memory_decision_log.json`
+- Execucoes: `docs/control/memory_execution_journal.json`
+- Artefatos: `docs/control/memory_artifact_index.json`
 
-## Escopo Pendente (Top Level)
-Após a estabilização do Painel de Controle (Fase Atual):
-1. **Revisão de Conteúdo:** Adicionar novos e-books pendentes e revisar/corrigir e-books problemáticos atuais.
-2. **Checkout Integration:** Iniciar integração financeira e ambiente de gateway de pagamento para habilitar vendas.
+## Regras operacionais
+- Nao tratar resumo curto como memoria principal.
+- Nao iniciar mudanca estrutural sem registrar decisao e checkpoint.
+- Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
+
+## Ultima atualizacao
+- updated_at: 2026-04-17T22:55:59-03:00
+
+## Ultimo fechamento
+- timestamp: 2026-04-16T03:08:00-03:00
+- resumo: Sessao encerrada a pedido do usuario (boa noite). Painel estabilizado, nova Hub Master Hub funcional e navegacao destravada.
+- proxima_acao: Retomar a partir da fase BLD-07 no ciclo de construcao.
+- checkpoint: CHK-MEM-0026
+
+## Ultimo fechamento automatico
+- timestamp: 2026-04-17T22:55:59-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0050
+- timestamp: 2026-04-17T20:28:25-03:00
+- resumo: Teste tecnico de fechamento automatico
+- proxima_acao: Retomar ajustes no painel e memoria
+- checkpoint: CHK-MEM-0049
+- timestamp: 2026-04-17T19:21:04-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0048
+- timestamp: 2026-04-17T18:50:37-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0047
+- timestamp: 2026-04-17T17:12:32-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0046
+- timestamp: 2026-04-17T17:10:40-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0045
+- timestamp: 2026-04-17T16:26:17-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0044
+- timestamp: 2026-04-17T16:17:41-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0043
+- timestamp: 2026-04-17T16:05:27-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0042
+- timestamp: 2026-04-17T15:12:39-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0041
+- timestamp: 2026-04-17T15:12:35-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0040
+- timestamp: 2026-04-17T00:27:29-03:00
+- resumo: Sessao encerrada a pedido do usuario por bateria baixa. Entregue: BL-013 (timeline por projeto no Master Hub), logs com project_id explicito no backend e padronizacao global de Siz para Sais, com quality gates verdes.
+- proxima_acao: Retomar validando no painel a timeline por project_id e seguir para BL-014 (busca global).
+- checkpoint: CHK-MEM-0039
+- timestamp: 2026-04-17T00:26:54-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0038
+- timestamp: 2026-04-17T00:17:10-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0037
+- timestamp: 2026-04-17T00:09:48-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0036
+- timestamp: 2026-04-16T17:05:44-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0035
+- timestamp: 2026-04-16T13:21:13-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0034
+- timestamp: 2026-04-16T13:15:02-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0033
+- timestamp: 2026-04-16T12:59:30-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0032
+- timestamp: 2026-04-16T12:38:13-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0031
+- timestamp: 2026-04-16T12:26:39-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0030
+- timestamp: 2026-04-16T11:50:23-03:00
+- resumo: Ciclo operacional completo validado: startup, pulse e shutdown funcionando com persistencia de memoria.
+- proxima_acao: Iniciar Story 1.5: consolidar validacao do painel e avancar trilha de conteudo/checkpoint e checkout.
+- checkpoint: CHK-MEM-0029
+- timestamp: 2026-04-16T11:50:23-03:00
+- resumo: Encerramento manual para iniciar validacao operacional completa do lifecycle.
+- proxima_acao: Executar startup Oracle e validar Master Hub + Memory em fluxo real.
+- checkpoint: CHK-MEM-0028
+- timestamp: 2026-04-16T03:14:18-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0027
+- timestamp: 2026-04-16T03:11:00-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0026
+- timestamp: 2026-04-16T03:01:02-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0025
+- timestamp: 2026-04-16T02:59:14-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0024
+- timestamp: 2026-04-16T02:56:50-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0023
+- timestamp: 2026-04-16T01:58:35-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0022
+- timestamp: 2026-04-16T01:42:33-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0021
+- timestamp: 2026-04-16T01:36:58-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0020
+- timestamp: 2026-04-16T01:32:48-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0019
+- timestamp: 2026-04-16T01:10:57-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0018
+- timestamp: 2026-04-15T21:03:27-03:00
+- resumo: Sessao encerrada a pedido do usuario (boa noite).
+- proxima_acao: Continuidade na proxima ativacao.
+- checkpoint: CHK-MEM-0018
+- timestamp: 2026-04-15T20:54:01-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0017
+- timestamp: 2026-04-15T20:53:08-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0016
+- timestamp: 2026-04-15T20:04:28-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0015
+- timestamp: 2026-04-15T18:03:42-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0014
+- timestamp: 2026-04-15T17:50:13-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0013
+- timestamp: 2026-04-15T17:46:43-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0012
+- timestamp: 2026-04-15T17:04:37-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0011
+- timestamp: 2026-04-15T16:53:32-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0010
+- timestamp: 2026-04-15T16:39:49-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0009
+- timestamp: 2026-04-15T15:49:02-03:00
+- resumo: smoke
+- proxima_acao: next
+- checkpoint: CHK-MEM-0008
+- timestamp: 2026-04-15T15:49:01-03:00
+- resumo: Sessao anterior encerrada automaticamente por inatividade/fechamento abrupto.
+- proxima_acao: Retomar a partir do ultimo checkpoint automatico
+- checkpoint: CHK-MEM-0007
+- timestamp: 2026-04-15T15:09:58-03:00
+- resumo: auto close test
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0006
+- timestamp: 2026-04-15T15:04:40-03:00
+- resumo: Teste de Contexto/Memoria.
+- proxima_acao: Perceber o contexto anterior.
+- checkpoint: CHK-MEM-0005
+- timestamp: 2026-04-15T00:15:58-03:00
+- resumo: smoke test lifecycle
+- proxima_acao: validar painel
+- checkpoint: CHK-MEM-0003

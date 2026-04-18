@@ -1,12 +1,18 @@
-# 🧩 Memória do Nó (Node Memory)
+# Node Memory
 
-## O Workflow Atual (Nexus)
-O projeto obedece a um pipeline mapeado por Nós de Ativação (Nodes). 
+## No de foco atual
+- modulo: CONTROL / MEMORY
+- acao corrente: reestruturacao da memoria em camadas
+- dono: SQD-MEM
 
-### Ponto de Execução Atual
-- **Focus Node:** Integration & Observability Engine.
-- **Node Action:** Reorganização do Sistema de Memória (Substituindo `.md` aleatórios pela aba de 9 matrizes de contexto atrelada ao esquadrão SQD-MEM).
-- **Triggers Ativados:** Agentes agora devem engatilhar a leitura deste preciso diretório (`docs/memory/`) em seu loop inicial.
+## Dependencias
+- `docs/control/memory_current_state.json`
+- `docs/control/memory_open_loops.json`
+- `docs/control/memory_checkpoints.json`
+- `task.md`
 
-### Dependências
-Nenhum nó futuro pode rodar sem que este Nó de Controle tenha validado sua consistência de dados (O `execution_log.json` deve estar rodando em paralelo sem erros).
+## Proxima acao exata
+- validar consistencia dos novos arquivos de memoria e manter atualizacao por sessao
+
+## Ultima atualizacao
+- updated_at: 2026-04-17T22:55:59-03:00

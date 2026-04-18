@@ -1,0 +1,33 @@
+{
+  "id": "SES-20260415-0006",
+  "status": "closed",
+  "started_at": "2026-04-15T15:49:01-03:00",
+  "started_by": "smoke",
+  "source": "test",
+  "model_hint": "smoke",
+  "last_seen_at": "2026-04-15T15:49:01-03:00",
+  "context_flash": {
+    "project": "SommersStore Elite",
+    "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+    "active_task": "Retomar a partir do ultimo checkpoint automatico",
+    "build_phase": "BLD-07",
+    "ops_stage": "OPS-01",
+    "latest_checkpoint_id": "CHK-MEM-0007",
+    "latest_checkpoint_next_action": "Retomar a partir do ultimo checkpoint automatico",
+    "latest_active_decision_id": "DEC-MEM-0004",
+    "open_loops_count": 2,
+    "open_loop_ids": [
+      "LOOP-0001",
+      "LOOP-0003"
+    ],
+    "tracked_files": []
+  },
+  "ended_at": "2026-04-15T15:49:02-03:00",
+  "close_summary": "smoke",
+  "next_action": "next",
+  "completed_tasks": [
+    "a"
+  ],
+  "checkpoint_id": "CHK-MEM-0008",
+  "closed_by": "smoke"
+}

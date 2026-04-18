@@ -1,0 +1,75 @@
+{
+  "items": [
+    {
+      "id": "LOOP-0001",
+      "title": "Automatizar gatilhos de memoria",
+      "description": "Transformar atualizacao de memoria em evento automatico no fluxo do painel",
+      "category": "governance",
+      "origin": "control",
+      "priority": "high",
+      "status": "in_progress",
+      "owner": "SQD-MEM",
+      "depends_on": [
+        "LOOP-0002"
+      ],
+      "risk_if_ignored": "Perda de contexto volta a depender de disciplina manual",
+      "due_at": null,
+      "opened_at": "2026-04-14T23:36:23-03:00",
+      "updated_at": "2026-04-15T00:58:00-03:00",
+      "linked_decisions": [
+        "DEC-MEM-0003"
+      ],
+      "linked_runs": [
+        "RUN-MEM-20260414-0001"
+      ],
+      "linked_artifacts": [
+        "ART-0003"
+      ]
+    },
+    {
+      "id": "LOOP-0002",
+      "title": "Corrigir wiring de memoria no painel",
+      "description": "Ajustar fluxos de UI/API que afetam leitura e gravacao confiavel da memoria",
+      "category": "implementation",
+      "origin": "build",
+      "priority": "high",
+      "status": "closed",
+      "owner": "SQD-ENG",
+      "depends_on": [],
+      "risk_if_ignored": "Operador acredita que salvou contexto quando nao salvou",
+      "due_at": null,
+      "opened_at": "2026-04-14T23:36:23-03:00",
+      "updated_at": "2026-04-15T00:58:00-03:00",
+      "linked_decisions": [
+        "DEC-MEM-0001"
+      ],
+      "linked_runs": [],
+      "linked_artifacts": [
+        "ART-0001",
+        "ART-0002"
+      ]
+    },
+    {
+      "id": "LOOP-0003",
+      "title": "Prosseguir para conteudo com checkpoints",
+      "description": "Retomar trilha de ebooks sem perder governanca de contexto",
+      "category": "content",
+      "origin": "build",
+      "priority": "medium",
+      "status": "open",
+      "owner": "SQD-CNT",
+      "depends_on": [
+        "LOOP-0001"
+      ],
+      "risk_if_ignored": "Retrabalho editorial e falta de continuidade",
+      "due_at": null,
+      "opened_at": "2026-04-14T23:36:23-03:00",
+      "updated_at": "2026-04-14T23:36:23-03:00",
+      "linked_decisions": [
+        "DEC-MEM-0002"
+      ],
+      "linked_runs": [],
+      "linked_artifacts": []
+    }
+  ]
+}

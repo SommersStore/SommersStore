@@ -1,0 +1,31 @@
+{
+  "id": "SES-20260415-0005",
+  "status": "closed",
+  "started_at": "2026-04-15T15:12:30-03:00",
+  "started_by": "dashboard",
+  "source": "dashboard_auto_boot",
+  "model_hint": "dashboard",
+  "context_flash": {
+    "project": "SommersStore Elite",
+    "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+    "active_task": "Perceber o contexto anterior.",
+    "build_phase": "BLD-07",
+    "ops_stage": "OPS-01",
+    "latest_checkpoint_id": "CHK-MEM-0006",
+    "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+    "latest_active_decision_id": "DEC-MEM-0004",
+    "open_loops_count": 2,
+    "pending_tasks": [
+      "Rodar validacao operacional real do ciclo startup/shutdown no painel",
+      "Popular CONTROL com logs reais de execucao",
+      "Avancar para conteudo (ebooks) com checkpoints ativos",
+      "Preparar trilha de integracao de checkout"
+    ]
+  },
+  "ended_at": "2026-04-15T15:49:01-03:00",
+  "close_summary": "Sessao anterior encerrada automaticamente por inatividade/fechamento abrupto.",
+  "next_action": "Retomar a partir do ultimo checkpoint automatico",
+  "completed_tasks": [],
+  "checkpoint_id": "CHK-MEM-0007",
+  "closed_by": "system"
+}

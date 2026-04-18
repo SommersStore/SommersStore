@@ -1,0 +1,110 @@
+{
+  "items": [
+    {
+      "id": "DEC-MEM-0001",
+      "timestamp": "2026-04-13T23:39:34-03:00",
+      "category": "architectural",
+      "context": "Perda recorrente de contexto entre sessoes e agentes",
+      "decision": "Pausar aceleracao de features e priorizar Control Fabric",
+      "rationale": "Sem governanca de memoria, o projeto acumula retrabalho e regressao",
+      "alternatives_rejected": [
+        "Continuar desenvolvimento comercial sem blindagem de contexto"
+      ],
+      "expected_impact": "Melhor continuidade, menos retrabalho, maior rastreabilidade",
+      "accepted_risks": [
+        "Atraso temporario no roadmap comercial"
+      ],
+      "reversible": true,
+      "rollback_plan": "Retomar ritmo comercial apos estabilizacao de memoria e checkpoints",
+      "review_trigger": "3 sessoes consecutivas sem perda de contexto",
+      "owner": "SQD-MEM",
+      "status": "active",
+      "linked_artifacts": [
+        "ART-0001",
+        "ART-0002"
+      ],
+      "linked_runs": [],
+      "linked_approvals": []
+    },
+    {
+      "id": "DEC-MEM-0002",
+      "timestamp": "2026-04-14T15:52:00-03:00",
+      "category": "governance",
+      "context": "Necessidade de startup/shutdown consistentes",
+      "decision": "Formalizar protocolos Oracle/Scribe com memoria obrigatoria",
+      "rationale": "Sem protocolo, cada sessao reabre contexto de forma inconsistente",
+      "alternatives_rejected": [
+        "Confiar em resumo manual ao final da conversa"
+      ],
+      "expected_impact": "Retomada previsivel e continuidade entre IDEs/sessoes",
+      "accepted_risks": [
+        "Dependencia de disciplina operacional"
+      ],
+      "reversible": true,
+      "rollback_plan": "Ajustar o protocolo e simplificar checklist",
+      "review_trigger": "Quando task/checkpoint nao forem atualizados em 2 sessoes",
+      "owner": "SQD-MEM",
+      "status": "active",
+      "linked_artifacts": [
+        "ART-0004"
+      ],
+      "linked_runs": [],
+      "linked_approvals": []
+    },
+    {
+      "id": "DEC-MEM-0003",
+      "timestamp": "2026-04-14T23:36:23-03:00",
+      "category": "memory_architecture",
+      "context": "Resumo curto como memoria principal estava fragilizando continuidade",
+      "decision": "Adotar memoria em camadas com 6 arquivos controlados em docs/control",
+      "rationale": "Separar estado atual, decisao, execucao, artefatos, loops e checkpoints",
+      "alternatives_rejected": [
+        "Continuar com apenas markdowns resumidos"
+      ],
+      "expected_impact": "Retomada mais confiavel e melhor auditabilidade",
+      "accepted_risks": [
+        "Curva de adocao operacional inicial"
+      ],
+      "reversible": true,
+      "rollback_plan": "Manter docs/memory como fallback e simplificar JSONs",
+      "review_trigger": "Se a equipe nao conseguir manter os arquivos atualizados por 2 semanas",
+      "owner": "SQD-MEM",
+      "status": "active",
+      "linked_artifacts": [
+        "ART-0003",
+        "ART-0005"
+      ],
+      "linked_runs": [
+        "RUN-MEM-20260414-0001"
+      ],
+      "linked_approvals": []
+    },
+    {
+      "id": "DEC-MEM-0004",
+      "timestamp": "2026-04-15T00:58:00-03:00",
+      "category": "automation",
+      "context": "Persistencia de memoria ainda dependia de acoes manuais no prompt",
+      "decision": "Mover startup/shutdown de memoria para APIs do painel com context flash e checkpoint automatico",
+      "rationale": "Garantir continuidade entre modelos e reduzir risco de perda de contexto entre sessoes",
+      "alternatives_rejected": [
+        "Manter somente checklist manual no AGENTS.md",
+        "Executar memoria apenas no encerramento sem startup automatico"
+      ],
+      "expected_impact": "Sessao inicia com contexto carregado e encerra com checkpoint/mutacao sem friccao",
+      "accepted_risks": [
+        "Necessidade de validar operacao real para confirmar estabilidade"
+      ],
+      "reversible": true,
+      "rollback_plan": "Desativar automacao e voltar ao fluxo manual se APIs gerarem inconsistencias",
+      "review_trigger": "Primeiras 5 sessoes operacionais completas com startup/shutdown",
+      "owner": "SQD-MEM",
+      "status": "active",
+      "linked_artifacts": [
+        "ART-0001",
+        "ART-0002"
+      ],
+      "linked_runs": [],
+      "linked_approvals": []
+    }
+  ]
+}

@@ -1,12 +1,25 @@
-# 🤖 Memória da Sessão de Agentes (Agent Session Memory)
+# Agent Session Memory
 
-## Alocação do Squad Atual
-Temos 27 agentes mapeados. O fluxo operacional é guiado pela orquestração do `Orion` (@aiox-master).
+## Startup protocol (Oracle)
+1. Ler `docs/control/memory_current_state.json`
+2. Ler `docs/control/memory_open_loops.json`
+3. Ler ultimo checkpoint em `docs/control/memory_checkpoints.json`
+4. Ler `docs/memory/project_memory.md`
+5. Ler `task.md`
 
-## Delegações Recentes Ocorridas:
-1. **Limpeza de Duplicidades:** Foram identificados 6 agentes com nomes e funções duplicadas (ex: @copy-specialist x @copywriter). Eles foram movidos e reclassificados na aba **LEGACY & EXTRA (SQD-LGC)** para não sujarem o fluxo atual.
-2. **Nascimento do Squad de Governança (`SQD-MEM`):** 
-   - **Agentes Atribuídos:** `@oracle` (Guardião do Contexto) e `@scribe` (Cronista de Preservação).
-   - **Função Mandatória:** Injetado protocolo no `AGENTS.md` exigindo que todas as assistências baseadas na extensão/Codex iniciem lendo esses documentos de memória (`docs/memory/`) e desativem a máquina registrando atualizações antes de dar commit.
+## Shutdown protocol (Scribe)
+1. Atualizar `task.md` com progresso real
+2. Atualizar estado/checkpoint quando houver mudanca relevante
+3. Registrar mutacao em `docs/control/memory_mutations.json`
 
-Essa memória garante que nenhum modelo de IA futuro invente novos agentes sem antes consultar as regras estabelecidas no `registry.json` pelo `@squad-creator`.
+## Regra forte
+- Sem startup completo: nao iniciar implementacao.
+- Sem shutdown completo: nao encerrar sessao.
+
+## Automacao no painel
+- Startup automatico via `POST /api/session/start` (Oracle)
+- Shutdown automatico via `POST /api/session/close` (Scribe)
+- Estado de sessao em `docs/control/session_state.json`
+
+## Ultima atualizacao
+- updated_at: 2026-04-17T22:55:59-03:00

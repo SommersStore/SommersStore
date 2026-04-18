@@ -1,17 +1,38 @@
 {
-  "snapshots": [
+  "current_session": {
+    "id": "SES-20260417-0015",
+    "status": "active",
+    "started_at": "2026-04-17T22:56:02-03:00",
+    "started_by": "dashboard",
+    "source": "dashboard_auto_boot",
+    "model_hint": "dashboard",
+    "project_id": "sais",
+    "last_seen_at": "2026-04-17T22:56:02-03:00",
+    "context_flash": {
+      "project": "SommersStore Elite",
+      "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+      "active_task": "Retomar ajustes no painel e memoria",
+      "build_phase": "BLD-07",
+      "ops_stage": "OPS-01",
+      "latest_checkpoint_id": "CHK-MEM-0050",
+      "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+      "latest_active_decision_id": "DEC-MEM-0004",
+      "open_loops_count": 2,
+      "open_loop_ids": [
+        "LOOP-0001",
+        "LOOP-0003"
+      ],
+      "tracked_files": []
+    }
+  },
+  "history": [
     {
-      "id": "CTX-20260415-0001",
-      "timestamp": "2026-04-15T00:58:00-03:00",
-      "type": "implementation_checkpoint",
-      "source": "codex",
-      "summary": "Painel e servidor preparados para startup/shutdown automaticos de memoria"
-    },
-    {
-      "id": "CTX-20260415-0002",
-      "timestamp": "2026-04-15T00:15:58-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260415-0001",
+      "id": "SES-20260415-0001",
+      "status": "closed",
+      "started_at": "2026-04-15T00:15:58-03:00",
+      "started_by": "smoke-test",
+      "source": "smoke",
+      "model_hint": "smoke",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -28,28 +49,54 @@
           "Avancar para conteudo (ebooks) com checkpoints ativos",
           "Preparar trilha de integracao de checkout"
         ]
-      }
+      },
+      "ended_at": "2026-04-15T00:15:58-03:00",
+      "close_summary": "smoke test lifecycle",
+      "next_action": "validar painel",
+      "completed_tasks": [
+        "Smoke startup/shutdown"
+      ],
+      "checkpoint_id": "CHK-MEM-0003",
+      "closed_by": "dashboard"
     },
     {
-      "id": "CTX-20260415-0003",
-      "timestamp": "2026-04-15T00:15:58-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260415-0001",
-      "summary": "smoke test lifecycle",
-      "checkpoint_id": "CHK-MEM-0003"
+      "id": "SES-20260415-0002",
+      "status": "closed",
+      "started_at": "2026-04-15T00:31:29-03:00",
+      "started_by": "human",
+      "source": "manual-close",
+      "model_hint": "codex",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar validacao operacional do ciclo startup/shutdown",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0003",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "pending_tasks": [
+          "Rodar validacao operacional real do ciclo startup/shutdown no painel",
+          "Popular CONTROL com logs reais de execucao"
+        ]
+      },
+      "ended_at": "2026-04-15T00:31:29-03:00",
+      "close_summary": "Sessao encerrada a pedido do usuario por bateria baixa do notebook.",
+      "next_action": "Retomar validacao operacional do painel na proxima sessao",
+      "completed_tasks": [
+        "Implementacao de automacao Oracle/Scribe no painel",
+        "Persistencia de memoria preparada para retomada"
+      ],
+      "checkpoint_id": "CHK-MEM-0004",
+      "closed_by": "human"
     },
     {
-      "id": "CTX-20260415-0004",
-      "timestamp": "2026-04-15T00:31:29-03:00",
-      "type": "session_close",
-      "source": "human",
-      "summary": "Sessao pausada por bateria baixa; contexto persistido para retomada."
-    },
-    {
-      "id": "CTX-20260415-0005",
-      "timestamp": "2026-04-15T09:42:42-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260415-0003",
+      "id": "SES-20260415-0003",
+      "status": "closed",
+      "started_at": "2026-04-15T09:42:42-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -66,21 +113,26 @@
           "Avancar para conteudo (ebooks) com checkpoints ativos",
           "Preparar trilha de integracao de checkout"
         ]
-      }
+      },
+      "ended_at": "2026-04-15T15:04:40-03:00",
+      "close_summary": "Teste de Contexto/Memoria.",
+      "next_action": "Perceber o contexto anterior.",
+      "completed_tasks": [
+        "1-testando 1;",
+        "2-testando 2;",
+        "3..."
+      ],
+      "checkpoint_id": "CHK-MEM-0005",
+      "closed_by": "human"
     },
     {
-      "id": "CTX-20260415-0006",
-      "timestamp": "2026-04-15T15:04:40-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260415-0003",
-      "summary": "Teste de Contexto/Memoria.",
-      "checkpoint_id": "CHK-MEM-0005"
-    },
-    {
-      "id": "CTX-20260415-0007",
-      "timestamp": "2026-04-15T15:09:57-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260415-0004",
+      "id": "SES-20260415-0004",
+      "status": "closed",
+      "started_at": "2026-04-15T15:09:57-03:00",
+      "started_by": "smoke",
+      "source": "smoke",
+      "model_hint": "unspecified",
+      "last_seen_at": "2026-04-15T15:09:58-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -97,52 +149,23 @@
           "Avancar para conteudo (ebooks) com checkpoints ativos",
           "Preparar trilha de integracao de checkout"
         ]
-      }
+      },
+      "last_context_note": "heartbeat",
+      "ended_at": "2026-04-15T15:09:58-03:00",
+      "close_summary": "auto close test",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0006",
+      "closed_by": "smoke"
     },
     {
-      "id": "CTX-20260415-0008",
-      "timestamp": "2026-04-15T15:09:58-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260415-0004",
-      "summary": "auto close test",
-      "checkpoint_id": "CHK-MEM-0006"
-    },
-    {
-      "id": "CTX-20260415-0009",
-      "timestamp": "2026-04-15T15:12:30-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260415-0005",
-      "context_flash": {
-        "project": "SommersStore Elite",
-        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
-        "active_task": "Perceber o contexto anterior.",
-        "build_phase": "BLD-07",
-        "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0006",
-        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
-        "latest_active_decision_id": "DEC-MEM-0004",
-        "open_loops_count": 2,
-        "pending_tasks": [
-          "Rodar validacao operacional real do ciclo startup/shutdown no painel",
-          "Popular CONTROL com logs reais de execucao",
-          "Avancar para conteudo (ebooks) com checkpoints ativos",
-          "Preparar trilha de integracao de checkout"
-        ]
-      }
-    },
-    {
-      "id": "CTX-20260415-0010",
-      "timestamp": "2026-04-15T15:49:01-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260415-0005",
-      "summary": "Sessao anterior encerrada automaticamente por inatividade/fechamento abrupto.",
-      "checkpoint_id": "CHK-MEM-0007"
-    },
-    {
-      "id": "CTX-20260415-0011",
-      "timestamp": "2026-04-15T15:49:01-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260415-0006",
+      "id": "SES-20260415-0006",
+      "status": "closed",
+      "started_at": "2026-04-15T15:49:01-03:00",
+      "started_by": "smoke",
+      "source": "test",
+      "model_hint": "smoke",
+      "last_seen_at": "2026-04-15T15:49:01-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -158,21 +181,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "ended_at": "2026-04-15T15:49:02-03:00",
+      "close_summary": "smoke",
+      "next_action": "next",
+      "completed_tasks": [
+        "a"
+      ],
+      "checkpoint_id": "CHK-MEM-0008",
+      "closed_by": "smoke"
     },
     {
-      "id": "CTX-20260415-0012",
-      "timestamp": "2026-04-15T15:49:02-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260415-0006",
-      "summary": "smoke",
-      "checkpoint_id": "CHK-MEM-0008"
-    },
-    {
-      "id": "CTX-20260415-0013",
-      "timestamp": "2026-04-15T15:58:12-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260415-0007",
+      "id": "SES-20260415-0007",
+      "status": "closed",
+      "started_at": "2026-04-15T15:58:12-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -189,21 +214,21 @@
           "Avancar para conteudo (ebooks) com checkpoints ativos",
           "Preparar trilha de integracao de checkout"
         ]
-      }
+      },
+      "ended_at": "2026-04-15T16:39:49-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0009",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260415-0014",
-      "timestamp": "2026-04-15T16:39:49-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260415-0007",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0009"
-    },
-    {
-      "id": "CTX-20260415-0015",
-      "timestamp": "2026-04-15T16:39:51-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260415-0008",
+      "id": "SES-20260415-0008",
+      "status": "closed",
+      "started_at": "2026-04-15T16:39:51-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -220,21 +245,21 @@
           "Avancar para conteudo (ebooks) com checkpoints ativos",
           "Preparar trilha de integracao de checkout"
         ]
-      }
+      },
+      "ended_at": "2026-04-15T16:53:32-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0010",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260415-0016",
-      "timestamp": "2026-04-15T16:53:32-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260415-0008",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0010"
-    },
-    {
-      "id": "CTX-20260415-0017",
-      "timestamp": "2026-04-15T16:55:45-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260415-0009",
+      "id": "SES-20260415-0009",
+      "status": "closed",
+      "started_at": "2026-04-15T16:55:45-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -251,21 +276,21 @@
           "Avancar para conteudo (ebooks) com checkpoints ativos",
           "Preparar trilha de integracao de checkout"
         ]
-      }
+      },
+      "ended_at": "2026-04-15T17:04:37-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0011",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260415-0018",
-      "timestamp": "2026-04-15T17:04:37-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260415-0009",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0011"
-    },
-    {
-      "id": "CTX-20260415-0019",
-      "timestamp": "2026-04-15T17:04:38-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260415-0010",
+      "id": "SES-20260415-0010",
+      "status": "closed",
+      "started_at": "2026-04-15T17:04:38-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -282,21 +307,21 @@
           "Avancar para conteudo (ebooks) com checkpoints ativos",
           "Preparar trilha de integracao de checkout"
         ]
-      }
+      },
+      "ended_at": "2026-04-15T17:46:43-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0012",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260415-0020",
-      "timestamp": "2026-04-15T17:46:43-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260415-0010",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0012"
-    },
-    {
-      "id": "CTX-20260415-0021",
-      "timestamp": "2026-04-15T17:46:46-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260415-0011",
+      "id": "SES-20260415-0011",
+      "status": "closed",
+      "started_at": "2026-04-15T17:46:46-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -313,21 +338,21 @@
           "Avancar para conteudo (ebooks) com checkpoints ativos",
           "Preparar trilha de integracao de checkout"
         ]
-      }
+      },
+      "ended_at": "2026-04-15T17:50:13-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0013",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260415-0022",
-      "timestamp": "2026-04-15T17:50:13-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260415-0011",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0013"
-    },
-    {
-      "id": "CTX-20260415-0023",
-      "timestamp": "2026-04-15T17:50:15-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260415-0012",
+      "id": "SES-20260415-0012",
+      "status": "closed",
+      "started_at": "2026-04-15T17:50:15-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -344,21 +369,24 @@
           "Avancar para conteudo (ebooks) com checkpoints ativos",
           "Preparar trilha de integracao de checkout"
         ]
-      }
+      },
+      "last_seen_at": "2026-04-15T18:03:14-03:00",
+      "last_context_note": "next",
+      "ended_at": "2026-04-15T18:03:42-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0014",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260415-0024",
-      "timestamp": "2026-04-15T18:03:42-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260415-0012",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0014"
-    },
-    {
-      "id": "CTX-20260415-0025",
-      "timestamp": "2026-04-15T18:03:44-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260415-0013",
+      "id": "SES-20260415-0013",
+      "status": "closed",
+      "started_at": "2026-04-15T18:03:44-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-15T20:03:42-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -374,21 +402,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "next",
+      "ended_at": "2026-04-15T20:04:28-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0015",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260415-0026",
-      "timestamp": "2026-04-15T20:04:28-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260415-0013",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0015"
-    },
-    {
-      "id": "CTX-20260415-0027",
-      "timestamp": "2026-04-15T20:04:31-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260415-0014",
+      "id": "SES-20260415-0014",
+      "status": "closed",
+      "started_at": "2026-04-15T20:04:30-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-15T20:52:48-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -404,21 +434,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "next",
+      "ended_at": "2026-04-15T20:53:08-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0016",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260415-0028",
-      "timestamp": "2026-04-15T20:53:08-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260415-0014",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0016"
-    },
-    {
-      "id": "CTX-20260415-0029",
-      "timestamp": "2026-04-15T20:53:12-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260415-0015",
+      "id": "SES-20260415-0015",
+      "status": "closed",
+      "started_at": "2026-04-15T20:53:12-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-15T20:53:12-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -434,21 +466,22 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "ended_at": "2026-04-15T20:54:01-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0017",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260415-0030",
-      "timestamp": "2026-04-15T20:54:01-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260415-0015",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0017"
-    },
-    {
-      "id": "CTX-20260415-0031",
-      "timestamp": "2026-04-15T20:54:04-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260415-0016",
+      "id": "SES-20260415-0016",
+      "status": "closed",
+      "started_at": "2026-04-15T20:54:04-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-16T01:10:55-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -464,21 +497,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "next",
+      "ended_at": "2026-04-16T01:10:57-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0018",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260416-0001",
-      "timestamp": "2026-04-16T01:10:57-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260415-0016",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0018"
-    },
-    {
-      "id": "CTX-20260416-0002",
-      "timestamp": "2026-04-16T01:10:59-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260416-0001",
+      "id": "SES-20260416-0001",
+      "status": "closed",
+      "started_at": "2026-04-16T01:10:59-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-16T01:31:58-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -494,21 +529,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "next",
+      "ended_at": "2026-04-16T01:32:48-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0019",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260416-0003",
-      "timestamp": "2026-04-16T01:32:48-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260416-0001",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0019"
-    },
-    {
-      "id": "CTX-20260416-0004",
-      "timestamp": "2026-04-16T01:32:50-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260416-0002",
+      "id": "SES-20260416-0002",
+      "status": "closed",
+      "started_at": "2026-04-16T01:32:50-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-16T01:36:49-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -524,21 +561,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "next",
+      "ended_at": "2026-04-16T01:36:58-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0020",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260416-0005",
-      "timestamp": "2026-04-16T01:36:58-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260416-0002",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0020"
-    },
-    {
-      "id": "CTX-20260416-0006",
-      "timestamp": "2026-04-16T01:37:00-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260416-0003",
+      "id": "SES-20260416-0003",
+      "status": "closed",
+      "started_at": "2026-04-16T01:37:00-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-16T01:42:00-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -554,21 +593,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "next",
+      "ended_at": "2026-04-16T01:42:33-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0021",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260416-0007",
-      "timestamp": "2026-04-16T01:42:33-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260416-0003",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0021"
-    },
-    {
-      "id": "CTX-20260416-0008",
-      "timestamp": "2026-04-16T01:42:36-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260416-0004",
+      "id": "SES-20260416-0004",
+      "status": "closed",
+      "started_at": "2026-04-16T01:42:36-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-16T01:58:35-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -584,29 +625,37 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "background",
+      "ended_at": "2026-04-16T01:58:35-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0022",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260416-0009",
-      "timestamp": "2026-04-16T01:58:35-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260416-0004",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0022"
+      "id": "SES-20260416-0005",
+      "started_at": "2026-04-16T02:56:50-03:00",
+      "started_by": "dashboard",
+      "source": "implicit",
+      "status": "closed",
+      "ended_at": "2026-04-16T02:56:50-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0023",
+      "closed_by": "system",
+      "model_hint": "dashboard"
     },
     {
-      "id": "CTX-20260416-0010",
-      "timestamp": "2026-04-16T02:56:50-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260416-0005",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0023"
-    },
-    {
-      "id": "CTX-20260416-0011",
-      "timestamp": "2026-04-16T02:57:43-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260416-0006",
+      "id": "SES-20260416-0006",
+      "status": "closed",
+      "started_at": "2026-04-16T02:57:43-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-16T02:58:42-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -622,21 +671,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "next",
+      "ended_at": "2026-04-16T02:59:14-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0024",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260416-0012",
-      "timestamp": "2026-04-16T02:59:14-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260416-0006",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0024"
-    },
-    {
-      "id": "CTX-20260416-0013",
-      "timestamp": "2026-04-16T02:59:17-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260416-0007",
+      "id": "SES-20260416-0007",
+      "status": "closed",
+      "started_at": "2026-04-16T02:59:17-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-16T03:00:17-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -652,21 +703,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "next",
+      "ended_at": "2026-04-16T03:01:02-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0025",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260416-0014",
-      "timestamp": "2026-04-16T03:01:02-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260416-0007",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0025"
-    },
-    {
-      "id": "CTX-20260416-0015",
-      "timestamp": "2026-04-16T03:01:05-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260416-0008",
+      "id": "SES-20260416-0008",
+      "status": "closed",
+      "started_at": "2026-04-16T03:01:05-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-16T03:10:56-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -682,21 +735,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "next",
+      "ended_at": "2026-04-16T03:11:00-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0026",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260416-0016",
-      "timestamp": "2026-04-16T03:11:00-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260416-0008",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0026"
-    },
-    {
-      "id": "CTX-20260416-0017",
-      "timestamp": "2026-04-16T03:11:03-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260416-0009",
+      "id": "SES-20260416-0009",
+      "status": "closed",
+      "started_at": "2026-04-16T03:11:03-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-16T03:14:15-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -712,21 +767,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "next",
+      "ended_at": "2026-04-16T03:14:18-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0027",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260416-0018",
-      "timestamp": "2026-04-16T03:14:18-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260416-0009",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0027"
-    },
-    {
-      "id": "CTX-20260416-0019",
-      "timestamp": "2026-04-16T11:02:44-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260416-0010",
+      "id": "SES-20260416-0010",
+      "status": "closed",
+      "started_at": "2026-04-16T11:02:44-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "codex",
+      "last_seen_at": "2026-04-16T11:10:44-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -742,21 +799,25 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "next",
+      "ended_at": "2026-04-16T11:50:23-03:00",
+      "close_summary": "Encerramento manual para iniciar validacao operacional completa do lifecycle.",
+      "next_action": "Executar startup Oracle e validar Master Hub + Memory em fluxo real.",
+      "completed_tasks": [
+        "Diagnostico do painel e bootstrap robusto aplicado"
+      ],
+      "checkpoint_id": "CHK-MEM-0028",
+      "closed_by": "human"
     },
     {
-      "id": "CTX-20260416-0020",
-      "timestamp": "2026-04-16T11:50:23-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260416-0010",
-      "summary": "Encerramento manual para iniciar validacao operacional completa do lifecycle.",
-      "checkpoint_id": "CHK-MEM-0028"
-    },
-    {
-      "id": "CTX-20260416-0021",
-      "timestamp": "2026-04-16T11:50:23-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260416-0011",
+      "id": "SES-20260416-0011",
+      "status": "closed",
+      "started_at": "2026-04-16T11:50:23-03:00",
+      "started_by": "human",
+      "source": "dashboard_manual_validation",
+      "model_hint": "codex",
+      "last_seen_at": "2026-04-16T11:50:23-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -772,21 +833,27 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "Validacao operacional real do painel concluida apos correcoes de bootstrap e navegacao.",
+      "ended_at": "2026-04-16T11:50:23-03:00",
+      "close_summary": "Ciclo operacional completo validado: startup, pulse e shutdown funcionando com persistencia de memoria.",
+      "next_action": "Iniciar Story 1.5: consolidar validacao do painel e avancar trilha de conteudo/checkpoint e checkout.",
+      "completed_tasks": [
+        "Startup Oracle validado",
+        "Pulse de sessao validado",
+        "Shutdown Scribe validado"
+      ],
+      "checkpoint_id": "CHK-MEM-0029",
+      "closed_by": "human"
     },
     {
-      "id": "CTX-20260416-0022",
-      "timestamp": "2026-04-16T11:50:23-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260416-0011",
-      "summary": "Ciclo operacional completo validado: startup, pulse e shutdown funcionando com persistencia de memoria.",
-      "checkpoint_id": "CHK-MEM-0029"
-    },
-    {
-      "id": "CTX-20260416-0023",
-      "timestamp": "2026-04-16T11:50:23-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260416-0012",
+      "id": "SES-20260416-0012",
+      "status": "closed",
+      "started_at": "2026-04-16T11:50:23-03:00",
+      "started_by": "human",
+      "source": "post_validation_resume",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-16T12:25:45-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -802,21 +869,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "Iniciar Story 1.5: consolidar validacao do painel e avancar trilha de conteudo/checkpoint e checkout.",
+      "ended_at": "2026-04-16T12:26:39-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0030",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260416-0024",
-      "timestamp": "2026-04-16T12:26:39-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260416-0012",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0030"
-    },
-    {
-      "id": "CTX-20260416-0025",
-      "timestamp": "2026-04-16T12:26:41-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260416-0013",
+      "id": "SES-20260416-0013",
+      "status": "closed",
+      "started_at": "2026-04-16T12:26:41-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-16T12:37:40-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -832,21 +901,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "Iniciar Story 1.5: consolidar validacao do painel e avancar trilha de conteudo/checkpoint e checkout.",
+      "ended_at": "2026-04-16T12:38:13-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0031",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260416-0026",
-      "timestamp": "2026-04-16T12:38:13-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260416-0013",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0031"
-    },
-    {
-      "id": "CTX-20260416-0027",
-      "timestamp": "2026-04-16T12:38:16-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260416-0014",
+      "id": "SES-20260416-0014",
+      "status": "closed",
+      "started_at": "2026-04-16T12:38:16-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-16T12:59:15-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -862,21 +933,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "Iniciar Story 1.5: consolidar validacao do painel e avancar trilha de conteudo/checkpoint e checkout.",
+      "ended_at": "2026-04-16T12:59:30-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0032",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260416-0028",
-      "timestamp": "2026-04-16T12:59:31-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260416-0014",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0032"
-    },
-    {
-      "id": "CTX-20260416-0029",
-      "timestamp": "2026-04-16T12:59:33-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260416-0015",
+      "id": "SES-20260416-0015",
+      "status": "closed",
+      "started_at": "2026-04-16T12:59:33-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-16T13:14:40-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -892,21 +965,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "Iniciar Story 1.5: consolidar validacao do painel e avancar trilha de conteudo/checkpoint e checkout.",
+      "ended_at": "2026-04-16T13:15:02-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0033",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260416-0030",
-      "timestamp": "2026-04-16T13:15:02-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260416-0015",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0033"
-    },
-    {
-      "id": "CTX-20260416-0031",
-      "timestamp": "2026-04-16T13:15:04-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260416-0016",
+      "id": "SES-20260416-0016",
+      "status": "closed",
+      "started_at": "2026-04-16T13:15:04-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-16T13:21:04-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -922,21 +997,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "Iniciar Story 1.5: consolidar validacao do painel e avancar trilha de conteudo/checkpoint e checkout.",
+      "ended_at": "2026-04-16T13:21:13-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0034",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260416-0032",
-      "timestamp": "2026-04-16T13:21:13-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260416-0016",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0034"
-    },
-    {
-      "id": "CTX-20260416-0033",
-      "timestamp": "2026-04-16T13:21:17-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260416-0017",
+      "id": "SES-20260416-0017",
+      "status": "closed",
+      "started_at": "2026-04-16T13:21:17-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-16T17:05:39-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -952,21 +1029,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "Iniciar Story 1.5: consolidar validacao do painel e avancar trilha de conteudo/checkpoint e checkout.",
+      "ended_at": "2026-04-16T17:05:44-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0035",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260416-0034",
-      "timestamp": "2026-04-16T17:05:45-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260416-0017",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0035"
-    },
-    {
-      "id": "CTX-20260416-0035",
-      "timestamp": "2026-04-16T22:26:45-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260416-0018",
+      "id": "SES-20260416-0018",
+      "status": "closed",
+      "started_at": "2026-04-16T22:26:45-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-17T00:09:40-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -982,21 +1061,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "Iniciar Story 1.5: consolidar validacao do painel e avancar trilha de conteudo/checkpoint e checkout.",
+      "ended_at": "2026-04-17T00:09:48-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0036",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260417-0001",
-      "timestamp": "2026-04-17T00:09:48-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260416-0018",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0036"
-    },
-    {
-      "id": "CTX-20260417-0002",
-      "timestamp": "2026-04-17T00:09:51-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260417-0001",
+      "id": "SES-20260417-0001",
+      "status": "closed",
+      "started_at": "2026-04-17T00:09:51-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-17T00:16:50-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -1012,21 +1093,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "Iniciar Story 1.5: consolidar validacao do painel e avancar trilha de conteudo/checkpoint e checkout.",
+      "ended_at": "2026-04-17T00:17:10-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0037",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260417-0003",
-      "timestamp": "2026-04-17T00:17:10-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260417-0001",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0037"
-    },
-    {
-      "id": "CTX-20260417-0004",
-      "timestamp": "2026-04-17T00:17:12-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260417-0002",
+      "id": "SES-20260417-0002",
+      "status": "closed",
+      "started_at": "2026-04-17T00:17:12-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-17T00:26:20-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -1042,29 +1125,42 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "background",
+      "ended_at": "2026-04-17T00:26:54-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0038",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260417-0005",
-      "timestamp": "2026-04-17T00:26:54-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260417-0002",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0038"
+      "id": "SES-20260417-0003",
+      "started_at": "2026-04-17T00:27:29-03:00",
+      "started_by": "dashboard",
+      "source": "implicit",
+      "status": "closed",
+      "ended_at": "2026-04-17T00:27:29-03:00",
+      "close_summary": "Sessao encerrada a pedido do usuario por bateria baixa. Entregue: BL-013 (timeline por projeto no Master Hub), logs com project_id explicito no backend e padronizacao global de Siz para Sais, com quality gates verdes.",
+      "next_action": "Retomar validando no painel a timeline por project_id e seguir para BL-014 (busca global).",
+      "completed_tasks": [
+        "Implementacao da timeline de execucoes/historico por projeto no Master Hub",
+        "Suporte a project_id nos logs do backend com inferencia e validacoes",
+        "Padronizacao completa de Siz para Sais em codigo, dados e docs",
+        "Validacao final: npm run lint, npm run typecheck, npm test"
+      ],
+      "checkpoint_id": "CHK-MEM-0039",
+      "closed_by": "human",
+      "model_hint": "unspecified"
     },
     {
-      "id": "CTX-20260417-0006",
-      "timestamp": "2026-04-17T00:27:29-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260417-0003",
-      "summary": "Sessao encerrada a pedido do usuario por bateria baixa. Entregue: BL-013 (timeline por projeto no Master Hub), logs com project_id explicito no backend e padronizacao global de Siz para Sais, com quality gates verdes.",
-      "checkpoint_id": "CHK-MEM-0039"
-    },
-    {
-      "id": "CTX-20260417-0007",
-      "timestamp": "2026-04-17T15:02:49-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260417-0004",
+      "id": "SES-20260417-0004",
+      "status": "closed",
+      "started_at": "2026-04-17T15:02:49-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-17T15:12:32-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -1080,21 +1176,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "Retomar validando no painel a timeline por project_id e seguir para BL-014 (busca global).",
+      "ended_at": "2026-04-17T15:12:35-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0040",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260417-0008",
-      "timestamp": "2026-04-17T15:12:35-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260417-0004",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0040"
-    },
-    {
-      "id": "CTX-20260417-0009",
-      "timestamp": "2026-04-17T15:12:38-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260417-0005",
+      "id": "SES-20260417-0005",
+      "status": "closed",
+      "started_at": "2026-04-17T15:12:38-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-17T15:12:38-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -1110,21 +1208,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "background",
+      "ended_at": "2026-04-17T15:12:39-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0041",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260417-0010",
-      "timestamp": "2026-04-17T15:12:39-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260417-0005",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0041"
-    },
-    {
-      "id": "CTX-20260417-0011",
-      "timestamp": "2026-04-17T16:04:04-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260417-0006",
+      "id": "SES-20260417-0006",
+      "status": "closed",
+      "started_at": "2026-04-17T16:04:04-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-17T16:05:07-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -1140,21 +1240,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "background",
+      "ended_at": "2026-04-17T16:05:27-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0042",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260417-0012",
-      "timestamp": "2026-04-17T16:05:27-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260417-0006",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0042"
-    },
-    {
-      "id": "CTX-20260417-0013",
-      "timestamp": "2026-04-17T16:05:29-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260417-0007",
+      "id": "SES-20260417-0007",
+      "status": "closed",
+      "started_at": "2026-04-17T16:05:29-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-17T16:17:28-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -1170,21 +1272,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "Retomar validando no painel a timeline por project_id e seguir para BL-014 (busca global).",
+      "ended_at": "2026-04-17T16:17:41-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0043",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260417-0014",
-      "timestamp": "2026-04-17T16:17:41-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260417-0007",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0043"
-    },
-    {
-      "id": "CTX-20260417-0015",
-      "timestamp": "2026-04-17T16:17:44-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260417-0008",
+      "id": "SES-20260417-0008",
+      "status": "closed",
+      "started_at": "2026-04-17T16:17:44-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-17T16:25:43-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -1200,21 +1304,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "Retomar validando no painel a timeline por project_id e seguir para BL-014 (busca global).",
+      "ended_at": "2026-04-17T16:26:18-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0044",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260417-0016",
-      "timestamp": "2026-04-17T16:26:18-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260417-0008",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0044"
-    },
-    {
-      "id": "CTX-20260417-0017",
-      "timestamp": "2026-04-17T16:26:21-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260417-0009",
+      "id": "SES-20260417-0009",
+      "status": "closed",
+      "started_at": "2026-04-17T16:26:21-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-17T17:10:19-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -1230,21 +1336,23 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "Retomar validando no painel a timeline por project_id e seguir para BL-014 (busca global).",
+      "ended_at": "2026-04-17T17:10:40-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0045",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260417-0018",
-      "timestamp": "2026-04-17T17:10:40-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260417-0009",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0045"
-    },
-    {
-      "id": "CTX-20260417-0019",
-      "timestamp": "2026-04-17T17:10:43-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260417-0010",
+      "id": "SES-20260417-0010",
+      "status": "closed",
+      "started_at": "2026-04-17T17:10:43-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "last_seen_at": "2026-04-17T17:11:42-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -1260,21 +1368,24 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "Retomar validando no painel a timeline por project_id e seguir para BL-014 (busca global).",
+      "ended_at": "2026-04-17T17:12:32-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0046",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260417-0020",
-      "timestamp": "2026-04-17T17:12:32-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260417-0010",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0046"
-    },
-    {
-      "id": "CTX-20260417-0021",
-      "timestamp": "2026-04-17T18:33:51-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260417-0011",
+      "id": "SES-20260417-0011",
+      "status": "closed",
+      "started_at": "2026-04-17T18:33:51-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "project_id": "sais",
+      "last_seen_at": "2026-04-17T18:50:32-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -1290,21 +1401,24 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "background",
+      "ended_at": "2026-04-17T18:50:37-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0047",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260417-0022",
-      "timestamp": "2026-04-17T18:50:37-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260417-0011",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0047"
-    },
-    {
-      "id": "CTX-20260417-0023",
-      "timestamp": "2026-04-17T18:50:40-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260417-0012",
+      "id": "SES-20260417-0012",
+      "status": "closed",
+      "started_at": "2026-04-17T18:50:40-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "project_id": "sais",
+      "last_seen_at": "2026-04-17T19:20:46-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -1320,21 +1434,24 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "Retomar validando no painel a timeline por project_id e seguir para BL-014 (busca global).",
+      "ended_at": "2026-04-17T19:21:04-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0048",
+      "closed_by": "system"
     },
     {
-      "id": "CTX-20260417-0024",
-      "timestamp": "2026-04-17T19:21:04-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260417-0012",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0048"
-    },
-    {
-      "id": "CTX-20260417-0025",
-      "timestamp": "2026-04-17T19:21:07-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260417-0013",
+      "id": "SES-20260417-0013",
+      "status": "closed",
+      "started_at": "2026-04-17T19:21:07-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "codex",
+      "project_id": "sais",
+      "last_seen_at": "2026-04-17T20:28:05-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -1350,21 +1467,24 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
+      },
+      "last_context_note": "Retomar validando no painel a timeline por project_id e seguir para BL-014 (busca global).",
+      "ended_at": "2026-04-17T20:28:25-03:00",
+      "close_summary": "Teste tecnico de fechamento automatico",
+      "next_action": "Retomar ajustes no painel e memoria",
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0049",
+      "closed_by": "human"
     },
     {
-      "id": "CTX-20260417-0026",
-      "timestamp": "2026-04-17T20:28:25-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260417-0013",
-      "summary": "Teste tecnico de fechamento automatico",
-      "checkpoint_id": "CHK-MEM-0049"
-    },
-    {
-      "id": "CTX-20260417-0027",
-      "timestamp": "2026-04-17T21:04:36-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260417-0014",
+      "id": "SES-20260417-0014",
+      "status": "closed",
+      "started_at": "2026-04-17T21:04:36-03:00",
+      "started_by": "dashboard",
+      "source": "dashboard_auto_boot",
+      "model_hint": "dashboard",
+      "project_id": "sais",
+      "last_seen_at": "2026-04-17T22:55:34-03:00",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
@@ -1380,37 +1500,14 @@
           "LOOP-0003"
         ],
         "tracked_files": []
-      }
-    },
-    {
-      "id": "CTX-20260417-0028",
-      "timestamp": "2026-04-17T22:55:59-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260417-0014",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0050"
-    },
-    {
-      "id": "CTX-20260417-0029",
-      "timestamp": "2026-04-17T22:56:02-03:00",
-      "type": "session_start",
-      "session_id": "SES-20260417-0015",
-      "context_flash": {
-        "project": "SommersStore Elite",
-        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
-        "active_task": "Retomar ajustes no painel e memoria",
-        "build_phase": "BLD-07",
-        "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0050",
-        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
-        "latest_active_decision_id": "DEC-MEM-0004",
-        "open_loops_count": 2,
-        "open_loop_ids": [
-          "LOOP-0001",
-          "LOOP-0003"
-        ],
-        "tracked_files": []
-      }
+      },
+      "last_context_note": "Retomar ajustes no painel e memoria",
+      "ended_at": "2026-04-17T22:55:59-03:00",
+      "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+      "next_action": null,
+      "completed_tasks": [],
+      "checkpoint_id": "CHK-MEM-0050",
+      "closed_by": "system"
     }
   ]
 }

@@ -1,0 +1,32 @@
+{
+  "id": "SES-20260417-0005",
+  "status": "closed",
+  "started_at": "2026-04-17T15:12:38-03:00",
+  "started_by": "dashboard",
+  "source": "dashboard_auto_boot",
+  "model_hint": "dashboard",
+  "last_seen_at": "2026-04-17T15:12:38-03:00",
+  "context_flash": {
+    "project": "SommersStore Elite",
+    "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+    "active_task": "Retomar validando no painel a timeline por project_id e seguir para BL-014 (busca global).",
+    "build_phase": "BLD-07",
+    "ops_stage": "OPS-01",
+    "latest_checkpoint_id": "CHK-MEM-0040",
+    "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+    "latest_active_decision_id": "DEC-MEM-0004",
+    "open_loops_count": 2,
+    "open_loop_ids": [
+      "LOOP-0001",
+      "LOOP-0003"
+    ],
+    "tracked_files": []
+  },
+  "last_context_note": "background",
+  "ended_at": "2026-04-17T15:12:39-03:00",
+  "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+  "next_action": null,
+  "completed_tasks": [],
+  "checkpoint_id": "CHK-MEM-0041",
+  "closed_by": "system"
+}
