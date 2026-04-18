@@ -13,4 +13,4 @@
 - Toda mudanca editorial relevante deve registrar decisao + artefato + checkpoint.
 
 ## Ultima atualizacao
-- updated_at: 2026-04-17T23:54:27-03:00
+- updated_at: 2026-04-18T00:02:10-03:00
