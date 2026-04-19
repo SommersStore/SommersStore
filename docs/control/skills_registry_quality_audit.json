@@ -1,0 +1,760 @@
+{
+  "generated_at": "2026-04-19T08:25:59.784Z",
+  "summary": {
+    "total": 36,
+    "by_status": {
+      "GO": 36
+    },
+    "without_playbook": 0,
+    "low_desc": 0,
+    "zero_usage_non_mem": 0
+  },
+  "rows": [
+    {
+      "group": "CNT",
+      "id": "SKL-CNT-01",
+      "name": "EditorialStructuring",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 45,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-CNT-01.md",
+      "owner_agents": [
+        {
+          "handle": "@copywriter",
+          "exists": true,
+          "yaml": false,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "CNT",
+      "id": "SKL-CNT-02",
+      "name": "LongformCopy",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 43,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-CNT-02.md",
+      "owner_agents": [
+        {
+          "handle": "@copywriter",
+          "exists": true,
+          "yaml": false,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "CNT",
+      "id": "SKL-CNT-03",
+      "name": "SalesPageCopy",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 3,
+      "desc_len": 73,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-CNT-03.md",
+      "owner_agents": [
+        {
+          "handle": "@copywriter",
+          "exists": true,
+          "yaml": false,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "CNT",
+      "id": "SKL-CNT-04",
+      "name": "BrandVoiceEnforcement",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 45,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-CNT-04.md",
+      "owner_agents": [
+        {
+          "handle": "@brand-master",
+          "exists": true,
+          "yaml": false,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "CNT",
+      "id": "SKL-CNT-05",
+      "name": "ImagePrompting",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 42,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-CNT-05.md",
+      "owner_agents": [
+        {
+          "handle": "@liaison",
+          "exists": true,
+          "yaml": false,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "CNT",
+      "id": "SKL-CNT-06",
+      "name": "PDFAssembly",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 80,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-CNT-06.md",
+      "owner_agents": [
+        {
+          "handle": "@liaison",
+          "exists": true,
+          "yaml": false,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "CORE",
+      "id": "SKL-CORE-01",
+      "name": "BriefIngestion",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 52,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-CORE-01.md",
+      "owner_agents": [
+        {
+          "handle": "@aiox-master",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "CORE",
+      "id": "SKL-CORE-02",
+      "name": "ProductPositioning",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 173,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-CORE-02.md",
+      "owner_agents": [
+        {
+          "handle": "@aiox-master",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        },
+        {
+          "handle": "@pm",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "CORE",
+      "id": "SKL-CORE-03",
+      "name": "OfferStructuring",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 3,
+      "desc_len": 40,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-CORE-03.md",
+      "owner_agents": [
+        {
+          "handle": "@po",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "CORE",
+      "id": "SKL-CORE-05",
+      "name": "RoadmapPlanning",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 164,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-CORE-05.md",
+      "owner_agents": [
+        {
+          "handle": "@pm",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "ENG",
+      "id": "SKL-ENG-01",
+      "name": "CheckoutIntegration",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 2,
+      "desc_len": 40,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-ENG-01.md",
+      "owner_agents": [
+        {
+          "handle": "@dev",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "ENG",
+      "id": "SKL-ENG-02",
+      "name": "DeployPipeline",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 158,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-ENG-02.md",
+      "owner_agents": [
+        {
+          "handle": "@devops",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "ENG",
+      "id": "SKL-ENG-03",
+      "name": "WebhookAutomation",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 173,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-ENG-03.md",
+      "owner_agents": [
+        {
+          "handle": "@data-engineer",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "ENG",
+      "id": "SKL-ENG-04",
+      "name": "DeliveryOrchestration",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 2,
+      "desc_len": 195,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-ENG-04.md",
+      "owner_agents": [
+        {
+          "handle": "@data-engineer",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "ENG",
+      "id": "SKL-ENG-05",
+      "name": "TrackingInstrumentation",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 2,
+      "desc_len": 196,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-ENG-05.md",
+      "owner_agents": [
+        {
+          "handle": "@data-engineer",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "ENG",
+      "id": "SKL-ENG-06",
+      "name": "DataSync",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 2,
+      "desc_len": 41,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-ENG-06.md",
+      "owner_agents": [
+        {
+          "handle": "@data-engineer",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "EXP",
+      "id": "SKL-EXP-01",
+      "name": "DesignSystemTokens",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 48,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-EXP-01.md",
+      "owner_agents": [
+        {
+          "handle": "@architect",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "EXP",
+      "id": "SKL-EXP-02",
+      "name": "LayoutComposition",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 89,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-EXP-02.md",
+      "owner_agents": [
+        {
+          "handle": "@ux-design-expert",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "EXP",
+      "id": "SKL-EXP-03",
+      "name": "A4Composition",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 44,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-EXP-03.md",
+      "owner_agents": [
+        {
+          "handle": "@art-director",
+          "exists": true,
+          "yaml": false,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "EXP",
+      "id": "SKL-EXP-04",
+      "name": "LandingPageUXMapping",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 2,
+      "desc_len": 158,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-EXP-04.md",
+      "owner_agents": [
+        {
+          "handle": "@ux-design-expert",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "EXP",
+      "id": "SKL-EXP-05",
+      "name": "VisualConsistency",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 46,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-EXP-05.md",
+      "owner_agents": [
+        {
+          "handle": "@art-director",
+          "exists": true,
+          "yaml": false,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "EXP",
+      "id": "SKL-EXP-06",
+      "name": "AssetDirection",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 117,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-EXP-06.md",
+      "owner_agents": [
+        {
+          "handle": "@art-director",
+          "exists": true,
+          "yaml": false,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "MEM",
+      "id": "SKL-MEM-01",
+      "name": "MemoryBootstrap",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 0,
+      "desc_len": 71,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-MEM-01.md",
+      "owner_agents": [
+        {
+          "handle": "@oracle",
+          "exists": true,
+          "yaml": false,
+          "auto": true
+        }
+      ],
+      "reasons": [
+        "governanca_memoria"
+      ]
+    },
+    {
+      "group": "MEM",
+      "id": "SKL-MEM-02",
+      "name": "ContextRecovery",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 0,
+      "desc_len": 72,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-MEM-02.md",
+      "owner_agents": [
+        {
+          "handle": "@oracle",
+          "exists": true,
+          "yaml": false,
+          "auto": true
+        },
+        {
+          "handle": "@scribe",
+          "exists": true,
+          "yaml": false,
+          "auto": true
+        }
+      ],
+      "reasons": [
+        "governanca_memoria"
+      ]
+    },
+    {
+      "group": "MEM",
+      "id": "SKL-MEM-03",
+      "name": "SessionSnapshotting",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 0,
+      "desc_len": 69,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-MEM-03.md",
+      "owner_agents": [
+        {
+          "handle": "@scribe",
+          "exists": true,
+          "yaml": false,
+          "auto": true
+        }
+      ],
+      "reasons": [
+        "governanca_memoria"
+      ]
+    },
+    {
+      "group": "MEM",
+      "id": "SKL-MEM-04",
+      "name": "ContinuityAudit",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 0,
+      "desc_len": 71,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-MEM-04.md",
+      "owner_agents": [
+        {
+          "handle": "@oracle",
+          "exists": true,
+          "yaml": false,
+          "auto": true
+        }
+      ],
+      "reasons": [
+        "governanca_memoria"
+      ]
+    },
+    {
+      "group": "MKF",
+      "id": "SKL-MKF-01",
+      "name": "MarketIntelligence",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 51,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-MKF-01.md",
+      "owner_agents": [
+        {
+          "handle": "@analyst",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "MKF",
+      "id": "SKL-MKF-02",
+      "name": "CompetitorDeconstruction",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 43,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-MKF-02.md",
+      "owner_agents": [
+        {
+          "handle": "@analyst",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "MKF",
+      "id": "SKL-MKF-03",
+      "name": "HookMining",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 40,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-MKF-03.md",
+      "owner_agents": [
+        {
+          "handle": "@persona",
+          "exists": true,
+          "yaml": false,
+          "auto": true
+        },
+        {
+          "handle": "@analyst",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "MKF",
+      "id": "SKL-MKF-04",
+      "name": "FunnelArchitecture",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 43,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-MKF-04.md",
+      "owner_agents": [
+        {
+          "handle": "@cro-expert",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "MKF",
+      "id": "SKL-MKF-05",
+      "name": "TrafficStrategy",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 100,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-MKF-05.md",
+      "owner_agents": [
+        {
+          "handle": "@marketing",
+          "exists": true,
+          "yaml": false,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "MKF",
+      "id": "SKL-MKF-06",
+      "name": "CROHypothesis",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 3,
+      "desc_len": 194,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-MKF-06.md",
+      "owner_agents": [
+        {
+          "handle": "@cro-expert",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "QRO",
+      "id": "SKL-QRO-01",
+      "name": "EditorialQA",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 139,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-QRO-01.md",
+      "owner_agents": [
+        {
+          "handle": "@qa",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "QRO",
+      "id": "SKL-QRO-02",
+      "name": "SecurityScan",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 156,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-QRO-02.md",
+      "owner_agents": [
+        {
+          "handle": "@qa",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "QRO",
+      "id": "SKL-QRO-04",
+      "name": "AlertRouting",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 114,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-QRO-04.md",
+      "owner_agents": [
+        {
+          "handle": "@support",
+          "exists": true,
+          "yaml": false,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "group": "QRO",
+      "id": "SKL-QRO-05",
+      "name": "ExecutionAudit",
+      "status": "GO",
+      "score": 100,
+      "usage_count": 1,
+      "desc_len": 41,
+      "has_playbook": true,
+      "playbook_file": "docs/control/skills_playbooks/SKL-QRO-05.md",
+      "owner_agents": [
+        {
+          "handle": "@qa",
+          "exists": true,
+          "yaml": true,
+          "auto": true
+        }
+      ],
+      "reasons": []
+    }
+  ]
+}

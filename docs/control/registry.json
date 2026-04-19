@@ -351,17 +351,34 @@
         "name": "BriefIngestion",
         "desc": "Ingestão e parse de briefing para estruturar escopo.",
         "agents": [
-          "AGT-CORE-01"
-        ]
+          "AGT-CORE-01",
+          "AGT-CORE-05"
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-CORE-01.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-CORE-02",
         "name": "ProductPositioning",
-        "desc": "Posicionamento de produto no mercado.",
+        "desc": "Executa ProductPositioning com criterio operacional no fases BLD-01, garantindo as saidas `DLV-BLUEPRINT-ProductBrief`, `DLV-SPEC-OfferThesis`, `DLV-SPEC-PersonaPreliminar`.",
         "agents": [
           "AGT-CORE-01",
           "AGT-CORE-02"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-CORE-02.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-CORE-03",
@@ -369,15 +386,32 @@
         "desc": "Estruturação de oferta, bumps e upsells.",
         "agents": [
           "AGT-CORE-03"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-CORE-03.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "evento+manual"
       },
       {
         "id": "SKL-CORE-05",
         "name": "RoadmapPlanning",
-        "desc": "Planejamento de roadmap e backlog.",
+        "desc": "Executa RoadmapPlanning com criterio operacional no fases BLD-03, garantindo as saidas `DLV-BLUEPRINT-Roadmap`, `DLV-BLUEPRINT-FunnelBlueprint`, `DLV-SPEC-Backlog`.",
         "agents": [
-          "AGT-CORE-02"
-        ]
+          "AGT-CORE-02",
+          "AGT-CORE-04"
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-CORE-05.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       }
     ],
     "MKF": [
@@ -387,7 +421,15 @@
         "desc": "Inteligência de mercado e pesquisa de concorrência.",
         "agents": [
           "AGT-MKF-01"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-MKF-01.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-MKF-02",
@@ -395,16 +437,32 @@
         "desc": "Desconstrução de concorrentes e benchmarks.",
         "agents": [
           "AGT-MKF-01"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-MKF-02.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-MKF-03",
         "name": "HookMining",
         "desc": "Mineração de hooks e gatilhos de desejo.",
         "agents": [
-          "AGT-MKF-01",
-          "AGT-MKF-02"
-        ]
+          "AGT-MKF-02",
+          "AGT-MKF-01"
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-MKF-03.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-MKF-04",
@@ -412,23 +470,47 @@
         "desc": "Arquitetura completa de funis de conversão.",
         "agents": [
           "AGT-MKF-03"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-MKF-04.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-MKF-05",
         "name": "TrafficStrategy",
-        "desc": "Estratégia de tráfego pago e orgânico.",
+        "desc": "Executa TrafficStrategy com criterio operacional no operacao OPS-01, garantindo as saidas `tráfego`.",
         "agents": [
           "AGT-MKF-04"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-MKF-05.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "evento+manual"
       },
       {
         "id": "SKL-MKF-06",
         "name": "CROHypothesis",
-        "desc": "Hipóteses de CRO e testes A/B.",
+        "desc": "Executa CROHypothesis com criterio operacional no fases BLD-14 e operacao OPS-08, OPS-11, garantindo as saidas `DLV-REPORT-DashboardInicial`, `DLV-INSIGHT-HipotesesAB`, `DLV-REPORT-BaselineROI`.",
         "agents": [
           "AGT-MKF-03"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-MKF-06.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "evento+manual"
       }
     ],
     "CNT": [
@@ -438,7 +520,15 @@
         "desc": "Estruturação editorial de capítulos e seções.",
         "agents": [
           "AGT-CNT-01"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-CNT-01.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-CNT-02",
@@ -446,15 +536,31 @@
         "desc": "Redação longform para e-books e manifestos.",
         "agents": [
           "AGT-CNT-01"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-CNT-02.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-CNT-03",
         "name": "SalesPageCopy",
-        "desc": "Copy persuasiva para páginas de venda.",
+        "desc": "Copy persuasiva de alto padrao com tom aristocratico e foco em conversao.",
         "agents": [
           "AGT-CNT-01"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-CNT-03.md",
+        "playbook_source": ".codex/skills/copywriting-aristocratico.md",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "evento+manual"
       },
       {
         "id": "SKL-CNT-04",
@@ -462,7 +568,15 @@
         "desc": "Enforcement do tom de voz e brand guidelines.",
         "agents": [
           "AGT-CNT-03"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-CNT-04.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-CNT-05",
@@ -470,15 +584,31 @@
         "desc": "Geração de prompts para ativos visuais HD.",
         "agents": [
           "AGT-CNT-02"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-CNT-05.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-CNT-06",
         "name": "PDFAssembly",
-        "desc": "Montagem e assemblagem de PDFs finais.",
+        "desc": "Montagem de PDFs editoriais com tipografia, paginacao e regras A4 de publicacao.",
         "agents": [
           "AGT-CNT-02"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-CNT-06.md",
+        "playbook_source": ".codex/skills/ebook-publisher.md",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       }
     ],
     "EXP": [
@@ -488,15 +618,31 @@
         "desc": "Criação e manutenção de tokens do Design System.",
         "agents": [
           "AGT-EXP-01"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-EXP-01.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-EXP-02",
         "name": "LayoutComposition",
-        "desc": "Composição de layouts web responsivos.",
+        "desc": "Composicao de layouts web premium com regras visuais de luxo e consistencia de brandbook.",
         "agents": [
           "AGT-EXP-02"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-EXP-02.md",
+        "playbook_source": ".codex/skills/componentes-ui-luxury.md",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-EXP-03",
@@ -504,15 +650,31 @@
         "desc": "Composição de layouts A4 para PDF editorial.",
         "agents": [
           "AGT-EXP-03"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-EXP-03.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-EXP-04",
         "name": "LandingPageUXMapping",
-        "desc": "Mapeamento UX de landing pages.",
+        "desc": "Executa LandingPageUXMapping com criterio operacional no fases BLD-10 e operacao OPS-03, garantindo as saidas `DLV-PAGE-SalesPagePronta`, `consumo da página`.",
         "agents": [
           "AGT-EXP-02"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-EXP-04.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "evento+manual"
       },
       {
         "id": "SKL-EXP-05",
@@ -520,15 +682,31 @@
         "desc": "Auditoria de consistência visual entre ativos.",
         "agents": [
           "AGT-EXP-03"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-EXP-05.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-EXP-06",
         "name": "AssetDirection",
-        "desc": "Direção de arte para ativos visuais.",
+        "desc": "Executa AssetDirection com criterio operacional no fases BLD-08, garantindo as saidas `DLV-ASSET-BibliotecaVisualHD`.",
         "agents": [
           "AGT-EXP-03"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-EXP-06.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       }
     ],
     "ENG": [
@@ -538,39 +716,79 @@
         "desc": "Integração de checkout (Kiwify, Stripe).",
         "agents": [
           "AGT-ENG-01"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-ENG-01.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "evento+manual"
       },
       {
         "id": "SKL-ENG-02",
         "name": "DeployPipeline",
-        "desc": "Pipeline de deploy (Firebase, Vercel).",
+        "desc": "Executa DeployPipeline com criterio operacional no fases BLD-12, garantindo as saidas `DLV-DEPLOY-URLPublicada`, `DLV-DEPLOY-DNS`, `DLV-DEPLOY-AmbienteAtivo`.",
         "agents": [
           "AGT-ENG-03"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-ENG-02.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-ENG-03",
         "name": "WebhookAutomation",
-        "desc": "Automação de webhooks pós-compra.",
+        "desc": "Executa WebhookAutomation com criterio operacional no fases BLD-13, garantindo as saidas `DLV-AUTOMATION-Emails`, `DLV-AUTOMATION-Webhooks`, `DLV-AUTOMATION-EntregaDigital`.",
         "agents": [
           "AGT-ENG-02"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-ENG-03.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-ENG-04",
         "name": "DeliveryOrchestration",
-        "desc": "Orquestração de entrega digital.",
+        "desc": "Executa DeliveryOrchestration com criterio operacional no fases BLD-13 e operacao OPS-09, garantindo as saidas `DLV-AUTOMATION-Emails`, `DLV-AUTOMATION-Webhooks`, `DLV-AUTOMATION-EntregaDigital`.",
         "agents": [
           "AGT-ENG-02"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-ENG-04.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "evento+manual"
       },
       {
         "id": "SKL-ENG-05",
         "name": "TrackingInstrumentation",
-        "desc": "Instrumentação de tracking e pixels.",
+        "desc": "Executa TrackingInstrumentation com criterio operacional no fases BLD-14 e operacao OPS-02, garantindo as saidas `DLV-REPORT-DashboardInicial`, `DLV-INSIGHT-HipotesesAB`, `DLV-REPORT-BaselineROI`.",
         "agents": [
           "AGT-ENG-02"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-ENG-05.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "evento+manual"
       },
       {
         "id": "SKL-ENG-06",
@@ -578,33 +796,66 @@
         "desc": "Sincronização de dados entre plataformas.",
         "agents": [
           "AGT-ENG-02"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-ENG-06.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "evento+manual"
       }
     ],
     "QRO": [
       {
         "id": "SKL-QRO-01",
         "name": "EditorialQA",
-        "desc": "QA editorial: tom, coerência, luxo.",
+        "desc": "Executa EditorialQA com criterio operacional no fases BLD-06, garantindo as saidas `DLV-REPORT-TextoValidado`, `DLV-REPORT-ListaCorrecoes`.",
         "agents": [
           "AGT-QRO-01"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-QRO-01.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "suporte_critico",
+        "activation_relevance": "build",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-QRO-02",
         "name": "SecurityScan",
-        "desc": "Scan de segurança em deployments.",
+        "desc": "Executa SecurityScan com criterio operacional no fases BLD-12, garantindo as saidas `DLV-DEPLOY-URLPublicada`, `DLV-DEPLOY-DNS`, `DLV-DEPLOY-AmbienteAtivo`.",
         "agents": [
-          "AGT-QRO-01"
-        ]
+          "AGT-QRO-01",
+          "AGT-ENG-04"
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-QRO-02.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "suporte_critico",
+        "activation_relevance": "build",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-QRO-04",
         "name": "AlertRouting",
-        "desc": "Roteamento de alertas para squads.",
+        "desc": "Executa AlertRouting com criterio operacional no operacao OPS-10, garantindo as saidas `caso aberto ou resolvido`.",
         "agents": [
           "AGT-QRO-02"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-QRO-04.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "suporte_critico",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "evento+manual"
       },
       {
         "id": "SKL-QRO-05",
@@ -612,7 +863,15 @@
         "desc": "Auditoria de execuções e rastreabilidade.",
         "agents": [
           "AGT-QRO-01"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-QRO-05.md",
+        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_status": "active",
+        "activation_lane": "suporte_critico",
+        "activation_relevance": "build",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       }
     ],
     "MEM": [
@@ -622,7 +881,15 @@
         "desc": "Inicializacao de contexto no inicio da sessao (Oracle startup routine).",
         "agents": [
           "AGT-MEM-01"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-MEM-01.md",
+        "playbook_source": ".codex/skills/memory-bootstrap.md",
+        "playbook_status": "active",
+        "activation_lane": "suporte_critico",
+        "activation_relevance": "governanca",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-MEM-02",
@@ -631,7 +898,15 @@
         "agents": [
           "AGT-MEM-01",
           "AGT-MEM-02"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-MEM-02.md",
+        "playbook_source": ".codex/skills/context-recovery.md",
+        "playbook_status": "active",
+        "activation_lane": "suporte_critico",
+        "activation_relevance": "governanca",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-MEM-03",
@@ -639,7 +914,15 @@
         "desc": "Registro estruturado de estado da sessao e fechamento com checkpoint.",
         "agents": [
           "AGT-MEM-02"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-MEM-03.md",
+        "playbook_source": ".codex/skills/session-snapshotting.md",
+        "playbook_status": "active",
+        "activation_lane": "suporte_critico",
+        "activation_relevance": "governanca",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-MEM-04",
@@ -647,7 +930,15 @@
         "desc": "Auditoria de consistencia entre memoria ativa, loops pendentes e plano.",
         "agents": [
           "AGT-MEM-01"
-        ]
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-MEM-04.md",
+        "playbook_source": ".codex/skills/continuity-audit.md",
+        "playbook_status": "active",
+        "activation_lane": "suporte_critico",
+        "activation_relevance": "governanca",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       }
     ]
   },
@@ -956,9 +1247,16 @@
       "icon": "👤",
       "name": "Russell Brunson",
       "role": "Especialista em Funil de Vendas",
-      "traits": [],
-      "bio": "",
-      "agents": []
+      "traits": [
+        "Funis",
+        "Oferta",
+        "Escala"
+      ],
+      "bio": "Referencia para arquitetura de funis, oferta e narrativa de conversao orientada a escala.",
+      "agents": [
+        "@cro-expert",
+        "@marketing"
+      ]
     }
   ]
 }

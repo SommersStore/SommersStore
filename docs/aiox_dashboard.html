@@ -458,12 +458,17 @@
         <div class="sb-section">Control</div>
         <div class="sb-icon" data-tab="approvals" onclick="switchTab('approvals')"><i data-lucide="check-circle" class="w-4 h-4"></i><span class="sb-label">Approvals</span></div>
         <div class="sb-icon" data-tab="memory" onclick="switchTab('memory')"><i data-lucide="brain" class="w-4 h-4"></i><span class="sb-label">Memory</span></div>
-        <div class="sb-icon" data-tab="alerts" onclick="switchTab('alerts')"><i data-lucide="bell" class="w-4 h-4"></i><span class="sb-label">Alertas</span></div>
-        <div class="sb-icon" data-tab="logs" onclick="switchTab('logs')"><i data-lucide="scroll-text" class="w-4 h-4"></i><span class="sb-label">Logs</span></div>
-        <div class="sb-icon" data-tab="reruns" onclick="switchTab('reruns')"><i data-lucide="rotate-ccw" class="w-4 h-4"></i><span class="sb-label">Reruns</span></div>
-        <div class="sb-icon" data-tab="incidents" onclick="switchTab('incidents')"><i data-lucide="alert-triangle" class="w-4 h-4"></i><span class="sb-label">Incidents</span></div>
-        <div class="sb-icon" data-tab="commands" onclick="switchTab('commands')"><i data-lucide="terminal" class="w-4 h-4"></i><span class="sb-label">Console</span></div>
-        <div class="sb-icon" data-tab="why" onclick="switchTab('why')"><i data-lucide="help-circle" class="w-4 h-4"></i><span class="sb-label">Why Ran</span></div>
+        <div class="sb-icon" id="control-hub-icon" data-tab="control-hub" onclick="toggleControlSub(this)">
+            <i data-lucide="shield" class="w-4 h-4"></i><span class="sb-label">Ops Desk</span>
+        </div>
+        <div class="sb-sub" id="control-sub">
+            <div class="sb-sub-item" data-control-tab="alerts" onclick="loadControlTab('alerts',this)">Alertas</div>
+            <div class="sb-sub-item" data-control-tab="logs" onclick="loadControlTab('logs',this)">Logs</div>
+            <div class="sb-sub-item" data-control-tab="reruns" onclick="loadControlTab('reruns',this)">Reruns</div>
+            <div class="sb-sub-item" data-control-tab="incidents" onclick="loadControlTab('incidents',this)">Incidentes</div>
+            <div class="sb-sub-item" data-control-tab="commands" onclick="loadControlTab('commands',this)">Console</div>
+            <div class="sb-sub-item" data-control-tab="why" onclick="loadControlTab('why',this)">Why Ran</div>
+        </div>
         <div class="sb-divider"></div>
 
         <!-- LEGACY -->
@@ -776,7 +781,7 @@
         <div id="pane-squads" class="tab-pane p-8">
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-primary">Squads</span> <span class="text-white">Operacionais</span></h2>
-                <span class="badge border-primary/30 text-primary bg-primary/10">6 Squads</span>
+                <span id="squads-count" class="badge border-primary/30 text-primary bg-primary/10">0 Squads</span>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="squads-view"></div>
         </div>
@@ -796,6 +801,7 @@
                 <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-primary">Skills</span> <span class="text-white">Library</span></h2>
                 <span id="skills-count" class="badge border-primary/30 text-primary bg-primary/10">0 Skills</span>
             </div>
+            <div id="skills-lane-filters" class="flex flex-wrap items-center gap-2 mb-6"></div>
             <div id="skills-view" class="space-y-8"></div>
         </div>
 
@@ -883,6 +889,13 @@ const MEMORY_SCOPES = [
     { id: 'artifact_registry', name: 'Artefatos', desc: 'PDFs, páginas, specs, assets, links.', icon: 'archive', color: '#6366f1' },
     { id: 'incident_memory', name: 'Incidentes', desc: 'Incidentes, alertas, fallback, resolução.', icon: 'alert-triangle', color: '#ef4444' }
 ];
+const SKILL_LANE_LABELS = {
+    all: 'Todas',
+    producao: 'Producao',
+    suporte_critico: 'Suporte Critico'
+};
+window.SKILLS_LANE_FILTER = window.SKILLS_LANE_FILTER || 'all';
+window.AGENT_CONFIG_SKILL_FILTER = window.AGENT_CONFIG_SKILL_FILTER || 'all';
 
 // Funnel data (legacy)
 const FUNNEL_NODES = { ebook: [
@@ -903,16 +916,103 @@ const FUNNEL_NODES = { ebook: [
     { id:'rmk', title:'Remarketing', sub:'Retargeting', icon:'repeat', color:'#f59e0b', x:1600, y:230, layer:'Retenção' }
 ]};
 const FUNNEL_EDGES = { ebook: [['fb','quiz'],['fb','sales'],['ig','quiz'],['ig','cap'],['org','cap'],['quiz','vsl'],['quiz','sales'],['cap','vsl'],['cap','sales'],['vsl','sales'],['sales','ck'],['ck','ob'],['ck','up'],['ob','up'],['up','ty'],['up','dw'],['dw','ty'],['ty','area'],['ty','pos'],['area','pos'],['pos','rmk']] };
+const CONTROL_GROUP_TABS = ['alerts', 'logs', 'reruns', 'incidents', 'commands', 'why'];
+
+function normalizeSkillLane(value) {
+    return value === 'suporte_critico' ? 'suporte_critico' : 'producao';
+}
+
+function normalizeSkillCriticality(value) {
+    return value === 'alta' ? 'alta' : 'media';
+}
+
+function normalizeSkillTrigger(value) {
+    return value === 'evento+manual' ? 'evento+manual' : 'fase+manual';
+}
+
+function skillMatchesLane(skill, lane) {
+    if (lane === 'all') return true;
+    return normalizeSkillLane(skill && skill.lane) === lane;
+}
+
+function computeLaneCounts(items) {
+    const counts = { all: 0, producao: 0, suporte_critico: 0 };
+    (items || []).forEach(item => {
+        const lane = normalizeSkillLane(item && item.lane);
+        counts.all += 1;
+        counts[lane] += 1;
+    });
+    return counts;
+}
+
+function buildLaneFilterButtonHtml(idPrefix, activeLane, lane, count, onClick) {
+    const isActive = activeLane === lane;
+    const baseClass = isActive
+        ? 'border-primary/40 bg-primary/15 text-primary'
+        : 'border-white/10 bg-black/20 text-muted hover:text-white hover:border-primary/30';
+    return `<button
+        type="button"
+        id="${idPrefix}-${lane}"
+        class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-widest border transition-colors ${baseClass}"
+        onclick="${onClick}('${lane}')"
+    >${SKILL_LANE_LABELS[lane]} (${count})</button>`;
+}
+
+function syncControlHubUi(tab) {
+    const inControlGroup = CONTROL_GROUP_TABS.includes(tab);
+    const sub = document.getElementById('control-sub');
+    const hub = document.getElementById('control-hub-icon');
+    if (sub && inControlGroup) sub.classList.add('open');
+    document.querySelectorAll('#control-sub .sb-sub-item').forEach(item => {
+        const isActive = item.getAttribute('data-control-tab') === tab;
+        item.classList.toggle('active', isActive);
+    });
+    if (hub) hub.classList.toggle('active', inControlGroup);
+}
+
+function toggleControlSub(el) {
+    const sub = document.getElementById('control-sub');
+    if (!sub) return;
+    const nextOpen = !sub.classList.contains('open');
+    sub.classList.toggle('open', nextOpen);
+    if (!nextOpen) {
+        if (el) el.classList.remove('active');
+        return;
+    }
+    if (el) el.classList.add('active');
+    const activeSub = document.querySelector('#control-sub .sb-sub-item.active');
+    if (!activeSub) {
+        const logsTab = document.querySelector('#control-sub .sb-sub-item[data-control-tab="logs"]');
+        if (logsTab) loadControlTab('logs', logsTab);
+    }
+}
+
+function loadControlTab(tab, el) {
+    const sub = document.getElementById('control-sub');
+    if (sub) sub.classList.add('open');
+    document.querySelectorAll('#control-sub .sb-sub-item').forEach(item => item.classList.remove('active'));
+    if (el) el.classList.add('active');
+    switchTab(tab);
+}
 
 function switchTab(tab) {
     try {
+        const currentActive = document.querySelector('.sb-icon.active');
+        const previousTab = currentActive && currentActive.dataset ? currentActive.dataset.tab : '';
         document.querySelectorAll('.sb-icon').forEach(i => i.classList.remove('active'));
-        const icon = document.querySelector(`.sb-icon[data-tab="${tab}"]`);
+        const icon = CONTROL_GROUP_TABS.includes(tab)
+            ? document.getElementById('control-hub-icon')
+            : document.querySelector(`.sb-icon[data-tab="${tab}"]`);
         if (icon) icon.classList.add('active');
+        syncControlHubUi(tab);
 
         document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
         const pane = document.getElementById(`pane-${tab}`);
         if (pane) pane.classList.add('active');
+
+        if (previousTab && previousTab !== tab && typeof closeDrawer === 'function') {
+            closeDrawer();
+        }
 
         if (tab === 'master') renderMasterHub();
         if (tab === 'status') renderStatus();
@@ -1425,6 +1525,9 @@ function getSkillNodes() {
             name: skill.name,
             group,
             desc: skill.desc || '',
+            lane: normalizeSkillLane(skill.activation_lane),
+            criticality: normalizeSkillCriticality(skill.activation_criticality),
+            trigger: normalizeSkillTrigger(skill.activation_trigger),
             agent_ids: (skill.agents || []).slice()
         }))
     );
@@ -2204,50 +2307,682 @@ function renderMemory() {
 // ══════════════════════════════════════════
 // SQUADS & AGENTS RENDER
 // ══════════════════════════════════════════
+const SQUAD_PRESET_STORAGE_KEY = 'aiox.squad.presets.v1';
+window.SQUAD_DND_AGENT_ID = window.SQUAD_DND_AGENT_ID || '';
+window.__SQUAD_BOARD_NOTICE = window.__SQUAD_BOARD_NOTICE || null;
+
+function getSquadPresets() {
+    try {
+        const raw = localStorage.getItem(SQUAD_PRESET_STORAGE_KEY);
+        const parsed = JSON.parse(raw || '[]');
+        return Array.isArray(parsed) ? parsed : [];
+    } catch (_) {
+        return [];
+    }
+}
+
+function saveSquadPresets(items) {
+    try {
+        localStorage.setItem(SQUAD_PRESET_STORAGE_KEY, JSON.stringify(Array.isArray(items) ? items : []));
+    } catch (_) {}
+}
+
+function cloneRegistryState() {
+    return JSON.parse(JSON.stringify(REGISTRY || {}));
+}
+
+function ensureRegistryShape(registry) {
+    const next = (registry && typeof registry === 'object') ? registry : {};
+    next.squads = Array.isArray(next.squads) ? next.squads : [];
+    next.agents = Array.isArray(next.agents) ? next.agents : [];
+    next.personas = Array.isArray(next.personas) ? next.personas : [];
+    next.skills = (next.skills && typeof next.skills === 'object') ? next.skills : {};
+    next.squads.forEach(squad => {
+        squad.inputs = Array.isArray(squad.inputs) ? squad.inputs : [];
+        squad.outputs = Array.isArray(squad.outputs) ? squad.outputs : [];
+        squad.agents = Array.isArray(squad.agents) ? squad.agents : [];
+    });
+    next.agents.forEach(agent => {
+        agent.squad = typeof agent.squad === 'string' ? agent.squad : '';
+        agent.handle = typeof agent.handle === 'string' ? agent.handle : '';
+    });
+    next.personas.forEach(persona => {
+        persona.agents = Array.isArray(persona.agents) ? persona.agents : [];
+    });
+    Object.keys(next.skills).forEach(group => {
+        const items = Array.isArray(next.skills[group]) ? next.skills[group] : [];
+        items.forEach(skill => {
+            skill.agents = Array.isArray(skill.agents) ? skill.agents : [];
+            skill.activation_lane = normalizeSkillLane(skill.activation_lane);
+            skill.activation_relevance = skill.activation_relevance === 'runtime' || skill.activation_relevance === 'governanca'
+                ? skill.activation_relevance
+                : 'build';
+            skill.activation_criticality = normalizeSkillCriticality(skill.activation_criticality);
+            skill.activation_enabled = skill.activation_enabled !== false;
+            skill.activation_trigger = normalizeSkillTrigger(skill.activation_trigger);
+        });
+        next.skills[group] = items;
+    });
+    return next;
+}
+
+function rebuildSquadMembership(registry) {
+    const buckets = {};
+    (registry.squads || []).forEach(squad => {
+        buckets[squad.id] = [];
+    });
+    (registry.agents || []).forEach(agent => {
+        if (buckets[agent.squad]) buckets[agent.squad].push(agent.id);
+    });
+    (registry.squads || []).forEach(squad => {
+        squad.agents = buckets[squad.id] || [];
+    });
+}
+
+function flattenSkillCatalog(registry) {
+    const groups = (registry && registry.skills) || {};
+    return Object.entries(groups).flatMap(([group, skills]) =>
+        (Array.isArray(skills) ? skills : []).map(skill => ({
+            id: skill.id,
+            name: skill.name || skill.id,
+            group,
+            desc: skill.desc || '',
+            lane: normalizeSkillLane(skill.activation_lane),
+            relevance: skill.activation_relevance === 'runtime' || skill.activation_relevance === 'governanca'
+                ? skill.activation_relevance
+                : 'build',
+            criticality: normalizeSkillCriticality(skill.activation_criticality),
+            enabled: skill.activation_enabled !== false,
+            trigger: normalizeSkillTrigger(skill.activation_trigger),
+            playbookFile: skill.playbook_file || '',
+            agentIds: Array.isArray(skill.agents) ? skill.agents : []
+        }))
+    );
+}
+
+function getPersonaAssetById() {
+    const byId = {};
+    const items = (window.PERSONA_ASSETS && Array.isArray(window.PERSONA_ASSETS.items)) ? window.PERSONA_ASSETS.items : [];
+    items.forEach(item => {
+        if (item && item.persona_id) byId[item.persona_id] = item;
+    });
+    return byId;
+}
+
+function getAgentSkillCount(agentId) {
+    return flattenSkillCatalog(REGISTRY).filter(skill => skill.agentIds.includes(agentId)).length;
+}
+
+function getAgentPersonaCount(agentHandle) {
+    return (REGISTRY.personas || []).filter(persona => (persona.agents || []).includes(agentHandle)).length;
+}
+
+function setSquadDropVisual(squadId, active) {
+    const node = document.querySelector(`[data-squad-drop-zone="${squadId}"]`);
+    if (!node) return;
+    node.style.borderColor = active ? 'rgba(168,85,247,0.55)' : 'rgba(255,255,255,0.10)';
+    node.style.background = active ? 'rgba(168,85,247,0.10)' : 'rgba(10,10,15,0.45)';
+}
+
+function clearSquadDropVisuals() {
+    document.querySelectorAll('[data-squad-drop-zone]').forEach(node => {
+        node.style.borderColor = 'rgba(255,255,255,0.10)';
+        node.style.background = 'rgba(10,10,15,0.45)';
+    });
+}
+
+async function persistRegistryFromSquadBoard(nextRegistry, noticeText) {
+    const normalized = ensureRegistryShape(nextRegistry);
+    rebuildSquadMembership(normalized);
+    const body = {
+        path: 'docs/control/registry.json',
+        content: JSON.stringify(normalized, null, 2),
+        initiated_by: 'human',
+        project_id: (typeof getSessionProjectId === 'function') ? getSessionProjectId() : null
+    };
+    const res = await fetch('/api/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    });
+    const payload = await res.json().catch(() => ({}));
+    if (!res.ok || !payload.success) {
+        throw new Error(payload.error || `Falha ao salvar registry (HTTP ${res.status})`);
+    }
+
+    window.__SQUAD_BOARD_NOTICE = {
+        type: 'success',
+        text: noticeText || 'Configuracao salva.'
+    };
+    await loadAllData();
+    renderSquads();
+    if (typeof window.renderAgents === 'function') window.renderAgents();
+    if (typeof window.renderPersonas === 'function') window.renderPersonas();
+    if (typeof renderMasterHub === 'function') renderMasterHub();
+}
+
+function getPresetSnapshot(registry) {
+    const normalized = ensureRegistryShape(JSON.parse(JSON.stringify(registry || {})));
+    const skillAgentMap = {};
+    Object.values(normalized.skills || {}).forEach(items => {
+        (items || []).forEach(skill => {
+            if (skill && skill.id) skillAgentMap[skill.id] = Array.isArray(skill.agents) ? skill.agents.slice() : [];
+        });
+    });
+    return {
+        agents: (normalized.agents || []).map(agent => ({ id: agent.id, squad: agent.squad })),
+        skill_agent_map: skillAgentMap,
+        persona_agent_map: (normalized.personas || []).map(persona => ({
+            id: persona.id,
+            agents: Array.isArray(persona.agents) ? persona.agents.slice() : []
+        }))
+    };
+}
+
+function applyPresetSnapshot(snapshot, registry) {
+    if (!snapshot || !registry) return;
+    const normalized = ensureRegistryShape(registry);
+    const squadByAgentId = {};
+    (snapshot.agents || []).forEach(agent => {
+        if (agent && agent.id) squadByAgentId[agent.id] = agent.squad;
+    });
+    (normalized.agents || []).forEach(agent => {
+        if (Object.prototype.hasOwnProperty.call(squadByAgentId, agent.id)) {
+            agent.squad = squadByAgentId[agent.id];
+        }
+    });
+    const skillMap = snapshot.skill_agent_map || {};
+    Object.values(normalized.skills || {}).forEach(items => {
+        (items || []).forEach(skill => {
+            if (skill && skill.id && Object.prototype.hasOwnProperty.call(skillMap, skill.id)) {
+                skill.agents = Array.isArray(skillMap[skill.id]) ? skillMap[skill.id].slice() : [];
+            }
+        });
+    });
+    const personaMap = {};
+    (snapshot.persona_agent_map || []).forEach(entry => {
+        if (entry && entry.id) personaMap[entry.id] = Array.isArray(entry.agents) ? entry.agents.slice() : [];
+    });
+    (normalized.personas || []).forEach(persona => {
+        if (Object.prototype.hasOwnProperty.call(personaMap, persona.id)) {
+            persona.agents = personaMap[persona.id].slice();
+        }
+    });
+    rebuildSquadMembership(normalized);
+}
+
+window.handleSquadDragStart = function(event, agentId) {
+    window.SQUAD_DND_AGENT_ID = agentId;
+    if (event && event.dataTransfer) {
+        event.dataTransfer.effectAllowed = 'move';
+        event.dataTransfer.setData('text/plain', agentId);
+    }
+};
+
+window.handleSquadDragOver = function(event, squadId) {
+    if (event) event.preventDefault();
+    setSquadDropVisual(squadId, true);
+};
+
+window.handleSquadDragLeave = function(_event, squadId) {
+    setSquadDropVisual(squadId, false);
+};
+
+window.handleSquadDragEnd = function() {
+    window.SQUAD_DND_AGENT_ID = '';
+    clearSquadDropVisuals();
+};
+
+window.moveAgentToSquad = async function(agentId, targetSquadId) {
+    const next = ensureRegistryShape(cloneRegistryState());
+    const agent = (next.agents || []).find(item => item.id === agentId);
+    if (!agent) return;
+    if (agent.squad === targetSquadId) return;
+    agent.squad = targetSquadId;
+    try {
+        await persistRegistryFromSquadBoard(next, `${agent.name} movido para ${targetSquadId}.`);
+    } catch (error) {
+        window.__SQUAD_BOARD_NOTICE = { type: 'error', text: `Nao foi possivel mover agente: ${error.message}` };
+        renderSquads();
+    }
+};
+
+window.handleSquadDrop = async function(event, targetSquadId) {
+    if (event) event.preventDefault();
+    const fromTransfer = event && event.dataTransfer ? event.dataTransfer.getData('text/plain') : '';
+    const agentId = fromTransfer || window.SQUAD_DND_AGENT_ID;
+    window.SQUAD_DND_AGENT_ID = '';
+    clearSquadDropVisuals();
+    if (!agentId) return;
+    await moveAgentToSquad(agentId, targetSquadId);
+};
+
+window.saveCurrentSquadPreset = function() {
+    const presetName = prompt('Nome do preset de squad (ex.: Russell Conservador):');
+    if (!presetName || !presetName.trim()) return;
+    const presets = getSquadPresets();
+    const snapshot = getPresetSnapshot(cloneRegistryState());
+    presets.unshift({
+        id: `preset-${Date.now()}`,
+        name: presetName.trim(),
+        created_at: new Date().toISOString(),
+        snapshot
+    });
+    saveSquadPresets(presets.slice(0, 30));
+    window.__SQUAD_BOARD_NOTICE = { type: 'success', text: `Preset "${presetName.trim()}" salvo.` };
+    renderSquads();
+};
+
+window.applySelectedSquadPreset = async function() {
+    const select = document.getElementById('squad-preset-select');
+    if (!select || !select.value) return;
+    const presetId = select.value;
+    const presets = getSquadPresets();
+    const preset = presets.find(item => item.id === presetId);
+    if (!preset) return;
+    if (!confirm(`Aplicar preset "${preset.name}"? Esta acao substitui squad/skills/personas atuais.`)) return;
+    const next = ensureRegistryShape(cloneRegistryState());
+    applyPresetSnapshot(preset.snapshot, next);
+    try {
+        await persistRegistryFromSquadBoard(next, `Preset "${preset.name}" aplicado.`);
+    } catch (error) {
+        window.__SQUAD_BOARD_NOTICE = { type: 'error', text: `Nao foi possivel aplicar preset: ${error.message}` };
+        renderSquads();
+    }
+};
+
+window.deleteSelectedSquadPreset = function() {
+    const select = document.getElementById('squad-preset-select');
+    if (!select || !select.value) return;
+    const presetId = select.value;
+    const presets = getSquadPresets();
+    const preset = presets.find(item => item.id === presetId);
+    if (!preset) return;
+    if (!confirm(`Excluir preset "${preset.name}"?`)) return;
+    saveSquadPresets(presets.filter(item => item.id !== presetId));
+    window.__SQUAD_BOARD_NOTICE = { type: 'success', text: `Preset "${preset.name}" excluido.` };
+    renderSquads();
+};
+
+window.SQUAD_AGENT_CONFIG_STATE = window.SQUAD_AGENT_CONFIG_STATE || null;
+window.SQUAD_AGENT_CONFIG_DRAG = window.SQUAD_AGENT_CONFIG_DRAG || { kind: '', id: '' };
+window.DETAIL_DRAWER_STATE = window.DETAIL_DRAWER_STATE || { kind: '', id: '' };
+
+function getAgentConfigState() {
+    const state = window.SQUAD_AGENT_CONFIG_STATE;
+    if (!state || typeof state !== 'object') return null;
+    return state;
+}
+
+function buildAgentConfigCard(kind, item, selected) {
+    const border = selected ? 'border-primary/40 bg-primary/10' : 'border-white/10 bg-black/20';
+    const actionLabel = selected ? 'Vinculado' : 'Disponivel';
+    const extra = kind === 'persona'
+        ? `<span class="text-[8px] ${item.hasClone ? 'text-secondary' : 'text-coral'} block">${item.hasClone ? 'Clone markdown vinculado' : 'Clone markdown ausente'}</span>`
+        : `<span class="text-[8px] text-muted block">${masterEscape(item.group || '-')} · ${masterEscape(item.id)} · ${masterEscape(item.laneLabel || SKILL_LANE_LABELS.producao)}</span>`;
+    const desc = kind === 'persona' ? (item.role || '-') : (item.desc || '-');
+    const onToggle = `toggleAgentConfigItem('${masterEscape(kind)}','${masterEscape(item.id)}',${selected ? 'false' : 'true'})`;
+    const criticalityBadge = kind === 'skill'
+        ? `<span class="text-[8px] ${item.criticality === 'alta' ? 'text-coral' : 'text-muted'} block mt-1 uppercase tracking-widest">Criticidade ${masterEscape(item.criticality || 'media')}</span>`
+        : '';
+    return `<article
+        class="border ${border} rounded-lg p-2 cursor-grab hover:border-primary/50 transition-colors"
+        draggable="true"
+        ondragstart="handleAgentConfigDragStart(event,'${masterEscape(kind)}','${masterEscape(item.id)}')"
+        ondragend="handleAgentConfigDragEnd()"
+        onclick="${onToggle}"
+        title="Clique para ${selected ? 'remover' : 'vincular'}"
+    >
+        <p class="text-[10px] text-white font-bold truncate">${masterEscape(item.name || item.id)}</p>
+        ${extra}
+        <span class="text-[8px] text-muted block mt-1">${masterEscape(desc)}</span>
+        ${criticalityBadge}
+        <span class="text-[8px] ${selected ? 'text-primary' : 'text-muted'} block mt-1 uppercase">${actionLabel}</span>
+    </article>`;
+}
+
+function renderAgentConfigDualList(kind) {
+    const state = getAgentConfigState();
+    if (!state) return;
+    const key = kind === 'skill' ? 'skillCatalog' : 'personaCatalog';
+    const selectedKey = kind === 'skill' ? 'selectedSkillIds' : 'selectedPersonaIds';
+    const selectedSet = new Set(state[selectedKey] || []);
+    const allItems = Array.isArray(state[key]) ? state[key] : [];
+    const laneFilter = kind === 'skill' ? (state.skillLaneFilter || 'all') : 'all';
+    const filteredItems = kind === 'skill'
+        ? allItems.filter(item => skillMatchesLane(item, laneFilter))
+        : allItems;
+    const selectedItemsAll = allItems.filter(item => selectedSet.has(item.id));
+    const selectedItems = filteredItems.filter(item => selectedSet.has(item.id));
+    const availableItems = filteredItems.filter(item => !selectedSet.has(item.id));
+    const availableNode = document.getElementById(`agent-config-${kind}-available`);
+    const selectedNode = document.getElementById(`agent-config-${kind}-selected`);
+    if (kind === 'skill') {
+        const availableMeta = document.getElementById('agent-config-skill-available-meta');
+        const selectedMeta = document.getElementById('agent-config-skill-selected-meta');
+        if (availableMeta) availableMeta.textContent = `${availableItems.length} visiveis`;
+        if (selectedMeta) selectedMeta.textContent = `${selectedItems.length}/${selectedItemsAll.length} visiveis`;
+    }
+    if (availableNode) {
+        availableNode.innerHTML = availableItems.length
+            ? availableItems.map(item => buildAgentConfigCard(kind, item, false)).join('')
+            : '<p class="text-[9px] text-muted italic">Sem itens disponiveis.</p>';
+    }
+    if (selectedNode) {
+        if (selectedItems.length) {
+            selectedNode.innerHTML = selectedItems.map(item => buildAgentConfigCard(kind, item, true)).join('');
+        } else if (kind === 'skill' && selectedItemsAll.length && laneFilter !== 'all') {
+            selectedNode.innerHTML = '<p class="text-[9px] text-muted italic">Sem vinculadas nesta faixa. Troque o filtro para ver as demais.</p>';
+        } else {
+            selectedNode.innerHTML = '<p class="text-[9px] text-muted italic">Nenhum item vinculado.</p>';
+        }
+    }
+}
+
+function renderAgentConfigSkillFilters() {
+    const state = getAgentConfigState();
+    if (!state) return;
+    const node = document.getElementById('agent-config-skill-filters');
+    if (!node) return;
+    const allItems = Array.isArray(state.skillCatalog) ? state.skillCatalog : [];
+    const counts = computeLaneCounts(allItems);
+    const active = state.skillLaneFilter || 'all';
+    node.innerHTML = ['all', 'producao', 'suporte_critico']
+        .map(lane => buildLaneFilterButtonHtml('agent-skill-filter', active, lane, counts[lane], 'setAgentConfigSkillLaneFilter'))
+        .join('');
+    const summary = document.getElementById('agent-config-skill-filter-summary');
+    if (summary) summary.textContent = `Filtro ativo: ${SKILL_LANE_LABELS[active] || SKILL_LANE_LABELS.all}`;
+}
+
+window.setAgentConfigSkillLaneFilter = function(lane) {
+    const state = getAgentConfigState();
+    if (!state) return;
+    const next = ['all', 'producao', 'suporte_critico'].includes(lane) ? lane : 'all';
+    state.skillLaneFilter = next;
+    window.AGENT_CONFIG_SKILL_FILTER = next;
+    renderAgentConfigBoards();
+};
+
+function renderAgentConfigBoards() {
+    renderAgentConfigSkillFilters();
+    renderAgentConfigDualList('skill');
+    renderAgentConfigDualList('persona');
+}
+
+window.toggleAgentConfigItem = function(kind, itemId, forceSelected) {
+    const state = getAgentConfigState();
+    if (!state) return;
+    const selectedKey = kind === 'skill' ? 'selectedSkillIds' : 'selectedPersonaIds';
+    const set = new Set(state[selectedKey] || []);
+    const shouldSelect = forceSelected === null || forceSelected === undefined ? !set.has(itemId) : Boolean(forceSelected);
+    if (shouldSelect) set.add(itemId);
+    else set.delete(itemId);
+    state[selectedKey] = Array.from(set);
+    renderAgentConfigBoards();
+};
+
+window.handleAgentConfigDragStart = function(event, kind, itemId) {
+    window.SQUAD_AGENT_CONFIG_DRAG = { kind, id: itemId };
+    if (event && event.dataTransfer) {
+        event.dataTransfer.effectAllowed = 'move';
+        event.dataTransfer.setData('text/plain', `${kind}:${itemId}`);
+    }
+};
+
+window.handleAgentConfigDragEnd = function() {
+    window.SQUAD_AGENT_CONFIG_DRAG = { kind: '', id: '' };
+};
+
+window.handleAgentConfigDragOver = function(event) {
+    if (event) event.preventDefault();
+};
+
+window.handleAgentConfigDrop = function(event, kind, bucket) {
+    if (event) event.preventDefault();
+    const payload = event && event.dataTransfer ? event.dataTransfer.getData('text/plain') : '';
+    let dragKind = window.SQUAD_AGENT_CONFIG_DRAG.kind || '';
+    let dragId = window.SQUAD_AGENT_CONFIG_DRAG.id || '';
+    if (payload && payload.includes(':')) {
+        const parts = payload.split(':');
+        dragKind = parts[0];
+        dragId = parts.slice(1).join(':');
+    }
+    if (!dragId || dragKind !== kind) return;
+    toggleAgentConfigItem(kind, dragId, bucket === 'selected');
+    handleAgentConfigDragEnd();
+};
+
+window.openSquadAgentDrawer = function(agentId) {
+    const registry = ensureRegistryShape(REGISTRY || {});
+    const agent = (registry.agents || []).find(item => item.id === agentId);
+    if (!agent) return;
+    const skillCatalog = flattenSkillCatalog(registry).map(skill => ({
+        id: skill.id,
+        name: skill.name || skill.id,
+        group: skill.group || '-',
+        lane: normalizeSkillLane(skill.lane),
+        laneLabel: SKILL_LANE_LABELS[normalizeSkillLane(skill.lane)] || SKILL_LANE_LABELS.producao,
+        criticality: normalizeSkillCriticality(skill.criticality),
+        trigger: normalizeSkillTrigger(skill.trigger),
+        desc: skill.desc || '-'
+    }));
+    const assetByPersonaId = getPersonaAssetById();
+    const personaCatalog = (registry.personas || []).map(persona => {
+        const asset = assetByPersonaId[persona.id];
+        return {
+            id: persona.id,
+            name: persona.name || persona.id,
+            role: persona.role || '-',
+            hasClone: Boolean(asset && asset.clone_file && asset.clone_file.exists)
+        };
+    });
+    window.SQUAD_AGENT_CONFIG_STATE = {
+        agentId: agent.id,
+        agentHandle: agent.handle || '',
+        selectedSkillIds: flattenSkillCatalog(registry).filter(skill => (skill.agentIds || []).includes(agent.id)).map(skill => skill.id),
+        selectedPersonaIds: (registry.personas || []).filter(persona => (persona.agents || []).includes(agent.handle)).map(persona => persona.id),
+        skillLaneFilter: window.AGENT_CONFIG_SKILL_FILTER || 'all',
+        skillCatalog,
+        personaCatalog
+    };
+
+    document.getElementById('drawer-title').textContent = `${agent.name} · Configuracao`;
+    document.getElementById('drawer-content').innerHTML = `
+        <div class="p-5 space-y-4">
+            <div class="glass p-3">
+                <p class="text-[11px] text-white font-bold">${masterEscape(agent.name)} <span class="text-muted">(${masterEscape(agent.handle || '-')})</span></p>
+                <p class="text-[10px] text-muted mt-1">${masterEscape(agent.role || '-')}</p>
+                <p class="text-[9px] text-primary mt-2 uppercase tracking-widest font-bold">Squad atual: ${masterEscape(agent.squad || '-')}</p>
+            </div>
+
+            <div class="glass p-3 space-y-2">
+                <div class="flex items-center justify-between">
+                    <p class="text-[9px] text-muted uppercase tracking-widest">Skills do Agente (drag)</p>
+                    <span class="text-[8px] text-primary">${skillCatalog.length} skills</span>
+                </div>
+                <div id="agent-config-skill-filters" class="flex flex-wrap items-center gap-1.5"></div>
+                <p id="agent-config-skill-filter-summary" class="text-[8px] text-muted uppercase tracking-widest">Filtro ativo: Todas</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <section class="border border-white/10 rounded p-2" ondragover="handleAgentConfigDragOver(event)" ondrop="handleAgentConfigDrop(event,'skill','available')">
+                        <div class="flex items-center justify-between mb-2">
+                            <p class="text-[8px] text-muted uppercase tracking-widest">Disponiveis</p>
+                            <span id="agent-config-skill-available-meta" class="text-[8px] text-muted">0 visiveis</span>
+                        </div>
+                        <div id="agent-config-skill-available" class="space-y-2 max-h-48 overflow-y-auto pr-1"></div>
+                    </section>
+                    <section class="border border-primary/30 rounded p-2 bg-primary/5" ondragover="handleAgentConfigDragOver(event)" ondrop="handleAgentConfigDrop(event,'skill','selected')">
+                        <div class="flex items-center justify-between mb-2">
+                            <p class="text-[8px] text-primary uppercase tracking-widest">Vinculadas</p>
+                            <span id="agent-config-skill-selected-meta" class="text-[8px] text-primary">0/0 visiveis</span>
+                        </div>
+                        <div id="agent-config-skill-selected" class="space-y-2 max-h-48 overflow-y-auto pr-1"></div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="glass p-3 space-y-2">
+                <div class="flex items-center justify-between">
+                    <p class="text-[9px] text-muted uppercase tracking-widest">Personas / Clones (drag)</p>
+                    <span class="text-[8px] text-primary">${personaCatalog.length} personas</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <section class="border border-white/10 rounded p-2" ondragover="handleAgentConfigDragOver(event)" ondrop="handleAgentConfigDrop(event,'persona','available')">
+                        <p class="text-[8px] text-muted uppercase tracking-widest mb-2">Disponiveis</p>
+                        <div id="agent-config-persona-available" class="space-y-2 max-h-48 overflow-y-auto pr-1"></div>
+                    </section>
+                    <section class="border border-primary/30 rounded p-2 bg-primary/5" ondragover="handleAgentConfigDragOver(event)" ondrop="handleAgentConfigDrop(event,'persona','selected')">
+                        <p class="text-[8px] text-primary uppercase tracking-widest mb-2">Vinculadas</p>
+                        <div id="agent-config-persona-selected" class="space-y-2 max-h-48 overflow-y-auto pr-1"></div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-2">
+                <button class="btn-ghost" onclick="closeDrawer()">Fechar</button>
+                <button class="btn-primary" onclick="saveSquadAgentConfig('${masterEscape(agent.id)}')">Salvar configuracao</button>
+            </div>
+        </div>
+    `;
+    renderAgentConfigBoards();
+    window.DETAIL_DRAWER_STATE = { kind: 'agent_config', id: agent.id };
+    document.getElementById('detail-drawer').classList.add('open');
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+};
+
+window.saveSquadAgentConfig = async function(agentId) {
+    const state = getAgentConfigState();
+    if (!state || state.agentId !== agentId) return;
+    const next = ensureRegistryShape(cloneRegistryState());
+    const agent = (next.agents || []).find(item => item.id === agentId);
+    if (!agent) return;
+    const skillIds = new Set(state.selectedSkillIds || []);
+    const personaIds = new Set(state.selectedPersonaIds || []);
+
+    Object.values(next.skills || {}).forEach(items => {
+        (items || []).forEach(skill => {
+            if (!skill || !skill.id) return;
+            const set = new Set(Array.isArray(skill.agents) ? skill.agents : []);
+            if (skillIds.has(skill.id)) set.add(agent.id);
+            else set.delete(agent.id);
+            skill.agents = Array.from(set);
+        });
+    });
+
+    (next.personas || []).forEach(persona => {
+        const set = new Set(Array.isArray(persona.agents) ? persona.agents : []);
+        if (agent.handle && personaIds.has(persona.id)) set.add(agent.handle);
+        else set.delete(agent.handle);
+        persona.agents = Array.from(set);
+    });
+
+    try {
+        await persistRegistryFromSquadBoard(next, `Configuracao de ${agent.name} salva.`);
+        openSquadAgentDrawer(agent.id);
+    } catch (error) {
+        window.__SQUAD_BOARD_NOTICE = { type: 'error', text: `Nao foi possivel salvar: ${error.message}` };
+        renderSquads();
+    }
+};
+
 function renderSquads() {
-    const squads = REGISTRY.squads || [];
-    document.getElementById('squads-view').innerHTML = squads.map(s => {
-        const squadAgents = (REGISTRY.agents || []).filter(a => a.squad === s.id);
-        const fileName = s.id.toLowerCase();
-        
-        return `<div class="squad-card group border-t-2" style="border-top-color:${s.color}">
-            <div class="flex items-center justify-between mb-4">
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center border" style="background:${s.color}10;border-color:${s.color}30;color:${s.color}">
-                        <i data-lucide="${s.icon}" class="w-6 h-6"></i>
+    const view = document.getElementById('squads-view');
+    if (!view) return;
+    const registry = ensureRegistryShape(REGISTRY || {});
+    const squads = registry.squads || [];
+    const agents = registry.agents || [];
+    const presets = getSquadPresets();
+    const notice = window.__SQUAD_BOARD_NOTICE;
+    const countEl = document.getElementById('squads-count');
+    if (countEl) countEl.textContent = `${squads.length} Squads`;
+
+    const columns = squads.map(squad => {
+        const squadAgents = agents.filter(agent => agent.squad === squad.id);
+        const fileName = (squad.id || '').toLowerCase();
+        const cards = squadAgents.map(agent => {
+            const skillCount = getAgentSkillCount(agent.id);
+            const personaCount = getAgentPersonaCount(agent.handle || '');
+            return `<article
+                class="border border-white/10 bg-black/25 rounded-lg p-2 cursor-grab hover:border-primary/40 transition-colors"
+                draggable="true"
+                ondragstart="handleSquadDragStart(event, '${masterEscape(agent.id)}')"
+                ondragend="handleSquadDragEnd()"
+                onclick="openSquadAgentDrawer('${masterEscape(agent.id)}')"
+            >
+                <div class="flex items-start justify-between gap-2">
+                    <div class="min-w-0">
+                        <p class="text-[11px] text-white font-bold truncate">${masterEscape(agent.icon || '👤')} ${masterEscape(agent.name || agent.id)}</p>
+                        <p class="text-[8px] text-muted font-mono truncate">${masterEscape(agent.handle || '-')}</p>
                     </div>
-                    <div>
-                        <h3 class="font-black tracking-widest text-white">${s.name}</h3>
-                        <p class="text-[9px] text-muted font-mono uppercase">${s.id}</p>
+                    <button class="btn-ghost text-[8px] py-0.5 px-1.5" onclick="event.stopPropagation();openSquadAgentDrawer('${masterEscape(agent.id)}')">Config</button>
+                </div>
+                <p class="text-[9px] text-muted mt-1 line-clamp-2">${masterEscape(agent.role || '-')}</p>
+                <div class="flex items-center justify-between mt-2 text-[8px] text-muted">
+                    <span>Skills ${skillCount}</span>
+                    <span>Personas ${personaCount}</span>
+                </div>
+            </article>`;
+        }).join('');
+
+        return `<section
+            data-squad-drop-zone="${masterEscape(squad.id)}"
+            class="glass p-3 border"
+            style="border-color:rgba(255,255,255,0.10);background:rgba(10,10,15,0.45)"
+            ondragover="handleSquadDragOver(event, '${masterEscape(squad.id)}')"
+            ondragleave="handleSquadDragLeave(event, '${masterEscape(squad.id)}')"
+            ondrop="handleSquadDrop(event, '${masterEscape(squad.id)}')"
+        >
+            <div class="flex items-center justify-between gap-2 mb-2">
+                <div class="flex items-center gap-2 min-w-0">
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center border" style="background:${masterEscape(squad.color || '#6b7280')}22;border-color:${masterEscape(squad.color || '#6b7280')}55;color:${masterEscape(squad.color || '#6b7280')}">
+                        <i data-lucide="${masterEscape(squad.icon || 'users')}" class="w-4 h-4"></i>
+                    </div>
+                    <div class="min-w-0">
+                        <p class="text-[10px] text-white font-black truncate">${masterEscape(squad.name || squad.id)}</p>
+                        <p class="text-[8px] text-muted font-mono truncate">${masterEscape(squad.id)}</p>
                     </div>
                 </div>
-                <button class="btn-ghost text-primary opacity-0 group-hover:opacity-100 transition-opacity" onclick="openEditorModal('Squad ${s.name}', '.codex/squads/${fileName}.md')">
-                    <i data-lucide="edit-3" class="w-3 h-3 inline"></i> Editar
-                </button>
+                <button class="btn-ghost text-[8px] py-0.5 px-1.5" onclick="openEditorModal('Squad ${masterEscape(squad.name || squad.id)}', '.codex/squads/${masterEscape(fileName)}.md')">Editar</button>
             </div>
-            <p class="text-xs text-muted mb-6 leading-relaxed">${s.mission}</p>
-            <div class="grid grid-cols-3 gap-4">
-                <div>
-                    <h4 class="text-[9px] font-bold uppercase text-secondary mb-3 tracking-widest">Agentes</h4>
-                    <ul class="space-y-2 text-[11px] text-muted">
-                        ${squadAgents.map(a => `<li class="flex items-center gap-2 hover:text-white cursor-pointer transition-colors" onclick="openEditorModal('.codex/agents/${a.handle.replace('@','')}.md', '${a.name} — ${s.name}')"><span>${a.icon}</span> <span>${a.name} <span class="opacity-50">(${a.handle})</span></span></li>`).join('')}
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-[9px] font-bold uppercase text-accent mb-3 tracking-widest">Entregas</h4>
-                    <ul class="space-y-2 text-[11px] text-muted">
-                        ${s.outputs.map(o => `<li class="flex items-center gap-2 before:content-['·'] before:text-white/30">${o.replace('DLV-','')}</li>`).join('')}
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-[9px] font-bold uppercase text-warning mb-3 tracking-widest">Entradas</h4>
-                    <ul class="space-y-2 text-[11px] text-muted">
-                        ${s.inputs.map(i => `<li class="flex items-center gap-2 before:content-['·'] before:text-white/30">${i}</li>`).join('')}
-                    </ul>
-                </div>
+            <p class="text-[9px] text-muted mb-2 min-h-[30px]">${masterEscape(squad.mission || '-')}</p>
+            <p class="text-[8px] text-muted mb-2">Agentes: ${squadAgents.length} · Entregas: ${(squad.outputs || []).length}</p>
+            <div class="space-y-2 min-h-[120px]">
+                ${cards || '<p class="text-[10px] text-muted italic border border-dashed border-white/10 rounded-lg p-2">Arraste um agente para este squad.</p>'}
             </div>
-        </div>`;
+        </section>`;
     }).join('');
+
+    const presetOptions = presets.map(item =>
+        `<option value="${masterEscape(item.id)}">${masterEscape(item.name)} · ${masterEscape(formatDatePt(item.created_at))}</option>`
+    ).join('');
+    const noticeBlock = notice
+        ? `<div class="text-[10px] px-3 py-2 rounded border ${notice.type === 'error' ? 'border-coral/40 text-coral bg-coral/10' : 'border-secondary/40 text-secondary bg-secondary/10'}">${masterEscape(notice.text || '')}</div>`
+        : '';
+
+    view.innerHTML = `
+        <div class="md:col-span-2 glass p-4 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                    <p class="text-[11px] text-white font-black uppercase tracking-widest">Board Drag-and-Drop de Squads</p>
+                    <p class="text-[9px] text-muted">Arraste agentes entre squads. No "Config", arraste skills e personas/clones entre disponiveis e vinculadas.</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                    <select id="squad-preset-select" class="bg-black/30 border border-white/10 rounded-lg px-2 py-1 text-[10px] text-white min-w-[220px]">
+                        <option value="">Selecione um preset</option>
+                        ${presetOptions}
+                    </select>
+                    <button class="btn-ghost text-[10px]" onclick="applySelectedSquadPreset()">Aplicar</button>
+                    <button class="btn-primary text-[10px]" onclick="saveCurrentSquadPreset()">Salvar preset</button>
+                    <button class="btn-danger text-[10px]" onclick="deleteSelectedSquadPreset()">Excluir</button>
+                </div>
+            </div>
+            ${noticeBlock}
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
+                ${columns}
+            </div>
+        </div>
+    `;
+
+    if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
 // ══════════════════════════════════════════
@@ -2413,24 +3148,67 @@ function skillNameToFile(name) {
     return map[name] || name.toLowerCase().replace(/([A-Z])/g, '-$1').replace(/^-/,'');
 }
 
+window.setSkillsLaneFilter = function(lane) {
+    window.SKILLS_LANE_FILTER = ['all', 'producao', 'suporte_critico'].includes(lane) ? lane : 'all';
+    renderSkills();
+};
+
 function renderSkills() {
-    const skills = REGISTRY.skills || {};
-    const totalSkills = Object.values(skills).reduce((sum, items) => sum + ((items || []).length), 0);
+    const registry = ensureRegistryShape(REGISTRY || {});
+    const skills = registry.skills || {};
+    const laneFilter = window.SKILLS_LANE_FILTER || 'all';
+    const flatCatalog = flattenSkillCatalog(registry);
+    const counts = computeLaneCounts(flatCatalog);
+    const totalSkills = counts.all;
+    const filteredTotal = flatCatalog.filter(skill => skillMatchesLane(skill, laneFilter)).length;
     const countEl = document.getElementById('skills-count');
-    if (countEl) countEl.textContent = `${totalSkills} Skills`;
-    document.getElementById('skills-view').innerHTML = Object.entries(skills).map(([cat, items]) => `<div>
-        <div class="flex items-center gap-2 mb-4"><div class="h-2 w-2 rounded-full bg-primary"></div><span class="text-[10px] font-bold text-primary uppercase tracking-widest">${cat}</span><span class="text-[8px] text-muted">(${items.length} skills)</span></div>
+    if (countEl) {
+        countEl.textContent = laneFilter === 'all'
+            ? `${totalSkills} Skills`
+            : `${filteredTotal}/${totalSkills} Skills`;
+    }
+    const filtersNode = document.getElementById('skills-lane-filters');
+    if (filtersNode) {
+        filtersNode.innerHTML = ['all', 'producao', 'suporte_critico']
+            .map(lane => buildLaneFilterButtonHtml('skills-lane-filter', laneFilter, lane, counts[lane], 'setSkillsLaneFilter'))
+            .join('');
+    }
+    const sectionsHtml = Object.entries(skills).map(([cat, items]) => {
+        const normalized = (items || []).map(skill => ({
+            ...skill,
+            lane: normalizeSkillLane(skill.activation_lane),
+            criticality: normalizeSkillCriticality(skill.activation_criticality),
+            trigger: normalizeSkillTrigger(skill.activation_trigger),
+            editPath: (typeof skill.playbook_file === 'string' && skill.playbook_file.trim())
+                ? skill.playbook_file.trim()
+                : `.codex/skills/${skillNameToFile(skill.name)}.md`
+        })).filter(skill => skillMatchesLane(skill, laneFilter));
+        if (!normalized.length) return '';
+        return `<div>
+        <div class="flex items-center gap-2 mb-4"><div class="h-2 w-2 rounded-full bg-primary"></div><span class="text-[10px] font-bold text-primary uppercase tracking-widest">${cat}</span><span class="text-[8px] text-muted">(${normalized.length} skills)</span></div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px">
-            ${items.map(s => {
-                const file = '.codex/skills/' + skillNameToFile(s.name) + '.md';
-                return `<div class="glass p-4 cursor-pointer hover:-translate-y-0.5 transition-transform" onclick="openEditorModal('${file}','${s.name} — Skill')">
-                <div class="flex items-center gap-2 mb-2"><span class="text-lg">⚡</span><div><h4 class="text-[10px] font-bold">${s.name}</h4><p class="text-[8px] text-muted font-mono">${s.id}</p></div></div>
-                <p class="text-[9px] text-muted leading-relaxed">${s.desc}</p>
+            ${normalized.map(s => {
+                const laneClass = s.lane === 'suporte_critico'
+                    ? 'border-coral/30 text-coral bg-coral/10'
+                    : 'border-secondary/30 text-secondary bg-secondary/10';
+                const criticalityClass = s.criticality === 'alta'
+                    ? 'border-coral/30 text-coral bg-coral/10'
+                    : 'border-white/10 text-muted bg-white/5';
+                return `<div class="glass p-4 cursor-pointer hover:-translate-y-0.5 transition-transform" onclick='openEditorModal(${JSON.stringify(s.editPath)}, ${JSON.stringify(`${s.name} — Skill`)})'>
+                <div class="flex items-center gap-2 mb-2"><span class="text-lg">⚡</span><div><h4 class="text-[10px] font-bold">${masterEscape(s.name)}</h4><p class="text-[8px] text-muted font-mono">${masterEscape(s.id)}</p></div></div>
+                <div class="flex flex-wrap gap-1 mb-2">
+                    <span class="badge ${laneClass}">${masterEscape(SKILL_LANE_LABELS[s.lane] || SKILL_LANE_LABELS.producao)}</span>
+                    <span class="badge ${criticalityClass}">criticidade ${masterEscape(s.criticality)}</span>
+                </div>
+                <p class="text-[9px] text-muted leading-relaxed">${masterEscape(s.desc || '-')}</p>
+                <p class="text-[8px] text-muted mt-2 uppercase tracking-widest">Trigger ${masterEscape(s.trigger || 'fase+manual')}</p>
                 <div class="mt-2 text-[8px] text-primary font-bold uppercase tracking-widest">✏️ Editar</div>
             </div>`;
             }).join('')}
         </div>
-    </div>`).join('');
+    </div>`;
+    }).filter(Boolean).join('');
+    document.getElementById('skills-view').innerHTML = sectionsHtml || '<div class="glass p-4"><p class="text-[10px] text-muted italic">Nenhuma skill para o filtro selecionado.</p></div>';
 }
 
 function renderPersonas() {
@@ -2522,7 +3300,10 @@ function saveEditorModal() {
         s.classList.remove('hidden');
     });
 }
-function closeDrawer() { document.getElementById('detail-drawer').classList.remove('open'); }
+function closeDrawer() {
+    document.getElementById('detail-drawer').classList.remove('open');
+    window.DETAIL_DRAWER_STATE = { kind: '', id: '' };
+}
 
 // ══════════════════════════════════════════
 // DATA LOADING & SYNC
@@ -3512,6 +4293,19 @@ window.cleanPersonaMarkdowns = async function(personaId) {
 };
 
 window.openPersonaAssetsDrawer = function(personaId) {
+    const drawer = document.getElementById('detail-drawer');
+    const drawerState = window.DETAIL_DRAWER_STATE || { kind: '', id: '' };
+    const isSamePersonaOpen = Boolean(
+        drawer &&
+        drawer.classList.contains('open') &&
+        drawerState.kind === 'persona_assets' &&
+        drawerState.id === personaId
+    );
+    if (isSamePersonaOpen) {
+        closeDrawer();
+        return;
+    }
+
     const assets = personaAssetMap()[personaId];
     if (!assets) return;
     const transcriptRows = (assets.transcript_files || []).map(file => personaAssetManageRow(file, personaId, 'transcript')).join('') || '<p class="text-[10px] text-muted italic">Sem transcricoes base.</p>';
@@ -3587,6 +4381,7 @@ window.openPersonaAssetsDrawer = function(personaId) {
                 </div>
             </div>
         </div>`;
+    window.DETAIL_DRAWER_STATE = { kind: 'persona_assets', id: personaId };
     document.getElementById('detail-drawer').classList.add('open');
     if (typeof lucide !== 'undefined') lucide.createIcons();
 };

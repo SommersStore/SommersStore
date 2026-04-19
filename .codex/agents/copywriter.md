@@ -74,6 +74,21 @@ dependencies:
   templates:
     - sales-page-copy-tmpl.md
     - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/projects/super_ebook_funnel.md)'
+
+autoClaude:
+  version: '3.0'
+  migratedAt: '2026-04-19T00:00:00.000Z'
+  specPipeline:
+    canGather: true
+    canAssess: true
+    canResearch: true
+    canWrite: true
+    canCritique: true
+  execution:
+    canCreatePlan: false
+    canCreateContext: true
+    canExecute: false
+    canVerify: true
 ```
 ---
 *AIOX Agent - Synced from .aiox-core/development/agents/copywriter.md*

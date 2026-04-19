@@ -37,4 +37,4 @@
 - Abrir este arquivo e seguir para o desenho/ajuste da interacao drag-and-drop para squads no painel.
 
 ## Last updated
-- updated_at: 2026-04-18T16:56:38-03:00
+- updated_at: 2026-04-19T06:45:22-03:00

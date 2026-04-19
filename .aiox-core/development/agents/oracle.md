@@ -38,4 +38,19 @@ commands:
     description: 'Executa o resumo executivo da última sessão e delineia os próximos passos.'
   - name: audit-sanity
     description: 'Valida se o estado atual do código condiz com o planejado no handoff.'
+
+autoClaude:
+  version: '3.0'
+  migratedAt: '2026-04-19T00:00:00.000Z'
+  specPipeline:
+    canGather: false
+    canAssess: true
+    canResearch: false
+    canWrite: false
+    canCritique: true
+  execution:
+    canCreatePlan: false
+    canCreateContext: false
+    canExecute: false
+    canVerify: true
 ```

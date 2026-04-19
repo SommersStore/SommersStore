@@ -2108,6 +2108,1216 @@
       "timestamp": "2026-04-18T16:56:38-03:00",
       "details": "Fechamento rapido pelo botao Salvar Tudo na Nuvem.",
       "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260418-0099",
+      "type": "cloud_sync",
+      "target": "SYNC-20260418-1776542198392",
+      "initiated_by": "human",
+      "project_id": "sais",
+      "timestamp": "2026-04-18T16:57:18-03:00",
+      "details": "Cloud sync SYNC-20260418-1776542198392: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.)",
+      "why_this_ran": "target=all; scope=all; trigger=save_all_one_click"
+    },
+    {
+      "id": "LOG-20260419-0001",
+      "type": "session_start",
+      "target": "SES-20260419-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:09:24-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260419-0002",
+      "type": "session_pulse",
+      "target": "SES-20260419-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:09:42-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0003",
+      "type": "session_close",
+      "target": "SES-20260419-0001",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:09:53-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260419-0004",
+      "type": "session_start",
+      "target": "SES-20260419-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:09:54-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260419-0005",
+      "type": "session_pulse",
+      "target": "SES-20260419-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:10:54-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0006",
+      "type": "session_pulse",
+      "target": "SES-20260419-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:21:53-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0007",
+      "type": "session_pulse",
+      "target": "SES-20260419-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:31:41-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0008",
+      "type": "session_pulse",
+      "target": "SES-20260419-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:31:53-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0009",
+      "type": "session_pulse",
+      "target": "SES-20260419-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:34:07-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0010",
+      "type": "session_pulse",
+      "target": "SES-20260419-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:34:53-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0011",
+      "type": "session_pulse",
+      "target": "SES-20260419-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:35:39-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0012",
+      "type": "session_pulse",
+      "target": "SES-20260419-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:35:53-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0013",
+      "type": "session_pulse",
+      "target": "SES-20260419-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:38:54-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0014",
+      "type": "session_close",
+      "target": "SES-20260419-0002",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:38:59-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260419-0015",
+      "type": "session_start",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:40:46-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260419-0016",
+      "type": "session_pulse",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:41:45-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0017",
+      "type": "session_pulse",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:42:54-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0018",
+      "type": "session_pulse",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:43:45-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0019",
+      "type": "session_pulse",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:45:18-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0020",
+      "type": "session_pulse",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:45:45-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0021",
+      "type": "session_pulse",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T00:56:36-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0022",
+      "type": "session_pulse",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:01:18-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0023",
+      "type": "session_pulse",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:01:45-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0024",
+      "type": "session_pulse",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:05:24-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0025",
+      "type": "session_pulse",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:05:45-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0026",
+      "type": "session_pulse",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:12:43-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0027",
+      "type": "session_pulse",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:12:45-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0028",
+      "type": "session_pulse",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:23:36-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0029",
+      "type": "session_pulse",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:28:37-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0030",
+      "type": "session_pulse",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:28:45-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0031",
+      "type": "session_pulse",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:36:55-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0032",
+      "type": "session_pulse",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:37:45-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0033",
+      "type": "session_pulse",
+      "target": "SES-20260419-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:38:15-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0034",
+      "type": "session_close",
+      "target": "SES-20260419-0003",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:38:27-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260419-0035",
+      "type": "session_start",
+      "target": "SES-20260419-0004",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:38:30-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260419-0036",
+      "type": "session_pulse",
+      "target": "SES-20260419-0004",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:39:28-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0037",
+      "type": "session_pulse",
+      "target": "SES-20260419-0004",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:40:22-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0038",
+      "type": "session_pulse",
+      "target": "SES-20260419-0004",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:40:28-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0039",
+      "type": "session_pulse",
+      "target": "SES-20260419-0004",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:44:02-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0040",
+      "type": "session_pulse",
+      "target": "SES-20260419-0004",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:44:28-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0041",
+      "type": "session_pulse",
+      "target": "SES-20260419-0004",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:45:46-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0042",
+      "type": "session_pulse",
+      "target": "SES-20260419-0004",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:46:28-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0043",
+      "type": "session_close",
+      "target": "SES-20260419-0004",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:46:34-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260419-0044",
+      "type": "session_start",
+      "target": "SES-20260419-0005",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:46:36-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260419-0045",
+      "type": "session_pulse",
+      "target": "SES-20260419-0005",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:47:35-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0046",
+      "type": "session_pulse",
+      "target": "SES-20260419-0005",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:48:48-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0047",
+      "type": "session_close",
+      "target": "SES-20260419-0005",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:48:56-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260419-0048",
+      "type": "session_start",
+      "target": "SES-20260419-0006",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:48:58-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260419-0049",
+      "type": "session_pulse",
+      "target": "SES-20260419-0006",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:49:32-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0050",
+      "type": "session_pulse",
+      "target": "SES-20260419-0006",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:49:57-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0051",
+      "type": "session_pulse",
+      "target": "SES-20260419-0006",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:50:41-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0052",
+      "type": "session_pulse",
+      "target": "SES-20260419-0006",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:50:57-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0053",
+      "type": "session_pulse",
+      "target": "SES-20260419-0006",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:51:18-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0054",
+      "type": "session_pulse",
+      "target": "SES-20260419-0006",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T01:51:57-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0055",
+      "type": "session_pulse",
+      "target": "SES-20260419-0006",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:02:36-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0056",
+      "type": "session_pulse",
+      "target": "SES-20260419-0006",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:12:36-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0057",
+      "type": "session_close",
+      "target": "SES-20260419-0006",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:15:42-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260419-0058",
+      "type": "session_start",
+      "target": "SES-20260419-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:15:44-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260419-0059",
+      "type": "session_pulse",
+      "target": "SES-20260419-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:16:11-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0060",
+      "type": "session_pulse",
+      "target": "SES-20260419-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:16:43-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0061",
+      "type": "session_pulse",
+      "target": "SES-20260419-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:21:22-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0062",
+      "type": "session_pulse",
+      "target": "SES-20260419-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:21:43-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0063",
+      "type": "session_pulse",
+      "target": "SES-20260419-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:21:45-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0064",
+      "type": "session_pulse",
+      "target": "SES-20260419-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:22:43-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0065",
+      "type": "session_close",
+      "target": "SES-20260419-0007",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:25:47-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260419-0066",
+      "type": "session_start",
+      "target": "SES-20260419-0008",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:25:49-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260419-0067",
+      "type": "session_pulse",
+      "target": "SES-20260419-0008",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:26:36-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0068",
+      "type": "session_pulse",
+      "target": "SES-20260419-0008",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:26:48-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0069",
+      "type": "session_pulse",
+      "target": "SES-20260419-0008",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:32:00-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0070",
+      "type": "session_pulse",
+      "target": "SES-20260419-0008",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:32:49-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0071",
+      "type": "session_pulse",
+      "target": "SES-20260419-0008",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:37:14-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0072",
+      "type": "session_pulse",
+      "target": "SES-20260419-0008",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:37:48-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0073",
+      "type": "session_pulse",
+      "target": "SES-20260419-0008",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:39:44-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0074",
+      "type": "session_pulse",
+      "target": "SES-20260419-0008",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:39:49-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0075",
+      "type": "session_pulse",
+      "target": "SES-20260419-0008",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:39:50-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0076",
+      "type": "session_pulse",
+      "target": "SES-20260419-0008",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:40:49-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0077",
+      "type": "session_close",
+      "target": "SES-20260419-0008",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:43:12-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260419-0078",
+      "type": "session_start",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:43:13-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260419-0079",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:44:13-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0080",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:45:23-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0081",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:46:13-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0082",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:53:22-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0083",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T02:54:14-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0084",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T03:03:44-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0085",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T03:04:14-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0086",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T03:14:37-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0087",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T03:24:37-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0088",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T03:32:36-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0089",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T03:33:14-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0090",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T03:43:37-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0091",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T03:53:37-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0092",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T04:03:37-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0093",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T04:12:36-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0094",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T04:13:14-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0095",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T04:23:37-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0096",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T04:33:37-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0097",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T04:43:37-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0098",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T04:53:37-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0099",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T04:55:43-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0100",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T04:56:14-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0101",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T05:00:31-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0102",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T05:01:14-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0103",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T05:11:37-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0104",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T05:21:37-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0105",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T05:31:37-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0106",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T05:41:37-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0107",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T05:51:37-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0108",
+      "type": "session_pulse",
+      "target": "SES-20260419-0009",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T06:01:37-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0109",
+      "type": "session_close",
+      "target": "SES-20260419-0009",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T06:05:07-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260419-0110",
+      "type": "session_start",
+      "target": "SES-20260419-0010",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T06:05:09-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260419-0111",
+      "type": "session_pulse",
+      "target": "SES-20260419-0010",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T06:06:08-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0112",
+      "type": "session_pulse",
+      "target": "SES-20260419-0010",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T06:10:50-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0113",
+      "type": "session_pulse",
+      "target": "SES-20260419-0010",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T06:11:08-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0114",
+      "type": "session_pulse",
+      "target": "SES-20260419-0010",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T06:14:13-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0115",
+      "type": "session_pulse",
+      "target": "SES-20260419-0010",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T06:15:08-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0116",
+      "type": "session_pulse",
+      "target": "SES-20260419-0010",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T06:25:37-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0117",
+      "type": "session_pulse",
+      "target": "SES-20260419-0010",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T06:30:52-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0118",
+      "type": "session_pulse",
+      "target": "SES-20260419-0010",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T06:31:08-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0119",
+      "type": "session_pulse",
+      "target": "SES-20260419-0010",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T06:41:37-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260419-0120",
+      "type": "session_close",
+      "target": "SES-20260419-0010",
+      "initiated_by": "human",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T06:45:22-03:00",
+      "details": "Fechamento rapido pelo botao Salvar Tudo na Nuvem.",
+      "why_this_ran": "Scribe shutdown automatico"
     }
   ]
 }

@@ -2541,6 +2541,1106 @@
       "session_id": "SES-20260418-0022",
       "summary": "Fechamento rapido pelo botao Salvar Tudo na Nuvem.",
       "checkpoint_id": "CHK-MEM-0079"
+    },
+    {
+      "id": "CTX-20260419-0001",
+      "timestamp": "2026-04-19T00:09:24-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260419-0001",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar configuracao de squads com interacao por drag-and-drop",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0079",
+        "latest_checkpoint_next_action": "Retomar configuracao de squads com interacao por drag-and-drop",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260419-0002",
+      "timestamp": "2026-04-19T00:09:42-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0001",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0003",
+      "timestamp": "2026-04-19T00:09:53-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260419-0001",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0080"
+    },
+    {
+      "id": "CTX-20260419-0004",
+      "timestamp": "2026-04-19T00:09:54-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260419-0002",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar configuracao de squads com interacao por drag-and-drop",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0080",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260419-0005",
+      "timestamp": "2026-04-19T00:10:54-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0002",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0006",
+      "timestamp": "2026-04-19T00:21:53-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0002",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0007",
+      "timestamp": "2026-04-19T00:31:41-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0002",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0008",
+      "timestamp": "2026-04-19T00:31:53-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0002",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0009",
+      "timestamp": "2026-04-19T00:34:07-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0002",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0010",
+      "timestamp": "2026-04-19T00:34:53-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0002",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0011",
+      "timestamp": "2026-04-19T00:35:39-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0002",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0012",
+      "timestamp": "2026-04-19T00:35:53-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0002",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0013",
+      "timestamp": "2026-04-19T00:38:54-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0002",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0014",
+      "timestamp": "2026-04-19T00:38:59-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260419-0002",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0081"
+    },
+    {
+      "id": "CTX-20260419-0015",
+      "timestamp": "2026-04-19T00:40:46-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260419-0003",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar configuracao de squads com interacao por drag-and-drop",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0081",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260419-0016",
+      "timestamp": "2026-04-19T00:41:45-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0003",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0017",
+      "timestamp": "2026-04-19T00:42:54-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0003",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0018",
+      "timestamp": "2026-04-19T00:43:45-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0003",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0019",
+      "timestamp": "2026-04-19T00:45:18-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0003",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0020",
+      "timestamp": "2026-04-19T00:45:45-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0003",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0021",
+      "timestamp": "2026-04-19T00:56:36-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0003",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0022",
+      "timestamp": "2026-04-19T01:01:18-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0003",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0023",
+      "timestamp": "2026-04-19T01:01:45-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0003",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0024",
+      "timestamp": "2026-04-19T01:05:24-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0003",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0025",
+      "timestamp": "2026-04-19T01:05:45-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0003",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0026",
+      "timestamp": "2026-04-19T01:12:43-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0003",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0027",
+      "timestamp": "2026-04-19T01:12:45-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0003",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0028",
+      "timestamp": "2026-04-19T01:23:36-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0003",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0029",
+      "timestamp": "2026-04-19T01:28:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0003",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0030",
+      "timestamp": "2026-04-19T01:28:45-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0003",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0031",
+      "timestamp": "2026-04-19T01:36:55-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0003",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0032",
+      "timestamp": "2026-04-19T01:37:45-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0003",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0033",
+      "timestamp": "2026-04-19T01:38:15-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0003",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0034",
+      "timestamp": "2026-04-19T01:38:27-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260419-0003",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0082"
+    },
+    {
+      "id": "CTX-20260419-0035",
+      "timestamp": "2026-04-19T01:38:30-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260419-0004",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar configuracao de squads com interacao por drag-and-drop",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0082",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260419-0036",
+      "timestamp": "2026-04-19T01:39:28-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0004",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0037",
+      "timestamp": "2026-04-19T01:40:22-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0004",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0038",
+      "timestamp": "2026-04-19T01:40:28-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0004",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0039",
+      "timestamp": "2026-04-19T01:44:02-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0004",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0040",
+      "timestamp": "2026-04-19T01:44:28-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0004",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0041",
+      "timestamp": "2026-04-19T01:45:46-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0004",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0042",
+      "timestamp": "2026-04-19T01:46:28-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0004",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0043",
+      "timestamp": "2026-04-19T01:46:34-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260419-0004",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0083"
+    },
+    {
+      "id": "CTX-20260419-0044",
+      "timestamp": "2026-04-19T01:46:36-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260419-0005",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar configuracao de squads com interacao por drag-and-drop",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0083",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260419-0045",
+      "timestamp": "2026-04-19T01:47:35-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0005",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0046",
+      "timestamp": "2026-04-19T01:48:48-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0005",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0047",
+      "timestamp": "2026-04-19T01:48:56-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260419-0005",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0084"
+    },
+    {
+      "id": "CTX-20260419-0048",
+      "timestamp": "2026-04-19T01:48:58-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260419-0006",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar configuracao de squads com interacao por drag-and-drop",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0084",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260419-0049",
+      "timestamp": "2026-04-19T01:49:32-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0006",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0050",
+      "timestamp": "2026-04-19T01:49:57-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0006",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0051",
+      "timestamp": "2026-04-19T01:50:41-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0006",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0052",
+      "timestamp": "2026-04-19T01:50:57-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0006",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0053",
+      "timestamp": "2026-04-19T01:51:18-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0006",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0054",
+      "timestamp": "2026-04-19T01:51:57-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0006",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0055",
+      "timestamp": "2026-04-19T02:02:36-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0006",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0056",
+      "timestamp": "2026-04-19T02:12:36-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0006",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0057",
+      "timestamp": "2026-04-19T02:15:42-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260419-0006",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0085"
+    },
+    {
+      "id": "CTX-20260419-0058",
+      "timestamp": "2026-04-19T02:15:44-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260419-0007",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar configuracao de squads com interacao por drag-and-drop",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0085",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260419-0059",
+      "timestamp": "2026-04-19T02:16:11-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0007",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0060",
+      "timestamp": "2026-04-19T02:16:43-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0007",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0061",
+      "timestamp": "2026-04-19T02:21:22-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0007",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0062",
+      "timestamp": "2026-04-19T02:21:43-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0007",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0063",
+      "timestamp": "2026-04-19T02:21:45-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0007",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0064",
+      "timestamp": "2026-04-19T02:22:43-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0007",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0065",
+      "timestamp": "2026-04-19T02:25:47-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260419-0007",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0086"
+    },
+    {
+      "id": "CTX-20260419-0066",
+      "timestamp": "2026-04-19T02:25:49-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260419-0008",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar configuracao de squads com interacao por drag-and-drop",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0086",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260419-0067",
+      "timestamp": "2026-04-19T02:26:36-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0008",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0068",
+      "timestamp": "2026-04-19T02:26:48-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0008",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0069",
+      "timestamp": "2026-04-19T02:32:00-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0008",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0070",
+      "timestamp": "2026-04-19T02:32:49-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0008",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0071",
+      "timestamp": "2026-04-19T02:37:14-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0008",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0072",
+      "timestamp": "2026-04-19T02:37:48-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0008",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0073",
+      "timestamp": "2026-04-19T02:39:44-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0008",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0074",
+      "timestamp": "2026-04-19T02:39:49-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0008",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0075",
+      "timestamp": "2026-04-19T02:39:50-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0008",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0076",
+      "timestamp": "2026-04-19T02:40:49-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0008",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0077",
+      "timestamp": "2026-04-19T02:43:12-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260419-0008",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0087"
+    },
+    {
+      "id": "CTX-20260419-0078",
+      "timestamp": "2026-04-19T02:43:13-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260419-0009",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar configuracao de squads com interacao por drag-and-drop",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0087",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260419-0079",
+      "timestamp": "2026-04-19T02:44:13-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0080",
+      "timestamp": "2026-04-19T02:45:23-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0081",
+      "timestamp": "2026-04-19T02:46:13-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0082",
+      "timestamp": "2026-04-19T02:53:22-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0083",
+      "timestamp": "2026-04-19T02:54:14-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0084",
+      "timestamp": "2026-04-19T03:03:44-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0085",
+      "timestamp": "2026-04-19T03:04:14-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0086",
+      "timestamp": "2026-04-19T03:14:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0087",
+      "timestamp": "2026-04-19T03:24:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0088",
+      "timestamp": "2026-04-19T03:32:36-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0089",
+      "timestamp": "2026-04-19T03:33:14-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0090",
+      "timestamp": "2026-04-19T03:43:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0091",
+      "timestamp": "2026-04-19T03:53:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0092",
+      "timestamp": "2026-04-19T04:03:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0093",
+      "timestamp": "2026-04-19T04:12:36-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0094",
+      "timestamp": "2026-04-19T04:13:14-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0095",
+      "timestamp": "2026-04-19T04:23:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0096",
+      "timestamp": "2026-04-19T04:33:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0097",
+      "timestamp": "2026-04-19T04:43:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0098",
+      "timestamp": "2026-04-19T04:53:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0099",
+      "timestamp": "2026-04-19T04:55:43-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0100",
+      "timestamp": "2026-04-19T04:56:14-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0101",
+      "timestamp": "2026-04-19T05:00:31-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0102",
+      "timestamp": "2026-04-19T05:01:14-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0103",
+      "timestamp": "2026-04-19T05:11:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0104",
+      "timestamp": "2026-04-19T05:21:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0105",
+      "timestamp": "2026-04-19T05:31:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0106",
+      "timestamp": "2026-04-19T05:41:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0107",
+      "timestamp": "2026-04-19T05:51:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0108",
+      "timestamp": "2026-04-19T06:01:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0009",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0109",
+      "timestamp": "2026-04-19T06:05:07-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260419-0009",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0088"
+    },
+    {
+      "id": "CTX-20260419-0110",
+      "timestamp": "2026-04-19T06:05:09-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260419-0010",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
+        "active_task": "Retomar configuracao de squads com interacao por drag-and-drop",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0088",
+        "latest_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": []
+      }
+    },
+    {
+      "id": "CTX-20260419-0111",
+      "timestamp": "2026-04-19T06:06:08-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0010",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0112",
+      "timestamp": "2026-04-19T06:10:50-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0010",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0113",
+      "timestamp": "2026-04-19T06:11:08-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0010",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0114",
+      "timestamp": "2026-04-19T06:14:12-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0010",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0115",
+      "timestamp": "2026-04-19T06:15:08-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0010",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0116",
+      "timestamp": "2026-04-19T06:25:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0010",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0117",
+      "timestamp": "2026-04-19T06:30:52-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0010",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0118",
+      "timestamp": "2026-04-19T06:31:08-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0010",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0119",
+      "timestamp": "2026-04-19T06:41:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260419-0010",
+      "summary": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260419-0120",
+      "timestamp": "2026-04-19T06:45:22-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260419-0010",
+      "summary": "Fechamento rapido pelo botao Salvar Tudo na Nuvem.",
+      "checkpoint_id": "CHK-MEM-0089"
     }
   ]
 }

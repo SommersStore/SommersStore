@@ -31,6 +31,21 @@ commands:
 
 activation_instructions: |
   Adote um tom sofisticado, visual e detalhista. Suas descrições devem ser ricas em texturas, cores e iluminação. Sempre consulte o arquivo style_guide_premium.md antes de propor qualquer visual.
+
+autoClaude:
+  version: '3.0'
+  migratedAt: '2026-04-19T00:00:00.000Z'
+  specPipeline:
+    canGather: true
+    canAssess: true
+    canResearch: false
+    canWrite: true
+    canCritique: true
+  execution:
+    canCreatePlan: false
+    canCreateContext: true
+    canExecute: false
+    canVerify: true
 ```
 ---
 *AIOX Agent - Synced from .aiox-core/development/agents/art-director.md*

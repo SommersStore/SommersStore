@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-04-18T16:56:38-03:00
+- updated_at: 2026-04-19T06:45:22-03:00
 
 ## Ultimo fechamento
 - timestamp: 2026-04-18T16:49:48-03:00
@@ -29,6 +29,46 @@
 - checkpoint: CHK-MEM-0076
 
 ## Ultimo fechamento automatico
+- timestamp: 2026-04-19T06:45:22-03:00
+- resumo: Fechamento rapido pelo botao Salvar Tudo na Nuvem.
+- proxima_acao: Retomar configuracao de squads com interacao por drag-and-drop
+- checkpoint: CHK-MEM-0089
+- timestamp: 2026-04-19T06:05:07-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0088
+- timestamp: 2026-04-19T02:43:12-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0087
+- timestamp: 2026-04-19T02:25:47-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0086
+- timestamp: 2026-04-19T02:15:42-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0085
+- timestamp: 2026-04-19T01:48:56-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0084
+- timestamp: 2026-04-19T01:46:34-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0083
+- timestamp: 2026-04-19T01:38:27-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0082
+- timestamp: 2026-04-19T00:38:58-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0081
+- timestamp: 2026-04-19T00:09:53-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0080
 - timestamp: 2026-04-18T16:56:38-03:00
 - resumo: Fechamento rapido pelo botao Salvar Tudo na Nuvem.
 - proxima_acao: Retomar configuracao de squads com interacao por drag-and-drop

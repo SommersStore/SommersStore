@@ -85,6 +85,21 @@ dependencies:
   checklists:
     - launch-readiness-checklist.md
     - post-launch-debrief.md
+
+autoClaude:
+  version: '3.0'
+  migratedAt: '2026-04-19T00:00:00.000Z'
+  specPipeline:
+    canGather: true
+    canAssess: true
+    canResearch: true
+    canWrite: true
+    canCritique: true
+  execution:
+    canCreatePlan: true
+    canCreateContext: true
+    canExecute: false
+    canVerify: true
 ```
 ---
 *AIOX Agent - Synced from .aiox-core/development/agents/marketing.md*

@@ -57,6 +57,21 @@ commands:
 dependencies:
   templates: []
   checklists: []
+
+autoClaude:
+  version: '3.0'
+  migratedAt: '2026-04-19T00:00:00.000Z'
+  specPipeline:
+    canGather: false
+    canAssess: false
+    canResearch: true
+    canWrite: false
+    canCritique: true
+  execution:
+    canCreatePlan: false
+    canCreateContext: false
+    canExecute: false
+    canVerify: true
 ```
 
 ---

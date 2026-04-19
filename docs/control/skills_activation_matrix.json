@@ -1,0 +1,821 @@
+{
+  "generated_at": "2026-04-19T08:47:53.721Z",
+  "policy": {
+    "description": "Classificacao operacional para reduzir friccao: separar skills de producao das de suporte critico sem remover nenhuma skill.",
+    "lanes": {
+      "producao": "Skills que constroem e operam oferta, conteudo, experiencia, engenharia e growth.",
+      "suporte_critico": "Skills de qualidade, risco, observabilidade e memoria/governanca."
+    }
+  },
+  "summary": {
+    "total": 36,
+    "by_lane": {
+      "producao": 28,
+      "suporte_critico": 8
+    },
+    "by_criticality": {
+      "media": 19,
+      "alta": 17
+    },
+    "runtime_skills": 10,
+    "build_only_skills": 26
+  },
+  "rows": [
+    {
+      "group": "CNT",
+      "id": "SKL-CNT-01",
+      "name": "EditorialStructuring",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-04"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-03"
+      ],
+      "decision_gates": [],
+      "owners": [
+        "@copywriter"
+      ]
+    },
+    {
+      "group": "CNT",
+      "id": "SKL-CNT-02",
+      "name": "LongformCopy",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-05"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-04"
+      ],
+      "decision_gates": [],
+      "owners": [
+        "@copywriter"
+      ]
+    },
+    {
+      "group": "CNT",
+      "id": "SKL-CNT-03",
+      "name": "SalesPageCopy",
+      "lane": "producao",
+      "relevance": "runtime",
+      "criticality": "alta",
+      "enabled": true,
+      "trigger": "evento+manual",
+      "build_refs": [
+        "BLD-05",
+        "BLD-10"
+      ],
+      "ops_refs": [
+        "OPS-04"
+      ],
+      "checkpoints": [
+        "CHK-04",
+        "CHK-07"
+      ],
+      "decision_gates": [
+        "DEC-05",
+        "DEC-OPS-01"
+      ],
+      "owners": [
+        "@copywriter"
+      ]
+    },
+    {
+      "group": "CNT",
+      "id": "SKL-CNT-04",
+      "name": "BrandVoiceEnforcement",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-04"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-03"
+      ],
+      "decision_gates": [],
+      "owners": [
+        "@brand-master"
+      ]
+    },
+    {
+      "group": "CNT",
+      "id": "SKL-CNT-05",
+      "name": "ImagePrompting",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-08"
+      ],
+      "ops_refs": [],
+      "checkpoints": [],
+      "decision_gates": [],
+      "owners": [
+        "@liaison"
+      ]
+    },
+    {
+      "group": "CNT",
+      "id": "SKL-CNT-06",
+      "name": "PDFAssembly",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-09"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-06"
+      ],
+      "decision_gates": [],
+      "owners": [
+        "@liaison"
+      ]
+    },
+    {
+      "group": "CORE",
+      "id": "SKL-CORE-01",
+      "name": "BriefIngestion",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-01"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-01"
+      ],
+      "decision_gates": [
+        "DEC-01"
+      ],
+      "owners": [
+        "@aiox-master",
+        "@squad-creator"
+      ]
+    },
+    {
+      "group": "CORE",
+      "id": "SKL-CORE-02",
+      "name": "ProductPositioning",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-01"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-01"
+      ],
+      "decision_gates": [
+        "DEC-01"
+      ],
+      "owners": [
+        "@aiox-master",
+        "@pm"
+      ]
+    },
+    {
+      "group": "CORE",
+      "id": "SKL-CORE-03",
+      "name": "OfferStructuring",
+      "lane": "producao",
+      "relevance": "runtime",
+      "criticality": "alta",
+      "enabled": true,
+      "trigger": "evento+manual",
+      "build_refs": [
+        "BLD-01",
+        "BLD-11"
+      ],
+      "ops_refs": [
+        "OPS-06"
+      ],
+      "checkpoints": [
+        "CHK-01",
+        "CHK-08"
+      ],
+      "decision_gates": [
+        "DEC-01",
+        "DEC-05",
+        "DEC-OPS-02"
+      ],
+      "owners": [
+        "@po"
+      ]
+    },
+    {
+      "group": "CORE",
+      "id": "SKL-CORE-05",
+      "name": "RoadmapPlanning",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-03"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-02"
+      ],
+      "decision_gates": [
+        "DEC-02"
+      ],
+      "owners": [
+        "@pm",
+        "@sm"
+      ]
+    },
+    {
+      "group": "ENG",
+      "id": "SKL-ENG-01",
+      "name": "CheckoutIntegration",
+      "lane": "producao",
+      "relevance": "runtime",
+      "criticality": "alta",
+      "enabled": true,
+      "trigger": "evento+manual",
+      "build_refs": [
+        "BLD-11"
+      ],
+      "ops_refs": [
+        "OPS-05"
+      ],
+      "checkpoints": [
+        "CHK-08"
+      ],
+      "decision_gates": [
+        "DEC-05"
+      ],
+      "owners": [
+        "@dev"
+      ]
+    },
+    {
+      "group": "ENG",
+      "id": "SKL-ENG-02",
+      "name": "DeployPipeline",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-12"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-09"
+      ],
+      "decision_gates": [],
+      "owners": [
+        "@devops"
+      ]
+    },
+    {
+      "group": "ENG",
+      "id": "SKL-ENG-03",
+      "name": "WebhookAutomation",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-13"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-10"
+      ],
+      "decision_gates": [
+        "DEC-06"
+      ],
+      "owners": [
+        "@data-engineer"
+      ]
+    },
+    {
+      "group": "ENG",
+      "id": "SKL-ENG-04",
+      "name": "DeliveryOrchestration",
+      "lane": "producao",
+      "relevance": "runtime",
+      "criticality": "alta",
+      "enabled": true,
+      "trigger": "evento+manual",
+      "build_refs": [
+        "BLD-13"
+      ],
+      "ops_refs": [
+        "OPS-09"
+      ],
+      "checkpoints": [
+        "CHK-10"
+      ],
+      "decision_gates": [
+        "DEC-06"
+      ],
+      "owners": [
+        "@data-engineer"
+      ]
+    },
+    {
+      "group": "ENG",
+      "id": "SKL-ENG-05",
+      "name": "TrackingInstrumentation",
+      "lane": "producao",
+      "relevance": "runtime",
+      "criticality": "alta",
+      "enabled": true,
+      "trigger": "evento+manual",
+      "build_refs": [
+        "BLD-14"
+      ],
+      "ops_refs": [
+        "OPS-02"
+      ],
+      "checkpoints": [
+        "CHK-11"
+      ],
+      "decision_gates": [],
+      "owners": [
+        "@data-engineer"
+      ]
+    },
+    {
+      "group": "ENG",
+      "id": "SKL-ENG-06",
+      "name": "DataSync",
+      "lane": "producao",
+      "relevance": "runtime",
+      "criticality": "alta",
+      "enabled": true,
+      "trigger": "evento+manual",
+      "build_refs": [
+        "BLD-13"
+      ],
+      "ops_refs": [
+        "OPS-07"
+      ],
+      "checkpoints": [
+        "CHK-10"
+      ],
+      "decision_gates": [
+        "DEC-06",
+        "DEC-OPS-03"
+      ],
+      "owners": [
+        "@data-engineer"
+      ]
+    },
+    {
+      "group": "EXP",
+      "id": "SKL-EXP-01",
+      "name": "DesignSystemTokens",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-07"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-05"
+      ],
+      "decision_gates": [
+        "DEC-04"
+      ],
+      "owners": [
+        "@architect"
+      ]
+    },
+    {
+      "group": "EXP",
+      "id": "SKL-EXP-02",
+      "name": "LayoutComposition",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-07"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-05"
+      ],
+      "decision_gates": [
+        "DEC-04"
+      ],
+      "owners": [
+        "@ux-design-expert"
+      ]
+    },
+    {
+      "group": "EXP",
+      "id": "SKL-EXP-03",
+      "name": "A4Composition",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-07"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-05"
+      ],
+      "decision_gates": [
+        "DEC-04"
+      ],
+      "owners": [
+        "@art-director"
+      ]
+    },
+    {
+      "group": "EXP",
+      "id": "SKL-EXP-04",
+      "name": "LandingPageUXMapping",
+      "lane": "producao",
+      "relevance": "runtime",
+      "criticality": "alta",
+      "enabled": true,
+      "trigger": "evento+manual",
+      "build_refs": [
+        "BLD-10"
+      ],
+      "ops_refs": [
+        "OPS-03"
+      ],
+      "checkpoints": [
+        "CHK-07"
+      ],
+      "decision_gates": [
+        "DEC-05"
+      ],
+      "owners": [
+        "@ux-design-expert"
+      ]
+    },
+    {
+      "group": "EXP",
+      "id": "SKL-EXP-05",
+      "name": "VisualConsistency",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-09"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-06"
+      ],
+      "decision_gates": [],
+      "owners": [
+        "@art-director"
+      ]
+    },
+    {
+      "group": "EXP",
+      "id": "SKL-EXP-06",
+      "name": "AssetDirection",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-08"
+      ],
+      "ops_refs": [],
+      "checkpoints": [],
+      "decision_gates": [],
+      "owners": [
+        "@art-director"
+      ]
+    },
+    {
+      "group": "MEM",
+      "id": "SKL-MEM-01",
+      "name": "MemoryBootstrap",
+      "lane": "suporte_critico",
+      "relevance": "governanca",
+      "criticality": "alta",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [],
+      "ops_refs": [],
+      "checkpoints": [],
+      "decision_gates": [],
+      "owners": [
+        "@oracle"
+      ]
+    },
+    {
+      "group": "MEM",
+      "id": "SKL-MEM-02",
+      "name": "ContextRecovery",
+      "lane": "suporte_critico",
+      "relevance": "governanca",
+      "criticality": "alta",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [],
+      "ops_refs": [],
+      "checkpoints": [],
+      "decision_gates": [],
+      "owners": [
+        "@oracle",
+        "@scribe"
+      ]
+    },
+    {
+      "group": "MEM",
+      "id": "SKL-MEM-03",
+      "name": "SessionSnapshotting",
+      "lane": "suporte_critico",
+      "relevance": "governanca",
+      "criticality": "alta",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [],
+      "ops_refs": [],
+      "checkpoints": [],
+      "decision_gates": [],
+      "owners": [
+        "@scribe"
+      ]
+    },
+    {
+      "group": "MEM",
+      "id": "SKL-MEM-04",
+      "name": "ContinuityAudit",
+      "lane": "suporte_critico",
+      "relevance": "governanca",
+      "criticality": "alta",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [],
+      "ops_refs": [],
+      "checkpoints": [],
+      "decision_gates": [],
+      "owners": [
+        "@oracle"
+      ]
+    },
+    {
+      "group": "MKF",
+      "id": "SKL-MKF-01",
+      "name": "MarketIntelligence",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-02"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-02"
+      ],
+      "decision_gates": [],
+      "owners": [
+        "@analyst"
+      ]
+    },
+    {
+      "group": "MKF",
+      "id": "SKL-MKF-02",
+      "name": "CompetitorDeconstruction",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-02"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-02"
+      ],
+      "decision_gates": [],
+      "owners": [
+        "@analyst"
+      ]
+    },
+    {
+      "group": "MKF",
+      "id": "SKL-MKF-03",
+      "name": "HookMining",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-02"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-02"
+      ],
+      "decision_gates": [],
+      "owners": [
+        "@persona",
+        "@analyst"
+      ]
+    },
+    {
+      "group": "MKF",
+      "id": "SKL-MKF-04",
+      "name": "FunnelArchitecture",
+      "lane": "producao",
+      "relevance": "build",
+      "criticality": "media",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-03"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-02"
+      ],
+      "decision_gates": [
+        "DEC-02"
+      ],
+      "owners": [
+        "@cro-expert"
+      ]
+    },
+    {
+      "group": "MKF",
+      "id": "SKL-MKF-05",
+      "name": "TrafficStrategy",
+      "lane": "producao",
+      "relevance": "runtime",
+      "criticality": "alta",
+      "enabled": true,
+      "trigger": "evento+manual",
+      "build_refs": [],
+      "ops_refs": [
+        "OPS-01"
+      ],
+      "checkpoints": [],
+      "decision_gates": [],
+      "owners": [
+        "@marketing"
+      ]
+    },
+    {
+      "group": "MKF",
+      "id": "SKL-MKF-06",
+      "name": "CROHypothesis",
+      "lane": "producao",
+      "relevance": "runtime",
+      "criticality": "alta",
+      "enabled": true,
+      "trigger": "evento+manual",
+      "build_refs": [
+        "BLD-14"
+      ],
+      "ops_refs": [
+        "OPS-08",
+        "OPS-11"
+      ],
+      "checkpoints": [
+        "CHK-11"
+      ],
+      "decision_gates": [
+        "DEC-OPS-04",
+        "DEC-OPS-05"
+      ],
+      "owners": [
+        "@cro-expert"
+      ]
+    },
+    {
+      "group": "QRO",
+      "id": "SKL-QRO-01",
+      "name": "EditorialQA",
+      "lane": "suporte_critico",
+      "relevance": "build",
+      "criticality": "alta",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-06"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-04"
+      ],
+      "decision_gates": [
+        "DEC-03"
+      ],
+      "owners": [
+        "@qa",
+        "@security"
+      ]
+    },
+    {
+      "group": "QRO",
+      "id": "SKL-QRO-02",
+      "name": "SecurityScan",
+      "lane": "suporte_critico",
+      "relevance": "build",
+      "criticality": "alta",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-12"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-09"
+      ],
+      "decision_gates": [],
+      "owners": [
+        "@qa"
+      ]
+    },
+    {
+      "group": "QRO",
+      "id": "SKL-QRO-04",
+      "name": "AlertRouting",
+      "lane": "suporte_critico",
+      "relevance": "runtime",
+      "criticality": "alta",
+      "enabled": true,
+      "trigger": "evento+manual",
+      "build_refs": [],
+      "ops_refs": [
+        "OPS-10"
+      ],
+      "checkpoints": [],
+      "decision_gates": [],
+      "owners": [
+        "@support"
+      ]
+    },
+    {
+      "group": "QRO",
+      "id": "SKL-QRO-05",
+      "name": "ExecutionAudit",
+      "lane": "suporte_critico",
+      "relevance": "build",
+      "criticality": "alta",
+      "enabled": true,
+      "trigger": "fase+manual",
+      "build_refs": [
+        "BLD-14"
+      ],
+      "ops_refs": [],
+      "checkpoints": [
+        "CHK-11"
+      ],
+      "decision_gates": [],
+      "owners": [
+        "@qa"
+      ]
+    }
+  ]
+}

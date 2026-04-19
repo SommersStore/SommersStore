@@ -36,4 +36,19 @@ commands:
     description: 'Calcula o delta da sessão, gera o SESSION_HANDOFF.md e faz o commit de segurança.'
   - name: update-state
     description: 'Sincroniza o estado de alto nível do projeto no PROJECT_STATE.md.'
+
+autoClaude:
+  version: '3.0'
+  migratedAt: '2026-04-19T00:00:00.000Z'
+  specPipeline:
+    canGather: false
+    canAssess: false
+    canResearch: false
+    canWrite: true
+    canCritique: false
+  execution:
+    canCreatePlan: false
+    canCreateContext: false
+    canExecute: false
+    canVerify: true
 ```
