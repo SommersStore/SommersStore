@@ -1133,6 +1133,114 @@
       "memory_scope": "session_shutdown",
       "diff_summary": "Scribe encerrou SES-20260419-0010: Fechamento rapido pelo botao Salvar Tudo na Nuvem.",
       "mutated_by": "human"
+    },
+    {
+      "timestamp": "2026-04-19T06:46:08-03:00",
+      "memory_scope": "cloud_sync",
+      "diff_summary": "Cloud sync SYNC-20260419-1776591922613: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.)",
+      "mutated_by": "human"
+    },
+    {
+      "timestamp": "2026-04-20T11:22:32-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260420-0001",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-20T11:48:45-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260420-0001: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-20T11:48:47-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260420-0002",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-20T12:12:07-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260420-0002: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-20T12:14:31-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260420-0003",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-20T12:34:19-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260420-0003: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-20T12:34:24-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260420-0004",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-20T13:20:07-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260420-0004: Correcoes de continuidade aplicadas: checkpoint relevante, startup_context_latest e handshake obrigatorio de contexto em conversa nova.",
+      "mutated_by": "human"
+    },
+    {
+      "timestamp": "2026-04-20T13:20:17-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260420-0005",
+      "mutated_by": "human"
+    },
+    {
+      "timestamp": "2026-04-20T13:29:51-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260420-0005: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-20T13:29:52-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260420-0006: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-20T13:48:28-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260420-0007",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-20T13:48:28-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-20T16:56:23-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260420-0007: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-20T16:58:22-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260420-0008",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-20T16:58:22-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-20T16:58:41-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260420-0008: Fechamento rapido pelo botao Salvar Tudo na Nuvem.",
+      "mutated_by": "human"
     }
   ]
 }

@@ -2290,7 +2290,7 @@ function renderWhy() {
 }
 
 function renderMemory() {
-    document.getElementById('memory-scopes').innerHTML = MEMORY_SCOPES.map(s => `<div class="glass p-5 border-t-2 cursor-pointer hover:-translate-y-0.5 transition-transform" style="border-top-color:${s.color}" onclick="openEditorModal('${s.name}', 'docs/memory/${s.id}.md')">
+    document.getElementById('memory-scopes').innerHTML = MEMORY_SCOPES.map(s => `<div class="glass p-5 border-t-2 cursor-pointer hover:-translate-y-0.5 transition-transform" style="border-top-color:${s.color}" onclick="openEditorModal('docs/memory/${s.id}.md', '${s.name}')">
         <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:${s.color}20"><i data-lucide="${s.icon}" class="w-4 h-4" style="color:${s.color}"></i></div>
         <div><h4 class="text-xs font-bold text-white">${s.name}</h4><p class="text-[8px] text-muted font-mono">${s.id}</p></div></div>
         <p class="text-[10px] text-muted">${s.desc}</p>
@@ -2417,6 +2417,17 @@ function getAgentPersonaCount(agentHandle) {
     return (REGISTRY.personas || []).filter(persona => (persona.agents || []).includes(agentHandle)).length;
 }
 
+const SQUAD_UNASSIGNED_ID = '__UNASSIGNED__';
+const SQUAD_UNASSIGNED_META = {
+    id: SQUAD_UNASSIGNED_ID,
+    name: 'SEM SQUAD',
+    color: '#64748b',
+    icon: 'inbox',
+    mission: 'Use esta coluna para remover o agente de qualquer squad.',
+    outputs: [],
+    is_virtual: true
+};
+
 function setSquadDropVisual(squadId, active) {
     const node = document.querySelector(`[data-squad-drop-zone="${squadId}"]`);
     if (!node) return;
@@ -2537,10 +2548,12 @@ window.moveAgentToSquad = async function(agentId, targetSquadId) {
     const next = ensureRegistryShape(cloneRegistryState());
     const agent = (next.agents || []).find(item => item.id === agentId);
     if (!agent) return;
-    if (agent.squad === targetSquadId) return;
-    agent.squad = targetSquadId;
+    const normalizedTargetSquadId = targetSquadId === SQUAD_UNASSIGNED_ID ? '' : targetSquadId;
+    if ((agent.squad || '') === (normalizedTargetSquadId || '')) return;
+    agent.squad = normalizedTargetSquadId;
+    const targetLabel = targetSquadId === SQUAD_UNASSIGNED_ID ? 'Sem Squad' : targetSquadId;
     try {
-        await persistRegistryFromSquadBoard(next, `${agent.name} movido para ${targetSquadId}.`);
+        await persistRegistryFromSquadBoard(next, `${agent.name} movido para ${targetLabel}.`);
     } catch (error) {
         window.__SQUAD_BOARD_NOTICE = { type: 'error', text: `Nao foi possivel mover agente: ${error.message}` };
         renderSquads();
@@ -2890,13 +2903,18 @@ function renderSquads() {
     const registry = ensureRegistryShape(REGISTRY || {});
     const squads = registry.squads || [];
     const agents = registry.agents || [];
+    const knownSquadIds = new Set(squads.map(squad => squad.id));
+    const boardSquads = squads.concat([SQUAD_UNASSIGNED_META]);
     const presets = getSquadPresets();
     const notice = window.__SQUAD_BOARD_NOTICE;
     const countEl = document.getElementById('squads-count');
     if (countEl) countEl.textContent = `${squads.length} Squads`;
 
-    const columns = squads.map(squad => {
-        const squadAgents = agents.filter(agent => agent.squad === squad.id);
+    const columns = boardSquads.map(squad => {
+        const isVirtualSquad = Boolean(squad.is_virtual);
+        const squadAgents = isVirtualSquad
+            ? agents.filter(agent => !agent.squad || !knownSquadIds.has(agent.squad))
+            : agents.filter(agent => agent.squad === squad.id);
         const fileName = (squad.id || '').toLowerCase();
         const cards = squadAgents.map(agent => {
             const skillCount = getAgentSkillCount(agent.id);
@@ -2941,12 +2959,12 @@ function renderSquads() {
                         <p class="text-[8px] text-muted font-mono truncate">${masterEscape(squad.id)}</p>
                     </div>
                 </div>
-                <button class="btn-ghost text-[8px] py-0.5 px-1.5" onclick="openEditorModal('Squad ${masterEscape(squad.name || squad.id)}', '.codex/squads/${masterEscape(fileName)}.md')">Editar</button>
+                ${isVirtualSquad ? '' : `<button class="btn-ghost text-[8px] py-0.5 px-1.5" onclick="openEditorModal('.codex/squads/${masterEscape(fileName)}.md', 'Squad ${masterEscape(squad.name || squad.id)}')">Editar</button>`}
             </div>
             <p class="text-[9px] text-muted mb-2 min-h-[30px]">${masterEscape(squad.mission || '-')}</p>
             <p class="text-[8px] text-muted mb-2">Agentes: ${squadAgents.length} · Entregas: ${(squad.outputs || []).length}</p>
             <div class="space-y-2 min-h-[120px]">
-                ${cards || '<p class="text-[10px] text-muted italic border border-dashed border-white/10 rounded-lg p-2">Arraste um agente para este squad.</p>'}
+                ${cards || `<p class="text-[10px] text-muted italic border border-dashed border-white/10 rounded-lg p-2">${isVirtualSquad ? 'Arraste aqui para remover o agente de qualquer squad.' : 'Arraste um agente para este squad.'}</p>`}
             </div>
         </section>`;
     }).join('');
@@ -2998,7 +3016,7 @@ function renderAgents() {
         const sq = SQUAD_COLORS[a.squad] || '#6b7280';
         return `<div class="glass p-4 group relative hover:-translate-y-0.5 transition-transform">
             <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button class="btn-ghost text-primary text-[10px] py-1 px-2" onclick="openEditorModal('${a.name} — ${a.squad}', '.codex/agents/${a.handle.replace('@','')}.md')">
+                <button class="btn-ghost text-primary text-[10px] py-1 px-2" onclick="openEditorModal('.codex/agents/${a.handle.replace('@','')}.md', '${a.name} — ${a.squad}')">
                     <i data-lucide="edit-3" class="w-3 h-3 inline"></i> Editar
                 </button>
             </div>
@@ -3068,7 +3086,7 @@ function renderAgents() {
         const sq = SQUAD_COLORS[a.squad] || '#6b7280';
         return `<div class="glass p-4 group relative hover:-translate-y-0.5 transition-transform">
             <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button class="btn-ghost text-primary text-[10px] py-1 px-2" onclick="openEditorModal('${a.name} — ${a.squad}', '.codex/agents/${a.handle.replace('@','')}.md')">
+                <button class="btn-ghost text-primary text-[10px] py-1 px-2" onclick="openEditorModal('.codex/agents/${a.handle.replace('@','')}.md', '${a.name} — ${a.squad}')">
                     <i data-lucide="edit-3" class="w-3 h-3 inline"></i> Editar
                 </button>
             </div>
@@ -3668,13 +3686,17 @@ function renderSessionStatus() {
     const context = current ? current.context_flash || {} : (MEMORY_LAYERS.current_state || {});
     const flash = document.getElementById('memory-current-flash');
     if (flash) {
+        const checkpointLabel = context.latest_raw_checkpoint_id && context.latest_raw_checkpoint_id !== context.latest_checkpoint_id
+            ? `${context.latest_checkpoint_id || '-'} (base: ${context.latest_raw_checkpoint_id})`
+            : (context.latest_checkpoint_id || '-');
         flash.innerHTML = [
             ['Projeto', context.project || '-'],
             ['Objetivo ativo', context.active_goal || '-'],
             ['Tarefa ativa', context.active_task || '-'],
             ['Build phase', context.build_phase || '-'],
             ['Ops stage', context.ops_stage || '-'],
-            ['Checkpoint', context.latest_checkpoint_id || '-'],
+            ['Checkpoint', checkpointLabel],
+            ['Proxima acao', context.latest_checkpoint_next_action || '-'],
             ['Loops abertos', context.open_loops_count != null ? context.open_loops_count : '-']
         ].map(([k, v]) => `<div class=\"flex justify-between gap-3 py-1 border-b border-white/5\"><span class=\"text-muted\">${k}</span><span class=\"text-white text-right\">${v}</span></div>`).join('');
     }
@@ -3883,10 +3905,18 @@ window.startSessionRoutine = async function(manual = true) {
             const errData = await res.json().catch(() => ({}));
             throw new Error(errData.error || 'Erro no servidor: ' + res.status);
         }
+        const payload = await res.json().catch(() => ({}));
+        const brief = payload && payload.startup_brief ? payload.startup_brief : null;
         await loadAllData();
         renderMemory();
         renderStatus();
-        if (manual) alert('Startup Oracle concluido com sucesso.');
+        if (brief) {
+            window.ORACLE_STARTUP_BRIEF = brief;
+        }
+        const startupMsg = brief
+            ? `Contexto Oracle carregado.\nCheckpoint: ${brief.checkpoint_id || '-'}\nProxima acao: ${brief.next_action || '-'}`
+            : 'Startup Oracle concluido com sucesso.';
+        if (manual) alert(startupMsg);
     } catch (e) {
         console.error('Session Startup Error:', e);
         alert('Falha ao executar startup Oracle. Verifique o console para detalhes.');

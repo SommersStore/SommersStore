@@ -71,6 +71,9 @@ function testIntegrationPoints() {
   assert.match(dashboardHtml, /function renderSquads\(/, 'dashboard should define squads board renderer');
   assert.match(dashboardHtml, /data-squad-drop-zone=/, 'dashboard squads board should expose drop zones');
   assert.match(dashboardHtml, /handleSquadDrop\(/, 'dashboard squads board should handle drop events');
+  assert.match(dashboardHtml, /SQUAD_UNASSIGNED_ID/, 'dashboard squads board should expose unassigned drop zone id');
+  assert.match(dashboardHtml, /Arraste aqui para remover o agente de qualquer squad\./, 'dashboard squads board should explain how to unassign agents');
+  assert.match(dashboardHtml, /targetSquadId === SQUAD_UNASSIGNED_ID \? '' : targetSquadId/, 'dashboard move handler should normalize unassigned drop target');
   assert.match(dashboardHtml, /id="control-hub-icon"/, 'dashboard should group control tabs under a primary control hub');
   assert.match(dashboardHtml, /CONTROL_GROUP_TABS/, 'dashboard should define grouped control tab list');
   assert.match(dashboardHtml, /function loadControlTab\(/, 'dashboard should support control sub-tab navigation');
@@ -84,6 +87,9 @@ function testIntegrationPoints() {
   assert.match(dashboardHtml, /agent-config-persona-selected/, 'dashboard should render selected personas bucket');
   assert.match(dashboardHtml, /DETAIL_DRAWER_STATE/, 'dashboard should track detail drawer context state');
   assert.match(dashboardHtml, /isSamePersonaOpen/, 'dashboard should support toggle behavior when clicking the same persona');
+  assert.doesNotMatch(dashboardHtml, /openEditorModal\('\$\{s\.name\}', 'docs\/memory\/\$\{s\.id\}\.md'\)/, 'memory scope editor call should keep path as first parameter');
+  assert.doesNotMatch(dashboardHtml, /openEditorModal\('Squad \$\{masterEscape\(squad\.name \|\| squad\.id\)\}', '\.codex\/squads\//, 'squad editor call should keep path as first parameter');
+  assert.doesNotMatch(dashboardHtml, /openEditorModal\('\$\{a\.name\} — \$\{a\.squad\}', '\.codex\/agents\//, 'agent editor call should keep path as first parameter');
   assert.match(dashboardHtml, /function getSessionProjectId\(/, 'dashboard should define session project resolver');
   assert.match(dashboardHtml, /project_id:\s*getSessionProjectId\(\)/, 'dashboard session payloads should include project_id');
   assert.match(serverJs, /project_id:\s*normalizedProjectId/, 'server logs should persist project_id in appendExecutionLog');

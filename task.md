@@ -14,6 +14,46 @@
 ## Done in this session
 - [x] Sessao encerrada automaticamente
 - [x] Resumo: Fechamento rapido pelo botao Salvar Tudo na Nuvem.
+- [x] Proxima acao: Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.
+- [x] Checkpoint: CHK-MEM-0097
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0096
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0095
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0094
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Correcoes de continuidade aplicadas: checkpoint relevante, startup_context_latest e handshake obrigatorio de contexto em conversa nova.
+- [x] Proxima acao: Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.
+- [x] Checkpoint: CHK-MEM-0093
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0092
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0091
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0090
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Fechamento rapido pelo botao Salvar Tudo na Nuvem.
 - [x] Proxima acao: Retomar configuracao de squads com interacao por drag-and-drop
 - [x] Checkpoint: CHK-MEM-0089
 
@@ -468,4 +508,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-04-19T06:45:22-03:00
+- updated_at: 2026-04-20T16:58:41-03:00

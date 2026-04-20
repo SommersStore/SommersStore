@@ -3318,6 +3318,626 @@
       "timestamp": "2026-04-19T06:45:22-03:00",
       "details": "Fechamento rapido pelo botao Salvar Tudo na Nuvem.",
       "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260419-0121",
+      "type": "cloud_sync",
+      "target": "SYNC-20260419-1776591922613",
+      "initiated_by": "human",
+      "project_id": "sais",
+      "timestamp": "2026-04-19T06:46:08-03:00",
+      "details": "Cloud sync SYNC-20260419-1776591922613: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.)",
+      "why_this_ran": "target=all; scope=all; trigger=save_all_one_click"
+    },
+    {
+      "id": "LOG-20260420-0001",
+      "type": "session_start",
+      "target": "SES-20260420-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T11:22:32-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260420-0002",
+      "type": "session_pulse",
+      "target": "SES-20260420-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T11:22:45-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0003",
+      "type": "session_pulse",
+      "target": "SES-20260420-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T11:23:28-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0004",
+      "type": "session_pulse",
+      "target": "SES-20260420-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T11:33:28-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0005",
+      "type": "session_pulse",
+      "target": "SES-20260420-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T11:43:28-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0006",
+      "type": "session_close",
+      "target": "SES-20260420-0001",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T11:48:45-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260420-0007",
+      "type": "session_start",
+      "target": "SES-20260420-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T11:48:47-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260420-0008",
+      "type": "session_pulse",
+      "target": "SES-20260420-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T11:49:46-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0009",
+      "type": "session_pulse",
+      "target": "SES-20260420-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T11:59:46-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0010",
+      "type": "session_pulse",
+      "target": "SES-20260420-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T12:09:46-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0011",
+      "type": "session_close",
+      "target": "SES-20260420-0002",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T12:12:07-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260420-0012",
+      "type": "session_start",
+      "target": "SES-20260420-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T12:14:31-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260420-0013",
+      "type": "session_pulse",
+      "target": "SES-20260420-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T12:28:18-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0014",
+      "type": "session_pulse",
+      "target": "SES-20260420-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T12:29:19-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0015",
+      "type": "session_pulse",
+      "target": "SES-20260420-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T12:30:45-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0016",
+      "type": "session_pulse",
+      "target": "SES-20260420-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T12:31:24-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0017",
+      "type": "session_pulse",
+      "target": "SES-20260420-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T12:34:17-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0018",
+      "type": "session_close",
+      "target": "SES-20260420-0003",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T12:34:18-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260420-0019",
+      "type": "session_start",
+      "target": "SES-20260420-0004",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T12:34:24-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260420-0020",
+      "type": "session_pulse",
+      "target": "SES-20260420-0004",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T12:35:23-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0021",
+      "type": "session_pulse",
+      "target": "SES-20260420-0004",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T12:45:23-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0022",
+      "type": "session_pulse",
+      "target": "SES-20260420-0004",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T12:55:23-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0023",
+      "type": "session_pulse",
+      "target": "SES-20260420-0004",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T13:05:23-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0024",
+      "type": "session_pulse",
+      "target": "SES-20260420-0004",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T13:15:23-03:00",
+      "details": "Retomar configuracao de squads com interacao por drag-and-drop",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0025",
+      "type": "session_close",
+      "target": "SES-20260420-0004",
+      "initiated_by": "human",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T13:20:07-03:00",
+      "details": "Correcoes de continuidade aplicadas: checkpoint relevante, startup_context_latest e handshake obrigatorio de contexto em conversa nova.",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260420-0026",
+      "type": "session_start",
+      "target": "SES-20260420-0005",
+      "initiated_by": "human",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T13:20:17-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260420-0027",
+      "type": "session_pulse",
+      "target": "SES-20260420-0005",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T13:21:23-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0028",
+      "type": "session_pulse",
+      "target": "SES-20260420-0005",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T13:29:46-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0029",
+      "type": "session_close",
+      "target": "SES-20260420-0005",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T13:29:51-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260420-0030",
+      "type": "session_close",
+      "target": "SES-20260420-0006",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T13:29:52-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260420-0031",
+      "type": "session_start",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T13:48:28-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260420-0032",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T13:49:26-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0033",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T13:52:35-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0034",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T13:53:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0035",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T14:02:26-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0036",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T14:02:28-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0037",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T14:02:43-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0038",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T14:02:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0039",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T14:12:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0040",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T14:22:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0041",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T14:32:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0042",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T14:42:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0043",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T14:52:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0044",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T15:02:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0045",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T15:12:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0046",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T15:22:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0047",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T15:32:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0048",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T15:42:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0049",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T15:52:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0050",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T16:02:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0051",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T16:12:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0052",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T16:22:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0053",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T16:32:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0054",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T16:42:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0055",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T16:52:46-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0056",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T16:55:09-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0057",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T16:55:26-03:00",
+      "details": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0058",
+      "type": "session_pulse",
+      "target": "SES-20260420-0007",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T16:56:22-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260420-0059",
+      "type": "session_close",
+      "target": "SES-20260420-0007",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T16:56:23-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260420-0060",
+      "type": "session_start",
+      "target": "SES-20260420-0008",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T16:58:22-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260420-0061",
+      "type": "session_close",
+      "target": "SES-20260420-0008",
+      "initiated_by": "human",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T16:58:41-03:00",
+      "details": "Fechamento rapido pelo botao Salvar Tudo na Nuvem.",
+      "why_this_ran": "Scribe shutdown automatico"
     }
   ]
 }

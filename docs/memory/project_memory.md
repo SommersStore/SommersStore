@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-04-19T06:45:22-03:00
+- updated_at: 2026-04-20T16:58:41-03:00
 
 ## Ultimo fechamento
 - timestamp: 2026-04-18T16:49:48-03:00
@@ -29,6 +29,38 @@
 - checkpoint: CHK-MEM-0076
 
 ## Ultimo fechamento automatico
+- timestamp: 2026-04-20T16:58:41-03:00
+- resumo: Fechamento rapido pelo botao Salvar Tudo na Nuvem.
+- proxima_acao: Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.
+- checkpoint: CHK-MEM-0097
+- timestamp: 2026-04-20T16:56:22-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0096
+- timestamp: 2026-04-20T13:29:52-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0095
+- timestamp: 2026-04-20T13:29:51-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0094
+- timestamp: 2026-04-20T13:20:07-03:00
+- resumo: Correcoes de continuidade aplicadas: checkpoint relevante, startup_context_latest e handshake obrigatorio de contexto em conversa nova.
+- proxima_acao: Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.
+- checkpoint: CHK-MEM-0093
+- timestamp: 2026-04-20T12:34:18-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0092
+- timestamp: 2026-04-20T12:12:07-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0091
+- timestamp: 2026-04-20T11:48:45-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0090
 - timestamp: 2026-04-19T06:45:22-03:00
 - resumo: Fechamento rapido pelo botao Salvar Tudo na Nuvem.
 - proxima_acao: Retomar configuracao de squads com interacao por drag-and-drop

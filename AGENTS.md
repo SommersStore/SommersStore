@@ -84,3 +84,23 @@ Quando o usuário informar que a sessão encerrou (ex: "boa noite", "é isso por
 - Atualize a `task.md` marcando o progresso.
 - Chame a API ou edite o JSON em `docs/control/memory_mutations.json` registrando a mutação com o resumo da sessão.
 - Somente após salvar essa memória física é autorizado dar o "goodbye" final e encerrar.
+
+## CONTINUITY HANDSHAKE (MANDATORY)
+
+To eliminate ambiguity in new conversations, every assistant instance must do the following at the first user turn of a new chat:
+
+1. Execute startup reads before answering:
+- `docs/memory/startup_context_latest.md` (if available)
+- `docs/memory/project_memory.md`
+- `docs/control/session_state.json`
+- `docs/control/memory_mutations.json`
+- `task.md`
+
+2. Show an explicit startup signal in the first reply, in plain language, containing:
+- `checkpoint_base`
+- `onde_paramos`
+- `proxima_acao_objetiva`
+- `resumo_10_dias` (short)
+- `fonte` (which files were used)
+
+3. If `startup_context_latest.md` is missing, state fallback mode and continue with the other sources.

@@ -52,6 +52,22 @@ const DEFAULT_TRANSCRIPT_FILES = [
 ];
 
 const SESSION_PULSE_LOG_INTERVAL_MS = 10 * 60 * 1000;
+const CONTINUITY_LOOKBACK_DAYS = 10;
+const STARTUP_CONTEXT_REL_PATH = 'docs/memory/startup_context_latest.md';
+const STARTUP_CONTEXT_PATH = path.join(ROOT_DIR, STARTUP_CONTEXT_REL_PATH);
+
+const GENERIC_NEXT_ACTION_PATTERNS = [
+    /rodar startup oracle/i,
+    /retomar a partir do ultimo checkpoint automatico/i,
+    /^\(nao informada\)$/i,
+    /^next$/i
+];
+
+const AUTO_CLOSE_SUMMARY_PATTERNS = [
+    /encerramento automatico/i,
+    /fechamento de aba\/janela/i,
+    /sessao anterior encerrada automaticamente/i
+];
 
 function nowIso() {
     const d = new Date();
@@ -76,6 +92,17 @@ function dayKey() {
 
 function asArray(v) {
     return Array.isArray(v) ? v : [];
+}
+
+function asTrimmedText(v) {
+    return String(v || '').trim();
+}
+
+function parseTimestampMs(value) {
+    const raw = asTrimmedText(value);
+    if (!raw) return Number.NaN;
+    const ms = new Date(raw).getTime();
+    return Number.isFinite(ms) ? ms : Number.NaN;
 }
 
 function ensureDir(dirPath) {
@@ -536,6 +563,7 @@ function scheduleAutoCloudSync(trigger, projectId = null) {
 
 function coreMemoryFiles() {
     return [
+        STARTUP_CONTEXT_REL_PATH,
         'docs/control/memory_current_state.json',
         'docs/control/memory_checkpoints.json',
         'docs/control/memory_decision_log.json',
@@ -1576,7 +1604,7 @@ function loadMemoryRegistry() {
         tracked_files: []
     };
     const registry = ensureControlJson(FILES.memoryRegistry, defaults);
-    registry.canonical_files = asArray(registry.canonical_files).map(normalizePathForJson).filter(Boolean);
+    registry.canonical_files = uniquePaths(asArray(registry.canonical_files).concat(defaults.canonical_files));
     registry.tracked_files = asArray(registry.tracked_files).map(normalizePathForJson).filter(Boolean);
     if (!registry.canonical_files.length) registry.canonical_files = defaults.canonical_files;
     writeControlJson(FILES.memoryRegistry, registry);
@@ -1654,6 +1682,157 @@ function inferProjectIdFromText(text) {
         if (ids.some(id => haystack.includes(id))) return normalizedProject;
     }
     return null;
+}
+
+function isGenericNextAction(text) {
+    const value = asTrimmedText(text);
+    if (!value) return true;
+    return GENERIC_NEXT_ACTION_PATTERNS.some(pattern => pattern.test(value));
+}
+
+function isAutoCloseSummary(text) {
+    const value = asTrimmedText(text);
+    if (!value) return false;
+    return AUTO_CLOSE_SUMMARY_PATTERNS.some(pattern => pattern.test(value));
+}
+
+function resolveContinuityCheckpoint(checkpoints) {
+    const items = asArray(checkpoints).filter(Boolean);
+    if (!items.length) {
+        return { latest: null, effective: null, strategy: 'none' };
+    }
+    const latest = items[items.length - 1];
+
+    for (let i = items.length - 1; i >= 0; i -= 1) {
+        const item = items[i];
+        const next = asTrimmedText(item.next_exact_action);
+        const stopped = asTrimmedText(item.where_it_stopped);
+        if (!isGenericNextAction(next) && !isAutoCloseSummary(stopped)) {
+            return { latest, effective: item, strategy: 'last_actionable_checkpoint' };
+        }
+    }
+
+    for (let i = items.length - 1; i >= 0; i -= 1) {
+        const item = items[i];
+        const stopped = asTrimmedText(item.where_it_stopped);
+        if (!isAutoCloseSummary(stopped)) {
+            return { latest, effective: item, strategy: 'last_non_auto_summary' };
+        }
+    }
+
+    return { latest, effective: latest, strategy: 'latest_checkpoint_fallback' };
+}
+
+function resolveContinuityNextAction(memoryState, effectiveCheckpoint) {
+    const stateTask = asTrimmedText(memoryState && memoryState.active_task);
+    if (stateTask && !isGenericNextAction(stateTask)) return stateTask;
+
+    const checkpointAction = asTrimmedText(effectiveCheckpoint && effectiveCheckpoint.next_exact_action);
+    if (checkpointAction && !isGenericNextAction(checkpointAction)) return checkpointAction;
+
+    const queue = asArray(memoryState && memoryState.next_actions).map(asTrimmedText).filter(Boolean);
+    const queuedMeaningful = queue.find(item => !isGenericNextAction(item));
+    if (queuedMeaningful) return queuedMeaningful;
+    if (checkpointAction) return checkpointAction;
+    if (stateTask) return stateTask;
+    if (queue.length) return queue[0];
+    return 'Revisar ultimo checkpoint e definir proxima acao objetiva.';
+}
+
+function collectRecentContinuityHighlights(days = CONTINUITY_LOOKBACK_DAYS) {
+    const cutoff = Date.now() - (days * 24 * 60 * 60 * 1000);
+    const state = ensureControlJson(FILES.session, { current_session: null, history: [] });
+    const history = asArray(state.history)
+        .filter(Boolean)
+        .filter(item => {
+            const ref = parseTimestampMs(item.ended_at || item.started_at);
+            return Number.isFinite(ref) && ref >= cutoff;
+        })
+        .sort((a, b) => parseTimestampMs(b.ended_at || b.started_at) - parseTimestampMs(a.ended_at || a.started_at));
+
+    const highlights = [];
+    const seen = new Set();
+    for (const item of history) {
+        const summary = asTrimmedText(item.close_summary || item.last_context_note || item.next_action);
+        if (!summary || isAutoCloseSummary(summary)) continue;
+        if (seen.has(summary)) continue;
+        highlights.push(`${item.id || 'SES'}: ${summary}`);
+        seen.add(summary);
+        if (highlights.length >= 5) break;
+    }
+
+    if (highlights.length < 5) {
+        const mutations = ensureControlJson(FILES.memoryMutations, { mutations: [] });
+        const recentMutations = asArray(mutations.mutations)
+            .filter(Boolean)
+            .filter(item => {
+                const ref = parseTimestampMs(item.timestamp);
+                return Number.isFinite(ref) && ref >= cutoff;
+            })
+            .sort((a, b) => parseTimestampMs(b.timestamp) - parseTimestampMs(a.timestamp));
+
+        for (const mutation of recentMutations) {
+            const summary = asTrimmedText(mutation.diff_summary);
+            if (!summary) continue;
+            if (/^oracle iniciou/i.test(summary)) continue;
+            if (isAutoCloseSummary(summary)) continue;
+            if (seen.has(summary)) continue;
+            highlights.push(`${mutation.memory_scope || 'memory'}: ${summary}`);
+            seen.add(summary);
+            if (highlights.length >= 5) break;
+        }
+    }
+
+    return {
+        window_days: days,
+        sessions_considered: history.length,
+        highlights
+    };
+}
+
+function writeStartupContextBrief(sessionId, context) {
+    const checkpointId = context && context.effectiveCheckpoint ? context.effectiveCheckpoint.id : null;
+    const checkpointTitle = context && context.effectiveCheckpoint
+        ? asTrimmedText(context.effectiveCheckpoint.title || context.effectiveCheckpoint.where_it_stopped)
+        : '';
+    const whereStopped = context && context.effectiveCheckpoint
+        ? asTrimmedText(context.effectiveCheckpoint.where_it_stopped)
+        : '';
+    const recent = context && context.recent ? context.recent : collectRecentContinuityHighlights();
+    const lines = [
+        '# Startup Context (Latest)',
+        '',
+        '## Session',
+        `- generated_at: ${nowIso()}`,
+        `- session_id: ${sessionId || '-'}`,
+        '',
+        '## Continuity Snapshot',
+        `- checkpoint_id: ${checkpointId || '-'}`,
+        `- checkpoint_strategy: ${context && context.checkpointStrategy ? context.checkpointStrategy : '-'}`,
+        `- checkpoint_title: ${checkpointTitle || '-'}`,
+        `- where_it_stopped: ${whereStopped || '-'}`,
+        `- next_action: ${(context && context.nextAction) || '-'}`,
+        '',
+        '## Last 10 Days Highlights',
+        `- window_days: ${recent.window_days}`,
+        `- sessions_considered: ${recent.sessions_considered}`
+    ];
+
+    const entries = asArray(recent.highlights).slice(0, 5);
+    if (entries.length) {
+        entries.forEach(item => lines.push(`- ${item}`));
+    } else {
+        lines.push('- (sem highlights relevantes no periodo)');
+    }
+
+    writeText(STARTUP_CONTEXT_PATH, `${lines.join('\n')}\n`);
+    return {
+        file: STARTUP_CONTEXT_REL_PATH,
+        checkpoint_id: checkpointId,
+        next_action: (context && context.nextAction) || null,
+        checkpoint_strategy: context && context.checkpointStrategy ? context.checkpointStrategy : null,
+        highlights: entries
+    };
 }
 
 function loadSessionArchiveById(sessionId) {
@@ -1816,7 +1995,10 @@ function loadMemoryLayers() {
 function contextFlash() {
     const layers = loadMemoryLayers();
     const registry = ensureControlJson('registry.json', { squads: [], agents: [], personas: [] });
-    const latestCheckpoint = asArray(layers.checkpoints.items).slice(-1)[0] || null;
+    const checkpointResolution = resolveContinuityCheckpoint(layers.checkpoints.items);
+    const latestCheckpoint = checkpointResolution.latest;
+    const effectiveCheckpoint = checkpointResolution.effective || latestCheckpoint;
+    const continuityNextAction = resolveContinuityNextAction(layers.current_state, effectiveCheckpoint);
     const latestDecision = asArray(layers.decisions.items).filter(item => item.status === 'active').slice(-1)[0]
         || asArray(layers.decisions.items).slice(-1)[0]
         || null;
@@ -1824,15 +2006,20 @@ function contextFlash() {
     return {
         project: layers.current_state.project || 'SommersStore',
         active_goal: layers.current_state.active_goal || null,
-        active_task: layers.current_state.active_task || null,
+        active_task: continuityNextAction || layers.current_state.active_task || null,
         build_phase: layers.current_state.build_phase || null,
         ops_stage: layers.current_state.ops_stage || null,
-        latest_checkpoint_id: latestCheckpoint ? latestCheckpoint.id : null,
-        latest_checkpoint_next_action: latestCheckpoint ? latestCheckpoint.next_exact_action || null : null,
+        latest_checkpoint_id: effectiveCheckpoint ? effectiveCheckpoint.id : null,
+        latest_checkpoint_next_action: continuityNextAction || null,
+        latest_raw_checkpoint_id: latestCheckpoint ? latestCheckpoint.id : null,
+        latest_raw_checkpoint_next_action: latestCheckpoint ? latestCheckpoint.next_exact_action || null : null,
+        checkpoint_resolution: checkpointResolution.strategy,
         latest_active_decision_id: latestDecision ? latestDecision.id : null,
         open_loops_count: openLoops.length,
         open_loop_ids: openLoops.slice(0, 8).map(item => item.id),
-        tracked_files: asArray(registry.tracked_files).slice(0, 20)
+        tracked_files: asArray(registry.tracked_files).slice(0, 20),
+        continuity_file: STARTUP_CONTEXT_REL_PATH,
+        continuity_window_days: CONTINUITY_LOOKBACK_DAYS
     };
 }
 
@@ -1847,7 +2034,19 @@ function runSessionStart(body) {
             state.current_session.last_seen_at = nowIso();
             if (payloadProjectId) state.current_session.project_id = payloadProjectId;
             writeControlJson(FILES.session, state);
-            return { resumed: true, session: state.current_session, context_flash: state.current_session.context_flash };
+            const resumedFlash = state.current_session.context_flash || contextFlash();
+            const layers = loadMemoryLayers();
+            const checkpointResolution = resolveContinuityCheckpoint(layers.checkpoints.items);
+            const effectiveCheckpoint = checkpointResolution.effective || checkpointResolution.latest;
+            const continuityNextAction = resolveContinuityNextAction(layers.current_state, effectiveCheckpoint);
+            const recentHighlights = collectRecentContinuityHighlights(CONTINUITY_LOOKBACK_DAYS);
+            const startupBrief = writeStartupContextBrief(state.current_session.id, {
+                effectiveCheckpoint,
+                checkpointStrategy: checkpointResolution.strategy,
+                nextAction: continuityNextAction,
+                recent: recentHighlights
+            });
+            return { resumed: true, session: state.current_session, context_flash: resumedFlash, startup_brief: startupBrief };
         }
         runSessionClose({
             summary: 'Sessao anterior encerrada automaticamente por inatividade/fechamento abrupto.',
@@ -1861,6 +2060,11 @@ function runSessionStart(body) {
     const usedIds = state.history.map(item => item.id).concat(state.current_session ? [state.current_session.id] : []);
     const sessionId = nextSerial('SES', usedIds);
     const flash = contextFlash();
+    const layers = loadMemoryLayers();
+    const checkpointResolution = resolveContinuityCheckpoint(layers.checkpoints.items);
+    const effectiveCheckpoint = checkpointResolution.effective || checkpointResolution.latest;
+    const continuityNextAction = resolveContinuityNextAction(layers.current_state, effectiveCheckpoint);
+    const recentHighlights = collectRecentContinuityHighlights(CONTINUITY_LOOKBACK_DAYS);
     const session = {
         id: sessionId,
         status: 'active',
@@ -1875,6 +2079,12 @@ function runSessionStart(body) {
     state.current_session = session;
     writeControlJson(FILES.session, state);
     persistSessionArchive(session);
+    const startupBrief = writeStartupContextBrief(sessionId, {
+        effectiveCheckpoint,
+        checkpointStrategy: checkpointResolution.strategy,
+        nextAction: continuityNextAction,
+        recent: recentHighlights
+    });
 
     const snapshots = ensureControlJson(FILES.snapshots, { snapshots: [] });
     snapshots.snapshots = asArray(snapshots.snapshots);
@@ -1900,11 +2110,13 @@ function runSessionStart(body) {
         `docs/control/${FILES.memoryLoops}`,
         `docs/control/${FILES.memoryCheckpoints}`,
         `docs/control/${FILES.memoryDecisions}`,
+        STARTUP_CONTEXT_REL_PATH,
         'task.md'
     ]);
     appendMemoryMutation('session_startup', `Oracle iniciou ${sessionId}`, session.started_by);
+    appendMemoryMutation('session_startup', `Startup context atualizado em ${STARTUP_CONTEXT_REL_PATH}`, session.started_by);
 
-    return { resumed: false, session, context_flash: flash };
+    return { resumed: false, session, context_flash: flash, startup_brief: startupBrief };
 }
 
 function updateTaskAndMemoryDocs(summary, nextAction, checkpointId) {
