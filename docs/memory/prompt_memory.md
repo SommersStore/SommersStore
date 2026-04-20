@@ -11,4 +11,4 @@
 - Qualquer entregavel importante precisa de indexacao de artefato.
 
 ## Ultima atualizacao
-- updated_at: 2026-04-20T16:58:41-03:00
+- updated_at: 2026-04-20T16:58:51-03:00
