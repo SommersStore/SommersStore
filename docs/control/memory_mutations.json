@@ -1253,6 +1253,54 @@
       "memory_scope": "cloud_sync",
       "diff_summary": "Cloud sync SYNC-20260420-1776715121581: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.)",
       "mutated_by": "human"
+    },
+    {
+      "timestamp": "2026-04-20T16:59:27-03:00",
+      "memory_scope": "cloud_sync",
+      "diff_summary": "Cloud sync SYNC-20260420-1776715149916: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.)",
+      "mutated_by": "human"
+    },
+    {
+      "timestamp": "2026-04-20T21:11:41-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260420-0010",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-20T21:11:41-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-20T21:32:00-03:00",
+      "memory_scope": "scribe_manual",
+      "diff_summary": "Protocolo Scribe executado manualmente pelo Antigravity (Claude Opus 4.6). Auditoria tecnica completa concluida: 14 problemas, 4 alta severidade. Atualizados: startup_context_latest.md (com onde_paramos e proxima_acao reais), memory_current_state.json (active_task, next_actions, blockers, risks), task.md (Done in this session limpo e atualizado com trabalho real). Motivo: arquivos de memoria refletiam sessoes do painel web, nao o trabalho real desta conversa.",
+      "mutated_by": "antigravity-claude-opus-4.6"
+    },
+    {
+      "timestamp": "2026-04-20T22:07:06-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260420-0010: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-20T22:07:10-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260420-0011",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-20T22:07:10-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-20T22:16:31-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260420-0011: Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.",
+      "mutated_by": "human"
     }
   ]
 }

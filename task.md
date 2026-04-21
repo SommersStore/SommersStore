@@ -4,58 +4,40 @@
 - [x] Validar e operar a nova memoria em camadas no fluxo diario
 - [x] Corrigir fragilidades do painel que afetam continuidade (editor/memory wiring)
 - [x] Rodar validacao operacional real do ciclo startup/shutdown no painel
+- [x] Auditoria tecnica completa do painel AIOX (server, frontend, registry, memoria)
+- [ ] Implementar correcoes P0 da auditoria (KPIs nulos, project_id em logs)
+- [ ] Implementar correcoes P1 (cores squads, handles AGENTS.md, rotacao JSONs)
 
 ## Pending Work
 - [x] Consolidar eventos automaticos de memoria (execution + checkpoint + mutation)
-- [ ] Popular CONTROL com logs reais de execucao
+- [ ] Popular KPIs com valores reais em registry.json (P0 auditoria)
+- [ ] Garantir project_id em todos os log entries (P0 auditoria)
+- [ ] Diferenciar cores SQD-CORE vs SQD-MEM (P1 auditoria)
+- [ ] Mapear handles de agentes no AGENTS.md (P1 auditoria)
 - [ ] Avancar para conteudo (ebooks) com checkpoints ativos
 - [ ] Preparar trilha de integracao de checkout
+- [ ] Retomar drag-and-drop de squads (agente, skill, persona/clone)
+- [ ] Modularizar HTML do painel (P2 auditoria)
 
-## Done in this session
+## Done in this session (20/04/2026 — Antigravity Claude Opus 4.6)
 - [x] Sessao encerrada automaticamente
-- [x] Resumo: Fechamento rapido pelo botao Salvar Tudo na Nuvem.
-- [x] Proxima acao: Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.
-- [x] Checkpoint: CHK-MEM-0098
-
-- [x] Sessao encerrada automaticamente
-- [x] Resumo: Fechamento rapido pelo botao Salvar Tudo na Nuvem.
-- [x] Proxima acao: Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.
-- [x] Checkpoint: CHK-MEM-0097
+- [x] Resumo: Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.
+- [x] Proxima acao: Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.
+- [x] Checkpoint: CHK-MEM-0100
 
 - [x] Sessao encerrada automaticamente
 - [x] Resumo: Encerramento automatico (fechamento de aba/janela).
 - [x] Proxima acao: (nao informada)
-- [x] Checkpoint: CHK-MEM-0096
+- [x] Checkpoint: CHK-MEM-0099
 
-- [x] Sessao encerrada automaticamente
-- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
-- [x] Proxima acao: (nao informada)
-- [x] Checkpoint: CHK-MEM-0095
-
-- [x] Sessao encerrada automaticamente
-- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
-- [x] Proxima acao: (nao informada)
-- [x] Checkpoint: CHK-MEM-0094
-
-- [x] Sessao encerrada automaticamente
-- [x] Resumo: Correcoes de continuidade aplicadas: checkpoint relevante, startup_context_latest e handshake obrigatorio de contexto em conversa nova.
-- [x] Proxima acao: Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.
-- [x] Checkpoint: CHK-MEM-0093
-
-- [x] Sessao encerrada automaticamente
-- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
-- [x] Proxima acao: (nao informada)
-- [x] Checkpoint: CHK-MEM-0092
-
-- [x] Sessao encerrada automaticamente
-- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
-- [x] Proxima acao: (nao informada)
-- [x] Checkpoint: CHK-MEM-0091
-
-- [x] Sessao encerrada automaticamente
-- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
-- [x] Proxima acao: (nao informada)
-- [x] Checkpoint: CHK-MEM-0090
+- [x] Protocolo Oracle executado — contexto restaurado dos arquivos de memoria
+- [x] Auditoria tecnica completa: server 2867 linhas, frontend 4481 linhas, 30 JSONs
+- [x] Inspecao visual de todas as abas do painel (Master, Squads, Agentes, Skills, Personas, Memory)
+- [x] 14 problemas identificados (4 alta, 6 media, 4 baixa) — artefato publicado
+- [x] Confirmado: sem conflito tecnico entre Codex e Antigravity
+- [x] Diagnostico do sistema de memoria: funcional, mas arquivos refletem sessoes do PAINEL e nao da CONVERSA
+- [x] Protocolo Scribe executado manualmente — startup_context, memory_current_state e task.md atualizados
+- [x] Checkpoint desta conversa: CHK-MEM-0098 (base) + atualizacao manual Scribe
 
 - [x] Sessao encerrada automaticamente
 - [x] Resumo: Fechamento rapido pelo botao Salvar Tudo na Nuvem.
@@ -513,4 +495,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-04-20T16:58:51-03:00
+- updated_at: 2026-04-20T22:16:31-03:00

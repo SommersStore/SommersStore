@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR" class="dark">
 <head>
     <meta charset="UTF-8">
@@ -3838,6 +3838,25 @@ window.saveAllNow = async function() {
             alert('Ja existe uma sincronizacao em andamento. Aguarde concluir.');
             return;
         }
+
+        const currentTask = ((window.MEMORY_LAYERS || {}).current_state || {}).active_task || '';
+        const currentGoal = ((window.MEMORY_LAYERS || {}).current_state || {}).active_goal || '';
+        const defaultSummary = currentTask || currentGoal || 'Sessao encerrada pelo painel.';
+        const userSummary = prompt(
+            'Resumo do que foi feito nesta sessao (ou clique OK para usar o padrao):',
+            defaultSummary
+        );
+        if (userSummary === null) return;
+        const summary = userSummary.trim() || defaultSummary;
+
+        const defaultNextAction = currentTask || '';
+        const userNextAction = prompt(
+            'Proxima acao objetiva para a proxima conversa (ou clique OK para manter):',
+            defaultNextAction
+        );
+        if (userNextAction === null) return;
+        const nextAction = userNextAction.trim() || defaultNextAction;
+
         window.CLOUD_SYNC_STATE = Object.assign({}, syncState, {
             in_progress: true,
             last_status: 'running',
@@ -3846,13 +3865,12 @@ window.saveAllNow = async function() {
         });
         renderCloudSyncStatus();
 
-        const nextActionFromContext = ((window.MEMORY_LAYERS || {}).current_state || {}).active_task || '';
         const res = await fetch('/api/cloud-sync/save-all', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                summary: 'Fechamento rapido pelo botao Salvar Tudo na Nuvem.',
-                next_action: nextActionFromContext,
+                summary: summary,
+                next_action: nextAction,
                 completed_tasks: [],
                 closed_by: 'human',
                 model_hint: 'dashboard',

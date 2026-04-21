@@ -52,7 +52,7 @@ const DEFAULT_TRANSCRIPT_FILES = [
 ];
 
 const SESSION_PULSE_LOG_INTERVAL_MS = 10 * 60 * 1000;
-const CONTINUITY_LOOKBACK_DAYS = 10;
+const CONTINUITY_LOOKBACK_SESSIONS = 3;
 const STARTUP_CONTEXT_REL_PATH = 'docs/memory/startup_context_latest.md';
 const STARTUP_CONTEXT_PATH = path.join(ROOT_DIR, STARTUP_CONTEXT_REL_PATH);
 
@@ -1739,39 +1739,33 @@ function resolveContinuityNextAction(memoryState, effectiveCheckpoint) {
     return 'Revisar ultimo checkpoint e definir proxima acao objetiva.';
 }
 
-function collectRecentContinuityHighlights(days = CONTINUITY_LOOKBACK_DAYS) {
-    const cutoff = Date.now() - (days * 24 * 60 * 60 * 1000);
+function collectRecentContinuityHighlights(maxSessions = CONTINUITY_LOOKBACK_SESSIONS) {
     const state = ensureControlJson(FILES.session, { current_session: null, history: [] });
     const history = asArray(state.history)
         .filter(Boolean)
-        .filter(item => {
-            const ref = parseTimestampMs(item.ended_at || item.started_at);
-            return Number.isFinite(ref) && ref >= cutoff;
-        })
         .sort((a, b) => parseTimestampMs(b.ended_at || b.started_at) - parseTimestampMs(a.ended_at || a.started_at));
 
     const highlights = [];
     const seen = new Set();
+    let sessionsCollected = 0;
     for (const item of history) {
+        if (sessionsCollected >= maxSessions) break;
         const summary = asTrimmedText(item.close_summary || item.last_context_note || item.next_action);
         if (!summary || isAutoCloseSummary(summary)) continue;
         if (seen.has(summary)) continue;
         highlights.push(`${item.id || 'SES'}: ${summary}`);
         seen.add(summary);
-        if (highlights.length >= 5) break;
+        sessionsCollected += 1;
     }
 
-    if (highlights.length < 5) {
+    if (highlights.length < maxSessions) {
         const mutations = ensureControlJson(FILES.memoryMutations, { mutations: [] });
         const recentMutations = asArray(mutations.mutations)
             .filter(Boolean)
-            .filter(item => {
-                const ref = parseTimestampMs(item.timestamp);
-                return Number.isFinite(ref) && ref >= cutoff;
-            })
             .sort((a, b) => parseTimestampMs(b.timestamp) - parseTimestampMs(a.timestamp));
 
         for (const mutation of recentMutations) {
+            if (highlights.length >= maxSessions) break;
             const summary = asTrimmedText(mutation.diff_summary);
             if (!summary) continue;
             if (/^oracle iniciou/i.test(summary)) continue;
@@ -1779,12 +1773,11 @@ function collectRecentContinuityHighlights(days = CONTINUITY_LOOKBACK_DAYS) {
             if (seen.has(summary)) continue;
             highlights.push(`${mutation.memory_scope || 'memory'}: ${summary}`);
             seen.add(summary);
-            if (highlights.length >= 5) break;
         }
     }
 
     return {
-        window_days: days,
+        last_sessions: maxSessions,
         sessions_considered: history.length,
         highlights
     };
@@ -1813,8 +1806,8 @@ function writeStartupContextBrief(sessionId, context) {
         `- where_it_stopped: ${whereStopped || '-'}`,
         `- next_action: ${(context && context.nextAction) || '-'}`,
         '',
-        '## Last 10 Days Highlights',
-        `- window_days: ${recent.window_days}`,
+        '## Ultimas Conversas Relevantes',
+        `- last_sessions: ${recent.last_sessions}`,
         `- sessions_considered: ${recent.sessions_considered}`
     ];
 

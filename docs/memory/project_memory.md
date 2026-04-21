@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-04-20T16:58:51-03:00
+- updated_at: 2026-04-20T22:16:31-03:00
 
 ## Ultimo fechamento
 - timestamp: 2026-04-18T16:49:48-03:00
@@ -29,6 +29,14 @@
 - checkpoint: CHK-MEM-0076
 
 ## Ultimo fechamento automatico
+- timestamp: 2026-04-20T22:16:31-03:00
+- resumo: Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.
+- proxima_acao: Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.
+- checkpoint: CHK-MEM-0100
+- timestamp: 2026-04-20T22:07:06-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0099
 - timestamp: 2026-04-20T16:58:51-03:00
 - resumo: Fechamento rapido pelo botao Salvar Tudo na Nuvem.
 - proxima_acao: Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.

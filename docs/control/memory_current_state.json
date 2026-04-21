@@ -2,29 +2,30 @@
   "project": "SommersStore Elite",
   "build_phase": "BLD-07",
   "ops_stage": "OPS-01",
-  "active_goal": "Operar painel com memoria automatica e continuidade sem friccao",
-  "active_task": "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
-  "deliverable_in_progress": "Control Fabric com lifecycle de sessao automatizado",
-  "current_owner": "SQD-MEM",
-  "last_relevant_event": "Fechamento rapido pelo botao Salvar Tudo na Nuvem.",
+  "active_goal": "Implementar correcoes da auditoria tecnica do painel AIOX e blindar continuidade de contexto entre conversas",
+  "active_task": "Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.",
+  "deliverable_in_progress": "Correcoes da auditoria tecnica (artefato: audit_painel_aiox.md)",
+  "current_owner": "SQD-ENG",
+  "last_relevant_event": "Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.",
   "next_actions": [
-    "Fechar painel e Antigravity, reabrir tudo e validar se a primeira resposta da conversa inicia com contexto carregado e proxima acao correta.",
-    "Retomar configuracao de squads com interacao por drag-and-drop",
-    "Abrir docs/memory/session_handoff_latest.md e retomar os 3 pontos finais da conversa.",
-    "Retomar configuracao de squads com interacao por drag-and-drop (agente, skill e persona/clone).",
-    "Retomar ajustes no painel e memoria",
-    "Retomar validando no painel a timeline por project_id e seguir para BL-014 (busca global).",
-    "Iniciar Story 1.5: consolidar validacao do painel e avancar trilha de conteudo/checkpoint e checkout.",
-    "Executar validacao recorrente semanal do lifecycle no painel"
+    "Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.",
+    "Implementar correcoes P0: popular KPIs, garantir project_id em logs",
+    "Implementar correcoes P1: cores squads, handles AGENTS.md, rotacao JSONs",
+    "Retomar configuracao de squads com interacao por drag-and-drop (agente, skill e persona/clone)",
+    "Avancar para conteudo (ebooks) com checkpoints ativos",
+    "Preparar trilha de integracao de checkout",
+    "Modularizar HTML do painel (P2)"
   ],
   "open_blockers": [
-    "Baixa densidade de logs historicos em execution_log/context_snapshots"
+    "KPIs todos null em registry.json — Master Hub sem metricas",
+    "project_id ausente em muitos log entries — timeline por projeto incompleta"
   ],
   "active_risks": [
-    "Regressao para resumo superficial se os JSONs nao forem atualizados por sessao",
+    "Arquivos de memoria refletem sessoes do PAINEL WEB e nao conversas do ASSISTENTE — requer Scribe manual ao final de cada conversa",
+    "HTML monolitico de 4481 linhas dificulta manutencao",
     "Retomada incompleta se checkpoint nao registrar proxima acao exata"
   ],
   "latest_active_decision_id": "DEC-MEM-0004",
-  "latest_checkpoint_id": "CHK-MEM-0098",
-  "updated_at": "2026-04-20T16:58:51-03:00"
+  "latest_checkpoint_id": "CHK-MEM-0100",
+  "updated_at": "2026-04-20T22:16:31-03:00"
 }
