@@ -20,15 +20,37 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-04-20T22:16:31-03:00
+- updated_at: 2026-04-21T06:25:40-03:00
 
 ## Ultimo fechamento
+- timestamp: 2026-04-21T06:10:00-03:00
+- resumo: Sessao encerrada a pedido do usuario para prevencao de degradacao de contexto longo. Handoff: Auditoria profunda revelou 29 Skills sem rules e 5 Agentes faltantes. O proximo escopo e focado em Personas/Clones via Painel (URL Ingestion).
+- proxima_acao: Abrir conversa nova para construir a Ingestao de URLs na aba Personas do Painel e configurar os Clones Mestre (Brunson, Sabri, etc).
+- checkpoint: CHK-MEM-0103
+
+## Fechamento Anterior
 - timestamp: 2026-04-18T16:49:48-03:00
 - resumo: Sessao pausada a pedido do usuario para retorno posterior com contexto preservado, incluindo handoff dos 3 ultimos questionamentos sobre squads (drag), agentes, skills e relacao persona x clone.
 - proxima_acao: Retomar pela configuracao manual de squads com foco em drag-and-drop (agente, skill e persona/clone) usando o handoff salvo na memoria.
 - checkpoint: CHK-MEM-0076
 
 ## Ultimo fechamento automatico
+- timestamp: 2026-04-21T06:25:40-03:00
+- resumo: Configurar e aprimorar squads, agentes, skills e personas/clones.
+- proxima_acao: Configurar e aprimorar squads, agentes, skills e personas/clones.
+- checkpoint: CHK-MEM-0104
+- timestamp: 2026-04-21T06:25:33-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0103
+- timestamp: 2026-04-21T05:34:03-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0102
+- timestamp: 2026-04-21T03:10:20-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0101
 - timestamp: 2026-04-20T22:16:31-03:00
 - resumo: Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.
 - proxima_acao: Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.

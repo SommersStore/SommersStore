@@ -64,6 +64,15 @@ Interprete os atalhos abaixo carregando o arquivo correspondente em `.aiox-core/
 - `@copywriter`, `/copywriter`, `/copywriter.md` -> `.aiox-core/development/agents/copywriter.md`
 - `@squad-creator`, `/squad-creator`, `/squad-creator.md` -> `.aiox-core/development/agents/squad-creator.md`
 - `@aiox-master`, `/aiox-master`, `/aiox-master.md` -> `.aiox-core/development/agents/aiox-master.md`
+- `@persona`, `/persona`, `/persona.md` -> `.aiox-core/development/agents/persona.md`
+- `@cro-expert`, `/cro-expert`, `/cro-expert.md` -> `.aiox-core/development/agents/cro-expert.md`
+- `@liaison`, `/liaison`, `/liaison.md` -> `.aiox-core/development/agents/liaison.md`
+- `@brand-master`, `/brand-master`, `/brand-master.md` -> `.aiox-core/development/agents/brand-master.md`
+- `@art-director`, `/art-director`, `/art-director.md` -> `.aiox-core/development/agents/art-director.md`
+- `@security`, `/security`, `/security.md` -> `.aiox-core/development/agents/security.md`
+- `@support`, `/support`, `/support.md` -> `.aiox-core/development/agents/support.md`
+- `@oracle`, `/oracle`, `/oracle.md` -> `.aiox-core/development/agents/oracle.md`
+- `@scribe`, `/scribe`, `/scribe.md` -> `.aiox-core/development/agents/scribe.md`
 <!-- AIOX-MANAGED-END: shortcuts -->
 
 ## 🚨 PROTOCOLO OBRIGATÓRIO DE MEMÓRIA E CONTEXTO (LIFECYCLE)
@@ -85,6 +94,15 @@ Quando o usuário informar que a sessão encerrou (ex: "boa noite", "é isso por
 - Chame a API ou edite o JSON em `docs/control/memory_mutations.json` registrando a mutação com o resumo da sessão.
 - Somente após salvar essa memória física é autorizado dar o "goodbye" final e encerrar.
 
+## 🚨 PROTOCOLO OBRIGATÓRIO DE INVESTIGAÇÃO PROFUNDA E VERDADE DO CÓDIGO (CODE TRUTH)
+
+Para evitar análises superficiais e retrabalho, **todos os agentes/modelos** (Antigravity, Gemini, Claude, Codex, GPT, etc.) devem seguir estritamente a regra da "Investigação Profunda":
+
+1. **Nunca confie cegamente apenas em arquivos de gestão (ex: task.md)**: Se um documento de tarefas disser que algo está "pendente", mas o usuário questionar ou as conversas anteriores indicarem avanço, a fonte absoluta de verdade é **sempre o código-fonte/arquivos físicos**.
+2. **Busca Exaustiva (Não pare no primeiro erro)**: Se pesquisar por um termo exato e não encontrar (ex: `draggable`), não conclua que a feature não existe. Teste sinônimos e termos nativos relacionados (ex: `ondrag`, `ondrop`), faça buscas case-insensitive e inspecione as views e lógicas envolvidas. 
+3. **Leia o Código Antes de Propor**: Quando mapear uma funcionalidade ou se o usuário disser "já foi feito", use ferramentas para **ler ativamente as linhas do arquivo**. Nunca responda que algo não existe nem proponha criar/recriar funcionalidades sem antes ter 100% de certeza inspecionando os artefatos.
+4. **Sincronize a Realidade**: Caso verifique no código que algo considerado "pendente" já foi implementado, atualize o `task.md` para `[x]` imediatamente e baseie seu raciocínio na lógica que já está rodando.
+
 ## CONTINUITY HANDSHAKE (MANDATORY)
 
 To eliminate ambiguity in new conversations, every assistant instance must do the following at the first user turn of a new chat:
@@ -100,7 +118,7 @@ To eliminate ambiguity in new conversations, every assistant instance must do th
 - `checkpoint_base`
 - `onde_paramos`
 - `proxima_acao_objetiva`
-- `resumo_10_dias` (short)
+- `resumo_3_conversas` (short)
 - `fonte` (which files were used)
 
 3. If `startup_context_latest.md` is missing, state fallback mode and continue with the other sources.

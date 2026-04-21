@@ -4467,6 +4467,522 @@
       "session_id": "SES-20260420-0011",
       "summary": "Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.",
       "checkpoint_id": "CHK-MEM-0100"
+    },
+    {
+      "id": "CTX-20260421-0001",
+      "timestamp": "2026-04-21T01:55:34-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260421-0001",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
+        "active_task": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0100",
+        "latest_checkpoint_next_action": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+        "latest_raw_checkpoint_id": "CHK-MEM-0100",
+        "latest_raw_checkpoint_next_action": "Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.",
+        "checkpoint_resolution": "last_actionable_checkpoint",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": [],
+        "continuity_file": "docs/memory/startup_context_latest.md",
+        "continuity_window_days": 10
+      }
+    },
+    {
+      "id": "CTX-20260421-0002",
+      "timestamp": "2026-04-21T01:56:33-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0001",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0003",
+      "timestamp": "2026-04-21T01:58:01-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0001",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0004",
+      "timestamp": "2026-04-21T01:58:33-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0001",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0005",
+      "timestamp": "2026-04-21T01:59:11-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0001",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0006",
+      "timestamp": "2026-04-21T01:59:33-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0001",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0007",
+      "timestamp": "2026-04-21T02:10:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0001",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0008",
+      "timestamp": "2026-04-21T02:13:42-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0001",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0009",
+      "timestamp": "2026-04-21T02:14:33-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0001",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0010",
+      "timestamp": "2026-04-21T02:24:33-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0001",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0011",
+      "timestamp": "2026-04-21T02:29:50-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0001",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0012",
+      "timestamp": "2026-04-21T02:30:33-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0001",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0013",
+      "timestamp": "2026-04-21T02:41:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0001",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0014",
+      "timestamp": "2026-04-21T02:51:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0001",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0015",
+      "timestamp": "2026-04-21T03:01:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0001",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0016",
+      "timestamp": "2026-04-21T03:10:20-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260421-0001",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0101"
+    },
+    {
+      "id": "CTX-20260421-0017",
+      "timestamp": "2026-04-21T03:10:23-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260421-0002",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
+        "active_task": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0100",
+        "latest_checkpoint_next_action": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+        "latest_raw_checkpoint_id": "CHK-MEM-0101",
+        "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "checkpoint_resolution": "last_actionable_checkpoint",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": [],
+        "continuity_file": "docs/memory/startup_context_latest.md",
+        "continuity_window_days": 10
+      }
+    },
+    {
+      "id": "CTX-20260421-0018",
+      "timestamp": "2026-04-21T03:10:58-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0019",
+      "timestamp": "2026-04-21T03:11:21-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0020",
+      "timestamp": "2026-04-21T03:21:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0021",
+      "timestamp": "2026-04-21T03:31:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0022",
+      "timestamp": "2026-04-21T03:41:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0023",
+      "timestamp": "2026-04-21T03:51:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0024",
+      "timestamp": "2026-04-21T03:56:54-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0025",
+      "timestamp": "2026-04-21T03:57:21-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0026",
+      "timestamp": "2026-04-21T04:00:37-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0027",
+      "timestamp": "2026-04-21T04:01:21-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0028",
+      "timestamp": "2026-04-21T04:02:39-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0029",
+      "timestamp": "2026-04-21T04:03:21-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0030",
+      "timestamp": "2026-04-21T04:04:38-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0031",
+      "timestamp": "2026-04-21T04:05:21-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0032",
+      "timestamp": "2026-04-21T04:05:38-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0033",
+      "timestamp": "2026-04-21T04:06:21-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0034",
+      "timestamp": "2026-04-21T04:15:28-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0035",
+      "timestamp": "2026-04-21T04:16:21-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0036",
+      "timestamp": "2026-04-21T04:26:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0037",
+      "timestamp": "2026-04-21T04:36:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0038",
+      "timestamp": "2026-04-21T04:46:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0039",
+      "timestamp": "2026-04-21T04:56:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0040",
+      "timestamp": "2026-04-21T05:06:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0041",
+      "timestamp": "2026-04-21T05:16:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0042",
+      "timestamp": "2026-04-21T05:26:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0002",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0043",
+      "timestamp": "2026-04-21T05:34:03-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260421-0002",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0102"
+    },
+    {
+      "id": "CTX-20260421-0044",
+      "timestamp": "2026-04-21T05:34:07-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260421-0003",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
+        "active_task": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0100",
+        "latest_checkpoint_next_action": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+        "latest_raw_checkpoint_id": "CHK-MEM-0102",
+        "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "checkpoint_resolution": "last_actionable_checkpoint",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": [],
+        "continuity_file": "docs/memory/startup_context_latest.md",
+        "continuity_window_days": 10
+      }
+    },
+    {
+      "id": "CTX-20260421-0045",
+      "timestamp": "2026-04-21T05:35:04-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0003",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0046",
+      "timestamp": "2026-04-21T05:39:03-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0003",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0047",
+      "timestamp": "2026-04-21T05:39:05-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0003",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0048",
+      "timestamp": "2026-04-21T05:49:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0003",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0049",
+      "timestamp": "2026-04-21T05:59:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0003",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0050",
+      "timestamp": "2026-04-21T06:06:51-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0003",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0051",
+      "timestamp": "2026-04-21T06:07:05-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0003",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0052",
+      "timestamp": "2026-04-21T06:17:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260421-0003",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260421-0053",
+      "timestamp": "2026-04-21T06:25:33-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260421-0003",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0103"
+    },
+    {
+      "id": "CTX-20260421-0054",
+      "timestamp": "2026-04-21T06:25:36-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260421-0004",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
+        "active_task": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0100",
+        "latest_checkpoint_next_action": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+        "latest_raw_checkpoint_id": "CHK-MEM-0103",
+        "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "checkpoint_resolution": "last_actionable_checkpoint",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": [],
+        "continuity_file": "docs/memory/startup_context_latest.md",
+        "continuity_window_days": 10
+      }
+    },
+    {
+      "id": "CTX-20260421-0055",
+      "timestamp": "2026-04-21T06:25:40-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260421-0004",
+      "summary": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "checkpoint_id": "CHK-MEM-0104"
     }
   ]
 }

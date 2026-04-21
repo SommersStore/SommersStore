@@ -10,16 +10,42 @@
 
 ## Pending Work
 - [x] Consolidar eventos automaticos de memoria (execution + checkpoint + mutation)
-- [ ] Popular KPIs com valores reais em registry.json (P0 auditoria)
-- [ ] Garantir project_id em todos os log entries (P0 auditoria)
-- [ ] Diferenciar cores SQD-CORE vs SQD-MEM (P1 auditoria)
-- [ ] Mapear handles de agentes no AGENTS.md (P1 auditoria)
+- [x] Popular KPIs com valores reais em registry.json (P0 auditoria)
+- [x] Garantir project_id em todos os log entries (P0 auditoria)
+- [x] Diferenciar cores SQD-CORE vs SQD-MEM (P1 auditoria)
+- [x] Mapear handles de agentes no AGENTS.md (P1 auditoria)
 - [ ] Avancar para conteudo (ebooks) com checkpoints ativos
 - [ ] Preparar trilha de integracao de checkout
-- [ ] Retomar drag-and-drop de squads (agente, skill, persona/clone)
+- [x] Retomar drag-and-drop de squads (agente, skill, persona/clone)
 - [ ] Modularizar HTML do painel (P2 auditoria)
 
-## Done in this session (20/04/2026 — Antigravity Claude Opus 4.6)
+## Done in this session (21/04/2026 — Antigravity)
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Configurar e aprimorar squads, agentes, skills e personas/clones.
+- [x] Proxima acao: Configurar e aprimorar squads, agentes, skills e personas/clones.
+- [x] Checkpoint: CHK-MEM-0104
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0103
+
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Reescrita de 6 agentes custom para arquitetura de elite (20KB). Diagnostico de 5 Agentes vazios e 29 Skills cruas. Decisao estrategica assinada de inverter funil e comecar configuracao pelos Clones usando a Extracao via URL do Painel.
+- [x] Proxima acao: Iniciar nova conversa focada no aprimoramento da Aba Personas do painel (URL Ingest / PDF block) e construcao dos Clones-Mestre.
+- [x] Checkpoint: CHK-MEM-0103
+
+## Arquivo de Histórico
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0102
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0101
+
 - [x] Sessao encerrada automaticamente
 - [x] Resumo: Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.
 - [x] Proxima acao: Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.
@@ -495,4 +521,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-04-20T22:16:31-03:00
+- updated_at: 2026-04-21T06:25:40-03:00

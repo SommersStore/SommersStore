@@ -4198,6 +4198,566 @@
       "timestamp": "2026-04-20T22:16:31-03:00",
       "details": "Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.",
       "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260420-0088",
+      "type": "cloud_sync",
+      "target": "SYNC-20260420-1776734191785",
+      "initiated_by": "human",
+      "project_id": "sais",
+      "timestamp": "2026-04-20T22:17:07-03:00",
+      "details": "Cloud sync SYNC-20260420-1776734191785: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.)",
+      "why_this_ran": "target=all; scope=all; trigger=save_all_one_click"
+    },
+    {
+      "id": "LOG-20260421-0001",
+      "type": "session_start",
+      "target": "SES-20260421-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T01:55:34-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260421-0002",
+      "type": "session_pulse",
+      "target": "SES-20260421-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T01:56:33-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0003",
+      "type": "session_pulse",
+      "target": "SES-20260421-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T01:58:01-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0004",
+      "type": "session_pulse",
+      "target": "SES-20260421-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T01:58:33-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0005",
+      "type": "session_pulse",
+      "target": "SES-20260421-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T01:59:11-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0006",
+      "type": "session_pulse",
+      "target": "SES-20260421-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T01:59:33-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0007",
+      "type": "session_pulse",
+      "target": "SES-20260421-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T02:10:26-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0008",
+      "type": "session_pulse",
+      "target": "SES-20260421-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T02:13:42-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0009",
+      "type": "session_pulse",
+      "target": "SES-20260421-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T02:14:33-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0010",
+      "type": "session_pulse",
+      "target": "SES-20260421-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T02:24:33-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0011",
+      "type": "session_pulse",
+      "target": "SES-20260421-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T02:29:50-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0012",
+      "type": "session_pulse",
+      "target": "SES-20260421-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T02:30:33-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0013",
+      "type": "session_pulse",
+      "target": "SES-20260421-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T02:41:26-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0014",
+      "type": "session_pulse",
+      "target": "SES-20260421-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T02:51:26-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0015",
+      "type": "session_pulse",
+      "target": "SES-20260421-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T03:01:26-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0016",
+      "type": "session_close",
+      "target": "SES-20260421-0001",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T03:10:20-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260421-0017",
+      "type": "session_start",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T03:10:23-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260421-0018",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T03:10:58-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0019",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T03:11:21-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0020",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T03:21:26-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0021",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T03:31:26-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0022",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T03:41:26-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0023",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T03:51:26-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0024",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T03:56:54-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0025",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T03:57:21-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0026",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T04:00:37-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0027",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T04:01:21-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0028",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T04:02:39-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0029",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T04:03:21-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0030",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T04:04:38-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0031",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T04:05:21-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0032",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T04:05:38-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0033",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T04:06:21-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0034",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T04:15:28-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0035",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T04:16:21-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0036",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T04:26:26-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0037",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T04:36:26-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0038",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T04:46:26-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0039",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T04:56:26-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0040",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T05:06:26-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0041",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T05:16:26-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0042",
+      "type": "session_pulse",
+      "target": "SES-20260421-0002",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T05:26:26-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0043",
+      "type": "session_close",
+      "target": "SES-20260421-0002",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T05:34:03-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260421-0044",
+      "type": "session_start",
+      "target": "SES-20260421-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T05:34:07-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260421-0045",
+      "type": "session_pulse",
+      "target": "SES-20260421-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T05:35:04-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0046",
+      "type": "session_pulse",
+      "target": "SES-20260421-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T05:39:03-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0047",
+      "type": "session_pulse",
+      "target": "SES-20260421-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T05:39:05-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0048",
+      "type": "session_pulse",
+      "target": "SES-20260421-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T05:49:26-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0049",
+      "type": "session_pulse",
+      "target": "SES-20260421-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T05:59:26-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0050",
+      "type": "session_pulse",
+      "target": "SES-20260421-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T06:06:51-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0051",
+      "type": "session_pulse",
+      "target": "SES-20260421-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T06:07:05-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0052",
+      "type": "session_pulse",
+      "target": "SES-20260421-0003",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T06:17:26-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260421-0053",
+      "type": "session_close",
+      "target": "SES-20260421-0003",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T06:25:33-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260421-0054",
+      "type": "session_start",
+      "target": "SES-20260421-0004",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T06:25:36-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260421-0055",
+      "type": "session_close",
+      "target": "SES-20260421-0004",
+      "initiated_by": "human",
+      "project_id": "sais",
+      "timestamp": "2026-04-21T06:25:40-03:00",
+      "details": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "why_this_ran": "Scribe shutdown automatico"
     }
   ]
 }

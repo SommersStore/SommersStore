@@ -3950,6 +3950,174 @@
         "docs/control/memory_mutations.json",
         "task.md"
       ]
+    },
+    {
+      "id": "RUN-MEM-20260421-0001",
+      "timestamp_start": "2026-04-21T01:55:34-03:00",
+      "timestamp_end": "2026-04-21T01:55:34-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_start",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260421-0001 iniciada",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_open_loops.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_decision_log.json",
+        "docs/memory/startup_context_latest.md",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260421-0002",
+      "timestamp_start": "2026-04-21T03:10:20-03:00",
+      "timestamp_end": "2026-04-21T03:10:20-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_close",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260421-0001 encerrada com CHK-MEM-0101",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_mutations.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260421-0003",
+      "timestamp_start": "2026-04-21T03:10:23-03:00",
+      "timestamp_end": "2026-04-21T03:10:23-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_start",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260421-0002 iniciada",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_open_loops.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_decision_log.json",
+        "docs/memory/startup_context_latest.md",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260421-0004",
+      "timestamp_start": "2026-04-21T05:34:03-03:00",
+      "timestamp_end": "2026-04-21T05:34:03-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_close",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260421-0002 encerrada com CHK-MEM-0102",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_mutations.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260421-0005",
+      "timestamp_start": "2026-04-21T05:34:07-03:00",
+      "timestamp_end": "2026-04-21T05:34:07-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_start",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260421-0003 iniciada",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_open_loops.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_decision_log.json",
+        "docs/memory/startup_context_latest.md",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260421-0006",
+      "timestamp_start": "2026-04-21T06:25:33-03:00",
+      "timestamp_end": "2026-04-21T06:25:33-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_close",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260421-0003 encerrada com CHK-MEM-0103",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_mutations.json",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260421-0007",
+      "timestamp_start": "2026-04-21T06:25:36-03:00",
+      "timestamp_end": "2026-04-21T06:25:36-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_start",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260421-0004 iniciada",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_open_loops.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_decision_log.json",
+        "docs/memory/startup_context_latest.md",
+        "task.md"
+      ]
+    },
+    {
+      "id": "RUN-MEM-20260421-0008",
+      "timestamp_start": "2026-04-21T06:25:40-03:00",
+      "timestamp_end": "2026-04-21T06:25:40-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_close",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260421-0004 encerrada com CHK-MEM-0104",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_mutations.json",
+        "task.md"
+      ]
     }
   ]
 }

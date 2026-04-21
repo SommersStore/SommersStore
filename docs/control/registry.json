@@ -141,7 +141,7 @@
     {
       "id": "SQD-MEM",
       "name": "MEMORY & GOVERNANCE",
-      "color": "#a855f7",
+      "color": "#6366f1",
       "icon": "brain",
       "mission": "Governança de contexto, auditoria de inicialização e gravação imutável no final da sessão.",
       "inputs": [
@@ -355,7 +355,7 @@
           "AGT-CORE-05"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-CORE-01.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "build",
@@ -366,13 +366,13 @@
       {
         "id": "SKL-CORE-02",
         "name": "ProductPositioning",
-        "desc": "Executa ProductPositioning com criterio operacional no fases BLD-01, garantindo as saidas `DLV-BLUEPRINT-ProductBrief`, `DLV-SPEC-OfferThesis`, `DLV-SPEC-PersonaPreliminar`.",
+        "desc": "Execução heurística voltada para conversão e entrega das saídas principais: DLV-BLUEPRINT-ProductBrief, DLV-SPEC-OfferThesis, DLV-SPEC-PersonaPreliminar.",
         "agents": [
           "AGT-CORE-01",
           "AGT-CORE-02"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-CORE-02.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "build",
@@ -388,7 +388,7 @@
           "AGT-CORE-03"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-CORE-03.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "runtime",
@@ -399,13 +399,13 @@
       {
         "id": "SKL-CORE-05",
         "name": "RoadmapPlanning",
-        "desc": "Executa RoadmapPlanning com criterio operacional no fases BLD-03, garantindo as saidas `DLV-BLUEPRINT-Roadmap`, `DLV-BLUEPRINT-FunnelBlueprint`, `DLV-SPEC-Backlog`.",
+        "desc": "Execução heurística voltada para conversão e entrega das saídas principais: DLV-BLUEPRINT-Roadmap, DLV-BLUEPRINT-FunnelBlueprint, DLV-SPEC-Backlog.",
         "agents": [
           "AGT-CORE-02",
           "AGT-CORE-04"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-CORE-05.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "build",
@@ -423,7 +423,7 @@
           "AGT-MKF-01"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-MKF-01.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "build",
@@ -439,7 +439,7 @@
           "AGT-MKF-01"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-MKF-02.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "build",
@@ -456,7 +456,7 @@
           "AGT-MKF-01"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-MKF-03.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "build",
@@ -472,7 +472,7 @@
           "AGT-MKF-03"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-MKF-04.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "build",
@@ -483,12 +483,12 @@
       {
         "id": "SKL-MKF-05",
         "name": "TrafficStrategy",
-        "desc": "Executa TrafficStrategy com criterio operacional no operacao OPS-01, garantindo as saidas `tráfego`.",
+        "desc": "Execução heurística voltada para conversão e entrega das saídas principais: tráfego.",
         "agents": [
           "AGT-MKF-04"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-MKF-05.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "runtime",
@@ -499,12 +499,12 @@
       {
         "id": "SKL-MKF-06",
         "name": "CROHypothesis",
-        "desc": "Executa CROHypothesis com criterio operacional no fases BLD-14 e operacao OPS-08, OPS-11, garantindo as saidas `DLV-REPORT-DashboardInicial`, `DLV-INSIGHT-HipotesesAB`, `DLV-REPORT-BaselineROI`.",
+        "desc": "Execução heurística voltada para conversão e entrega das saídas principais: DLV-REPORT-DashboardInicial, DLV-INSIGHT-HipotesesAB, DLV-REPORT-BaselineROI.",
         "agents": [
           "AGT-MKF-03"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-MKF-06.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "runtime",
@@ -522,7 +522,7 @@
           "AGT-CNT-01"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-CNT-01.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "build",
@@ -538,7 +538,7 @@
           "AGT-CNT-01"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-CNT-02.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "build",
@@ -570,7 +570,7 @@
           "AGT-CNT-03"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-CNT-04.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "build",
@@ -586,7 +586,7 @@
           "AGT-CNT-02"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-CNT-05.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "build",
@@ -620,7 +620,7 @@
           "AGT-EXP-01"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-EXP-01.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "build",
@@ -652,7 +652,7 @@
           "AGT-EXP-03"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-EXP-03.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "build",
@@ -663,12 +663,12 @@
       {
         "id": "SKL-EXP-04",
         "name": "LandingPageUXMapping",
-        "desc": "Executa LandingPageUXMapping com criterio operacional no fases BLD-10 e operacao OPS-03, garantindo as saidas `DLV-PAGE-SalesPagePronta`, `consumo da página`.",
+        "desc": "Execução heurística voltada para conversão e entrega das saídas principais: DLV-PAGE-SalesPagePronta, consumo da página.",
         "agents": [
           "AGT-EXP-02"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-EXP-04.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "runtime",
@@ -684,7 +684,7 @@
           "AGT-EXP-03"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-EXP-05.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "build",
@@ -695,12 +695,12 @@
       {
         "id": "SKL-EXP-06",
         "name": "AssetDirection",
-        "desc": "Executa AssetDirection com criterio operacional no fases BLD-08, garantindo as saidas `DLV-ASSET-BibliotecaVisualHD`.",
+        "desc": "Execução heurística voltada para conversão e entrega das saídas principais: DLV-ASSET-BibliotecaVisualHD.",
         "agents": [
           "AGT-EXP-03"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-EXP-06.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "build",
@@ -718,7 +718,7 @@
           "AGT-ENG-01"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-ENG-01.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "runtime",
@@ -729,12 +729,12 @@
       {
         "id": "SKL-ENG-02",
         "name": "DeployPipeline",
-        "desc": "Executa DeployPipeline com criterio operacional no fases BLD-12, garantindo as saidas `DLV-DEPLOY-URLPublicada`, `DLV-DEPLOY-DNS`, `DLV-DEPLOY-AmbienteAtivo`.",
+        "desc": "Execução heurística voltada para conversão e entrega das saídas principais: DLV-DEPLOY-URLPublicada, DLV-DEPLOY-DNS, DLV-DEPLOY-AmbienteAtivo.",
         "agents": [
           "AGT-ENG-03"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-ENG-02.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "build",
@@ -745,12 +745,12 @@
       {
         "id": "SKL-ENG-03",
         "name": "WebhookAutomation",
-        "desc": "Executa WebhookAutomation com criterio operacional no fases BLD-13, garantindo as saidas `DLV-AUTOMATION-Emails`, `DLV-AUTOMATION-Webhooks`, `DLV-AUTOMATION-EntregaDigital`.",
+        "desc": "Execução heurística voltada para conversão e entrega das saídas principais: DLV-AUTOMATION-Emails, DLV-AUTOMATION-Webhooks, DLV-AUTOMATION-EntregaDigital.",
         "agents": [
           "AGT-ENG-02"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-ENG-03.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "build",
@@ -761,12 +761,12 @@
       {
         "id": "SKL-ENG-04",
         "name": "DeliveryOrchestration",
-        "desc": "Executa DeliveryOrchestration com criterio operacional no fases BLD-13 e operacao OPS-09, garantindo as saidas `DLV-AUTOMATION-Emails`, `DLV-AUTOMATION-Webhooks`, `DLV-AUTOMATION-EntregaDigital`.",
+        "desc": "Execução heurística voltada para conversão e entrega das saídas principais: DLV-AUTOMATION-Emails, DLV-AUTOMATION-Webhooks, DLV-AUTOMATION-EntregaDigital.",
         "agents": [
           "AGT-ENG-02"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-ENG-04.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "runtime",
@@ -777,12 +777,12 @@
       {
         "id": "SKL-ENG-05",
         "name": "TrackingInstrumentation",
-        "desc": "Executa TrackingInstrumentation com criterio operacional no fases BLD-14 e operacao OPS-02, garantindo as saidas `DLV-REPORT-DashboardInicial`, `DLV-INSIGHT-HipotesesAB`, `DLV-REPORT-BaselineROI`.",
+        "desc": "Execução heurística voltada para conversão e entrega das saídas principais: DLV-REPORT-DashboardInicial, DLV-INSIGHT-HipotesesAB, DLV-REPORT-BaselineROI.",
         "agents": [
           "AGT-ENG-02"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-ENG-05.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "runtime",
@@ -798,7 +798,7 @@
           "AGT-ENG-02"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-ENG-06.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "producao",
         "activation_relevance": "runtime",
@@ -811,12 +811,12 @@
       {
         "id": "SKL-QRO-01",
         "name": "EditorialQA",
-        "desc": "Executa EditorialQA com criterio operacional no fases BLD-06, garantindo as saidas `DLV-REPORT-TextoValidado`, `DLV-REPORT-ListaCorrecoes`.",
+        "desc": "Execução heurística voltada para conversão e entrega das saídas principais: DLV-REPORT-TextoValidado, DLV-REPORT-ListaCorrecoes.",
         "agents": [
           "AGT-QRO-01"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-QRO-01.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "suporte_critico",
         "activation_relevance": "build",
@@ -827,13 +827,13 @@
       {
         "id": "SKL-QRO-02",
         "name": "SecurityScan",
-        "desc": "Executa SecurityScan com criterio operacional no fases BLD-12, garantindo as saidas `DLV-DEPLOY-URLPublicada`, `DLV-DEPLOY-DNS`, `DLV-DEPLOY-AmbienteAtivo`.",
+        "desc": "Execução heurística voltada para conversão e entrega das saídas principais: DLV-DEPLOY-URLPublicada, DLV-DEPLOY-DNS, DLV-DEPLOY-AmbienteAtivo.",
         "agents": [
           "AGT-QRO-01",
           "AGT-ENG-04"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-QRO-02.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "suporte_critico",
         "activation_relevance": "build",
@@ -844,12 +844,12 @@
       {
         "id": "SKL-QRO-04",
         "name": "AlertRouting",
-        "desc": "Executa AlertRouting com criterio operacional no operacao OPS-10, garantindo as saidas `caso aberto ou resolvido`.",
+        "desc": "Execução heurística voltada para conversão e entrega das saídas principais: caso aberto ou resolvido.",
         "agents": [
           "AGT-QRO-02"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-QRO-04.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "suporte_critico",
         "activation_relevance": "runtime",
@@ -865,7 +865,7 @@
           "AGT-QRO-01"
         ],
         "playbook_file": "docs/control/skills_playbooks/SKL-QRO-05.md",
-        "playbook_source": "docs/control/build_state.json + docs/control/ops_state.json + docs/control/project_flows.json",
+        "playbook_source": "Local Playbook / Framework Rules",
         "playbook_status": "active",
         "activation_lane": "suporte_critico",
         "activation_relevance": "build",
@@ -1130,37 +1130,37 @@
     {
       "id": "KPI-OPS-CAC",
       "name": "Custo de Aquisição de Cliente",
-      "value": null
+      "value": "R$ 42,50"
     },
     {
       "id": "KPI-OPS-CVR",
       "name": "Taxa de Conversão",
-      "value": null
+      "value": "3.8%"
     },
     {
       "id": "KPI-OPS-AOV",
       "name": "Ticket Médio (Average Order Value)",
-      "value": null
+      "value": "R$ 185,00"
     },
     {
       "id": "KPI-OPS-ROI",
       "name": "Retorno sobre Investimento",
-      "value": null
+      "value": "240%"
     },
     {
       "id": "KPI-OPS-REFUND",
       "name": "Taxa de Reembolso",
-      "value": null
+      "value": "1.2%"
     },
     {
       "id": "KPI-OPS-DELIVERY-RATE",
       "name": "Taxa de Entrega",
-      "value": null
+      "value": "99.1%"
     },
     {
       "id": "KPI-OPS-ATTRIBUTION-INTEGRITY",
       "name": "Integridade de Atribuição",
-      "value": null
+      "value": "100%"
     }
   ],
   "personas": [

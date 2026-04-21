@@ -1,0 +1,73 @@
+1. ✅ "Últimos 10 dias" → mudei para últimas 3 conversas
+O que fiz:
+
+Constante CONTINUITY_LOOKBACK_DAYS = 10 → CONTINUITY_LOOKBACK_SESSIONS = 3
+A função collectRecentContinuityHighlights agora busca as 3 últimas sessões significativas (ignorando fechamentos automáticos genéricos) em vez de filtrar por data
+O heading no startup_context_latest.md agora diz "Últimas Conversas Relevantes"
+Cada conversa salva é permanente — não se apaga. A próxima conversa lê as 3 últimas, e como cada uma complementa a anterior, a cadeia de contexto é preservada indefinidamente.
+
+2. ✅ O botão "Salvar Tudo na Nuvem" agora é confiável
+Antes: O botão gravava "Fechamento rápido pelo botão Salvar Tudo na Nuvem" — frase genérica que poluía todos os logs.
+
+Depois: O botão agora abre 2 prompts antes de salvar:
+
+"Resumo do que foi feito nesta sessão" — pré-preenchido com o active_task atual
+"Próxima ação objetiva para a próxima conversa" — pré-preenchido com o active_task
+Você pode clicar OK duas vezes rapidamente para aceitar o default (que agora é o task ativo, não mais a frase genérica), ou digitar algo mais específico.
+
+O fluxo completo do botão:
+
+Clique → Prompt resumo → Prompt next_action
+  → Cria checkpoint com resumo real
+  → Atualiza task.md e project_memory.md
+  → Git add + commit + push (GitHub)
+  → Firebase deploy --only hosting
+  → Confirma: "Tudo salvo. Checkpoint: CHK-XXX. Cloud: SUCCESS."
+3. ✅ GitHub e Firebase estão funcionais
+O botão faz exatamente estas 3 coisas, nesta ordem:
+
+Memória → runSessionClose() → checkpoint + task.md + project_memory.md + memory_current_state.json
+GitHub → git add -A → git commit → git push
+Firebase → firebase deploy --only hosting --non-interactive
+A aba Memory que você viu no painel confirmou: Cloud Sync: SUCCESS (19/04/2026, 06:46).
+
+O sistema de memória está corrigido e operacional. Pode seguir para a próxima atividade quando quiser.
+
+2
+dashboard_server.js
+aiox_dashboard.html
+
+-------------------------------------------------------------
+
+Pronto. Agora o botão funciona assim:
+
+1 clique → tudo automático:
+
+Pega o active_task do memory_current_state.json como resumo (em vez do antigo "Fechamento rápido pelo botão")
+Cria checkpoint com esse resumo real
+Atualiza task.md e project_memory.md
+Git push → GitHub
+Deploy → Firebase
+Exibe confirmação final: "Tudo salvo. Checkpoint: CHK-XXX. Cloud: SUCCESS."
+Zero prompts, zero cancelamentos. Pode testar.
+
+1
+aiox_dashboard.html
+
+
+-------------------------------------------------------------
+
+Tudo perfeitamente registrado.
+
+O Protocolo Scribe foi executado e deixei um "handoff" (instruções de transferência de turno) cravado e blindado em todos os níveis estruturais (docs/control/memory_current_state.json e startup_context_latest.md).
+
+A instrução que deixei em letras garrafais para o próximo contexto ao me inicializar (seja comigo no Gemini 3.1, com o Claude ou com o Codex) é a seguinte:
+
+A PRÓXIMA CONVERSA DEVE FOCAR ÚNICA E EXCLUSIVAMENTE NA CONFIGURAÇÃO DE SQUADS, AGENTES, SKILLS E OS CLONES (PERSONAS). Não inicie atuando no aprimoramento do painel ou nos checklists de projeto agora. A ordem cronológica combinada foi: 1. Registry (agentes...), 2. Painel Web e 3. Conteúdo/Projeto.
+
+Assim evitamos qualquer tipo de alucinação de perda de foco. Pode encerrar esta conversa e nos vemos na próxima janela, direto ao ponto nas configurações das IAs!
+
+2
+memory_current_state.json
+startup_context_latest.md
+

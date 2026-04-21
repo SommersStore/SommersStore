@@ -2,19 +2,18 @@
   "project": "SommersStore Elite",
   "build_phase": "BLD-07",
   "ops_stage": "OPS-01",
-  "active_goal": "Implementar correcoes da auditoria tecnica do painel AIOX e blindar continuidade de contexto entre conversas",
-  "active_task": "Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.",
-  "deliverable_in_progress": "Correcoes da auditoria tecnica (artefato: audit_painel_aiox.md)",
-  "current_owner": "SQD-ENG",
-  "last_relevant_event": "Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.",
+  "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
+  "active_task": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+  "deliverable_in_progress": "Registry Settings & Persona Bindings",
+  "current_owner": "SQD-MEM",
+  "last_relevant_event": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
   "next_actions": [
-    "Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.",
-    "Implementar correcoes P0: popular KPIs, garantir project_id em logs",
-    "Implementar correcoes P1: cores squads, handles AGENTS.md, rotacao JSONs",
-    "Retomar configuracao de squads com interacao por drag-and-drop (agente, skill e persona/clone)",
-    "Avancar para conteudo (ebooks) com checkpoints ativos",
-    "Preparar trilha de integracao de checkout",
-    "Modularizar HTML do painel (P2)"
+    "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+    "Iniciar conversa nova aplicando Continuity Handshake",
+    "Focar EXCLUSIVAMENTE na configuracao de squads, agentes, skills e personas/clones",
+    "Aprimoramento do painel (P0/P1 da auditoria) foi postergado para uma sessao FUTURA",
+    "Dar andamento integracao aos ebooks e checkout (posteriores)",
+    "Modularizar HTML do painel (P2 futuro)"
   ],
   "open_blockers": [
     "KPIs todos null em registry.json — Master Hub sem metricas",
@@ -26,6 +25,6 @@
     "Retomada incompleta se checkpoint nao registrar proxima acao exata"
   ],
   "latest_active_decision_id": "DEC-MEM-0004",
-  "latest_checkpoint_id": "CHK-MEM-0100",
-  "updated_at": "2026-04-20T22:16:31-03:00"
+  "latest_checkpoint_id": "CHK-MEM-0104",
+  "updated_at": "2026-04-21T06:25:40-03:00"
 }

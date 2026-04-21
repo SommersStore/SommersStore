@@ -33,4 +33,4 @@ Garantir continuidade entre sessoes, reduzir perda de contexto e evitar retrabal
 - O arquivo `knowledge/project_memory.md` esta mantido apenas como legado apontando para a fonte canonica.
 
 ## Last updated
-- updated_at: 2026-04-20T22:16:31-03:00
+- updated_at: 2026-04-21T06:25:40-03:00

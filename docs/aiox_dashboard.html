@@ -3841,21 +3841,8 @@ window.saveAllNow = async function() {
 
         const currentTask = ((window.MEMORY_LAYERS || {}).current_state || {}).active_task || '';
         const currentGoal = ((window.MEMORY_LAYERS || {}).current_state || {}).active_goal || '';
-        const defaultSummary = currentTask || currentGoal || 'Sessao encerrada pelo painel.';
-        const userSummary = prompt(
-            'Resumo do que foi feito nesta sessao (ou clique OK para usar o padrao):',
-            defaultSummary
-        );
-        if (userSummary === null) return;
-        const summary = userSummary.trim() || defaultSummary;
-
-        const defaultNextAction = currentTask || '';
-        const userNextAction = prompt(
-            'Proxima acao objetiva para a proxima conversa (ou clique OK para manter):',
-            defaultNextAction
-        );
-        if (userNextAction === null) return;
-        const nextAction = userNextAction.trim() || defaultNextAction;
+        const summary = currentTask || currentGoal || 'Sessao encerrada pelo painel.';
+        const nextAction = currentTask || '';
 
         window.CLOUD_SYNC_STATE = Object.assign({}, syncState, {
             in_progress: true,

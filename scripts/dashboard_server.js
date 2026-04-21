@@ -1883,21 +1883,24 @@ function appendExecutionLog(type, target, details, initiatedBy = 'system', why =
     return id;
 }
 
-function appendMemoryMutation(scope, summary, mutatedBy = 'system') {
+function appendMemoryMutation(scope, summary, mutatedBy = 'system', projectId = null) {
     const data = ensureControlJson(FILES.memoryMutations, { mutations: [] });
     data.mutations = asArray(data.mutations);
+    const resolvedProjectId = normalizeProjectId(projectId) || inferProjectIdFromCurrentSession() || inferProjectIdFromText(summary) || inferProjectIdFromText(scope);
     data.mutations.push({
         timestamp: nowIso(),
         memory_scope: scope,
         diff_summary: summary,
-        mutated_by: mutatedBy
+        mutated_by: mutatedBy,
+        project_id: resolvedProjectId
     });
     writeControlJson(FILES.memoryMutations, data);
 }
 
-function appendMemoryRun(action, outputSummary, filesTouched) {
+function appendMemoryRun(action, outputSummary, filesTouched, projectId = null) {
     const data = ensureControlJson(FILES.memoryRuns, { items: [] });
     data.items = asArray(data.items);
+    const resolvedProjectId = normalizeProjectId(projectId) || inferProjectIdFromCurrentSession() || inferProjectIdFromText(outputSummary) || inferProjectIdFromText(action) || null;
     const id = nextSerial('RUN-MEM', data.items.map(item => item.id));
     const ts = nowIso();
     data.items.push({
@@ -1913,7 +1916,8 @@ function appendMemoryRun(action, outputSummary, filesTouched) {
         input_summary: 'Automatic lifecycle event',
         output_summary: outputSummary,
         result: 'success',
-        files_touched: filesTouched || []
+        files_touched: filesTouched || [],
+        project_id: resolvedProjectId
     });
     writeControlJson(FILES.memoryRuns, data);
     return id;
