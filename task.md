@@ -5,8 +5,8 @@
 - [x] Corrigir fragilidades do painel que afetam continuidade (editor/memory wiring)
 - [x] Rodar validacao operacional real do ciclo startup/shutdown no painel
 - [x] Auditoria tecnica completa do painel AIOX (server, frontend, registry, memoria)
-- [ ] Implementar correcoes P0 da auditoria (KPIs nulos, project_id em logs)
-- [ ] Implementar correcoes P1 (cores squads, handles AGENTS.md, rotacao JSONs)
+- [x] Implementar correcoes P0 da auditoria (KPIs nulos, project_id em logs)
+- [x] Implementar correcoes P1 (cores squads, handles AGENTS.md, rotacao JSONs)
 
 ## Pending Work
 - [x] Consolidar eventos automaticos de memoria (execution + checkpoint + mutation)
@@ -20,6 +20,196 @@
 - [ ] Modularizar HTML do painel (P2 auditoria)
 
 ## Done in this session (21/04/2026 — Antigravity)
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Checkpoint: CHK-MEM-0144
+
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Sessao encerrada pelo usuario apos consolidar melhorias de continuidade no painel: fallback de transcricao YouTube por audio API, uso de creditos Gemini para extracao/harmonizacao, botao Forcar Audio API e limpeza de Markdown por arquivo.
+- [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Checkpoint: CHK-MEM-0143
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0140
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0139
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0138
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0137
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0136
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0135
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0134
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0133
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0132
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0131
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0130
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0129
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0128
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0127
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0126
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0125
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0124
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0123
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0122
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0121
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0120
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0119
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0118
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0117
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0116
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0115
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0114
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0113
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0112
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0111
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0110
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0109
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0108
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0107
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0106
+
+- [x] Sessao encerrada automaticamente
+- [x] Resumo: Encerramento automatico (fechamento de aba/janela).
+- [x] Proxima acao: (nao informada)
+- [x] Checkpoint: CHK-MEM-0105
+
 - [x] Sessao encerrada automaticamente
 - [x] Resumo: Configurar e aprimorar squads, agentes, skills e personas/clones.
 - [x] Proxima acao: Configurar e aprimorar squads, agentes, skills e personas/clones.
@@ -521,4 +711,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-04-21T06:25:40-03:00
+- updated_at: 2026-04-22T16:46:01-03:00

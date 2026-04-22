@@ -488,7 +488,7 @@
     <main class="flex-1 overflow-hidden">
 
         <!-- ═ ═ ═ ═ ═ ═ ═  AIOX MASTER HUB (CENTRAL) ═ ═ ═ ═ ═ ═ ═  -->
-        <div id="pane-master" class="tab-pane active p-4" style="background:#050508">
+        <div id="pane-master" class="tab-pane active p-4" style="background:#090c14">
             <div class="glass p-4 mb-4 flex items-center justify-between gap-4">
                 <div>
                     <h2 class="text-2xl font-black uppercase tracking-tighter italic"><span class="text-primary">AIOX</span> <span class="text-white">MASTER</span></h2>
@@ -1116,6 +1116,8 @@ window.PROJECT_FLOWS = window.PROJECT_FLOWS || { projects: {} };
 window.MASTER_FILTERS = window.MASTER_FILTERS || { query: '', status: 'all', owner: '' };
 
 const MASTER_UI_STORAGE_KEY = 'aiox.master.ui.v2';
+const MASTER_CLONE_SECTION_STORAGE_KEY = 'aiox.master.clone.sections.v1';
+const PERSONA_YT_MODE_STORAGE_KEY = 'aiox.persona.youtube.mode.v1';
 
 const MASTER_MODE_CAPTIONS = {
     construcao: 'Fluxo de producao do projeto',
@@ -1571,6 +1573,7 @@ function getCloneNodes() {
             return {
                 key: `clone-${asset.persona_id}`,
                 id: `CLN-${asset.persona_id.replace(/^prs-/, '').toUpperCase()}`,
+                persona_id: asset.persona_id,
                 label: persona.name ? `${persona.name} Clone` : `Clone ${asset.persona_id}`,
                 type: 'Clone',
                 status: exists ? 'ativo' : 'bloqueado',
@@ -1837,6 +1840,609 @@ function selectMasterItem(itemKey) {
     renderMasterHub();
 }
 
+function masterCloneToneClasses(tone, enabled) {
+    if (!enabled) return 'border-white/10 bg-black/25 text-white/35 opacity-60 cursor-not-allowed';
+    if (tone === 'extract') return 'border-secondary/40 bg-secondary/15 text-secondary hover:bg-secondary/25';
+    if (tone === 'harmonize') return 'border-primary/40 bg-primary/15 text-primary hover:bg-primary/25';
+    if (tone === 'reset') return 'border-amber-400/40 bg-amber-400/15 text-amber-300 hover:bg-amber-400/25';
+    if (tone === 'auto') return 'border-sky/40 bg-sky/15 text-sky hover:bg-sky/25';
+    if (tone === 'clean') return 'border-accent/40 bg-accent/15 text-accent hover:bg-accent/25';
+    if (tone === 'danger') return 'border-coral/40 bg-coral/15 text-coral hover:bg-coral/25';
+    if (tone === 'file') return 'border-white/30 bg-white/10 text-white hover:bg-white/20';
+    return 'border-white/25 bg-white/10 text-white hover:bg-white/15';
+}
+
+function masterCloneActionButton(label, tone, enabled, onClick) {
+    const classes = `text-[8px] font-bold uppercase tracking-wider px-2 py-1 rounded border transition-colors ${masterCloneToneClasses(tone, enabled)}`;
+    if (!enabled) return `<button class="${classes}" disabled>${label}</button>`;
+    return `<button class="${classes}" onclick='event.stopPropagation();${onClick}'>${label}</button>`;
+}
+
+function loadPersonaYoutubeModeState() {
+    if (window.PERSONA_YT_MODE_STATE_LOADED) return;
+    window.PERSONA_YT_MODE_STATE_LOADED = true;
+    window.PERSONA_YT_MODE_STATE = {};
+    try {
+        const raw = localStorage.getItem(PERSONA_YT_MODE_STORAGE_KEY);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') window.PERSONA_YT_MODE_STATE = parsed;
+    } catch (_) {
+        window.PERSONA_YT_MODE_STATE = {};
+    }
+}
+
+function savePersonaYoutubeModeState() {
+    try {
+        localStorage.setItem(
+            PERSONA_YT_MODE_STORAGE_KEY,
+            JSON.stringify(window.PERSONA_YT_MODE_STATE || {})
+        );
+    } catch (_) {
+        // no-op (private mode / quota)
+    }
+}
+
+function ensurePersonaYoutubeModeState() {
+    loadPersonaYoutubeModeState();
+    if (!window.PERSONA_YT_MODE_STATE || typeof window.PERSONA_YT_MODE_STATE !== 'object') {
+        window.PERSONA_YT_MODE_STATE = {};
+    }
+    return window.PERSONA_YT_MODE_STATE;
+}
+
+function isPersonaForceAudioApiEnabled(personaId) {
+    const state = ensurePersonaYoutubeModeState();
+    const raw = state && personaId ? state[personaId] : null;
+    if (raw && typeof raw === 'object') return raw.force_audio_api === true;
+    return raw === true;
+}
+
+window.togglePersonaForceAudioApi = function(personaId, refreshDrawer = true) {
+    const state = ensurePersonaYoutubeModeState();
+    const nextValue = !isPersonaForceAudioApiEnabled(personaId);
+    state[personaId] = { force_audio_api: nextValue };
+    savePersonaYoutubeModeState();
+    renderMasterHub();
+
+    if (refreshDrawer) {
+        const drawerState = window.DETAIL_DRAWER_STATE || { kind: '', id: '' };
+        const isDrawerOpen = Boolean(
+            drawerState.kind === 'persona_assets' &&
+            drawerState.id === personaId &&
+            document.getElementById('detail-drawer') &&
+            document.getElementById('detail-drawer').classList.contains('open')
+        );
+        if (isDrawerOpen) openPersonaAssetsDrawer(personaId, true);
+    }
+
+    return nextValue;
+};
+
+function loadMasterCloneSectionState() {
+    if (window.MASTER_CLONE_SECTION_STATE_LOADED) return;
+    window.MASTER_CLONE_SECTION_STATE_LOADED = true;
+    window.MASTER_CLONE_SECTION_STATE = {};
+    try {
+        const raw = localStorage.getItem(MASTER_CLONE_SECTION_STORAGE_KEY);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') {
+            window.MASTER_CLONE_SECTION_STATE = parsed;
+        }
+    } catch (_) {
+        window.MASTER_CLONE_SECTION_STATE = {};
+    }
+}
+
+function saveMasterCloneSectionState() {
+    try {
+        localStorage.setItem(
+            MASTER_CLONE_SECTION_STORAGE_KEY,
+            JSON.stringify(window.MASTER_CLONE_SECTION_STATE || {})
+        );
+    } catch (_) {
+        // no-op (private mode / quota)
+    }
+}
+
+function masterCloneSectionDomId(personaId, sectionId) {
+    const base = String(personaId || 'na').replace(/[^a-zA-Z0-9_-]/g, '-');
+    const section = String(sectionId || 'section').replace(/[^a-zA-Z0-9_-]/g, '-');
+    return `master-clone-section-${base}-${section}`;
+}
+
+function ensureMasterCloneSectionState(personaId) {
+    loadMasterCloneSectionState();
+    if (!window.MASTER_CLONE_SECTION_STATE) window.MASTER_CLONE_SECTION_STATE = {};
+    if (!window.MASTER_CLONE_SECTION_STATE[personaId]) {
+        window.MASTER_CLONE_SECTION_STATE[personaId] = {
+            base: true,
+            processing: true,
+            support: true
+        };
+        saveMasterCloneSectionState();
+    }
+    return window.MASTER_CLONE_SECTION_STATE[personaId];
+}
+
+window.toggleMasterCloneSection = function(personaId, sectionId) {
+    const state = ensureMasterCloneSectionState(personaId);
+    state[sectionId] = !state[sectionId];
+    saveMasterCloneSectionState();
+
+    const root = document.getElementById(masterCloneSectionDomId(personaId, sectionId));
+    if (!root) {
+        renderMasterHub();
+        return;
+    }
+    const content = root.querySelector('[data-role="content"]');
+    const chevron = root.querySelector('[data-role="chevron"]');
+    const isOpen = state[sectionId] !== false;
+    if (content) {
+        if (isOpen) {
+            content.style.maxHeight = `${Math.max((content.scrollHeight || 0) + 24, 120)}px`;
+            content.style.opacity = '1';
+            content.style.paddingTop = '8px';
+        } else {
+            content.style.maxHeight = '0px';
+            content.style.opacity = '0';
+            content.style.paddingTop = '0px';
+        }
+    }
+    if (chevron) chevron.innerHTML = isOpen ? '&#9662;' : '&#9656;';
+};
+
+function masterCloneSectionCard(personaId, sectionId, title, content) {
+    const state = ensureMasterCloneSectionState(personaId);
+    const isOpen = state[sectionId] !== false;
+    const sectionDomId = masterCloneSectionDomId(personaId, sectionId);
+    const contentStyle = isOpen
+        ? 'max-height:2200px;opacity:1;padding-top:8px;'
+        : 'max-height:0px;opacity:0;padding-top:0px;';
+    return `
+        <div id="${sectionDomId}" class="border border-white/10 rounded p-2 bg-black/15 mb-2">
+            <button class="w-full flex items-center justify-between text-left" onclick='event.stopPropagation();toggleMasterCloneSection(${JSON.stringify(personaId)}, ${JSON.stringify(sectionId)})'>
+                <span class="text-[8px] text-muted uppercase tracking-widest">${title}</span>
+                <span data-role="chevron" class="text-[9px] text-white/70">${isOpen ? '&#9662;' : '&#9656;'}</span>
+            </button>
+            <div data-role="content" class="overflow-hidden transition-all duration-200 ease-out" style="${contentStyle}">${content}</div>
+        </div>
+    `;
+}
+
+function masterCloneAutomationPanel(selected) {
+    if (!selected || selected.type !== 'Clone' || !selected.persona_id) return '';
+    const assetsByPersona = personaAssetMap();
+    const assets = assetsByPersona[selected.persona_id];
+    if (!assets) {
+        return `<div class="master-sidebar-card mt-3"><p class="text-[9px] text-muted">Sem dados de assets para esta persona.</p></div>`;
+    }
+
+    const personaIdJson = JSON.stringify(selected.persona_id);
+    const forceAudioApi = isPersonaForceAudioApiEnabled(selected.persona_id);
+    const forceAudioLabel = forceAudioApi ? 'Forcar Audio API: ON' : 'Forcar Audio API: OFF';
+    const forceAudioTone = forceAudioApi ? 'harmonize' : 'file';
+    const renderFileRow = (file, actionButtons = '', fallback = 'Sem arquivo') => {
+        if (!file || !file.path) {
+            return `<div class="border border-white/10 rounded p-2 mb-2 bg-black/20"><p class="text-[9px] text-muted italic">${fallback}</p></div>`;
+        }
+        const exists = Boolean(file.exists);
+        const status = exists ? 'ok' : 'faltando';
+        const statusClass = exists
+            ? 'text-secondary border-secondary/25 bg-secondary/10'
+            : 'text-coral border-coral/25 bg-coral/10';
+        return `
+            <div class="border border-white/10 rounded p-2 mb-2 bg-black/20">
+                <div class="flex items-center justify-between gap-2">
+                    <p class="text-[9px] text-white font-bold truncate">${masterEscape(file.name || file.path)}</p>
+                    <span class="text-[7px] px-1.5 py-0.5 rounded border ${statusClass}">${status}</span>
+                </div>
+                <p class="text-[8px] text-muted truncate">${masterEscape(file.path)}</p>
+                ${actionButtons ? `<div class="flex gap-1 mt-2 flex-wrap">${actionButtons}</div>` : ''}
+            </div>
+        `;
+    };
+
+    const collect = (arr, kind) => (arr || []).map(file => ({ ...file, _kind: kind }));
+    const files = [
+        ...collect(assets.transcript_files, 'transcript'),
+        ...collect(assets.full_transcript_files, 'full_transcript')
+    ];
+
+    const personaFile = assets.instruction_file;
+    const cloneFile = assets.clone_file;
+    const personaActions = personaFile && personaFile.path
+        ? masterCloneActionButton('Editar', 'file', Boolean(personaFile.exists && isPersonaEditableFile(personaFile.path)), `openEditorModal(${JSON.stringify(personaFile.path)}, ${JSON.stringify(`Persona ${assets.persona_name || selected.persona_id}`)})`)
+        : '';
+    const cloneActions = [
+        masterCloneActionButton('Editar', 'file', Boolean(cloneFile && cloneFile.exists && isPersonaEditableFile(cloneFile.path)), cloneFile && cloneFile.path ? `openEditorModal(${JSON.stringify(cloneFile.path)}, ${JSON.stringify(`Clone ${assets.persona_name || selected.persona_id}`)})` : ''),
+        masterCloneActionButton('Arquivo', 'file', true, `masterCloneLinkFile(${personaIdJson}, "clone")`)
+    ].join('');
+
+    const topActions = `
+        <div class="mb-2">
+            <p class="text-[8px] text-muted mb-1">Modo YouTube</p>
+            <div class="flex flex-wrap gap-2">
+                ${masterCloneActionButton(forceAudioLabel, forceAudioTone, true, `togglePersonaForceAudioApi(${personaIdJson}, false)`)}
+            </div>
+            <p class="text-[8px] text-muted mt-1">ON = sempre usa audio + API. OFF = legenda primeiro e fallback automatico para audio.</p>
+        </div>
+        <div class="mb-2">
+            <p class="text-[8px] text-muted mb-1">Base</p>
+            <div class="flex flex-wrap gap-2">
+                ${masterCloneActionButton('URL', 'auto', true, `masterCloneIngestUrl(${personaIdJson}, "transcript")`)}
+                ${masterCloneActionButton('Arquivo', 'file', true, `masterCloneLinkFile(${personaIdJson}, "transcript")`)}
+                ${masterCloneActionButton('Lote', 'file', true, `masterCloneLinkBatch(${personaIdJson}, "transcript")`)}
+            </div>
+        </div>
+        <div class="mb-2">
+            <p class="text-[8px] text-muted mb-1">Completa</p>
+            <div class="flex flex-wrap gap-2">
+                ${masterCloneActionButton('URL', 'auto', true, `masterCloneIngestUrl(${personaIdJson}, "full_transcript")`)}
+                ${masterCloneActionButton('Arquivo', 'file', true, `masterCloneLinkFile(${personaIdJson}, "full_transcript")`)}
+                ${masterCloneActionButton('Lote', 'file', true, `masterCloneLinkBatch(${personaIdJson}, "full_transcript")`)}
+                ${masterCloneActionButton('Auto', 'auto', true, `masterCloneAuto(${personaIdJson}, "full_transcript")`)}
+                ${masterCloneActionButton('Limpar', 'clean', true, `masterCloneCleanMds(${personaIdJson})`)}
+            </div>
+        </div>
+        <p class="text-[8px] text-muted mb-2">Fluxo: URL -> Extrair -> Harmonizar. Use Reset para liberar um novo ciclo.</p>
+    `;
+
+    const rows = files.length ? files.map(file => {
+        const exists = Boolean(file && file.exists);
+        const extracted = Boolean(file && file.extracted);
+        const harmonized = Boolean(file && file.harmonized);
+        const canExtract = exists && !extracted;
+        const canHarmonize = exists && extracted && !harmonized;
+        const canReset = exists && (extracted || harmonized);
+        const status = !exists ? 'faltando' : (harmonized ? 'ok' : (extracted ? 'staging' : 'novo'));
+        const statusClass = !exists
+            ? 'text-coral border-coral/25 bg-coral/10'
+            : (harmonized ? 'text-secondary border-secondary/25 bg-secondary/10' : (extracted ? 'text-primary border-primary/25 bg-primary/10' : 'text-muted border-white/10 bg-white/5'));
+        const sourceName = masterEscape(String(file.name || file.path || '').split(/[\\/]/).pop() || file.path || '-');
+        const sourcePath = masterEscape(file.path || '-');
+        const cycles = Number(file.procedure_count || file.harmonization_count || 0);
+        const canEdit = exists && isPersonaEditableFile(file.path);
+        const canClean = exists && isPersonaCleanableMarkdown(file.path);
+        return `
+            <div class="border border-white/10 rounded p-2 mb-2 bg-black/20">
+                <div class="flex items-center justify-between gap-2">
+                    <p class="text-[9px] text-white font-bold truncate">${sourceName}</p>
+                    <span class="text-[7px] px-1.5 py-0.5 rounded border ${statusClass}">${status}</span>
+                </div>
+                <p class="text-[8px] text-muted truncate">${sourcePath}</p>
+                <div class="flex items-center justify-between mt-2">
+                    <div class="flex gap-1 flex-wrap">
+                        ${masterCloneActionButton('Editar', 'file', canEdit, `openEditorModal(${JSON.stringify(file.path)}, ${JSON.stringify(sourceName)})`)}
+                        ${masterCloneActionButton('Extrair', 'extract', canExtract, `masterCloneExtract(${personaIdJson}, ${JSON.stringify(file.path)})`)}
+                        ${masterCloneActionButton('Harmonizar', 'harmonize', canHarmonize, `masterCloneHarmonize(${personaIdJson}, ${JSON.stringify(file.path)})`)}
+                        ${masterCloneActionButton('Reset', 'reset', canReset, `masterCloneReset(${personaIdJson}, ${JSON.stringify(file.path)})`)}
+                        ${masterCloneActionButton('Limpar', 'clean', canClean, `masterCloneCleanFile(${personaIdJson}, ${JSON.stringify(file.path)})`)}
+                        ${masterCloneActionButton('Remover', 'danger', Boolean(file && file.path), `masterCloneUnlink(${personaIdJson}, ${JSON.stringify(file._kind || 'full_transcript')}, ${JSON.stringify(file.path || '')})`)}
+                    </div>
+                    <span class="text-[8px] text-muted font-mono" title="Ciclos concluidos">${cycles}x</span>
+                </div>
+            </div>
+        `;
+    }).join('') : '<p class="text-[9px] text-muted italic">Sem transcricoes vinculadas. Use URL para iniciar.</p>';
+
+    const supportTopActions = `
+        <div class="flex flex-wrap gap-2 mb-2">
+            ${masterCloneActionButton('URL', 'auto', true, `masterCloneIngestUrl(${personaIdJson}, "support")`)}
+            ${masterCloneActionButton('Arquivo', 'file', true, `masterCloneLinkFile(${personaIdJson}, "support")`)}
+            ${masterCloneActionButton('Lote', 'file', true, `masterCloneLinkBatch(${personaIdJson}, "support")`)}
+        </div>
+    `;
+    const supportRows = (assets.support_files || []).length
+        ? (assets.support_files || []).map(file => {
+            const canEdit = Boolean(file && file.exists && isPersonaEditableFile(file.path));
+            const canClean = Boolean(file && file.exists && isPersonaCleanableMarkdown(file.path));
+            const actions = [
+                masterCloneActionButton('Editar', 'file', canEdit, `openEditorModal(${JSON.stringify(file.path)}, ${JSON.stringify(file.name || file.path)})`),
+                masterCloneActionButton('Limpar', 'clean', canClean, `masterCloneCleanFile(${personaIdJson}, ${JSON.stringify(file.path || '')})`),
+                masterCloneActionButton('Remover', 'danger', Boolean(file && file.path), `masterCloneUnlink(${personaIdJson}, "support", ${JSON.stringify(file.path || '')})`)
+            ].join('');
+            return renderFileRow(file, actions, 'Sem anexo');
+        }).join('')
+        : '<p class="text-[9px] text-muted italic">Sem anexos de suporte.</p>';
+
+    const baseContent = `
+        <p class="text-[8px] text-muted mb-2">Arquivos base da persona e clone:</p>
+        ${renderFileRow(personaFile, personaActions, 'Sem arquivo de persona')}
+        ${renderFileRow(cloneFile, cloneActions, 'Sem arquivo clone')}
+    `;
+    const processingContent = `
+        ${topActions}
+        ${rows}
+    `;
+    const supportContent = `
+        ${supportTopActions}
+        ${supportRows}
+    `;
+
+    return `
+        <div class="master-sidebar-card mt-3">
+            <p class="text-[9px] text-muted uppercase tracking-widest mb-2">Pipeline Clone</p>
+            ${masterCloneSectionCard(selected.persona_id, 'base', 'Base da Persona', baseContent)}
+            ${masterCloneSectionCard(selected.persona_id, 'processing', 'Transcricoes e Processamento', processingContent)}
+            ${masterCloneSectionCard(selected.persona_id, 'support', 'Anexos (separado)', supportContent)}
+        </div>
+    `;
+}
+
+async function refreshMasterCloneContext() {
+    await loadAllData();
+    renderMasterHub();
+    renderPersonas();
+}
+
+window.masterCloneLinkFile = async function(personaId, kind = 'full_transcript') {
+    const kindLabel = {
+        clone: 'clone',
+        transcript: 'transcricao base',
+        full_transcript: 'transcricao completa',
+        support: 'anexo de suporte'
+    };
+    const sourcePath = prompt(`Cole o caminho do arquivo para ${kindLabel[kind] || kind}.\n\nExemplos:\n- C:/Users/ADMIN/Downloads/arquivo.md\n- knowledge/clones/transcripts/arquivo.md`);
+    if (!sourcePath) return;
+    const copyToLibrary = confirm('Copiar para a biblioteca padrao do projeto?\n\nOK = sim\nCancelar = apenas vincular caminho atual');
+    try {
+        const res = await fetch('/api/personas/assets/link', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                persona_id: personaId,
+                kind,
+                source_path: sourcePath,
+                copy_to_library: copyToLibrary,
+                initiated_by: 'master_clone_link'
+            })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha ao vincular arquivo');
+        await refreshMasterCloneContext();
+        alert(`Arquivo vinculado: ${data.path || sourcePath}`);
+    } catch (error) {
+        alert(`Nao foi possivel vincular arquivo: ${error.message}`);
+    }
+};
+
+window.masterCloneLinkBatch = async function(personaId, kind = 'full_transcript') {
+    const raw = prompt('Cole os caminhos (1 por linha) dos arquivos que deseja vincular:');
+    if (!raw) return;
+    const paths = [...new Set(String(raw).split(/\r?\n/).map(v => v.trim()).filter(Boolean))];
+    if (!paths.length) return alert('Nenhum caminho valido informado.');
+    const copyToLibrary = confirm('Copiar para a biblioteca padrao do projeto?\n\nOK = sim\nCancelar = apenas vincular caminho atual');
+    let success = 0;
+    const errors = [];
+    for (const sourcePath of paths) {
+        try {
+            const res = await fetch('/api/personas/assets/link', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    persona_id: personaId,
+                    kind,
+                    source_path: sourcePath,
+                    copy_to_library: copyToLibrary,
+                    initiated_by: 'master_clone_link_batch'
+                })
+            });
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok || !data.success) throw new Error(data.error || 'falha ao vincular');
+            success += 1;
+        } catch (error) {
+            errors.push(`${sourcePath}: ${error.message}`);
+        }
+    }
+    await refreshMasterCloneContext();
+    if (!errors.length) return alert(`${success} arquivo(s) vinculado(s) com sucesso.`);
+    alert(`${success} arquivo(s) vinculados.\n${errors.length} falha(s):\n${errors.slice(0, 5).join('\n')}${errors.length > 5 ? '\n...' : ''}`);
+};
+
+window.masterCloneUnlink = async function(personaId, kind, sourcePath) {
+    if (!confirm('Remover este arquivo da lista da persona?')) return;
+    try {
+        const res = await fetch('/api/personas/assets/unlink', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                persona_id: personaId,
+                kind,
+                path: sourcePath || null,
+                initiated_by: 'master_clone_unlink'
+            })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha ao remover');
+        await refreshMasterCloneContext();
+    } catch (error) {
+        alert(`Nao foi possivel remover: ${error.message}`);
+    }
+};
+
+window.masterCloneCleanMds = async function(personaId) {
+    if (!confirm('Executar Limpar MDs para remover imagens/base64 dos arquivos desta persona?')) return;
+    try {
+        const res = await fetch('/api/personas/assets/clean-md', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                persona_id: personaId,
+                initiated_by: 'master_clone_clean_md'
+            })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha no Limpar MDs');
+        await refreshMasterCloneContext();
+        alert(`Limpar MDs concluido.\nArquivos alterados: ${data.changed_files || 0}/${data.total_files || 0}`);
+    } catch (error) {
+        alert(`Nao foi possivel limpar MDs: ${error.message}`);
+    }
+};
+
+window.masterCloneCleanFile = async function(personaId, sourcePath) {
+    if (!sourcePath) return;
+    if (!confirm('Limpar somente este arquivo (remover imagens/base64)?')) return;
+    try {
+        const res = await fetch('/api/personas/assets/clean-md-file', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                persona_id: personaId,
+                source_path: sourcePath,
+                initiated_by: 'master_clone_clean_md_file'
+            })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha na limpeza do arquivo');
+        await refreshMasterCloneContext();
+        const changed = data.changed ? 'sim' : 'nao (ja estava limpo)';
+        alert(`Limpeza concluida.\nArquivo: ${sourcePath}\nAlterado: ${changed}\nBytes removidos: ${data.removed_bytes || 0}`);
+    } catch (error) {
+        alert(`Nao foi possivel limpar o arquivo: ${error.message}`);
+    }
+};
+
+async function runMasterClonePipeline(personaId, sourcePath, initiatedBy = 'master_clone_auto') {
+    const extractRes = await fetch('/api/personas/assets/extract-heuristics', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ persona_id: personaId, source_path: sourcePath, initiated_by: initiatedBy })
+    });
+    const extractData = await extractRes.json().catch(() => ({}));
+    if (!extractRes.ok || !extractData.success) throw new Error(extractData.error || 'Falha na etapa Extrair');
+
+    const harmonizeRes = await fetch('/api/personas/assets/harmonize-staging', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ persona_id: personaId, source_path: sourcePath, initiated_by: initiatedBy })
+    });
+    const harmonizeData = await harmonizeRes.json().catch(() => ({}));
+    if (!harmonizeRes.ok || !harmonizeData.success) throw new Error(harmonizeData.error || 'Falha na etapa Harmonizar');
+    return harmonizeData;
+}
+
+window.masterCloneIngestUrl = async function(personaId, kind = 'full_transcript') {
+    const url = prompt(`Cole a URL para ingestao (${kind}):`);
+    if (!url) return;
+    const forceAudioApi = isPersonaForceAudioApiEnabled(personaId);
+    const runAutomatic = confirm('Executar fluxo automatico completo apos a ingestao?\n\nOK = URL + Extrair + Harmonizar\nCancelar = apenas URL');
+    try {
+        const response = await fetch('/api/personas/assets/ingest-url', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                persona_id: personaId,
+                kind,
+                url,
+                force_audio_api: forceAudioApi,
+                allow_audio_fallback: true,
+                initiated_by: 'master_clone_url'
+            })
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data.success) throw new Error(data.error || 'Falha ao processar URL');
+        const modeLabel = data.mode === 'youtube_audio_api'
+            ? 'youtube-audio-api'
+            : (data.mode === 'youtube_transcript' ? 'youtube-legendas' : 'web');
+
+        if (runAutomatic) {
+            const harmonizeData = await runMasterClonePipeline(personaId, data.file, 'master_clone_url_auto');
+            await refreshMasterCloneContext();
+            alert(`Fluxo automatico concluido (${modeLabel}).\nArquivo: ${data.file}\nClone: ${harmonizeData.clone_path || '-'}`);
+            return;
+        }
+
+        await refreshMasterCloneContext();
+        alert(`URL concluida (${modeLabel}).\nArquivo: ${data.file}`);
+    } catch (error) {
+        alert(`Nao foi possivel processar URL: ${error.message}`);
+    }
+};
+
+window.masterCloneExtract = async function(personaId, sourcePath) {
+    if (!confirm('Extrair heuristicas deste arquivo?')) return;
+    try {
+        const res = await fetch('/api/personas/assets/extract-heuristics', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ persona_id: personaId, source_path: sourcePath, initiated_by: 'master_clone_extract' })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha na extracao');
+        await refreshMasterCloneContext();
+        alert('Extracao concluida.');
+    } catch (error) {
+        alert(`Erro na extracao: ${error.message}`);
+    }
+};
+
+window.masterCloneHarmonize = async function(personaId, sourcePath) {
+    if (!confirm('Harmonizar este nectar com o clone?')) return;
+    try {
+        const res = await fetch('/api/personas/assets/harmonize-staging', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ persona_id: personaId, source_path: sourcePath, initiated_by: 'master_clone_harmonize' })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha na harmonizacao');
+        await refreshMasterCloneContext();
+        alert(`Harmonizacao concluida.\nClone: ${data.clone_path || '-'}`);
+    } catch (error) {
+        alert(`Erro na harmonizacao: ${error.message}`);
+    }
+};
+
+window.masterCloneReset = async function(personaId, sourcePath) {
+    if (!confirm('Resetar status deste arquivo para novo ciclo?')) return;
+    try {
+        const res = await fetch('/api/personas/assets/reset-tracking', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ persona_id: personaId, source_path: sourcePath })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha no reset');
+        await refreshMasterCloneContext();
+    } catch (error) {
+        alert(`Erro no reset: ${error.message}`);
+    }
+};
+
+window.masterCloneAuto = async function(personaId, kind = 'full_transcript') {
+    const url = prompt('Cole a URL para executar o fluxo automatico completo:');
+    if (!url) return;
+    if (!confirm('Executar em modo automatico? (URL -> Extrair -> Harmonizar)')) return;
+    const forceAudioApi = isPersonaForceAudioApiEnabled(personaId);
+    try {
+        const ingestRes = await fetch('/api/personas/assets/ingest-url', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                persona_id: personaId,
+                kind,
+                url,
+                force_audio_api: forceAudioApi,
+                allow_audio_fallback: true,
+                initiated_by: 'master_clone_auto'
+            })
+        });
+        const ingestData = await ingestRes.json().catch(() => ({}));
+        if (!ingestRes.ok || !ingestData.success) throw new Error(ingestData.error || 'Falha na etapa URL');
+
+        const sourcePath = ingestData.file;
+        const harmonizeData = await runMasterClonePipeline(personaId, sourcePath, 'master_clone_auto');
+
+        await refreshMasterCloneContext();
+        alert(`Fluxo automatico concluido.\nArquivo: ${sourcePath}\nClone: ${harmonizeData.clone_path || '-'}`);
+    } catch (error) {
+        alert(`Fluxo automatico falhou: ${error.message}`);
+    }
+};
+
 function renderMasterInspector(items) {
     const inspector = document.getElementById('master-project-inspector');
     if (!inspector) return;
@@ -1862,6 +2468,7 @@ function renderMasterInspector(items) {
     const editAction = selected.editPath
         ? `<button class="master-edit-btn mt-3" onclick='openEditorModal(${JSON.stringify(selected.editPath)}, ${JSON.stringify(selected.editTitle || selected.label)})'>Editar</button>`
         : '';
+    const clonePanel = masterCloneAutomationPanel(selected);
     const contextRows = [
         selected.context_project_label ? `<p><span class="text-white">Projeto origem:</span> ${masterEscape(selected.context_project_label)}</p>` : '',
         selected.context_view_label ? `<p><span class="text-white">Modo origem:</span> ${masterEscape(selected.context_view_label)}</p>` : ''
@@ -1892,6 +2499,7 @@ function renderMasterInspector(items) {
             </div>
             ${editAction}
         </div>
+        ${clonePanel}
     `;
 }
 
@@ -4147,6 +4755,10 @@ function isPersonaEditableFile(pathValue) {
     return /\.(md|markdown|txt|json)$/i.test(String(pathValue || ''));
 }
 
+function isPersonaCleanableMarkdown(pathValue) {
+    return /\.(md|markdown|txt)$/i.test(String(pathValue || ''));
+}
+
 function personaAssetRow(file) {
     if (!file || !file.path) return '';
     const editable = isPersonaEditableFile(file.path);
@@ -4164,6 +4776,9 @@ function personaAssetManageRow(file, personaId, kind) {
     const editable = isPersonaEditableFile(file.path);
     const statusClass = file.exists ? 'text-secondary' : 'text-coral';
     const statusText = file.exists ? 'ok' : 'faltando';
+    const normalizedKind = String(kind || '').toLowerCase();
+    const supportsNectarFlow = file.exists && (normalizedKind === 'transcript' || normalizedKind === 'full_transcript');
+    const canCleanFile = Boolean(file.exists && isPersonaCleanableMarkdown(file.path));
     const head = editable
         ? `<button class="w-full text-left" onclick='openEditorModal(${JSON.stringify(file.path)}, ${JSON.stringify(file.name || file.path)})'>
             <div class="flex justify-between items-center"><span class="text-[10px] text-white truncate">${file.name || file.path}</span><span class="text-[8px] ${statusClass} uppercase">${statusText}</span></div>
@@ -4174,9 +4789,36 @@ function personaAssetManageRow(file, personaId, kind) {
             <div class="text-[8px] text-muted truncate">${file.path}</div>
             <div class="text-[8px] text-muted uppercase mt-1">arquivo nao editavel</div>
         </div>`;
+
+    let actionButtons = '';
+    if (!supportsNectarFlow) {
+        if (!file.exists) {
+            actionButtons += `<span class="text-coral text-[8px] font-bold py-1 px-2 uppercase bg-coral/10 border border-coral/20 rounded">Arquivo faltando</span>`;
+        } else if (normalizedKind === 'clone') {
+            actionButtons += `<span class="text-primary text-[8px] font-bold py-1 px-2 uppercase bg-primary/10 border border-primary/20 rounded">Clone alvo</span>`;
+        } else {
+            actionButtons += `<span class="text-muted text-[8px] font-bold py-1 px-2 uppercase bg-white/5 border border-white/10 rounded">Apenas referencia</span>`;
+        }
+    } else if (file.extracted) {
+        actionButtons += `<span class="text-secondary text-[8px] font-bold py-1 px-2 uppercase bg-secondary/10 border border-secondary/20 rounded mr-1" title="Nectar extraido para staging">[OK Staging]</span>`;
+        actionButtons += `<button class="btn-ghost text-secondary text-[9px] font-bold py-1 px-2 border border-secondary/30 mr-1" onclick='event.stopPropagation();triggerAutoGeminiExtraction(${JSON.stringify(personaId)}, ${JSON.stringify(file.path)})'>Extrair novamente</button>`;
+        if (file.harmonized) {
+            actionButtons += `<button class="btn-ghost text-primary text-[9px] font-bold py-1 px-2 border border-primary/30 opacity-60" disabled>Harmonizado (OK)</button>`;
+        } else {
+            actionButtons += `<button class="btn-ghost text-primary text-[9px] font-bold py-1 px-2 border border-primary/30" onclick='event.stopPropagation();triggerAutoGeminiHarmonize(${JSON.stringify(personaId)}, ${JSON.stringify(file.path)})'>Harmonizar agora</button>`;
+        }
+        actionButtons += `<button class="btn-ghost text-white/50 text-[10px] py-1 px-2 ml-1 hover:text-primary" title="Resetar status da harmonizacao" onclick='event.stopPropagation();triggerResetPersonaAssetTracking(${JSON.stringify(personaId)}, ${JSON.stringify(file.path)})'>Reset</button>`;
+    } else {
+        actionButtons += `<button class="btn-ghost text-secondary text-[9px] font-bold py-1 px-2 border border-secondary/30" onclick='event.stopPropagation();triggerAutoGeminiExtraction(${JSON.stringify(personaId)}, ${JSON.stringify(file.path)})'>Extrair nectar (API)</button>`;
+    }
+    if (canCleanFile) {
+        actionButtons += `<button class="btn-ghost text-accent text-[9px] font-bold py-1 px-2 border border-accent/30" onclick='event.stopPropagation();cleanPersonaMarkdownFile(${JSON.stringify(personaId)}, ${JSON.stringify(file.path)})'>Limpar</button>`;
+    }
+
     return `<div class="mb-2 border border-white/10 rounded p-2 hover:border-primary/30">
         ${head}
-        <div class="mt-2 flex justify-end">
+        <div class="mt-2 flex justify-end gap-1 items-center">
+            ${actionButtons}
             <button class="btn-danger text-[9px] py-1 px-2" onclick='event.stopPropagation();unlinkPersonaAsset(${JSON.stringify(personaId)}, ${JSON.stringify(kind)}, ${JSON.stringify(file.path)})'>Remover</button>
         </div>
     </div>`;
@@ -4215,6 +4857,37 @@ window.linkPersonaAsset = async function(personaId, kind) {
         alert(`Arquivo vinculado com sucesso em:\n${data.path}${cleanup}`);
     } catch (error) {
         alert(`Nao foi possivel vincular o arquivo: ${error.message}`);
+    }
+};
+
+window.ingestPersonaUrl = async function(personaId, kind) {
+    const url = prompt(`Ingerir conteudo de URL para a Persona ${personaId} (${kind}):\nCole a URL completa (http/https):`);
+    if (!url) return;
+    const forceAudioApi = isPersonaForceAudioApiEnabled(personaId);
+    try {
+        const response = await fetch('/api/personas/assets/ingest-url', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                persona_id: personaId,
+                kind,
+                url,
+                force_audio_api: forceAudioApi,
+                allow_audio_fallback: true
+            })
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data.success) throw new Error(data.error || 'Erro ao converter URL.');
+
+        const modeLabel = data.mode === 'youtube_audio_api'
+            ? 'Transcricao Audio (API)'
+            : (data.mode === 'youtube_transcript' ? 'Transcricao YouTube' : 'Web scrape');
+        alert(`URL convertida em Markdown e anexada com sucesso!\nModo: ${modeLabel}\nSalvo em: ${data.file}\nTamanho: ${data.bytes} bytes.`);
+        await loadAllData();
+        renderPersonas();
+        openPersonaAssetsDrawer(personaId);
+    } catch (err) {
+        alert(err.message);
     }
 };
 
@@ -4327,7 +5000,97 @@ window.cleanPersonaMarkdowns = async function(personaId) {
     }
 };
 
-window.openPersonaAssetsDrawer = function(personaId) {
+window.cleanPersonaMarkdownFile = async function(personaId, sourcePath) {
+    if (!sourcePath) return;
+    if (!confirm('Limpar somente este arquivo (remover imagens/base64)?')) return;
+    try {
+        const res = await fetch('/api/personas/assets/clean-md-file', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                persona_id: personaId,
+                source_path: sourcePath,
+                initiated_by: 'human'
+            })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha ao limpar arquivo');
+        await loadAllData();
+        renderPersonas();
+        openPersonaAssetsDrawer(personaId);
+        const changed = data.changed ? 'sim' : 'nao (ja estava limpo)';
+        alert(`Limpeza concluida.\nArquivo: ${sourcePath}\nAlterado: ${changed}\nBytes removidos: ${data.removed_bytes || 0}`);
+    } catch (error) {
+        alert(`Nao foi possivel limpar este arquivo: ${error.message}`);
+    }
+};
+
+window.triggerResetPersonaAssetTracking = async function(personaId, sourcePath) {
+    if (!confirm('Resetar o status de harmonizacao deste arquivo?')) return;
+    try {
+        const res = await fetch('/api/personas/assets/reset-tracking', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                persona_id: personaId,
+                source_path: sourcePath
+            })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha ao resetar tracking');
+        await loadAllData();
+        renderPersonas();
+        openPersonaAssetsDrawer(personaId);
+    } catch (error) {
+        alert(`Nao foi possivel resetar tracking: ${error.message}`);
+    }
+};
+
+window.triggerAutoGeminiHarmonize = async function(personaId, sourcePath) {
+    if (!confirm('A API sera acionada para harmonizar o nectar com o clone atual.\n\nProsseguir?')) return;
+    try {
+        const res = await fetch('/api/personas/assets/harmonize-staging', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                persona_id: personaId,
+                source_path: sourcePath
+            })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha ao harmonizar');
+        await loadAllData();
+        renderPersonas();
+        openPersonaAssetsDrawer(personaId);
+        alert(`Harmonizacao concluida.\nClone atualizado: ${data.clone_path || '(nao informado)'}`);
+    } catch (error) {
+        alert(`[ERRO DE HARMONIZACAO]: ${error.message}`);
+    }
+};
+
+window.triggerAutoGeminiExtraction = async function(personaId, sourcePath) {
+    if (!confirm('A API sera acionada para extrair heuristicas deste arquivo.\nO resultado ficara em staging ate voce harmonizar.\n\nProsseguir?')) return;
+    try {
+        const res = await fetch('/api/personas/assets/extract-heuristics', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                persona_id: personaId,
+                source_path: sourcePath
+            })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha ao extrair nectar');
+        await loadAllData();
+        renderPersonas();
+        openPersonaAssetsDrawer(personaId);
+        alert('Nectar extraido com sucesso e enviado para staging.\nAgora clique em "Harmonizar agora".');
+    } catch (error) {
+        alert(`[ERRO DE EXTRACAO]: ${error.message}`);
+    }
+};
+
+window.openPersonaAssetsDrawer = function(personaId, forceRefresh = false) {
     const drawer = document.getElementById('detail-drawer');
     const drawerState = window.DETAIL_DRAWER_STATE || { kind: '', id: '' };
     const isSamePersonaOpen = Boolean(
@@ -4336,19 +5099,33 @@ window.openPersonaAssetsDrawer = function(personaId) {
         drawerState.kind === 'persona_assets' &&
         drawerState.id === personaId
     );
-    if (isSamePersonaOpen) {
+    if (isSamePersonaOpen && !forceRefresh) {
         closeDrawer();
         return;
     }
 
     const assets = personaAssetMap()[personaId];
     if (!assets) return;
+    const forceAudioApi = isPersonaForceAudioApiEnabled(personaId);
+    const forceAudioClass = forceAudioApi
+        ? 'border-secondary/30 text-secondary bg-secondary/10'
+        : 'border-white/10 text-muted bg-white/5';
     const transcriptRows = (assets.transcript_files || []).map(file => personaAssetManageRow(file, personaId, 'transcript')).join('') || '<p class="text-[10px] text-muted italic">Sem transcricoes base.</p>';
     const fullTranscriptRows = (assets.full_transcript_files || []).map(file => personaAssetManageRow(file, personaId, 'full_transcript')).join('') || '<p class="text-[10px] text-muted italic">Sem transcricao completa em markdown.</p>';
     const supportRows = (assets.support_files || []).map(file => personaAssetManageRow(file, personaId, 'support')).join('') || '<p class="text-[10px] text-muted italic">Sem anexos adicionais.</p>';
     document.getElementById('drawer-title').textContent = `${assets.persona_name} · Arquivos Markdown`;
     document.getElementById('drawer-content').innerHTML = `
         <div class="space-y-4">
+            <div class="glass p-3 border border-primary/20 bg-primary/5">
+                <p class="text-[10px] text-white font-bold mb-1">Fluxo recomendado (3 etapas)</p>
+                <p class="text-[9px] text-muted">1) + URL para trazer a transcricao, 2) Extrair nectar (API), 3) Harmonizar agora no clone.</p>
+                <div class="mt-2 flex items-center gap-2 flex-wrap">
+                    <button class="btn-ghost text-[9px] py-1 px-2 ${forceAudioClass}" onclick='togglePersonaForceAudioApi(${JSON.stringify(personaId)}, true)'>
+                        Forcar Audio API: ${forceAudioApi ? 'ON' : 'OFF'}
+                    </button>
+                    <span class="text-[8px] text-muted">ON = sempre transcreve por audio/API. OFF = usa legenda e fallback automatico.</span>
+                </div>
+            </div>
             <div class="glass p-3">
                 <p class="text-[9px] text-muted uppercase tracking-widest mb-2">Arquivo de Persona</p>
                 ${personaAssetRow(assets.instruction_file)}
@@ -4362,6 +5139,7 @@ window.openPersonaAssetsDrawer = function(personaId) {
                         Transcricoes Base (MD)
                     </p>
                     <div class="flex gap-2">
+                        <button class="btn-ghost text-[9px] py-1 px-2" onclick='ingestPersonaUrl(${JSON.stringify(personaId)}, "transcript")'>+ URL</button>
                         <button class="btn-ghost text-[9px] py-1 px-2" onclick='linkPersonaAsset(${JSON.stringify(personaId)}, "transcript")'>+ Arquivo</button>
                         <button class="btn-ghost text-[9px] py-1 px-2" onclick='linkPersonaAssetsBatch(${JSON.stringify(personaId)}, "transcript")'>+ Lote</button>
                     </div>
@@ -4398,6 +5176,7 @@ window.openPersonaAssetsDrawer = function(personaId) {
                         Transcricoes Completas (MD)
                     </p>
                     <div class="flex gap-2">
+                        <button class="btn-ghost text-[9px] py-1 px-2" onclick='ingestPersonaUrl(${JSON.stringify(personaId)}, "full_transcript")'>+ URL</button>
                         <button class="btn-ghost text-[9px] py-1 px-2" onclick='linkPersonaAsset(${JSON.stringify(personaId)}, "full_transcript")'>+ Arquivo</button>
                         <button class="btn-ghost text-[9px] py-1 px-2" onclick='linkPersonaAssetsBatch(${JSON.stringify(personaId)}, "full_transcript")'>+ Lote</button>
                     </div>
@@ -4483,3 +5262,4 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+

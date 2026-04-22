@@ -296,7 +296,7 @@
 │   └── 📄 handover_protocol.md         — Protocolo de Handover
 │
 ├── 📁 persona/
-│   └── 📄 elisa_claro.md               — Persona Elisa Claro
+│   └── 📄 elisa_clark.md               — Persona Elisa Clark
 │
 ├── 📁 projects/
 │   ├── 📄 super_ebook_funnel.md        — Funil Super Ebook

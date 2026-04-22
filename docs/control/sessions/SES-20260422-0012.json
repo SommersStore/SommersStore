@@ -1,0 +1,40 @@
+{
+  "id": "SES-20260422-0012",
+  "status": "closed",
+  "started_at": "2026-04-22T12:52:25-03:00",
+  "started_by": "dashboard",
+  "source": "dashboard_auto_boot",
+  "model_hint": "dashboard",
+  "project_id": "sais",
+  "last_seen_at": "2026-04-22T13:30:01-03:00",
+  "context_flash": {
+    "project": "SommersStore Elite",
+    "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
+    "active_task": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+    "build_phase": "BLD-07",
+    "ops_stage": "OPS-01",
+    "latest_checkpoint_id": "CHK-MEM-0104",
+    "latest_checkpoint_next_action": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+    "latest_raw_checkpoint_id": "CHK-MEM-0136",
+    "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+    "checkpoint_resolution": "last_actionable_checkpoint",
+    "latest_active_decision_id": "DEC-MEM-0004",
+    "open_loops_count": 2,
+    "open_loop_ids": [
+      "LOOP-0001",
+      "LOOP-0003"
+    ],
+    "tracked_files": [],
+    "continuity_file": "docs/memory/startup_context_latest.md",
+    "continuity_window_days": 7
+  },
+  "last_context_note": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+  "last_pulse_logged_at": "2026-04-22T13:23:01-03:00",
+  "last_pulse_note": "Configurar e aprimorar squads, agentes, skills e personas/clones.",
+  "ended_at": "2026-04-22T13:30:18-03:00",
+  "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+  "next_action": null,
+  "completed_tasks": [],
+  "checkpoint_id": "CHK-MEM-0137",
+  "closed_by": "system"
+}

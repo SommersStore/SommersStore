@@ -20,9 +20,19 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-04-21T06:25:40-03:00
+- updated_at: 2026-04-22T16:46:01-03:00
 
 ## Ultimo fechamento
+- timestamp: 2026-04-22T16:46:01-03:00
+- tipo: usuario
+- resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- proxima_acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- checkpoint: CHK-MEM-0144
+- timestamp: 2026-04-22T16:28:57-03:00
+- tipo: usuario
+- resumo: Sessao encerrada pelo usuario apos consolidar melhorias de continuidade no painel: fallback de transcricao YouTube por audio API, uso de creditos Gemini para extracao/harmonizacao, botao Forcar Audio API e limpeza de Markdown por arquivo.
+- proxima_acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- checkpoint: CHK-MEM-0143
 - timestamp: 2026-04-21T06:10:00-03:00
 - resumo: Sessao encerrada a pedido do usuario para prevencao de degradacao de contexto longo. Handoff: Auditoria profunda revelou 29 Skills sem rules e 5 Agentes faltantes. O proximo escopo e focado em Personas/Clones via Painel (URL Ingestion).
 - proxima_acao: Abrir conversa nova para construir a Ingestao de URLs na aba Personas do Painel e configurar os Clones Mestre (Brunson, Sabri, etc).
@@ -35,6 +45,160 @@
 - checkpoint: CHK-MEM-0076
 
 ## Ultimo fechamento automatico
+- timestamp: 2026-04-22T16:28:27-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0142
+- timestamp: 2026-04-22T16:09:48-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0141
+- timestamp: 2026-04-22T14:40:59-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0140
+- timestamp: 2026-04-22T13:33:08-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0139
+- timestamp: 2026-04-22T13:31:28-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0138
+- timestamp: 2026-04-22T13:30:18-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0137
+- timestamp: 2026-04-22T12:51:59-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0136
+- timestamp: 2026-04-22T12:51:51-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0135
+- timestamp: 2026-04-22T12:48:41-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0134
+- timestamp: 2026-04-22T12:18:34-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0133
+- timestamp: 2026-04-22T12:18:19-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0132
+- timestamp: 2026-04-22T12:05:40-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0131
+- timestamp: 2026-04-22T12:01:49-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0130
+- timestamp: 2026-04-22T11:08:02-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0129
+- timestamp: 2026-04-22T10:36:28-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0128
+- timestamp: 2026-04-22T10:09:44-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0127
+- timestamp: 2026-04-22T00:39:05-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0126
+- timestamp: 2026-04-21T23:47:44-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0125
+- timestamp: 2026-04-21T23:40:00-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0124
+- timestamp: 2026-04-21T22:31:52-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0123
+- timestamp: 2026-04-21T22:21:42-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0122
+- timestamp: 2026-04-21T22:13:44-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0121
+- timestamp: 2026-04-21T22:13:42-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0120
+- timestamp: 2026-04-21T21:56:38-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0119
+- timestamp: 2026-04-21T21:35:58-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0118
+- timestamp: 2026-04-21T21:34:51-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0117
+- timestamp: 2026-04-21T21:24:00-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0116
+- timestamp: 2026-04-21T21:23:59-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0115
+- timestamp: 2026-04-21T21:18:55-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0114
+- timestamp: 2026-04-21T21:17:46-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0113
+- timestamp: 2026-04-21T21:10:32-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0112
+- timestamp: 2026-04-21T18:45:20-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0111
+- timestamp: 2026-04-21T18:37:51-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0110
+- timestamp: 2026-04-21T17:53:27-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0109
+- timestamp: 2026-04-21T17:31:12-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0108
+- timestamp: 2026-04-21T16:49:56-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0107
+- timestamp: 2026-04-21T16:40:54-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0106
+- timestamp: 2026-04-21T15:11:27-03:00
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0105
 - timestamp: 2026-04-21T06:25:40-03:00
 - resumo: Configurar e aprimorar squads, agentes, skills e personas/clones.
 - proxima_acao: Configurar e aprimorar squads, agentes, skills e personas/clones.

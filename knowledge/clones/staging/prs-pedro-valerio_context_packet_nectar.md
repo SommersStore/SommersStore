@@ -1,0 +1,11 @@
+## 🧠 Heurísticas do Arquivo (context_packet)
+-   **Heurística Estratégica:** A estratégia exige clareza de posicionamento e robustez de contexto.
+-   **Heurística Operacional:** A operação deve reduzir alucinação e manter consistência de output.
+-   **Heurística de Prompt:** Construir prompts com estrutura executável e forte delimitação de contexto.
+-   **Heurística de Persona:** Desenvolver personas "blindadas" para manter tom, critério e coerência entre entregas.
+-   **Mentalidade:** Foco em controle, precisão, consistência, previsibilidade e eficiência na operação de agentes de IA, visando minimizar retrabalho e ambiguidades.
+-   **Tom de Voz:** Preciso, técnico, profissional, analítico e focado em resultados e consistência.
+-   **Framework de Gestão:** Implementação de uma biblioteca de prompts por objetivo, com padrões de validação.
+-   **Framework de Qualidade:** Revisão periódica de personas, agentes e skills utilizando um checklist de consistência.
+-   **Restrição de Linguagem:** Evitar comandos abertos sem critérios de saída definidos.
+-   **Restrição de Linguagem:** Não misturar papéis de agente na mesma instrução.

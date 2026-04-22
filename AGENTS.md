@@ -50,29 +50,29 @@ Preferencia de ativacao no Codex CLI:
 
 Interprete os atalhos abaixo carregando o arquivo correspondente em `.aiox-core/development/agents/` (fallback: `.codex/agents/`), renderize o greeting via `generate-greeting.js` e assuma a persona ate `*exit`:
 
-- `@architect`, `/architect`, `/architect.md` -> `.aiox-core/development/agents/architect.md`
-- `@dev`, `/dev`, `/dev.md` -> `.aiox-core/development/agents/dev.md`
-- `@qa`, `/qa`, `/qa.md` -> `.aiox-core/development/agents/qa.md`
-- `@pm`, `/pm`, `/pm.md` -> `.aiox-core/development/agents/pm.md`
-- `@po`, `/po`, `/po.md` -> `.aiox-core/development/agents/po.md`
-- `@sm`, `/sm`, `/sm.md` -> `.aiox-core/development/agents/sm.md`
-- `@analyst`, `/analyst`, `/analyst.md` -> `.aiox-core/development/agents/analyst.md`
-- `@devops`, `/devops`, `/devops.md` -> `.aiox-core/development/agents/devops.md`
-- `@data-engineer`, `/data-engineer`, `/data-engineer.md` -> `.aiox-core/development/agents/data-engineer.md`
-- `@ux-design-expert`, `/ux-design-expert`, `/ux-design-expert.md` -> `.aiox-core/development/agents/ux-design-expert.md`
-- `@marketing`, `/marketing`, `/marketing.md` -> `.aiox-core/development/agents/marketing.md`
-- `@copywriter`, `/copywriter`, `/copywriter.md` -> `.aiox-core/development/agents/copywriter.md`
-- `@squad-creator`, `/squad-creator`, `/squad-creator.md` -> `.aiox-core/development/agents/squad-creator.md`
-- `@aiox-master`, `/aiox-master`, `/aiox-master.md` -> `.aiox-core/development/agents/aiox-master.md`
-- `@persona`, `/persona`, `/persona.md` -> `.aiox-core/development/agents/persona.md`
-- `@cro-expert`, `/cro-expert`, `/cro-expert.md` -> `.aiox-core/development/agents/cro-expert.md`
-- `@liaison`, `/liaison`, `/liaison.md` -> `.aiox-core/development/agents/liaison.md`
-- `@brand-master`, `/brand-master`, `/brand-master.md` -> `.aiox-core/development/agents/brand-master.md`
-- `@art-director`, `/art-director`, `/art-director.md` -> `.aiox-core/development/agents/art-director.md`
-- `@security`, `/security`, `/security.md` -> `.aiox-core/development/agents/security.md`
-- `@support`, `/support`, `/support.md` -> `.aiox-core/development/agents/support.md`
-- `@oracle`, `/oracle`, `/oracle.md` -> `.aiox-core/development/agents/oracle.md`
-- `@scribe`, `/scribe`, `/scribe.md` -> `.aiox-core/development/agents/scribe.md`
+- `@architect`, `/architect`, `/architect.md` -> `.aiox-core/development/agents/architect.md` <!-- Atlas | AGT-EXP-01 | SQD-EXP -->
+- `@dev`, `/dev`, `/dev.md` -> `.aiox-core/development/agents/dev.md` <!-- Dex | AGT-ENG-01 | SQD-ENG -->
+- `@qa`, `/qa`, `/qa.md` -> `.aiox-core/development/agents/qa.md` <!-- Quinn | AGT-QRO-01 | SQD-QRO -->
+- `@pm`, `/pm`, `/pm.md` -> `.aiox-core/development/agents/pm.md` <!-- Morgan | AGT-CORE-02 | SQD-CORE -->
+- `@po`, `/po`, `/po.md` -> `.aiox-core/development/agents/po.md` <!-- Pax | AGT-CORE-03 | SQD-CORE -->
+- `@sm`, `/sm`, `/sm.md` -> `.aiox-core/development/agents/sm.md` <!-- River | AGT-CORE-04 | SQD-CORE -->
+- `@analyst`, `/analyst`, `/analyst.md` -> `.aiox-core/development/agents/analyst.md` <!-- Alex | AGT-MKF-01 | SQD-MKF -->
+- `@devops`, `/devops`, `/devops.md` -> `.aiox-core/development/agents/devops.md` <!-- Gage | AGT-ENG-03 | SQD-ENG -->
+- `@data-engineer`, `/data-engineer`, `/data-engineer.md` -> `.aiox-core/development/agents/data-engineer.md` <!-- Dara | AGT-ENG-02 | SQD-ENG -->
+- `@ux-design-expert`, `/ux-design-expert`, `/ux-design-expert.md` -> `.aiox-core/development/agents/ux-design-expert.md` <!-- Aura | AGT-EXP-02 | SQD-EXP -->
+- `@marketing`, `/marketing`, `/marketing.md` -> `.aiox-core/development/agents/marketing.md` <!-- Stratego | AGT-MKF-04 | SQD-MKF -->
+- `@copywriter`, `/copywriter`, `/copywriter.md` -> `.aiox-core/development/agents/copywriter.md` <!-- Mercury | AGT-CNT-01 | SQD-CNT -->
+- `@squad-creator`, `/squad-creator`, `/squad-creator.md` -> `.aiox-core/development/agents/squad-creator.md` <!-- Forge | AGT-CORE-05 | SQD-CORE -->
+- `@aiox-master`, `/aiox-master`, `/aiox-master.md` -> `.aiox-core/development/agents/aiox-master.md` <!-- Orion | AGT-CORE-01 | SQD-CORE -->
+- `@persona`, `/persona`, `/persona.md` -> `.aiox-core/development/agents/persona.md` <!-- PersonaX | AGT-MKF-02 | SQD-MKF -->
+- `@cro-expert`, `/cro-expert`, `/cro-expert.md` -> `.aiox-core/development/agents/cro-expert.md` <!-- Gauge | AGT-MKF-03 | SQD-MKF -->
+- `@liaison`, `/liaison`, `/liaison.md` -> `.aiox-core/development/agents/liaison.md` <!-- Iris | AGT-CNT-02 | SQD-CNT -->
+- `@brand-master`, `/brand-master`, `/brand-master.md` -> `.aiox-core/development/agents/brand-master.md` <!-- Lumina | AGT-CNT-03 | SQD-CNT -->
+- `@art-director`, `/art-director`, `/art-director.md` -> `.aiox-core/development/agents/art-director.md` <!-- Vinci | AGT-EXP-03 | SQD-EXP -->
+- `@security`, `/security`, `/security.md` -> `.aiox-core/development/agents/security.md` <!-- Koda | AGT-ENG-04 | SQD-ENG -->
+- `@support`, `/support`, `/support.md` -> `.aiox-core/development/agents/support.md` <!-- Sentry | AGT-QRO-02 | SQD-QRO -->
+- `@oracle`, `/oracle`, `/oracle.md` -> `.aiox-core/development/agents/oracle.md` <!-- Oracle | AGT-MEM-01 | SQD-MEM -->
+- `@scribe`, `/scribe`, `/scribe.md` -> `.aiox-core/development/agents/scribe.md` <!-- Scribe | AGT-MEM-02 | SQD-MEM -->
 <!-- AIOX-MANAGED-END: shortcuts -->
 
 ## 🚨 PROTOCOLO OBRIGATÓRIO DE MEMÓRIA E CONTEXTO (LIFECYCLE)

@@ -4,6 +4,17 @@ const path = require('path');
 const pdfParse = require('pdf-parse');
 const { createWorker } = require('tesseract.js');
 const { spawn } = require('child_process');
+const https = require('https');
+const { JSDOM } = require('jsdom');
+const DOMPurify = require('dompurify');
+const TurndownService = require('turndown');
+const ytdl = require('@distube/ytdl-core');
+const YtDlpWrap = require('yt-dlp-wrap').default;
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+let YoutubeTranscript = null;
+let youtubeTranscriptLoadTried = false;
+let ytDlpClient = null;
+let ytDlpReadyPromise = null;
 
 const PORT = Number(process.env.AIOX_PORT || 4000);
 const ROOT_DIR = path.join(__dirname, '..');
@@ -39,6 +50,8 @@ const PERSONA_CLONE_DEFAULTS = {
     'prs-tiago-finch': 'knowledge/clones/tiago_finch_clone.md'
 };
 
+const CONTINUITY_LOOKBACK_DAYS = 7;
+
 const DEFAULT_BRUNSON_BOOK_FILES = [
     'knowledge/clones/books/Dotcom Secrets - Russel Brunson.pdf',
     'knowledge/clones/books/Expert Secrets - Russell Brunson.pdf',
@@ -55,6 +68,13 @@ const SESSION_PULSE_LOG_INTERVAL_MS = 10 * 60 * 1000;
 const CONTINUITY_LOOKBACK_SESSIONS = 3;
 const STARTUP_CONTEXT_REL_PATH = 'docs/memory/startup_context_latest.md';
 const STARTUP_CONTEXT_PATH = path.join(ROOT_DIR, STARTUP_CONTEXT_REL_PATH);
+const GEMINI_DEFAULT_MODEL = asTrimmedText(process.env.GEMINI_MODEL) || 'gemini-2.5-flash';
+const GEMINI_EXTRACT_MODEL = asTrimmedText(process.env.GEMINI_EXTRACT_MODEL) || GEMINI_DEFAULT_MODEL;
+const GEMINI_HARMONIZE_MODEL = asTrimmedText(process.env.GEMINI_HARMONIZE_MODEL) || GEMINI_DEFAULT_MODEL;
+const GEMINI_TRANSCRIBE_MODEL = asTrimmedText(process.env.GEMINI_TRANSCRIBE_MODEL) || GEMINI_DEFAULT_MODEL;
+const YOUTUBE_AUDIO_FALLBACK_ENABLED = !/^(0|false|off|no)$/i.test(asTrimmedText(process.env.YOUTUBE_AUDIO_FALLBACK_ENABLED || 'true'));
+const YT_DLP_BIN_DIR = path.join(ROOT_DIR, '.cache', 'yt-dlp');
+const YT_DLP_BIN_PATH = path.join(YT_DLP_BIN_DIR, process.platform === 'win32' ? 'yt-dlp.exe' : 'yt-dlp');
 
 const GENERIC_NEXT_ACTION_PATTERNS = [
     /rodar startup oracle/i,
@@ -105,6 +125,556 @@ function parseTimestampMs(value) {
     return Number.isFinite(ms) ? ms : Number.NaN;
 }
 
+function resolveGeminiApiConfig({ required = false, model = GEMINI_DEFAULT_MODEL } = {}) {
+    const creditsKey = asTrimmedText(process.env.GEMINI_CREDITS_API_KEY);
+    const fallbackKey = asTrimmedText(process.env.GEMINI_API_KEY);
+    const apiKey = creditsKey || fallbackKey || '';
+    const apiKeySource = creditsKey ? 'GEMINI_CREDITS_API_KEY' : (fallbackKey ? 'GEMINI_API_KEY' : null);
+    if (required && !apiKey) {
+        throw new Error('Nenhuma chave Gemini encontrada. Configure GEMINI_CREDITS_API_KEY (preferencial) ou GEMINI_API_KEY no .env.');
+    }
+    return {
+        apiKey,
+        apiKeySource,
+        model: asTrimmedText(model) || GEMINI_DEFAULT_MODEL
+    };
+}
+
+function isYouTubeHost(hostname) {
+    const host = String(hostname || '').toLowerCase();
+    return host === 'youtube.com'
+        || host === 'www.youtube.com'
+        || host === 'm.youtube.com'
+        || host === 'youtu.be'
+        || host.endsWith('.youtube.com');
+}
+
+function extractYouTubeVideoId(urlLike) {
+    try {
+        const parsed = new URL(String(urlLike || '').trim());
+        const host = String(parsed.hostname || '').toLowerCase();
+        if (!isYouTubeHost(host)) return null;
+
+        if (host === 'youtu.be') {
+            const parts = parsed.pathname.split('/').filter(Boolean);
+            return parts[0] || null;
+        }
+
+        const v = parsed.searchParams.get('v');
+        if (v) return v;
+
+        const parts = parsed.pathname.split('/').filter(Boolean);
+        const marker = parts.findIndex(part => part === 'shorts' || part === 'live' || part === 'embed');
+        if (marker >= 0 && parts[marker + 1]) return parts[marker + 1];
+        return null;
+    } catch (_) {
+        return null;
+    }
+}
+
+function mojibakeScore(value) {
+    const text = String(value || '');
+    if (!text) return 0;
+    const matches = text.match(/[ÃÂâ€œâ€â€˜â€™â€“â€”�]/g);
+    return matches ? matches.length : 0;
+}
+
+function maybeFixUtf8Mojibake(value) {
+    const original = String(value || '');
+    if (!original) return '';
+    let candidate = '';
+    try {
+        candidate = Buffer.from(original, 'latin1').toString('utf8');
+    } catch (_) {
+        return original;
+    }
+    if (!candidate) return original;
+    return mojibakeScore(candidate) < mojibakeScore(original) ? candidate : original;
+}
+
+function normalizeYouTubeTranscriptLine(value) {
+    const raw = String(value || '').replace(/\u00a0/g, ' ');
+    const repaired = maybeFixUtf8Mojibake(raw);
+    return repaired.replace(/\s+/g, ' ').trim();
+}
+
+async function ensureYoutubeTranscriptClient() {
+    if (YoutubeTranscript && typeof YoutubeTranscript.fetchTranscript === 'function') {
+        return YoutubeTranscript;
+    }
+    if (youtubeTranscriptLoadTried) return null;
+    youtubeTranscriptLoadTried = true;
+
+    const coerceTranscriptClient = (rawModule) => {
+        if (!rawModule) return null;
+        const candidate = rawModule.YoutubeTranscript
+            || (rawModule.default && rawModule.default.YoutubeTranscript)
+            || null;
+        if (candidate && typeof candidate.fetchTranscript === 'function') return candidate;
+
+        const fetchTranscript = rawModule.fetchTranscript
+            || (rawModule.default && rawModule.default.fetchTranscript)
+            || null;
+        if (typeof fetchTranscript === 'function') {
+            return { fetchTranscript: (videoId, opts) => fetchTranscript(videoId, opts) };
+        }
+        return null;
+    };
+
+    try {
+        const esmModule = await import('youtube-transcript');
+        const candidate = coerceTranscriptClient(esmModule);
+        if (candidate) {
+            YoutubeTranscript = candidate;
+            return YoutubeTranscript;
+        }
+    } catch (_) {
+        // noop: fallback to explicit module path below
+    }
+
+    try {
+        // Some builds expose an empty namespace at package root in CJS projects.
+        const esmModule = await import('youtube-transcript/dist/youtube-transcript.esm.js');
+        const candidate = coerceTranscriptClient(esmModule);
+        if (candidate) {
+            YoutubeTranscript = candidate;
+            return YoutubeTranscript;
+        }
+    } catch (_) {
+        // noop: fallback to require below
+    }
+
+    try {
+        const cjsModule = require('youtube-transcript');
+        const candidate = coerceTranscriptClient(cjsModule);
+        if (candidate) {
+            YoutubeTranscript = candidate;
+            return YoutubeTranscript;
+        }
+    } catch (_) {
+        // noop
+    }
+
+    try {
+        const cjsModule = require('youtube-transcript/dist/youtube-transcript.common.js');
+        const candidate = coerceTranscriptClient(cjsModule);
+        if (candidate) {
+            YoutubeTranscript = candidate;
+            return YoutubeTranscript;
+        }
+    } catch (_) {
+        // noop
+    }
+
+    return null;
+}
+
+function removeFileQuietly(filePath) {
+    try {
+        if (filePath && fs.existsSync(filePath)) fs.unlinkSync(filePath);
+    } catch (_) {
+        // no-op
+    }
+}
+
+function stripMarkdownCodeFence(rawText) {
+    let text = String(rawText || '').trim();
+    if (!text) return '';
+    if (/^```/m.test(text)) {
+        text = text.replace(/^```[a-zA-Z0-9_-]*\s*/m, '');
+        text = text.replace(/\s*```$/, '');
+    }
+    return text.trim();
+}
+
+function extractGeminiText(payload) {
+    const candidates = asArray(payload && payload.candidates);
+    for (const candidate of candidates) {
+        const parts = asArray(candidate && candidate.content && candidate.content.parts);
+        const text = parts
+            .map(part => (part && typeof part.text === 'string') ? part.text : '')
+            .filter(Boolean)
+            .join('\n')
+            .trim();
+        if (text) return text;
+    }
+    return '';
+}
+
+function guessMimeTypeByExt(extension) {
+    const ext = String(extension || '').toLowerCase().replace(/^\./, '');
+    if (ext === 'm4a') return 'audio/mp4';
+    if (ext === 'mp3') return 'audio/mpeg';
+    if (ext === 'ogg' || ext === 'opus') return 'audio/ogg';
+    if (ext === 'wav') return 'audio/wav';
+    return 'audio/webm';
+}
+
+function pickYouTubeAudioFormat(formats) {
+    return asArray(formats)
+        .filter(format => format && format.url)
+        .sort((a, b) => {
+            const bitrateA = Number(a.audioBitrate || a.bitrate || 0);
+            const bitrateB = Number(b.audioBitrate || b.bitrate || 0);
+            if (bitrateA !== bitrateB) return bitrateA - bitrateB;
+            const itagA = Number(a.itag || 0);
+            const itagB = Number(b.itag || 0);
+            return itagA - itagB;
+        })[0] || null;
+}
+
+async function ensureYtDlpClient() {
+    if (ytDlpClient) return ytDlpClient;
+    if (!ytDlpReadyPromise) {
+        ytDlpReadyPromise = (async () => {
+            ensureDir(YT_DLP_BIN_DIR);
+            if (!fs.existsSync(YT_DLP_BIN_PATH)) {
+                await YtDlpWrap.downloadFromGithub(YT_DLP_BIN_PATH);
+            }
+            ytDlpClient = new YtDlpWrap(YT_DLP_BIN_PATH);
+            return ytDlpClient;
+        })();
+    }
+    return ytDlpReadyPromise;
+}
+
+async function downloadYouTubeAudioToTempViaYtdl(urlLike, videoId) {
+    const info = await ytdl.getInfo(urlLike);
+    const audioFormats = ytdl.filterFormats(info.formats || [], 'audioonly');
+    const selected = pickYouTubeAudioFormat(audioFormats);
+    if (!selected) throw new Error('Nao foi possivel localizar um stream de audio para transcricao via API.');
+
+    const ext = String(selected.container || 'webm').toLowerCase().replace(/[^a-z0-9]/g, '') || 'webm';
+    const tempDir = path.join(CONTROL_DIR, 'tmp_audio');
+    ensureDir(tempDir);
+    const tempPath = path.join(tempDir, `yt_audio_${videoId}_${Date.now()}.${ext}`);
+
+    await new Promise((resolve, reject) => {
+        const downloadStream = ytdl.downloadFromInfo(info, { quality: selected.itag, filter: 'audioonly' });
+        const writeStream = fs.createWriteStream(tempPath);
+        const fail = (error) => {
+            removeFileQuietly(tempPath);
+            reject(error);
+        };
+        downloadStream.on('error', fail);
+        writeStream.on('error', fail);
+        writeStream.on('finish', resolve);
+        downloadStream.pipe(writeStream);
+    });
+
+    const bytes = fs.statSync(tempPath).size;
+    const mimeType = String(selected.mimeType || '').split(';')[0] || guessMimeTypeByExt(ext);
+    return { filePath: tempPath, bytes, mimeType };
+}
+
+async function downloadYouTubeAudioToTempViaYtDlp(urlLike, videoId) {
+    const ytDlp = await ensureYtDlpClient();
+    const tempDir = path.join(CONTROL_DIR, 'tmp_audio');
+    ensureDir(tempDir);
+    const token = `yt_audio_${videoId}_${Date.now()}`;
+    const outputTemplate = path.join(tempDir, `${token}.%(ext)s`);
+
+    const stdOut = await ytDlp.execPromise([
+        '--no-playlist',
+        '--no-warnings',
+        '-f',
+        'bestaudio/best',
+        '--print',
+        'after_move:filepath',
+        '-o',
+        outputTemplate,
+        String(urlLike || '').trim()
+    ]);
+
+    let resolvedPath = String(stdOut || '')
+        .split(/\r?\n/)
+        .map(line => line.trim())
+        .filter(Boolean)
+        .pop() || '';
+    if (resolvedPath) {
+        resolvedPath = resolvedPath.replace(/^"+|"+$/g, '');
+    }
+
+    if (!resolvedPath || !fs.existsSync(resolvedPath)) {
+        const candidates = fs.readdirSync(tempDir)
+            .filter(name => name.startsWith(token))
+            .map(name => path.join(tempDir, name));
+        if (candidates.length) {
+            resolvedPath = candidates.sort((a, b) => {
+                const aSize = fs.statSync(a).size;
+                const bSize = fs.statSync(b).size;
+                return bSize - aSize;
+            })[0];
+        }
+    }
+
+    if (!resolvedPath || !fs.existsSync(resolvedPath)) {
+        throw new Error('yt-dlp nao retornou um arquivo de audio baixado.');
+    }
+    const ext = path.extname(resolvedPath).toLowerCase().replace(/^\./, '');
+    const bytes = fs.statSync(resolvedPath).size;
+    const mimeType = guessMimeTypeByExt(ext);
+    return { filePath: resolvedPath, bytes, mimeType };
+}
+
+async function downloadYouTubeAudioToTemp(urlLike, videoId) {
+    let firstError = null;
+    try {
+        return await downloadYouTubeAudioToTempViaYtdl(urlLike, videoId);
+    } catch (error) {
+        firstError = error;
+    }
+    try {
+        return await downloadYouTubeAudioToTempViaYtDlp(urlLike, videoId);
+    } catch (fallbackError) {
+        const message = [
+            'Nao foi possivel baixar audio do YouTube para transcricao via API.',
+            `ytdl: ${firstError ? firstError.message : 'sem detalhes'}`,
+            `yt-dlp: ${fallbackError ? fallbackError.message : 'sem detalhes'}`
+        ].join(' ');
+        throw new Error(message);
+    }
+}
+
+async function uploadGeminiFile({ apiKey, filePath, mimeType, displayName }) {
+    const fileBuffer = fs.readFileSync(filePath);
+    const startRes = await fetch(`https://generativelanguage.googleapis.com/upload/v1beta/files?key=${apiKey}`, {
+        method: 'POST',
+        headers: {
+            'X-Goog-Upload-Protocol': 'resumable',
+            'X-Goog-Upload-Command': 'start',
+            'X-Goog-Upload-Header-Content-Length': String(fileBuffer.length),
+            'X-Goog-Upload-Header-Content-Type': mimeType,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ file: { display_name: displayName || path.basename(filePath) } })
+    });
+    if (!startRes.ok) {
+        const startBody = await startRes.text().catch(() => '');
+        throw new Error(`Falha ao iniciar upload Gemini Files API (${startRes.status}): ${startBody || 'sem detalhes'}`);
+    }
+    const uploadUrl = startRes.headers.get('x-goog-upload-url');
+    if (!uploadUrl) throw new Error('Gemini Files API nao retornou URL de upload.');
+
+    const uploadRes = await fetch(uploadUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': mimeType,
+            'X-Goog-Upload-Offset': '0',
+            'X-Goog-Upload-Command': 'upload, finalize'
+        },
+        body: fileBuffer
+    });
+    const uploadData = await uploadRes.json().catch(() => ({}));
+    if (!uploadRes.ok) {
+        throw new Error(uploadData.error?.message || `Falha ao enviar audio para Gemini Files API (${uploadRes.status}).`);
+    }
+
+    const fileMeta = uploadData.file || uploadData;
+    const uri = fileMeta.uri || fileMeta.file_uri || null;
+    const name = fileMeta.name || null;
+    const resolvedMimeType = fileMeta.mimeType || fileMeta.mime_type || mimeType;
+    if (!uri || !name) throw new Error('Gemini Files API nao retornou metadados validos do arquivo enviado.');
+    return { uri, name, mimeType: resolvedMimeType };
+}
+
+async function deleteGeminiFile({ apiKey, fileName }) {
+    const name = String(fileName || '').trim();
+    if (!apiKey || !name) return;
+    const resource = name.startsWith('files/') ? name : `files/${name.replace(/^\/+/, '')}`;
+    try {
+        await fetch(`https://generativelanguage.googleapis.com/v1beta/${resource}?key=${apiKey}`, { method: 'DELETE' });
+    } catch (_) {
+        // no-op
+    }
+}
+
+async function transcribeYouTubeAudioWithGemini(urlLike, videoId) {
+    const config = resolveGeminiApiConfig({ required: true, model: GEMINI_TRANSCRIBE_MODEL });
+    const downloadedAudio = await downloadYouTubeAudioToTemp(urlLike, videoId);
+    let uploaded = null;
+    try {
+        uploaded = await uploadGeminiFile({
+            apiKey: config.apiKey,
+            filePath: downloadedAudio.filePath,
+            mimeType: downloadedAudio.mimeType,
+            displayName: `yt_audio_${videoId}_${Date.now()}`
+        });
+
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(config.model)}:generateContent?key=${config.apiKey}`;
+        const prompt = [
+            'Transcreva TODO o audio com fidelidade.',
+            'Regras obrigatorias:',
+            '- Nao resuma, nao explique, nao analise.',
+            '- Retorne apenas a transcricao linear, em texto puro.',
+            '- Preserve a ordem cronologica das falas.'
+        ].join('\n');
+
+        const geminiRes = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [
+                        { text: prompt },
+                        {
+                            file_data: {
+                                mime_type: uploaded.mimeType,
+                                file_uri: uploaded.uri
+                            }
+                        }
+                    ]
+                }],
+                generationConfig: { temperature: 0 }
+            })
+        });
+
+        const geminiData = await geminiRes.json().catch(() => ({}));
+        if (!geminiRes.ok) {
+            throw new Error(geminiData.error?.message || `Falha na transcricao de audio via Gemini (${geminiRes.status}).`);
+        }
+
+        let transcriptText = extractGeminiText(geminiData);
+        transcriptText = stripMarkdownCodeFence(transcriptText);
+        transcriptText = maybeFixUtf8Mojibake(transcriptText);
+        transcriptText = transcriptText.replace(/\r\n/g, '\n').trim();
+        if (!transcriptText) throw new Error('A API Gemini retornou audio sem transcricao utilizavel.');
+
+        const lines = transcriptText
+            .split(/\n+/)
+            .map(normalizeYouTubeTranscriptLine)
+            .filter(Boolean);
+        if (!lines.length) throw new Error('A transcricao de audio retornou sem linhas validas.');
+
+        return {
+            lines,
+            model: config.model,
+            api_key_source: config.apiKeySource,
+            audio_bytes: downloadedAudio.bytes
+        };
+    } finally {
+        await deleteGeminiFile({ apiKey: config.apiKey, fileName: uploaded && uploaded.name });
+        removeFileQuietly(downloadedAudio.filePath);
+    }
+}
+
+function buildYouTubeTranscriptMarkdown({ urlLike, videoId, lines, mode, model = null }) {
+    const body = asArray(lines).join('\n').replace(/\n{3,}/g, '\n\n').trim();
+    if (!body) throw new Error('Transcricao retornou sem conteudo util.');
+    const metadataRows = [
+        `- source_url: ${String(urlLike || '').trim()}`,
+        `- video_id: ${videoId}`,
+        `- extracted_at: ${nowIso()}`,
+        `- mode: ${mode || 'youtube_transcript'}`
+    ];
+    if (model) metadataRows.push(`- model: ${model}`);
+    return [
+        '# Transcricao YouTube',
+        '',
+        ...metadataRows,
+        '',
+        '## Conteudo',
+        body,
+        ''
+    ].join('\n');
+}
+
+async function fetchYouTubeTranscriptMarkdown(urlLike, options = {}) {
+    const videoId = extractYouTubeVideoId(urlLike);
+    if (!videoId) throw new Error('Nao foi possivel identificar o ID do video YouTube.');
+
+    const forceAudioApi = Boolean(options && options.forceAudioApi);
+    const allowAudioFallback = (options && options.allowAudioFallback !== false) && YOUTUBE_AUDIO_FALLBACK_ENABLED;
+    let lastCaptionError = null;
+
+    if (!forceAudioApi) {
+        const transcriptClient = await ensureYoutubeTranscriptClient();
+        if (transcriptClient && typeof transcriptClient.fetchTranscript === 'function') {
+            const languageOrder = ['pt', 'pt-BR', 'en'];
+            let transcriptItems = [];
+
+            for (const lang of languageOrder) {
+                try {
+                    const fetched = await transcriptClient.fetchTranscript(videoId, { lang });
+                    if (Array.isArray(fetched) && fetched.length) {
+                        transcriptItems = fetched;
+                        break;
+                    }
+                } catch (error) {
+                    lastCaptionError = error;
+                }
+            }
+
+            if (!transcriptItems.length) {
+                try {
+                    const fetched = await transcriptClient.fetchTranscript(videoId);
+                    if (Array.isArray(fetched) && fetched.length) transcriptItems = fetched;
+                } catch (error) {
+                    lastCaptionError = error;
+                }
+            }
+
+            if (transcriptItems.length) {
+                const lines = transcriptItems
+                    .map(item => normalizeYouTubeTranscriptLine(item && item.text))
+                    .filter(Boolean);
+                return {
+                    mode: 'youtube_transcript',
+                    video_id: videoId,
+                    markdown: buildYouTubeTranscriptMarkdown({
+                        urlLike,
+                        videoId,
+                        lines,
+                        mode: 'youtube_transcript'
+                    })
+                };
+            }
+        } else {
+            lastCaptionError = new Error('Dependencia youtube-transcript indisponivel no servidor.');
+        }
+    }
+
+    if (!allowAudioFallback) {
+        throw new Error(lastCaptionError ? lastCaptionError.message : 'Transcricao nao encontrada para este video.');
+    }
+
+    const audioApiResult = await transcribeYouTubeAudioWithGemini(urlLike, videoId);
+    return {
+        mode: 'youtube_audio_api',
+        video_id: videoId,
+        model: audioApiResult.model,
+        api_key_source: audioApiResult.api_key_source,
+        markdown: buildYouTubeTranscriptMarkdown({
+            urlLike,
+            videoId,
+            lines: audioApiResult.lines,
+            mode: 'youtube_audio_api',
+            model: audioApiResult.model
+        })
+    };
+}
+
+function resolvePersonaSourceAsset(personaId, sourcePath) {
+    const normalizedPath = normalizePathForJson(sourcePath);
+    if (!normalizedPath) return null;
+    const { entry } = findPersonaMaterialEntry(personaId, false);
+    if (!entry) return null;
+
+    if (normalizePathForJson(entry.clone_file || '') === normalizedPath) {
+        return { kind: 'clone', path: normalizedPath };
+    }
+    if (asArray(entry.transcript_files).map(normalizePathForJson).includes(normalizedPath)) {
+        return { kind: 'transcript', path: normalizedPath };
+    }
+    if (asArray(entry.full_transcript_files).map(normalizePathForJson).includes(normalizedPath)) {
+        return { kind: 'full_transcript', path: normalizedPath };
+    }
+    if (asArray(entry.support_files).map(normalizePathForJson).includes(normalizedPath)) {
+        return { kind: 'support', path: normalizedPath };
+    }
+    return null;
+}
+
 function ensureDir(dirPath) {
     if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath, { recursive: true });
 }
@@ -131,6 +701,41 @@ function readControlJson(filename, defaultValue = {}) {
 function writeControlJson(filename, data) {
     ensureDir(CONTROL_DIR);
     fs.writeFileSync(path.join(CONTROL_DIR, filename), JSON.stringify(data, null, 2), 'utf8');
+}
+
+// â”€â”€ JSON Rotation (P1 audit fix) â”€â”€
+const ARCHIVE_DIR = path.join(CONTROL_DIR, 'archive');
+const ROTATION_CONFIG = {
+    [FILES.logs]: { key: 'entries', maxEntries: 500 },
+    [FILES.memoryMutations]: { key: 'mutations', maxEntries: 300 },
+    [FILES.snapshots]: { key: 'snapshots', maxEntries: 200 },
+    [FILES.memoryRuns]: { key: 'items', maxEntries: 400 }
+};
+
+function rotateControlJsonArray(filename) {
+    const config = ROTATION_CONFIG[filename];
+    if (!config) return;
+    const data = readControlJson(filename, {});
+    const items = asArray(data[config.key]);
+    if (items.length <= config.maxEntries) return;
+    const keep = items.slice(-config.maxEntries);
+    const archived = items.slice(0, items.length - config.maxEntries);
+    ensureDir(ARCHIVE_DIR);
+    const ts = dayKey();
+    const baseName = filename.replace('.json', '');
+    const archivePath = path.join(ARCHIVE_DIR, `${baseName}_archive_${ts}.json`);
+    let existing = [];
+    try {
+        if (fs.existsSync(archivePath)) {
+            const prev = JSON.parse(fs.readFileSync(archivePath, 'utf8'));
+            existing = asArray(prev[config.key] || prev.items || prev.entries || prev.mutations || prev.snapshots);
+        }
+    } catch (_) { /* ignore */ }
+    const merged = existing.concat(archived);
+    fs.writeFileSync(archivePath, JSON.stringify({ [config.key]: merged, rotated_at: nowIso() }, null, 2), 'utf8');
+    data[config.key] = keep;
+    writeControlJson(filename, data);
+    console.log(`[ROTATION] ${filename}: archived ${archived.length} entries, kept ${keep.length}`);
 }
 
 function ensureControlJson(filename, fallback) {
@@ -728,6 +1333,46 @@ function cleanPersonaMarkdownAssets(personaId, initiatedBy = 'human') {
     };
 }
 
+function cleanPersonaMarkdownAsset(personaId, sourcePath, initiatedBy = 'human') {
+    const registry = ensureControlJson('registry.json', { personas: [] });
+    const persona = asArray(registry.personas).find(item => item && item.id === personaId);
+    if (!persona) throw new Error(`persona not found: ${personaId}`);
+
+    const linkedAsset = resolvePersonaSourceAsset(personaId, sourcePath);
+    if (!linkedAsset || !linkedAsset.path) {
+        throw new Error('source_path nao esta vinculado a esta persona.');
+    }
+
+    const result = cleanMarkdownFile(linkedAsset.path);
+    if (!result.exists) {
+        throw new Error('Arquivo nao encontrado para limpeza.');
+    }
+    if (result.skipped && result.reason === 'not_markdown') {
+        throw new Error('A limpeza por arquivo aceita apenas .md/.markdown/.txt.');
+    }
+
+    const removedBytes = result && result.stats
+        ? Math.max(0, Number(result.stats.original_bytes || 0) - Number(result.stats.cleaned_bytes || 0))
+        : 0;
+    const changedText = result.cleaned ? 'arquivo alterado' : 'nenhuma alteracao necessaria';
+    appendExecutionLog(
+        'persona_asset_cleanup',
+        personaId,
+        `Limpeza de markdown por arquivo concluida (${changedText}): ${linkedAsset.path}, ${removedBytes} byte(s) removido(s).`,
+        initiatedBy || 'human',
+        'Remocao pontual de imagens/base64',
+        null
+    );
+
+    return {
+        persona_id: personaId,
+        source_path: linkedAsset.path,
+        changed: Boolean(result.cleaned),
+        removed_bytes: removedBytes,
+        file: result
+    };
+}
+
 function personaDefaultEntry(personaId) {
     return {
         persona_id: personaId,
@@ -863,8 +1508,8 @@ function textDensityMetrics(rawText) {
     const text = String(rawText || '').trim();
     const lines = text ? text.split(/\r?\n/) : [];
     const nonEmptyLines = lines.filter(line => line.trim().length > 0);
-    const alphaLines = nonEmptyLines.filter(line => /[A-Za-zÀ-ÿ]/.test(line));
-    const words = text.match(/[A-Za-zÀ-ÿ0-9]{2,}/g) || [];
+    const alphaLines = nonEmptyLines.filter(line => /[\p{L}]/u.test(line));
+    const words = text.match(/[\p{L}0-9]{2,}/gu) || [];
     return {
         chars: text.length,
         lines: lines.length,
@@ -1555,16 +2200,36 @@ function buildPersonaAssetsPayload() {
         const promptLinkedStats = promptLinkedFiles.map(safeFileStatView).filter(Boolean);
         const expectedFullTranscriptCount = bookFiles.filter(file => file.exists && /\.pdf$/i.test(file.path || '')).length;
 
+        const trackingData = ensureControlJson('extracted_assets.json', { extractions: {} });
+        const markExtracted = (arr) => arr.map(file => {
+            const track = trackingData.extractions[file.path];
+            if (track) {
+                const isExtracted = track.extracted !== false;
+                if (isExtracted) file.extracted = true;
+                if (track.harmonized && isExtracted) file.harmonized = true;
+                file.extraction_count = Number(track.extraction_count || (isExtracted ? 1 : 0));
+                file.harmonization_count = Number(track.harmonization_count || (track.harmonized ? 1 : 0));
+                file.procedure_count = Number(track.procedure_count || file.harmonization_count || 0);
+                file.reset_count = Number(track.reset_count || 0);
+            } else {
+                file.extraction_count = 0;
+                file.harmonization_count = 0;
+                file.procedure_count = 0;
+                file.reset_count = 0;
+            }
+            return file;
+        });
+
         return {
             persona_id: persona.id,
             persona_name: persona.name,
             instruction_file: safeFileStatView(instructionPath),
             clone_file: cloneStat,
-            transcript_files: transcriptFiles,
-            full_transcript_files: fullTranscriptFiles,
+            transcript_files: markExtracted(transcriptFiles),
+            full_transcript_files: markExtracted(fullTranscriptFiles),
             book_files: bookFiles,
             books_working_file: (booksWorkspaceFile.exists || bookFiles.length) ? booksWorkspaceFile : null,
-            support_files: supportFiles,
+            support_files: markExtracted(supportFiles),
             prompt_linked_files: promptLinkedStats,
             transcript_status: {
                 total: transcriptFiles.length,
@@ -2116,45 +2781,56 @@ function runSessionStart(body) {
     return { resumed: false, session, context_flash: flash, startup_brief: startupBrief };
 }
 
-function updateTaskAndMemoryDocs(summary, nextAction, checkpointId) {
-    const timestamp = nowIso();
-    const taskRaw = readText(TASK_PATH, '# Task Board (Canonical)\n');
-    const note = [
-        '- [x] Sessao encerrada automaticamente',
-        `- [x] Resumo: ${summary}`,
-        `- [x] Proxima acao: ${nextAction || '(nao informada)'}`,
-        `- [x] Checkpoint: ${checkpointId}`
-    ];
-    let taskUpdated = taskRaw;
-    if (!taskUpdated.includes('## Done in this session')) {
-        taskUpdated += '\n## Done in this session\n';
-    }
-    taskUpdated = taskUpdated.replace(/## Done in this session([\s\S]*?)(\n## |$)/m, (match, sectionBody, endHeading) => {
-        const merged = `## Done in this session${sectionBody}\n${note.join('\n')}\n`;
-        return `${merged}${endHeading}`;
-    });
-    taskUpdated = patchLastUpdated(taskUpdated, timestamp);
-    writeText(TASK_PATH, taskUpdated.endsWith('\n') ? taskUpdated : `${taskUpdated}\n`);
+function resolveCloseKind(closedBy, summary) {
+    const by = asTrimmedText(closedBy).toLowerCase();
+    if (by === 'system' || isAutoCloseSummary(summary)) return 'automatico';
+    if (by === 'human') return 'usuario';
+    return 'manual';
+}
 
-    if (fs.existsSync(MEMORY_DIR)) {
-        fs.readdirSync(MEMORY_DIR)
-            .filter(file => file.endsWith('.md'))
-            .forEach(file => {
-                const full = path.join(MEMORY_DIR, file);
-                let md = readText(full, '');
-                if (!md.trim()) return;
-                md = patchLastUpdated(md, timestamp);
-                if (file === 'project_memory.md') {
-                    md = setSection(md, 'Ultimo fechamento automatico', [
-                        `- timestamp: ${timestamp}`,
-                        `- resumo: ${summary}`,
-                        `- proxima_acao: ${nextAction || '(nao informada)'}`,
-                        `- checkpoint: ${checkpointId}`
-                    ]);
-                }
-                writeText(full, md.endsWith('\n') ? md : `${md}\n`);
-            });
+function updateTaskAndMemoryDocs(summary, nextAction, checkpointId, closedBy = 'dashboard') {
+    const timestamp = nowIso();
+    const closeKind = resolveCloseKind(closedBy, summary);
+    const isAutomatic = closeKind === 'automatico';
+
+    if (!isAutomatic) {
+        const taskRaw = readText(TASK_PATH, '# Task Board (Canonical)\n');
+        const firstLine = closeKind === 'usuario'
+            ? '- [x] Sessao encerrada pelo usuario.'
+            : '- [x] Sessao encerrada.';
+        const note = [
+            firstLine,
+            `- [x] Resumo: ${summary}`,
+            `- [x] Proxima acao: ${nextAction || '(nao informada)'}`,
+            `- [x] Checkpoint: ${checkpointId}`
+        ];
+        let taskUpdated = taskRaw;
+        if (!taskUpdated.includes('## Done in this session')) {
+            taskUpdated += '\n## Done in this session\n';
+        }
+        taskUpdated = taskUpdated.replace(/## Done in this session([\s\S]*?)(\n## |$)/m, (match, sectionBody, endHeading) => {
+            const merged = `## Done in this session${sectionBody}\n${note.join('\n')}\n`;
+            return `${merged}${endHeading}`;
+        });
+        taskUpdated = patchLastUpdated(taskUpdated, timestamp);
+        writeText(TASK_PATH, taskUpdated.endsWith('\n') ? taskUpdated : `${taskUpdated}\n`);
     }
+
+    const projectMemoryPath = path.join(MEMORY_DIR, 'project_memory.md');
+    if (!fs.existsSync(projectMemoryPath)) return;
+    let projectMemory = readText(projectMemoryPath, '');
+    if (!projectMemory.trim()) return;
+    projectMemory = patchLastUpdated(projectMemory, timestamp);
+
+    const sectionTitle = isAutomatic ? 'Ultimo fechamento automatico' : 'Ultimo fechamento';
+    projectMemory = setSection(projectMemory, sectionTitle, [
+        `- timestamp: ${timestamp}`,
+        `- tipo: ${closeKind}`,
+        `- resumo: ${summary}`,
+        `- proxima_acao: ${nextAction || '(nao informada)'}`,
+        `- checkpoint: ${checkpointId}`
+    ]);
+    writeText(projectMemoryPath, projectMemory.endsWith('\n') ? projectMemory : `${projectMemory}\n`);
 }
 
 function runSessionClose(body) {
@@ -2203,7 +2879,7 @@ function runSessionClose(body) {
     memoryState.updated_at = nowIso();
     writeControlJson(FILES.memoryState, memoryState);
 
-    updateTaskAndMemoryDocs(summary, nextAction, checkpointId);
+    updateTaskAndMemoryDocs(summary, nextAction, checkpointId, body.closed_by || 'dashboard');
 
     const closedSession = {
         ...current,
@@ -2252,6 +2928,16 @@ function runSessionClose(body) {
     appendMemoryMutation('session_shutdown', `Scribe encerrou ${closedSession.id}: ${summary}`, closedSession.closed_by);
     if (!body.skip_auto_cloud) {
         scheduleAutoCloudSync('session_close', closeProjectId);
+    }
+
+    // P1 audit: rotate large JSON files to prevent unbounded growth
+    try {
+        rotateControlJsonArray(FILES.logs);
+        rotateControlJsonArray(FILES.memoryMutations);
+        rotateControlJsonArray(FILES.snapshots);
+        rotateControlJsonArray(FILES.memoryRuns);
+    } catch (rotErr) {
+        console.error('[ROTATION] Error during post-close rotation:', rotErr.message);
     }
 
     return { session: closedSession, checkpoint_id: checkpointId };
@@ -2448,6 +3134,15 @@ const server = http.createServer(async (req, res) => {
             const result = cleanPersonaMarkdownAssets(personaId, body.initiated_by || 'human');
             return sendJson(res, { success: true, ...result });
         }
+        if (pathname === '/api/personas/assets/clean-md-file' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const personaId = String(body.persona_id || '').trim();
+            const sourcePath = String(body.source_path || '').trim();
+            if (!personaId) return sendJson(res, { error: 'persona_id required' }, 400);
+            if (!sourcePath) return sendJson(res, { error: 'source_path required' }, 400);
+            const result = cleanPersonaMarkdownAsset(personaId, sourcePath, body.initiated_by || 'human');
+            return sendJson(res, { success: true, ...result });
+        }
         if (pathname === '/api/personas/assets/books-workspace/refresh' && req.method === 'POST') {
             const body = await parseBody(req);
             const personaId = String(body.persona_id || '').trim();
@@ -2463,6 +3158,316 @@ const server = http.createServer(async (req, res) => {
                 { error: 'Fluxo PDF desativado. Use apenas transcricoes em markdown (.md/.txt).' },
                 410
             );
+        }
+        if (pathname === '/api/personas/assets/extract-heuristics' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const { persona_id, source_path } = body;
+            if (!persona_id || !source_path) return sendJson(res, { error: 'persona_id e source_path requeridos' }, 400);
+
+            let geminiConfig = null;
+            try {
+                geminiConfig = resolveGeminiApiConfig({ required: true, model: GEMINI_EXTRACT_MODEL });
+            } catch (error) {
+                return sendJson(res, { error: error.message }, 500);
+            }
+            const apiKey = geminiConfig.apiKey;
+
+            try {
+                const linkedAsset = resolvePersonaSourceAsset(persona_id, source_path);
+                if (!linkedAsset) throw new Error('source_path nao esta vinculado a esta persona.');
+                if (linkedAsset.kind === 'clone') throw new Error('Extracao de nectar deve usar transcricoes/anexos, nao o clone.');
+
+                const fullSourcePath = safeWorkspacePath(linkedAsset.path);
+                if (!fs.existsSync(fullSourcePath)) throw new Error('Arquivo fonte nao encontrado no disco.');
+                const markdownContent = fs.readFileSync(fullSourcePath, 'utf8');
+
+                // Extraindo basename para isolar em quarentena
+                const baseFilename = path.basename(fullSourcePath).replace(/\.[^/.]+$/, "");
+                const stagingDir = path.join(ROOT_DIR, 'knowledge', 'clones', 'staging');
+                ensureDir(stagingDir);
+                const stagingFileName = `${persona_id}_${baseFilename}_nectar.md`;
+                const stagingFullPath = path.join(stagingDir, stagingFileName);
+
+                // Chama a API do Gemini BraÃ§al
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(geminiConfig.model)}:generateContent?key=${apiKey}`;
+                const prompt = `Aja APENAS como um Extrator de NÃ©ctar (Engenheiro de Dados Mestre). 
+Eu vou te passar um "Transcript Bruto" (VÃ­deo/Livro).
+Extraia puramente as heurÃ­sticas, o tom de voz, frameworks e mentalidade contidos neste arquivo em um formato de bullet points concisos e limpos (em Markdown). 
+Sua saÃ­da serÃ¡ enviada para uma Sala de Quarentena (Staging Area), sem tocar no Clone Final ainda. 
+NÃƒO enrole. NÃ£o inclua texto suplementar inicial ou dÃ­sticos. Imprima apenas os pontos em Markdown.
+
+<FORMATO_ESPERADO>
+## ðŸ§  HeurÃ­sticas do Arquivo (${baseFilename})
+- Regra 1
+- Tom de Voz X
+</FORMATO_ESPERADO>
+
+<TRANSCRIPT_BRUTO>
+${markdownContent.substring(0, 150000)}
+</TRANSCRIPT_BRUTO>`;
+
+                const geminiRes = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                });
+
+                const geminiData = await geminiRes.json();
+                if (!geminiRes.ok) throw new Error(geminiData.error?.message || 'Falha na API Gemini');
+
+                let extractedRules = geminiData.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (!extractedRules) throw new Error('A API nao retornou regras claras.');
+                if (extractedRules.startsWith('\`\`\`markdown')) {
+                    extractedRules = extractedRules.replace(/^\`\`\`markdown\n?/, '').replace(/\n?\`\`\`$/, '');
+                }
+
+                // Salva o NÃ©ctar na Sala de Quarentena (Staging)
+                fs.writeFileSync(stagingFullPath, extractedRules.trim() + '\n', 'utf8');
+                
+                // Tracking visual para a UI (MarcaÃ§Ã£o que o usuÃ¡rio pediu)
+                const trackingFile = path.join(CONTROL_DIR, 'extracted_assets.json');
+                const trackingData = ensureControlJson('extracted_assets.json', { extractions: {} });
+                const now = new Date().toISOString();
+                const previous = trackingData.extractions[linkedAsset.path] || {};
+                trackingData.extractions[linkedAsset.path] = {
+                    ...previous,
+                    date: now,
+                    last_extracted_at: now,
+                    persona_id: persona_id,
+                    extracted: true,
+                    harmonized: false,
+                    extraction_count: Number(previous.extraction_count || 0) + 1,
+                    harmonization_count: Number(previous.harmonization_count || 0),
+                    procedure_count: Number(previous.procedure_count || 0),
+                    reset_count: Number(previous.reset_count || 0)
+                };
+                delete trackingData.extractions[linkedAsset.path].harmonized_at;
+                fs.writeFileSync(trackingFile, JSON.stringify(trackingData, null, 4), 'utf8');
+
+                return sendJson(res, {
+                    success: true,
+                    staging_path: stagingFullPath,
+                    rules: extractedRules,
+                    model: geminiConfig.model,
+                    api_key_source: geminiConfig.apiKeySource
+                });
+            } catch (err) {
+                console.error('[GEMINI EXTRACTION ERROR]', err);
+                return sendJson(res, { error: err.message }, 500);
+            }
+        }
+        if (pathname === '/api/personas/assets/harmonize-staging' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const { persona_id, source_path } = body;
+            if (!persona_id || !source_path) return sendJson(res, { error: 'persona_id e source_path requeridos' }, 400);
+
+            let geminiConfig = null;
+            try {
+                geminiConfig = resolveGeminiApiConfig({ required: true, model: GEMINI_HARMONIZE_MODEL });
+            } catch (error) {
+                return sendJson(res, { error: error.message }, 500);
+            }
+            const apiKey = geminiConfig.apiKey;
+
+            try {
+                const linkedAsset = resolvePersonaSourceAsset(persona_id, source_path);
+                if (!linkedAsset) throw new Error('source_path nao esta vinculado a esta persona.');
+                if (linkedAsset.kind === 'clone') throw new Error('Harmonizacao requer um arquivo de transcricao/anexo como fonte.');
+
+                const baseFilename = path.basename(linkedAsset.path).replace(/\.[^/.]+$/, "");
+                const stagingDir = path.join(ROOT_DIR, 'knowledge', 'clones', 'staging');
+                const stagingFileName = `${persona_id}_${baseFilename}_nectar.md`;
+                const stagingFullPath = path.join(stagingDir, stagingFileName);
+
+                if (!fs.existsSync(stagingFullPath)) throw new Error('Arquivo de staging (quarentena) nÃ£o encontrado.');
+                const nectarData = fs.readFileSync(stagingFullPath, 'utf8');
+
+                const { entry } = findPersonaMaterialEntry(persona_id, true);
+                const cloneRelPath = entry.clone_file || PERSONA_CLONE_DEFAULTS[persona_id] || `knowledge/clones/${persona_id.replace(/^prs-/, '')}_clone.md`;
+                const cloneFullPath = path.join(ROOT_DIR, cloneRelPath);
+
+                let cloneContent = '';
+                if (fs.existsSync(cloneFullPath)) {
+                    cloneContent = fs.readFileSync(cloneFullPath, 'utf8');
+                } else {
+                    ensureDir(path.dirname(cloneFullPath));
+                    cloneContent = `---\nname: ${persona_id}\n---\n\n# SYSTEM PROMPT: CLONE ${persona_id}\nVocÃª Ã© um especialista.`;
+                }
+
+                // O Agente Harmonizador
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(geminiConfig.model)}:generateContent?key=${apiKey}`;
+                const prompt = `VocÃª Ã© o Arquiteto Harmonizador (Agent Orchestrator).
+Vou te passar o "CÃ©rebro Atual do Clone" e um "NÃ©ctar" (Regras isoladas na quarentena).
+Sua missÃ£o: MERGEAR este NÃ©ctar com o CÃ©rebro Atual.
+Resolva contradiÃ§Ãµes, mantenha o perfil agressivo/suave intacto, estruture logicamente e evite repetiÃ§Ãµes.
+Retorne APENAS o arquivo Markdown do CÃ©rebro Atualizado completo, pronto para ser salvo. Sem textos de apoio.
+
+[CEREBRO_ATUAL]
+${cloneContent}
+[/CEREBRO_ATUAL]
+
+[NECTAR_PARA_INJETAR]
+${nectarData}
+[/NECTAR_PARA_INJETAR]`;
+
+                const geminiRes = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                });
+
+                const geminiData = await geminiRes.json();
+                if (!geminiRes.ok) throw new Error(geminiData.error?.message || 'Falha na API Gemini Harmonize');
+
+                let harmonizedRules = geminiData.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (!harmonizedRules) throw new Error('A API nao retornou regras claras.');
+                if (harmonizedRules.startsWith('\`\`\`markdown')) harmonizedRules = harmonizedRules.replace(/^\`\`\`markdown\n?/, '');
+                if (harmonizedRules.endsWith('\`\`\`')) harmonizedRules = harmonizedRules.replace(/\n?\`\`\`$/, '');
+
+                fs.writeFileSync(cloneFullPath, harmonizedRules.trim() + '\n', 'utf8');
+                // fs.unlinkSync(stagingFullPath); // Removido a pedido para permitir harmonizar novamente
+
+                // Marcar como harmonizado no tracking
+                const trackingFile = path.join(CONTROL_DIR, 'extracted_assets.json');
+                const trackingData = ensureControlJson('extracted_assets.json', { extractions: {} });
+                const now = new Date().toISOString();
+                const previous = trackingData.extractions[linkedAsset.path] || {};
+                trackingData.extractions[linkedAsset.path] = {
+                    ...previous,
+                    date: now,
+                    last_harmonized_at: now,
+                    persona_id: persona_id,
+                    extracted: true,
+                    harmonized: true,
+                    harmonized_at: now,
+                    extraction_count: Number(previous.extraction_count || 0),
+                    harmonization_count: Number(previous.harmonization_count || 0) + 1,
+                    procedure_count: Number(previous.procedure_count || 0) + 1,
+                    reset_count: Number(previous.reset_count || 0)
+                };
+                fs.writeFileSync(trackingFile, JSON.stringify(trackingData, null, 4), 'utf8');
+
+                return sendJson(res, {
+                    success: true,
+                    clone_path: cloneRelPath,
+                    model: geminiConfig.model,
+                    api_key_source: geminiConfig.apiKeySource
+                });
+            } catch (err) {
+                console.error('[GEMINI HARMONIZE ERROR]', err);
+                return sendJson(res, { error: err.message }, 500);
+            }
+        }
+        if (pathname === '/api/personas/assets/reset-tracking' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const { persona_id, source_path } = body;
+            if (!persona_id || !source_path) return sendJson(res, { error: 'persona_id e source_path requeridos' }, 400);
+
+            try {
+                const linkedAsset = resolvePersonaSourceAsset(persona_id, source_path);
+                if (!linkedAsset) throw new Error('source_path nao esta vinculado a esta persona.');
+
+                const trackingFile = path.join(CONTROL_DIR, 'extracted_assets.json');
+                const trackingData = ensureControlJson('extracted_assets.json', { extractions: {} });
+                
+                if (trackingData.extractions[linkedAsset.path]) {
+                    const previous = trackingData.extractions[linkedAsset.path];
+                    trackingData.extractions[linkedAsset.path] = {
+                        ...previous,
+                        date: new Date().toISOString(),
+                        extracted: false,
+                        harmonized: false,
+                        reset_count: Number(previous.reset_count || 0) + 1
+                    };
+                    delete trackingData.extractions[linkedAsset.path].harmonized_at;
+                    fs.writeFileSync(trackingFile, JSON.stringify(trackingData, null, 4), 'utf8');
+                }
+
+                return sendJson(res, { success: true });
+            } catch (err) {
+                return sendJson(res, { error: err.message }, 500);
+            }
+        }
+        if (pathname === '/api/personas/assets/ingest-url' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const { url, persona_id, kind = 'full_transcript' } = body;
+            if (!url || !persona_id) return sendJson(res, { error: 'url e persona_id requeridos' }, 400);
+
+            try {
+                const urlObj = new URL(url);
+                if (!/^https?:$/i.test(urlObj.protocol)) {
+                    throw new Error('Somente URLs http/https sao permitidas.');
+                }
+                const normalizedKind = String(kind || '').trim().toLowerCase();
+                const allowedKinds = new Set(['transcript', 'full_transcript', 'support']);
+                if (!allowedKinds.has(normalizedKind)) {
+                    throw new Error('kind invalido para ingestao por URL.');
+                }
+
+                let markdown = '';
+                let ingestionMode = 'web_scrape';
+                let ingestionMeta = {};
+                if (isYouTubeHost(urlObj.hostname)) {
+                    const youtubeResult = await fetchYouTubeTranscriptMarkdown(urlObj.toString(), {
+                        allowAudioFallback: body.allow_audio_fallback !== false,
+                        forceAudioApi: body.force_audio_api === true
+                    });
+                    markdown = youtubeResult.markdown;
+                    ingestionMode = youtubeResult.mode || 'youtube_transcript';
+                    ingestionMeta = {
+                        video_id: youtubeResult.video_id || null,
+                        model: youtubeResult.model || null,
+                        api_key_source: youtubeResult.api_key_source || null
+                    };
+                } else {
+                    const response = await fetch(urlObj.toString(), { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' } });
+                    if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+                    const htmlData = await response.text();
+
+                    const dom = new JSDOM(htmlData);
+                    const document = dom.window.document;
+                    const elementsToRemove = document.querySelectorAll('script, style, noscript, nav, footer, header, svg, iframe');
+                    elementsToRemove.forEach(el => el.remove());
+
+                    const cleanHtml = DOMPurify(dom.window).sanitize(document.body.innerHTML);
+                    const turndownService = new TurndownService({ headingStyle: 'atx', codeBlockStyle: 'fenced' });
+                    markdown = turndownService.turndown(cleanHtml).replace(/\n{3,}/g, '\n\n').trim();
+                }
+
+                if (!String(markdown || '').trim()) {
+                    throw new Error('Nao foi possivel extrair conteudo textual da URL informada.');
+                }
+
+                const slug = `${ingestionMode}_${urlObj.hostname.replace(/[^a-z0-9]/gi, '_')}${urlObj.pathname.replace(/[^a-z0-9]/gi, '_')}`;
+                const cleanSlug = slug.replace(/_+/g, '_').replace(/^_|_$/g, '').substring(0, 40) || 'page';
+                const fileName = `ingest_${cleanSlug}_${Date.now()}.md`;
+                const targetDir = path.join(ROOT_DIR, 'knowledge', 'clones', 'transcripts');
+                
+                if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir, { recursive: true });
+                const savePath = path.join(targetDir, fileName);
+                fs.writeFileSync(savePath, `${markdown.trim()}\n`, 'utf8');
+                
+                const relPath = `knowledge/clones/transcripts/${fileName}`;
+                const linkResult = await attachPersonaAsset({
+                    personaId: persona_id,
+                    kind: normalizedKind,
+                    sourcePath: relPath,
+                    copyToLibrary: false,
+                    initiatedBy: body.initiated_by || 'dashboard_url_ingest'
+                });
+                
+                return sendJson(res, {
+                    success: true,
+                    file: relPath,
+                    bytes: markdown.length,
+                    mode: ingestionMode,
+                    ...ingestionMeta,
+                    link: linkResult
+                });
+            } catch (err) {
+                console.error('[URL INGEST] Ocorreu um erro:', err.message);
+                return sendJson(res, { error: 'Parse falhou: ' + err.message }, 500);
+            }
         }
         if (pathname === '/api/project-flows' && req.method === 'GET') return sendJson(res, ensureControlJson(FILES.projectFlows, { projects: {} }));
         if (pathname === '/api/session' && req.method === 'GET') return sendJson(res, ensureControlJson(FILES.session, { current_session: null, history: [] }));
@@ -2480,7 +3485,7 @@ const server = http.createServer(async (req, res) => {
             }
             const persona = {
                 id,
-                icon: body.icon || '👤',
+                icon: body.icon || 'ðŸ‘¤',
                 name: body.name,
                 role: body.role || 'Nova Persona',
                 traits: body.traits || [],
@@ -2861,3 +3866,5 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, () => {
     console.log(`Anti-Gravity Tower online: http://localhost:${PORT}`);
 });
+
+
