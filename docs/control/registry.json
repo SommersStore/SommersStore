@@ -135,7 +135,8 @@
       ],
       "agents": [
         "AGT-QRO-01",
-        "AGT-QRO-02"
+        "AGT-QRO-02",
+        "AGT-QRO-03"
       ]
     },
     {
@@ -326,6 +327,14 @@
       "squad": "SQD-QRO",
       "role": "Agente de suporte e monitoramento de integridade.",
       "icon": "🆘"
+    },
+    {
+      "id": "AGT-QRO-03",
+      "name": "Nectar Auditor",
+      "handle": "@nectar-auditor",
+      "squad": "SQD-QRO",
+      "role": "Auditor premium de nectar de clones. Avalia qualidade, compatibilidade, redundancia, risco de diluicao e decisao de harmonizacao antes de qualquer aplicacao na base do clone.",
+      "icon": "flask-conical"
     },
     {
       "id": "AGT-MEM-01",
@@ -872,6 +881,102 @@
         "activation_criticality": "alta",
         "activation_enabled": true,
         "activation_trigger": "fase+manual"
+      },
+      {
+        "id": "SKL-QRO-06",
+        "name": "NectarSourceQuality",
+        "desc": "Avalia a densidade, clareza, confiabilidade e riqueza estrategica de transcricoes, anexos e nectares antes de uso no clone.",
+        "agents": [
+          "AGT-QRO-03"
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-QRO-06.md",
+        "playbook_source": ".codex/skills/nectar-source-quality.md",
+        "playbook_status": "active",
+        "activation_lane": "suporte_critico",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "pre-harmonizacao+manual"
+      },
+      {
+        "id": "SKL-QRO-07",
+        "name": "CloneCompatibilityAudit",
+        "desc": "Compara o nectar com a base atual do clone para detectar aderencia de voz, mentalidade, escopo e contradicoes.",
+        "agents": [
+          "AGT-QRO-03"
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-QRO-07.md",
+        "playbook_source": ".codex/skills/clone-compatibility-audit.md",
+        "playbook_status": "active",
+        "activation_lane": "suporte_critico",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "pre-harmonizacao+manual"
+      },
+      {
+        "id": "SKL-QRO-08",
+        "name": "RedundancyNoveltyScan",
+        "desc": "Classifica o nectar por novidade util, repeticao aceitavel, redundancia pura e possivel conflito com conhecimento ja consolidado.",
+        "agents": [
+          "AGT-QRO-03"
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-QRO-08.md",
+        "playbook_source": ".codex/skills/redundancy-novelty-scan.md",
+        "playbook_status": "active",
+        "activation_lane": "suporte_critico",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "pre-harmonizacao+manual"
+      },
+      {
+        "id": "SKL-QRO-09",
+        "name": "DilutionRiskGate",
+        "desc": "Gate de risco que impede material fraco, generico, contraditorio ou ruidoso de diluir uma base de clone ja qualificada.",
+        "agents": [
+          "AGT-QRO-03"
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-QRO-09.md",
+        "playbook_source": ".codex/skills/dilution-risk-gate.md",
+        "playbook_status": "active",
+        "activation_lane": "suporte_critico",
+        "activation_relevance": "runtime",
+        "activation_criticality": "critica",
+        "activation_enabled": true,
+        "activation_trigger": "pre-harmonizacao+obrigatorio"
+      },
+      {
+        "id": "SKL-QRO-10",
+        "name": "PremiumHeuristicExtraction",
+        "desc": "Seleciona apenas principios, frameworks, linguagem proprietaria, regras de decisao e exemplos de alto valor para harmonizacao.",
+        "agents": [
+          "AGT-QRO-03"
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-QRO-10.md",
+        "playbook_source": ".codex/skills/premium-heuristic-extraction.md",
+        "playbook_status": "active",
+        "activation_lane": "suporte_critico",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "pre-harmonizacao+manual"
+      },
+      {
+        "id": "SKL-QRO-11",
+        "name": "HarmonizationDecisionBrief",
+        "desc": "Produz parecer final APROVAR, REVISAR, REJEITAR ou ANEXAR_APENAS com nota, justificativa, riscos e lista do que pode entrar no clone.",
+        "agents": [
+          "AGT-QRO-03"
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-QRO-11.md",
+        "playbook_source": ".codex/skills/harmonization-decision-brief.md",
+        "playbook_status": "active",
+        "activation_lane": "suporte_critico",
+        "activation_relevance": "runtime",
+        "activation_criticality": "critica",
+        "activation_enabled": true,
+        "activation_trigger": "pre-harmonizacao+obrigatorio"
       }
     ],
     "MEM": [

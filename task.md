@@ -9,6 +9,7 @@
 - [x] Implementar correcoes P1 (cores squads, handles AGENTS.md, rotacao JSONs)
 
 ## Pending Work
+- [ ] Handoff UX Master > Clones: remover gaveta lateral grande/flutuante e restaurar abertura dos clones dentro do `Inspector` compacto existente; nao deixar o Inspector como espaco morto.
 - [x] Consolidar eventos automaticos de memoria (execution + checkpoint + mutation)
 - [x] Popular KPIs com valores reais em registry.json (P0 auditoria)
 - [x] Garantir project_id em todos os log entries (P0 auditoria)
@@ -20,6 +21,11 @@
 - [ ] Modularizar HTML do painel (P2 auditoria)
 
 ## Done in this session (21/04/2026 — Antigravity)
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Checkpoint: CHK-MEM-0203
+
 - [x] Sessao encerrada pelo usuario.
 - [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
 - [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
@@ -711,4 +717,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-04-22T16:46:01-03:00
+- updated_at: 2026-04-25T11:15:19-03:00

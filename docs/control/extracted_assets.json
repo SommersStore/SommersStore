@@ -1,3 +1,27 @@
 {
-  "extractions": {}
+    "extractions": {
+        "knowledge/clones/transcripts/ingest_youtube_transcript_www_youtube_com_watch_1777096060217.md": {
+            "date": "2026-04-25T09:19:48.792Z",
+            "last_extracted_at": "2026-04-25T09:15:42.836Z",
+            "persona_id": "prs-alan-nicolas",
+            "extracted": true,
+            "harmonized": true,
+            "extraction_count": 2,
+            "harmonization_count": 2,
+            "procedure_count": 2,
+            "reset_count": 1,
+            "audit_count": 3,
+            "audit_status": "APROVAR",
+            "audit_score": 95,
+            "audit_risk": "Baixo",
+            "audit_path": "knowledge/clones/reviews/prs-alan-nicolas_ingest_youtube_transcript_www_youtube_com_watch_1777096060217_review_2026-04-25T06-18-00-03-00.md",
+            "last_audited_at": "2026-04-25T06:18:27-03:00",
+            "last_candidate_at": "2026-04-25T09:19:08.184Z",
+            "pending_candidate": false,
+            "candidate_path": "knowledge/clones/candidates/prs-alan-nicolas_ingest_youtube_transcript_www_youtube_com_watch_1777096060217_candidate_2026-04-25T06-19-08-03-00.md",
+            "last_harmonized_at": "2026-04-25T09:19:48.792Z",
+            "harmonized_at": "2026-04-25T09:19:48.792Z",
+            "backup_path": "knowledge/clones/backups/prs-alan-nicolas_alan_nicolas_clone_2026-04-25T06-19-48-03-00.md"
+        }
+    }
 }

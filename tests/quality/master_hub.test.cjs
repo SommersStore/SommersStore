@@ -54,10 +54,20 @@ function testIntegrationPoints() {
   const dashboardHtml = fs.readFileSync(path.join(ROOT, 'docs/aiox_dashboard.html'), 'utf8');
   const serverJs = fs.readFileSync(path.join(ROOT, 'scripts/dashboard_server.js'), 'utf8');
   const packageJson = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+  const registry = readJson('docs/control/registry.json');
   const backfillScript = fs.readFileSync(path.join(ROOT, 'scripts/maintenance/backfill_project_log_ids.cjs'), 'utf8');
 
   assert.match(dashboardHtml, /fetch\('\/api\/project-flows'\)/, 'dashboard should fetch /api/project-flows');
   assert.match(serverJs, /\/api\/project-flows/, 'server should expose /api/project-flows');
+  assert.match(serverJs, /\/api\/registry\/agents/, 'server should expose agent creation endpoint');
+  assert.match(serverJs, /\/api\/registry\/skills/, 'server should expose skill creation endpoint');
+  assert.match(dashboardHtml, /openAddCloneModal\(/, 'dashboard should expose add clone action in Master clones view');
+  assert.match(dashboardHtml, /openAddAgentModal\(/, 'dashboard should expose add agent action');
+  assert.match(dashboardHtml, /openAddSkillModal\(/, 'dashboard should expose add skill action');
+  assert.match(dashboardHtml, /function renderMasterCloneCardDetails\(/, 'dashboard should merge persona card details into Master clones');
+  assert.match(dashboardHtml, /const personaOverview = `/, 'dashboard should show persona overview in the Master clone inspector');
+  assert.match(dashboardHtml, /function collapseMasterInspector\(/, 'dashboard should collapse the Master inspector on demand');
+  assert.match(dashboardHtml, /master-collapse-btn/, 'dashboard should provide prominent collapse controls');
   assert.match(dashboardHtml, /id="master-project-kpis"/, 'dashboard should render master project KPIs container');
   assert.match(dashboardHtml, /function renderMasterProjectKpis\(/, 'dashboard should define KPI renderer for project metrics');
   assert.match(dashboardHtml, /id="master-project-timeline"/, 'dashboard should render master timeline container');
@@ -102,6 +112,28 @@ function testIntegrationPoints() {
   assert.match(serverJs, /'session_pulse'/, 'server should append session_pulse execution logs');
   assert.match(serverJs, /inferProjectIdFromSessionArchive\(/, 'server should infer project_id from session archives for log fallback');
   assert.match(serverJs, /\/api\/personas\/assets\/clean-md/, 'server should expose markdown cleanup endpoint for persona assets');
+  assert.match(serverJs, /\/api\/personas\/assets\/apply-harmonization/, 'server should expose explicit harmonization apply endpoint');
+  assert.match(serverJs, /\/api\/personas\/assets\/audit-nectar/, 'server should expose Nectar Auditor endpoint');
+  assert.match(serverJs, /runNectarAudit\(/, 'server should run Nectar Auditor before harmonization');
+  assert.match(serverJs, /blocked_by_audit/, 'server should block harmonization when Nectar Auditor rejects it');
+  assert.match(serverJs, /'knowledge', 'clones', 'candidates'/, 'server should stage harmonization candidates before changing clones');
+  assert.match(serverJs, /'knowledge', 'clones', 'backups'/, 'server should backup clone files before applying harmonization');
+  assert.match(serverJs, /AIOX-HARMONIZATION-LOG:START/, 'server should append harmonized source ledger to clone candidates');
+  assert.match(serverJs, /AIOX-NECTAR-AUDIT:START/, 'server should persist Nectar Auditor metadata in review files');
+  assert.match(dashboardHtml, /Previa de harmonizacao criada/, 'dashboard should require preview before applying harmonization');
+  assert.match(dashboardHtml, /masterCloneAudit\(/, 'dashboard should expose manual Nectar Auditor action');
+  assert.match(dashboardHtml, /Parecer Nectar Auditor/, 'dashboard should open Nectar Auditor review files');
+  assert.match(dashboardHtml, /applyMasterCloneHarmonization\(/, 'dashboard should apply harmonization only after explicit confirmation');
+  assert.ok(registry.agents.some(agent => agent.id === 'AGT-QRO-03' && agent.handle === '@nectar-auditor'), 'registry should include Nectar Auditor agent');
+  assert.ok(registry.squads.find(squad => squad.id === 'SQD-QRO').agents.includes('AGT-QRO-03'), 'QRO squad should include Nectar Auditor');
+  for (const skillId of ['SKL-QRO-06', 'SKL-QRO-07', 'SKL-QRO-08', 'SKL-QRO-09', 'SKL-QRO-10', 'SKL-QRO-11']) {
+    const skill = registry.skills.QRO.find(item => item.id === skillId);
+    assert.ok(skill, `registry should include ${skillId}`);
+    assert.ok(skill.agents.includes('AGT-QRO-03'), `${skillId} should belong to Nectar Auditor`);
+    assert.ok(fs.existsSync(path.join(ROOT, skill.playbook_file)), `${skillId} playbook file should exist`);
+  }
+  assert.ok(fs.existsSync(path.join(ROOT, '.codex/agents/nectar-auditor.md')), 'Nectar Auditor agent file should exist');
+  assert.ok(fs.existsSync(path.join(ROOT, '.codex/skills/dilution-risk-gate.md')), 'Dilution risk skill file should exist');
   assert.match(serverJs, /cleanMarkdownFile\(/, 'server should sanitize markdown files for persona assets');
   assert.match(serverJs, /Upload de PDF bloqueado neste fluxo/, 'server should block PDF uploads in persona assets flow');
   assert.match(serverJs, /kind must be one of: clone, transcript, full_transcript, support/, 'server should reject legacy "book" kind in persona assets flow');

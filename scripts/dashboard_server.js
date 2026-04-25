@@ -759,6 +759,190 @@ function writeText(fullPath, content) {
     fs.writeFileSync(fullPath, content, 'utf8');
 }
 
+function workspaceRelativePath(fullPath) {
+    return normalizePathForJson(path.relative(ROOT_DIR, fullPath));
+}
+
+function timestampForFile() {
+    return nowIso().replace(/[:.]/g, '-');
+}
+
+function appendHarmonizationLedger(content, entry) {
+    const start = '<!-- AIOX-HARMONIZATION-LOG:START -->';
+    const end = '<!-- AIOX-HARMONIZATION-LOG:END -->';
+    const line = `- ${entry.at} | source: \`${entry.source_path}\` | staging: \`${entry.staging_path}\` | candidate: \`${entry.candidate_path}\``;
+    const blockPattern = new RegExp(`\\n?${start}[\\s\\S]*?${end}\\n?`, 'm');
+    const existingMatch = content.match(blockPattern);
+    let previousLines = [];
+
+    if (existingMatch) {
+        previousLines = existingMatch[0]
+            .split(/\r?\n/)
+            .map(item => item.trim())
+            .filter(item => item.startsWith('- ') && item !== line);
+        content = content.replace(blockPattern, '').trimEnd();
+    }
+
+    const ledger = [
+        start,
+        '## Fontes Harmonizadas',
+        ...previousLines,
+        line,
+        end
+    ].join('\n');
+
+    return `${content.trimEnd()}\n\n${ledger}\n`;
+}
+
+function normalizeAuditDecision(value) {
+    const raw = String(value || '').toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    if (raw.includes('ANEXAR_APENAS') || raw.includes('ANEXAR APENAS')) return 'ANEXAR_APENAS';
+    if (raw.includes('REJEITAR')) return 'REJEITAR';
+    if (raw.includes('REVISAR')) return 'REVISAR';
+    if (raw.includes('APROVAR')) return 'APROVAR';
+    return 'REVISAR';
+}
+
+function parseNectarAuditDecision(markdown) {
+    const text = String(markdown || '');
+    const decisionMatch = text.match(/##\s*Decis[aã]o\s*\n+([A-Z_ ]+)/i);
+    const scoreMatch = text.match(/##\s*Nota Geral\s*\n+(\d{1,3})/i);
+    const riskMatch = text.match(/##\s*Risco de Dilu[ií]c[aã]o\s*\n+([^\n]+)/i);
+    return {
+        decision: normalizeAuditDecision(decisionMatch ? decisionMatch[1] : text.slice(0, 500)),
+        score: scoreMatch ? Math.max(0, Math.min(100, Number(scoreMatch[1]))) : null,
+        dilution_risk: riskMatch ? riskMatch[1].trim() : ''
+    };
+}
+
+async function runNectarAudit({ personaId, linkedAsset, cloneRelPath, cloneContent, stagingFullPath, nectarData, geminiConfig }) {
+    const sourceContent = readText(safeWorkspacePath(linkedAsset.path), '').slice(0, 90000);
+    const baseFilename = path.basename(linkedAsset.path).replace(/\.[^/.]+$/, '');
+    const reviewDir = path.join(ROOT_DIR, 'knowledge', 'clones', 'reviews');
+    ensureDir(reviewDir);
+    const reviewFileName = `${personaId}_${slugifySegment(baseFilename) || 'source'}_review_${timestampForFile()}.md`;
+    const reviewFullPath = path.join(reviewDir, reviewFileName);
+    const reviewRelPath = workspaceRelativePath(reviewFullPath);
+    const stagingRelPath = workspaceRelativePath(stagingFullPath);
+
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(geminiConfig.model)}:generateContent?key=${geminiConfig.apiKey}`;
+    const prompt = `Voce e o Nectar Auditor (AGT-QRO-03), auditor premium de qualidade de clones.
+Sua funcao e decidir se o nectar pode influenciar a Base do Clone.
+
+Decisoes permitidas:
+- APROVAR: material excelente, compativel, novo e com baixo risco.
+- REVISAR: ha valor, mas o payload precisa poda/edicao antes.
+- REJEITAR: material fraco, contraditorio, ruidoso ou perigoso.
+- ANEXAR_APENAS: manter como arquivo de referencia, sem alterar a base.
+
+Use as skills:
+1. NectarSourceQuality
+2. CloneCompatibilityAudit
+3. RedundancyNoveltyScan
+4. DilutionRiskGate
+5. PremiumHeuristicExtraction
+6. HarmonizationDecisionBrief
+
+Regras de gate:
+- Se houver risco alto de diluicao, nao aprove.
+- Se a fonte for generica ou repetitiva, prefira ANEXAR_APENAS.
+- Se houver material bom mas baguncado, prefira REVISAR.
+- Aprove somente quando o material melhora claramente o clone.
+
+Retorne apenas Markdown neste formato:
+# Parecer de Nectar
+
+## Decisao
+APROVAR | REVISAR | REJEITAR | ANEXAR_APENAS
+
+## Nota Geral
+0-100
+
+## Risco de Diluicao
+Baixo | Medio | Alto | Critico
+
+## Evidencias
+- ...
+
+## O Que Pode Entrar
+- ...
+
+## O Que Deve Ficar Fora
+- ...
+
+## Conflitos com a Base Atual
+- ...
+
+## Recomendacao Final
+...
+
+[METADADOS]
+persona_id: ${personaId}
+clone_path: ${cloneRelPath}
+source_path: ${linkedAsset.path}
+staging_path: ${stagingRelPath}
+[/METADADOS]
+
+[BASE_ATUAL_DO_CLONE]
+${String(cloneContent || '').slice(0, 90000)}
+[/BASE_ATUAL_DO_CLONE]
+
+[NECTAR_EXTRAIDO]
+${String(nectarData || '').slice(0, 60000)}
+[/NECTAR_EXTRAIDO]
+
+[FONTE_ORIGINAL]
+${sourceContent}
+[/FONTE_ORIGINAL]`;
+
+    const auditRes = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+    });
+    const auditData = await auditRes.json();
+    if (!auditRes.ok) throw new Error(auditData.error?.message || 'Falha na API Gemini durante auditoria de nectar.');
+
+    let reviewMarkdown = stripMarkdownCodeFence(extractGeminiText(auditData)).trim();
+    if (!reviewMarkdown) throw new Error('A auditoria de nectar nao retornou parecer utilizavel.');
+    const parsed = parseNectarAuditDecision(reviewMarkdown);
+    const header = [
+        '<!-- AIOX-NECTAR-AUDIT:START -->',
+        `- persona_id: ${personaId}`,
+        `- source_path: ${linkedAsset.path}`,
+        `- clone_path: ${cloneRelPath}`,
+        `- staging_path: ${stagingRelPath}`,
+        `- audited_at: ${nowIso()}`,
+        `- decision: ${parsed.decision}`,
+        `- score: ${parsed.score ?? '-'}`,
+        `- dilution_risk: ${parsed.dilution_risk || '-'}`,
+        '<!-- AIOX-NECTAR-AUDIT:END -->',
+        ''
+    ].join('\n');
+    reviewMarkdown = `${header}${reviewMarkdown.trim()}\n`;
+    writeText(reviewFullPath, reviewMarkdown);
+
+    const trackingFile = path.join(CONTROL_DIR, 'extracted_assets.json');
+    const trackingData = ensureControlJson('extracted_assets.json', { extractions: {} });
+    const previous = trackingData.extractions[linkedAsset.path] || {};
+    trackingData.extractions[linkedAsset.path] = {
+        ...previous,
+        date: nowIso(),
+        persona_id: personaId,
+        extracted: previous.extracted !== false,
+        audit_status: parsed.decision,
+        audit_score: parsed.score,
+        audit_risk: parsed.dilution_risk,
+        audit_path: reviewRelPath,
+        last_audited_at: nowIso(),
+        audit_count: Number(previous.audit_count || 0) + 1
+    };
+    fs.writeFileSync(trackingFile, JSON.stringify(trackingData, null, 4), 'utf8');
+
+    appendExecutionLog('persona_asset_audit', personaId, `Nectar audit ${parsed.decision}: ${linkedAsset.path}`, 'nectar-auditor', null, null);
+    return { ...parsed, review_path: reviewRelPath, model: geminiConfig.model, api_key_source: geminiConfig.apiKeySource };
+}
+
 function parseBody(req) {
     return new Promise((resolve, reject) => {
         let raw = '';
@@ -2211,11 +2395,21 @@ function buildPersonaAssetsPayload() {
                 file.harmonization_count = Number(track.harmonization_count || (track.harmonized ? 1 : 0));
                 file.procedure_count = Number(track.procedure_count || file.harmonization_count || 0);
                 file.reset_count = Number(track.reset_count || 0);
+                if (track.pending_candidate) file.pending_candidate = true;
+                if (track.candidate_path) file.candidate_path = track.candidate_path;
+                if (track.backup_path) file.backup_path = track.backup_path;
+                if (track.audit_status) file.audit_status = track.audit_status;
+                if (track.audit_score !== undefined) file.audit_score = track.audit_score;
+                if (track.audit_risk) file.audit_risk = track.audit_risk;
+                if (track.audit_path) file.audit_path = track.audit_path;
+                if (track.last_audited_at) file.last_audited_at = track.last_audited_at;
+                file.audit_count = Number(track.audit_count || 0);
             } else {
                 file.extraction_count = 0;
                 file.harmonization_count = 0;
                 file.procedure_count = 0;
                 file.reset_count = 0;
+                file.audit_count = 0;
             }
             return file;
         });
@@ -3079,6 +3273,9 @@ const server = http.createServer(async (req, res) => {
 
     try {
         if (pathname === '/' || pathname === '/dashboard') {
+            res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+            res.setHeader('Pragma', 'no-cache');
+            res.setHeader('Expires', '0');
             return sendText(res, fs.readFileSync(path.join(DOCS_DIR, 'aiox_dashboard.html'), 'utf8'), 'text/html');
         }
 
@@ -3294,6 +3491,25 @@ ${markdownContent.substring(0, 150000)}
                     cloneContent = `---\nname: ${persona_id}\n---\n\n# SYSTEM PROMPT: CLONE ${persona_id}\nVocÃª Ã© um especialista.`;
                 }
 
+                const audit = await runNectarAudit({
+                    personaId: persona_id,
+                    linkedAsset,
+                    cloneRelPath,
+                    cloneContent,
+                    stagingFullPath,
+                    nectarData,
+                    geminiConfig
+                });
+
+                if (audit.decision !== 'APROVAR') {
+                    return sendJson(res, {
+                        success: false,
+                        blocked_by_audit: true,
+                        error: `Auditoria Nectar Auditor bloqueou a harmonizacao: ${audit.decision}. Revise o parecer antes de prosseguir.`,
+                        audit
+                    }, 409);
+                }
+
                 // O Agente Harmonizador
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(geminiConfig.model)}:generateContent?key=${apiKey}`;
                 const prompt = `VocÃª Ã© o Arquiteto Harmonizador (Agent Orchestrator).
@@ -3308,7 +3524,14 @@ ${cloneContent}
 
 [NECTAR_PARA_INJETAR]
 ${nectarData}
-[/NECTAR_PARA_INJETAR]`;
+[/NECTAR_PARA_INJETAR]
+
+[PARECER_NECTAR_AUDITOR_APROVADO]
+decision: ${audit.decision}
+score: ${audit.score ?? '-'}
+risk: ${audit.dilution_risk || '-'}
+review_path: ${audit.review_path}
+[/PARECER_NECTAR_AUDITOR_APROVADO]`;
 
                 const geminiRes = await fetch(apiUrl, {
                     method: 'POST',
@@ -3324,8 +3547,22 @@ ${nectarData}
                 if (harmonizedRules.startsWith('\`\`\`markdown')) harmonizedRules = harmonizedRules.replace(/^\`\`\`markdown\n?/, '');
                 if (harmonizedRules.endsWith('\`\`\`')) harmonizedRules = harmonizedRules.replace(/\n?\`\`\`$/, '');
 
-                fs.writeFileSync(cloneFullPath, harmonizedRules.trim() + '\n', 'utf8');
-                // fs.unlinkSync(stagingFullPath); // Removido a pedido para permitir harmonizar novamente
+                const candidateDir = path.join(ROOT_DIR, 'knowledge', 'clones', 'candidates');
+                ensureDir(candidateDir);
+                const candidateFileName = `${persona_id}_${baseFilename}_candidate_${timestampForFile()}.md`;
+                const candidateFullPath = path.join(candidateDir, candidateFileName);
+                const candidateRelPath = workspaceRelativePath(candidateFullPath);
+                const stagingRelPath = workspaceRelativePath(stagingFullPath);
+                const ledgerEntry = {
+                    at: nowIso(),
+                    source_path: linkedAsset.path,
+                    staging_path: stagingRelPath,
+                    candidate_path: candidateRelPath
+                };
+                const candidateContent = appendHarmonizationLedger(harmonizedRules.trim(), ledgerEntry);
+
+                fs.writeFileSync(candidateFullPath, candidateContent, 'utf8');
+                // O clone final nao e sobrescrito aqui. A aplicacao exige confirmacao explicita.
 
                 // Marcar como harmonizado no tracking
                 const trackingFile = path.join(CONTROL_DIR, 'extracted_assets.json');
@@ -3335,11 +3572,134 @@ ${nectarData}
                 trackingData.extractions[linkedAsset.path] = {
                     ...previous,
                     date: now,
-                    last_harmonized_at: now,
+                    last_candidate_at: now,
                     persona_id: persona_id,
+                    extracted: true,
+                    harmonized: false,
+                    pending_candidate: true,
+                    candidate_path: candidateRelPath,
+                    extraction_count: Number(previous.extraction_count || 0),
+                    harmonization_count: Number(previous.harmonization_count || 0),
+                    procedure_count: Number(previous.procedure_count || 0),
+                    reset_count: Number(previous.reset_count || 0)
+                };
+                delete trackingData.extractions[linkedAsset.path].harmonized_at;
+                delete trackingData.extractions[linkedAsset.path].last_harmonized_at;
+                fs.writeFileSync(trackingFile, JSON.stringify(trackingData, null, 4), 'utf8');
+
+                return sendJson(res, {
+                    success: true,
+                    clone_path: cloneRelPath,
+                    candidate_path: candidateRelPath,
+                    staging_path: stagingRelPath,
+                    audit,
+                    preview_required: true,
+                    model: geminiConfig.model,
+                    api_key_source: geminiConfig.apiKeySource
+                });
+            } catch (err) {
+                console.error('[GEMINI HARMONIZE ERROR]', err);
+                return sendJson(res, { error: err.message }, 500);
+            }
+        }
+        if (pathname === '/api/personas/assets/audit-nectar' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const { persona_id, source_path } = body;
+            if (!persona_id || !source_path) return sendJson(res, { error: 'persona_id e source_path requeridos' }, 400);
+
+            let geminiConfig = null;
+            try {
+                geminiConfig = resolveGeminiApiConfig({ required: true, model: GEMINI_HARMONIZE_MODEL });
+            } catch (error) {
+                return sendJson(res, { error: error.message }, 500);
+            }
+
+            try {
+                const linkedAsset = resolvePersonaSourceAsset(persona_id, source_path);
+                if (!linkedAsset) throw new Error('source_path nao esta vinculado a esta persona.');
+                if (linkedAsset.kind === 'clone') throw new Error('Auditoria de nectar deve usar transcricoes/anexos, nao o clone.');
+
+                const baseFilename = path.basename(linkedAsset.path).replace(/\.[^/.]+$/, '');
+                const stagingDir = path.join(ROOT_DIR, 'knowledge', 'clones', 'staging');
+                const stagingFileName = `${persona_id}_${baseFilename}_nectar.md`;
+                const stagingFullPath = path.join(stagingDir, stagingFileName);
+                if (!fs.existsSync(stagingFullPath)) throw new Error('Arquivo de staging (quarentena) nao encontrado. Execute Extrair antes de Auditar.');
+                const nectarData = fs.readFileSync(stagingFullPath, 'utf8');
+
+                const { entry } = findPersonaMaterialEntry(persona_id, true);
+                const cloneRelPath = entry.clone_file || PERSONA_CLONE_DEFAULTS[persona_id] || `knowledge/clones/${persona_id.replace(/^prs-/, '')}_clone.md`;
+                const cloneFullPath = safeWorkspacePath(cloneRelPath);
+                const cloneContent = fs.existsSync(cloneFullPath)
+                    ? fs.readFileSync(cloneFullPath, 'utf8')
+                    : `---\nname: ${persona_id}\n---\n\n# SYSTEM PROMPT: CLONE ${persona_id}\nVoce e um especialista.`;
+
+                const audit = await runNectarAudit({
+                    personaId: persona_id,
+                    linkedAsset,
+                    cloneRelPath,
+                    cloneContent,
+                    stagingFullPath,
+                    nectarData,
+                    geminiConfig
+                });
+
+                return sendJson(res, { success: true, audit });
+            } catch (err) {
+                console.error('[NECTAR AUDIT ERROR]', err);
+                return sendJson(res, { error: err.message }, 500);
+            }
+        }
+        if (pathname === '/api/personas/assets/apply-harmonization' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const { persona_id, source_path, candidate_path } = body;
+            if (!persona_id || !source_path || !candidate_path) {
+                return sendJson(res, { error: 'persona_id, source_path e candidate_path requeridos' }, 400);
+            }
+
+            try {
+                const linkedAsset = resolvePersonaSourceAsset(persona_id, source_path);
+                if (!linkedAsset) throw new Error('source_path nao esta vinculado a esta persona.');
+
+                const candidateRelPath = normalizePathForJson(candidate_path);
+                if (!candidateRelPath.startsWith('knowledge/clones/candidates/')) {
+                    throw new Error('candidate_path invalido para harmonizacao.');
+                }
+                const candidateFullPath = safeWorkspacePath(candidateRelPath);
+                if (!fs.existsSync(candidateFullPath)) throw new Error('Arquivo candidato nao encontrado.');
+
+                const { entry } = findPersonaMaterialEntry(persona_id, true);
+                const cloneRelPath = entry.clone_file || PERSONA_CLONE_DEFAULTS[persona_id] || `knowledge/clones/${persona_id.replace(/^prs-/, '')}_clone.md`;
+                const cloneFullPath = safeWorkspacePath(cloneRelPath);
+                const backupDir = path.join(ROOT_DIR, 'knowledge', 'clones', 'backups');
+                ensureDir(backupDir);
+                const cloneBaseName = path.basename(cloneRelPath, path.extname(cloneRelPath));
+                const backupFullPath = path.join(backupDir, `${persona_id}_${cloneBaseName}_${timestampForFile()}.md`);
+                const backupRelPath = workspaceRelativePath(backupFullPath);
+
+                if (fs.existsSync(cloneFullPath)) {
+                    fs.copyFileSync(cloneFullPath, backupFullPath);
+                } else {
+                    writeText(backupFullPath, '');
+                    ensureDir(path.dirname(cloneFullPath));
+                }
+
+                fs.copyFileSync(candidateFullPath, cloneFullPath);
+
+                const trackingFile = path.join(CONTROL_DIR, 'extracted_assets.json');
+                const trackingData = ensureControlJson('extracted_assets.json', { extractions: {} });
+                const now = new Date().toISOString();
+                const previous = trackingData.extractions[linkedAsset.path] || {};
+                trackingData.extractions[linkedAsset.path] = {
+                    ...previous,
+                    date: now,
+                    last_harmonized_at: now,
+                    persona_id,
                     extracted: true,
                     harmonized: true,
                     harmonized_at: now,
+                    pending_candidate: false,
+                    candidate_path: candidateRelPath,
+                    backup_path: backupRelPath,
                     extraction_count: Number(previous.extraction_count || 0),
                     harmonization_count: Number(previous.harmonization_count || 0) + 1,
                     procedure_count: Number(previous.procedure_count || 0) + 1,
@@ -3350,11 +3710,11 @@ ${nectarData}
                 return sendJson(res, {
                     success: true,
                     clone_path: cloneRelPath,
-                    model: geminiConfig.model,
-                    api_key_source: geminiConfig.apiKeySource
+                    candidate_path: candidateRelPath,
+                    backup_path: backupRelPath
                 });
             } catch (err) {
-                console.error('[GEMINI HARMONIZE ERROR]', err);
+                console.error('[APPLY HARMONIZATION ERROR]', err);
                 return sendJson(res, { error: err.message }, 500);
             }
         }
@@ -3380,6 +3740,14 @@ ${nectarData}
                         reset_count: Number(previous.reset_count || 0) + 1
                     };
                     delete trackingData.extractions[linkedAsset.path].harmonized_at;
+                    delete trackingData.extractions[linkedAsset.path].last_harmonized_at;
+                    delete trackingData.extractions[linkedAsset.path].pending_candidate;
+                    delete trackingData.extractions[linkedAsset.path].candidate_path;
+                    delete trackingData.extractions[linkedAsset.path].audit_status;
+                    delete trackingData.extractions[linkedAsset.path].audit_score;
+                    delete trackingData.extractions[linkedAsset.path].audit_risk;
+                    delete trackingData.extractions[linkedAsset.path].audit_path;
+                    delete trackingData.extractions[linkedAsset.path].last_audited_at;
                     fs.writeFileSync(trackingFile, JSON.stringify(trackingData, null, 4), 'utf8');
                 }
 
@@ -3501,6 +3869,97 @@ ${nectarData}
             const synced = findPersonaMaterialEntry(id, true);
             writeControlJson(FILES.personaMaterials, synced.materials);
             return sendJson(res, { success: true, persona });
+        }
+
+        if (pathname === '/api/registry/agents' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const name = String(body.name || '').trim();
+            const handle = String(body.handle || '').trim();
+            const squad = String(body.squad || 'SQD-CORE').trim();
+            if (!name) return sendJson(res, { error: 'name required' }, 400);
+            if (!handle || !handle.startsWith('@')) return sendJson(res, { error: 'handle must start with @' }, 400);
+
+            const registry = ensureControlJson('registry.json', {});
+            registry.agents = asArray(registry.agents);
+            registry.squads = asArray(registry.squads);
+            if (registry.agents.some(item => item && item.handle === handle)) {
+                return sendJson(res, { error: 'agent handle already exists', handle }, 409);
+            }
+
+            const squadSuffix = String(squad || 'SQD-CORE').replace(/^SQD-/i, '').toUpperCase() || 'CORE';
+            const existingIds = registry.agents.map(item => item && item.id).filter(Boolean);
+            let index = 1;
+            while (existingIds.includes(`AGT-${squadSuffix}-${String(index).padStart(2, '0')}`)) index += 1;
+            const agent = {
+                id: `AGT-${squadSuffix}-${String(index).padStart(2, '0')}`,
+                name,
+                handle,
+                squad,
+                role: String(body.role || 'Novo agente operacional.').trim(),
+                icon: body.icon || 'user'
+            };
+
+            registry.agents.push(agent);
+            const targetSquad = registry.squads.find(item => item && item.id === squad);
+            if (targetSquad) {
+                targetSquad.agents = asArray(targetSquad.agents);
+                if (!targetSquad.agents.includes(agent.id)) targetSquad.agents.push(agent.id);
+            }
+            writeControlJson('registry.json', registry);
+
+            const fileName = slugifySegment(handle.replace(/^@/, '')) || slugifySegment(name) || agent.id.toLowerCase();
+            const relPath = `.codex/agents/${fileName}.md`;
+            const fullPath = safeWorkspacePath(relPath);
+            if (!fs.existsSync(fullPath)) {
+                writeText(fullPath, `# ${name}\n\n## Role\n${agent.role}\n\n## Handle\n${handle}\n\n## Squad\n${squad}\n`);
+            }
+            appendExecutionLog('registry_create', agent.id, `Agente criado: ${name}`, body.initiated_by || 'human', null, body.project_id || null);
+            appendMemoryMutation('registry', `Novo agente registrado: ${name}`, body.initiated_by || 'human', body.project_id || null);
+            return sendJson(res, { success: true, agent, file_path: relPath });
+        }
+
+        if (pathname === '/api/registry/skills' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const name = String(body.name || '').trim();
+            if (!name) return sendJson(res, { error: 'name required' }, 400);
+
+            const registry = ensureControlJson('registry.json', {});
+            registry.skills = registry.skills && typeof registry.skills === 'object' ? registry.skills : {};
+            const group = String(body.group || 'CORE').trim().toUpperCase() || 'CORE';
+            registry.skills[group] = asArray(registry.skills[group]);
+            const allSkills = Object.values(registry.skills).flatMap(items => asArray(items));
+            if (allSkills.some(item => item && String(item.name || '').toLowerCase() === name.toLowerCase())) {
+                return sendJson(res, { error: 'skill already exists', name }, 409);
+            }
+
+            const prefix = `SKL-${group}-`;
+            const existingIds = allSkills.map(item => item && item.id).filter(Boolean);
+            let index = 1;
+            while (existingIds.includes(`${prefix}${String(index).padStart(2, '0')}`)) index += 1;
+            const fileName = slugifySegment(name) || `${group.toLowerCase()}-${String(index).padStart(2, '0')}`;
+            const relPath = `.codex/skills/${fileName}.md`;
+            const skill = {
+                id: `${prefix}${String(index).padStart(2, '0')}`,
+                name,
+                desc: String(body.desc || 'Nova skill operacional.').trim(),
+                agents: asArray(body.agents),
+                activation_lane: body.activation_lane || 'producao',
+                activation_relevance: body.activation_relevance || 'build',
+                activation_criticality: body.activation_criticality || 'media',
+                activation_trigger: body.activation_trigger || 'fase+manual',
+                activation_enabled: body.activation_enabled !== false,
+                playbook_file: relPath
+            };
+
+            registry.skills[group].push(skill);
+            writeControlJson('registry.json', registry);
+            const fullPath = safeWorkspacePath(relPath);
+            if (!fs.existsSync(fullPath)) {
+                writeText(fullPath, `# ${name}\n\n## Objetivo\n${skill.desc}\n\n## Ativacao\n- Lane: ${skill.activation_lane}\n- Trigger: ${skill.activation_trigger}\n`);
+            }
+            appendExecutionLog('registry_create', skill.id, `Skill criada: ${name}`, body.initiated_by || 'human', null, body.project_id || null);
+            appendMemoryMutation('registry', `Nova skill registrada: ${name}`, body.initiated_by || 'human', body.project_id || null);
+            return sendJson(res, { success: true, skill, file_path: relPath });
         }
 
         if (pathname.startsWith('/api/build/') && req.method === 'POST') {

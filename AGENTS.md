@@ -71,6 +71,7 @@ Interprete os atalhos abaixo carregando o arquivo correspondente em `.aiox-core/
 - `@art-director`, `/art-director`, `/art-director.md` -> `.aiox-core/development/agents/art-director.md` <!-- Vinci | AGT-EXP-03 | SQD-EXP -->
 - `@security`, `/security`, `/security.md` -> `.aiox-core/development/agents/security.md` <!-- Koda | AGT-ENG-04 | SQD-ENG -->
 - `@support`, `/support`, `/support.md` -> `.aiox-core/development/agents/support.md` <!-- Sentry | AGT-QRO-02 | SQD-QRO -->
+- `@nectar-auditor`, `/nectar-auditor`, `/nectar-auditor.md` -> `.codex/agents/nectar-auditor.md` <!-- Nectar Auditor | AGT-QRO-03 | SQD-QRO -->
 - `@oracle`, `/oracle`, `/oracle.md` -> `.aiox-core/development/agents/oracle.md` <!-- Oracle | AGT-MEM-01 | SQD-MEM -->
 - `@scribe`, `/scribe`, `/scribe.md` -> `.aiox-core/development/agents/scribe.md` <!-- Scribe | AGT-MEM-02 | SQD-MEM -->
 <!-- AIOX-MANAGED-END: shortcuts -->

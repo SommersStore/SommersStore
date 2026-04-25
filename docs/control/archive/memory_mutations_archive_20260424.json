@@ -1,0 +1,386 @@
+{
+  "mutations": [
+    {
+      "timestamp": "2026-04-16T01:58:36-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260416-0004: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-16T02:56:50-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260416-0005: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-16T02:57:43-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260416-0006",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-16T02:59:16-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260416-0006: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-16T02:59:17-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260416-0007",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-16T03:01:03-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260416-0007: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-16T03:01:05-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260416-0008",
+      "mutated_by": "dashboard"
+    },
+    {
+      "id": "MUT-0026",
+      "timestamp": "2026-04-16T03:08:00-03:00",
+      "author": "@scribe",
+      "author_handle": "@scribe",
+      "memory_scope": "project_memory",
+      "diff_summary": "Sessao encerrada a pedido do usuario. Painel estabilizado e Hub Master implantada.",
+      "checkpoint_id": "CHK-MEM-0026"
+    },
+    {
+      "timestamp": "2026-04-16T03:11:00-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260416-0008: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-16T03:11:03-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260416-0009",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-16T03:14:18-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260416-0009: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-16T11:02:44-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260416-0010",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-16T11:50:23-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260416-0010: Encerramento manual para iniciar validacao operacional completa do lifecycle.",
+      "mutated_by": "human"
+    },
+    {
+      "timestamp": "2026-04-16T11:50:23-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260416-0011",
+      "mutated_by": "human"
+    },
+    {
+      "timestamp": "2026-04-16T11:50:23-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260416-0011: Ciclo operacional completo validado: startup, pulse e shutdown funcionando com persistencia de memoria.",
+      "mutated_by": "human"
+    },
+    {
+      "timestamp": "2026-04-16T11:50:23-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260416-0012",
+      "mutated_by": "human"
+    },
+    {
+      "timestamp": "2026-04-16T12:26:39-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260416-0012: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-16T12:26:41-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260416-0013",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-16T12:38:13-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260416-0013: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-16T12:38:16-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260416-0014",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-16T12:59:31-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260416-0014: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-16T12:59:33-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260416-0015",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-16T13:15:02-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260416-0015: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-16T13:15:04-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260416-0016",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-16T13:21:13-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260416-0016: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-16T13:21:17-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260416-0017",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-16T17:05:45-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260416-0017: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-16T22:26:45-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260416-0018",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-17T00:09:48-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260416-0018: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T00:09:51-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260417-0001",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-17T00:17:10-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260417-0001: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T00:17:12-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260417-0002",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-17T00:26:54-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260417-0002: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T00:27:29-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260417-0003: Sessao encerrada a pedido do usuario por bateria baixa. Entregue: BL-013 (timeline por projeto no Master Hub), logs com project_id explicito no backend e padronizacao global de Siz para Sais, com quality gates verdes.",
+      "mutated_by": "human"
+    },
+    {
+      "timestamp": "2026-04-17T15:02:49-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260417-0004",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-17T15:12:35-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260417-0004: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T15:12:38-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260417-0005",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-17T15:12:39-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260417-0005: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T16:04:04-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260417-0006",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-17T16:05:27-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260417-0006: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T16:05:29-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260417-0007",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-17T16:17:41-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260417-0007: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T16:17:44-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260417-0008",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-17T16:26:18-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260417-0008: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T16:26:21-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260417-0009",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-17T17:10:40-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260417-0009: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T17:10:44-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260417-0010",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-17T17:12:32-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260417-0010: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T18:33:51-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260417-0011",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-17T18:50:37-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260417-0011: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T18:50:40-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260417-0012",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-17T19:21:04-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260417-0012: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T19:21:07-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260417-0013",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-17T20:28:25-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260417-0013: Teste tecnico de fechamento automatico",
+      "mutated_by": "human"
+    },
+    {
+      "timestamp": "2026-04-17T21:04:36-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260417-0014",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-17T22:55:59-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260417-0014: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T22:56:02-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260417-0015",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-17T22:56:22-03:00",
+      "memory_scope": "cloud_sync",
+      "diff_summary": "Cloud sync SYNC-20260417-1776477361072: ERROR. GitHub: success (Commit e push enviados ao GitHub.) Firebase: error (Falha no deploy Firebase Hosting.)",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T22:56:41-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260417-0015: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T22:56:43-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260417-0016",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-17T22:57:05-03:00",
+      "memory_scope": "cloud_sync",
+      "diff_summary": "Cloud sync SYNC-20260417-1776477402681: ERROR. GitHub: success (Commit e push enviados ao GitHub.) Firebase: error (Falha no deploy Firebase Hosting.)",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-17T22:57:50-03:00",
+      "memory_scope": "cloud_sync",
+      "diff_summary": "Cloud sync SYNC-20260417-1776477441457: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: skipped (Nao solicitado.)",
+      "mutated_by": "human"
+    },
+    {
+      "timestamp": "2026-04-17T23:00:05-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260417-0016: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    }
+  ],
+  "rotated_at": "2026-04-24T23:48:07-03:00"
+}

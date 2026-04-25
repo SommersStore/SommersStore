@@ -361,6 +361,13 @@
             box-shadow: 0 0 0 1px rgba(168,85,247,0.2) inset;
             background: rgba(168,85,247,0.08);
         }
+        .master-card.clone-card {
+            padding: 8px;
+        }
+        .master-card.clone-card .clone-compact-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 4px;
+        }
         .master-edit-btn {
             font-size: 9px;
             font-weight: 700;
@@ -373,9 +380,47 @@
             background: rgba(168,85,247,0.08);
         }
         .master-edit-btn:hover { background: rgba(168,85,247,0.22); }
+        .master-collapse-btn {
+            border: 1px solid rgba(168,85,247,0.5);
+            color: #f5d0fe;
+            background: rgba(168,85,247,0.18);
+            border-radius: 999px;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 900;
+            box-shadow: 0 0 0 1px rgba(168,85,247,0.16) inset;
+        }
+        .master-collapse-btn:hover {
+            background: rgba(168,85,247,0.32);
+            border-color: rgba(216,180,254,0.75);
+        }
         .master-inspector {
             padding: 10px;
             overflow-y: auto;
+        }
+        .master-col-inspector.master-inspector-open {
+            position: fixed;
+            top: 70px;
+            right: 14px;
+            bottom: 14px;
+            width: min(430px, calc(100vw - 28px));
+            z-index: 60;
+            border: 1px solid rgba(168,85,247,0.38);
+            background: rgba(9,12,20,0.98);
+            box-shadow: 0 24px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.06) inset;
+            overflow-y: auto;
+        }
+        .master-col-inspector.master-inspector-open::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.18);
+            pointer-events: none;
+            z-index: -1;
         }
         .master-inspector-empty {
             border: 1px dashed rgba(255,255,255,0.2);
@@ -385,9 +430,56 @@
             font-size: 11px;
             line-height: 1.45;
         }
+        .master-inspector-content {
+            border: 0;
+            padding: 0;
+            color: inherit;
+            font-size: inherit;
+            line-height: inherit;
+        }
+        .master-floating-inspector {
+            position: fixed;
+            top: 64px;
+            right: 12px;
+            bottom: 12px;
+            width: min(440px, calc(100vw - 24px));
+            z-index: 9999;
+            border: 1px solid rgba(168,85,247,0.42);
+            border-radius: 16px;
+            background: rgba(9,12,20,0.985);
+            box-shadow: 0 28px 90px rgba(0,0,0,0.68), 0 0 0 1px rgba(255,255,255,0.07) inset;
+            padding: 10px;
+            overflow-y: auto;
+            display: none;
+        }
+        .master-floating-inspector.open { display: block; }
+        .master-floating-inspector-header {
+            position: sticky;
+            top: -10px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 8px 0 10px;
+            background: rgba(9,12,20,0.97);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 8px;
+        }
+        .master-floating-close {
+            border: 1px solid rgba(255,255,255,0.16);
+            background: rgba(255,255,255,0.06);
+            color: #e5e7eb;
+            border-radius: 999px;
+            width: 26px;
+            height: 26px;
+            font-size: 16px;
+            line-height: 1;
+        }
+        .master-floating-close:hover { background: rgba(255,255,255,0.14); }
         @media (max-width: 1280px) {
             .master-workspace { grid-template-columns: 200px minmax(0, 1fr); }
-            .master-col.master-col-inspector { grid-column: 1 / -1; }
+            .master-col.master-col-inspector:not(.master-inspector-open) { grid-column: 1 / -1; }
         }
         @media (max-width: 900px) {
             .master-workspace { grid-template-columns: 1fr; }
@@ -503,7 +595,7 @@
                         <p class="text-[8px] text-muted font-bold uppercase">Modo</p>
                         <p id="master-active-mode-label" class="text-sm font-black text-primary">Construcao</p>
                     </div>
-                    <button id="btn-save-all-master" class="btn-success" onclick="saveAllNow()"><i data-lucide="cloud-upload" class="w-3 h-3 inline"></i> Salvar Tudo na Nuvem</button>
+                    <button id="btn-save-all-master" class="btn-success" onclick="saveAllNow()"><i data-lucide="cloud-upload" class="w-3 h-3 inline"></i> Salvar Tudo</button>
                 </div>
             </div>
 
@@ -790,7 +882,10 @@
         <div id="pane-agents" class="tab-pane p-8">
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-primary">Rede Neural</span> <span class="text-white">de Agentes</span></h2>
-                <span id="agents-count" class="badge border-primary/30 text-primary bg-primary/10">0 Agentes</span>
+                <div class="flex gap-4 items-center">
+                    <span id="agents-count" class="badge border-primary/30 text-primary bg-primary/10">0 Agentes</span>
+                    <button class="btn-primary" onclick="openAddAgentModal()"><i data-lucide="plus" class="w-3 h-3 inline"></i> Novo Agente</button>
+                </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="agents-view"></div>
         </div>
@@ -799,7 +894,10 @@
         <div id="pane-skills" class="tab-pane p-8">
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-primary">Skills</span> <span class="text-white">Library</span></h2>
-                <span id="skills-count" class="badge border-primary/30 text-primary bg-primary/10">0 Skills</span>
+                <div class="flex gap-4 items-center">
+                    <span id="skills-count" class="badge border-primary/30 text-primary bg-primary/10">0 Skills</span>
+                    <button class="btn-primary" onclick="openAddSkillModal()"><i data-lucide="plus" class="w-3 h-3 inline"></i> Nova Skill</button>
+                </div>
             </div>
             <div id="skills-lane-filters" class="flex flex-wrap items-center gap-2 mb-6"></div>
             <div id="skills-view" class="space-y-8"></div>
@@ -855,12 +953,12 @@
         <div class="h-14 border-b border-white/10 flex items-center justify-between px-6 bg-white/5 shrink-0">
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center"><i data-lucide="user-plus" class="w-4 h-4"></i></div>
-                <h3 class="text-sm font-bold text-white uppercase tracking-wider">Nova Persona</h3>
+                <h3 class="text-sm font-bold text-white uppercase tracking-wider">Nova Persona / Clone</h3>
             </div>
             <button onclick="document.getElementById('add-persona-modal').style.display='none'" class="btn-ghost">×</button>
         </div>
         <div class="p-6 space-y-4">
-            <div><label class="text-[9px] text-muted font-bold uppercase block mb-1">Nome da Persona</label>
+            <div><label class="text-[9px] text-muted font-bold uppercase block mb-1">Nome da Persona ou Clone</label>
             <input id="new-persona-name" class="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-[12px] text-white" placeholder="Ex: Jordan Belfort"></div>
             
             <div><label class="text-[9px] text-muted font-bold uppercase block mb-1">Papel / Título</label>
@@ -869,7 +967,7 @@
             <div><label class="text-[9px] text-muted font-bold uppercase block mb-1">Ícone (Emoji)</label>
             <input id="new-persona-icon" class="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-[12px] text-white" placeholder="🐺" value="👤"></div>
             
-            <button onclick="submitNewPersona()" class="btn-primary w-full mt-4 py-3"><i data-lucide="check" class="w-4 h-4 inline mr-2"></i> Criar Persona</button>
+            <button onclick="submitNewPersona()" class="btn-primary w-full mt-4 py-3"><i data-lucide="check" class="w-4 h-4 inline mr-2"></i> Criar Persona/Clone</button>
         </div>
     </div>
 </div>
@@ -1569,12 +1667,18 @@ function getCloneNodes() {
             const totalSupport = (asset.support_status && asset.support_status.total) || 0;
             const clonePath = asset.clone_file && asset.clone_file.path ? asset.clone_file.path : '';
             const exists = Boolean(asset.clone_file && asset.clone_file.exists);
+            const hasAssetGap = (totalTranscripts > availableTranscripts) || (totalFull > availableFull) || (totalSupport > availableSupport) || !exists;
 
             return {
                 key: `clone-${asset.persona_id}`,
                 id: `CLN-${asset.persona_id.replace(/^prs-/, '').toUpperCase()}`,
                 persona_id: asset.persona_id,
-                label: persona.name ? `${persona.name} Clone` : `Clone ${asset.persona_id}`,
+                label: persona.name || asset.persona_id,
+                persona_name: persona.name || asset.persona_id,
+                persona_icon: persona.icon || '',
+                persona_role: persona.role || '',
+                persona_bio: persona.bio || '',
+                persona_traits: Array.isArray(persona.traits) ? persona.traits.slice() : [],
                 type: 'Clone',
                 status: exists ? 'ativo' : 'bloqueado',
                 owner: ownerNames.join(', ') || 'Sem owner',
@@ -1583,6 +1687,16 @@ function getCloneNodes() {
                 entrega_para: primarySquad,
                 depends_on: clonePath || 'Sem arquivo clone',
                 metric_main: `Arquivos vinculados ${(asset.prompt_linked_files || []).length}`,
+                transcript_available: availableTranscripts,
+                transcript_total: totalTranscripts,
+                full_transcript_available: availableFull,
+                full_transcript_total: totalFull,
+                support_available: availableSupport,
+                support_total: totalSupport,
+                has_asset_gap: hasAssetGap,
+                clone_exists: exists,
+                clone_path: clonePath,
+                instruction_file: asset.instruction_file || null,
                 owner_agent_ids: ownerAgentIds,
                 owner_handles: ownerHandles,
                 agents_list: ownerNames.join(', ') || '-',
@@ -1832,13 +1946,77 @@ function updateMasterViewUI() {
 
     const caption = document.getElementById('master-mode-caption');
     if (caption) caption.textContent = MASTER_MODE_CAPTIONS[window.MASTER_VIEW] || '';
+
 }
 
 function selectMasterItem(itemKey) {
     window.MASTER_SELECTED_ID = itemKey || '';
     persistMasterUiState();
     renderMasterHub();
+    requestAnimationFrame(() => {
+        const inspector = document.getElementById('master-project-inspector');
+        const inspectorColumn = inspector ? inspector.closest('.master-col-inspector') : null;
+        if (inspectorColumn) inspectorColumn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+    });
 }
+
+window.openMasterCloneInspectorNow = function(itemKey) {
+    window.MASTER_SELECTED_ID = itemKey || '';
+    persistMasterUiState();
+    const items = applyMasterFilters(withMasterContext(getMasterViewItems(), window.MASTER_PROJECT, window.MASTER_VIEW));
+    renderMasterInspector(items);
+};
+
+function collapseMasterInspector() {
+    if (!window.MASTER_SELECTED_ID) return;
+    window.MASTER_SELECTED_ID = '';
+    closeMasterFloatingInspector();
+    persistMasterUiState();
+    renderMasterHub();
+}
+
+window.collapseMasterInspector = collapseMasterInspector;
+
+function ensureMasterFloatingInspector() {
+    let drawer = document.getElementById('master-floating-inspector');
+    if (drawer) return drawer;
+    drawer = document.createElement('aside');
+    drawer.id = 'master-floating-inspector';
+    drawer.className = 'master-floating-inspector';
+    drawer.innerHTML = `
+        <div class="master-floating-inspector-header">
+            <div>
+                <p class="text-[8px] text-muted uppercase tracking-widest">Inspector Clone</p>
+                <p id="master-floating-inspector-title" class="text-[11px] text-white font-bold">Clone</p>
+            </div>
+            <button class="master-floating-close" onclick="collapseMasterInspector()" title="Fechar">×</button>
+        </div>
+        <div id="master-floating-inspector-content"></div>
+    `;
+    document.body.appendChild(drawer);
+    return drawer;
+}
+
+function openMasterFloatingInspector(title, html) {
+    const drawer = ensureMasterFloatingInspector();
+    const titleEl = document.getElementById('master-floating-inspector-title');
+    const contentEl = document.getElementById('master-floating-inspector-content');
+    if (titleEl) titleEl.textContent = title || 'Clone';
+    if (contentEl) contentEl.innerHTML = html || '';
+    drawer.classList.add('open');
+}
+
+function closeMasterFloatingInspector() {
+    const drawer = document.getElementById('master-floating-inspector');
+    if (drawer) drawer.classList.remove('open');
+}
+
+document.addEventListener('click', function(event) {
+    const masterPane = document.getElementById('pane-master');
+    if (!masterPane || !masterPane.contains(event.target) || !window.MASTER_SELECTED_ID) return;
+    if (event.target.closest('.master-card, .master-inspector, .editor-modal, .detail-drawer, .master-floating-inspector')) return;
+    collapseMasterInspector();
+});
 
 function masterCloneToneClasses(tone, enabled) {
     if (!enabled) return 'border-white/10 bg-black/25 text-white/35 opacity-60 cursor-not-allowed';
@@ -1990,21 +2168,29 @@ window.toggleMasterCloneSection = function(personaId, sectionId) {
             content.style.paddingTop = '0px';
         }
     }
-    if (chevron) chevron.innerHTML = isOpen ? '&#9662;' : '&#9656;';
+    if (chevron) chevron.parentElement.innerHTML = `<span data-role="chevron">${isOpen ? '&#9662;' : '&#9656;'}</span>`;
 };
 
 function masterCloneSectionCard(personaId, sectionId, title, content) {
     const state = ensureMasterCloneSectionState(personaId);
     const isOpen = state[sectionId] !== false;
     const sectionDomId = masterCloneSectionDomId(personaId, sectionId);
+    const toneBySection = {
+        base: 'border-sky/15 bg-sky/5',
+        processing: 'border-white/10 bg-white/[0.025]',
+        'transcript-base': 'border-primary/15 bg-primary/[0.045]',
+        'transcript-full': 'border-secondary/15 bg-secondary/[0.045]',
+        support: 'border-coral/15 bg-coral/[0.04]'
+    };
+    const toneClass = toneBySection[sectionId] || 'border-white/10 bg-black/15';
     const contentStyle = isOpen
         ? 'max-height:2200px;opacity:1;padding-top:8px;'
         : 'max-height:0px;opacity:0;padding-top:0px;';
     return `
-        <div id="${sectionDomId}" class="border border-white/10 rounded p-2 bg-black/15 mb-2">
-            <button class="w-full flex items-center justify-between text-left" onclick='event.stopPropagation();toggleMasterCloneSection(${JSON.stringify(personaId)}, ${JSON.stringify(sectionId)})'>
+        <div id="${sectionDomId}" class="border ${toneClass} rounded p-2 mb-2">
+            <button class="w-full flex items-center justify-between gap-3 text-left" onclick='event.stopPropagation();toggleMasterCloneSection(${JSON.stringify(personaId)}, ${JSON.stringify(sectionId)})'>
                 <span class="text-[8px] text-muted uppercase tracking-widest">${title}</span>
-                <span data-role="chevron" class="text-[9px] text-white/70">${isOpen ? '&#9662;' : '&#9656;'}</span>
+                <span class="master-collapse-btn" title="${isOpen ? 'Recolher' : 'Abrir'}"><span data-role="chevron">${isOpen ? '&#9662;' : '&#9656;'}</span></span>
             </button>
             <div data-role="content" class="overflow-hidden transition-all duration-200 ease-out" style="${contentStyle}">${content}</div>
         </div>
@@ -2038,17 +2224,13 @@ function masterCloneAutomationPanel(selected) {
                     <p class="text-[9px] text-white font-bold truncate">${masterEscape(file.name || file.path)}</p>
                     <span class="text-[7px] px-1.5 py-0.5 rounded border ${statusClass}">${status}</span>
                 </div>
-                <p class="text-[8px] text-muted truncate">${masterEscape(file.path)}</p>
                 ${actionButtons ? `<div class="flex gap-1 mt-2 flex-wrap">${actionButtons}</div>` : ''}
             </div>
         `;
     };
 
-    const collect = (arr, kind) => (arr || []).map(file => ({ ...file, _kind: kind }));
-    const files = [
-        ...collect(assets.transcript_files, 'transcript'),
-        ...collect(assets.full_transcript_files, 'full_transcript')
-    ];
+    const transcriptFiles = (assets.transcript_files || []).map(file => ({ ...file, _kind: 'transcript' }));
+    const fullTranscriptFiles = (assets.full_transcript_files || []).map(file => ({ ...file, _kind: 'full_transcript' }));
 
     const personaFile = assets.instruction_file;
     const cloneFile = assets.clone_file;
@@ -2060,7 +2242,7 @@ function masterCloneAutomationPanel(selected) {
         masterCloneActionButton('Arquivo', 'file', true, `masterCloneLinkFile(${personaIdJson}, "clone")`)
     ].join('');
 
-    const topActions = `
+    const workflowHelpContent = `
         <div class="mb-2">
             <p class="text-[8px] text-muted mb-1">Modo YouTube</p>
             <div class="flex flex-wrap gap-2">
@@ -2068,40 +2250,26 @@ function masterCloneAutomationPanel(selected) {
             </div>
             <p class="text-[8px] text-muted mt-1">ON = sempre usa audio + API. OFF = legenda primeiro e fallback automatico para audio.</p>
         </div>
-        <div class="mb-2">
-            <p class="text-[8px] text-muted mb-1">Base</p>
-            <div class="flex flex-wrap gap-2">
-                ${masterCloneActionButton('URL', 'auto', true, `masterCloneIngestUrl(${personaIdJson}, "transcript")`)}
-                ${masterCloneActionButton('Arquivo', 'file', true, `masterCloneLinkFile(${personaIdJson}, "transcript")`)}
-                ${masterCloneActionButton('Lote', 'file', true, `masterCloneLinkBatch(${personaIdJson}, "transcript")`)}
-            </div>
-        </div>
-        <div class="mb-2">
-            <p class="text-[8px] text-muted mb-1">Completa</p>
-            <div class="flex flex-wrap gap-2">
-                ${masterCloneActionButton('URL', 'auto', true, `masterCloneIngestUrl(${personaIdJson}, "full_transcript")`)}
-                ${masterCloneActionButton('Arquivo', 'file', true, `masterCloneLinkFile(${personaIdJson}, "full_transcript")`)}
-                ${masterCloneActionButton('Lote', 'file', true, `masterCloneLinkBatch(${personaIdJson}, "full_transcript")`)}
-                ${masterCloneActionButton('Auto', 'auto', true, `masterCloneAuto(${personaIdJson}, "full_transcript")`)}
-                ${masterCloneActionButton('Limpar', 'clean', true, `masterCloneCleanMds(${personaIdJson})`)}
-            </div>
-        </div>
-        <p class="text-[8px] text-muted mb-2">Fluxo: URL -> Extrair -> Harmonizar. Use Reset para liberar um novo ciclo.</p>
+        <p class="text-[8px] text-muted mb-2">Fluxo manual: URL -> Extrair -> Auditar -> Harmonizar -> Previa -> Aplicar. Auto executa URL + Extrair + Auditoria + Previa e so aplica apos confirmacao.</p>
     `;
 
-    const rows = files.length ? files.map(file => {
+    const renderProcessingRows = (files, emptyText) => files.length ? files.map(file => {
         const exists = Boolean(file && file.exists);
         const extracted = Boolean(file && file.extracted);
         const harmonized = Boolean(file && file.harmonized);
+        const pendingCandidate = Boolean(file && file.pending_candidate && file.candidate_path);
         const canExtract = exists && !extracted;
         const canHarmonize = exists && extracted && !harmonized;
+        const auditStatus = file && file.audit_status ? String(file.audit_status) : '';
+        const auditCompleted = Boolean(auditStatus);
+        const canAudit = exists && extracted && !auditCompleted;
         const canReset = exists && (extracted || harmonized);
-        const status = !exists ? 'faltando' : (harmonized ? 'ok' : (extracted ? 'staging' : 'novo'));
+        const hasAuditReview = Boolean(file && file.audit_path);
+        const status = !exists ? 'faltando' : (harmonized ? 'ok' : (pendingCandidate ? 'previa' : (extracted ? 'staging' : 'novo')));
         const statusClass = !exists
             ? 'text-coral border-coral/25 bg-coral/10'
-            : (harmonized ? 'text-secondary border-secondary/25 bg-secondary/10' : (extracted ? 'text-primary border-primary/25 bg-primary/10' : 'text-muted border-white/10 bg-white/5'));
+            : (harmonized ? 'text-secondary border-secondary/25 bg-secondary/10' : (pendingCandidate ? 'text-sky border-sky/25 bg-sky/10' : (extracted ? 'text-primary border-primary/25 bg-primary/10' : 'text-muted border-white/10 bg-white/5')));
         const sourceName = masterEscape(String(file.name || file.path || '').split(/[\\/]/).pop() || file.path || '-');
-        const sourcePath = masterEscape(file.path || '-');
         const cycles = Number(file.procedure_count || file.harmonization_count || 0);
         const canEdit = exists && isPersonaEditableFile(file.path);
         const canClean = exists && isPersonaCleanableMarkdown(file.path);
@@ -2111,21 +2279,51 @@ function masterCloneAutomationPanel(selected) {
                     <p class="text-[9px] text-white font-bold truncate">${sourceName}</p>
                     <span class="text-[7px] px-1.5 py-0.5 rounded border ${statusClass}">${status}</span>
                 </div>
-                <p class="text-[8px] text-muted truncate">${sourcePath}</p>
                 <div class="flex items-center justify-between mt-2">
                     <div class="flex gap-1 flex-wrap">
                         ${masterCloneActionButton('Editar', 'file', canEdit, `openEditorModal(${JSON.stringify(file.path)}, ${JSON.stringify(sourceName)})`)}
-                        ${masterCloneActionButton('Extrair', 'extract', canExtract, `masterCloneExtract(${personaIdJson}, ${JSON.stringify(file.path)})`)}
-                        ${masterCloneActionButton('Harmonizar', 'harmonize', canHarmonize, `masterCloneHarmonize(${personaIdJson}, ${JSON.stringify(file.path)})`)}
+                        ${masterCloneActionButton('1 Extrair', 'extract', canExtract, `masterCloneExtract(${personaIdJson}, ${JSON.stringify(file.path)})`)}
+                        ${masterCloneActionButton('2 Auditar', 'file', canAudit, `masterCloneAudit(${personaIdJson}, ${JSON.stringify(file.path)})`)}
+                        ${masterCloneActionButton('Ver Parecer', 'file', hasAuditReview, `openEditorModal(${JSON.stringify(file.audit_path || '')}, "Parecer Nectar Auditor")`)}
+                        ${masterCloneActionButton('3 Harmonizar', 'harmonize', canHarmonize, `masterCloneHarmonize(${personaIdJson}, ${JSON.stringify(file.path)})`)}
+                        ${masterCloneActionButton('Previa', 'file', pendingCandidate, `openEditorModal(${JSON.stringify(file.candidate_path || '')}, "Previa da harmonizacao")`)}
                         ${masterCloneActionButton('Reset', 'reset', canReset, `masterCloneReset(${personaIdJson}, ${JSON.stringify(file.path)})`)}
                         ${masterCloneActionButton('Limpar', 'clean', canClean, `masterCloneCleanFile(${personaIdJson}, ${JSON.stringify(file.path)})`)}
                         ${masterCloneActionButton('Remover', 'danger', Boolean(file && file.path), `masterCloneUnlink(${personaIdJson}, ${JSON.stringify(file._kind || 'full_transcript')}, ${JSON.stringify(file.path || '')})`)}
                     </div>
-                    <span class="text-[8px] text-muted font-mono" title="Ciclos concluidos">${cycles}x</span>
+                    <span class="text-[8px] text-muted font-mono" title="Auditoria e ciclos">${auditStatus ? `audit:${auditStatus}` : 'audit:-'} · ${cycles}x</span>
                 </div>
             </div>
         `;
-    }).join('') : '<p class="text-[9px] text-muted italic">Sem transcricoes vinculadas. Use URL para iniciar.</p>';
+    }).join('') : `<p class="text-[9px] text-muted italic">${emptyText}</p>`;
+
+    const processingGroup = ({ status, actions, rows }) => {
+        return `
+            <div>
+                <div class="flex gap-1 flex-wrap mb-2">${actions}</div>
+                <p class="text-[10px] text-white mb-1">
+                    Disponiveis:
+                    <span class="inline-flex items-center px-2 py-0.5 rounded border border-white/10 bg-black/20 text-[10px] font-bold ml-1">${status}</span>
+                </p>
+                ${rows}
+            </div>
+        `;
+    };
+
+    const transcriptRows = renderProcessingRows(transcriptFiles, 'Sem transcricoes base. Use URL, Arquivo ou Lote para iniciar.');
+    const fullTranscriptRows = renderProcessingRows(fullTranscriptFiles, 'Sem transcricoes completas. Use URL, Arquivo, Lote ou Auto para iniciar.');
+    const transcriptActions = [
+        masterCloneActionButton('URL', 'auto', true, `masterCloneIngestUrl(${personaIdJson}, "transcript")`),
+        masterCloneActionButton('Arquivo', 'file', true, `masterCloneLinkFile(${personaIdJson}, "transcript")`),
+        masterCloneActionButton('Lote', 'file', true, `masterCloneLinkBatch(${personaIdJson}, "transcript")`)
+    ].join('');
+    const fullTranscriptActions = [
+        masterCloneActionButton('URL', 'auto', true, `masterCloneIngestUrl(${personaIdJson}, "full_transcript")`),
+        masterCloneActionButton('Arquivo', 'file', true, `masterCloneLinkFile(${personaIdJson}, "full_transcript")`),
+        masterCloneActionButton('Lote', 'file', true, `masterCloneLinkBatch(${personaIdJson}, "full_transcript")`),
+        masterCloneActionButton('Auto', 'auto', true, `masterCloneAuto(${personaIdJson}, "full_transcript")`),
+        masterCloneActionButton('Limpar', 'clean', true, `masterCloneCleanMds(${personaIdJson})`)
+    ].join('');
 
     const supportTopActions = `
         <div class="flex flex-wrap gap-2 mb-2">
@@ -2148,25 +2346,63 @@ function masterCloneAutomationPanel(selected) {
         : '<p class="text-[9px] text-muted italic">Sem anexos de suporte.</p>';
 
     const baseContent = `
-        <p class="text-[8px] text-muted mb-2">Arquivos base da persona e clone:</p>
         ${renderFileRow(personaFile, personaActions, 'Sem arquivo de persona')}
+        <p class="text-[8px] text-muted uppercase tracking-widest mb-2 mt-3">Base do clone</p>
         ${renderFileRow(cloneFile, cloneActions, 'Sem arquivo clone')}
     `;
     const processingContent = `
-        ${topActions}
-        ${rows}
+        ${masterCloneSectionCard(selected.persona_id, 'transcript-base', 'Transcricoes Base', processingGroup({
+            status: `${assets.transcript_status?.available || 0} / ${assets.transcript_status?.total || 0}`,
+            actions: transcriptActions,
+            rows: transcriptRows
+        }))}
+        ${masterCloneSectionCard(selected.persona_id, 'transcript-full', 'Transcricoes Completas', processingGroup({
+            status: `${assets.full_transcript_status?.available || 0} / ${assets.full_transcript_status?.total || 0}`,
+            actions: fullTranscriptActions,
+            rows: fullTranscriptRows
+        }))}
     `;
     const supportContent = `
         ${supportTopActions}
         ${supportRows}
     `;
+    const personaTraits = (selected.persona_traits || []).slice(0, 6)
+        .map(trait => `<span class="px-1.5 py-0.5 rounded text-[8px] bg-primary/10 text-primary border border-primary/15 font-bold uppercase">${masterEscape(trait)}</span>`)
+        .join('');
+    const personaOverview = `
+        <div class="mb-3 border border-amber/15 rounded p-3 bg-amber/[0.035]">
+            <div class="flex items-start justify-between gap-3 mb-2">
+                <div>
+                    <p class="text-[11px] text-white font-bold">${masterEscape(selected.persona_name || assets.persona_name || selected.persona_id)}</p>
+                    <p class="text-[8px] text-primary uppercase tracking-widest">${masterEscape(selected.persona_role || 'Persona / Clone')}</p>
+                </div>
+                <div class="flex gap-1">
+                    ${masterCloneActionButton('Editar Persona', 'file', Boolean(personaFile && personaFile.path), personaFile && personaFile.path ? `openEditorModal(${JSON.stringify(personaFile.path)}, ${JSON.stringify(`Persona ${assets.persona_name || selected.persona_id}`)})` : '')}
+                </div>
+            </div>
+            ${selected.persona_bio ? `<p class="text-[9px] text-muted leading-relaxed mb-2">${masterEscape(selected.persona_bio)}</p>` : ''}
+            ${personaTraits ? `<div class="flex flex-wrap gap-1">${personaTraits}</div>` : ''}
+            <div class="grid grid-cols-3 gap-2 mt-3">
+                <div class="bg-black/30 border border-white/10 rounded px-2 py-1"><p class="text-[8px] text-muted uppercase">Transcricoes</p><p class="text-[10px] text-white font-bold">${selected.transcript_available || 0}/${selected.transcript_total || 0}</p></div>
+                <div class="bg-black/30 border border-white/10 rounded px-2 py-1"><p class="text-[8px] text-muted uppercase">MD Completo</p><p class="text-[10px] text-white font-bold">${selected.full_transcript_available || 0}/${selected.full_transcript_total || 0}</p></div>
+                <div class="bg-black/30 border border-white/10 rounded px-2 py-1"><p class="text-[8px] text-muted uppercase">Anexos</p><p class="text-[10px] text-white font-bold">${selected.support_available || 0}/${selected.support_total || 0}</p></div>
+            </div>
+            <div class="mt-3 pt-3 border-t border-white/10">
+                ${workflowHelpContent}
+            </div>
+        </div>
+    `;
 
     return `
-        <div class="master-sidebar-card mt-3">
-            <p class="text-[9px] text-muted uppercase tracking-widest mb-2">Pipeline Clone</p>
+        <div class="master-sidebar-card mt-3 border-primary/15 bg-primary/[0.025]">
+            <div class="flex items-center justify-between gap-2 mb-2">
+                <p class="text-[9px] text-muted uppercase tracking-widest">Pipeline Clone</p>
+                <button class="btn-primary text-[9px] py-1.5 px-3" onclick="event.stopPropagation();openAddCloneModal()"><i data-lucide="plus" class="w-3 h-3 inline"></i> Novo Clone</button>
+            </div>
+            ${personaOverview}
             ${masterCloneSectionCard(selected.persona_id, 'base', 'Base da Persona', baseContent)}
-            ${masterCloneSectionCard(selected.persona_id, 'processing', 'Transcricoes e Processamento', processingContent)}
             ${masterCloneSectionCard(selected.persona_id, 'support', 'Anexos (separado)', supportContent)}
+            ${processingContent}
         </div>
     `;
 }
@@ -2320,15 +2556,41 @@ async function runMasterClonePipeline(personaId, sourcePath, initiatedBy = 'mast
         body: JSON.stringify({ persona_id: personaId, source_path: sourcePath, initiated_by: initiatedBy })
     });
     const harmonizeData = await harmonizeRes.json().catch(() => ({}));
-    if (!harmonizeRes.ok || !harmonizeData.success) throw new Error(harmonizeData.error || 'Falha na etapa Harmonizar');
-    return harmonizeData;
+    if (!harmonizeRes.ok || !harmonizeData.success) {
+        if (harmonizeData.audit && harmonizeData.audit.review_path) {
+            openEditorModal(harmonizeData.audit.review_path, 'Parecer Nectar Auditor');
+        }
+        throw new Error(harmonizeData.error || 'Falha na etapa Harmonizar');
+    }
+    if (harmonizeData.candidate_path) {
+        openEditorModal(harmonizeData.candidate_path, 'Previa da harmonizacao');
+    }
+    const shouldApply = confirm(
+        `Previa de harmonizacao criada.\n\nCandidato: ${harmonizeData.candidate_path || '-'}\n\n` +
+        'Revise a previa aberta no editor. Aplicar agora na Base do clone?\n\n' +
+        'OK = aplicar com backup\nCancelar = manter apenas a previa'
+    );
+    if (!shouldApply) return harmonizeData;
+    return applyMasterCloneHarmonization(personaId, sourcePath, harmonizeData.candidate_path);
+}
+
+async function applyMasterCloneHarmonization(personaId, sourcePath, candidatePath) {
+    if (!candidatePath) throw new Error('Arquivo candidato nao informado');
+    const applyRes = await fetch('/api/personas/assets/apply-harmonization', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ persona_id: personaId, source_path: sourcePath, candidate_path: candidatePath })
+    });
+    const applyData = await applyRes.json().catch(() => ({}));
+    if (!applyRes.ok || !applyData.success) throw new Error(applyData.error || 'Falha ao aplicar harmonizacao');
+    return applyData;
 }
 
 window.masterCloneIngestUrl = async function(personaId, kind = 'full_transcript') {
     const url = prompt(`Cole a URL para ingestao (${kind}):`);
     if (!url) return;
     const forceAudioApi = isPersonaForceAudioApiEnabled(personaId);
-    const runAutomatic = confirm('Executar fluxo automatico completo apos a ingestao?\n\nOK = URL + Extrair + Harmonizar\nCancelar = apenas URL');
+    const runAutomatic = confirm('Executar fluxo automatico seguro apos a ingestao?\n\nOK = URL + Extrair + Auditar + Harmonizar/Previa + Confirmar aplicacao\nCancelar = apenas URL');
     try {
         const response = await fetch('/api/personas/assets/ingest-url', {
             method: 'POST',
@@ -2351,7 +2613,10 @@ window.masterCloneIngestUrl = async function(personaId, kind = 'full_transcript'
         if (runAutomatic) {
             const harmonizeData = await runMasterClonePipeline(personaId, data.file, 'master_clone_url_auto');
             await refreshMasterCloneContext();
-            alert(`Fluxo automatico concluido (${modeLabel}).\nArquivo: ${data.file}\nClone: ${harmonizeData.clone_path || '-'}`);
+            const resultLabel = harmonizeData.backup_path
+                ? `Clone aplicado: ${harmonizeData.clone_path || '-'}\nBackup: ${harmonizeData.backup_path || '-'}`
+                : `Previa criada sem aplicar: ${harmonizeData.candidate_path || '-'}`;
+            alert(`Fluxo automatico concluido (${modeLabel}).\nArquivo: ${data.file}\n${resultLabel}`);
             return;
         }
 
@@ -2379,8 +2644,28 @@ window.masterCloneExtract = async function(personaId, sourcePath) {
     }
 };
 
+window.masterCloneAudit = async function(personaId, sourcePath) {
+    if (!confirm('Executar Nectar Auditor para este arquivo?')) return;
+    try {
+        const res = await fetch('/api/personas/assets/audit-nectar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ persona_id: personaId, source_path: sourcePath, initiated_by: 'master_clone_audit' })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) throw new Error(data.error || 'Falha na auditoria');
+        if (data.audit && data.audit.review_path) {
+            openEditorModal(data.audit.review_path, 'Parecer Nectar Auditor');
+        }
+        await refreshMasterCloneContext();
+        alert(`Auditoria concluida.\nDecisao: ${data.audit?.decision || '-'}\nNota: ${data.audit?.score ?? '-'}\nParecer: ${data.audit?.review_path || '-'}`);
+    } catch (error) {
+        alert(`Erro na auditoria: ${error.message}`);
+    }
+};
+
 window.masterCloneHarmonize = async function(personaId, sourcePath) {
-    if (!confirm('Harmonizar este nectar com o clone?')) return;
+    if (!confirm('Gerar uma previa segura de harmonizacao deste nectar?')) return;
     try {
         const res = await fetch('/api/personas/assets/harmonize-staging', {
             method: 'POST',
@@ -2388,9 +2673,26 @@ window.masterCloneHarmonize = async function(personaId, sourcePath) {
             body: JSON.stringify({ persona_id: personaId, source_path: sourcePath, initiated_by: 'master_clone_harmonize' })
         });
         const data = await res.json().catch(() => ({}));
-        if (!res.ok || !data.success) throw new Error(data.error || 'Falha na harmonizacao');
+        if (!res.ok || !data.success) {
+            if (data.audit && data.audit.review_path) openEditorModal(data.audit.review_path, 'Parecer Nectar Auditor');
+            throw new Error(data.error || 'Falha na harmonizacao');
+        }
+        if (data.candidate_path) {
+            openEditorModal(data.candidate_path, 'Previa da harmonizacao');
+        }
+        const shouldApply = confirm(
+            `Previa criada.\n\nCandidato: ${data.candidate_path || '-'}\n\n` +
+            'Revise a previa aberta no editor. Aplicar agora na Base do clone?\n\n' +
+            'OK = aplicar com backup\nCancelar = manter apenas a previa'
+        );
+        if (!shouldApply) {
+            await refreshMasterCloneContext();
+            alert(`Previa mantida sem alterar o clone.\nCandidato: ${data.candidate_path || '-'}`);
+            return;
+        }
+        const applyData = await applyMasterCloneHarmonization(personaId, sourcePath, data.candidate_path);
         await refreshMasterCloneContext();
-        alert(`Harmonizacao concluida.\nClone: ${data.clone_path || '-'}`);
+        alert(`Harmonizacao aplicada com backup.\nClone: ${applyData.clone_path || '-'}\nBackup: ${applyData.backup_path || '-'}`);
     } catch (error) {
         alert(`Erro na harmonizacao: ${error.message}`);
     }
@@ -2415,7 +2717,7 @@ window.masterCloneReset = async function(personaId, sourcePath) {
 window.masterCloneAuto = async function(personaId, kind = 'full_transcript') {
     const url = prompt('Cole a URL para executar o fluxo automatico completo:');
     if (!url) return;
-    if (!confirm('Executar em modo automatico? (URL -> Extrair -> Harmonizar)')) return;
+    if (!confirm('Executar em modo automatico seguro? (URL -> Extrair -> Auditar -> Previa -> Confirmar aplicacao)')) return;
     const forceAudioApi = isPersonaForceAudioApiEnabled(personaId);
     try {
         const ingestRes = await fetch('/api/personas/assets/ingest-url', {
@@ -2437,7 +2739,10 @@ window.masterCloneAuto = async function(personaId, kind = 'full_transcript') {
         const harmonizeData = await runMasterClonePipeline(personaId, sourcePath, 'master_clone_auto');
 
         await refreshMasterCloneContext();
-        alert(`Fluxo automatico concluido.\nArquivo: ${sourcePath}\nClone: ${harmonizeData.clone_path || '-'}`);
+        const resultLabel = harmonizeData.backup_path
+            ? `Clone aplicado: ${harmonizeData.clone_path || '-'}\nBackup: ${harmonizeData.backup_path || '-'}`
+            : `Previa criada sem aplicar: ${harmonizeData.candidate_path || '-'}`;
+        alert(`Fluxo automatico concluido.\nArquivo: ${sourcePath}\n${resultLabel}`);
     } catch (error) {
         alert(`Fluxo automatico falhou: ${error.message}`);
     }
@@ -2446,8 +2751,12 @@ window.masterCloneAuto = async function(personaId, kind = 'full_transcript') {
 function renderMasterInspector(items) {
     const inspector = document.getElementById('master-project-inspector');
     if (!inspector) return;
+    const inspectorColumn = inspector.closest('.master-col-inspector');
     const selected = items.find(item => item.key === window.MASTER_SELECTED_ID);
     if (!selected) {
+        closeMasterFloatingInspector();
+        if (inspectorColumn) inspectorColumn.classList.remove('master-inspector-open');
+        inspector.className = 'master-inspector-empty';
         const flows = getMasterProjectFlows();
         const fallbackProject = flows.sais || Object.values(flows)[0] || { label: '-' };
         const project = flows[window.MASTER_PROJECT] || fallbackProject;
@@ -2479,13 +2788,24 @@ function renderMasterInspector(items) {
         selected.clones_list && selected.clones_list !== '-' ? `<p><span class="text-white">Clones:</span> ${masterEscape(selected.clones_list)}</p>` : ''
     ].filter(Boolean).join('');
 
+    if (inspectorColumn) inspectorColumn.classList.add('master-inspector-open');
+    inspector.className = 'master-inspector-content';
+    if (selected.type === 'Clone') {
+        inspector.innerHTML = clonePanel;
+        openMasterFloatingInspector(selected.label, clonePanel);
+        return;
+    }
+    closeMasterFloatingInspector();
+
     inspector.innerHTML = `
         <div class="master-sidebar-card mb-2">
             <div class="flex items-center justify-between gap-2">
                 <p class="text-[11px] font-bold text-white">${masterEscape(selected.label)}</p>
-                <span class="badge" style="font-size:7px;${statusBadgeStyle(selected.status)}">${masterEscape(selected.status)}</span>
+                <div class="flex items-center gap-2">
+                    <span class="badge" style="font-size:7px;${statusBadgeStyle(selected.status)}">${masterEscape(selected.status)}</span>
+                </div>
             </div>
-            <p class="text-[9px] text-muted mt-1 uppercase tracking-widest">${masterEscape(selected.type)}</p>
+            ${selected.type === 'Clone' ? '' : `<p class="text-[9px] text-muted mt-1 uppercase tracking-widest">${masterEscape(selected.type)}</p>`}
             <p class="text-[10px] text-white mt-3">${masterEscape(selected.summary)}</p>
             <div class="mt-3 text-[10px] text-muted space-y-1">
                 <p><span class="text-white">Owner:</span> ${masterEscape(selected.owner)}</p>
@@ -2500,6 +2820,36 @@ function renderMasterInspector(items) {
             ${editAction}
         </div>
         ${clonePanel}
+    `;
+}
+
+function renderMasterCloneCardDetails(item) {
+    if (!item || item.type !== 'Clone') return '';
+    const statBox = (label, ok, total) => `
+        <div class="bg-black/20 border border-white/10 rounded px-1.5 py-1">
+            <p class="text-[7px] text-muted uppercase">${masterEscape(label)}</p>
+            <p class="text-[10px] text-white font-bold">${Number(ok || 0)}/${Number(total || 0)}</p>
+        </div>
+    `;
+    const traits = (item.persona_traits || []).slice(0, 4)
+        .map(trait => `<span class="px-1.5 py-0.5 rounded text-[7px] bg-primary/10 text-primary border border-primary/15 font-bold uppercase">${masterEscape(trait)}</span>`)
+        .join('');
+    const statusBadge = item.has_asset_gap
+        ? '<span class="badge border-coral/30 text-coral bg-coral/10" style="font-size:7px">anexo faltando</span>'
+        : '<span class="badge border-secondary/30 text-secondary bg-secondary/10" style="font-size:7px">anexos ok</span>';
+    return `
+        <div class="mt-2 pt-2 border-t border-white/5">
+            <div class="grid clone-compact-grid mb-1.5">
+                ${statBox('Transcricoes', item.transcript_available, item.transcript_total)}
+                ${statBox('MD Completo', item.full_transcript_available, item.full_transcript_total)}
+                ${statBox('Anexos', item.support_available, item.support_total)}
+            </div>
+            ${traits ? `<div class="flex flex-wrap gap-1 mb-1.5">${traits}</div>` : ''}
+            <div class="flex items-center justify-between gap-2">
+                ${statusBadge}
+                <button class="master-edit-btn" onclick='event.stopPropagation();openMasterCloneInspectorNow(${JSON.stringify(item.key)})'>Abrir</button>
+            </div>
+        </div>
     `;
 }
 
@@ -2530,15 +2880,16 @@ function renderMasterHub() {
         renderMasterProjectTimeline();
 
         canvas.innerHTML = items.length ? items.map(item => `
-            <article class="master-card ${window.MASTER_SELECTED_ID === item.key ? 'active' : ''}" onclick='selectMasterItem(${JSON.stringify(item.key)})'>
-                <div class="flex items-start justify-between gap-2 mb-2">
+            <article class="master-card ${item.type === 'Clone' ? 'clone-card' : ''} ${window.MASTER_SELECTED_ID === item.key ? 'active' : ''}" onclick='selectMasterItem(${JSON.stringify(item.key)})'>
+                <div class="flex items-start justify-between gap-2 ${item.type === 'Clone' ? 'mb-1' : 'mb-2'}">
                     <p class="text-[11px] font-bold text-white truncate">${masterEscape(item.label)}</p>
                     <span class="badge" style="font-size:7px;${statusBadgeStyle(item.status)}">${masterEscape(item.status)}</span>
                 </div>
-                <p class="text-[8px] text-muted uppercase tracking-widest mb-2">${masterEscape(item.type)}</p>
-                <p class="text-[8px] text-primary/80 uppercase tracking-widest mb-2">${masterEscape(`${item.context_project_label || '-'} · ${item.context_view_label || '-'}`)}</p>
-                <p class="text-[10px] text-muted min-h-[34px]">${masterEscape(item.summary)}</p>
-                <div class="mt-3 flex items-center justify-between gap-2">
+                ${item.type === 'Clone' ? '' : `<p class="text-[8px] text-muted uppercase tracking-widest mb-2">${masterEscape(item.type)}</p>`}
+                ${item.type === 'Clone' ? '' : `<p class="text-[8px] text-primary/80 uppercase tracking-widest mb-2">${masterEscape(`${item.context_project_label || '-'} · ${item.context_view_label || '-'}`)}</p>`}
+                <p class="text-[10px] text-muted ${item.type === 'Clone' ? 'min-h-0 leading-snug' : 'min-h-[34px]'}">${masterEscape(item.summary)}</p>
+                ${item.type === 'Clone' ? renderMasterCloneCardDetails(item) : ''}
+                <div class="${item.type === 'Clone' ? 'mt-2' : 'mt-3'} flex items-center justify-between gap-2">
                     <span class="text-[8px] text-muted font-mono truncate">${masterEscape(item.owner)}</span>
                     ${item.editPath ? `<button class="master-edit-btn" onclick='event.stopPropagation();openEditorModal(${JSON.stringify(item.editPath)}, ${JSON.stringify(item.editTitle || item.label)})'>Editar</button>` : ''}
                 </div>
@@ -3725,6 +4076,10 @@ function openAddPersonaModal() {
     document.getElementById('new-persona-role').value = '';
 }
 
+function openAddCloneModal() {
+    openAddPersonaModal();
+}
+
 async function submitNewPersona() {
     const name = document.getElementById('new-persona-name').value.trim();
     const role = document.getElementById('new-persona-role').value.trim();
@@ -3749,6 +4104,60 @@ async function submitNewPersona() {
         alert('Erro ao criar persona');
     }
 }
+
+async function createRegistryItem(endpoint, payload) {
+    const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.success) throw new Error(data.error || 'Falha ao criar item');
+    await loadAllData();
+    return data;
+}
+
+window.openAddAgentModal = async function() {
+    const name = prompt('Nome do novo agente:');
+    if (!name || !name.trim()) return;
+    const handle = prompt('Handle do agente (ex: @novo-agente):', '@' + name.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
+    if (!handle || !handle.trim()) return;
+    const squad = prompt('Squad do agente (ex: SQD-CORE, SQD-ENG):', 'SQD-CORE');
+    const role = prompt('Papel/resumo do agente:', 'Novo agente operacional.');
+    try {
+        const data = await createRegistryItem('/api/registry/agents', {
+            name: name.trim(),
+            handle: handle.trim(),
+            squad: (squad || 'SQD-CORE').trim(),
+            role: (role || 'Novo agente operacional.').trim(),
+            icon: 'user'
+        });
+        renderAgents();
+        renderMasterHub();
+        openEditorModal(data.file_path, `${data.agent.name} - ${data.agent.squad}`);
+    } catch (error) {
+        alert(`Nao foi possivel criar agente: ${error.message}`);
+    }
+};
+
+window.openAddSkillModal = async function() {
+    const name = prompt('Nome da nova skill:');
+    if (!name || !name.trim()) return;
+    const group = prompt('Grupo/categoria da skill (ex: CORE, MKF, ENG):', 'CORE');
+    const desc = prompt('Descricao curta da skill:', 'Nova skill operacional.');
+    try {
+        const data = await createRegistryItem('/api/registry/skills', {
+            name: name.trim(),
+            group: (group || 'CORE').trim(),
+            desc: (desc || 'Nova skill operacional.').trim()
+        });
+        renderSkills();
+        renderMasterHub();
+        openEditorModal(data.file_path, `${data.skill.name} - Skill`);
+    } catch (error) {
+        alert(`Nao foi possivel criar skill: ${error.message}`);
+    }
+};
 
 function skillNameToFile(name) {
     const map = {
@@ -4047,7 +4456,7 @@ function ensureMemoryLifecycleUI() {
                     <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">AUTOMATICO · CONTINUIDADE · 1 CLIQUE</p>
                 </div>
                 <div class="flex gap-2">
-                    <button id="btn-save-all-main" class="btn-success" onclick="saveAllNow()"><i data-lucide="cloud-upload" class="w-3 h-3 inline"></i> Salvar Tudo na Nuvem</button>
+                    <button id="btn-save-all-main" class="btn-success" onclick="saveAllNow()"><i data-lucide="cloud-upload" class="w-3 h-3 inline"></i> Salvar Tudo</button>
                     <button class="btn-ghost" onclick="loadAllData().then(renderMemory)">Atualizar</button>
                 </div>
             </div>
@@ -5047,7 +5456,7 @@ window.triggerResetPersonaAssetTracking = async function(personaId, sourcePath) 
 };
 
 window.triggerAutoGeminiHarmonize = async function(personaId, sourcePath) {
-    if (!confirm('A API sera acionada para harmonizar o nectar com o clone atual.\n\nProsseguir?')) return;
+    if (!confirm('A API sera acionada para gerar uma previa segura de harmonizacao.\n\nProsseguir?')) return;
     try {
         const res = await fetch('/api/personas/assets/harmonize-staging', {
             method: 'POST',
@@ -5058,11 +5467,26 @@ window.triggerAutoGeminiHarmonize = async function(personaId, sourcePath) {
             })
         });
         const data = await res.json().catch(() => ({}));
-        if (!res.ok || !data.success) throw new Error(data.error || 'Falha ao harmonizar');
+        if (!res.ok || !data.success) {
+            if (data.audit && data.audit.review_path) openEditorModal(data.audit.review_path, 'Parecer Nectar Auditor');
+            throw new Error(data.error || 'Falha ao harmonizar');
+        }
+        if (data.candidate_path) openEditorModal(data.candidate_path, 'Previa da harmonizacao');
+        const shouldApply = confirm(
+            `Previa criada.\n\nCandidato: ${data.candidate_path || '-'}\n\n` +
+            'Aplicar agora na Base do clone com backup?'
+        );
+        let applyData = data;
+        if (shouldApply) {
+            applyData = await applyMasterCloneHarmonization(personaId, sourcePath, data.candidate_path);
+        }
         await loadAllData();
         renderPersonas();
         openPersonaAssetsDrawer(personaId);
-        alert(`Harmonizacao concluida.\nClone atualizado: ${data.clone_path || '(nao informado)'}`);
+        alert(shouldApply
+            ? `Harmonizacao aplicada.\nClone atualizado: ${applyData.clone_path || '(nao informado)'}\nBackup: ${applyData.backup_path || '-'}`
+            : `Previa mantida sem alterar o clone.\nCandidato: ${data.candidate_path || '-'}`
+        );
     } catch (error) {
         alert(`[ERRO DE HARMONIZACAO]: ${error.message}`);
     }
