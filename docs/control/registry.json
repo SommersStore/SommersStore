@@ -896,7 +896,7 @@
         "activation_relevance": "runtime",
         "activation_criticality": "alta",
         "activation_enabled": true,
-        "activation_trigger": "pre-harmonizacao+manual"
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-QRO-07",
@@ -912,7 +912,7 @@
         "activation_relevance": "runtime",
         "activation_criticality": "alta",
         "activation_enabled": true,
-        "activation_trigger": "pre-harmonizacao+manual"
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-QRO-08",
@@ -928,7 +928,7 @@
         "activation_relevance": "runtime",
         "activation_criticality": "alta",
         "activation_enabled": true,
-        "activation_trigger": "pre-harmonizacao+manual"
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-QRO-09",
@@ -942,9 +942,9 @@
         "playbook_status": "active",
         "activation_lane": "suporte_critico",
         "activation_relevance": "runtime",
-        "activation_criticality": "critica",
+        "activation_criticality": "media",
         "activation_enabled": true,
-        "activation_trigger": "pre-harmonizacao+obrigatorio"
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-QRO-10",
@@ -960,7 +960,7 @@
         "activation_relevance": "runtime",
         "activation_criticality": "alta",
         "activation_enabled": true,
-        "activation_trigger": "pre-harmonizacao+manual"
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-QRO-11",
@@ -974,9 +974,9 @@
         "playbook_status": "active",
         "activation_lane": "suporte_critico",
         "activation_relevance": "runtime",
-        "activation_criticality": "critica",
+        "activation_criticality": "media",
         "activation_enabled": true,
-        "activation_trigger": "pre-harmonizacao+obrigatorio"
+        "activation_trigger": "fase+manual"
       }
     ],
     "MEM": [

@@ -1,57 +1,93 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { ReactNode, useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "@/lib/firebase";
+import { auth, isConfigValid } from "@/lib/firebase";
 
-export default function AuthGuard({ children }: { children: React.ReactNode }) {
-  const [loading, setLoading] = useState(true);
+export default function AuthGuard({ children }: { children: ReactNode }) {
+  const [loading, setLoading] = useState(isConfigValid);
   const [user, setUser] = useState<User | null>(null);
+  const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-        setLoading(false);
-      } else {
-        setUser(null);
-        setLoading(false);
-        // Descomentar quando a página de login estiver pronta
-        // router.push("/login");
+    if (!isConfigValid) {
+      return;
+    }
+
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser);
+      setLoading(false);
+
+      if (!firebaseUser) {
+        const next = encodeURIComponent(pathname || "/hub");
+        router.replace(`/login?next=${next}`);
       }
     });
 
     return () => unsubscribe();
-  }, [router]);
+  }, [pathname, router]);
 
   if (loading) {
     return (
       <div style={{
-        height: "100vh",
-        background: "#050508",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: "var(--font-montserrat)"
+        minHeight: "100vh",
+        background: "#111827",
+        color: "#f8fafc",
+        display: "grid",
+        placeItems: "center",
+        padding: "24px",
+        fontFamily: "var(--font-geist-sans)"
       }}>
         <div style={{
-          padding: "20px",
-          border: "1px solid rgba(197, 160, 89, 0.2)",
+          border: "1px solid rgba(56,189,248,0.26)",
           borderRadius: "8px",
-          color: "#C5A059",
+          padding: "18px 20px",
+          background: "rgba(15,23,42,0.82)",
+          color: "#7dd3fc",
           fontSize: "12px",
-          letterSpacing: "4px",
-          textTransform: "uppercase",
-          animation: "pulse 2s infinite"
+          fontWeight: 800,
+          letterSpacing: "0.12em",
+          textTransform: "uppercase"
         }}>
-          Verificando Acesso Elite...
+          Verificando acesso seguro
         </div>
       </div>
     );
   }
 
-  // Por enquanto libera o acesso para testes, mas monitora o estado do usuário
+  if (!isConfigValid) {
+    return (
+      <main style={{
+        minHeight: "100vh",
+        background: "#111827",
+        color: "#f8fafc",
+        display: "grid",
+        placeItems: "center",
+        padding: "24px",
+        fontFamily: "var(--font-geist-sans)"
+      }}>
+        <section style={{
+          width: "min(480px, 100%)",
+          border: "1px solid rgba(248,250,252,0.12)",
+          borderRadius: "8px",
+          padding: "24px",
+          background: "rgba(15,23,42,0.86)"
+        }}>
+          <p style={{ margin: "0 0 8px", color: "#38bdf8", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.12em" }}>
+            Firebase pendente
+          </p>
+          <h1 style={{ margin: "0 0 12px", fontSize: "24px" }}>Configure o acesso seguro</h1>
+          <p style={{ margin: 0, color: "#cbd5e1", lineHeight: 1.6 }}>
+            Preencha as variaveis NEXT_PUBLIC_FIREBASE_* no arquivo .env.local antes de usar o painel privado.
+          </p>
+        </section>
+      </main>
+    );
+  }
+
+  if (!user) return null;
+
   return <>{children}</>;
 }

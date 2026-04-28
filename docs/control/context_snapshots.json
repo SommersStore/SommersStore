@@ -1,35 +1,27 @@
 {
   "snapshots": [
     {
-      "id": "CTX-20260425-0061",
-      "timestamp": "2026-04-25T01:09:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0005",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0062",
-      "timestamp": "2026-04-25T01:10:41-03:00",
+      "id": "CTX-20260427-0334",
+      "timestamp": "2026-04-27T20:43:32-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0005",
+      "session_id": "SES-20260427-0053",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0172"
+      "checkpoint_id": "CHK-MEM-0267"
     },
     {
-      "id": "CTX-20260425-0063",
-      "timestamp": "2026-04-25T01:10:43-03:00",
+      "id": "CTX-20260427-0335",
+      "timestamp": "2026-04-27T20:43:34-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0006",
+      "session_id": "SES-20260427-0054",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0172",
+        "latest_raw_checkpoint_id": "CHK-MEM-0267",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -44,51 +36,35 @@
       }
     },
     {
-      "id": "CTX-20260425-0064",
-      "timestamp": "2026-04-25T01:11:09-03:00",
+      "id": "CTX-20260427-0336",
+      "timestamp": "2026-04-27T20:44:33-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0006",
+      "session_id": "SES-20260427-0054",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0065",
-      "timestamp": "2026-04-25T01:14:00-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0006",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0066",
-      "timestamp": "2026-04-25T01:14:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0006",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0067",
-      "timestamp": "2026-04-25T01:16:41-03:00",
+      "id": "CTX-20260427-0337",
+      "timestamp": "2026-04-27T20:45:55-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0006",
+      "session_id": "SES-20260427-0054",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0173"
+      "checkpoint_id": "CHK-MEM-0268"
     },
     {
-      "id": "CTX-20260425-0068",
-      "timestamp": "2026-04-25T01:16:43-03:00",
+      "id": "CTX-20260427-0338",
+      "timestamp": "2026-04-27T20:45:57-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0007",
+      "session_id": "SES-20260427-0055",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0173",
+        "latest_raw_checkpoint_id": "CHK-MEM-0268",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -103,35 +79,35 @@
       }
     },
     {
-      "id": "CTX-20260425-0069",
-      "timestamp": "2026-04-25T01:17:08-03:00",
+      "id": "CTX-20260427-0339",
+      "timestamp": "2026-04-27T20:46:56-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0007",
+      "session_id": "SES-20260427-0055",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0070",
-      "timestamp": "2026-04-25T01:17:44-03:00",
+      "id": "CTX-20260427-0340",
+      "timestamp": "2026-04-27T20:52:24-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0007",
+      "session_id": "SES-20260427-0055",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0174"
+      "checkpoint_id": "CHK-MEM-0269"
     },
     {
-      "id": "CTX-20260425-0071",
-      "timestamp": "2026-04-25T01:17:47-03:00",
+      "id": "CTX-20260427-0341",
+      "timestamp": "2026-04-27T20:52:28-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0008",
+      "session_id": "SES-20260427-0056",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0174",
+        "latest_raw_checkpoint_id": "CHK-MEM-0269",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -146,59 +122,43 @@
       }
     },
     {
-      "id": "CTX-20260425-0072",
-      "timestamp": "2026-04-25T01:18:09-03:00",
+      "id": "CTX-20260427-0342",
+      "timestamp": "2026-04-27T20:53:25-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0008",
+      "session_id": "SES-20260427-0056",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0073",
-      "timestamp": "2026-04-25T01:18:24-03:00",
+      "id": "CTX-20260427-0343",
+      "timestamp": "2026-04-27T21:02:26-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0008",
+      "session_id": "SES-20260427-0056",
       "summary": "background",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0074",
-      "timestamp": "2026-04-25T01:18:45-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0008",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0075",
-      "timestamp": "2026-04-25T01:29:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0008",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0076",
-      "timestamp": "2026-04-25T01:34:37-03:00",
+      "id": "CTX-20260427-0344",
+      "timestamp": "2026-04-27T21:02:26-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0008",
+      "session_id": "SES-20260427-0056",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0175"
+      "checkpoint_id": "CHK-MEM-0270"
     },
     {
-      "id": "CTX-20260425-0077",
-      "timestamp": "2026-04-25T01:34:39-03:00",
+      "id": "CTX-20260427-0345",
+      "timestamp": "2026-04-27T21:02:28-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0009",
+      "session_id": "SES-20260427-0057",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0175",
+        "latest_raw_checkpoint_id": "CHK-MEM-0270",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -213,43 +173,27 @@
       }
     },
     {
-      "id": "CTX-20260425-0078",
-      "timestamp": "2026-04-25T01:35:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0009",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0079",
-      "timestamp": "2026-04-25T01:37:34-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0009",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0080",
-      "timestamp": "2026-04-25T01:37:36-03:00",
+      "id": "CTX-20260427-0346",
+      "timestamp": "2026-04-27T21:03:05-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0009",
+      "session_id": "SES-20260427-0057",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0176"
+      "checkpoint_id": "CHK-MEM-0271"
     },
     {
-      "id": "CTX-20260425-0081",
-      "timestamp": "2026-04-25T01:37:39-03:00",
+      "id": "CTX-20260427-0347",
+      "timestamp": "2026-04-27T21:03:07-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0010",
+      "session_id": "SES-20260427-0058",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0176",
+        "latest_raw_checkpoint_id": "CHK-MEM-0271",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -264,99 +208,35 @@
       }
     },
     {
-      "id": "CTX-20260425-0082",
-      "timestamp": "2026-04-25T01:37:58-03:00",
+      "id": "CTX-20260427-0348",
+      "timestamp": "2026-04-27T21:04:06-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0010",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0083",
-      "timestamp": "2026-04-25T01:38:37-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0010",
+      "session_id": "SES-20260427-0058",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0084",
-      "timestamp": "2026-04-25T01:44:16-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0010",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0085",
-      "timestamp": "2026-04-25T01:44:38-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0010",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0086",
-      "timestamp": "2026-04-25T01:44:53-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0010",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0087",
-      "timestamp": "2026-04-25T01:45:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0010",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0088",
-      "timestamp": "2026-04-25T01:45:26-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0010",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0089",
-      "timestamp": "2026-04-25T01:45:38-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0010",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0090",
-      "timestamp": "2026-04-25T01:45:39-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0010",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0091",
-      "timestamp": "2026-04-25T01:45:57-03:00",
+      "id": "CTX-20260427-0349",
+      "timestamp": "2026-04-27T21:09:00-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0010",
+      "session_id": "SES-20260427-0058",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0177"
+      "checkpoint_id": "CHK-MEM-0272"
     },
     {
-      "id": "CTX-20260425-0092",
-      "timestamp": "2026-04-25T01:45:59-03:00",
+      "id": "CTX-20260427-0350",
+      "timestamp": "2026-04-27T21:09:02-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0011",
+      "session_id": "SES-20260427-0059",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0177",
+        "latest_raw_checkpoint_id": "CHK-MEM-0272",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -371,75 +251,51 @@
       }
     },
     {
-      "id": "CTX-20260425-0093",
-      "timestamp": "2026-04-25T01:46:08-03:00",
+      "id": "CTX-20260427-0351",
+      "timestamp": "2026-04-27T21:10:01-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0011",
+      "session_id": "SES-20260427-0059",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0094",
-      "timestamp": "2026-04-25T01:47:02-03:00",
+      "id": "CTX-20260427-0352",
+      "timestamp": "2026-04-27T21:20:01-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0011",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0095",
-      "timestamp": "2026-04-25T01:47:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0011",
+      "session_id": "SES-20260427-0059",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0096",
-      "timestamp": "2026-04-25T01:48:37-03:00",
+      "id": "CTX-20260427-0353",
+      "timestamp": "2026-04-27T21:30:01-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0011",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0097",
-      "timestamp": "2026-04-25T01:48:58-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0011",
+      "session_id": "SES-20260427-0059",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0098",
-      "timestamp": "2026-04-25T01:54:50-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0011",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0099",
-      "timestamp": "2026-04-25T01:54:51-03:00",
+      "id": "CTX-20260427-0354",
+      "timestamp": "2026-04-27T21:32:41-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0011",
+      "session_id": "SES-20260427-0059",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0178"
+      "checkpoint_id": "CHK-MEM-0273"
     },
     {
-      "id": "CTX-20260425-0100",
-      "timestamp": "2026-04-25T01:54:54-03:00",
+      "id": "CTX-20260427-0355",
+      "timestamp": "2026-04-27T21:32:43-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0012",
+      "session_id": "SES-20260427-0060",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0178",
+        "latest_raw_checkpoint_id": "CHK-MEM-0273",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -454,59 +310,35 @@
       }
     },
     {
-      "id": "CTX-20260425-0101",
-      "timestamp": "2026-04-25T01:54:58-03:00",
+      "id": "CTX-20260427-0356",
+      "timestamp": "2026-04-27T21:33:42-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0012",
+      "session_id": "SES-20260427-0060",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0102",
-      "timestamp": "2026-04-25T02:03:03-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0012",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0103",
-      "timestamp": "2026-04-25T02:03:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0012",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0104",
-      "timestamp": "2026-04-25T02:03:16-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0012",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0105",
-      "timestamp": "2026-04-25T02:03:18-03:00",
+      "id": "CTX-20260427-0357",
+      "timestamp": "2026-04-27T21:34:24-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0012",
+      "session_id": "SES-20260427-0060",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0179"
+      "checkpoint_id": "CHK-MEM-0274"
     },
     {
-      "id": "CTX-20260425-0106",
-      "timestamp": "2026-04-25T02:03:21-03:00",
+      "id": "CTX-20260427-0358",
+      "timestamp": "2026-04-27T21:34:27-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0013",
+      "session_id": "SES-20260427-0061",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0179",
+        "latest_raw_checkpoint_id": "CHK-MEM-0274",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -521,123 +353,35 @@
       }
     },
     {
-      "id": "CTX-20260425-0107",
-      "timestamp": "2026-04-25T02:03:53-03:00",
+      "id": "CTX-20260427-0359",
+      "timestamp": "2026-04-27T21:35:25-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0013",
+      "session_id": "SES-20260427-0061",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0108",
-      "timestamp": "2026-04-25T02:04:31-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0013",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0109",
-      "timestamp": "2026-04-25T02:05:09-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0013",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0110",
-      "timestamp": "2026-04-25T02:08:25-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0013",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0111",
-      "timestamp": "2026-04-25T02:09:12-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0013",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0112",
-      "timestamp": "2026-04-25T02:10:02-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0013",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0113",
-      "timestamp": "2026-04-25T02:10:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0013",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0114",
-      "timestamp": "2026-04-25T02:19:37-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0013",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0115",
-      "timestamp": "2026-04-25T02:20:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0013",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0116",
-      "timestamp": "2026-04-25T02:29:24-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0013",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0117",
-      "timestamp": "2026-04-25T02:30:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0013",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0118",
-      "timestamp": "2026-04-25T02:40:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0013",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0119",
-      "timestamp": "2026-04-25T02:46:19-03:00",
+      "id": "CTX-20260427-0360",
+      "timestamp": "2026-04-27T21:40:13-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0013",
+      "session_id": "SES-20260427-0061",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0180"
+      "checkpoint_id": "CHK-MEM-0275"
     },
     {
-      "id": "CTX-20260425-0120",
-      "timestamp": "2026-04-25T02:46:22-03:00",
+      "id": "CTX-20260427-0361",
+      "timestamp": "2026-04-27T21:40:15-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0014",
+      "session_id": "SES-20260427-0062",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0180",
+        "latest_raw_checkpoint_id": "CHK-MEM-0275",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -652,203 +396,27 @@
       }
     },
     {
-      "id": "CTX-20260425-0121",
-      "timestamp": "2026-04-25T02:46:55-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0122",
-      "timestamp": "2026-04-25T02:47:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0123",
-      "timestamp": "2026-04-25T02:51:13-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0124",
-      "timestamp": "2026-04-25T02:51:21-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0125",
-      "timestamp": "2026-04-25T02:55:09-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0126",
-      "timestamp": "2026-04-25T02:55:21-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0127",
-      "timestamp": "2026-04-25T02:59:25-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0128",
-      "timestamp": "2026-04-25T03:00:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0129",
-      "timestamp": "2026-04-25T03:10:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0130",
-      "timestamp": "2026-04-25T03:20:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0131",
-      "timestamp": "2026-04-25T03:30:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0132",
-      "timestamp": "2026-04-25T03:40:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0133",
-      "timestamp": "2026-04-25T03:50:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0134",
-      "timestamp": "2026-04-25T04:00:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0135",
-      "timestamp": "2026-04-25T04:10:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0136",
-      "timestamp": "2026-04-25T04:20:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0137",
-      "timestamp": "2026-04-25T04:30:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0138",
-      "timestamp": "2026-04-25T04:40:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0139",
-      "timestamp": "2026-04-25T04:50:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0140",
-      "timestamp": "2026-04-25T04:55:54-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0141",
-      "timestamp": "2026-04-25T04:56:21-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0142",
-      "timestamp": "2026-04-25T05:06:21-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0014",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0143",
-      "timestamp": "2026-04-25T05:07:52-03:00",
+      "id": "CTX-20260427-0362",
+      "timestamp": "2026-04-27T21:41:05-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0014",
+      "session_id": "SES-20260427-0062",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0181"
+      "checkpoint_id": "CHK-MEM-0276"
     },
     {
-      "id": "CTX-20260425-0144",
-      "timestamp": "2026-04-25T05:07:56-03:00",
+      "id": "CTX-20260427-0363",
+      "timestamp": "2026-04-27T21:41:07-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0015",
+      "session_id": "SES-20260427-0063",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0181",
+        "latest_raw_checkpoint_id": "CHK-MEM-0276",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -863,51 +431,67 @@
       }
     },
     {
-      "id": "CTX-20260425-0145",
-      "timestamp": "2026-04-25T05:08:26-03:00",
+      "id": "CTX-20260427-0364",
+      "timestamp": "2026-04-27T21:42:06-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0015",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0146",
-      "timestamp": "2026-04-25T05:08:54-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0015",
+      "session_id": "SES-20260427-0063",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0147",
-      "timestamp": "2026-04-25T05:09:41-03:00",
+      "id": "CTX-20260427-0365",
+      "timestamp": "2026-04-27T21:52:06-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0015",
+      "session_id": "SES-20260427-0063",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260427-0366",
+      "timestamp": "2026-04-27T21:59:20-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0063",
       "summary": "background",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0148",
-      "timestamp": "2026-04-25T05:09:45-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260425-0015",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0182"
+      "id": "CTX-20260427-0367",
+      "timestamp": "2026-04-27T22:00:06-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0063",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0149",
-      "timestamp": "2026-04-25T05:09:47-03:00",
+      "id": "CTX-20260427-0368",
+      "timestamp": "2026-04-27T22:10:06-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0063",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260427-0369",
+      "timestamp": "2026-04-27T22:12:54-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260427-0063",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0277"
+    },
+    {
+      "id": "CTX-20260427-0370",
+      "timestamp": "2026-04-27T22:12:57-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0016",
+      "session_id": "SES-20260427-0064",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0182",
+        "latest_raw_checkpoint_id": "CHK-MEM-0277",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -922,35 +506,123 @@
       }
     },
     {
-      "id": "CTX-20260425-0150",
-      "timestamp": "2026-04-25T05:09:54-03:00",
+      "id": "CTX-20260427-0371",
+      "timestamp": "2026-04-27T22:13:56-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0016",
+      "session_id": "SES-20260427-0064",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0151",
-      "timestamp": "2026-04-25T05:12:31-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260425-0016",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0183"
+      "id": "CTX-20260427-0372",
+      "timestamp": "2026-04-27T22:23:56-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0064",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0152",
-      "timestamp": "2026-04-25T05:12:33-03:00",
+      "id": "CTX-20260427-0373",
+      "timestamp": "2026-04-27T22:33:56-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0064",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260427-0374",
+      "timestamp": "2026-04-27T22:34:38-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0064",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260427-0375",
+      "timestamp": "2026-04-27T22:34:57-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0064",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260427-0376",
+      "timestamp": "2026-04-27T22:44:57-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0064",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260427-0377",
+      "timestamp": "2026-04-27T22:45:01-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0064",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260427-0378",
+      "timestamp": "2026-04-27T22:46:27-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0064",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260427-0379",
+      "timestamp": "2026-04-27T22:51:16-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0064",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260427-0380",
+      "timestamp": "2026-04-27T22:52:27-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0064",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260427-0381",
+      "timestamp": "2026-04-27T22:52:36-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0064",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260427-0382",
+      "timestamp": "2026-04-27T23:12:23-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0064",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260427-0383",
+      "timestamp": "2026-04-27T23:12:27-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260427-0064",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0278"
+    },
+    {
+      "id": "CTX-20260427-0384",
+      "timestamp": "2026-04-27T23:12:30-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0017",
+      "session_id": "SES-20260427-0065",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0183",
+        "latest_raw_checkpoint_id": "CHK-MEM-0278",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -965,131 +637,155 @@
       }
     },
     {
-      "id": "CTX-20260425-0153",
-      "timestamp": "2026-04-25T05:12:54-03:00",
+      "id": "CTX-20260427-0385",
+      "timestamp": "2026-04-27T23:13:11-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0017",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0154",
-      "timestamp": "2026-04-25T05:23:09-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0017",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0155",
-      "timestamp": "2026-04-25T05:26:54-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0017",
+      "session_id": "SES-20260427-0065",
       "summary": "background",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0156",
-      "timestamp": "2026-04-25T05:26:54-03:00",
+      "id": "CTX-20260427-0386",
+      "timestamp": "2026-04-27T23:13:29-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0017",
+      "session_id": "SES-20260427-0065",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0157",
-      "timestamp": "2026-04-25T05:30:57-03:00",
+      "id": "CTX-20260427-0387",
+      "timestamp": "2026-04-27T23:18:44-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0017",
+      "session_id": "SES-20260427-0065",
       "summary": "background",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0158",
-      "timestamp": "2026-04-25T05:30:57-03:00",
+      "id": "CTX-20260427-0388",
+      "timestamp": "2026-04-27T23:19:29-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0017",
+      "session_id": "SES-20260427-0065",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0159",
-      "timestamp": "2026-04-25T05:31:30-03:00",
+      "id": "CTX-20260427-0389",
+      "timestamp": "2026-04-27T23:20:01-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0017",
+      "session_id": "SES-20260427-0065",
       "summary": "background",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0160",
-      "timestamp": "2026-04-25T05:31:32-03:00",
+      "id": "CTX-20260427-0390",
+      "timestamp": "2026-04-27T23:20:29-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0017",
+      "session_id": "SES-20260427-0065",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0161",
-      "timestamp": "2026-04-25T05:32:47-03:00",
+      "id": "CTX-20260427-0391",
+      "timestamp": "2026-04-27T23:22:41-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0017",
+      "session_id": "SES-20260427-0065",
       "summary": "background",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0162",
-      "timestamp": "2026-04-25T05:32:54-03:00",
+      "id": "CTX-20260427-0392",
+      "timestamp": "2026-04-27T23:23:32-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0017",
+      "session_id": "SES-20260427-0065",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0163",
-      "timestamp": "2026-04-25T05:33:26-03:00",
+      "id": "CTX-20260427-0393",
+      "timestamp": "2026-04-27T23:34:05-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0017",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0164",
-      "timestamp": "2026-04-25T05:33:32-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0017",
+      "session_id": "SES-20260427-0065",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0165",
-      "timestamp": "2026-04-25T05:44:08-03:00",
+      "id": "CTX-20260427-0394",
+      "timestamp": "2026-04-27T23:44:05-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0017",
+      "session_id": "SES-20260427-0065",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0166",
-      "timestamp": "2026-04-25T05:46:34-03:00",
+      "id": "CTX-20260427-0395",
+      "timestamp": "2026-04-27T23:54:05-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0065",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0001",
+      "timestamp": "2026-04-28T00:04:05-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0065",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0002",
+      "timestamp": "2026-04-28T00:14:05-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0065",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0003",
+      "timestamp": "2026-04-28T00:24:05-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0065",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0004",
+      "timestamp": "2026-04-28T07:08:50-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0065",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0005",
+      "timestamp": "2026-04-28T07:18:50-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260427-0065",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0006",
+      "timestamp": "2026-04-28T07:22:53-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0017",
+      "session_id": "SES-20260427-0065",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0184"
+      "checkpoint_id": "CHK-MEM-0279"
     },
     {
-      "id": "CTX-20260425-0167",
-      "timestamp": "2026-04-25T05:46:37-03:00",
+      "id": "CTX-20260428-0007",
+      "timestamp": "2026-04-28T08:09:40-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0018",
+      "session_id": "SES-20260428-0001",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0184",
+        "latest_raw_checkpoint_id": "CHK-MEM-0279",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -1104,91 +800,83 @@
       }
     },
     {
-      "id": "CTX-20260425-0168",
-      "timestamp": "2026-04-25T05:47:08-03:00",
+      "id": "CTX-20260428-0008",
+      "timestamp": "2026-04-28T08:10:02-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0018",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0169",
-      "timestamp": "2026-04-25T05:55:52-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0018",
+      "session_id": "SES-20260428-0001",
       "summary": "background",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0170",
-      "timestamp": "2026-04-25T05:56:08-03:00",
+      "id": "CTX-20260428-0009",
+      "timestamp": "2026-04-28T08:17:20-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0018",
+      "session_id": "SES-20260428-0001",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0171",
-      "timestamp": "2026-04-25T05:56:17-03:00",
+      "id": "CTX-20260428-0010",
+      "timestamp": "2026-04-28T08:27:20-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0018",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0172",
-      "timestamp": "2026-04-25T05:56:36-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0018",
+      "session_id": "SES-20260428-0001",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0173",
-      "timestamp": "2026-04-25T05:57:53-03:00",
+      "id": "CTX-20260428-0011",
+      "timestamp": "2026-04-28T08:37:20-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0018",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0174",
-      "timestamp": "2026-04-25T05:58:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0018",
+      "session_id": "SES-20260428-0001",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0175",
-      "timestamp": "2026-04-25T06:08:08-03:00",
+      "id": "CTX-20260428-0012",
+      "timestamp": "2026-04-28T08:47:20-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0018",
+      "session_id": "SES-20260428-0001",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0176",
-      "timestamp": "2026-04-25T06:10:37-03:00",
+      "id": "CTX-20260428-0013",
+      "timestamp": "2026-04-28T08:57:20-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0001",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0014",
+      "timestamp": "2026-04-28T09:07:20-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0001",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0015",
+      "timestamp": "2026-04-28T09:09:57-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0018",
+      "session_id": "SES-20260428-0001",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0185"
+      "checkpoint_id": "CHK-MEM-0280"
     },
     {
-      "id": "CTX-20260425-0177",
-      "timestamp": "2026-04-25T06:10:40-03:00",
+      "id": "CTX-20260428-0016",
+      "timestamp": "2026-04-28T09:10:00-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0019",
+      "session_id": "SES-20260428-0002",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0185",
+        "latest_raw_checkpoint_id": "CHK-MEM-0280",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -1203,35 +891,59 @@
       }
     },
     {
-      "id": "CTX-20260425-0178",
-      "timestamp": "2026-04-25T06:11:09-03:00",
+      "id": "CTX-20260428-0017",
+      "timestamp": "2026-04-28T09:10:59-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0019",
+      "session_id": "SES-20260428-0002",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0179",
-      "timestamp": "2026-04-25T06:14:09-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260425-0019",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0186"
+      "id": "CTX-20260428-0018",
+      "timestamp": "2026-04-28T09:20:59-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0002",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0180",
-      "timestamp": "2026-04-25T06:14:11-03:00",
+      "id": "CTX-20260428-0019",
+      "timestamp": "2026-04-28T09:29:54-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0002",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0020",
+      "timestamp": "2026-04-28T09:29:59-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0002",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0021",
+      "timestamp": "2026-04-28T09:30:26-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260428-0002",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0281"
+    },
+    {
+      "id": "CTX-20260428-0022",
+      "timestamp": "2026-04-28T09:30:28-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0020",
+      "session_id": "SES-20260428-0003",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0186",
+        "latest_raw_checkpoint_id": "CHK-MEM-0281",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -1246,83 +958,35 @@
       }
     },
     {
-      "id": "CTX-20260425-0181",
-      "timestamp": "2026-04-25T06:15:11-03:00",
+      "id": "CTX-20260428-0023",
+      "timestamp": "2026-04-28T09:31:28-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0020",
+      "session_id": "SES-20260428-0003",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0182",
-      "timestamp": "2026-04-25T06:21:57-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0020",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0183",
-      "timestamp": "2026-04-25T06:22:09-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0020",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0184",
-      "timestamp": "2026-04-25T06:22:37-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0020",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0185",
-      "timestamp": "2026-04-25T06:23:09-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0020",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0186",
-      "timestamp": "2026-04-25T06:33:09-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0020",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0187",
-      "timestamp": "2026-04-25T09:17:31-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0020",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0188",
-      "timestamp": "2026-04-25T09:19:49-03:00",
+      "id": "CTX-20260428-0024",
+      "timestamp": "2026-04-28T09:32:44-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0020",
+      "session_id": "SES-20260428-0003",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0187"
+      "checkpoint_id": "CHK-MEM-0282"
     },
     {
-      "id": "CTX-20260425-0189",
-      "timestamp": "2026-04-25T09:19:53-03:00",
+      "id": "CTX-20260428-0025",
+      "timestamp": "2026-04-28T09:32:47-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0021",
+      "session_id": "SES-20260428-0004",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0187",
+        "latest_raw_checkpoint_id": "CHK-MEM-0282",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -1337,27 +1001,51 @@
       }
     },
     {
-      "id": "CTX-20260425-0190",
-      "timestamp": "2026-04-25T09:20:05-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260425-0021",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0188"
+      "id": "CTX-20260428-0026",
+      "timestamp": "2026-04-28T09:34:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0004",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0191",
-      "timestamp": "2026-04-25T09:20:07-03:00",
+      "id": "CTX-20260428-0027",
+      "timestamp": "2026-04-28T09:34:26-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0004",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0028",
+      "timestamp": "2026-04-28T09:34:47-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0004",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0029",
+      "timestamp": "2026-04-28T09:43:49-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260428-0004",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0283"
+    },
+    {
+      "id": "CTX-20260428-0030",
+      "timestamp": "2026-04-28T09:43:51-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0022",
+      "session_id": "SES-20260428-0005",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0188",
+        "latest_raw_checkpoint_id": "CHK-MEM-0283",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -1372,67 +1060,35 @@
       }
     },
     {
-      "id": "CTX-20260425-0192",
-      "timestamp": "2026-04-25T09:20:09-03:00",
+      "id": "CTX-20260428-0031",
+      "timestamp": "2026-04-28T09:44:06-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0022",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0193",
-      "timestamp": "2026-04-25T09:21:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0022",
+      "session_id": "SES-20260428-0005",
       "summary": "background",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0194",
-      "timestamp": "2026-04-25T09:21:09-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0022",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0195",
-      "timestamp": "2026-04-25T09:22:33-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0022",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0196",
-      "timestamp": "2026-04-25T09:22:34-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0022",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0197",
-      "timestamp": "2026-04-25T09:22:37-03:00",
+      "id": "CTX-20260428-0032",
+      "timestamp": "2026-04-28T09:44:25-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0022",
+      "session_id": "SES-20260428-0005",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0189"
+      "checkpoint_id": "CHK-MEM-0284"
     },
     {
-      "id": "CTX-20260425-0198",
-      "timestamp": "2026-04-25T09:27:14-03:00",
+      "id": "CTX-20260428-0033",
+      "timestamp": "2026-04-28T09:44:34-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0023",
+      "session_id": "SES-20260428-0006",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0189",
+        "latest_raw_checkpoint_id": "CHK-MEM-0284",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -1447,107 +1103,27 @@
       }
     },
     {
-      "id": "CTX-20260425-0199",
-      "timestamp": "2026-04-25T09:27:31-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0023",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0200",
-      "timestamp": "2026-04-25T09:28:37-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0023",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0201",
-      "timestamp": "2026-04-25T09:29:31-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0023",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0202",
-      "timestamp": "2026-04-25T09:31:29-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0023",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0203",
-      "timestamp": "2026-04-25T09:31:31-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0023",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0204",
-      "timestamp": "2026-04-25T09:33:39-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0023",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0205",
-      "timestamp": "2026-04-25T09:34:31-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0023",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0206",
-      "timestamp": "2026-04-25T09:44:31-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0023",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0207",
-      "timestamp": "2026-04-25T09:54:31-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0023",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0208",
-      "timestamp": "2026-04-25T10:04:31-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0023",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0209",
-      "timestamp": "2026-04-25T10:05:33-03:00",
+      "id": "CTX-20260428-0034",
+      "timestamp": "2026-04-28T09:44:46-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0023",
+      "session_id": "SES-20260428-0006",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0190"
+      "checkpoint_id": "CHK-MEM-0285"
     },
     {
-      "id": "CTX-20260425-0210",
-      "timestamp": "2026-04-25T10:05:35-03:00",
+      "id": "CTX-20260428-0035",
+      "timestamp": "2026-04-28T09:44:56-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0024",
+      "session_id": "SES-20260428-0007",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0190",
+        "latest_raw_checkpoint_id": "CHK-MEM-0285",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -1562,67 +1138,59 @@
       }
     },
     {
-      "id": "CTX-20260425-0211",
-      "timestamp": "2026-04-25T10:06:34-03:00",
+      "id": "CTX-20260428-0036",
+      "timestamp": "2026-04-28T09:45:47-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0024",
+      "session_id": "SES-20260428-0007",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0212",
-      "timestamp": "2026-04-25T10:07:39-03:00",
+      "id": "CTX-20260428-0037",
+      "timestamp": "2026-04-28T09:46:02-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0024",
+      "session_id": "SES-20260428-0007",
       "summary": "background",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0213",
-      "timestamp": "2026-04-25T10:08:38-03:00",
+      "id": "CTX-20260428-0038",
+      "timestamp": "2026-04-28T09:46:48-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0024",
+      "session_id": "SES-20260428-0007",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0214",
-      "timestamp": "2026-04-25T10:10:31-03:00",
+      "id": "CTX-20260428-0039",
+      "timestamp": "2026-04-28T09:48:57-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0024",
+      "session_id": "SES-20260428-0007",
       "summary": "background",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0215",
-      "timestamp": "2026-04-25T10:10:35-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0024",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0216",
-      "timestamp": "2026-04-25T10:11:53-03:00",
+      "id": "CTX-20260428-0040",
+      "timestamp": "2026-04-28T09:49:00-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0024",
+      "session_id": "SES-20260428-0007",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0191"
+      "checkpoint_id": "CHK-MEM-0286"
     },
     {
-      "id": "CTX-20260425-0217",
-      "timestamp": "2026-04-25T10:11:56-03:00",
+      "id": "CTX-20260428-0041",
+      "timestamp": "2026-04-28T09:49:05-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0025",
+      "session_id": "SES-20260428-0008",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0191",
+        "latest_raw_checkpoint_id": "CHK-MEM-0286",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -1637,43 +1205,35 @@
       }
     },
     {
-      "id": "CTX-20260425-0218",
-      "timestamp": "2026-04-25T10:12:55-03:00",
+      "id": "CTX-20260428-0042",
+      "timestamp": "2026-04-28T09:49:48-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0025",
+      "session_id": "SES-20260428-0008",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0219",
-      "timestamp": "2026-04-25T10:13:06-03:00",
+      "id": "CTX-20260428-0043",
+      "timestamp": "2026-04-28T09:52:03-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0025",
+      "session_id": "SES-20260428-0008",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0192"
+      "checkpoint_id": "CHK-MEM-0287"
     },
     {
-      "id": "CTX-20260425-0220",
-      "timestamp": "2026-04-25T10:13:09-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260425-0026",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0193"
-    },
-    {
-      "id": "CTX-20260425-0221",
-      "timestamp": "2026-04-25T10:13:13-03:00",
+      "id": "CTX-20260428-0044",
+      "timestamp": "2026-04-28T09:53:14-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0027",
+      "session_id": "SES-20260428-0009",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0193",
+        "latest_raw_checkpoint_id": "CHK-MEM-0287",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -1688,51 +1248,51 @@
       }
     },
     {
-      "id": "CTX-20260425-0222",
-      "timestamp": "2026-04-25T10:13:27-03:00",
+      "id": "CTX-20260428-0045",
+      "timestamp": "2026-04-28T09:53:23-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0027",
+      "session_id": "SES-20260428-0009",
       "summary": "background",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0223",
-      "timestamp": "2026-04-25T10:14:07-03:00",
+      "id": "CTX-20260428-0046",
+      "timestamp": "2026-04-28T09:54:03-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0027",
+      "session_id": "SES-20260428-0009",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0224",
-      "timestamp": "2026-04-25T10:14:33-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0027",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0225",
-      "timestamp": "2026-04-25T10:14:54-03:00",
+      "id": "CTX-20260428-0047",
+      "timestamp": "2026-04-28T09:57:06-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0027",
+      "session_id": "SES-20260428-0009",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0194"
+      "checkpoint_id": "CHK-MEM-0288"
     },
     {
-      "id": "CTX-20260425-0226",
-      "timestamp": "2026-04-25T10:15:01-03:00",
+      "id": "CTX-20260428-0048",
+      "timestamp": "2026-04-28T09:57:12-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260428-0010",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0289"
+    },
+    {
+      "id": "CTX-20260428-0049",
+      "timestamp": "2026-04-28T09:57:13-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0028",
+      "session_id": "SES-20260428-0011",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0194",
+        "latest_raw_checkpoint_id": "CHK-MEM-0289",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -1747,43 +1307,51 @@
       }
     },
     {
-      "id": "CTX-20260425-0227",
-      "timestamp": "2026-04-25T10:15:59-03:00",
+      "id": "CTX-20260428-0050",
+      "timestamp": "2026-04-28T09:58:08-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0028",
+      "session_id": "SES-20260428-0011",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0228",
-      "timestamp": "2026-04-25T10:17:31-03:00",
+      "id": "CTX-20260428-0051",
+      "timestamp": "2026-04-28T09:58:51-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0028",
+      "session_id": "SES-20260428-0011",
       "summary": "background",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0229",
-      "timestamp": "2026-04-25T10:18:12-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260425-0028",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0195"
+      "id": "CTX-20260428-0052",
+      "timestamp": "2026-04-28T09:59:08-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0011",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0230",
-      "timestamp": "2026-04-25T10:20:08-03:00",
+      "id": "CTX-20260428-0053",
+      "timestamp": "2026-04-28T10:04:46-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260428-0011",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0290"
+    },
+    {
+      "id": "CTX-20260428-0054",
+      "timestamp": "2026-04-28T10:11:23-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0029",
+      "session_id": "SES-20260428-0012",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0195",
+        "latest_raw_checkpoint_id": "CHK-MEM-0290",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -1798,27 +1366,43 @@
       }
     },
     {
-      "id": "CTX-20260425-0231",
-      "timestamp": "2026-04-25T10:20:58-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260425-0029",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0196"
+      "id": "CTX-20260428-0055",
+      "timestamp": "2026-04-28T10:12:07-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0012",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0232",
-      "timestamp": "2026-04-25T10:21:07-03:00",
+      "id": "CTX-20260428-0056",
+      "timestamp": "2026-04-28T10:22:08-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0012",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0057",
+      "timestamp": "2026-04-28T10:24:02-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260428-0012",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0291"
+    },
+    {
+      "id": "CTX-20260428-0058",
+      "timestamp": "2026-04-28T10:24:05-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0030",
+      "session_id": "SES-20260428-0013",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0196",
+        "latest_raw_checkpoint_id": "CHK-MEM-0291",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -1833,51 +1417,147 @@
       }
     },
     {
-      "id": "CTX-20260425-0233",
-      "timestamp": "2026-04-25T10:22:03-03:00",
+      "id": "CTX-20260428-0059",
+      "timestamp": "2026-04-28T10:25:04-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0030",
+      "session_id": "SES-20260428-0013",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0234",
-      "timestamp": "2026-04-25T10:23:00-03:00",
+      "id": "CTX-20260428-0060",
+      "timestamp": "2026-04-28T10:27:49-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0030",
+      "session_id": "SES-20260428-0013",
       "summary": "background",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0235",
-      "timestamp": "2026-04-25T10:23:03-03:00",
+      "id": "CTX-20260428-0061",
+      "timestamp": "2026-04-28T10:28:04-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0030",
+      "session_id": "SES-20260428-0013",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0236",
-      "timestamp": "2026-04-25T10:23:20-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260425-0030",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0197"
+      "id": "CTX-20260428-0062",
+      "timestamp": "2026-04-28T10:28:32-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0013",
+      "summary": "background",
+      "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0237",
-      "timestamp": "2026-04-25T10:23:29-03:00",
+      "id": "CTX-20260428-0063",
+      "timestamp": "2026-04-28T10:29:04-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0013",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0064",
+      "timestamp": "2026-04-28T10:32:34-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0013",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0065",
+      "timestamp": "2026-04-28T10:33:04-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0013",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0066",
+      "timestamp": "2026-04-28T10:43:50-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0013",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0067",
+      "timestamp": "2026-04-28T10:48:24-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0013",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0068",
+      "timestamp": "2026-04-28T10:49:04-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0013",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0069",
+      "timestamp": "2026-04-28T10:59:50-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0013",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0070",
+      "timestamp": "2026-04-28T11:09:50-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0013",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0071",
+      "timestamp": "2026-04-28T11:19:50-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0013",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0072",
+      "timestamp": "2026-04-28T11:29:50-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0013",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0073",
+      "timestamp": "2026-04-28T11:39:50-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0013",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0074",
+      "timestamp": "2026-04-28T11:40:44-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260428-0013",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0292"
+    },
+    {
+      "id": "CTX-20260428-0075",
+      "timestamp": "2026-04-28T11:40:47-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0031",
+      "session_id": "SES-20260428-0014",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0197",
+        "latest_raw_checkpoint_id": "CHK-MEM-0292",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -1892,59 +1572,115 @@
       }
     },
     {
-      "id": "CTX-20260425-0238",
-      "timestamp": "2026-04-25T10:24:26-03:00",
+      "id": "CTX-20260428-0076",
+      "timestamp": "2026-04-28T11:41:45-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0031",
+      "session_id": "SES-20260428-0014",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0239",
-      "timestamp": "2026-04-25T10:25:25-03:00",
+      "id": "CTX-20260428-0077",
+      "timestamp": "2026-04-28T11:42:36-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0031",
+      "session_id": "SES-20260428-0014",
       "summary": "background",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0240",
-      "timestamp": "2026-04-25T10:25:27-03:00",
+      "id": "CTX-20260428-0078",
+      "timestamp": "2026-04-28T11:42:45-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0031",
+      "session_id": "SES-20260428-0014",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0241",
-      "timestamp": "2026-04-25T10:25:36-03:00",
+      "id": "CTX-20260428-0079",
+      "timestamp": "2026-04-28T11:44:18-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0031",
+      "session_id": "SES-20260428-0014",
       "summary": "background",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0242",
-      "timestamp": "2026-04-25T10:25:37-03:00",
+      "id": "CTX-20260428-0080",
+      "timestamp": "2026-04-28T11:44:45-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0014",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0081",
+      "timestamp": "2026-04-28T11:54:45-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0014",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0082",
+      "timestamp": "2026-04-28T12:05:45-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0014",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0083",
+      "timestamp": "2026-04-28T12:15:45-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0014",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0084",
+      "timestamp": "2026-04-28T12:24:54-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0014",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0085",
+      "timestamp": "2026-04-28T12:25:45-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0014",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0086",
+      "timestamp": "2026-04-28T12:35:45-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0014",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0087",
+      "timestamp": "2026-04-28T12:45:16-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0031",
+      "session_id": "SES-20260428-0014",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0198"
+      "checkpoint_id": "CHK-MEM-0293"
     },
     {
-      "id": "CTX-20260425-0243",
-      "timestamp": "2026-04-25T10:25:40-03:00",
+      "id": "CTX-20260428-0088",
+      "timestamp": "2026-04-28T12:45:20-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0032",
+      "session_id": "SES-20260428-0015",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0198",
+        "latest_raw_checkpoint_id": "CHK-MEM-0293",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -1959,43 +1695,35 @@
       }
     },
     {
-      "id": "CTX-20260425-0244",
-      "timestamp": "2026-04-25T10:25:41-03:00",
+      "id": "CTX-20260428-0089",
+      "timestamp": "2026-04-28T12:46:17-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0032",
-      "summary": "background",
+      "session_id": "SES-20260428-0015",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0245",
-      "timestamp": "2026-04-25T10:26:00-03:00",
+      "id": "CTX-20260428-0090",
+      "timestamp": "2026-04-28T12:52:58-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0032",
+      "session_id": "SES-20260428-0015",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0199"
+      "checkpoint_id": "CHK-MEM-0294"
     },
     {
-      "id": "CTX-20260425-0246",
-      "timestamp": "2026-04-25T10:26:05-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260425-0033",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0200"
-    },
-    {
-      "id": "CTX-20260425-0247",
-      "timestamp": "2026-04-25T10:26:12-03:00",
+      "id": "CTX-20260428-0091",
+      "timestamp": "2026-04-28T12:53:02-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0034",
+      "session_id": "SES-20260428-0016",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0200",
+        "latest_raw_checkpoint_id": "CHK-MEM-0294",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -2010,27 +1738,35 @@
       }
     },
     {
-      "id": "CTX-20260425-0248",
-      "timestamp": "2026-04-25T10:26:59-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260425-0034",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0201"
+      "id": "CTX-20260428-0092",
+      "timestamp": "2026-04-28T12:54:00-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0016",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0249",
-      "timestamp": "2026-04-25T10:27:01-03:00",
+      "id": "CTX-20260428-0093",
+      "timestamp": "2026-04-28T12:54:51-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260428-0016",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0295"
+    },
+    {
+      "id": "CTX-20260428-0094",
+      "timestamp": "2026-04-28T12:54:53-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0035",
+      "session_id": "SES-20260428-0017",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0201",
+        "latest_raw_checkpoint_id": "CHK-MEM-0295",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -2045,91 +1781,35 @@
       }
     },
     {
-      "id": "CTX-20260425-0250",
-      "timestamp": "2026-04-25T10:28:00-03:00",
+      "id": "CTX-20260428-0095",
+      "timestamp": "2026-04-28T12:55:51-03:00",
       "type": "session_pulse",
-      "session_id": "SES-20260425-0035",
+      "session_id": "SES-20260428-0017",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "project_id": "sais"
     },
     {
-      "id": "CTX-20260425-0251",
-      "timestamp": "2026-04-25T10:28:56-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0035",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0252",
-      "timestamp": "2026-04-25T10:29:00-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0035",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0253",
-      "timestamp": "2026-04-25T10:39:00-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0035",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0254",
-      "timestamp": "2026-04-25T10:49:00-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0035",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0255",
-      "timestamp": "2026-04-25T11:01:27-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0035",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0256",
-      "timestamp": "2026-04-25T11:03:13-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0035",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0257",
-      "timestamp": "2026-04-25T11:11:13-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260425-0035",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260425-0258",
-      "timestamp": "2026-04-25T11:14:33-03:00",
+      "id": "CTX-20260428-0096",
+      "timestamp": "2026-04-28T12:57:42-03:00",
       "type": "session_close",
-      "session_id": "SES-20260425-0035",
+      "session_id": "SES-20260428-0017",
       "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0202"
+      "checkpoint_id": "CHK-MEM-0296"
     },
     {
-      "id": "CTX-20260425-0259",
-      "timestamp": "2026-04-25T11:14:35-03:00",
+      "id": "CTX-20260428-0097",
+      "timestamp": "2026-04-28T12:57:45-03:00",
       "type": "session_start",
-      "session_id": "SES-20260425-0036",
+      "session_id": "SES-20260428-0018",
       "context_flash": {
         "project": "SommersStore Elite",
         "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
         "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
         "build_phase": "BLD-07",
         "ops_stage": "OPS-01",
-        "latest_checkpoint_id": "CHK-MEM-0144",
+        "latest_checkpoint_id": "CHK-MEM-0265",
         "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-        "latest_raw_checkpoint_id": "CHK-MEM-0202",
+        "latest_raw_checkpoint_id": "CHK-MEM-0296",
         "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
         "checkpoint_resolution": "last_actionable_checkpoint",
         "latest_active_decision_id": "DEC-MEM-0004",
@@ -2144,12 +1824,446 @@
       }
     },
     {
-      "id": "CTX-20260425-0260",
-      "timestamp": "2026-04-25T11:15:19-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260425-0036",
+      "id": "CTX-20260428-0098",
+      "timestamp": "2026-04-28T12:58:44-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0018",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "checkpoint_id": "CHK-MEM-0203"
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0099",
+      "timestamp": "2026-04-28T13:05:49-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260428-0018",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0297"
+    },
+    {
+      "id": "CTX-20260428-0100",
+      "timestamp": "2026-04-28T13:05:52-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260428-0019",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
+        "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0265",
+        "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+        "latest_raw_checkpoint_id": "CHK-MEM-0297",
+        "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "checkpoint_resolution": "last_actionable_checkpoint",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": [],
+        "continuity_file": "docs/memory/startup_context_latest.md",
+        "continuity_window_days": 7
+      }
+    },
+    {
+      "id": "CTX-20260428-0101",
+      "timestamp": "2026-04-28T13:06:51-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0019",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0102",
+      "timestamp": "2026-04-28T13:16:31-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0019",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0103",
+      "timestamp": "2026-04-28T13:16:51-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0019",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0104",
+      "timestamp": "2026-04-28T13:24:54-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0019",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0105",
+      "timestamp": "2026-04-28T13:25:52-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0019",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0106",
+      "timestamp": "2026-04-28T13:34:30-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260428-0019",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0298"
+    },
+    {
+      "id": "CTX-20260428-0107",
+      "timestamp": "2026-04-28T13:34:33-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260428-0020",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
+        "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0265",
+        "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+        "latest_raw_checkpoint_id": "CHK-MEM-0298",
+        "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "checkpoint_resolution": "last_actionable_checkpoint",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": [],
+        "continuity_file": "docs/memory/startup_context_latest.md",
+        "continuity_window_days": 7
+      }
+    },
+    {
+      "id": "CTX-20260428-0108",
+      "timestamp": "2026-04-28T13:35:31-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0020",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0109",
+      "timestamp": "2026-04-28T13:38:32-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260428-0020",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0299"
+    },
+    {
+      "id": "CTX-20260428-0110",
+      "timestamp": "2026-04-28T13:38:35-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260428-0021",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
+        "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0265",
+        "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+        "latest_raw_checkpoint_id": "CHK-MEM-0299",
+        "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "checkpoint_resolution": "last_actionable_checkpoint",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": [],
+        "continuity_file": "docs/memory/startup_context_latest.md",
+        "continuity_window_days": 7
+      }
+    },
+    {
+      "id": "CTX-20260428-0111",
+      "timestamp": "2026-04-28T13:39:34-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0021",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0112",
+      "timestamp": "2026-04-28T13:43:31-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0021",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0113",
+      "timestamp": "2026-04-28T13:43:34-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0021",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0114",
+      "timestamp": "2026-04-28T13:46:05-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0021",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0115",
+      "timestamp": "2026-04-28T13:46:32-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0021",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0116",
+      "timestamp": "2026-04-28T13:56:34-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0021",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0117",
+      "timestamp": "2026-04-28T14:06:34-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0021",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0118",
+      "timestamp": "2026-04-28T14:06:48-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0021",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0119",
+      "timestamp": "2026-04-28T14:06:51-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0021",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0120",
+      "timestamp": "2026-04-28T14:14:56-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260428-0021",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0300"
+    },
+    {
+      "id": "CTX-20260428-0121",
+      "timestamp": "2026-04-28T14:16:28-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260428-0022",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
+        "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0265",
+        "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+        "latest_raw_checkpoint_id": "CHK-MEM-0300",
+        "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "checkpoint_resolution": "last_actionable_checkpoint",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": [],
+        "continuity_file": "docs/memory/startup_context_latest.md",
+        "continuity_window_days": 7
+      }
+    },
+    {
+      "id": "CTX-20260428-0122",
+      "timestamp": "2026-04-28T14:16:30-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0022",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0123",
+      "timestamp": "2026-04-28T14:16:46-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260428-0022",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0301"
+    },
+    {
+      "id": "CTX-20260428-0124",
+      "timestamp": "2026-04-28T14:16:48-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260428-0023",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
+        "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0265",
+        "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+        "latest_raw_checkpoint_id": "CHK-MEM-0301",
+        "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "checkpoint_resolution": "last_actionable_checkpoint",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": [],
+        "continuity_file": "docs/memory/startup_context_latest.md",
+        "continuity_window_days": 7
+      }
+    },
+    {
+      "id": "CTX-20260428-0125",
+      "timestamp": "2026-04-28T14:17:47-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0023",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0126",
+      "timestamp": "2026-04-28T14:27:11-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0023",
+      "summary": "background",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0127",
+      "timestamp": "2026-04-28T14:27:47-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0023",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0128",
+      "timestamp": "2026-04-28T14:37:47-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0023",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0129",
+      "timestamp": "2026-04-28T14:47:47-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0023",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0130",
+      "timestamp": "2026-04-28T14:57:47-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0023",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0131",
+      "timestamp": "2026-04-28T15:07:47-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0023",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0132",
+      "timestamp": "2026-04-28T15:17:47-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0023",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0133",
+      "timestamp": "2026-04-28T15:27:47-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0023",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0134",
+      "timestamp": "2026-04-28T15:37:47-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0023",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0135",
+      "timestamp": "2026-04-28T15:42:19-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260428-0023",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0302"
+    },
+    {
+      "id": "CTX-20260428-0136",
+      "timestamp": "2026-04-28T15:42:23-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260428-0024",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
+        "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0265",
+        "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+        "latest_raw_checkpoint_id": "CHK-MEM-0302",
+        "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "checkpoint_resolution": "last_actionable_checkpoint",
+        "latest_active_decision_id": "DEC-MEM-0004",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": [],
+        "continuity_file": "docs/memory/startup_context_latest.md",
+        "continuity_window_days": 7
+      }
+    },
+    {
+      "id": "CTX-20260428-0137",
+      "timestamp": "2026-04-28T15:43:21-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260428-0024",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260428-0138",
+      "timestamp": "2026-04-28T15:43:24-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260428-0024",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "checkpoint_id": "CHK-MEM-0303"
     }
   ]
 }

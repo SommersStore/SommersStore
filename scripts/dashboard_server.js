@@ -700,7 +700,38 @@ function readControlJson(filename, defaultValue = {}) {
 
 function writeControlJson(filename, data) {
     ensureDir(CONTROL_DIR);
-    fs.writeFileSync(path.join(CONTROL_DIR, filename), JSON.stringify(data, null, 2), 'utf8');
+    writeJsonAtomic(path.join(CONTROL_DIR, filename), data, 2);
+}
+
+function writeFileAtomic(fullPath, content) {
+    ensureDir(path.dirname(fullPath));
+    const tempPath = path.join(
+        path.dirname(fullPath),
+        `.${path.basename(fullPath)}.${process.pid}.${Date.now()}.tmp`
+    );
+    let fd = null;
+    try {
+        fd = fs.openSync(tempPath, 'w');
+        fs.writeFileSync(fd, content, 'utf8');
+        fs.fsyncSync(fd);
+        fs.closeSync(fd);
+        fd = null;
+        fs.renameSync(tempPath, fullPath);
+    } catch (error) {
+        if (fd !== null) {
+            try { fs.closeSync(fd); } catch (_) { /* ignore */ }
+        }
+        try {
+            if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath);
+        } catch (_) { /* ignore */ }
+        throw error;
+    }
+}
+
+function writeJsonAtomic(fullPath, data, spaces = 2) {
+    const content = `${JSON.stringify(data, null, spaces)}\n`;
+    JSON.parse(content);
+    writeFileAtomic(fullPath, content);
 }
 
 // â”€â”€ JSON Rotation (P1 audit fix) â”€â”€
@@ -709,7 +740,8 @@ const ROTATION_CONFIG = {
     [FILES.logs]: { key: 'entries', maxEntries: 500 },
     [FILES.memoryMutations]: { key: 'mutations', maxEntries: 300 },
     [FILES.snapshots]: { key: 'snapshots', maxEntries: 200 },
-    [FILES.memoryRuns]: { key: 'items', maxEntries: 400 }
+    [FILES.memoryRuns]: { key: 'items', maxEntries: 400 },
+    [FILES.session]: { key: 'history', maxEntries: 100 }
 };
 
 function rotateControlJsonArray(filename) {
@@ -732,7 +764,7 @@ function rotateControlJsonArray(filename) {
         }
     } catch (_) { /* ignore */ }
     const merged = existing.concat(archived);
-    fs.writeFileSync(archivePath, JSON.stringify({ [config.key]: merged, rotated_at: nowIso() }, null, 2), 'utf8');
+    writeJsonAtomic(archivePath, { [config.key]: merged, rotated_at: nowIso() }, 2);
     data[config.key] = keep;
     writeControlJson(filename, data);
     console.log(`[ROTATION] ${filename}: archived ${archived.length} entries, kept ${keep.length}`);
@@ -755,8 +787,11 @@ function readText(fullPath, fallback = '') {
 }
 
 function writeText(fullPath, content) {
-    ensureDir(path.dirname(fullPath));
-    fs.writeFileSync(fullPath, content, 'utf8');
+    const text = String(content ?? '');
+    if (path.extname(fullPath).toLowerCase() === '.json') {
+        JSON.parse(text || '{}');
+    }
+    writeFileAtomic(fullPath, text);
 }
 
 function workspaceRelativePath(fullPath) {
@@ -937,7 +972,7 @@ ${sourceContent}
         last_audited_at: nowIso(),
         audit_count: Number(previous.audit_count || 0) + 1
     };
-    fs.writeFileSync(trackingFile, JSON.stringify(trackingData, null, 4), 'utf8');
+    writeJsonAtomic(trackingFile, trackingData, 4);
 
     appendExecutionLog('persona_asset_audit', personaId, `Nectar audit ${parsed.decision}: ${linkedAsset.path}`, 'nectar-auditor', null, null);
     return { ...parsed, review_path: reviewRelPath, model: geminiConfig.model, api_key_source: geminiConfig.apiKeySource };
@@ -3419,7 +3454,7 @@ ${markdownContent.substring(0, 150000)}
                 }
 
                 // Salva o NÃ©ctar na Sala de Quarentena (Staging)
-                fs.writeFileSync(stagingFullPath, extractedRules.trim() + '\n', 'utf8');
+                writeText(stagingFullPath, `${extractedRules.trim()}\n`);
                 
                 // Tracking visual para a UI (MarcaÃ§Ã£o que o usuÃ¡rio pediu)
                 const trackingFile = path.join(CONTROL_DIR, 'extracted_assets.json');
@@ -3439,7 +3474,7 @@ ${markdownContent.substring(0, 150000)}
                     reset_count: Number(previous.reset_count || 0)
                 };
                 delete trackingData.extractions[linkedAsset.path].harmonized_at;
-                fs.writeFileSync(trackingFile, JSON.stringify(trackingData, null, 4), 'utf8');
+                writeJsonAtomic(trackingFile, trackingData, 4);
 
                 return sendJson(res, {
                     success: true,
@@ -3561,7 +3596,7 @@ review_path: ${audit.review_path}
                 };
                 const candidateContent = appendHarmonizationLedger(harmonizedRules.trim(), ledgerEntry);
 
-                fs.writeFileSync(candidateFullPath, candidateContent, 'utf8');
+                writeText(candidateFullPath, candidateContent);
                 // O clone final nao e sobrescrito aqui. A aplicacao exige confirmacao explicita.
 
                 // Marcar como harmonizado no tracking
@@ -3585,7 +3620,7 @@ review_path: ${audit.review_path}
                 };
                 delete trackingData.extractions[linkedAsset.path].harmonized_at;
                 delete trackingData.extractions[linkedAsset.path].last_harmonized_at;
-                fs.writeFileSync(trackingFile, JSON.stringify(trackingData, null, 4), 'utf8');
+                writeJsonAtomic(trackingFile, trackingData, 4);
 
                 return sendJson(res, {
                     success: true,
@@ -3705,7 +3740,7 @@ review_path: ${audit.review_path}
                     procedure_count: Number(previous.procedure_count || 0) + 1,
                     reset_count: Number(previous.reset_count || 0)
                 };
-                fs.writeFileSync(trackingFile, JSON.stringify(trackingData, null, 4), 'utf8');
+                writeJsonAtomic(trackingFile, trackingData, 4);
 
                 return sendJson(res, {
                     success: true,
@@ -3748,7 +3783,7 @@ review_path: ${audit.review_path}
                     delete trackingData.extractions[linkedAsset.path].audit_risk;
                     delete trackingData.extractions[linkedAsset.path].audit_path;
                     delete trackingData.extractions[linkedAsset.path].last_audited_at;
-                    fs.writeFileSync(trackingFile, JSON.stringify(trackingData, null, 4), 'utf8');
+                    writeJsonAtomic(trackingFile, trackingData, 4);
                 }
 
                 return sendJson(res, { success: true });
@@ -3813,7 +3848,7 @@ review_path: ${audit.review_path}
                 
                 if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir, { recursive: true });
                 const savePath = path.join(targetDir, fileName);
-                fs.writeFileSync(savePath, `${markdown.trim()}\n`, 'utf8');
+                writeText(savePath, `${markdown.trim()}\n`);
                 
                 const relPath = `knowledge/clones/transcripts/${fileName}`;
                 const linkResult = await attachPersonaAsset({

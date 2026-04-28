@@ -11,7 +11,10 @@
       "Read(//c/Users/ADMIN/AppData/Local/**)",
       "Read(//c/Users/ADMIN/AppData/Roaming/npm/node_modules/**)",
       "Skill(update-config)",
-      "Skill(update-config:*)"
+      "Skill(update-config:*)",
+      "Bash(node --input-type=module)",
+      "Bash(node -e ' *)",
+      "Bash(node tests/quality/master_hub.test.cjs)"
     ]
   },
   "hooks": {

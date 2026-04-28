@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AuthGuard from "@/components/AuthGuard";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
@@ -10,11 +10,7 @@ import "../design-system.css";
 export default function EliteHub() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("produtos");
-  const [currentTime, setCurrentTime] = useState("");
-
-  useEffect(() => {
-    setCurrentTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-  }, []);
+  const [currentTime] = useState(() => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
 
   const handleLogout = async () => {
     await signOut(auth);
@@ -117,7 +113,7 @@ export default function EliteHub() {
           <div style={{ borderTop: "1px solid rgba(197, 160, 89, 0.1)", paddingTop: "30px", marginTop: "30px" }}>
             <div style={{ padding: "0 10px", marginBottom: "20px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
-                <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "var(--ss-color-gold-muted)", border: "1px solid var(--ss-color-gold)", display: "flex", alignItems: "center", justifyCenter: "center", fontSize: "14px" }}>💎</div>
+                <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "var(--ss-color-gold-muted)", border: "1px solid var(--ss-color-gold)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px" }}>💎</div>
                 <div>
                    <p style={{ fontSize: "10px", fontWeight: "700", margin: 0 }}>Aristocrata</p>
                    <p style={{ fontSize: "8px", opacity: 0.4, margin: 0 }}>Membro Nível 4</p>
@@ -290,7 +286,7 @@ export default function EliteHub() {
                       </div>
                     </div>
 
-                    <button className="ss-button-gold" style={{ width: "100%", py: "16px", fontSize: "10px", letterSpacing: "4px" }}>
+                    <button className="ss-button-gold" style={{ width: "100%", paddingTop: "16px", paddingBottom: "16px", fontSize: "10px", letterSpacing: "4px" }}>
                         ENTRAR NO PROTOCOLO
                     </button>
                   </div>
@@ -322,3 +318,4 @@ function navItemStyle(isActive: boolean): React.CSSProperties {
     alignItems: "center"
   };
 }
+

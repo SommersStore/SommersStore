@@ -33,7 +33,12 @@ export default function SummaryPagePart2({ chapters, pageNum }: SummaryPagePart2
   const page2Chapters = chapters.slice(3, 5);
   
   // Cálculo de página inicial coerente: 3 páginas por fórmula
-  let cumulativePage = 30; 
+  const chapterStarts = page2Chapters.reduce<number[]>((starts, cap, index) => {
+    const previousStart = starts[index - 1] ?? 30;
+    const previousChapter = page2Chapters[index - 1];
+    starts.push(previousChapter ? previousStart + 1 + (previousChapter.formulas.length * 3) : 30);
+    return starts;
+  }, []);
 
   return (
     <PageShell pageNum={pageNum} className="justify-center pt-24 px-24 font-serif">
@@ -58,8 +63,7 @@ export default function SummaryPagePart2({ chapters, pageNum }: SummaryPagePart2
           
           <div className="flex flex-col space-y-12">
             {page2Chapters.map((cap: Chapter, iIdx: number) => {
-              const capStart = cumulativePage;
-              cumulativePage += 1 + (cap.formulas.length * 3);
+              const capStart = chapterStarts[iIdx];
 
               return (
                 <div key={iIdx} className="relative z-10">

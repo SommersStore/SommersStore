@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const nightshadeStyles = `
 @keyframes pulseGlowGold {
@@ -61,16 +62,12 @@ interface VSLLayoutProps {
     version: string;
 }
 
-export default function VSLLayout({ videoPosition, mobileOrder, version }: VSLLayoutProps) {
-    const [mounted, setMounted] = useState(false);
+export default function VSLLayout({ videoPosition, mobileOrder, version: _version }: VSLLayoutProps) {
     const [timeLeft, setTimeLeft] = useState(15 * 60);
-    const [isVisible, setIsVisible] = useState(false);
 
     const otoCheckoutUrl = "https://pay.kiwify.com.br/kjKBBea"; 
 
     useEffect(() => {
-        setMounted(true);
-        setIsVisible(true);
         const timer = setInterval(() => {
             setTimeLeft(prev => {
                 if (prev <= 0) {
@@ -82,8 +79,6 @@ export default function VSLLayout({ videoPosition, mobileOrder, version }: VSLLa
         }, 1000);
         return () => clearInterval(timer);
     }, []);
-
-    if (!mounted) return <div className="min-h-screen bg-[#050508]" />; // Evita Hydration Mismatch
 
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
@@ -274,12 +269,12 @@ export default function VSLLayout({ videoPosition, mobileOrder, version }: VSLLa
 
                     {/* Decline link */}
                     <div className="mt-10">
-                        <a
+                        <Link
                             href="/"
                             className="text-[#F5F5DC]/20 text-[11px] font-serif italic hover:text-[#F5F5DC]/40 transition-colors underline underline-offset-4"
                         >
                             Não, obrigada. Prefiro apenas o básico e recusar o acesso ao Cofre das Botânicas Secretas.
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </section>

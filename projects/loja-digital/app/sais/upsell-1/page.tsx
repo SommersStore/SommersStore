@@ -62,13 +62,11 @@ const nightshadeStyles = `
  */
 export default function UpsellPage() {
     const [timeLeft, setTimeLeft] = useState(15 * 60); // 15 minutos
-    const [isVisible, setIsVisible] = useState(false);
 
     // TODO: Substituir pelo link Kiwify real do produto UPSELL
     const upsellCheckoutUrl = "https://pay.kiwify.com.br/kjKBBea"; // PLACEHOLDER — trocar pelo link do UPSELL
 
     useEffect(() => {
-        setIsVisible(true);
         const timer = setInterval(() => {
             setTimeLeft(prev => {
                 if (prev <= 0) {

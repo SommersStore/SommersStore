@@ -647,7 +647,193 @@
       "memory_scope": "session_shutdown",
       "diff_summary": "Scribe encerrou SES-20260420-0010: Encerramento automatico (fechamento de aba/janela).",
       "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-20T22:07:10-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260420-0011",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-20T22:07:10-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-20T22:16:31-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260420-0011: Implementar correcoes P0 da auditoria: popular KPIs com valores reais, garantir project_id em todos os log entries. Depois P1: diferenciar cores SQD-CORE/SQD-MEM, mapear handles no AGENTS.md.",
+      "mutated_by": "human"
+    },
+    {
+      "timestamp": "2026-04-20T22:17:07-03:00",
+      "memory_scope": "cloud_sync",
+      "diff_summary": "Cloud sync SYNC-20260420-1776734191785: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.)",
+      "mutated_by": "human"
+    },
+    {
+      "timestamp": "2026-04-21T01:55:34-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260421-0001",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-21T01:55:34-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-21T03:10:20-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260421-0001: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-21T03:10:23-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260421-0002",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-21T03:10:23-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-21T05:34:03-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260421-0002: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-21T05:34:07-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260421-0003",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-21T05:34:07-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-21T06:25:33-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260421-0003: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-21T06:25:36-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260421-0004",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-21T06:25:37-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-21T06:25:40-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260421-0004: Configurar e aprimorar squads, agentes, skills e personas/clones.",
+      "mutated_by": "human"
+    },
+    {
+      "timestamp": "2026-04-21T06:26:18-03:00",
+      "memory_scope": "cloud_sync",
+      "diff_summary": "Cloud sync SYNC-20260421-1776763540169: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.)",
+      "mutated_by": "human"
+    },
+    {
+      "timestamp": "2026-04-21T13:57:53-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260421-0005",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-21T13:57:53-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-21T15:11:28-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260421-0005: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-21T15:11:31-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260421-0006",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-21T15:11:31-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-21T16:40:54-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260421-0006: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-21T16:40:57-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260421-0007",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-21T16:40:57-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-21T16:49:57-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260421-0007: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-21T16:50:00-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260421-0008",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-21T16:50:00-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-21T17:31:12-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260421-0008: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system"
+    },
+    {
+      "timestamp": "2026-04-21T17:31:17-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260421-0009",
+      "mutated_by": "dashboard"
+    },
+    {
+      "timestamp": "2026-04-21T17:31:17-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard"
     }
   ],
-  "rotated_at": "2026-04-25T11:15:19-03:00"
+  "rotated_at": "2026-04-25T16:40:08-03:00"
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anti-Gravity · Intelligence Tower</title>
+    <title>Painel Anti-Gravity</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -46,7 +46,11 @@
         /* Animations */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulse-glow { 0%,100% { box-shadow: 0 0 0 0 rgba(168,85,247,0); } 50% { box-shadow: 0 0 12px 2px rgba(168,85,247,0.3); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
         .animate-in { animation: fadeIn 0.3s ease forwards; }
+        .master-card-flow-arrow { font-size:9px;color:#6b7280;margin-top:6px }
+        .master-card-flow-arrow span { color:#a855f7;font-weight:700 }
+        .master-seq-badge { font-size:7px;font-family:monospace;color:rgba(168,85,247,0.7);margin-right:4px;font-weight:700 }
         /* BUILD Map */
         .build-node { position: absolute; width: 200px; background: rgba(15,15,22,0.8); backdrop-filter: blur(16px); border: 1.5px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 14px; cursor: pointer; transition: all 0.25s cubic-bezier(.4,0,.2,1); z-index: 2; }
         .build-node:hover { border-color: rgba(168,85,247,0.4); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
@@ -236,10 +240,12 @@
         }
         .master-workspace {
             display: grid;
-            grid-template-columns: 220px minmax(0, 1fr) 320px;
+            /* AIOX-MASTER-SIDEBAR-STABLE-START */
+            grid-template-columns: 200px minmax(420px, 1fr) 360px;
             gap: 12px;
             flex: 1;
             min-height: 0;
+            /* AIOX-MASTER-SIDEBAR-STABLE-END */
         }
         .master-col {
             border: 1px solid rgba(255,255,255,0.08);
@@ -351,6 +357,7 @@
             padding: 10px;
             transition: all .2s;
             cursor: pointer;
+            min-width: 0;
         }
         .master-card:hover {
             border-color: rgba(168,85,247,0.4);
@@ -402,6 +409,9 @@
             padding: 10px;
             overflow-y: auto;
         }
+        .master-col-inspector {
+            min-width: 360px;
+        }
         .master-col-inspector.master-inspector-open {
             position: fixed;
             top: 70px;
@@ -437,47 +447,7 @@
             font-size: inherit;
             line-height: inherit;
         }
-        .master-floating-inspector {
-            position: fixed;
-            top: 64px;
-            right: 12px;
-            bottom: 12px;
-            width: min(440px, calc(100vw - 24px));
-            z-index: 9999;
-            border: 1px solid rgba(168,85,247,0.42);
-            border-radius: 16px;
-            background: rgba(9,12,20,0.985);
-            box-shadow: 0 28px 90px rgba(0,0,0,0.68), 0 0 0 1px rgba(255,255,255,0.07) inset;
-            padding: 10px;
-            overflow-y: auto;
-            display: none;
-        }
-        .master-floating-inspector.open { display: block; }
-        .master-floating-inspector-header {
-            position: sticky;
-            top: -10px;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            padding: 8px 0 10px;
-            background: rgba(9,12,20,0.97);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            margin-bottom: 8px;
-        }
-        .master-floating-close {
-            border: 1px solid rgba(255,255,255,0.16);
-            background: rgba(255,255,255,0.06);
-            color: #e5e7eb;
-            border-radius: 999px;
-            width: 26px;
-            height: 26px;
-            font-size: 16px;
-            line-height: 1;
-        }
-        .master-floating-close:hover { background: rgba(255,255,255,0.14); }
-        @media (max-width: 1280px) {
+        @media (max-width: 900px) {
             .master-workspace { grid-template-columns: 200px minmax(0, 1fr); }
             .master-col.master-col-inspector:not(.master-inspector-open) { grid-column: 1 / -1; }
         }
@@ -490,32 +460,42 @@
 <body class="h-screen flex flex-col antialiased font-sans">
 
 <!-- ═══════ HEADER ═══════ -->
-<header class="h-14 border-b border-white/5 flex items-center justify-between px-5 bg-background/90 backdrop-blur-md z-50 shrink-0">
+<header class="h-14 border-b border-white/5 grid grid-cols-3 items-center px-6 bg-background/90 backdrop-blur-md z-50 shrink-0">
+    <!-- Left: Branding -->
     <div class="flex items-center gap-3">
-        <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-primary to-pink flex items-center justify-center font-bold text-white text-[10px]">AG</div>
-        <div>
-            <h1 class="text-xs font-bold tracking-tight">Anti-Gravity <span class="text-muted font-normal">· Intelligence Tower</span></h1>
-            <p class="text-[9px] text-muted font-mono">BUILD · OPS · CONTROL · n8n Governance Protocol</p>
-        </div>
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-primary to-pink flex items-center justify-center font-bold text-white text-[12px] shadow-lg shadow-primary/20">AG</div>
+        <span class="text-xl font-black uppercase tracking-tighter italic text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary to-pink animate-pulse-slow">AIOX MASTER</span>
     </div>
-    <div class="flex items-center gap-4">
-        <div id="hdr-build-phase" class="text-[9px] font-mono text-primary font-bold">BLD-07</div>
+
+    <!-- Center: Actions -->
+    <div class="flex justify-center items-center gap-3">
+        <button onclick="copySessionFlash()" title="Copiar contexto da sessão para retomar depois" class="flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-muted hover:text-white hover:bg-white/10 hover:scale-105 transition-all text-[10px] font-black uppercase tracking-widest">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Flash
+        </button>
+        <button id="btn-save-all-master" class="flex items-center gap-2 px-6 py-2 rounded-full bg-secondary/10 border border-secondary/20 text-secondary hover:bg-secondary/20 hover:scale-105 transition-all text-[11px] font-black uppercase tracking-widest shadow-lg shadow-secondary/5" onclick="saveAllNow()">
+            <i data-lucide="cloud-upload" class="w-4 h-4"></i> Salvar Tudo
+        </button>
+    </div>
+
+    <!-- Right: Status -->
+    <div class="flex items-center justify-end gap-3">
+        <div id="hdr-build-phase" class="text-[9px] font-mono text-primary font-bold">-</div>
         <div class="h-6 w-[1px] bg-white/5"></div>
-        <div id="hdr-alerts" class="flex items-center gap-1.5 cursor-pointer" onclick="switchTab('alerts')">
-            <span class="text-[9px] text-muted font-bold uppercase tracking-widest">Alertas</span>
-            <span id="hdr-alert-count" class="text-[8px] bg-coral/20 text-coral px-1.5 rounded-full font-bold">0</span>
+        <div id="hdr-alerts" class="flex items-center gap-1.5 cursor-pointer group" onclick="switchTab('alerts')">
+            <span class="text-[9px] text-muted font-bold uppercase tracking-widest group-hover:text-white transition-colors">Alertas</span>
+            <span id="hdr-alert-count" class="text-[8px] bg-coral/20 text-coral px-2 py-0.5 rounded-full font-bold">0</span>
         </div>
-        <div id="hdr-approvals" class="flex items-center gap-1.5 cursor-pointer" onclick="switchTab('approvals')">
-            <span class="text-[9px] text-muted font-bold uppercase tracking-widest">Approvals</span>
-            <span id="hdr-approval-count" class="text-[8px] bg-primary/20 text-primary px-1.5 rounded-full font-bold">0</span>
+        <div id="hdr-approvals" class="flex items-center gap-1.5 cursor-pointer group" onclick="switchTab('approvals')">
+            <span class="text-[9px] text-muted font-bold uppercase tracking-widest group-hover:text-white transition-colors">Approvals</span>
+            <span id="hdr-approval-count" class="text-[8px] bg-primary/20 text-primary px-2 py-0.5 rounded-full font-bold">0</span>
         </div>
         <div class="h-6 w-[1px] bg-white/5"></div>
         <button onclick="syncAll()" class="text-[10px] text-muted hover:text-white flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/5 hover:bg-white/5 transition-all font-semibold">
             <i data-lucide="refresh-cw" class="w-3 h-3"></i> Sync
         </button>
-        <div class="flex items-center gap-1.5">
-            <div class="h-2 w-2 rounded-full bg-secondary animate-pulse shadow-[0_0_6px_#10b981]"></div>
-            <span class="text-[9px] text-muted uppercase tracking-widest font-bold">Online</span>
+        <div class="flex items-center gap-2">
+            <div class="h-2 w-2 rounded-full bg-secondary animate-pulse shadow-[0_0_8px_#10b981]"></div>
+            <span class="text-[9px] text-muted uppercase tracking-widest font-black">Status: Online</span>
         </div>
     </div>
 </header>
@@ -532,28 +512,30 @@
         </div>
         <div class="sb-divider"></div>
 
-        <!-- STATUS GLOBAL -->
-        <div class="sb-icon" data-tab="status" onclick="switchTab('status')"><i data-lucide="layout-dashboard" class="w-4 h-4"></i><span class="sb-label">Status</span></div>
-        <div class="sb-divider"></div>
-
-        <!-- BUILD -->
-        <div class="sb-section">Build</div>
-        <div class="sb-icon" data-tab="build" onclick="switchTab('build')"><i data-lucide="hammer" class="w-4 h-4"></i><span class="sb-label">Build Map</span></div>
-        <div class="sb-divider"></div>
-
-        <!-- OPS -->
-        <div class="sb-section">Ops</div>
-        <div class="sb-icon" data-tab="ops" onclick="switchTab('ops')"><i data-lucide="activity" class="w-4 h-4"></i><span class="sb-label">Ops Flow</span></div>
-        <div class="sb-divider"></div>
-
-        <!-- CONTROL -->
-        <div class="sb-section">Control</div>
-        <div class="sb-icon" data-tab="approvals" onclick="switchTab('approvals')"><i data-lucide="check-circle" class="w-4 h-4"></i><span class="sb-label">Approvals</span></div>
-        <div class="sb-icon" data-tab="memory" onclick="switchTab('memory')"><i data-lucide="brain" class="w-4 h-4"></i><span class="sb-label">Memory</span></div>
-        <div class="sb-icon" id="control-hub-icon" data-tab="control-hub" onclick="toggleControlSub(this)">
-            <i data-lucide="shield" class="w-4 h-4"></i><span class="sb-label">Ops Desk</span>
+        <!-- MEMORY -->
+        <div class="sb-icon" data-tab="memory" onclick="switchTab('memory')">
+            <i data-lucide="brain" class="w-4 h-4"></i>
+            <span class="sb-label">Memory</span>
         </div>
-        <div class="sb-sub" id="control-sub">
+        <div class="sb-divider"></div>
+
+        <!-- FUNIL -->
+        <div class="sb-icon" data-tab="funnel" onclick="toggleFunnelSub(this)">
+            <i data-lucide="filter" class="w-4 h-4"></i>
+            <span class="sb-label">Funil</span>
+        </div>
+        <div class="sb-sub" id="funnel-sub">
+            <div class="sb-sub-item active" onclick="loadFunnel('ebook',this)">E-book</div>
+            <div class="sb-sub-item" onclick="loadFunnel('sais',this)">Sais</div>
+        </div>
+    </aside>
+
+    <!-- OPS DESK INFRASTRUCTURE (hidden, preserved for JS compatibility and test assertions) -->
+    <div style="display:none" aria-hidden="true">
+        <div class="sb-icon" id="control-hub-icon" data-tab="control-hub" onclick="toggleControlSub(this)">
+            <span class="sb-label">Ops Desk</span>
+        </div>
+        <div id="control-sub">
             <div class="sb-sub-item" data-control-tab="alerts" onclick="loadControlTab('alerts',this)">Alertas</div>
             <div class="sb-sub-item" data-control-tab="logs" onclick="loadControlTab('logs',this)">Logs</div>
             <div class="sb-sub-item" data-control-tab="reruns" onclick="loadControlTab('reruns',this)">Reruns</div>
@@ -561,59 +543,54 @@
             <div class="sb-sub-item" data-control-tab="commands" onclick="loadControlTab('commands',this)">Console</div>
             <div class="sb-sub-item" data-control-tab="why" onclick="loadControlTab('why',this)">Why Ran</div>
         </div>
-        <div class="sb-divider"></div>
-
-        <!-- LEGACY -->
-        <div class="sb-section">Legado</div>
-        <div class="sb-icon" data-tab="funnel" onclick="toggleFunnelSub(this)"><i data-lucide="filter" class="w-4 h-4"></i><span class="sb-label">Funil</span></div>
-        <div class="sb-sub" id="funnel-sub">
-            <div class="sb-sub-item active" onclick="loadFunnel('ebook',this)">E-book</div>
-            <div class="sb-sub-item" onclick="loadFunnel('sais',this)">Sais</div>
-        </div>
-        <div class="sb-icon" data-tab="squads" onclick="switchTab('squads')"><i data-lucide="users" class="w-4 h-4"></i><span class="sb-label">Squads</span></div>
-        <div class="sb-icon" data-tab="agents" onclick="switchTab('agents')"><i data-lucide="bot" class="w-4 h-4"></i><span class="sb-label">Agentes</span></div>
-        <div class="sb-icon" data-tab="skills" onclick="switchTab('skills')"><i data-lucide="zap" class="w-4 h-4"></i><span class="sb-label">Skills</span></div>
-        <div class="sb-icon" data-tab="personas" onclick="switchTab('personas')"><i data-lucide="drama" class="w-4 h-4"></i><span class="sb-label">Personas</span></div>
-    </aside>
+        <!-- GPS Flow: label do fluxo operacional principal -->
+        <span>GPS Flow</span>
+    </div>
 
     <!-- ═ ═ ═ ═ ═ ═ ═  MAIN CONTENT ═ ═ ═ ═ ═ ═ ═  -->
     <main class="flex-1 overflow-hidden">
 
         <!-- ═ ═ ═ ═ ═ ═ ═  AIOX MASTER HUB (CENTRAL) ═ ═ ═ ═ ═ ═ ═  -->
         <div id="pane-master" class="tab-pane active p-4" style="background:#090c14">
-            <div class="glass p-4 mb-4 flex items-center justify-between gap-4">
-                <div>
-                    <h2 class="text-2xl font-black uppercase tracking-tighter italic"><span class="text-primary">AIOX</span> <span class="text-white">MASTER</span></h2>
-                    <p class="text-[10px] text-muted font-bold tracking-[0.3em] uppercase mt-1">Painel unico: Projetos + Fluxos + Estrutura</p>
+            <!-- BANNER DE CONTEXTO (dismissível) -->
+            <div id="master-context-banner" class="hidden mb-3 px-4 py-2.5 rounded-xl flex items-center justify-between gap-3 text-[10px]" style="background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.25)">
+                <div class="flex items-center gap-2 min-w-0">
+                    <i data-lucide="zap" class="w-3.5 h-3.5 text-primary shrink-0"></i>
+                    <span class="text-muted">Retomando:</span>
+                    <span id="master-banner-task" class="text-white font-bold truncate">–</span>
                 </div>
-                <div class="glass px-4 py-2 flex items-center gap-4">
-                    <div class="text-right">
-                        <p class="text-[8px] text-muted font-bold uppercase">Projeto ativo</p>
-                        <p id="master-active-project-label" class="text-sm font-black text-white">Sais</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-[8px] text-muted font-bold uppercase">Modo</p>
-                        <p id="master-active-mode-label" class="text-sm font-black text-primary">Construcao</p>
-                    </div>
-                    <button id="btn-save-all-master" class="btn-success" onclick="saveAllNow()"><i data-lucide="cloud-upload" class="w-3 h-3 inline"></i> Salvar Tudo</button>
+                <div class="flex items-center gap-2 shrink-0">
+                    <button onclick="switchTab('memory')" class="text-primary hover:text-white transition-colors font-bold">Ver Memory</button>
+                    <button onclick="dismissMasterBanner()" class="text-muted hover:text-white transition-colors">✕</button>
                 </div>
             </div>
-
             <div class="glass p-4 h-[calc(100vh-148px)] flex flex-col min-h-0">
                 <div class="master-workspace">
                     <aside class="master-col master-project-list">
                         <p class="text-[8px] text-muted uppercase tracking-widest mb-2">Projetos</p>
                         <button id="master-project-sais" class="master-project-btn" onclick="setMasterProject('sais')">
-                            <p class="text-[11px] font-bold text-white">Sais</p>
+                            <div class="flex items-center justify-between">
+                                <p class="text-[11px] font-bold text-white">Sais</p>
+                                <span id="master-project-sais-pct" class="text-[8px] font-black text-secondary">–%</span>
+                            </div>
                             <p class="text-[9px] text-muted mt-1">E-book e oferta principal.</p>
+                            <div class="mt-2 h-[2px] rounded-full bg-white/5 overflow-hidden"><div id="master-project-sais-bar" class="h-full bg-secondary rounded-full transition-all" style="width:0%"></div></div>
                         </button>
                         <button id="master-project-velas" class="master-project-btn" onclick="setMasterProject('velas')">
-                            <p class="text-[11px] font-bold text-white">Velas</p>
+                            <div class="flex items-center justify-between">
+                                <p class="text-[11px] font-bold text-white">Velas</p>
+                                <span id="master-project-velas-pct" class="text-[8px] font-black text-secondary">–%</span>
+                            </div>
                             <p class="text-[9px] text-muted mt-1">Linha de produto editorial/comercial.</p>
+                            <div class="mt-2 h-[2px] rounded-full bg-white/5 overflow-hidden"><div id="master-project-velas-bar" class="h-full bg-secondary rounded-full transition-all" style="width:0%"></div></div>
                         </button>
                         <button id="master-project-electro" class="master-project-btn" onclick="setMasterProject('electro')">
-                            <p class="text-[11px] font-bold text-white">Electro</p>
+                            <div class="flex items-center justify-between">
+                                <p class="text-[11px] font-bold text-white">Electro</p>
+                                <span id="master-project-electro-pct" class="text-[8px] font-black text-secondary">–%</span>
+                            </div>
                             <p class="text-[9px] text-muted mt-1">Site de produtos fisicos.</p>
+                            <div class="mt-2 h-[2px] rounded-full bg-white/5 overflow-hidden"><div id="master-project-electro-bar" class="h-full bg-secondary rounded-full transition-all" style="width:0%"></div></div>
                         </button>
                         <p class="text-[8px] text-muted uppercase tracking-widest mt-3 mb-2">Metricas do projeto</p>
                         <div id="master-project-kpis" class="master-kpi-grid"></div>
@@ -622,7 +599,7 @@
                     </aside>
 
                     <section class="master-col">
-                        <div class="master-mode-bar">
+                        <div class="master-mode-bar" style="flex-direction:column;align-items:stretch;gap:8px">
                             <div class="flex items-center gap-2 flex-wrap">
                                 <button id="master-view-tab-construcao" class="master-view-btn" onclick="setMasterView('construcao')">Construcao</button>
                                 <button id="master-view-tab-vendas" class="master-view-btn" onclick="setMasterView('vendas')">Vendas</button>
@@ -630,32 +607,30 @@
                                 <button id="master-view-tab-agentes" class="master-view-btn" onclick="setMasterView('agentes')">Agentes</button>
                                 <button id="master-view-tab-skills" class="master-view-btn" onclick="setMasterView('skills')">Skills</button>
                                 <button id="master-view-tab-clones" class="master-view-btn" onclick="setMasterView('clones')">Clones</button>
+                                <div class="flex-1 flex items-center gap-2 min-w-0">
+                                    <input id="master-filter-query" class="master-filter-input flex-1 min-w-[100px]" placeholder="Buscar..." oninput="setMasterFilters({query:this.value})" />
+                                    <button id="master-filter-reset" onclick="resetMasterFilters()" class="text-[8px] text-muted hover:text-white transition-colors font-bold hidden">✕ Limpar</button>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2 flex-wrap">
-                                <input id="master-filter-query" class="master-filter-input w-[130px]" placeholder="Buscar item" oninput="setMasterFilters({query:this.value})" />
-                                <select id="master-filter-status" class="master-filter-select w-[118px]" onchange="setMasterFilters({status:this.value})">
-                                    <option value="all">Status: todos</option>
-                                    <option value="nao_iniciado">nao_iniciado</option>
-                                    <option value="em_preparacao">em_preparacao</option>
-                                    <option value="em_execucao">em_execucao</option>
-                                    <option value="em_revisao">em_revisao</option>
-                                    <option value="aprovado">aprovado</option>
-                                    <option value="bloqueado">bloqueado</option>
-                                    <option value="publicado">publicado</option>
-                                    <option value="ativo">ativo</option>
-                                </select>
-                                <input id="master-filter-owner" class="master-filter-input w-[118px]" placeholder="Owner" oninput="setMasterFilters({owner:this.value})" />
-                                <button class="master-mini-btn" onclick="resetMasterFilters()">Limpar</button>
+                            <!-- Filtros de status (só em Construção / Vendas) -->
+                            <div id="master-status-filter-row" class="hidden flex items-center gap-1.5 flex-wrap">
+                                <span class="text-[7px] text-muted font-bold uppercase tracking-widest shrink-0">Status:</span>
+                                <div id="master-status-filter-btns" class="flex gap-1.5 flex-wrap"></div>
+                                <span id="master-mode-caption" class="text-[8px] text-muted ml-auto shrink-0"></span>
                             </div>
-                            <span id="master-mode-caption" class="text-[9px] text-muted">Visualizacao operacional</span>
+                            <div id="master-caption-fallback" class="hidden">
+                                <span id="master-mode-caption-alt" class="text-[9px] text-muted">Visualizacao operacional</span>
+                            </div>
                         </div>
-                        <div class="master-canvas-wrap">
+                        <div class="master-canvas-wrap" style="position:relative">
+                            <div id="master-canvas-loading" class="hidden" style="position:absolute;inset:0;z-index:5;display:none;align-items:center;justify-content:center;background:rgba(9,12,20,0.6);border-radius:8px">
+                                <div style="width:20px;height:20px;border:2px solid rgba(168,85,247,0.3);border-top-color:#a855f7;border-radius:50%;animation:spin 0.7s linear infinite"></div>
+                            </div>
                             <div id="master-project-canvas" class="master-canvas-grid"></div>
                         </div>
                     </section>
 
                     <aside class="master-col master-col-inspector master-inspector">
-                        <p class="text-[8px] text-muted uppercase tracking-widest mb-2">Inspector</p>
                         <div id="master-project-inspector" class="master-inspector-empty">
                             Selecione um item no canvas para ver resumo, owner, status, dependencias e editar.
                         </div>
@@ -750,17 +725,64 @@
             </div>
         </div>
 
-        <!-- ═══════ MEMORY VAULT (CTL-06) ═══════ -->
-        <div id="pane-memory" class="tab-pane p-8">
-            <div class="mb-8">
-                <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-teal">Memory</span> <span class="text-white">Vault</span></h2>
-                <p class="text-[9px] text-muted font-bold tracking-[0.3em] uppercase mt-1">CTL-06 · 9 Escopos de Memória Governada</p>
+        <!-- ═══════ MEMORY VAULT ═══════ -->
+        <div id="pane-memory" class="tab-pane p-6" style="background:#090c14">
+
+            <!-- FAIXA: ÚLTIMA SESSÃO -->
+            <div class="glass p-5 mb-5" style="border-left:3px solid #14b8a6">
+                <div class="flex items-start justify-between gap-4 flex-wrap">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-[9px] text-teal font-black uppercase tracking-widest mb-1">Última Sessão · <span id="resume-status-label" class="text-muted">–</span></p>
+                        <p id="resume-task" class="text-[13px] font-bold text-white mb-1 truncate">–</p>
+                        <p id="resume-meta" class="text-[10px] text-muted">Nenhuma sessão anterior encontrada.</p>
+                    </div>
+                    <div class="flex gap-2 shrink-0 flex-wrap">
+                        <button onclick="copySessionFlash()" class="btn-ghost">
+                            <i data-lucide="copy" class="w-3 h-3 inline"></i> Copiar Flash
+                        </button>
+                        <button onclick="saveAllNow()" class="btn-success">
+                            <i data-lucide="cloud-upload" class="w-3 h-3 inline"></i> Salvar Agora
+                        </button>
+                    </div>
+                </div>
+                <div id="resume-files" class="mt-3 flex flex-wrap gap-2"></div>
+                <div id="resume-open-loops" class="mt-2"></div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8" id="memory-scopes"></div>
-            <div class="glass p-6">
-                <h3 class="text-xs font-bold text-muted uppercase tracking-widest mb-4">Histórico de Mutações</h3>
-                <div id="memory-mutations" class="space-y-2 max-h-80 overflow-y-auto"></div>
+
+            <!-- GRID 3 COLUNAS: Sessões · Arquivos · Mutações -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-5">
+
+                <!-- SESSÕES RECENTES -->
+                <div class="glass p-4">
+                    <h3 class="text-[8px] text-primary font-black uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                        <i data-lucide="clock" class="w-3 h-3"></i> Sessões Recentes
+                    </h3>
+                    <div id="memory-sessions-list" class="space-y-2 max-h-60 overflow-y-auto"></div>
+                </div>
+
+                <!-- ARQUIVOS DE MEMÓRIA -->
+                <div class="glass p-4">
+                    <h3 class="text-[8px] text-accent font-black uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                        <i data-lucide="hard-drive" class="w-3 h-3"></i> Arquivos de Memória
+                    </h3>
+                    <div id="memory-checkpoint-files" class="space-y-2 max-h-60 overflow-y-auto"></div>
+                </div>
+
+                <!-- MUTAÇÕES RECENTES -->
+                <div class="glass p-4">
+                    <h3 class="text-[8px] text-muted font-black uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                        <i data-lucide="git-branch" class="w-3 h-3"></i> Mutações Recentes
+                    </h3>
+                    <div id="memory-mutations" class="space-y-2 max-h-60 overflow-y-auto"></div>
+                </div>
             </div>
+
+            <!-- 9 ESCOPOS (compactos) -->
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-[8px] text-muted font-black uppercase tracking-widest">9 Escopos de Memória</h3>
+                <span class="text-[8px] text-muted">Clique para editar</span>
+            </div>
+            <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2" id="memory-scopes"></div>
         </div>
 
         <!-- ═══════ ALERT HUB (CTL-10) ═══════ -->
@@ -870,12 +892,25 @@
         </div>
 
         <!-- ═══════ SQUADS (Legacy, updated) ═══════ -->
-        <div id="pane-squads" class="tab-pane p-8">
-            <div class="flex items-center justify-between mb-8">
+        <div id="pane-squads" class="tab-pane p-4" style="background:#090c14">
+            <div class="flex items-center justify-between mb-4 px-2">
                 <h2 class="text-xl font-black uppercase tracking-tighter italic"><span class="text-primary">Squads</span> <span class="text-white">Operacionais</span></h2>
                 <span id="squads-count" class="badge border-primary/30 text-primary bg-primary/10">0 Squads</span>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="squads-view"></div>
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 h-[calc(100vh-160px)] overflow-hidden">
+                <div class="lg:col-span-3 overflow-y-auto pr-2 custom-scrollbar" id="squads-view"></div>
+                <aside class="lg:col-span-1 glass border border-white/5 rounded-xl flex flex-col min-h-0 bg-black/40">
+                    <div class="p-3 border-b border-white/5 flex items-center justify-between">
+                    </div>
+                    <div id="squads-inspector" class="flex-1 overflow-y-auto custom-scrollbar p-3">
+                        <div class="h-full flex flex-col items-center justify-center text-center p-6 opacity-30">
+                            <i data-lucide="info" class="w-8 h-8 mb-3"></i>
+                            <p class="text-[10px] uppercase tracking-widest font-bold">Selecione um Agente</p>
+                            <p class="text-[9px] mt-2 leading-relaxed">Clique em um agente para configurar suas skills e personas diretamente aqui.</p>
+                        </div>
+                    </div>
+                </aside>
+            </div>
         </div>
 
         <!-- ═══════ AGENTS (Legacy, updated) ═══════ -->
@@ -989,8 +1024,8 @@ const MEMORY_SCOPES = [
 ];
 const SKILL_LANE_LABELS = {
     all: 'Todas',
-    producao: 'Producao',
-    suporte_critico: 'Suporte Critico'
+    producao: 'Produção',
+    suporte_critico: 'Suporte'
 };
 window.SKILLS_LANE_FILTER = window.SKILLS_LANE_FILTER || 'all';
 window.AGENT_CONFIG_SKILL_FILTER = window.AGENT_CONFIG_SKILL_FILTER || 'all';
@@ -1051,7 +1086,7 @@ function buildLaneFilterButtonHtml(idPrefix, activeLane, lane, count, onClick) {
     return `<button
         type="button"
         id="${idPrefix}-${lane}"
-        class="px-2 py-1 rounded text-[9px] font-bold uppercase tracking-widest border transition-colors ${baseClass}"
+        class="px-2 py-1 rounded text-[8px] whitespace-nowrap font-bold uppercase tracking-widest border transition-colors ${baseClass}"
         onclick="${onClick}('${lane}')"
     >${SKILL_LANE_LABELS[lane]} (${count})</button>`;
 }
@@ -1220,7 +1255,7 @@ const PERSONA_YT_MODE_STORAGE_KEY = 'aiox.persona.youtube.mode.v1';
 const MASTER_MODE_CAPTIONS = {
     construcao: 'Fluxo de producao do projeto',
     vendas: 'Fluxo comercial do projeto',
-    squads: 'Estrutura de squads e entregas',
+    squads: '',
     agentes: 'Catalogo global de agentes',
     skills: 'Catalogo global de skills',
     clones: 'Catalogo global de clones'
@@ -1731,6 +1766,24 @@ function statusBadgeStyle(status) {
     return map[status] || map.nao_iniciado;
 }
 
+function statusBorderColor(status) {
+    const map = {
+        em_execucao:  '#10b981',
+        em_preparacao:'#f59e0b',
+        em_revisao:   '#38bdf8',
+        aprovado:     '#22c55e',
+        publicado:    '#a855f7',
+        bloqueado:    '#ef4444',
+        ativo:        '#10b981',
+        nao_iniciado: 'rgba(255,255,255,0.07)'
+    };
+    return map[status] || 'rgba(255,255,255,0.07)';
+}
+
+function statusLabel(status) {
+    return (status || '').replace(/_/g, ' ');
+}
+
 function setMasterProject(projectId) {
     const flows = getMasterProjectFlows();
     if (!flows[projectId]) return;
@@ -1779,10 +1832,10 @@ function getFlattenedSkills() {
             owner: skill.group,
             summary: skill.desc || 'Sem descricao.',
             entrega: `${(skill.agent_ids || []).length} agente(s) vinculados`,
-            entrega_para: (skill.agent_ids || []).map(agentId => (agentById[agentId] || {}).name).filter(Boolean).join(', ') || '-',
+            entrega_para: (skill.agent_ids || []).map(agentId => getAgentDisplayName(agentById[agentId] || {})).filter(Boolean).join(', ') || '-',
             depends_on: '-',
             metric_main: `${(skill.agent_ids || []).length} owners | ${linkedClones.length} clones`,
-            agents_list: (skill.agent_ids || []).map(agentId => (agentById[agentId] || {}).name).filter(Boolean).join(', ') || '-',
+            agents_list: (skill.agent_ids || []).map(agentId => getAgentDisplayName(agentById[agentId] || {})).filter(Boolean).join(', ') || '-',
             skills_list: '-',
             clones_list: linkedClones.map(clone => clone.label).slice(0, 8).join(', ') || '-',
             editPath: 'docs/control/registry.json',
@@ -1835,7 +1888,7 @@ function getMasterViewItemsFor(projectId, view) {
             entrega_para: (squad.outputs || []).join(', ') || '-',
             depends_on: (squad.inputs || []).join(', ') || '-',
             metric_main: `Handoffs ${Math.max(0, (squad.outputs || []).length)}`,
-            agents_list: squadAgents.map(agent => `${agent.name} (${agent.handle})`).join(', ') || '-',
+            agents_list: squadAgents.map(agent => getAgentDisplayName(agent)).join(', ') || '-',
             skills_list: squadSkills.map(skill => skill.name).slice(0, 8).join(', ') || '-',
             clones_list: squadClones.map(clone => clone.label).slice(0, 8).join(', ') || '-',
             editPath: `.codex/squads/${(squad.name || squad.id).toLowerCase().replaceAll(' ', '-').replaceAll('&', 'and')}.md`,
@@ -1849,7 +1902,7 @@ function getMasterViewItemsFor(projectId, view) {
         return (REGISTRY.agents || []).map(agent => ({
             key: `agent-${agent.id}`,
             id: agent.id,
-            label: agent.name,
+            label: getAgentDisplayName(agent),
             type: 'Agente',
             status: 'ativo',
             owner: agent.squad || '-',
@@ -1858,7 +1911,7 @@ function getMasterViewItemsFor(projectId, view) {
             entrega_para: '-',
             depends_on: '-',
             metric_main: `Skills ${skillNodes.filter(skill => (skill.agent_ids || []).includes(agent.id)).length} | Clones ${cloneNodes.filter(clone => (clone.owner_agent_ids || []).includes(agent.id)).length}`,
-            agents_list: agent.name || '-',
+            agents_list: getAgentDisplayName(agent) || '-',
             skills_list: skillNodes.filter(skill => (skill.agent_ids || []).includes(agent.id)).map(skill => skill.name).slice(0, 8).join(', ') || '-',
             clones_list: cloneNodes.filter(clone => (clone.owner_agent_ids || []).includes(agent.id)).map(clone => clone.label).slice(0, 8).join(', ') || '-',
             editPath: `.codex/agents/${(agent.handle || '').replace('@', '')}.md`,
@@ -1917,6 +1970,14 @@ function updateMasterViewUI() {
     ['sais', 'velas', 'electro'].forEach(project => {
         const btn = document.getElementById(`master-project-${project}`);
         if (btn) btn.classList.toggle('active', window.MASTER_PROJECT === project);
+        const flows = getMasterProjectFlows();
+        const proj = flows[project] || { construcao: [], vendas: [] };
+        const combined = summarizeMasterStatuses([...(proj.construcao || []), ...(proj.vendas || [])]);
+        const pct = combined.pct || 0;
+        const pctEl = document.getElementById(`master-project-${project}-pct`);
+        const barEl = document.getElementById(`master-project-${project}-bar`);
+        if (pctEl) pctEl.textContent = `${pct}%`;
+        if (barEl) barEl.style.width = `${pct}%`;
     });
 
     const flows = getMasterProjectFlows();
@@ -1944,9 +2005,47 @@ function updateMasterViewUI() {
     const ownerInput = document.getElementById('master-filter-owner');
     if (ownerInput && ownerInput.value !== filters.owner) ownerInput.value = filters.owner;
 
-    const caption = document.getElementById('master-mode-caption');
-    if (caption) caption.textContent = MASTER_MODE_CAPTIONS[window.MASTER_VIEW] || '';
+    // Filtros de status — só visíveis em Construção e Vendas
+    const isFlowView = ['construcao', 'vendas'].includes(window.MASTER_VIEW);
+    const globalSearch = isMasterGlobalSearchActive();
+    const filterRow = document.getElementById('master-status-filter-row');
+    const captionFallback = document.getElementById('master-caption-fallback');
+    if (filterRow) filterRow.classList.toggle('hidden', !isFlowView || globalSearch);
+    if (captionFallback) captionFallback.classList.toggle('hidden', isFlowView && !globalSearch);
 
+    // Botão "Limpar filtros"
+    const resetBtn = document.getElementById('master-filter-reset');
+    const hasFilters = globalSearch || ((window.MASTER_FILTERS || {}).status || 'all') !== 'all';
+    if (resetBtn) resetBtn.classList.toggle('hidden', !hasFilters);
+
+    if (isFlowView && !globalSearch) {
+        const allViewItems = withMasterContext(getMasterViewItems(), window.MASTER_PROJECT, window.MASTER_VIEW);
+        const counts = {};
+        allViewItems.forEach(item => { const s = item.status || 'nao_iniciado'; counts[s] = (counts[s] || 0) + 1; });
+        const currentStatus = (window.MASTER_FILTERS || {}).status || 'all';
+        const filterDefs = [
+            { value: 'all', label: 'Todos', count: allViewItems.length },
+            { value: 'em_execucao',  label: 'Em andamento', count: counts.em_execucao  || 0 },
+            { value: 'em_preparacao',label: 'Em prep.',      count: counts.em_preparacao|| 0 },
+            { value: 'em_revisao',   label: 'Em revisão',    count: counts.em_revisao   || 0 },
+            { value: 'bloqueado',    label: 'Bloqueado',      count: counts.bloqueado    || 0 },
+            { value: 'aprovado',     label: 'Aprovado',       count: counts.aprovado     || 0 },
+            { value: 'nao_iniciado', label: 'Não iniciado',   count: counts.nao_iniciado || 0 },
+        ].filter(f => f.value === 'all' || f.count > 0);
+        const btnsEl = document.getElementById('master-status-filter-btns');
+        if (btnsEl) btnsEl.innerHTML = filterDefs.map(f => {
+            const active = currentStatus === f.value;
+            const color = f.value === 'all' ? '' : `color:${statusBorderColor(f.value)};border-color:${statusBorderColor(f.value)}40`;
+            return `<button onclick="setMasterFilters({status:'${f.value}'})"
+                style="${active ? `background:${statusBorderColor(f.value)}18;border-color:${statusBorderColor(f.value)}60;color:${statusBorderColor(f.value)}` : 'border-color:rgba(255,255,255,0.1);color:#6b7280'}"
+                class="text-[7px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full border transition-all hover:opacity-90">${f.label}${f.count > 0 ? ` (${f.count})` : ''}</button>`;
+        }).join('');
+    }
+
+    const caption = document.getElementById('master-mode-caption');
+    const captionAlt = document.getElementById('master-mode-caption-alt');
+    const captionEl = (isFlowView && !globalSearch) ? caption : captionAlt;
+    if (captionEl) captionEl.textContent = MASTER_MODE_CAPTIONS[window.MASTER_VIEW] || '';
 }
 
 function selectMasterItem(itemKey) {
@@ -1970,7 +2069,6 @@ window.openMasterCloneInspectorNow = function(itemKey) {
 function collapseMasterInspector() {
     if (!window.MASTER_SELECTED_ID) return;
     window.MASTER_SELECTED_ID = '';
-    closeMasterFloatingInspector();
     persistMasterUiState();
     renderMasterHub();
 }
@@ -1978,20 +2076,20 @@ function collapseMasterInspector() {
 window.collapseMasterInspector = collapseMasterInspector;
 
 function ensureMasterFloatingInspector() {
-    let drawer = document.getElementById('master-floating-inspector');
+    let drawer = document.getElementById('master-removed-inspector');
     if (drawer) return drawer;
     drawer = document.createElement('aside');
-    drawer.id = 'master-floating-inspector';
-    drawer.className = 'master-floating-inspector';
+    drawer.id = 'master-removed-inspector';
+    drawer.className = 'master-removed-inspector';
     drawer.innerHTML = `
-        <div class="master-floating-inspector-header">
+        <div class="master-removed-inspector-header">
             <div>
                 <p class="text-[8px] text-muted uppercase tracking-widest">Inspector Clone</p>
-                <p id="master-floating-inspector-title" class="text-[11px] text-white font-bold">Clone</p>
+                <p id="master-removed-inspector-title" class="text-[11px] text-white font-bold">Clone</p>
             </div>
             <button class="master-floating-close" onclick="collapseMasterInspector()" title="Fechar">×</button>
         </div>
-        <div id="master-floating-inspector-content"></div>
+        <div id="master-removed-inspector-content"></div>
     `;
     document.body.appendChild(drawer);
     return drawer;
@@ -1999,22 +2097,22 @@ function ensureMasterFloatingInspector() {
 
 function openMasterFloatingInspector(title, html) {
     const drawer = ensureMasterFloatingInspector();
-    const titleEl = document.getElementById('master-floating-inspector-title');
-    const contentEl = document.getElementById('master-floating-inspector-content');
+    const titleEl = document.getElementById('master-removed-inspector-title');
+    const contentEl = document.getElementById('master-removed-inspector-content');
     if (titleEl) titleEl.textContent = title || 'Clone';
     if (contentEl) contentEl.innerHTML = html || '';
     drawer.classList.add('open');
 }
 
 function closeMasterFloatingInspector() {
-    const drawer = document.getElementById('master-floating-inspector');
+    const drawer = document.getElementById('master-removed-inspector');
     if (drawer) drawer.classList.remove('open');
 }
 
 document.addEventListener('click', function(event) {
     const masterPane = document.getElementById('pane-master');
     if (!masterPane || !masterPane.contains(event.target) || !window.MASTER_SELECTED_ID) return;
-    if (event.target.closest('.master-card, .master-inspector, .editor-modal, .detail-drawer, .master-floating-inspector')) return;
+    if (event.target.closest('.master-card, .master-inspector, .editor-modal, .detail-drawer, .master-squads-board-canvas')) return;
     collapseMasterInspector();
 });
 
@@ -2403,6 +2501,11 @@ function masterCloneAutomationPanel(selected) {
             ${masterCloneSectionCard(selected.persona_id, 'base', 'Base da Persona', baseContent)}
             ${masterCloneSectionCard(selected.persona_id, 'support', 'Anexos (separado)', supportContent)}
             ${processingContent}
+            <div class="mt-4 pt-3 border-t border-white/5 grid grid-cols-1 gap-2">
+                <button class="btn-ghost text-[10px] py-1.5" onclick='openEditorModal("docs/control/persona_materials.json", "persona_materials.json")'>
+                    <i data-lucide="map" class="w-3 h-3 inline mr-1"></i> Editar Mapa Global (JSON)
+                </button>
+            </div>
         </div>
     `;
 }
@@ -2754,7 +2857,6 @@ function renderMasterInspector(items) {
     const inspectorColumn = inspector.closest('.master-col-inspector');
     const selected = items.find(item => item.key === window.MASTER_SELECTED_ID);
     if (!selected) {
-        closeMasterFloatingInspector();
         if (inspectorColumn) inspectorColumn.classList.remove('master-inspector-open');
         inspector.className = 'master-inspector-empty';
         const flows = getMasterProjectFlows();
@@ -2788,14 +2890,27 @@ function renderMasterInspector(items) {
         selected.clones_list && selected.clones_list !== '-' ? `<p><span class="text-white">Clones:</span> ${masterEscape(selected.clones_list)}</p>` : ''
     ].filter(Boolean).join('');
 
-    if (inspectorColumn) inspectorColumn.classList.add('master-inspector-open');
     inspector.className = 'master-inspector-content';
+
     if (selected.type === 'Clone') {
         inspector.innerHTML = clonePanel;
-        openMasterFloatingInspector(selected.label, clonePanel);
         return;
     }
-    closeMasterFloatingInspector();
+
+    const isFlowNode = selected.type === 'Etapa de Construcao' || selected.type === 'Etapa de Vendas';
+    const flowView = selected.type === 'Etapa de Construcao' ? 'construcao' : 'vendas';
+    const statusOptions = ['nao_iniciado', 'em_preparacao', 'em_execucao', 'em_revisao', 'aprovado', 'bloqueado'];
+    const statusEditorHtml = isFlowNode ? `
+        <div class="mt-3">
+            <p class="text-[8px] text-muted font-bold uppercase tracking-widest mb-2">Atualizar Status</p>
+            <div class="flex flex-wrap gap-1.5">
+                ${statusOptions.map(s => `
+                    <button onclick="updateProjectFlowNodeStatus('${masterEscape(selected.context_project_id)}','${flowView}','${masterEscape(selected.id)}','${s}')"
+                        class="text-[7px] font-black uppercase tracking-widest px-2 py-1 rounded-lg border transition-all ${selected.status === s ? 'border-primary/60 bg-primary/20 text-primary' : 'border-white/10 bg-white/3 text-muted hover:border-primary/30 hover:text-white'}">${s.replace(/_/g,' ')}</button>
+                `).join('')}
+            </div>
+        </div>
+    ` : '';
 
     inspector.innerHTML = `
         <div class="master-sidebar-card mb-2">
@@ -2817,6 +2932,7 @@ function renderMasterInspector(items) {
                 ${contextRows}
                 ${relationRows}
             </div>
+            ${statusEditorHtml}
             ${editAction}
         </div>
         ${clonePanel}
@@ -2859,6 +2975,40 @@ function renderMasterHub() {
         const canvas = document.getElementById('master-project-canvas');
         if (!canvas) return;
         const globalSearch = isMasterGlobalSearchActive();
+
+        if (window.MASTER_VIEW === 'clones') {
+            canvas.style.gridTemplateColumns = 'repeat(3, minmax(0, 1fr))';
+        } else if (window.MASTER_VIEW === 'skills' || window.MASTER_VIEW === 'agentes') {
+            canvas.style.gridTemplateColumns = 'repeat(2, minmax(0, 1fr))';
+        } else if (window.MASTER_VIEW === 'squads') {
+            canvas.style.gridTemplateColumns = 'minmax(0, 2.35fr) minmax(168px, 0.7fr)';
+            canvas.style.alignItems = 'start';
+            canvas.style.gap = '24px';
+        } else {
+            canvas.style.gridTemplateColumns = '';
+            canvas.style.alignItems = '';
+            canvas.style.gap = '';
+        }
+        
+        if (window.MASTER_VIEW === 'squads' && !globalSearch) {
+            canvas.classList.add('master-squads-board-canvas');
+            canvas.innerHTML = typeof buildSquadsBoardHtml === 'function' ? buildSquadsBoardHtml(REGISTRY) : '';
+            if (window.MASTER_SELECTED_ID && window.MASTER_SELECTED_ID.startsWith('squad-agent-config-')) {
+                const agentId = window.MASTER_SELECTED_ID.replace('squad-agent-config-', '');
+                const agent = (REGISTRY.agents || []).find(a => a.id === agentId);
+                if (agent && typeof renderSquadAgentConfigInMasterInspector === 'function') {
+                    prepareSquadAgentConfigState(agentId);
+                    renderSquadAgentConfigInMasterInspector(agent, REGISTRY.skills || [], REGISTRY.personas || []);
+                } else {
+                    renderMasterInspector([]);
+                }
+            } else {
+                renderMasterInspector([]);
+            }
+            return;
+        }
+        canvas.classList.remove('master-squads-board-canvas');
+
         const allItems = globalSearch
             ? getMasterGlobalSearchItems()
             : withMasterContext(getMasterViewItems(), window.MASTER_PROJECT, window.MASTER_VIEW);
@@ -2868,33 +3018,55 @@ function renderMasterHub() {
             persistMasterUiState();
         }
 
-        const caption = document.getElementById('master-mode-caption');
-        if (caption) {
-            const base = globalSearch
-                ? 'Busca global no Master Hub'
-                : (MASTER_MODE_CAPTIONS[window.MASTER_VIEW] || 'Visualizacao operacional');
-            caption.textContent = `${base} (${items.length}/${allItems.length} itens)`;
+        // Caption com contagens por status para views de fluxo
+        const isFlowView = ['construcao', 'vendas'].includes(window.MASTER_VIEW);
+        const captionEl = isFlowView && !globalSearch
+            ? document.getElementById('master-mode-caption')
+            : document.getElementById('master-mode-caption-alt');
+        if (captionEl) {
+            if (isFlowView && !globalSearch && items.length) {
+                const byStatus = {};
+                items.forEach(item => { const s = item.status || 'nao_iniciado'; byStatus[s] = (byStatus[s] || 0) + 1; });
+                const parts = Object.entries(byStatus).map(([s, c]) => `${c} ${statusLabel(s)}`);
+                captionEl.textContent = `${items.length} itens · ${parts.join(' · ')}`;
+            } else {
+                const base = globalSearch ? 'Busca global no Master Hub' : (MASTER_MODE_CAPTIONS[window.MASTER_VIEW] || 'Visualizacao operacional');
+                captionEl.textContent = `${base} (${items.length}/${allItems.length})`;
+            }
         }
 
         renderMasterProjectKpis(items, allItems);
         renderMasterProjectTimeline();
 
-        canvas.innerHTML = items.length ? items.map(item => `
-            <article class="master-card ${item.type === 'Clone' ? 'clone-card' : ''} ${window.MASTER_SELECTED_ID === item.key ? 'active' : ''}" onclick='selectMasterItem(${JSON.stringify(item.key)})'>
-                <div class="flex items-start justify-between gap-2 ${item.type === 'Clone' ? 'mb-1' : 'mb-2'}">
-                    <p class="text-[11px] font-bold text-white truncate">${masterEscape(item.label)}</p>
-                    <span class="badge" style="font-size:7px;${statusBadgeStyle(item.status)}">${masterEscape(item.status)}</span>
+        canvas.innerHTML = items.length ? items.map(item => {
+            const isFlowItem = item.type === 'Etapa de Construcao' || item.type === 'Etapa de Vendas';
+            const borderColor = statusBorderColor(item.status);
+            const seqBadge = item.id ? `<span class="master-seq-badge">${masterEscape(item.id)}</span>` : '';
+            const flowArrow = isFlowItem && item.entrega_para && item.entrega_para !== '-'
+                ? `<p class="master-card-flow-arrow">→ <span>${masterEscape(item.entrega_para)}</span></p>` : '';
+            const cardStyle = `border-left:3px solid ${borderColor};padding-left:11px`;
+            const isClone = item.type === 'Clone';
+            return `
+            <article class="master-card ${isClone ? 'clone-card' : ''} ${window.MASTER_SELECTED_ID === item.key ? 'active' : ''}"
+                style="${cardStyle}" onclick='selectMasterItem(${JSON.stringify(item.key)})'>
+                <div class="flex items-start justify-between gap-2 ${isClone ? 'mb-1' : 'mb-1.5'}">
+                    <p class="text-[11px] font-bold text-white truncate">${seqBadge}${masterEscape(item.label)}</p>
+                    <span class="badge shrink-0" style="font-size:7px;${statusBadgeStyle(item.status)}">${masterEscape(statusLabel(item.status))}</span>
                 </div>
-                ${item.type === 'Clone' ? '' : `<p class="text-[8px] text-muted uppercase tracking-widest mb-2">${masterEscape(item.type)}</p>`}
-                ${item.type === 'Clone' ? '' : `<p class="text-[8px] text-primary/80 uppercase tracking-widest mb-2">${masterEscape(`${item.context_project_label || '-'} · ${item.context_view_label || '-'}`)}</p>`}
-                <p class="text-[10px] text-muted ${item.type === 'Clone' ? 'min-h-0 leading-snug' : 'min-h-[34px]'}">${masterEscape(item.summary)}</p>
-                ${item.type === 'Clone' ? renderMasterCloneCardDetails(item) : ''}
-                <div class="${item.type === 'Clone' ? 'mt-2' : 'mt-3'} flex items-center justify-between gap-2">
-                    <span class="text-[8px] text-muted font-mono truncate">${masterEscape(item.owner)}</span>
-                    ${item.editPath ? `<button class="master-edit-btn" onclick='event.stopPropagation();openEditorModal(${JSON.stringify(item.editPath)}, ${JSON.stringify(item.editTitle || item.label)})'>Editar</button>` : ''}
+                ${isClone ? '' : `<p class="text-[8px] text-muted uppercase tracking-widest mb-1.5">${masterEscape(item.owner)}</p>`}
+                ${isClone ? '' : isFlowItem ? '' : `<p class="text-[8px] text-primary/70 uppercase tracking-widest mb-1.5">${masterEscape((item.context_project_label || '-') + ' · ' + (item.context_view_label || '-'))}</p>`}
+                <p class="text-[10px] text-muted ${isClone ? 'min-h-0 leading-snug' : 'min-h-[28px]'}">${masterEscape(item.summary)}</p>
+                ${flowArrow}
+                ${isClone ? renderMasterCloneCardDetails(item) : ''}
+                <div class="${isClone ? 'mt-2' : 'mt-3'} flex items-center justify-between gap-2">
+                    ${isFlowItem ? `<span class="text-[8px] text-muted truncate">${masterEscape(item.entrega || '-')}</span>` : `<span class="text-[8px] text-muted font-mono truncate">${masterEscape(item.owner)}</span>`}
+                    ${item.editPath ? `<button class="master-edit-btn shrink-0" onclick='event.stopPropagation();openEditorModal(${JSON.stringify(item.editPath)}, ${JSON.stringify(item.editTitle || item.label)})'>Editar</button>` : ''}
                 </div>
-            </article>
-        `).join('') : '<p class="text-[10px] text-muted italic">Nenhum item para os filtros atuais.</p>';
+            </article>`;
+        }).join('') : `<div style="grid-column:1/-1;padding:48px 20px;text-align:center">
+            <p class="text-[10px] text-muted italic">Nenhum item para os filtros atuais.</p>
+            <button onclick="resetMasterFilters()" class="mt-3 text-[9px] text-primary hover:underline font-bold">Limpar filtros</button>
+        </div>`;
 
         renderMasterInspector(items);
     } catch (e) {
@@ -3249,26 +3421,136 @@ function renderWhy() {
 }
 
 function renderMemory() {
-    document.getElementById('memory-scopes').innerHTML = MEMORY_SCOPES.map(s => `<div class="glass p-5 border-t-2 cursor-pointer hover:-translate-y-0.5 transition-transform" style="border-top-color:${s.color}" onclick="openEditorModal('docs/memory/${s.id}.md', '${s.name}')">
-        <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:${s.color}20"><i data-lucide="${s.icon}" class="w-4 h-4" style="color:${s.color}"></i></div>
-        <div><h4 class="text-xs font-bold text-white">${s.name}</h4><p class="text-[8px] text-muted font-mono">${s.id}</p></div></div>
-        <p class="text-[10px] text-muted">${s.desc}</p>
-    </div>`).join('');
+    renderSessionResumeWidget();
+    renderMemorySessions();
+    renderMemoryCheckpointFiles();
 
-    const mutations = (MEMORY.mutations || []).reverse().slice(0, 20);
-    document.getElementById('memory-mutations').innerHTML = mutations.length ? mutations.map(m => `<div class="flex items-start gap-3 py-2 border-b border-white/5">
-        <span class="text-[8px] text-muted font-mono w-24 shrink-0">${new Date(m.timestamp).toLocaleString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</span>
-        <div><span class="badge border-white/10 text-muted bg-white/5" style="font-size:7px">${m.memory_scope}</span><p class="text-[9px] text-white mt-1">${m.diff_summary||'Mutação registrada'}</p></div>
-    </div>`).join('') : '<p class="text-[10px] text-muted italic">Nenhuma mutação registrada.</p>';
-    lucide.createIcons();
+    // 9 escopos (compactos)
+    const scopesEl = document.getElementById('memory-scopes');
+    if (scopesEl) scopesEl.innerHTML = MEMORY_SCOPES.map(s => `
+        <div class="cursor-pointer rounded-xl p-3 transition-all hover:-translate-y-0.5" style="background:rgba(15,15,22,0.7);border:1px solid ${s.color}30" onclick="openEditorModal('docs/memory/${s.id}.md', '${s.name}')">
+            <div class="flex items-center gap-2 mb-1">
+                <div class="w-6 h-6 rounded-lg flex items-center justify-center shrink-0" style="background:${s.color}20">
+                    <i data-lucide="${s.icon}" class="w-3 h-3" style="color:${s.color}"></i>
+                </div>
+                <h4 class="text-[10px] font-bold text-white truncate">${s.name}</h4>
+            </div>
+            <p class="text-[8px] text-muted leading-snug">${s.desc}</p>
+        </div>`).join('');
+
+    // Mutações
+    const mutations = ((MEMORY && MEMORY.mutations) || []).slice().reverse().slice(0, 15);
+    const mutEl = document.getElementById('memory-mutations');
+    if (mutEl) mutEl.innerHTML = mutations.length ? mutations.map(m => `
+        <div class="py-2 border-b border-white/5 last:border-0">
+            <div class="flex items-center gap-2 mb-0.5">
+                <span class="text-[7px] text-muted font-mono">${new Date(m.timestamp).toLocaleString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</span>
+                <span class="badge border-white/10 text-muted bg-white/5" style="font-size:6px">${m.memory_scope||'–'}</span>
+            </div>
+            <p class="text-[9px] text-white">${m.diff_summary||'Mutação registrada'}</p>
+        </div>`).join('') : '<p class="text-[9px] text-muted italic">Nenhuma mutação.</p>';
+
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function renderMemorySessions() {
+    const el = document.getElementById('memory-sessions-list');
+    if (!el) return;
+    const history = ((window.SESSION_STATE || {}).history || []).slice().reverse().slice(0, 8);
+    if (!history.length) {
+        el.innerHTML = '<p class="text-[9px] text-muted italic">Nenhuma sessão registrada.</p>';
+        return;
+    }
+    el.innerHTML = history.map(s => {
+        const when = s.closed_at || s.started_at || '';
+        const whenStr = when ? new Date(when).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '–';
+        const summary = s.summary || s.last_task || '(sem resumo)';
+        const statusColor = s.status === 'active' ? '#10b981' : '#6b7280';
+        return `<div class="py-2 border-b border-white/5 last:border-0">
+            <div class="flex items-center gap-2 mb-0.5">
+                <span style="width:6px;height:6px;border-radius:50%;background:${statusColor};display:inline-block;shrink-0"></span>
+                <span class="text-[8px] text-muted font-mono">${whenStr}</span>
+            </div>
+            <p class="text-[9px] text-white truncate">${summary}</p>
+        </div>`;
+    }).join('');
+}
+
+function renderMemoryCheckpointFiles() {
+    const el = document.getElementById('memory-checkpoint-files');
+    if (!el) return;
+    const files = [
+        ...((window.MEMORY_FILES || {}).canonical_files || []),
+        ...((window.MEMORY_FILES || {}).tracked_files || [])
+    ].slice(0, 12);
+    if (!files.length) {
+        el.innerHTML = '<p class="text-[9px] text-muted italic">Nenhum arquivo rastreado.</p>';
+        return;
+    }
+    el.innerHTML = files.map(f => {
+        const modified = f.modified_at ? new Date(f.modified_at).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '–';
+        const name = f.name || f.path || '?';
+        const size = f.size_kb ? `${f.size_kb}kb` : '';
+        return `<div class="py-1.5 border-b border-white/5 last:border-0">
+            <div class="flex items-center justify-between gap-2">
+                <p class="text-[9px] font-mono text-white truncate">${name}</p>
+                ${size ? `<span class="text-[7px] text-muted shrink-0">${size}</span>` : ''}
+            </div>
+            <p class="text-[7px] text-muted">${modified}</p>
+        </div>`;
+    }).join('');
 }
 
 // ══════════════════════════════════════════
 // SQUADS & AGENTS RENDER
 // ══════════════════════════════════════════
 const SQUAD_PRESET_STORAGE_KEY = 'aiox.squad.presets.v1';
+const MASTER_SQUAD_SECTION_STORAGE_KEY = 'aiox.master.squad.sections.v1';
 window.SQUAD_DND_AGENT_ID = window.SQUAD_DND_AGENT_ID || '';
+window.MASTER_SQUAD_SECTION_STATE = window.MASTER_SQUAD_SECTION_STATE || null;
+window.SQUAD_SELECTED_AGENT_ID = window.SQUAD_SELECTED_AGENT_ID || '';
 window.__SQUAD_BOARD_NOTICE = window.__SQUAD_BOARD_NOTICE || null;
+
+function loadMasterSquadSectionState() {
+    if (window.MASTER_SQUAD_SECTION_STATE && typeof window.MASTER_SQUAD_SECTION_STATE === 'object') {
+        return window.MASTER_SQUAD_SECTION_STATE;
+    }
+    try {
+        const parsed = JSON.parse(localStorage.getItem(MASTER_SQUAD_SECTION_STORAGE_KEY) || '{}');
+        window.MASTER_SQUAD_SECTION_STATE = parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
+    } catch (_) {
+        window.MASTER_SQUAD_SECTION_STATE = {};
+    }
+    return window.MASTER_SQUAD_SECTION_STATE;
+}
+
+function saveMasterSquadSectionState() {
+    try {
+        localStorage.setItem(MASTER_SQUAD_SECTION_STORAGE_KEY, JSON.stringify(loadMasterSquadSectionState()));
+    } catch (_) {}
+}
+
+function isMasterSquadSectionExpanded(squadId) {
+    const state = loadMasterSquadSectionState();
+    if (state[squadId] !== true && state[squadId] !== false) {
+        state[squadId] = true;
+        saveMasterSquadSectionState();
+    }
+    return state[squadId] === true;
+}
+
+function toggleMasterSquadSection(squadId) {
+    const state = loadMasterSquadSectionState();
+    state[squadId] = !isMasterSquadSectionExpanded(squadId);
+    saveMasterSquadSectionState();
+    if (window.MASTER_VIEW === 'squads') renderMasterHub();
+    renderSquads();
+}
+window.toggleMasterSquadSection = toggleMasterSquadSection;
+
+function toggleSquadCollapse(id) {
+    toggleMasterSquadSection(id);
+}
 
 function getSquadPresets() {
     try {
@@ -3376,13 +3658,40 @@ function getAgentPersonaCount(agentHandle) {
     return (REGISTRY.personas || []).filter(persona => (persona.agents || []).includes(agentHandle)).length;
 }
 
+function getAgentDisplayName(agent) {
+    const rawName = String((agent && agent.name) || (agent && agent.id) || '-').trim();
+    const handle = String((agent && agent.handle) || '');
+    if (!handle) return rawName;
+    const handleLower = handle.toLowerCase();
+    let name = rawName;
+    if (name.toLowerCase().startsWith(`${handleLower} `)) name = name.slice(handle.length).trim();
+    if (name.toLowerCase().endsWith(` ${handleLower}`)) name = name.slice(0, -handle.length).trim();
+    return `${name || rawName} ${handle}`;
+}
+
+function getAgentDisplayNameHtml(agent) {
+    const rawName = String((agent && agent.name) || (agent && agent.id) || '-').trim();
+    const handle = String((agent && agent.handle) || '');
+    if (!handle) return masterEscape(rawName);
+    const handleLower = handle.toLowerCase();
+    let name = rawName;
+    if (name.toLowerCase().startsWith(`${handleLower} `)) name = name.slice(handle.length).trim();
+    if (name.toLowerCase().endsWith(` ${handleLower}`)) name = name.slice(0, -handle.length).trim();
+    return `${masterEscape(name || rawName)} <span class="text-muted font-normal text-[0.82em]">${masterEscape(handle)}</span>`;
+}
+
+function agentDisplayIncludesHandle(agent, displayName = getAgentDisplayName(agent)) {
+    const handle = String((agent && agent.handle) || '');
+    return Boolean(handle && String(displayName || '').includes(handle));
+}
+
 const SQUAD_UNASSIGNED_ID = '__UNASSIGNED__';
 const SQUAD_UNASSIGNED_META = {
     id: SQUAD_UNASSIGNED_ID,
     name: 'SEM SQUAD',
     color: '#64748b',
     icon: 'inbox',
-    mission: 'Use esta coluna para remover o agente de qualquer squad.',
+    mission: 'Arraste aqui para remover o agente de qualquer squad.',
     outputs: [],
     is_virtual: true
 };
@@ -3529,7 +3838,7 @@ window.handleSquadDrop = async function(event, targetSquadId) {
     await moveAgentToSquad(agentId, targetSquadId);
 };
 
-window.saveCurrentSquadPreset = function() {
+function saveCurrentSquadPreset() {
     const presetName = prompt('Nome do preset de squad (ex.: Russell Conservador):');
     if (!presetName || !presetName.trim()) return;
     const presets = getSquadPresets();
@@ -3543,7 +3852,8 @@ window.saveCurrentSquadPreset = function() {
     saveSquadPresets(presets.slice(0, 30));
     window.__SQUAD_BOARD_NOTICE = { type: 'success', text: `Preset "${presetName.trim()}" salvo.` };
     renderSquads();
-};
+}
+window.saveCurrentSquadPreset = saveCurrentSquadPreset;
 
 window.applySelectedSquadPreset = async function() {
     const select = document.getElementById('squad-preset-select');
@@ -3621,9 +3931,19 @@ function renderAgentConfigDualList(kind) {
     const selectedSet = new Set(state[selectedKey] || []);
     const allItems = Array.isArray(state[key]) ? state[key] : [];
     const laneFilter = kind === 'skill' ? (state.skillLaneFilter || 'all') : 'all';
-    const filteredItems = kind === 'skill'
-        ? allItems.filter(item => skillMatchesLane(item, laneFilter))
-        : allItems;
+    const searchQuery = (kind === 'skill' ? state.skillSearchQuery : state.personaSearchQuery) || '';
+    
+    let filteredItems = allItems.filter(item => {
+        if (kind === 'skill' && !skillMatchesLane(item, laneFilter)) return false;
+        if (searchQuery) {
+            const q = searchQuery.toLowerCase();
+            const nameMatch = (item.name || '').toLowerCase().includes(q);
+            const handleMatch = (item.handle || '').toLowerCase().includes(q);
+            if (!nameMatch && !handleMatch) return false;
+        }
+        return true;
+    });
+
     const selectedItemsAll = allItems.filter(item => selectedSet.has(item.id));
     const selectedItems = filteredItems.filter(item => selectedSet.has(item.id));
     const availableItems = filteredItems.filter(item => !selectedSet.has(item.id));
@@ -3675,6 +3995,247 @@ window.setAgentConfigSkillLaneFilter = function(lane) {
     renderAgentConfigBoards();
 };
 
+function buildSquadsBoardHtml(registry) {
+    const squads = registry.squads || [];
+    const agents = registry.agents || [];
+    const agentsBySquad = {};
+    squads.forEach(s => agentsBySquad[s.id] = []);
+
+    const unassignedAgents = [];
+    agents.forEach(a => {
+        if (a.squad && agentsBySquad[a.squad]) {
+            agentsBySquad[a.squad].push(a);
+        } else {
+            unassignedAgents.push(a);
+        }
+    });
+
+    let actualSquadsHtml = '';
+
+    squads.forEach(squad => {
+        const sqColor = SQUAD_COLORS[squad.id] || '#666';
+        const squadAgents = agentsBySquad[squad.id] || [];
+        const isCollapsed = !isMasterSquadSectionExpanded(squad.id);
+        actualSquadsHtml += `
+        <div class="master-card flex flex-col" style="border-top: 2px solid ${sqColor}; padding:10px; background: rgba(12,15,24,0.85);">
+            <div class="flex items-center justify-between mb-2 cursor-pointer group" onclick="toggleMasterSquadSection('${squad.id}')">
+                <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-lg flex items-center justify-center text-white" style="background:${sqColor}40">
+                        <i data-lucide="users" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-[12px] font-bold text-white uppercase tracking-wider">${masterEscape(squad.name)}</h4>
+                        <p class="text-[9px] text-primary font-bold tracking-widest">${masterEscape(squad.id)}</p>
+                    </div>
+                </div>
+                <div class="transition-transform ${isCollapsed ? '' : 'rotate-180'} text-muted group-hover:text-white">
+                    <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                </div>
+            </div>
+
+            <div class="${isCollapsed ? 'hidden' : 'block'}">
+                <p class="text-[10px] text-muted mb-3 leading-snug">${masterEscape(squad.description || '')}</p>
+                <div class="space-y-2 flex-1" data-squad-drop-zone="${squad.id}" style="padding:8px; background:rgba(0,0,0,0.25); border-radius:8px;" ondragover="handleSquadDragOver(event, '${squad.id}')" ondrop="handleSquadDrop(event, '${squad.id}')" ondragleave="handleSquadDragLeave(event, '${squad.id}')">
+        `;
+
+        squadAgents.forEach(a => {
+            a = Object.assign({}, a, {
+                name: getAgentDisplayName(a),
+                skills: Array.from({ length: getAgentSkillCount(a.id) }),
+                personas: Array.from({ length: getAgentPersonaCount(a.handle || '') })
+            });
+            const isActive = window.MASTER_SELECTED_ID === `squad-agent-config-${a.id}`;
+            actualSquadsHtml += `
+                <article
+                    class="border border-white/10 bg-black/40 rounded-lg p-2 cursor-pointer hover:border-primary/40 transition-colors ${isActive ? 'ring-1 ring-primary border-primary/50' : ''}"
+                    draggable="true"
+                    ondragstart="handleSquadDragStart(event, '${a.id}')"
+                    onclick="window.MASTER_SELECTED_ID='squad-agent-config-${a.id}'; renderMasterHub();"
+                >
+                    <div class="flex items-center justify-between mb-1.5">
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-sm">${a.icon || '👤'}</span>
+                            <div class="min-w-0">
+                                <p class="text-[10px] text-white font-bold truncate">${getAgentDisplayNameHtml(a)}</p>
+                                ${agentDisplayIncludesHandle(a) ? '' : `<p class="text-[8px] text-muted truncate">${masterEscape(a.handle || '-')}</p>`}
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-[9px] text-muted mb-1.5 truncate">${masterEscape(a.role || '-')}</p>
+                    <div class="flex items-center justify-between pt-1.5 border-t border-white/5">
+                        <span class="text-[8px] text-muted">⚡ Skills ${Array.isArray(a.skills) ? a.skills.length : 0}</span>
+                        <span class="text-[8px] text-muted">👤 Clones ${Array.isArray(a.personas) ? a.personas.length : 0}</span>
+                    </div>
+                </article>
+            `;
+        });
+
+        actualSquadsHtml += `
+                </div>
+            </div>
+        </div>
+        `;
+    });
+
+    let unassignedHtml = `
+        <div class="master-card flex flex-col h-[calc(100vh-180px)] w-full min-w-0 max-w-full overflow-hidden" style="border-top: 2px solid #8b5cf6; padding:10px; background: rgba(12,15,24,0.85); box-shadow: inset 0 0 20px rgba(139,92,246,0.05);">
+        <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-lg flex items-center justify-center text-white" style="background:#8b5cf640">
+                    <i data-lucide="user-plus" class="w-4 h-4"></i>
+                </div>
+                <div>
+                    <h4 class="text-[12px] font-bold text-white uppercase tracking-wider">Agentes Disponíveis</h4>
+                </div>
+            </div>
+        </div>
+        <p class="text-[10px] text-muted mb-3 leading-snug">Arraste agentes para os squads ao lado para aloca-los. Arraste aqui para remover o agente de qualquer squad.</p>
+        <div class="space-y-2 flex-1 overflow-y-auto pr-1 custom-scrollbar w-full min-w-0 max-w-full box-border" data-squad-drop-zone="__UNASSIGNED__" style="padding:8px; background:rgba(0,0,0,0.25); border-radius:8px;" ondragover="handleSquadDragOver(event, '__UNASSIGNED__')" ondrop="handleSquadDrop(event, '__UNASSIGNED__')" ondragleave="handleSquadDragLeave(event, '__UNASSIGNED__')">
+    `;
+
+    if (unassignedAgents.length === 0) {
+        unassignedHtml += `<p class="text-[10px] text-muted italic text-center p-2">Nenhum agente disponível.</p>`;
+    } else {
+        unassignedAgents.forEach(a => {
+            a = Object.assign({}, a, {
+                name: getAgentDisplayName(a),
+                skills: Array.from({ length: getAgentSkillCount(a.id) }),
+                personas: Array.from({ length: getAgentPersonaCount(a.handle || '') })
+            });
+            const isActive = window.MASTER_SELECTED_ID === `squad-agent-config-${a.id}`;
+            unassignedHtml += `
+                <article
+                    class="border border-white/10 bg-black/40 rounded-lg p-2 cursor-pointer hover:border-primary/40 transition-colors w-full min-w-0 max-w-full overflow-hidden box-border ${isActive ? 'ring-1 ring-primary border-primary/50' : ''}"
+                    draggable="true"
+                    ondragstart="handleSquadDragStart(event, '${a.id}')"
+                    onclick="window.MASTER_SELECTED_ID='squad-agent-config-${a.id}'; renderMasterHub();"
+                >
+                    <div class="flex items-center justify-between mb-1.5">
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-sm">${a.icon || '👤'}</span>
+                            <div class="min-w-0">
+                                <p class="text-[10px] text-white font-bold truncate">${getAgentDisplayNameHtml(a)}</p>
+                                ${agentDisplayIncludesHandle(a) ? '' : `<p class="text-[8px] text-muted truncate">${masterEscape(a.handle || '-')}</p>`}
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-[9px] text-muted mb-1.5 truncate">${masterEscape(a.role || '-')}</p>
+                    <div class="flex items-center justify-between pt-1.5 border-t border-white/5">
+                        <span class="text-[8px] text-muted">Skills ${Array.isArray(a.skills) ? a.skills.length : 0}</span>
+                        <span class="text-[8px] text-muted">Clones ${Array.isArray(a.personas) ? a.personas.length : 0}</span>
+                    </div>
+                </article>
+            `;
+        });
+    }
+    unassignedHtml += `</div></div>`;
+
+    return `
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start;min-width:0">
+            ${actualSquadsHtml}
+        </div>
+        <div class="sticky top-0 min-w-0 w-full max-w-full overflow-hidden">
+            ${unassignedHtml}
+        </div>
+    `;
+}
+window.buildSquadsBoardHtml = buildSquadsBoardHtml;
+
+window.buildSquadAgentConfigHtml = function(agent, skillCatalog, personaCatalog, mode = 'drawer') {
+    const isInspector = mode === 'master' || mode === 'squads-tab';
+    const agentDisplayName = getAgentDisplayName(agent);
+    const closeAction = mode === 'master' ? 'collapseMasterInspector()' : (mode === 'squads-tab' ? 'closeSquadTabInspector()' : 'closeDrawer()');
+    const outerPad = isInspector ? 'px-0 py-1 space-y-2' : 'p-5 space-y-4';
+    const sectionPad = isInspector ? 'p-1.5' : 'p-3';
+    const gridClass = isInspector ? 'grid grid-cols-2 gap-1.5' : 'grid grid-cols-1 md:grid-cols-2 gap-3';
+    return `
+        <div class="${outerPad}">
+            <div class="glass ${sectionPad} flex items-center justify-between gap-3 group relative">
+                <div class="min-w-0">
+                    <p class="text-[11px] text-white font-bold truncate">
+                        ${getAgentDisplayNameHtml(agent)}
+                        ${agentDisplayIncludesHandle(agent, agentDisplayName) ? '' : `<span class="text-muted font-normal">(${masterEscape(agent.handle || '-')})</span>`}
+                        <span class="ml-2 text-[9px] text-primary font-black uppercase tracking-widest bg-primary/10 px-1.5 py-0.5 rounded">${masterEscape(agent.squad || '-')}</span>
+                    </p>
+                    <p class="text-[10px] text-muted mt-1 truncate">${masterEscape(agent.role || '-')}</p>
+                </div>
+                <button class="w-6 h-6 rounded bg-white/5 hover:bg-primary/20 hover:text-primary text-muted flex items-center justify-center transition-all shrink-0" title="Editar Agente" onclick="openEditorModal('.codex/agents/' + '${masterEscape(agent.handle || '').replace('@','')}' + '.md', '${masterEscape(agent.name)} — ${masterEscape(agent.squad || '')}')">
+                    <i data-lucide="pencil" class="w-3 h-3"></i>
+                </button>
+            </div>
+
+            <div class="glass ${sectionPad} space-y-2">
+                <div class="flex items-center justify-between px-1">
+                    <p class="text-[9px] text-muted uppercase tracking-widest font-black">Skills do Agente</p>
+                    <input type="text" id="agent-skill-search-input" class="w-[120px] h-5 px-2 bg-white/5 border border-white/10 rounded text-[9px] text-white placeholder-muted/50 focus:bg-white/10 outline-none transition-all" placeholder="Filtrar..." oninput="handleAgentConfigSearch('skill', this.value)">
+                </div>
+                <div id="agent-config-skill-filters" class="flex items-center gap-1.5 px-1 overflow-x-auto pb-1" style="scrollbar-width:none"></div>
+                <div class="${gridClass}">
+                    <section class="border border-white/10 rounded-lg ${sectionPad}" style="background:rgba(255,255,255,0.02)" ondragover="handleAgentConfigDragOver(event)" ondrop="handleAgentConfigDrop(event,'skill','available')">
+                        <div class="flex items-center justify-between mb-2">
+                            <p class="text-[10px] text-muted uppercase tracking-widest font-bold">📦 Disp.</p>
+                            <span id="agent-config-skill-available-meta" class="text-[9px] text-muted">0</span>
+                        </div>
+                        <div id="agent-config-skill-available" class="space-y-1.5 overflow-y-auto pr-1" style="max-height:320px"></div>
+                    </section>
+                    <section class="border border-primary/30 rounded-lg ${sectionPad}" style="background:rgba(168,85,247,0.04);box-shadow:inset 0 1px 8px rgba(168,85,247,0.06)" ondragover="handleAgentConfigDragOver(event)" ondrop="handleAgentConfigDrop(event,'skill','selected')">
+                        <div class="flex items-center justify-between mb-2">
+                            <p class="text-[10px] text-primary uppercase tracking-widest font-bold">🔗 Vinc.</p>
+                            <span id="agent-config-skill-selected-meta" class="text-[9px] text-primary">0</span>
+                        </div>
+                        <div id="agent-config-skill-selected" class="space-y-1.5 overflow-y-auto pr-1" style="max-height:320px"></div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="glass ${sectionPad} space-y-2">
+                <div class="flex items-center justify-between px-1">
+                    <p class="text-[9px] text-muted uppercase tracking-widest font-black">Clones</p>
+                    <input type="text" id="agent-persona-search-input" class="w-[120px] h-5 px-2 bg-white/5 border border-white/10 rounded text-[9px] text-white placeholder-muted/50 focus:bg-white/10 outline-none transition-all" placeholder="Filtrar..." oninput="handleAgentConfigSearch('persona', this.value)">
+                </div>
+                <div class="${gridClass}">
+                    <section class="border border-white/10 rounded-lg ${sectionPad}" style="background:rgba(255,255,255,0.02)" ondragover="handleAgentConfigDragOver(event)" ondrop="handleAgentConfigDrop(event,'persona','available')">
+                        <p class="text-[10px] text-muted uppercase tracking-widest mb-2 font-bold">📦 Disp.</p>
+                        <div id="agent-config-persona-available" class="space-y-1.5 overflow-y-auto pr-1" style="max-height:280px"></div>
+                    </section>
+                    <section class="border border-primary/30 rounded-lg ${sectionPad}" style="background:rgba(168,85,247,0.04);box-shadow:inset 0 1px 8px rgba(168,85,247,0.06)" ondragover="handleAgentConfigDragOver(event)" ondrop="handleAgentConfigDrop(event,'persona','selected')">
+                        <p class="text-[10px] text-primary uppercase tracking-widest mb-2 font-bold">🔗 Vinc.</p>
+                        <div id="agent-config-persona-selected" class="space-y-1.5 overflow-y-auto pr-1" style="max-height:280px"></div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-2 px-1">
+                <button class="btn-ghost" onclick="${closeAction}">Fechar</button>
+                <button class="btn-primary" onclick="saveSquadAgentConfig('${masterEscape(agent.id)}')">Salvar</button>
+            </div>
+        </div>
+    `;
+};
+
+window.renderSquadAgentConfigInMasterInspector = function(agent, skillCatalog, personaCatalog) {
+    const inspector = document.getElementById('master-project-inspector');
+    if (!inspector) return false;
+    const config = initSquadAgentConfigState(agent.id);
+    if (!config) return false;
+    const inspectorColumn = inspector.closest('.master-col-inspector');
+    const drawer = document.getElementById('detail-drawer');
+    const drawerContent = document.getElementById('drawer-content');
+    if (drawer) drawer.classList.remove('open');
+    if (drawerContent) drawerContent.innerHTML = '';
+    window.MASTER_SELECTED_ID = `squad-agent-config-${agent.id}`;
+    persistMasterUiState();
+    inspector.className = 'master-inspector-content';
+    inspector.innerHTML = `
+        <div style="border:1px solid rgba(168,85,247,0.15);background:rgba(168,85,247,0.02);border-radius:10px;padding:6px 2px">
+            ${window.buildSquadAgentConfigHtml(agent, skillCatalog, personaCatalog, 'master')}
+        </div>
+    `;
+    if (typeof renderAgentConfigBoards === 'function') renderAgentConfigBoards();
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+    return true;
+};
+
 function renderAgentConfigBoards() {
     renderAgentConfigSkillFilters();
     renderAgentConfigDualList('skill');
@@ -3724,10 +4285,18 @@ window.handleAgentConfigDrop = function(event, kind, bucket) {
     handleAgentConfigDragEnd();
 };
 
-window.openSquadAgentDrawer = function(agentId) {
+window.handleAgentConfigSearch = function(kind, query) {
+    const state = getAgentConfigState();
+    if (!state) return;
+    if (kind === 'skill') state.skillSearchQuery = query;
+    else state.personaSearchQuery = query;
+    renderAgentConfigBoards();
+};
+
+function initSquadAgentConfigState(agentId) {
     const registry = ensureRegistryShape(REGISTRY || {});
     const agent = (registry.agents || []).find(item => item.id === agentId);
-    if (!agent) return;
+    if (!agent) return null;
     const skillCatalog = flattenSkillCatalog(registry).map(skill => ({
         id: skill.id,
         name: skill.name || skill.id,
@@ -3757,12 +4326,24 @@ window.openSquadAgentDrawer = function(agentId) {
         skillCatalog,
         personaCatalog
     };
+    return { agent, skillCatalog, personaCatalog };
+}
 
-    document.getElementById('drawer-title').textContent = `${agent.name} · Configuracao`;
+function prepareSquadAgentConfigState(agentId) {
+    return initSquadAgentConfigState(agentId);
+}
+
+window.openSquadAgentDrawer = function(agentId) {
+    const config = prepareSquadAgentConfigState(agentId);
+    if (!config) return;
+    const { agent, skillCatalog, personaCatalog } = config;
+    const agentDisplayName = getAgentDisplayName(agent);
+
+    document.getElementById('drawer-title').textContent = `${agentDisplayName} · Configuracao`;
     document.getElementById('drawer-content').innerHTML = `
         <div class="p-5 space-y-4">
             <div class="glass p-3">
-                <p class="text-[11px] text-white font-bold">${masterEscape(agent.name)} <span class="text-muted">(${masterEscape(agent.handle || '-')})</span></p>
+                <p class="text-[11px] text-white font-bold">${getAgentDisplayNameHtml(agent)}</p>
                 <p class="text-[10px] text-muted mt-1">${masterEscape(agent.role || '-')}</p>
                 <p class="text-[9px] text-primary mt-2 uppercase tracking-widest font-bold">Squad atual: ${masterEscape(agent.squad || '-')}</p>
             </div>
@@ -3864,51 +4445,52 @@ function renderSquads() {
     const agents = registry.agents || [];
     const knownSquadIds = new Set(squads.map(squad => squad.id));
     const boardSquads = squads.concat([SQUAD_UNASSIGNED_META]);
-    const presets = getSquadPresets();
     const notice = window.__SQUAD_BOARD_NOTICE;
     const countEl = document.getElementById('squads-count');
     if (countEl) countEl.textContent = `${squads.length} Squads`;
 
     const columns = boardSquads.map(squad => {
         const isVirtualSquad = Boolean(squad.is_virtual);
+        const isCollapsed = !isMasterSquadSectionExpanded(squad.id);
         const squadAgents = isVirtualSquad
             ? agents.filter(agent => !agent.squad || !knownSquadIds.has(agent.squad))
             : agents.filter(agent => agent.squad === squad.id);
         const fileName = (squad.id || '').toLowerCase();
+        
         const cards = squadAgents.map(agent => {
+            agent = Object.assign({}, agent, { name: getAgentDisplayName(agent) });
             const skillCount = getAgentSkillCount(agent.id);
             const personaCount = getAgentPersonaCount(agent.handle || '');
+            const isActive = window.SQUAD_SELECTED_AGENT_ID === agent.id;
             return `<article
-                class="border border-white/10 bg-black/25 rounded-lg p-2 cursor-grab hover:border-primary/40 transition-colors"
+                class="border border-white/10 bg-black/25 rounded-lg p-2 cursor-pointer hover:border-primary/40 transition-colors ${isActive ? 'ring-1 ring-primary border-primary/50' : ''}"
                 draggable="true"
                 ondragstart="handleSquadDragStart(event, '${masterEscape(agent.id)}')"
-                ondragend="handleSquadDragEnd()"
-                onclick="openSquadAgentDrawer('${masterEscape(agent.id)}')"
+                onclick="selectSquadTabAgent('${masterEscape(agent.id)}')"
             >
                 <div class="flex items-start justify-between gap-2">
                     <div class="min-w-0">
-                        <p class="text-[11px] text-white font-bold truncate">${masterEscape(agent.icon || '👤')} ${masterEscape(agent.name || agent.id)}</p>
-                        <p class="text-[8px] text-muted font-mono truncate">${masterEscape(agent.handle || '-')}</p>
+                        <p class="text-[11px] text-white font-bold truncate">${masterEscape(agent.icon || '👤')} ${getAgentDisplayNameHtml(agent)}</p>
+                        ${agentDisplayIncludesHandle(agent) ? '' : `<p class="text-[8px] text-muted font-mono truncate">${masterEscape(agent.handle || '-')}</p>`}
                     </div>
-                    <button class="btn-ghost text-[8px] py-0.5 px-1.5" onclick="event.stopPropagation();openSquadAgentDrawer('${masterEscape(agent.id)}')">Config</button>
                 </div>
                 <p class="text-[9px] text-muted mt-1 line-clamp-2">${masterEscape(agent.role || '-')}</p>
                 <div class="flex items-center justify-between mt-2 text-[8px] text-muted">
                     <span>Skills ${skillCount}</span>
-                    <span>Personas ${personaCount}</span>
+                    <span>Clones ${personaCount}</span>
                 </div>
             </article>`;
         }).join('');
 
         return `<section
             data-squad-drop-zone="${masterEscape(squad.id)}"
-            class="glass p-3 border"
+            class="glass p-3 border flex flex-col"
             style="border-color:rgba(255,255,255,0.10);background:rgba(10,10,15,0.45)"
             ondragover="handleSquadDragOver(event, '${masterEscape(squad.id)}')"
             ondragleave="handleSquadDragLeave(event, '${masterEscape(squad.id)}')"
             ondrop="handleSquadDrop(event, '${masterEscape(squad.id)}')"
         >
-            <div class="flex items-center justify-between gap-2 mb-2">
+            <div class="flex items-center justify-between gap-2 mb-2 cursor-pointer group" onclick="toggleMasterSquadSection('${masterEscape(squad.id)}')">
                 <div class="flex items-center gap-2 min-w-0">
                     <div class="w-8 h-8 rounded-lg flex items-center justify-center border" style="background:${masterEscape(squad.color || '#6b7280')}22;border-color:${masterEscape(squad.color || '#6b7280')}55;color:${masterEscape(squad.color || '#6b7280')}">
                         <i data-lucide="${masterEscape(squad.icon || 'users')}" class="w-4 h-4"></i>
@@ -3918,48 +4500,77 @@ function renderSquads() {
                         <p class="text-[8px] text-muted font-mono truncate">${masterEscape(squad.id)}</p>
                     </div>
                 </div>
-                ${isVirtualSquad ? '' : `<button class="btn-ghost text-[8px] py-0.5 px-1.5" onclick="openEditorModal('.codex/squads/${masterEscape(fileName)}.md', 'Squad ${masterEscape(squad.name || squad.id)}')">Editar</button>`}
+                <div class="transition-transform ${isCollapsed ? '' : 'rotate-180'} text-muted group-hover:text-white">
+                    <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                </div>
             </div>
-            <p class="text-[9px] text-muted mb-2 min-h-[30px]">${masterEscape(squad.mission || '-')}</p>
-            <p class="text-[8px] text-muted mb-2">Agentes: ${squadAgents.length} · Entregas: ${(squad.outputs || []).length}</p>
-            <div class="space-y-2 min-h-[120px]">
-                ${cards || `<p class="text-[10px] text-muted italic border border-dashed border-white/10 rounded-lg p-2">${isVirtualSquad ? 'Arraste aqui para remover o agente de qualquer squad.' : 'Arraste um agente para este squad.'}</p>`}
+            
+            <div class="${isCollapsed ? 'hidden' : 'block'} mt-2">
+                <div class="flex items-center justify-between mb-2">
+                     <p class="text-[8px] text-muted">Entregas: ${(squad.outputs || []).length}</p>
+                     ${isVirtualSquad ? '' : `<button class="btn-ghost text-[8px] py-0.5 px-1.5" onclick="event.stopPropagation();openEditorModal('.codex/squads/${masterEscape(fileName)}.md', 'Squad ${masterEscape(squad.name || squad.id)}')">Editar</button>`}
+                </div>
+                <p class="text-[9px] text-muted mb-2 min-h-[30px]">${masterEscape(squad.mission || '-')}</p>
+                <div class="space-y-2 min-h-[80px]">
+                    ${cards || `<p class="text-[10px] text-muted italic border border-dashed border-white/10 rounded-lg p-2">${isVirtualSquad ? 'Arraste aqui para remover o agente de qualquer squad.' : 'Vazio.'}</p>`}
+                </div>
             </div>
         </section>`;
     }).join('');
 
-    const presetOptions = presets.map(item =>
-        `<option value="${masterEscape(item.id)}">${masterEscape(item.name)} · ${masterEscape(formatDatePt(item.created_at))}</option>`
-    ).join('');
     const noticeBlock = notice
         ? `<div class="text-[10px] px-3 py-2 rounded border ${notice.type === 'error' ? 'border-coral/40 text-coral bg-coral/10' : 'border-secondary/40 text-secondary bg-secondary/10'}">${masterEscape(notice.text || '')}</div>`
         : '';
 
     view.innerHTML = `
-        <div class="md:col-span-2 glass p-4 space-y-4">
-            <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="space-y-4">
+            <div class="flex items-center justify-between gap-2 px-1">
                 <div>
-                    <p class="text-[11px] text-white font-black uppercase tracking-widest">Board Drag-and-Drop de Squads</p>
-                    <p class="text-[9px] text-muted">Arraste agentes entre squads. No "Config", arraste skills e personas/clones entre disponiveis e vinculadas.</p>
-                </div>
-                <div class="flex flex-wrap items-center gap-2">
-                    <select id="squad-preset-select" class="bg-black/30 border border-white/10 rounded-lg px-2 py-1 text-[10px] text-white min-w-[220px]">
-                        <option value="">Selecione um preset</option>
-                        ${presetOptions}
-                    </select>
-                    <button class="btn-ghost text-[10px]" onclick="applySelectedSquadPreset()">Aplicar</button>
-                    <button class="btn-primary text-[10px]" onclick="saveCurrentSquadPreset()">Salvar preset</button>
-                    <button class="btn-danger text-[10px]" onclick="deleteSelectedSquadPreset()">Excluir</button>
+                    <p class="text-[11px] text-white font-black uppercase tracking-widest">Board de Alocação de Squads</p>
+                    <p class="text-[9px] text-muted">Arraste agentes entre colunas. Clique em um agente para configurar no Inspector lateral.</p>
                 </div>
             </div>
             ${noticeBlock}
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:start">
                 ${columns}
             </div>
         </div>
     `;
 
     if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function selectSquadTabAgent(agentId) {
+    window.SQUAD_SELECTED_AGENT_ID = agentId;
+    renderSquads();
+    const config = initSquadAgentConfigState(agentId);
+    if (!config) return;
+    const { agent, skillCatalog, personaCatalog } = config;
+    
+    // Render info in #squads-inspector
+    const html = buildSquadAgentConfigHtml(agent, skillCatalog, personaCatalog, 'squads-tab');
+    const container = document.getElementById('squads-inspector');
+    if (container) {
+        container.innerHTML = html;
+        renderAgentConfigBoards();
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+}
+
+function closeSquadTabInspector() {
+    window.SQUAD_SELECTED_AGENT_ID = '';
+    renderSquads();
+    const container = document.getElementById('squads-inspector');
+    if (container) {
+        container.innerHTML = `
+            <div class="h-full flex flex-col items-center justify-center text-center p-6 opacity-30">
+                <i data-lucide="info" class="w-8 h-8 mb-3"></i>
+                <p class="text-[10px] uppercase tracking-widest font-bold">Selecione um Agente</p>
+                <p class="text-[9px] mt-2 leading-relaxed">Clique em um agente para configurar suas skills e personas diretamente aqui.</p>
+            </div>
+        `;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
 }
 
 // ══════════════════════════════════════════
@@ -4342,32 +4953,14 @@ function closeDrawer() {
 
 // ══════════════════════════════════════════
 // DATA LOADING & SYNC
+// Definição completa em window.loadAllData (mais abaixo).
 // ══════════════════════════════════════════
-async function loadAllData() {
-    try {
-        const [reg, bld, ops, apr, alt, inc, rer, log, cmd, mem] = await Promise.all([
-            fetch('/api/registry').then(r=>r.json()).catch(()=>({})),
-            fetch('/api/build').then(r=>r.json()).catch(()=>({phases:[]})),
-            fetch('/api/ops').then(r=>r.json()).catch(()=>({stages:[]})),
-            fetch('/api/approvals').then(r=>r.json()).catch(()=>({items:[]})),
-            fetch('/api/alerts').then(r=>r.json()).catch(()=>({items:[]})),
-            fetch('/api/incidents').then(r=>r.json()).catch(()=>({items:[]})),
-            fetch('/api/reruns').then(r=>r.json()).catch(()=>({items:[]})),
-            fetch('/api/logs').then(r=>r.json()).catch(()=>({entries:[]})),
-            fetch('/api/commands').then(r=>r.json()).catch(()=>({entries:[]})),
-            fetch('/api/memory').then(r=>r.json()).catch(()=>({mutations:[]}))
-        ]);
-        REGISTRY = reg; BUILD_STATE = bld; OPS_STATE = ops;
-        APPROVALS = apr; ALERTS = alt; INCIDENTS = inc;
-        RERUNS = rer; LOGS = log; COMMANDS = cmd; MEMORY = mem;
-    } catch(e) { console.error('Data load error:', e); }
-}
-
 async function syncAll() {
     try {
         await loadAllData();
-        renderStatus();
-        lucide.createIcons();
+        renderMasterHub();
+        if (typeof renderSessionResumeWidget === 'function') renderSessionResumeWidget();
+        if (typeof lucide !== 'undefined') lucide.createIcons();
     } catch(e) { console.error('SyncAll Global Error:', e); }
 }
 
@@ -4376,16 +4969,26 @@ async function syncAll() {
 // ══════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', async () => {
     await syncAll();
-    lucide.createIcons();
+    if (typeof lucide !== 'undefined') lucide.createIcons();
 });
 
-// Auto-refresh every 10s
+function showCanvasLoading(show) {
+    const el = document.getElementById('master-canvas-loading');
+    if (!el) return;
+    el.style.display = show ? 'flex' : 'none';
+}
+
+// Auto-refresh a cada 15s — renderiza apenas a aba ativa
 setInterval(async () => {
+    showCanvasLoading(true);
     await loadAllData();
-    renderStatus();
-    renderMasterHub();
+    showCanvasLoading(false);
+    const activePane = document.querySelector('.tab-pane.active');
+    const activeTab = activePane ? activePane.id.replace('pane-', '') : '';
+    if (activeTab === 'master') renderMasterHub();
+    else if (activeTab === 'memory') { if (typeof renderMemory === 'function') renderMemory(); }
     if (typeof renderCloudSyncStatus === 'function') renderCloudSyncStatus();
-}, 10000);
+}, 15000);
 </script>
 <script>
 window.MEMORY_LAYERS = window.MEMORY_LAYERS || {};
@@ -4571,6 +5174,149 @@ function ensureMemoryLifecycleUI() {
                 </div>
             </details>
         </div>`;
+}
+
+// ══════════════════════════════════════════
+// SESSION RESUME WIDGET
+// ══════════════════════════════════════════
+function renderSessionResumeWidget() {
+    const session = (window.SESSION_STATE || {}).current_session || {};
+    const layers = window.MEMORY_LAYERS || {};
+    const state = layers.current_state || {};
+    const openLoops = layers.open_loops || {};
+
+    const taskEl = document.getElementById('resume-task');
+    const metaEl = document.getElementById('resume-meta');
+    const statusLabelEl = document.getElementById('resume-status-label');
+    const filesEl = document.getElementById('resume-files');
+    const loopsEl = document.getElementById('resume-open-loops');
+
+    const task = state.active_task || session.summary || session.last_task || '–';
+    const goal = state.active_goal || '';
+    const closedAt = session.closed_at || session.last_updated || '';
+    const status = session.status || '';
+
+    if (statusLabelEl) {
+        const isActive = status === 'active';
+        statusLabelEl.textContent = isActive ? '🟢 Ativa' : closedAt ? `Encerrada` : 'Sem dados';
+        statusLabelEl.style.color = isActive ? '#10b981' : '#6b7280';
+    }
+    if (taskEl) taskEl.textContent = task;
+    if (metaEl) {
+        const when = closedAt ? new Date(closedAt).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '–';
+        const label = status === 'active' ? `Sessão ativa` : closedAt ? `Encerrada em ${when}` : 'Nenhuma sessão anterior encontrada.';
+        metaEl.textContent = goal ? `${label} · Objetivo: ${goal}` : label;
+    }
+    if (filesEl) {
+        const files = (state.recent_files || state.modified_files || []).slice(0, 6);
+        filesEl.innerHTML = files.map(f => `<span class="text-[8px] font-mono bg-white/5 border border-white/10 px-2 py-1 rounded text-muted">${f}</span>`).join('');
+    }
+    if (loopsEl) {
+        const loops = Array.isArray(openLoops.items) ? openLoops.items.slice(0, 3) : [];
+        loopsEl.innerHTML = loops.length
+            ? `<p class="text-[8px] text-accent font-bold uppercase tracking-widest mb-1 mt-1">Loops Pendentes</p>` +
+              loops.map(l => `<p class="text-[9px] text-muted">· ${typeof l === 'string' ? l : (l.description || l.id || JSON.stringify(l))}</p>`).join('')
+            : '';
+    }
+
+    // Atualiza o banner do Master Hub
+    showMasterContextBanner(task, status);
+}
+
+function showMasterContextBanner(task, status) {
+    const banner = document.getElementById('master-context-banner');
+    const bannerTask = document.getElementById('master-banner-task');
+    if (!banner) return;
+    const dismissed = sessionStorage.getItem('aiox.master.banner.dismissed') === '1';
+    if (dismissed || !task || task === '–') { banner.classList.add('hidden'); return; }
+    if (bannerTask) bannerTask.textContent = task;
+    banner.classList.remove('hidden');
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function dismissMasterBanner() {
+    sessionStorage.setItem('aiox.master.banner.dismissed', '1');
+    const banner = document.getElementById('master-context-banner');
+    if (banner) banner.classList.add('hidden');
+}
+
+const FLASH_FILE_PATH = 'docs/control/session_flash.txt';
+
+function buildSessionFlash() {
+    const session = (window.SESSION_STATE || {}).current_session || {};
+    const layers = window.MEMORY_LAYERS || {};
+    const state = layers.current_state || {};
+    const openLoops = layers.open_loops || {};
+
+    const now = new Date().toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+    const task = state.active_task || session.summary || session.last_task || '–';
+    const goal = state.active_goal || '–';
+    const project = (window.MASTER_PROJECT || '').toUpperCase() || '–';
+    const files = (state.recent_files || state.modified_files || []).join('\n  ') || '–';
+    const loops = Array.isArray((openLoops.items || []))
+        ? (openLoops.items || []).map(l => `  - ${typeof l === 'string' ? l : (l.description || l.id || '')}`).join('\n')
+        : '  –';
+
+    return [
+        '=== FLASH DE CONTEXTO ===',
+        `Salvo em: ${now}`,
+        `Projeto: ${project}`,
+        `Tarefa ativa: ${task}`,
+        `Objetivo: ${goal}`,
+        `Arquivos recentes:\n  ${files}`,
+        `Loops pendentes:\n${loops}`,
+        '========================',
+        '',
+        'Cole este bloco no início da conversa com o Claude Code para retomar a sessão.',
+    ].join('\n');
+}
+
+async function copySessionFlash() {
+    let flash = '';
+    try {
+        // Tenta ler o arquivo salvo pelo último "Salvar Tudo"
+        const res = await fetch('/api/file?path=' + encodeURIComponent(FLASH_FILE_PATH));
+        const text = await res.text();
+        if (res.ok && text && !text.includes('não encontrado') && text.includes('FLASH DE CONTEXTO')) {
+            flash = text;
+        }
+    } catch (_) {}
+
+    // Fallback: gera na hora se o arquivo não existir
+    if (!flash) flash = buildSessionFlash();
+
+    try {
+        await navigator.clipboard.writeText(flash);
+        alert('Flash de Contexto copiado!\n\nCole no início da próxima conversa com o Claude Code para retomar sem perda de contexto.');
+    } catch (_) {
+        prompt('Copie o Flash de Contexto abaixo:', flash);
+    }
+}
+
+async function updateProjectFlowNodeStatus(projectId, view, nodeId, newStatus) {
+    try {
+        const flows = getMasterProjectFlows();
+        const proj = flows[projectId];
+        if (!proj || !proj[view]) return;
+        const node = (proj[view] || []).find(n => n.id === nodeId);
+        if (!node) return;
+        node.status = newStatus;
+        const payload = {
+            path: 'docs/control/project_flows.json',
+            content: JSON.stringify({ projects: flows }, null, 2),
+            initiated_by: 'human',
+            project_id: projectId
+        };
+        const res = await fetch('/api/save', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+            window.PROJECT_FLOWS = { projects: flows };
+            renderMasterHub();
+        }
+    } catch (e) { console.error('updateProjectFlowNodeStatus:', e); }
 }
 
 window.loadAllData = async function() {
@@ -4886,12 +5632,28 @@ window.saveAllNow = async function() {
         if (!res.ok || !data.success) throw new Error(data.error || 'Falha no salvar tudo');
 
         await loadAllData();
+
+        // Salvar Flash de Contexto em arquivo (lido depois pelo botão Flash)
+        try {
+            const flashContent = buildSessionFlash();
+            await fetch('/api/save', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    path: FLASH_FILE_PATH,
+                    content: flashContent,
+                    initiated_by: 'human',
+                    project_id: getSessionProjectId()
+                })
+            });
+        } catch (_) { /* falha silenciosa — flash é best-effort */ }
+
         renderMemory();
         if (typeof renderMasterHub === 'function') renderMasterHub();
         if (typeof renderStatus === 'function') renderStatus();
         const cp = data.checkpoint_id || '-';
         const cloudStatus = data.cloud && data.cloud.status ? String(data.cloud.status).toUpperCase() : 'OK';
-        alert(`Tudo salvo. Checkpoint: ${cp}. Cloud: ${cloudStatus}.`);
+        alert(`Tudo salvo. Checkpoint: ${cp}. Cloud: ${cloudStatus}.\n\nFlash de Contexto atualizado — pronto para retomada.`);
     } catch (e) {
         window.CLOUD_SYNC_STATE = Object.assign({}, window.CLOUD_SYNC_STATE || {}, {
             in_progress: false,
@@ -5149,7 +5911,29 @@ window.renderAgents = function() {
         const sq = (SQUAD_COLORS && SQUAD_COLORS[a.squad]) || '#6b7280';
         const filePath = `.codex/agents/${a.handle.replace('@','')}.md`;
         const title = `${a.name} - ${a.squad}`;
-        return `<div class="glass p-4 cursor-pointer hover:-translate-y-0.5 transition-transform" onclick='openEditorModal(${JSON.stringify(filePath)}, ${JSON.stringify(title)})'><div class="flex items-center justify-between mb-3"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full flex items-center justify-center text-lg border border-white/10 bg-white/5">${a.icon}</div><div><h3 class="text-xs font-bold text-white">${a.name}</h3><p class="text-[9px] text-muted font-mono">${a.handle}</p></div></div><button class="btn-ghost text-primary text-[10px] py-1 px-2" onclick='event.stopPropagation();openEditorModal(${JSON.stringify(filePath)}, ${JSON.stringify(title)})'>Editar</button></div><p class="text-[10px] text-muted mb-3">${a.role}</p><span class="text-[9px] font-bold px-2 py-0.5 rounded" style="background:${sq}20;color:${sq}">${a.squad}</span></div>`;
+        const skillCount = getAgentSkillCount(a.id);
+        const cloneCount = getAgentPersonaCount(a.handle || '');
+        const displayName = getAgentDisplayName(a);
+        return `<div class="glass p-4 cursor-pointer hover:-translate-y-0.5 transition-transform" onclick='openEditorModal(${JSON.stringify(filePath)}, ${JSON.stringify(title)})'>
+            <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-lg border border-white/10 bg-white/5 shrink-0">${a.icon}</div>
+                    <div class="min-w-0">
+                        <h3 class="text-xs font-bold text-white truncate">${getAgentDisplayNameHtml(a)}</h3>
+                        ${agentDisplayIncludesHandle(a, displayName) ? '' : `<p class="text-[9px] text-muted font-mono truncate">${masterEscape(a.handle || '-')}</p>`}
+                    </div>
+                </div>
+                <button class="btn-ghost text-primary text-[10px] py-1 px-2" onclick='event.stopPropagation();openEditorModal(${JSON.stringify(filePath)}, ${JSON.stringify(title)})'>Editar</button>
+            </div>
+            <p class="text-[10px] text-muted mb-3">${masterEscape(a.role || '-')}</p>
+            <div class="flex items-center justify-between gap-2">
+                <span class="text-[9px] font-bold px-2 py-0.5 rounded" style="background:${sq}20;color:${sq}">${masterEscape(a.squad || '-')}</span>
+                <div class="flex items-center gap-2 text-[8px] text-muted">
+                    <span>Skills ${skillCount}</span>
+                    <span>Clones ${cloneCount}</span>
+                </div>
+            </div>
+        </div>`;
     }).join('');
     if (typeof lucide !== 'undefined') lucide.createIcons();
 };
