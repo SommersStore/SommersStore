@@ -1229,6 +1229,12 @@ async function runGitHubSync(scope, commitMessage) {
         return result;
     }
 
+    // Garante que objetos LFS sejam enviados antes do push regular
+    const lfsCheck = await runCommand('git', ['lfs', 'status']);
+    if (lfsCheck.ok && (lfsCheck.stdout || '').includes('Objects to be pushed')) {
+        await runCommand('git', ['lfs', 'push', '--all', 'origin']);
+    }
+
     const upstream = await runCommand('git', ['rev-parse', '--abbrev-ref', '--symbolic-full-name', '@{u}']);
     const push = upstream.ok
         ? await runCommand('git', ['push'])

@@ -2,26 +2,26 @@
   "auto_sync_memory": false,
   "in_progress": true,
   "pending_trigger": null,
-  "last_sync_id": "SYNC-20260428-1777421371900",
+  "last_sync_id": "SYNC-20260428-1777422063624",
   "last_status": "running",
   "last_summary": "Sincronizacao em andamento...",
   "last_trigger": "save_all_one_click",
   "last_scope": "all",
   "last_target": "all",
-  "last_started_at": "2026-04-28T21:09:31-03:00",
-  "last_completed_at": "2026-04-28T15:43:59-03:00",
+  "last_started_at": "2026-04-28T21:21:03-03:00",
+  "last_completed_at": "2026-04-28T21:09:57-03:00",
   "github": {
     "status": "partial",
     "note": "Commit criado, mas push falhou.",
     "scope": "all",
     "changed_files": 0,
-    "commit_message": "chore(workspace): cloud sync 2026-04-28 15:43:25 (save_all_one_click)",
+    "commit_message": "chore(workspace): cloud sync 2026-04-28 21:09:31 (save_all_one_click)",
     "branch": "master",
     "error": "remote: error: GH008: Your push referenced at least 1 unknown Git LFS object:        \nremote:     7c253dd3462b396b05e113f0184d4d520588e9f8707fc820af148a2f7e7b084f        \nremote: Try to push them with 'git lfs push --all'.        \nTo https://github.com/SommersStore/SommersStore.git\n ! [remote rejected] master -> master (pre-receive hook declined)\nerror: failed to push some refs to 'https://github.com/SommersStore/SommersStore.git'"
   },
   "firebase": {
     "status": "success",
     "note": "Deploy Firebase Hosting concluido.",
-    "duration_ms": 21183
+    "duration_ms": 15861
   }
 }

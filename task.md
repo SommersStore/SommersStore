@@ -27,6 +27,11 @@
 - [x] Sessao encerrada pelo usuario.
 - [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
 - [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Checkpoint: CHK-MEM-0306
+
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
 - [x] Checkpoint: CHK-MEM-0305
 
 - [x] Sessao encerrada pelo usuario.
@@ -54,4 +59,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-04-28T21:09:31-03:00
+- updated_at: 2026-04-28T21:21:03-03:00

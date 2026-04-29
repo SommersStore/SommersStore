@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-04-28T21:09:31-03:00
+- updated_at: 2026-04-28T21:21:03-03:00
 
 ## Handoff Atual - Dashboard Stability & UX
 - timestamp: 2026-04-27
@@ -29,6 +29,11 @@
 - ux: cards de Clones no Master Hub agora abrem apenas o Inspector lateral compacto.
 
 ## Ultimo fechamento
+- timestamp: 2026-04-28T21:21:03-03:00
+- tipo: usuario
+- resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- proxima_acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- checkpoint: CHK-MEM-0306
 - timestamp: 2026-04-28T21:09:31-03:00
 - tipo: usuario
 - resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
