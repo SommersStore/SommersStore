@@ -27,6 +27,11 @@
 - [x] Sessao encerrada pelo usuario.
 - [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
 - [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Checkpoint: CHK-MEM-0305
+
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
 - [x] Checkpoint: CHK-MEM-0303
 
 - [x] Reparo do painel: sidebar completa restaurada (Status, Control/Ops Desk, Memory, Squads, Agents, Skills, Personas) e `Clones` voltou a carregar assets enriquecidos via `/api/personas/assets`.
@@ -49,4 +54,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-04-28T15:43:24-03:00
+- updated_at: 2026-04-28T21:09:31-03:00
