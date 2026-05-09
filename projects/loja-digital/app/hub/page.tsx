@@ -27,20 +27,18 @@ interface ProductCard {
 }
 
 /* ─── catálogo ───────────────────────────── */
-const PRINCIPAL: ProductCard[] = [
-  {
-    id: "metodo",
-    title: "Método Essência Ativa BR",
-    subtitle: "Ebook Principal · 144 pág.",
-    cover: "/ebook/master_cover_v2.png",
-    tag: "PRINCIPAL",
-    tagVariant: "gold",
-    progress: 0,
-    action: { type: "pdf", file: "O_Cofre_das_Botanicas_Secretas.pdf" },
-  },
-];
+const METODO: ProductCard = {
+  id: "metodo",
+  title: "Método Essência Ativa BR",
+  subtitle: "Ebook Principal · 144 pág.",
+  cover: "/ebook/master_cover_v2.png",
+  tag: "PRINCIPAL",
+  tagVariant: "gold",
+  progress: 0,
+  action: { type: "pdf", file: "O_Cofre_das_Botanicas_Secretas.pdf" },
+};
 
-const BONUS_PRINCIPAL: ProductCard[] = [
+const METODO_BONUS: ProductCard[] = [
   {
     id: "bonus-blends",
     title: "10 Receitas de Blends",
@@ -70,7 +68,7 @@ const BONUS_PRINCIPAL: ProductCard[] = [
   },
 ];
 
-const ORDER_BUMPS: ProductCard[] = [
+const METODO_OBS: ProductCard[] = [
   {
     id: "ob1",
     title: "30 Blends Premium",
@@ -101,21 +99,22 @@ const ORDER_BUMPS: ProductCard[] = [
   },
 ];
 
-const UPSELL: ProductCard[] = [
-  {
-    id: "cofre",
-    title: "O Cofre das Botânicas Secretas",
-    subtitle: "Upsell Principal · Viewer + PDFs",
-    cover: "/ebook/master_cover_v2.png",
-    tag: "UPSELL",
-    tagVariant: "purple",
-    progress: 65,
-    action: {
-      type: "both",
-      viewerPath: "/ebook/viewer/cofre",
-      pdfFile: "O_Cofre_das_Botanicas_Secretas.pdf",
-    },
+const COFRE: ProductCard = {
+  id: "cofre",
+  title: "O Cofre das Botânicas Secretas",
+  subtitle: "Upsell Principal · Viewer + PDFs",
+  cover: "/ebook/master_cover_v2.png",
+  tag: "UPSELL",
+  tagVariant: "purple",
+  progress: 65,
+  action: {
+    type: "both",
+    viewerPath: "/ebook/viewer/cofre",
+    pdfFile: "O_Cofre_das_Botanicas_Secretas.pdf",
   },
+};
+
+const COFRE_COMPLEMENTOS: ProductCard[] = [
   {
     id: "cofre-elite",
     title: "Edição Elite",
@@ -125,13 +124,10 @@ const UPSELL: ProductCard[] = [
     tagVariant: "gold",
     action: { type: "pdf", file: "O_Cofre_das_Botanicas_Secretas_Elite.pdf" },
   },
-];
-
-const UPSELL_LINKED: ProductCard[] = [
   {
     id: "sinergias",
     title: "30 Sinergias de Sucesso",
-    subtitle: "Ligado ao Upsell · 30 Fórmulas",
+    subtitle: "30 Fórmulas Exclusivas",
     cover: "/ebook/capa_mistica_esmeralda.png",
     tag: "BÔNUS",
     tagVariant: "green",
@@ -141,7 +137,7 @@ const UPSELL_LINKED: ProductCard[] = [
   {
     id: "fornecedores",
     title: "Cofre de Fornecedores",
-    subtitle: "Ligado ao Upsell · 15 Contatos",
+    subtitle: "15 Contatos Verificados",
     cover: "/ebook/capa_mistica_dourada.png",
     tag: "BÔNUS",
     tagVariant: "green",
@@ -151,7 +147,7 @@ const UPSELL_LINKED: ProductCard[] = [
   {
     id: "ritual-noite",
     title: "Ritual da Meia-Noite",
-    subtitle: "Ligado ao Upsell · 10 Rituais",
+    subtitle: "10 Rituais Premium",
     cover: "/ebook/capa_mistica_rubi.png",
     tag: "BÔNUS",
     tagVariant: "green",
@@ -179,10 +175,14 @@ export default function EliteHub() {
   };
 
   const navigate = (action: CardAction) => {
-    if (action.type === "viewer")      router.push(action.path);
-    if (action.type === "both")        router.push(action.viewerPath);
-    if (action.type === "pdf")         window.open(`/downloads/${action.file}`, "_blank");
+    if (action.type === "viewer")  router.push(action.path);
+    if (action.type === "both")    router.push(action.viewerPath);
+    if (action.type === "pdf")     window.open(`/downloads/${action.file}`, "_blank");
   };
+
+  const card = (p: ProductCard, size: "anchor" | "companion" = "companion") => (
+    <Card key={p.id} p={p} size={size} hovered={hovered} setHovered={setHovered} navigate={navigate} />
+  );
 
   return (
     <AuthGuard>
@@ -192,54 +192,33 @@ export default function EliteHub() {
 
         .hub { display: flex; min-height: 100vh; background: #0a0a0d; color: #e0e0d0; font-family: 'Montserrat', sans-serif; }
 
-        /* SIDEBAR */
+        /* ── SIDEBAR ── */
         .hub-side {
-          width: 220px; flex-shrink: 0;
+          width: 210px; flex-shrink: 0;
           background: #0d0d11;
           border-right: 1px solid rgba(197,160,89,0.08);
           display: flex; flex-direction: column;
           padding: 32px 0;
           position: sticky; top: 0; height: 100vh; overflow-y: auto;
         }
-        .hub-logo {
-          padding: 0 24px 28px;
-          border-bottom: 1px solid rgba(197,160,89,0.06);
-          margin-bottom: 20px;
-        }
-        .hub-logo-text {
-          font-size: 9px; font-weight: 900; letter-spacing: 6px;
-          color: #C5A059; text-transform: uppercase; display: block;
-        }
-        .hub-logo-sub {
-          font-size: 7px; letter-spacing: 2px; color: rgba(229,229,229,0.2);
-          text-transform: uppercase; margin-top: 4px; display: block;
-        }
+        .hub-logo { padding: 0 24px 28px; border-bottom: 1px solid rgba(197,160,89,0.06); margin-bottom: 20px; }
+        .hub-logo-text { font-size: 9px; font-weight: 900; letter-spacing: 6px; color: #C5A059; text-transform: uppercase; display: block; }
+        .hub-logo-sub  { font-size: 7px; letter-spacing: 2px; color: rgba(229,229,229,0.2); text-transform: uppercase; margin-top: 4px; display: block; }
         .hub-nav-item {
           display: flex; align-items: center; gap: 10px;
-          padding: 11px 24px; font-size: 8px; font-weight: 700;
-          letter-spacing: 2px; text-transform: uppercase;
-          color: rgba(229,229,229,0.3); cursor: pointer;
+          padding: 11px 24px; font-size: 8px; font-weight: 700; letter-spacing: 2px;
+          text-transform: uppercase; color: rgba(229,229,229,0.3); cursor: pointer;
           border-left: 2px solid transparent; transition: all 0.2s;
           background: none; border-top: none; border-right: none; border-bottom: none;
           width: 100%; text-align: left; font-family: 'Montserrat', sans-serif;
         }
-        .hub-nav-item:hover { color: rgba(229,229,229,0.7); background: rgba(255,255,255,0.02); }
+        .hub-nav-item:hover  { color: rgba(229,229,229,0.7); background: rgba(255,255,255,0.02); }
         .hub-nav-item.active { color: #C5A059; border-left-color: #C5A059; background: rgba(197,160,89,0.05); }
         .hub-nav-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
-
-        .hub-side-footer {
-          margin-top: auto; padding: 20px 24px 0;
-          border-top: 1px solid rgba(197,160,89,0.06);
-        }
-        .hub-user-badge {
-          display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
-        }
-        .hub-avatar {
-          width: 32px; height: 32px; border-radius: 50%;
-          background: rgba(197,160,89,0.1); border: 1px solid rgba(197,160,89,0.25);
-          display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0;
-        }
-        .hub-user-name { font-size: 9px; font-weight: 700; color: #C5A059; letter-spacing: 1px; text-transform: uppercase; }
+        .hub-side-footer { margin-top: auto; padding: 20px 24px 0; border-top: 1px solid rgba(197,160,89,0.06); }
+        .hub-user-badge { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+        .hub-avatar { width: 32px; height: 32px; border-radius: 50%; background: rgba(197,160,89,0.1); border: 1px solid rgba(197,160,89,0.25); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+        .hub-user-name  { font-size: 9px; font-weight: 700; color: #C5A059; letter-spacing: 1px; text-transform: uppercase; }
         .hub-user-email { font-size: 7px; color: rgba(229,229,229,0.25); letter-spacing: 0.3px; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 140px; }
         .hub-logout-btn {
           width: 100%; padding: 9px; background: none;
@@ -249,128 +228,136 @@ export default function EliteHub() {
         }
         .hub-logout-btn:hover { border-color: rgba(197,160,89,0.3); color: #C5A059; }
 
-        /* MAIN */
-        .hub-main { flex: 1; padding: 40px 48px 64px; overflow-y: auto; min-width: 0; }
+        /* ── MAIN ── */
+        .hub-main { flex: 1; padding: 40px 40px 64px; overflow-y: auto; min-width: 0; }
 
-        /* SECTION */
-        .hub-section { margin-bottom: 48px; }
-        .hub-section-header {
-          display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
+        /* ── PRODUCT ROW ── */
+        .hub-product-row {
+          display: flex;
+          align-items: flex-start;
+          gap: 0;
+          margin-bottom: 48px;
+          background: rgba(255,255,255,0.015);
+          border: 1px solid rgba(255,255,255,0.05);
+          border-radius: 6px;
+          overflow: hidden;
         }
-        .hub-section-num {
-          width: 24px; height: 24px; border-radius: 50%;
-          background: rgba(197,160,89,0.12); border: 1px solid rgba(197,160,89,0.3);
-          display: flex; align-items: center; justify-content: center;
-          font-size: 9px; font-weight: 900; color: #C5A059; flex-shrink: 0;
-        }
-        .hub-section-title { font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(229,229,229,0.35); }
-        .hub-section-rule { flex: 1; height: 1px; background: rgba(197,160,89,0.07); }
-        .hub-section-sub {
-          display: flex; align-items: center; gap: 12px; margin-bottom: 16px; margin-top: -4px; padding-left: 40px;
-        }
-        .hub-section-sub-label { font-size: 7px; letter-spacing: 3px; text-transform: uppercase; color: rgba(229,229,229,0.2); }
-        .hub-section-sub-rule { flex: 1; height: 1px; background: rgba(255,255,255,0.04); }
 
-        /* GRID */
-        .hub-grid { display: flex; flex-wrap: wrap; gap: 14px; }
+        /* Anchor — produto principal da linha */
+        .hub-anchor {
+          flex-shrink: 0;
+          padding: 20px;
+          background: rgba(0,0,0,0.25);
+          border-right: 1px solid rgba(255,255,255,0.05);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0;
+        }
+        .hub-anchor-label {
+          font-size: 7px; font-weight: 900; letter-spacing: 4px;
+          text-transform: uppercase; color: rgba(197,160,89,0.4);
+          margin-bottom: 14px; text-align: center;
+        }
 
-        /* CARD */
+        /* Companions — complementos à direita */
+        .hub-companions {
+          flex: 1; min-width: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+        }
+        .hub-group {
+          display: flex;
+          flex-direction: column;
+          padding: 16px 20px 18px;
+          border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .hub-group:last-child { border-bottom: none; }
+        .hub-group-label {
+          font-size: 7px; font-weight: 700; letter-spacing: 3px;
+          text-transform: uppercase; color: rgba(229,229,229,0.2);
+          margin-bottom: 12px;
+          display: flex; align-items: center; gap: 10px;
+        }
+        .hub-group-label::after {
+          content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.04);
+        }
+        .hub-group-cards { display: flex; flex-wrap: wrap; gap: 12px; }
+
+        /* ── CARDS ── */
         .hub-card {
-          width: 190px; flex-shrink: 0;
-          background: #111118; border: 1px solid rgba(255,255,255,0.05);
+          background: #111118; border: 1px solid rgba(255,255,255,0.06);
           border-radius: 3px; overflow: hidden; cursor: pointer;
           transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-          position: relative;
+          position: relative; flex-shrink: 0;
         }
-        .hub-card:hover {
-          transform: translateY(-4px);
-          border-color: rgba(197,160,89,0.22);
-          box-shadow: 0 12px 32px rgba(0,0,0,0.5);
-        }
-        .hub-card.locked { opacity: 0.45; cursor: default; }
-        .hub-card.locked:hover { transform: none; border-color: rgba(255,255,255,0.05); box-shadow: none; }
+        .hub-card-anchor   { width: 200px; }
+        .hub-card-companion { width: 152px; }
+        .hub-card:hover { transform: translateY(-3px); border-color: rgba(197,160,89,0.22); box-shadow: 0 10px 28px rgba(0,0,0,0.5); }
+        .hub-card.locked { opacity: 0.4; cursor: default; }
+        .hub-card.locked:hover { transform: none; border-color: rgba(255,255,255,0.06); box-shadow: none; }
 
-        /* CARD — featured (produto principal) */
-        .hub-card.featured { width: 240px; }
-
-        /* CARD image */
-        .hub-card-img {
-          width: 100%; aspect-ratio: 3/4; overflow: hidden; position: relative;
-          background: #1a1a22;
-        }
-        .hub-card-img-inner {
-          width: 100%; height: 100%; background-size: cover; background-position: center;
-          transition: transform 0.5s;
-        }
+        .hub-card-img { width: 100%; aspect-ratio: 3/4; overflow: hidden; position: relative; background: #1a1a22; }
+        .hub-card-img-inner { width: 100%; height: 100%; background-size: cover; background-position: center; transition: transform 0.5s; }
         .hub-card:hover .hub-card-img-inner { transform: scale(1.04); }
-        .hub-card-img-fade {
-          position: absolute; inset: 0;
-          background: linear-gradient(to bottom, transparent 50%, rgba(10,10,13,0.8) 100%);
-        }
+        .hub-card-img-fade { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(10,10,13,0.8) 100%); }
         .hub-card-tag {
-          position: absolute; top: 10px; left: 10px;
+          position: absolute; top: 8px; left: 8px;
           font-size: 6px; font-weight: 700; letter-spacing: 2px;
-          text-transform: uppercase; padding: 3px 8px;
+          text-transform: uppercase; padding: 2px 7px;
           border-radius: 2px; border: 1px solid;
         }
-        .hub-card-lock-icon {
-          position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-          background: rgba(10,10,13,0.6); font-size: 22px;
-        }
-        .hub-card-progress {
-          position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
-          background: rgba(255,255,255,0.06);
-        }
+        .hub-card-lock { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(10,10,13,0.6); font-size: 20px; }
+        .hub-card-progress { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.06); }
         .hub-card-progress-fill { height: 100%; background: #C5A059; }
-        .hub-badge-done {
-          position: absolute; top: 10px; right: 10px;
-          font-size: 6px; font-weight: 700; letter-spacing: 1px;
-          text-transform: uppercase; padding: 3px 7px;
-          background: rgba(111,175,111,0.2); color: #6faf6f;
-          border: 1px solid rgba(111,175,111,0.4); border-radius: 2px;
-        }
+        .hub-badge-done { position: absolute; top: 8px; right: 8px; font-size: 6px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 2px 6px; background: rgba(111,175,111,0.2); color: #6faf6f; border: 1px solid rgba(111,175,111,0.4); border-radius: 2px; }
 
-        /* CARD body */
-        .hub-card-body { padding: 12px 14px 14px; }
-        .hub-card-sub { font-size: 6px; letter-spacing: 2px; color: rgba(229,229,229,0.2); text-transform: uppercase; margin-bottom: 5px; }
-        .hub-card-title { font-family: 'Libre Baskerville', serif; font-size: 13px; font-weight: 400; color: #e5e5e5; line-height: 1.3; margin-bottom: 10px; }
-        .hub-card.featured .hub-card-title { font-size: 15px; }
+        .hub-card-body { padding: 10px 12px 12px; }
+        .hub-card-sub   { font-size: 6px; letter-spacing: 1.5px; color: rgba(229,229,229,0.2); text-transform: uppercase; margin-bottom: 4px; }
+        .hub-card-title { font-family: 'Libre Baskerville', serif; font-size: 12px; font-weight: 400; color: #e5e5e5; line-height: 1.35; margin-bottom: 9px; }
+        .hub-card-anchor .hub-card-title { font-size: 14px; }
 
-        /* CARD actions */
-        .hub-card-actions { display: flex; gap: 6px; }
+        .hub-card-actions { display: flex; gap: 5px; }
         .hub-btn {
-          flex: 1; padding: 7px 6px; font-family: 'Montserrat', sans-serif;
-          font-size: 6px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-          cursor: pointer; transition: all 0.2s; border-radius: 2px; border: 1px solid;
-          white-space: nowrap;
+          flex: 1; padding: 6px 4px; font-family: 'Montserrat', sans-serif;
+          font-size: 6px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+          cursor: pointer; transition: all 0.2s; border-radius: 2px; border: 1px solid; white-space: nowrap;
         }
-        .hub-btn-primary {
-          background: rgba(197,160,89,0.1); color: #C5A059; border-color: rgba(197,160,89,0.25);
-        }
+        .hub-btn-primary   { background: rgba(197,160,89,0.1); color: #C5A059; border-color: rgba(197,160,89,0.25); }
         .hub-btn-primary:hover { background: rgba(197,160,89,0.2); border-color: rgba(197,160,89,0.5); }
-        .hub-btn-secondary {
-          background: rgba(255,255,255,0.03); color: rgba(229,229,229,0.35); border-color: rgba(255,255,255,0.08);
-        }
+        .hub-btn-secondary { background: rgba(255,255,255,0.03); color: rgba(229,229,229,0.35); border-color: rgba(255,255,255,0.08); }
         .hub-btn-secondary:hover { background: rgba(255,255,255,0.06); color: rgba(229,229,229,0.6); }
-        .hub-btn-soon {
-          background: none; color: rgba(229,229,229,0.2); border-color: rgba(255,255,255,0.06);
-          cursor: default; flex: 1; padding: 7px 6px;
-          font-size: 6px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-        }
+        .hub-btn-soon { background: none; color: rgba(229,229,229,0.2); border-color: rgba(255,255,255,0.06); cursor: default; flex: 1; padding: 6px 4px; font-size: 6px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
 
-        /* FUNNEL arrow connector */
+        /* ── FUNNEL ARROW ── */
         .hub-funnel-arrow {
-          display: flex; align-items: center; justify-content: center;
-          height: 32px; gap: 8px; margin-bottom: 8px; padding-left: 40px;
+          display: flex; align-items: center; justify-content: flex-start;
+          height: 28px; gap: 8px; margin-bottom: 12px; padding-left: 20px;
         }
-        .hub-funnel-arrow-line { flex: 1; height: 1px; background: rgba(197,160,89,0.1); max-width: 40px; }
-        .hub-funnel-arrow-icon { font-size: 10px; color: rgba(197,160,89,0.3); }
+        .hub-funnel-arrow-line { width: 32px; height: 1px; background: rgba(197,160,89,0.12); }
+        .hub-funnel-arrow-icon { font-size: 9px; color: rgba(197,160,89,0.3); }
+
+        /* ── ROW HEADER ── */
+        .hub-row-header {
+          display: flex; align-items: center; gap: 12px;
+          padding: 0 0 10px 0; margin-bottom: 0;
+        }
+        .hub-row-num {
+          width: 20px; height: 20px; border-radius: 50%;
+          background: rgba(197,160,89,0.1); border: 1px solid rgba(197,160,89,0.25);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 8px; font-weight: 900; color: #C5A059; flex-shrink: 0;
+        }
+        .hub-row-title { font-size: 8px; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase; color: rgba(229,229,229,0.28); }
 
         @media (max-width: 900px) {
           .hub-side { display: none; }
-          .hub-main { padding: 24px 20px 48px; }
-          .hub-card { width: 160px; }
-          .hub-card.featured { width: 190px; }
+          .hub-main { padding: 24px 16px 48px; }
+          .hub-product-row { flex-direction: column; }
+          .hub-anchor { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); width: 100%; flex-direction: row; flex-wrap: wrap; justify-content: center; }
+          .hub-card-anchor { width: 160px; }
+          .hub-card-companion { width: 130px; }
         }
       `}</style>
 
@@ -385,7 +372,7 @@ export default function EliteHub() {
           {[
             { label: "Meu Acervo", dot: true },
             { label: "Comunidade", dot: false },
-            { label: "Suporte", dot: false },
+            { label: "Suporte",    dot: false },
           ].map((item) => (
             <button key={item.label} className={`hub-nav-item${item.dot ? " active" : ""}`}>
               <span className="hub-nav-dot" />
@@ -408,24 +395,34 @@ export default function EliteHub() {
         {/* ── MAIN ── */}
         <main className="hub-main">
 
-          {/* ①  PRODUTO PRINCIPAL */}
-          <FunnelSection num="1" title="Produto Principal">
-            <div className="hub-grid">
-              {PRINCIPAL.map((p) => (
-                <Card key={p.id} p={p} featured hovered={hovered} setHovered={setHovered} navigate={navigate} />
-              ))}
-            </div>
-          </FunnelSection>
-
-          {/* bônus do principal */}
-          <div className="hub-section-sub">
-            <span className="hub-section-sub-label">Bônus inclusos</span>
-            <div className="hub-section-sub-rule" />
+          {/* ─── LINHA 1 — Método Essência Ativa BR ─── */}
+          <div className="hub-row-header" style={{ marginBottom: 10 }}>
+            <div className="hub-row-num">1</div>
+            <span className="hub-row-title">Método Essência Ativa BR</span>
           </div>
-          <div className="hub-grid" style={{ marginBottom: 48 }}>
-            {BONUS_PRINCIPAL.map((p) => (
-              <Card key={p.id} p={p} hovered={hovered} setHovered={setHovered} navigate={navigate} />
-            ))}
+
+          <div className="hub-product-row">
+            {/* Produto principal */}
+            <div className="hub-anchor">
+              <span className="hub-anchor-label">Principal</span>
+              {card(METODO, "anchor")}
+            </div>
+
+            {/* Complementos */}
+            <div className="hub-companions">
+              <div className="hub-group">
+                <div className="hub-group-label">Bônus Inclusos</div>
+                <div className="hub-group-cards">
+                  {METODO_BONUS.map((p) => card(p))}
+                </div>
+              </div>
+              <div className="hub-group">
+                <div className="hub-group-label">Ofertas Especiais (Order Bumps)</div>
+                <div className="hub-group-cards">
+                  {METODO_OBS.map((p) => card(p))}
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* seta de funil */}
@@ -435,40 +432,28 @@ export default function EliteHub() {
             <div className="hub-funnel-arrow-line" />
           </div>
 
-          {/* ②  ORDER BUMPS */}
-          <FunnelSection num="2" title="Order Bumps">
-            <div className="hub-grid">
-              {ORDER_BUMPS.map((p) => (
-                <Card key={p.id} p={p} hovered={hovered} setHovered={setHovered} navigate={navigate} />
-              ))}
-            </div>
-          </FunnelSection>
-
-          {/* seta de funil */}
-          <div className="hub-funnel-arrow">
-            <div className="hub-funnel-arrow-line" />
-            <span className="hub-funnel-arrow-icon">▼</span>
-            <div className="hub-funnel-arrow-line" />
+          {/* ─── LINHA 2 — O Cofre das Botânicas Secretas (Upsell) ─── */}
+          <div className="hub-row-header" style={{ marginBottom: 10 }}>
+            <div className="hub-row-num">2</div>
+            <span className="hub-row-title">O Cofre das Botânicas Secretas — Upsell</span>
           </div>
 
-          {/* ③  UPSELL */}
-          <FunnelSection num="3" title="Upsell — O Cofre das Botânicas Secretas">
-            <div className="hub-grid">
-              {UPSELL.map((p) => (
-                <Card key={p.id} p={p} featured hovered={hovered} setHovered={setHovered} navigate={navigate} />
-              ))}
+          <div className="hub-product-row">
+            {/* Upsell principal */}
+            <div className="hub-anchor">
+              <span className="hub-anchor-label">Upsell</span>
+              {card(COFRE, "anchor")}
             </div>
-          </FunnelSection>
 
-          {/* ligados ao upsell */}
-          <div className="hub-section-sub">
-            <span className="hub-section-sub-label">Conteúdos ligados ao upsell</span>
-            <div className="hub-section-sub-rule" />
-          </div>
-          <div className="hub-grid">
-            {UPSELL_LINKED.map((p) => (
-              <Card key={p.id} p={p} hovered={hovered} setHovered={setHovered} navigate={navigate} />
-            ))}
+            {/* Complementos */}
+            <div className="hub-companions">
+              <div className="hub-group">
+                <div className="hub-group-label">Conteúdos Inclusos</div>
+                <div className="hub-group-cards">
+                  {COFRE_COMPLEMENTOS.map((p) => card(p))}
+                </div>
+              </div>
+            </div>
           </div>
 
         </main>
@@ -479,46 +464,31 @@ export default function EliteHub() {
 
 /* ── sub-componentes ───────────────────── */
 
-function FunnelSection({ num, title, children }: { num: string; title: string; children: React.ReactNode }) {
-  return (
-    <section className="hub-section">
-      <div className="hub-section-header">
-        <div className="hub-section-num">{num}</div>
-        <span className="hub-section-title">{title}</span>
-        <div className="hub-section-rule" />
-      </div>
-      {children}
-    </section>
-  );
-}
-
 function Card({
-  p, featured = false, hovered, setHovered, navigate,
+  p, size = "companion", hovered, setHovered, navigate,
 }: {
   p: ProductCard;
-  featured?: boolean;
+  size?: "anchor" | "companion";
   hovered: string | null;
   setHovered: (id: string | null) => void;
   navigate: (a: CardAction) => void;
 }) {
   const tag = TAG_STYLES[p.tagVariant];
-  const isHovered = hovered === p.id;
 
   return (
     <div
-      className={`hub-card${featured ? " featured" : ""}${p.locked ? " locked" : ""}`}
+      className={`hub-card hub-card-${size}${p.locked ? " locked" : ""}`}
       onMouseEnter={() => !p.locked && setHovered(p.id)}
       onMouseLeave={() => setHovered(null)}
       onClick={() => !p.locked && navigate(p.action)}
     >
-      {/* image */}
       <div className="hub-card-img">
         <div className="hub-card-img-inner" style={{ backgroundImage: `url('${p.cover}')` }} />
         <div className="hub-card-img-fade" />
         <span className="hub-card-tag" style={{ background: tag.bg, color: tag.color, borderColor: tag.border }}>
           {p.tag}
         </span>
-        {p.locked && <div className="hub-card-lock-icon">🔒</div>}
+        {p.locked && <div className="hub-card-lock">🔒</div>}
         {p.progress === 100 && <span className="hub-badge-done">✓ Concluído</span>}
         {typeof p.progress === "number" && p.progress > 0 && p.progress < 100 && (
           <div className="hub-card-progress">
@@ -526,8 +496,6 @@ function Card({
           </div>
         )}
       </div>
-
-      {/* body */}
       <div className="hub-card-body">
         <p className="hub-card-sub">{p.subtitle}</p>
         <p className="hub-card-title">{p.title}</p>
@@ -540,26 +508,18 @@ function Card({
 }
 
 function ActionButtons({ action, navigate }: { action: CardAction; navigate: (a: CardAction) => void }) {
-  if (action.type === "soon") {
+  if (action.type === "soon")
     return <span className="hub-btn-soon">Em breve</span>;
-  }
-  if (action.type === "viewer") {
-    return (
-      <button className="hub-btn hub-btn-primary" onClick={() => navigate(action)}>▶ Acessar</button>
-    );
-  }
-  if (action.type === "pdf") {
-    return (
-      <button className="hub-btn hub-btn-primary" onClick={() => navigate(action)}>↓ Baixar PDF</button>
-    );
-  }
-  if (action.type === "both") {
+  if (action.type === "viewer")
+    return <button className="hub-btn hub-btn-primary" onClick={() => navigate(action)}>▶ Acessar</button>;
+  if (action.type === "pdf")
+    return <button className="hub-btn hub-btn-primary" onClick={() => navigate(action)}>↓ Baixar PDF</button>;
+  if (action.type === "both")
     return (
       <>
-        <button className="hub-btn hub-btn-primary" onClick={() => navigate({ type: "viewer", path: action.viewerPath })}>▶ Viewer</button>
+        <button className="hub-btn hub-btn-primary"   onClick={() => navigate({ type: "viewer", path: action.viewerPath })}>▶ Viewer</button>
         <button className="hub-btn hub-btn-secondary" onClick={() => window.open(`/downloads/${action.pdfFile}`, "_blank")}>↓ PDF</button>
       </>
     );
-  }
   return null;
 }
