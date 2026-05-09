@@ -328,10 +328,10 @@ export default function EliteHub() {
 
         /* Anchor */
         .hub-anchor {
-          flex-shrink: 0; width: 228px;
+          flex-shrink: 0;
           padding: 22px 20px;
           background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.15) 100%);
-          border-right: 1px solid rgba(255,255,255,0.05);
+          border-right: 1px solid rgba(255,255,255,0.07);
           display: flex; flex-direction: column; align-items: center;
         }
         .hub-anchor-eyebrow {
@@ -340,24 +340,30 @@ export default function EliteHub() {
           margin-bottom: 14px; text-align: center;
         }
 
-        /* Companion area */
-        .hub-companions {
+        /* Scroll rail */
+        .hub-scroll-rail {
           flex: 1; min-width: 0;
-          display: flex;
+          overflow-x: auto;
+          display: flex; align-items: stretch;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(197,160,89,0.2) transparent;
         }
+        .hub-scroll-rail::-webkit-scrollbar { height: 4px; }
+        .hub-scroll-rail::-webkit-scrollbar-track { background: transparent; }
+        .hub-scroll-rail::-webkit-scrollbar-thumb { background: rgba(197,160,89,0.2); border-radius: 2px; }
 
         /* Group */
         .hub-group {
-          flex: 1; min-width: 0;
+          flex-shrink: 0;
           display: flex; flex-direction: column;
-          padding: 20px 20px 22px;
+          padding: 20px 22px 22px;
         }
         .hub-group + .hub-group {
           border-left: 1px solid rgba(255,255,255,0.05);
         }
         .hub-group-header {
           display: flex; align-items: center; gap: 10px;
-          margin-bottom: 16px;
+          margin-bottom: 16px; white-space: nowrap;
         }
         .hub-group-dot {
           width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
@@ -366,12 +372,11 @@ export default function EliteHub() {
           font-size: 7px; font-weight: 700; letter-spacing: 3px;
           text-transform: uppercase;
         }
-        .hub-group-rule { flex: 1; height: 1px; }
         .hub-group-count {
           font-size: 6.5px; font-weight: 600; letter-spacing: 1px;
           padding: 2px 7px; border-radius: 10px; border: 1px solid;
         }
-        .hub-group-cards { display: flex; flex-wrap: wrap; gap: 12px; }
+        .hub-group-cards { display: flex; gap: 12px; flex-wrap: nowrap; }
 
         /* ══ CARDS ══ */
         .hub-card {
@@ -381,8 +386,8 @@ export default function EliteHub() {
           transition: transform 0.3s cubic-bezier(.2,.8,.2,1), border-color 0.3s, box-shadow 0.3s;
           position: relative; flex-shrink: 0;
         }
-        .hub-card-anchor    { width: 184px; }
-        .hub-card-companion { width: 166px; }
+        .hub-card-anchor    { width: 198px; }
+        .hub-card-companion { width: 178px; }
 
         .hub-card:hover {
           transform: translateY(-4px);
@@ -541,14 +546,13 @@ export default function EliteHub() {
                 </div>
 
                 {/* Grupos lado a lado */}
-                <div className="hub-companions">
+                <div className="hub-scroll-rail">
 
                   {/* Bônus */}
                   <div className="hub-group" style={{ background: GROUP_ACCENT.bonus.bg }}>
                     <div className="hub-group-header">
                       <div className="hub-group-dot" style={{ background: GROUP_ACCENT.bonus.label }} />
                       <span className="hub-group-label" style={{ color: GROUP_ACCENT.bonus.label }}>Bônus Inclusos</span>
-                      <div className="hub-group-rule" style={{ background: GROUP_ACCENT.bonus.border }} />
                       <span className="hub-group-count" style={{ color: GROUP_ACCENT.bonus.label, borderColor: GROUP_ACCENT.bonus.border }}>
                         {METODO_BONUS.length}
                       </span>
@@ -563,7 +567,6 @@ export default function EliteHub() {
                     <div className="hub-group-header">
                       <div className="hub-group-dot" style={{ background: GROUP_ACCENT.ob.label }} />
                       <span className="hub-group-label" style={{ color: GROUP_ACCENT.ob.label }}>Ofertas Especiais</span>
-                      <div className="hub-group-rule" style={{ background: GROUP_ACCENT.ob.border }} />
                       <span className="hub-group-count" style={{ color: GROUP_ACCENT.ob.label, borderColor: GROUP_ACCENT.ob.border }}>
                         {METODO_OBS.length}
                       </span>
@@ -599,12 +602,11 @@ export default function EliteHub() {
                 </div>
 
                 {/* Complementos */}
-                <div className="hub-companions">
+                <div className="hub-scroll-rail">
                   <div className="hub-group" style={{ background: GROUP_ACCENT.included.bg }}>
                     <div className="hub-group-header">
                       <div className="hub-group-dot" style={{ background: GROUP_ACCENT.included.label }} />
                       <span className="hub-group-label" style={{ color: GROUP_ACCENT.included.label }}>Conteúdos Inclusos</span>
-                      <div className="hub-group-rule" style={{ background: GROUP_ACCENT.included.border }} />
                       <span className="hub-group-count" style={{ color: GROUP_ACCENT.included.label, borderColor: GROUP_ACCENT.included.border }}>
                         {COFRE_COMPLEMENTOS.length}
                       </span>
