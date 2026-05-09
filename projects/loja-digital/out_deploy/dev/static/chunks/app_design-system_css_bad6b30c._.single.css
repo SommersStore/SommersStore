@@ -1,0 +1,101 @@
+/* [project]/app/design-system.css [app-client] (css) */
+:root {
+  --ss-color-black: #050508;
+  --ss-color-gold: #c5a059;
+  --ss-color-cream: beige;
+  --ss-color-dark-grey: #1a1a1a;
+  --ss-color-gold-muted: #c5a05933;
+  --ss-color-glass: #0d0d14cc;
+  --ss-font-master: "Montserrat", sans-serif;
+  --ss-font-editorial: "Libre Baskerville", serif;
+  --ss-space-xs: 4px;
+  --ss-space-sm: 8px;
+  --ss-space-md: 16px;
+  --ss-space-lg: 32px;
+  --ss-space-xl: 64px;
+  --ss-radius-sm: 2px;
+  --ss-radius-md: 4px;
+  --ss-border-gold: 1px solid var(--ss-color-gold-muted);
+  --ss-shadow-gold: 0 4px 20px #c5a0590d;
+  --ss-blur-glass: blur(15px);
+}
+
+body {
+  background-color: var(--ss-color-black);
+  color: var(--ss-color-cream);
+  font-family: var(--ss-font-master);
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+}
+
+h1, h2, h3, .editorial-text {
+  font-family: var(--ss-font-editorial);
+}
+
+.ss-card {
+  background: var(--ss-color-glass);
+  -webkit-backdrop-filter: var(--ss-blur-glass);
+  backdrop-filter: var(--ss-blur-glass);
+  border: var(--ss-border-gold);
+  border-radius: var(--ss-radius-md);
+  box-shadow: var(--ss-shadow-gold);
+}
+
+.ss-button-gold {
+  border: 1px solid var(--ss-color-gold);
+  color: var(--ss-color-gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  background: none;
+  padding: 10px 20px;
+  font-size: 10px;
+  font-weight: 700;
+  transition: all .3s;
+}
+
+.ss-button-gold:hover {
+  background: var(--ss-color-gold);
+  color: var(--ss-color-black);
+}
+
+.ss-badge-gold {
+  background: var(--ss-color-gold-muted);
+  color: var(--ss-color-gold);
+  border: 1px solid var(--ss-color-gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 2px;
+  padding: 4px 8px;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.ss-input-focus:focus {
+  box-shadow: 0 0 10px #c5a0591a;
+  border-color: var(--ss-color-gold) !important;
+}
+
+/*# sourceMappingURL=app_design-system_css_bad6b30c._.single.css.map*/
