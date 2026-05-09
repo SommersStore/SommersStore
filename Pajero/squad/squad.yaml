@@ -1,0 +1,86 @@
+name: pajero-v77w-diagnostic-squad
+version: 1.0.0
+short-title: Pajero V77W Diagnostic Squad
+description: Squad tecnico para diagnostico, revisao, evidencias, fontes, seguranca e planejamento de servico da Pajero V77W 6G75 V5A51.
+author: Codex / SommersStore
+license: UNLICENSED
+slashPrefix: pajero
+
+aiox:
+  minVersion: "2.1.0"
+  type: squad
+
+requires:
+  node: ">=18.0.0"
+  aiox: ">=2.1.0"
+
+tags:
+  - pajero
+  - v77w
+  - 6g75
+  - v5a51
+  - diagnostico-automotivo
+  - oficina-digital
+
+components:
+  tasks:
+    - diagnostico-inicial.md
+    - motor-consumo-lenta.md
+    - cambio-v5a51.md
+    - transfer-diferenciais.md
+    - suspensao-direcao.md
+    - freios-seguranca.md
+    - imagens-diagramas.md
+    - qa-final.md
+  agents:
+    - pajero-chief-diagnostician.md
+    - oem-technical-librarian.md
+    - evidence-anti-hallucination-auditor.md
+    - combustion-fuel-trim-engineer.md
+    - driveability-electronics-diagnostician.md
+    - engine-6g75-practical-mechanic.md
+    - transmission-v5a51-specialist.md
+    - super-select-drivetrain-specialist.md
+    - suspension-hydraulic-steering-engineer.md
+    - brake-road-safety-inspector.md
+    - visual-teardown-mapper.md
+    - work-order-parts-planner.md
+  workflows:
+    - workflow-diagnostico-inicial.md
+    - workflow-motor-consumo-lenta.md
+    - workflow-cambio-v5a51.md
+    - workflow-transfer-diferenciais.md
+    - workflow-suspensao-direcao.md
+    - workflow-freios-seguranca.md
+    - workflow-imagens-e-diagramas.md
+    - workflow-qa-final.md
+  checklists:
+    - qa-final-checklist.md
+  templates:
+    - ordem-servico.md
+    - parecer-diagnostico.md
+    - laudo-foto.md
+  tools: []
+  scripts: []
+
+config:
+  extends: extend
+  coding-standards: config/coding-standards.md
+  tech-stack: config/tech-stack.md
+  source-tree: config/source-tree.md
+
+dependencies:
+  node: []
+  python: []
+  squads:
+    - memory
+
+integration:
+  projectPath: ../../Pajero
+  dashboard: ../../Pajero/ui/index.html
+  data:
+    vehicleProfile: ../../Pajero/data/vehicle-profile.json
+    revisionModules: ../../Pajero/data/revision-modules.json
+    imageManifest: ../../Pajero/data/image-manifest.json
+    squadRoster: ../../Pajero/data/squad-roster.json
+

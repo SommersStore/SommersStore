@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Painel de Diagnostico e Revisao - Pajero V77W 6G75</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="vehicle-header" id="vehicle-header"></header>
+
+    <main class="app-shell">
+      <aside class="module-menu" aria-label="Menu de modulos">
+        <div class="panel-title">Modulos</div>
+        <nav id="module-nav" class="module-nav"></nav>
+      </aside>
+
+      <section class="workspace" aria-label="Blocos de revisao">
+        <div class="workspace-toolbar">
+          <div>
+            <p class="eyebrow">Painel tecnico</p>
+            <h1>Painel de Diagnostico e Revisao - Pajero V77W 6G75</h1>
+            <p id="status-line" class="status-line"></p>
+          </div>
+          <label class="filter-control">
+            <span>Filtro</span>
+            <select id="priority-filter">
+              <option value="todos">Todos</option>
+              <option value="Critico">Critico</option>
+              <option value="Preventivo obrigatorio">Preventivo obrigatorio</option>
+              <option value="Preventivo programavel">Preventivo programavel</option>
+              <option value="Estetico/conforto">Estetico/conforto</option>
+            </select>
+          </label>
+        </div>
+
+        <section id="module-grid" class="module-grid"></section>
+        <section id="detail-panel" class="detail-panel"></section>
+        <section id="squad-panel" class="squad-panel"></section>
+      </section>
+
+      <aside class="image-sidebar" aria-label="Imagens, pecas e localizacao">
+        <div class="image-sidebar-head">
+          <p class="eyebrow">Evidencias</p>
+          <h2>Imagens / Pecas / Localizacao no veiculo</h2>
+        </div>
+        <div id="image-list" class="image-list"></div>
+      </aside>
+    </main>
+
+    <footer id="critical-strip" class="critical-strip"></footer>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,125 @@
+{
+  "version": 3,
+  "updated_at": "2026-05-04",
+  "profile": {
+    "owner": "Projeto Financas",
+    "currency": "BRL",
+    "strategy": "Usar a aba SsS Ltda 2025 como orcamento operacional mensal, controlar caixa negativo, reduzir parcelas recorrentes e separar simulacoes do caixa real.",
+    "legal_guardrail": "Usar fontes oficiais e revisao profissional antes de decisao juridica, acordo irreversivel ou investimento de risco."
+  },
+  "spreadsheet": {
+    "source": {
+      "file_name": "Financeiro 2026.xlsx",
+      "desktop_path": "C:\\Users\\ADMIN\\Desktop\\Financeiro 2026.xlsx",
+      "source_sheet": "SsS Ltda 2025",
+      "last_modified_local": "2026-05-04 11:32:39",
+      "import_file": "projects/financas/data/financeiro_2026_sss_ltda_2025_import.json",
+      "review_file": "projects/financas/financeiro_2026_sss_ltda_2025_review.md"
+    },
+    "snapshot": {
+      "source_sheet": "SsS Ltda 2025",
+      "current_period": "2026-05",
+      "current_month": "Maio",
+      "value_column": "O",
+      "receita_total": 11257,
+      "despesas": 2792,
+      "dividas_mensais": 11654,
+      "despesas_mais_dividas": 14446,
+      "saldo": -3189,
+      "saldo_acumulado": -14261,
+      "divida_total": 129824.5,
+      "reserva_total": 0,
+      "base_note": "Valores do periodo 2026-05 extraidos da aba SsS Ltda 2025. Divida total e estimada pela coluna A multiplicada pela parcela mensal quando a aba nao traz saldo aberto."
+    },
+    "monthly_forecast": [
+      { "period": "2025-11", "month": "Novembro", "income": 9857, "expenses": 1516, "debts_payment": 4208, "total_outflow": 5724, "monthly_balance": 4133, "accumulated_balance": 4133, "reserve": 0 },
+      { "period": "2025-12", "month": "Dezembro", "income": 14257, "expenses": 3062, "debts_payment": 3854, "total_outflow": 6916, "monthly_balance": 7341, "accumulated_balance": 11474, "reserve": 0 },
+      { "period": "2026-01", "month": "Janeiro", "income": 11257, "expenses": 3062, "debts_payment": 21054, "total_outflow": 24116, "monthly_balance": -12859, "accumulated_balance": -1385, "reserve": 0 },
+      { "period": "2026-02", "month": "Fevereiro", "income": 11257, "expenses": 2912, "debts_payment": 11654, "total_outflow": 14566, "monthly_balance": -3309, "accumulated_balance": -4694, "reserve": 0 },
+      { "period": "2026-03", "month": "Marco", "income": 11257, "expenses": 2792, "debts_payment": 11654, "total_outflow": 14446, "monthly_balance": -3189, "accumulated_balance": -7883, "reserve": 0 },
+      { "period": "2026-04", "month": "Abril", "income": 11257, "expenses": 2792, "debts_payment": 11654, "total_outflow": 14446, "monthly_balance": -3189, "accumulated_balance": -11072, "reserve": 0 },
+      { "period": "2026-05", "month": "Maio", "income": 11257, "expenses": 2792, "debts_payment": 11654, "total_outflow": 14446, "monthly_balance": -3189, "accumulated_balance": -14261, "reserve": 0 },
+      { "period": "2026-06", "month": "Junho", "income": 11257, "expenses": 2792, "debts_payment": 11654, "total_outflow": 14446, "monthly_balance": -3189, "accumulated_balance": -17450, "reserve": 0 },
+      { "period": "2026-07", "month": "Julho", "income": 11257, "expenses": 2792, "debts_payment": 11654, "total_outflow": 14446, "monthly_balance": -3189, "accumulated_balance": -20639, "reserve": 0 },
+      { "period": "2026-08", "month": "Agosto", "income": 11257, "expenses": 2557, "debts_payment": 11654, "total_outflow": 14211, "monthly_balance": -2954, "accumulated_balance": -23593, "reserve": 0 },
+      { "period": "2026-09", "month": "Setembro", "income": 11257, "expenses": 2557, "debts_payment": 11654, "total_outflow": 14211, "monthly_balance": -2954, "accumulated_balance": -26547, "reserve": 0 },
+      { "period": "2026-10", "month": "Outubro", "income": 11257, "expenses": 2557, "debts_payment": 11654, "total_outflow": 14211, "monthly_balance": -2954, "accumulated_balance": -29501, "reserve": 0 },
+      { "period": "2026-11", "month": "Novembro", "income": 11257, "expenses": 2557, "debts_payment": 11654, "total_outflow": 14211, "monthly_balance": -2954, "accumulated_balance": -32455, "reserve": 0 },
+      { "period": "2026-12", "month": "Dezembro", "income": 11257, "expenses": 2557, "debts_payment": 11654, "total_outflow": 14211, "monthly_balance": -2954, "accumulated_balance": -35409, "reserve": 0 }
+    ],
+    "workbook_sheets": [
+      { "name": "SsS Ltda 2025", "role": "orcamento operacional mensal 2025/2026", "status": "principal" },
+      { "name": "PESSOAL", "role": "snapshot pessoal complementar", "status": "referencia secundaria" },
+      { "name": "2024", "role": "historico mensal", "status": "usar para tendencia" },
+      { "name": "Deriv Robo / Projecao Futura / Planilha2 / Hedging", "role": "simulacoes de trading e risco", "status": "isolar dos KPIs reais" }
+    ],
+    "data_quality_flags": [
+      "A aba SsS Ltda 2025 projeta caixa mensal e nao mostra saldo atualizado formal de cada divida.",
+      "A coluna A foi tratada como fator/parcelas para estimar compromisso remanescente; validar contrato por contrato.",
+      "Maio/2026 mostra caixa mensal negativo de R$ 3.189 e saldo acumulado negativo de R$ 14.261.",
+      "A linha UBER precisa separar bruto, combustivel, pedagio, alimentacao, manutencao e liquido.",
+      "Linhas zeradas como Carro, Patricia, Lion e Carro at precisam ser classificadas como pausadas, quitadas ou apenas previstas."
+    ],
+    "recommendations": [
+      "Tratar SsS Ltda 2025 como orcamento previsto e fechar realizado mensalmente em uma aba separada.",
+      "Criar uma coluna de saldo real por divida, alem da parcela mensal.",
+      "Separar despesas PF e PJ para Mercado, celular, luz, gas, internet e SemParar.",
+      "Criar uma visao de renegociacao por maior impacto mensal: Horto, Mamud, M.C. Nu PJ, Bradesco e EAGLE.",
+      "Usar a aba Financas como cockpit de decisao mensal e manter simulacoes de trading fora dos KPIs operacionais.",
+      "Criar aba 'Realizado' no Excel separada do previsto para fechamento mensal real.",
+      "Separar UBER em: bruto, gasolina, pedagio, alimentacao, manutencao e liquido.",
+      "Classificar linhas zeradas: Carro, Patricia, Lion como pausada, quitada ou prevista.",
+      "Separar despesas PF vs PJ (Mercado, Celular, Luz, Gas, Internet).",
+      "Criar coluna de status de negociacao por credor com data do ultimo contato."
+    ],
+    "panel_workflow": [
+      "Abrir a subaba Planilha para ver o forecast mensal e o mes de referencia.",
+      "Usar Caixa para revisar receitas PM, Uber e despesas recorrentes do mes.",
+      "Usar Dividas para validar a parcela mensal e substituir estimativas por saldo real de contrato.",
+      "Priorizar cortes/renegociacoes que removam pelo menos R$ 3.189 do deficit mensal de maio/2026.",
+      "Salvar o JSON depois de cada fechamento mensal."
+    ]
+  },
+  "income": [
+    { "id": "inc-sss-pagto-pm", "label": "Pagto PM", "amount": 6257, "kind": "fixa", "source_ref": "SsS Ltda 2025!O40" },
+    { "id": "inc-sss-uber", "label": "UBER", "amount": 5000, "kind": "variavel", "source_ref": "SsS Ltda 2025!O41", "notes": "Validar se e bruto ou liquido depois de gasolina/pedagio/alimentacao/manutencao." },
+    { "id": "inc-sss-outros", "label": "Outros / CNPJ", "amount": 0, "kind": "cenario", "source_ref": "SsS Ltda 2025!O42:O44" }
+  ],
+  "expenses": [
+    { "id": "exp-sss-mercado", "label": "Mercado", "amount": 1800, "kind": "essencial", "source_ref": "SsS Ltda 2025!O4" },
+    { "id": "exp-sss-celular-pj", "label": "Celular PJ", "amount": 112, "kind": "empresa", "source_ref": "SsS Ltda 2025!O5" },
+    { "id": "exp-sss-celular-pf", "label": "Celular PF", "amount": 45, "kind": "essencial", "source_ref": "SsS Ltda 2025!O6" },
+    { "id": "exp-sss-semparar-pj", "label": "SemParar PJ", "amount": 50, "kind": "empresa", "source_ref": "SsS Ltda 2025!O8" },
+    { "id": "exp-sss-luz-rosa", "label": "Luz Rosa", "amount": 350, "kind": "essencial", "source_ref": "SsS Ltda 2025!O9" },
+    { "id": "exp-sss-luz-rosa-at", "label": "Luz Rosa atrasada", "amount": 235, "kind": "regularizacao", "source_ref": "SsS Ltda 2025!O10" },
+    { "id": "exp-sss-gas", "label": "Gas", "amount": 100, "kind": "essencial", "source_ref": "SsS Ltda 2025!O11" },
+    { "id": "exp-sss-net", "label": "Net", "amount": 100, "kind": "essencial", "source_ref": "SsS Ltda 2025!O13" }
+  ],
+  "debts": [
+    { "id": "debt-sss-bradesco-58", "creditor": "Bradesco", "type": "orcamento_mensal", "current_amount": 66004, "original_amount": 66004, "monthly_payment": 1138, "target_offer": 19801.2, "installments": 58, "paid_count": 0, "sub_status": "ativo", "prazo_final": "2031-03", "plano_quitacao": "", "protest": false, "spc_serasa": false, "judicial": "desconhecido", "priority": "alta", "status": "mapear", "source_ref": "SsS Ltda 2025!O17", "notes": "Saldo estimado por fator 58 x parcela. Substituir por saldo real do contrato." },
+    { "id": "debt-sss-bradesco-26", "creditor": "Bradesco", "type": "orcamento_mensal", "current_amount": 12194, "original_amount": 12194, "monthly_payment": 469, "target_offer": 3658.2, "installments": 26, "paid_count": 0, "sub_status": "ativo", "prazo_final": "2028-07", "plano_quitacao": "", "protest": false, "spc_serasa": false, "judicial": "desconhecido", "priority": "alta", "status": "mapear", "source_ref": "SsS Ltda 2025!O18", "notes": "Saldo estimado por fator 26 x parcela." },
+    { "id": "debt-sss-bradesco-05", "creditor": "Bradesco", "type": "orcamento_mensal", "current_amount": 26.5, "original_amount": 26.5, "monthly_payment": 53, "target_offer": 8, "installments": 1, "paid_count": 0, "sub_status": "stand_by", "prazo_final": "", "plano_quitacao": "Validar se permanece como divida — fator 0,5 indica possivel linha de ajuste.", "protest": false, "spc_serasa": false, "judicial": "desconhecido", "priority": "baixa", "status": "mapear", "source_ref": "SsS Ltda 2025!O19", "notes": "Fator 0,5 indica linha de ajuste; validar se permanece como divida." },
+    { "id": "debt-sss-safra", "creditor": "Safra", "type": "orcamento_mensal", "current_amount": 1404, "original_amount": 1404, "monthly_payment": 156, "target_offer": 421.2, "installments": 9, "paid_count": 0, "sub_status": "ativo", "prazo_final": "2027-02", "plano_quitacao": "", "protest": false, "spc_serasa": false, "judicial": "desconhecido", "priority": "media", "status": "mapear", "source_ref": "SsS Ltda 2025!O20", "notes": "Saldo estimado por fator 9 x parcela." },
+    { "id": "debt-sss-daycoval-8", "creditor": "Daycoval", "type": "orcamento_mensal", "current_amount": 1664, "original_amount": 1664, "monthly_payment": 208, "target_offer": 499.2, "installments": 8, "paid_count": 0, "sub_status": "ativo", "prazo_final": "2027-01", "plano_quitacao": "", "protest": false, "spc_serasa": false, "judicial": "desconhecido", "priority": "media", "status": "mapear", "source_ref": "SsS Ltda 2025!O21", "notes": "Saldo estimado por fator 8 x parcela." },
+    { "id": "debt-sss-daycoval-3", "creditor": "Daycoval", "type": "orcamento_mensal", "current_amount": 102, "original_amount": 102, "monthly_payment": 34, "target_offer": 30.6, "installments": 3, "paid_count": 0, "sub_status": "ativo", "prazo_final": "2026-08", "plano_quitacao": "Bola de Neve — menor saldo, quitar primeiro para liberar parcela.", "protest": false, "spc_serasa": false, "judicial": "desconhecido", "priority": "baixa", "status": "mapear", "source_ref": "SsS Ltda 2025!O22", "notes": "Saldo estimado por fator 3 x parcela." },
+    { "id": "debt-sss-santander", "creditor": "Santander", "type": "orcamento_mensal", "current_amount": 332, "original_amount": 332, "monthly_payment": 83, "target_offer": 99.6, "installments": 4, "paid_count": 0, "sub_status": "ativo", "prazo_final": "2026-09", "plano_quitacao": "Bola de Neve — segundo menor saldo, quitar logo apos Daycoval 3p.", "protest": false, "spc_serasa": false, "judicial": "desconhecido", "priority": "baixa", "status": "mapear", "source_ref": "SsS Ltda 2025!O23", "notes": "Saldo estimado por fator 4 x parcela." },
+    { "id": "debt-sss-bmg", "creditor": "BMG", "type": "orcamento_mensal", "current_amount": 1818, "original_amount": 1818, "monthly_payment": 303, "target_offer": 545.4, "installments": 6, "paid_count": 0, "sub_status": "ativo", "prazo_final": "2026-11", "plano_quitacao": "", "protest": false, "spc_serasa": false, "judicial": "desconhecido", "priority": "media", "status": "mapear", "source_ref": "SsS Ltda 2025!O24", "notes": "Saldo estimado por fator 6 x parcela." },
+    { "id": "debt-sss-eagle", "creditor": "EAGLE", "type": "orcamento_mensal", "current_amount": 22800, "original_amount": 22800, "monthly_payment": 950, "target_offer": 6840, "installments": 24, "paid_count": 0, "sub_status": "ativo", "prazo_final": "2028-05", "plano_quitacao": "Avalanche — taxa alta, priorizar renegociacao agressiva ou proposta de lote.", "protest": false, "spc_serasa": false, "judicial": "desconhecido", "priority": "alta", "status": "mapear", "source_ref": "SsS Ltda 2025!O25", "notes": "Parcela alta; validar renegociacao por impacto mensal." },
+    { "id": "debt-sss-seguro", "creditor": "Seguro", "type": "seguro", "current_amount": 1080, "original_amount": 1080, "monthly_payment": 360, "target_offer": 324, "installments": 3, "paid_count": 0, "sub_status": "stand_by", "prazo_final": "", "plano_quitacao": "Validar se e divida, despesa contratual ou provisao antes de incluir no dossie.", "protest": false, "spc_serasa": false, "judicial": "desconhecido", "priority": "media", "status": "mapear", "source_ref": "SsS Ltda 2025!O29", "notes": "Validar se e divida, despesa contratual ou provisao." },
+    { "id": "debt-sss-mc-nu-pj", "creditor": "M.C. Nu PJ", "type": "empresa", "current_amount": 6000, "original_amount": 6000, "monthly_payment": 2500, "target_offer": 1800, "installments": 3, "paid_count": 0, "sub_status": "ativo", "prazo_final": "2026-08", "plano_quitacao": "Negociacao direta — propor oferta a vista de R$ 1.800 (30% desconto).", "protest": false, "spc_serasa": false, "judicial": "desconhecido", "priority": "alta", "status": "mapear", "source_ref": "SsS Ltda 2025!O32", "notes": "Fator 2,4 arredondado para controle; validar saldo real." },
+    { "id": "debt-sss-horto", "creditor": "Horto", "type": "orcamento_mensal", "current_amount": 11200, "original_amount": 11200, "monthly_payment": 2800, "target_offer": 3360, "installments": 4, "paid_count": 0, "sub_status": "ativo", "prazo_final": "2026-09", "plano_quitacao": "Renegociacao urgente — maior parcela do mes, buscar extensao de prazo ou reducao de 50%.", "protest": false, "spc_serasa": false, "judicial": "desconhecido", "priority": "alta", "status": "mapear", "source_ref": "SsS Ltda 2025!O34", "notes": "Uma das maiores parcelas do mes; priorizar validacao e renegociacao." },
+    { "id": "debt-sss-mamud", "creditor": "Mamud", "type": "orcamento_mensal", "current_amount": 5200, "original_amount": 5200, "monthly_payment": 2600, "target_offer": 1560, "installments": 2, "paid_count": 0, "sub_status": "ativo", "prazo_final": "2026-07", "plano_quitacao": "Decisiva — quitar em Julho/2026 libera R$ 2.600/mes imediatamente.", "protest": false, "spc_serasa": false, "judicial": "desconhecido", "priority": "alta", "status": "mapear", "source_ref": "SsS Ltda 2025!O35", "notes": "Parcela alta e prazo curto; decisiva para zerar deficit mensal." }
+  ],
+  "goals": [
+    { "id": "goal-sss-zerar-deficit", "name": "Zerar deficit mensal", "target_amount": 3189, "horizon_years": 1, "monthly_contribution": 3189, "annual_return": 0 },
+    { "id": "goal-sss-recuperar-acumulado", "name": "Recuperar saldo acumulado", "target_amount": 14261, "horizon_years": 1, "monthly_contribution": 1189, "annual_return": 0 },
+    { "id": "goal-reserva", "name": "Reserva de emergencia", "target_amount": 43200, "horizon_years": 2, "monthly_contribution": 500, "annual_return": 0.08 },
+    { "id": "goal-casa", "name": "Casa propria", "target_amount": 120000, "horizon_years": 7, "monthly_contribution": 1000, "annual_return": 0.08 }
+  ],
+  "settings": {
+    "reserve_percent": 10,
+    "max_debt_payment_percent": 30,
+    "conservative_return": 0.12,
+    "target_offer_percent": 30
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "versao_schema": "1.0.0",
+  "status_possiveis": [
+    "Pendente",
+    "Em diagnostico",
+    "Aguardando pecas",
+    "Em execucao",
+    "Executado",
+    "Validado",
+    "Reprovado",
+    "Reinspecionar"
+  ],
+  "prioridades_possiveis": [
+    "Critico",
+    "Preventivo obrigatorio",
+    "Preventivo programavel",
+    "Estetico/conforto"
+  ],
+  "prioridade_inicial": {
+    "Critico": [
+      "Scanner completo ECU / TCU / ABS",
+      "Marcha lenta instavel",
+      "Consumo excessivo de 4 km/l",
+      "Catalisador ausente",
+      "Sondas lambda e escapamento",
+      "Trancos no cambio V5A51",
+      "Estado do ATF",
+      "Arrefecimento",
+      "Freios",
+      "Pneus e suspensao com folgas"
+    ],
+    "Preventivo obrigatorio": [
+      "Correia dentada e componentes associados, se nao houver comprovacao de troca",
+      "Velas, bobinas/cabos e ignicao",
+      "Limpeza/verificacao de TBI e admissao",
+      "Bicos injetores",
+      "Fluido da direcao hidraulica",
+      "Oleo dos diferenciais",
+      "Oleo da caixa de transferencia",
+      "Revisao de buchas, pivos, terminais, amortecedores",
+      "Fluido de freio"
+    ],
+    "Preventivo programavel": [
+      "Ar-condicionado",
+      "Vedacao",
+      "Pintura codigo A19",
+      "Acabamentos",
+      "Itens de conforto",
+      "Detalhamento estetico"
+    ]
+  },
+  "estado_global": {
+    "status": "Pendente",
+    "risco": "critico",
+    "bloqueios": [
+      "Sem scanner ECU/TCU/ABS registrado",
+      "Sem fotos base do cofre, parte inferior, escapamento e suspensoes",
+      "Sem validacao de fluidos, vazamentos e folgas",
+      "Sem fonte para capacidades, torques e codigos de pecas"
+    ],
+    "proxima_acao": "Executar checklist de diagnostico inicial e registrar evidencias."
+  },
+  "regras_de_decisao": [
+    {
+      "id": "diagnostico-antes-pecas",
+      "descricao": "Nao recomendar compra de pecas antes do diagnostico inicial, exceto itens de seguranca com falha evidente e registrada.",
+      "status": "ativo"
+    },
+    {
+      "id": "cambio-sem-flush-cego",
+      "descricao": "Nao recomendar flush pressurizado do V5A51 sem inspecao previa de ATF, carter e limalha.",
+      "status": "ativo"
+    },
+    {
+      "id": "motor-antes-cambio",
+      "descricao": "Trancos podem ser agravados por marcha lenta, mistura, coxins e sensores; avaliar motor antes de condenar transmissao.",
+      "status": "ativo"
+    }
+  ]
+}

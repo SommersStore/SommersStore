@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node scripts/dashboard_server.js",
     "lint": "node scripts/quality/lint.cjs",
     "typecheck": "node scripts/quality/typecheck.cjs",
     "test": "node tests/quality/master_hub.test.cjs",

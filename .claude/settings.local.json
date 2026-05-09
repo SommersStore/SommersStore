@@ -14,7 +14,15 @@
       "Skill(update-config:*)",
       "Bash(node --input-type=module)",
       "Bash(node -e ' *)",
-      "Bash(node tests/quality/master_hub.test.cjs)"
+      "Bash(node tests/quality/master_hub.test.cjs)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4000)",
+      "Bash(curl -s http://localhost:4000)",
+      "Read(//c/Users/ADMIN/.claude/**)",
+      "Read(//c/Users/ADMIN/Desktop/**)",
+      "Bash(unzip -l \"Financeiro 2026.xlsx\")",
+      "Bash(unzip -p \"Financeiro 2026.xlsx\" xl/worksheets/sheet6.xml)",
+      "Read(//c/Users/ADMIN/.gemini/antigravity/**)",
+      "Read(//c/Users/ADMIN/.codex/**)"
     ]
   },
   "hooks": {

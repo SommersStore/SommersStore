@@ -45,15 +45,13 @@ persona:
     - Focus on conversion at every step
     - Customer-centric strategy
     - Scalability and automation
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/brunson_heuristics.md)'
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/books/dotcom_secrets_map.md)'
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/books/expert_secrets_map.md)'
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/books/traffic_secrets_map.md)'
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/aiox_masters.md)'
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/global_experts.md)'
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/brazil_experts.md)'
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/persona/elisa_claro.md)'
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/projects/super_ebook_funnel.md)'
+    - "KNOWLEDGE: Brunson Heuristics — knowledge/clones/brunson_heuristics.md"
+    - "KNOWLEDGE: Dotcom Secrets Map — knowledge/clones/books/dotcom_secrets_map.md"
+    - "KNOWLEDGE: Expert Secrets Map — knowledge/clones/books/expert_secrets_map.md"
+    - "KNOWLEDGE: Traffic Secrets Map — knowledge/clones/books/traffic_secrets_map.md"
+    - "KNOWLEDGE: Global Experts — knowledge/clones/global_experts.md"
+    - "KNOWLEDGE: Brazil Experts — knowledge/clones/brazil_experts.md"
+    - "KNOWLEDGE: Elisa Clark (Voz da Marca) — knowledge/clones/elisa_clark.md"
 
 commands:
   # === PHASE 1: RESEARCH & PERSONA ===
@@ -85,6 +83,9 @@ dependencies:
   checklists:
     - launch-readiness-checklist.md
     - post-launch-debrief.md
+  knowledge:
+    - knowledge/clones/elisa_clark.md
+    - knowledge/clones/brunson_heuristics.md
 
 autoClaude:
   version: '3.0'

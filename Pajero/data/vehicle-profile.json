@@ -1,0 +1,39 @@
+{
+  "projeto": "Pajero",
+  "versao_schema": "1.0.0",
+  "veiculo": {
+    "modelo": "PAJERO HPE 3.8 GASOLINA 5P 4X4 AT-S",
+    "codigo_modelo": "V77W",
+    "chassi_vin": "JMYLYV77W5JA00169",
+    "motor": "6G75RN6738",
+    "motor_base": "6G75 V6 gasolina",
+    "cambio": "V5A51 automatico",
+    "quilometragem_km": 200000,
+    "historico_manutencao": "inexistente/desconhecido",
+    "catalisador": "ausente",
+    "codigo_pintura_informado": "A19",
+    "status_identificacao": "pendente de conferencia fisica"
+  },
+  "sintomas_atuais": [
+    "marcha lenta instavel",
+    "consumo elevado, aproximadamente 4 km/l",
+    "tranco nas trocas de marcha",
+    "direcao hidraulica um pouco dura",
+    "outros sintomas pendentes de catalogacao"
+  ],
+  "principios_diagnostico": [
+    "Diagnosticar antes de trocar pecas.",
+    "Registrar scanner, dados ao vivo, fotos e evidencias antes de comprar componentes.",
+    "Separar motor, cambio, transferencia, diferencial dianteiro e diferencial traseiro.",
+    "Classificar cada informacao como confirmado, provavel ou pendente de validacao."
+  ],
+  "alertas_iniciais": [
+    "Veiculo com 200.000 km e sem historico comprovado.",
+    "Catalisador ausente pode interferir em leitura de sondas, mistura, consumo e conformidade legal.",
+    "Trancos no cambio devem ser avaliados junto com motor, coxins, ATF, scanner TCU e dados ao vivo."
+  ],
+  "fontes": {
+    "dados_do_veiculo": "informado pelo usuario",
+    "especificacoes_tecnicas": "pendente de validacao por manual/fonte tecnica"
+  }
+}

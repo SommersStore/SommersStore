@@ -13,7 +13,7 @@ function testProjectFlows() {
   assert.ok(flows && typeof flows === 'object');
   assert.ok(flows.projects && typeof flows.projects === 'object');
 
-  for (const key of ['sais', 'velas', 'electro']) {
+  for (const key of ['sais', 'velas', 'electro', 'financas']) {
     assert.ok(flows.projects[key], `missing project "${key}"`);
   }
 
@@ -58,6 +58,29 @@ function testIntegrationPoints() {
   const backfillScript = fs.readFileSync(path.join(ROOT, 'scripts/maintenance/backfill_project_log_ids.cjs'), 'utf8');
 
   assert.match(dashboardHtml, /fetch\('\/api\/project-flows'\)/, 'dashboard should fetch /api/project-flows');
+  assert.match(dashboardHtml, /master-project-financas/, 'dashboard should expose Financas in Master projects');
+  assert.match(dashboardHtml, /data-tab="financas"/, 'dashboard should expose Financas as a sidebar tab');
+  assert.match(dashboardHtml, /id="pane-financas"/, 'dashboard should render a Financas pane');
+  assert.match(dashboardHtml, /projects\/financas\/data\/finance_state\.json/, 'Financas should persist data in finance_state.json');
+  assert.match(dashboardHtml, /function addFinanceDebt\(/, 'Financas should support debt entry');
+  assert.match(dashboardHtml, /function addFinanceIncome\(/, 'Financas should support income entry');
+  assert.match(dashboardHtml, /function addFinanceGoal\(/, 'Financas should support goal entry');
+  assert.match(dashboardHtml, /function saveFinanceState\(/, 'Financas should save state through the dashboard');
+  assert.match(dashboardHtml, /renderFinanceSpreadsheet/, 'Financas should render the spreadsheet import view');
+  assert.match(dashboardHtml, /financeiro_2026_import\.json/, 'Financas should expose the parsed Financeiro 2026 import');
+  assert.match(dashboardHtml, /financeiro_2026_sss_ltda_2025_import\.json|source\.import_file/, 'Financas should support the SsS Ltda 2025 import source');
+  assert.match(dashboardHtml, /Forecast mensal/, 'Financas should expose the monthly forecast from the spreadsheet');
+  assert.match(dashboardHtml, /monthly_forecast/, 'Financas should consume spreadsheet monthly_forecast data');
+  assert.match(dashboardHtml, /function renderFinanceForecastMatrix\(/, 'Financas should render the spreadsheet forecast as a monthly matrix');
+  assert.match(dashboardHtml, /function toggleFinanceForecastMonths\(/, 'Financas should provide a control to expand the 12-month forecast');
+  assert.match(dashboardHtml, /finance-months-toggle/, 'Financas should expose the 12-month forecast expansion button');
+  assert.match(dashboardHtml, /monthly_payment/, 'Financas debts should support real monthly payment imported from the spreadsheet');
+  assert.match(dashboardHtml, /\['spreadsheet', 'Planilha'\]/, 'Financas should expose an internal Planilha tab');
+  assert.match(dashboardHtml, /id="finance-map-canvas"/, 'Financas should expose an operational map canvas');
+  assert.match(dashboardHtml, /function renderFinanceMap\(/, 'Financas should render the operational map');
+  assert.match(dashboardHtml, /function openFinanceMapDetail\(/, 'Financas map should expose node details');
+  assert.match(dashboardHtml, /filterFinanceMap\('pressure'\)/, 'Financas map should support pressure filtering');
+  assert.doesNotMatch(dashboardHtml, /loadFunnel\('financas'/, 'Financas should not be nested under the Funnel tab');
   assert.match(dashboardHtml, /fetch\('\/api\/personas\/assets'\)/, 'dashboard should fetch enriched persona assets for clones');
   assert.match(serverJs, /\/api\/project-flows/, 'server should expose /api/project-flows');
   assert.match(serverJs, /function writeFileAtomic\(/, 'server should write dashboard files atomically');
@@ -103,7 +126,7 @@ function testIntegrationPoints() {
   assert.match(dashboardHtml, /Agentes Disponíveis/, 'Master squads layout should keep the available agents side panel visible');
   assert.match(dashboardHtml, /w-full min-w-0 max-w-full overflow-hidden/, 'available agents panel and cards should not expand the side panel width');
   const sidebarTabs = [...dashboardHtml.matchAll(/class="sb-icon[^"]*" data-tab="([^"]+)"/g)].map(match => match[1]);
-  assert.deepEqual(sidebarTabs, ['master', 'memory', 'funnel'], 'sidebar should expose the simplified 3-tab panel set (Master, Memory, Funil)');
+  assert.deepEqual(sidebarTabs, ['master', 'memory', 'funnel', 'projeto', 'mapa', 'financas'], 'sidebar should keep Mapa before Financas in the project cluster');
   assert.match(dashboardHtml, /id="control-hub-icon"/, 'dashboard should expose Ops Desk control hub');
   assert.match(dashboardHtml, /CONTROL_GROUP_TABS = \['alerts', 'logs', 'reruns', 'incidents', 'commands', 'why'\]/, 'dashboard should route control sub-tabs');
   assert.match(dashboardHtml, /function loadControlTab\(/, 'dashboard should load control hub sub-tabs');
@@ -142,6 +165,7 @@ function testIntegrationPoints() {
   assert.match(serverJs, /const payloadProjectId = normalizeProjectId\(body\.project_id \|\| null\)/, 'server should normalize project_id in session flows');
   assert.match(serverJs, /project_id:\s*closeProjectId/, 'server should persist project_id when closing session');
   assert.match(serverJs, /haystack\.includes\('SIZ'\)/, 'server inference should include legacy SIZ alias');
+  assert.match(serverJs, /return 'financas'/, 'server inference should include Financas aliases');
   assert.match(serverJs, /SESSION_PULSE_LOG_INTERVAL_MS/, 'server should throttle recurring pulse logs');
   assert.match(serverJs, /type:\s*'session_pulse'/, 'server should persist session_pulse snapshots');
   assert.match(serverJs, /'session_pulse'/, 'server should append session_pulse execution logs');

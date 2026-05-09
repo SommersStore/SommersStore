@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-16T23:10:00-03:00",
+  "updated_at": "2026-05-09T00:00:00-03:00",
   "projects": {
     "sais": {
       "label": "Sais",
@@ -322,6 +322,363 @@
             "VE-03"
           ],
           "metric_main": "ROAS"
+        }
+      ]
+    },
+    "financas": {
+      "label": "Financas",
+      "description": "Projeto pessoal para caixa, dividas, investimentos, Somos Story e casa propria.",
+      "construcao": [
+        {
+          "id": "CF-01",
+          "nome": "Intake Financeiro",
+          "squad": "SQD-CORE",
+          "status": "em_execucao",
+          "resumo": "Captura de renda, gastos, dividas, documentos e objetivos.",
+          "entrega": "Inventario financeiro inicial",
+          "entrega_para": "CF-02",
+          "depends_on": [],
+          "metric_main": "Dados essenciais preenchidos"
+        },
+        {
+          "id": "CF-02",
+          "nome": "Mapa de Caixa",
+          "squad": "SQD-CORE",
+          "status": "em_preparacao",
+          "resumo": "Separacao de caixa pessoal, familiar e Somos Story.",
+          "entrega": "Capacidade mensal de pagamento",
+          "entrega_para": "CF-03",
+          "depends_on": [
+            "CF-01"
+          ],
+          "metric_main": "Caixa livre mensal"
+        },
+        {
+          "id": "CF-03",
+          "nome": "Dossie de Dividas",
+          "squad": "SQD-QRO",
+          "status": "nao_iniciado",
+          "resumo": "Levantamento de contratos, protestos, SPC, Serasa e risco judicial.",
+          "entrega": "Mapa por credor",
+          "entrega_para": "CF-04",
+          "depends_on": [
+            "CF-02"
+          ],
+          "metric_main": "Dividas documentadas"
+        },
+        {
+          "id": "CF-04",
+          "nome": "Rota Legal e Negociacao",
+          "squad": "SQD-QRO",
+          "status": "nao_iniciado",
+          "resumo": "Pesquisa de superendividamento, canais de renegociacao e estrategia de desconto.",
+          "entrega": "Plano de negociacao por credor",
+          "entrega_para": "VF-02",
+          "depends_on": [
+            "CF-03"
+          ],
+          "metric_main": "Desconto alvo definido"
+        },
+        {
+          "id": "CF-05",
+          "nome": "Modelo de Projecoes",
+          "squad": "SQD-ENG",
+          "status": "nao_iniciado",
+          "resumo": "Simulacoes conservadoras para 5, 7 e 10 anos.",
+          "entrega": "Planilha/modelo de cenarios",
+          "entrega_para": "CF-06",
+          "depends_on": [
+            "CF-02"
+          ],
+          "metric_main": "Cenarios calculados"
+        },
+        {
+          "id": "CF-06",
+          "nome": "Plano Casa Propria",
+          "squad": "SQD-CORE",
+          "status": "nao_iniciado",
+          "resumo": "Comparativo entre consorcio, financiamento, leilao e compra planejada.",
+          "entrega": "Decisao de rota imobiliaria",
+          "entrega_para": "VF-07",
+          "depends_on": [
+            "CF-05"
+          ],
+          "metric_main": "Rota escolhida"
+        }
+      ],
+      "vendas": [
+        {
+          "id": "VF-01",
+          "nome": "Controle Mensal",
+          "squad": "SQD-CORE",
+          "status": "em_preparacao",
+          "resumo": "Rotina mensal de entradas, gastos, reserva e sobras.",
+          "entrega": "Fechamento mensal",
+          "entrega_para": "VF-02",
+          "depends_on": [
+            "CF-02"
+          ],
+          "metric_main": "Sobra mensal"
+        },
+        {
+          "id": "VF-02",
+          "nome": "Negociacao Credores",
+          "squad": "SQD-QRO",
+          "status": "nao_iniciado",
+          "resumo": "Rodadas de proposta escrita com desconto alvo e limite de parcela.",
+          "entrega": "Acordos sustentaveis",
+          "entrega_para": "VF-03",
+          "depends_on": [
+            "CF-04",
+            "VF-01"
+          ],
+          "metric_main": "Desconto medio"
+        },
+        {
+          "id": "VF-03",
+          "nome": "Quitacao e Baixa",
+          "squad": "SQD-QRO",
+          "status": "nao_iniciado",
+          "resumo": "Pagamento, comprovantes, baixa de protestos e regularizacao de restricoes.",
+          "entrega": "Restricoes baixadas",
+          "entrega_para": "VF-04",
+          "depends_on": [
+            "VF-02"
+          ],
+          "metric_main": "Protestos baixados"
+        },
+        {
+          "id": "VF-04",
+          "nome": "Reserva de Emergencia",
+          "squad": "SQD-CORE",
+          "status": "nao_iniciado",
+          "resumo": "Formacao de reserva conservadora antes de risco maior.",
+          "entrega": "Reserva minima",
+          "entrega_para": "VF-05",
+          "depends_on": [
+            "VF-03"
+          ],
+          "metric_main": "Meses de reserva"
+        },
+        {
+          "id": "VF-05",
+          "nome": "Renda Fixa",
+          "squad": "SQD-CORE",
+          "status": "nao_iniciado",
+          "resumo": "Selecao por objetivo, prazo, liquidez, risco e tributacao.",
+          "entrega": "Politica de renda fixa",
+          "entrega_para": "VF-06",
+          "depends_on": [
+            "VF-04"
+          ],
+          "metric_main": "Carteira conservadora"
+        },
+        {
+          "id": "VF-06",
+          "nome": "Dividendos",
+          "squad": "SQD-MKF",
+          "status": "nao_iniciado",
+          "resumo": "Estudo de acoes pagadoras de dividendos apos estabilizacao do risco.",
+          "entrega": "Politica de renda variavel",
+          "entrega_para": "VF-07",
+          "depends_on": [
+            "VF-05"
+          ],
+          "metric_main": "Risco aprovado"
+        },
+        {
+          "id": "VF-07",
+          "nome": "Casa Propria",
+          "squad": "SQD-CORE",
+          "status": "nao_iniciado",
+          "resumo": "Execucao da rota escolhida para aquisicao do imovel.",
+          "entrega": "Plano imobiliario acionavel",
+          "entrega_para": "Revisao mensal",
+          "depends_on": [
+            "CF-06",
+            "VF-06"
+          ],
+          "metric_main": "Capital para entrada"
+        }
+      ]
+    },
+    "pajero": {
+      "label": "Pajero",
+      "description": "Diagnostico e revisao completa da Pajero HPE 3.8 V77W 6G75 V5A51.",
+      "construcao": [
+        {
+          "id": "PJ-00",
+          "nome": "Painel Pajero V77W",
+          "squad": "SQD-PAJERO",
+          "status": "em_execucao",
+          "resumo": "Dashboard tecnico de diagnostico e revisao completa da Pajero HPE 3.8 V77W.",
+          "entrega": "Painel operacional",
+          "entrega_para": "PJ-01",
+          "depends_on": [],
+          "metric_main": "13 modulos | 12 agentes | 17 skills",
+          "panel_path": "../Pajero/ui/index.html",
+          "edit_path": "Pajero/ui/index.html"
+        },
+        {
+          "id": "PJ-01",
+          "nome": "Diagnostico inicial",
+          "squad": "SQD-PAJERO",
+          "status": "em_preparacao",
+          "resumo": "Scanner ECU, TCU e ABS, DTCs, freeze frame, dados ao vivo, fotos base e teste controlado.",
+          "entrega": "Relatorio inicial",
+          "entrega_para": "PJ-02",
+          "depends_on": [
+            "PJ-00"
+          ],
+          "metric_main": "DTCs e evidencias capturados",
+          "edit_path": "Pajero/01_DIAGNOSTICO_INICIAL/checklist-diagnostico-inicial.md"
+        },
+        {
+          "id": "PJ-02",
+          "nome": "Motor 6G75 e consumo",
+          "squad": "SQD-PAJERO",
+          "status": "nao_iniciado",
+          "resumo": "Marcha lenta instavel, consumo elevado, ignicao, admissao, injecao, sondas e catalisador ausente.",
+          "entrega": "Causa-raiz motor",
+          "entrega_para": "PJ-03",
+          "depends_on": [
+            "PJ-01"
+          ],
+          "metric_main": "STFT/LTFT e sensores validados",
+          "edit_path": "Pajero/02_MOTOR_6G75/checklist-motor-6g75.md"
+        },
+        {
+          "id": "PJ-03",
+          "nome": "Cambio V5A51",
+          "squad": "SQD-PAJERO",
+          "status": "nao_iniciado",
+          "resumo": "ATF, carter, limalha, solenoides, corpo de valvulas, sensores e coxins antes de qualquer flush.",
+          "entrega": "Parecer transmissao",
+          "entrega_para": "PJ-04",
+          "depends_on": [
+            "PJ-01",
+            "PJ-02"
+          ],
+          "metric_main": "Trancos isolados por causa provavel",
+          "edit_path": "Pajero/05_CAMBIO_V5A51/checklist-cambio-v5a51.md"
+        },
+        {
+          "id": "PJ-04",
+          "nome": "Transferencia e diferenciais",
+          "squad": "SQD-PAJERO",
+          "status": "nao_iniciado",
+          "resumo": "Super Select, 2H, 4H, 4HLC, 4LLC, oleos, retentores, cardas, cruzetas, folgas e ruidos.",
+          "entrega": "Laudo drivetrain",
+          "entrega_para": "PJ-05",
+          "depends_on": [
+            "PJ-03"
+          ],
+          "metric_main": "4x4 e folgas validados",
+          "edit_path": "Pajero/06_CAIXA_TRANSFERENCIA_SUPER_SELECT/checklist-transfer.md"
+        },
+        {
+          "id": "PJ-05",
+          "nome": "Suspensao, direcao e freios",
+          "squad": "SQD-PAJERO",
+          "status": "nao_iniciado",
+          "resumo": "Buchas, pivos, terminais, geometria, direcao hidraulica dura, pneus, freios, rolamentos e ABS.",
+          "entrega": "Gate de seguranca",
+          "entrega_para": "PJ-06",
+          "depends_on": [
+            "PJ-01"
+          ],
+          "metric_main": "Rodagem liberada ou bloqueada",
+          "edit_path": "Pajero/09_SUSPENSAO_DIRECAO/checklist-suspensao-direcao.md"
+        },
+        {
+          "id": "PJ-06",
+          "nome": "Teste final e pos-revisao",
+          "squad": "SQD-PAJERO",
+          "status": "nao_iniciado",
+          "resumo": "Rodagem controlada, releitura de DTCs, temperatura, vazamentos, trocas, freios e retorno pos-500 km.",
+          "entrega": "Validacao final",
+          "entrega_para": "Arquivo tecnico",
+          "depends_on": [
+            "PJ-02",
+            "PJ-03",
+            "PJ-05"
+          ],
+          "metric_main": "Teste final aprovado",
+          "edit_path": "Pajero/13_TESTE_FINAL_POS_REVISAO/checklist-teste-final-pos-revisao.md"
+        }
+      ],
+      "vendas": [
+        {
+          "id": "PO-01",
+          "nome": "Entrada de imagens reais",
+          "squad": "Visual Teardown Mapper",
+          "status": "em_preparacao",
+          "resumo": "Fotos do cofre, inferior, escapamento, sondas, cambio, suspensoes, diferenciais e direcao.",
+          "entrega": "Manifesto de imagens",
+          "entrega_para": "PO-02",
+          "depends_on": [],
+          "metric_main": "Fotos catalogadas",
+          "panel_path": "../Pajero/ui/index.html",
+          "edit_path": "Pajero/data/image-manifest.json"
+        },
+        {
+          "id": "PO-02",
+          "nome": "Fontes e especificacoes",
+          "squad": "OEM Technical Librarian",
+          "status": "nao_iniciado",
+          "resumo": "Torques, fluidos, capacidades, procedimentos e compatibilidade V77W/6G75/V5A51 com fonte.",
+          "entrega": "Matriz validada",
+          "entrega_para": "PO-03",
+          "depends_on": [
+            "PO-01"
+          ],
+          "metric_main": "Fontes confirmadas",
+          "edit_path": "Pajero/squad/data/reference-matrices.json"
+        },
+        {
+          "id": "PO-03",
+          "nome": "Ordem de servico",
+          "squad": "Work Order & Parts Planner",
+          "status": "nao_iniciado",
+          "resumo": "OS e BOM somente depois de diagnostico, evidencias, fontes e classificacao de risco.",
+          "entrega": "OS priorizada",
+          "entrega_para": "PO-04",
+          "depends_on": [
+            "PJ-01",
+            "PO-02"
+          ],
+          "metric_main": "Pecas liberadas por evidencia",
+          "edit_path": "Pajero/squad/templates/ordem-servico.md"
+        },
+        {
+          "id": "PO-04",
+          "nome": "QA anti-alucinacao",
+          "squad": "Evidence Auditor",
+          "status": "nao_iniciado",
+          "resumo": "Bloqueia peca, torque, fluido, imagem ou procedimento sem fonte e aplicabilidade correta.",
+          "entrega": "Gate tecnico",
+          "entrega_para": "PO-05",
+          "depends_on": [
+            "PO-02",
+            "PO-03"
+          ],
+          "metric_main": "Sem conclusao sem fonte",
+          "edit_path": "Pajero/docs/regras-antialucinacao.md"
+        },
+        {
+          "id": "PO-05",
+          "nome": "Relatorio de entrega",
+          "squad": "Pajero Chief Diagnostician",
+          "status": "nao_iniciado",
+          "resumo": "Consolida sintomas, causa-raiz, evidencias, pendencias, riscos e proximo retorno.",
+          "entrega": "Relatorio final",
+          "entrega_para": "Usuario",
+          "depends_on": [
+            "PJ-06",
+            "PO-04"
+          ],
+          "metric_main": "Pendencias e validacoes fechadas",
+          "edit_path": "Pajero/relatorios/relatorio-inicial.md"
         }
       ]
     }

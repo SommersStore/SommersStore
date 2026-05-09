@@ -157,6 +157,230 @@
         "AGT-MEM-01",
         "AGT-MEM-02"
       ]
+    },
+    {
+      "id": "SQD-SAIS-01",
+      "name": "DIGITAL PUBLISHING",
+      "color": "#C5A059",
+      "icon": "book-open",
+      "mission": "Tradução da Copy de Elite para o formato de Dossier Digital (PDF de Luxo), garantindo integridade técnica, tipográfica e fidelidade ao universo botânico.",
+      "tag": "SAIS",
+      "inputs": [
+        "Copy Aprovada",
+        "Brand Guidelines",
+        "Fórmulas JSON"
+      ],
+      "outputs": [
+        "PDF de Luxo",
+        "E-book Final",
+        "Assets Editoriais"
+      ],
+      "agents": []
+    },
+    {
+      "id": "SQD-SAIS-02",
+      "name": "EBOOK MASTER EDITION",
+      "color": "#1e293b",
+      "icon": "flask-conical",
+      "mission": "Garantir tolerância a falhas zero na produção do e-book, operando arquivos JSON isolados para fórmulas e renderizando via rotas Next.js independentes.",
+      "tag": "SAIS",
+      "inputs": [
+        "Fórmulas Atômicas JSON",
+        "Design System Black Protocol",
+        "Copy Validada"
+      ],
+      "outputs": [
+        "PDF Master Edition",
+        "60 Páginas Diagramadas",
+        "Sumário Dinâmico"
+      ],
+      "agents": []
+    },
+    {
+      "id": "SQD-SAIS-03",
+      "name": "FUNNEL CONVERSION",
+      "color": "#ec4899",
+      "icon": "target",
+      "mission": "Copywriting agressivo, estrutura de neuromarketing e otimização de conversão para a página de vendas e VSL.",
+      "tag": "SAIS",
+      "inputs": [
+        "Persona Avatar",
+        "Oferta Estruturada",
+        "Design System"
+      ],
+      "outputs": [
+        "Sales Page Otimizada",
+        "VSL Script",
+        "CTA Calibrado"
+      ],
+      "agents": []
+    },
+    {
+      "id": "SQD-SAIS-04",
+      "name": "LAUNCH READINESS",
+      "color": "#ef4444",
+      "icon": "rocket",
+      "mission": "Revisar, testar e garantir qualidade técnica e visual antes de publicar no Firebase e ativar o checkout Kiwify.",
+      "tag": "SAIS",
+      "inputs": [
+        "Página Montada",
+        "Checkout Configurado",
+        "Assets Finais"
+      ],
+      "outputs": [
+        "GO / NO-GO de Lançamento",
+        "Relatório de QA",
+        "Deploy Validado"
+      ],
+      "agents": []
+    },
+    {
+      "id": "SQD-SAIS-05",
+      "name": "HOOK ENGINEERING",
+      "color": "#f59e0b",
+      "icon": "zap",
+      "mission": "Construir a Primeira Dobra Perfeita (Hero Section) com promessas de altíssimo impacto para prender atenção em 3 segundos.",
+      "tag": "SAIS",
+      "inputs": [
+        "Avatar ICP",
+        "Produto e Oferta"
+      ],
+      "outputs": [
+        "10 Headlines",
+        "Subheadline Validada",
+        "Layout Hero"
+      ],
+      "agents": []
+    },
+    {
+      "id": "SQD-SAIS-06",
+      "name": "PAIN AMPLIFICATION",
+      "color": "#8b5cf6",
+      "icon": "heart-crack",
+      "mission": "Criar conexão emocional relatando a dor do usuário, destruindo objeções superficiais e escavando o problema real.",
+      "tag": "SAIS",
+      "inputs": [
+        "Avatar ICP",
+        "Pesquisa de Mercado"
+      ],
+      "outputs": [
+        "3 Dores Secretas",
+        "Copy de Agitação",
+        "Prova de Mercado"
+      ],
+      "agents": []
+    },
+    {
+      "id": "SQD-SAIS-07",
+      "name": "ALCHEMY SOLUTION",
+      "color": "#10b981",
+      "icon": "sparkles",
+      "mission": "Apresentar o Mecanismo Único do produto como invenção revolucionária e lógica, diferenciando de todos os concorrentes.",
+      "tag": "SAIS",
+      "inputs": [
+        "Produto e Fórmulas",
+        "Dores Identificadas"
+      ],
+      "outputs": [
+        "Mecanismo Único Definido",
+        "Copy Educacional",
+        "Grid Visual"
+      ],
+      "agents": []
+    },
+    {
+      "id": "SQD-SAIS-08",
+      "name": "IRRESISTIBLE OFFER",
+      "color": "#14b8a6",
+      "icon": "gift",
+      "mission": "Construir ancoragem de preço, value stack de bônus e fechamento estilo no-brainer que torna o não-comprar psicologicamente desconfortável.",
+      "tag": "SAIS",
+      "inputs": [
+        "Copy Aprovada",
+        "Preço e Bônus"
+      ],
+      "outputs": [
+        "Value Stack",
+        "Garantia Escrita",
+        "CTA Visual Premium"
+      ],
+      "agents": []
+    },
+    {
+      "id": "SQD-LCH",
+      "name": "LAUNCH CAMPAIGN",
+      "color": "#f59e0b",
+      "icon": "send",
+      "mission": "Orquestrar a campanha de lançamento completa: sequências de email, conteúdo social e pré-lançamento PLF para maximizar vendas na abertura do carrinho.",
+      "inputs": [
+        "Oferta Estruturada",
+        "Lista de Leads",
+        "Calendário de Lançamento"
+      ],
+      "outputs": [
+        "Sequências de Email",
+        "Calendário de Conteúdo Social",
+        "Scripts de Reel",
+        "Relatório de Engajamento"
+      ],
+      "agents": [
+        "AGT-LCH-01",
+        "AGT-LCH-02"
+      ]
+    },
+    {
+      "id": "SQD-LTV",
+      "name": "POST-PURCHASE & LTV",
+      "color": "#06b6d4",
+      "icon": "repeat",
+      "mission": "Maximizar o valor do cliente ao longo do tempo com nutrição pós-compra, upsells estratégicos e esteira de produtos desenhada para continuidade.",
+      "inputs": [
+        "Base de Compradores",
+        "Catálogo de Produtos",
+        "Histórico de Compra"
+      ],
+      "outputs": [
+        "Sequência de Nutrição",
+        "OTO/Upsell Copy",
+        "Mapa de Esteira LTV"
+      ],
+      "agents": []
+    },
+    {
+      "id": "SQD-PAJERO",
+      "name": "PAJERO TECHNICAL DIAGNOSTICS",
+      "color": "#f97316",
+      "icon": "wrench",
+      "mission": "Diagnosticar e planejar a revisao completa da Pajero V77W 6G75 V5A51 com evidencias, fontes, imagens reais, seguranca e validacao.",
+      "tag": "PAJERO",
+      "inputs": [
+        "Dados do veiculo",
+        "Scanner ECU/TCU/ABS",
+        "Fotos reais",
+        "Checklists",
+        "Fontes tecnicas"
+      ],
+      "outputs": [
+        "Diagnostico por causa-raiz",
+        "Plano de revisao",
+        "OS priorizada",
+        "Atlas visual",
+        "Gates de seguranca"
+      ],
+      "agents": [
+        "AGT-PAJERO-01",
+        "AGT-PAJERO-02",
+        "AGT-PAJERO-03",
+        "AGT-PAJERO-04",
+        "AGT-PAJERO-05",
+        "AGT-PAJERO-06",
+        "AGT-PAJERO-07",
+        "AGT-PAJERO-08",
+        "AGT-PAJERO-09",
+        "AGT-PAJERO-10",
+        "AGT-PAJERO-11",
+        "AGT-PAJERO-12"
+      ]
     }
   ],
   "agents": [
@@ -334,7 +558,23 @@
       "handle": "@nectar-auditor",
       "squad": "SQD-QRO",
       "role": "Auditor premium de nectar de clones. Avalia qualidade, compatibilidade, redundancia, risco de diluicao e decisao de harmonizacao antes de qualquer aplicacao na base do clone.",
-      "icon": "flask-conical"
+      "icon": "🧪"
+    },
+    {
+      "id": "AGT-LCH-01",
+      "name": "Ember",
+      "handle": "@email-specialist",
+      "squad": "SQD-LCH",
+      "role": "Email Launch Architect. Sequências de boas-vindas, lançamento, nutrição e carrinho abandonado.",
+      "icon": "📧"
+    },
+    {
+      "id": "AGT-LCH-02",
+      "name": "Nova",
+      "handle": "@social-content",
+      "squad": "SQD-LCH",
+      "role": "Social Content Strategist. Reels, Stories, carrosséis e calendário de conteúdo para lançamentos.",
+      "icon": "📱"
     },
     {
       "id": "AGT-MEM-01",
@@ -351,6 +591,102 @@
       "squad": "SQD-MEM",
       "role": "Cronista e preservação de dados.",
       "icon": "📜"
+    },
+    {
+      "id": "AGT-PAJERO-01",
+      "name": "Pajero Chief Diagnostician",
+      "handle": "@pajero-chief-diagnostician",
+      "squad": "SQD-PAJERO",
+      "role": "Orquestra prioridades, sintomas, dependencias e fases de diagnostico.",
+      "icon": "P1"
+    },
+    {
+      "id": "AGT-PAJERO-02",
+      "name": "OEM Technical Librarian",
+      "handle": "@oem-technical-librarian",
+      "squad": "SQD-PAJERO",
+      "role": "Organiza manuais, fontes, diagramas, torques, fluidos e compatibilidade V77W.",
+      "icon": "P2"
+    },
+    {
+      "id": "AGT-PAJERO-03",
+      "name": "Evidence & Anti-Hallucination Auditor",
+      "handle": "@evidence-anti-hallucination-auditor",
+      "squad": "SQD-PAJERO",
+      "role": "Bloqueia conclusao sem fonte, torque, evidencia ou aplicabilidade correta.",
+      "icon": "P3"
+    },
+    {
+      "id": "AGT-PAJERO-04",
+      "name": "Combustion & Fuel Trim Engineer",
+      "handle": "@combustion-fuel-trim-engineer",
+      "squad": "SQD-PAJERO",
+      "role": "Analisa consumo, marcha lenta, STFT/LTFT, sondas, mistura e catalisador ausente.",
+      "icon": "P4"
+    },
+    {
+      "id": "AGT-PAJERO-05",
+      "name": "Driveability Electronics Diagnostician",
+      "handle": "@driveability-electronics-diagnostician",
+      "squad": "SQD-PAJERO",
+      "role": "Interpreta scanner, DTCs, freeze frame, sinais eletricos, sensores e chicotes.",
+      "icon": "P5"
+    },
+    {
+      "id": "AGT-PAJERO-06",
+      "name": "6G75 Practical Engine Mechanic",
+      "handle": "@engine-6g75-practical-mechanic",
+      "squad": "SQD-PAJERO",
+      "role": "Cuida de correia, velas, bobinas, compressao, vazamentos, coxins e arrefecimento.",
+      "icon": "P6"
+    },
+    {
+      "id": "AGT-PAJERO-07",
+      "name": "V5A51 Transmission Specialist",
+      "handle": "@transmission-v5a51-specialist",
+      "squad": "SQD-PAJERO",
+      "role": "Diagnostica trancos, ATF, TCU, carter, solenoides e corpo de valvulas.",
+      "icon": "P7"
+    },
+    {
+      "id": "AGT-PAJERO-08",
+      "name": "Super Select & Drivetrain Specialist",
+      "handle": "@super-select-drivetrain-specialist",
+      "squad": "SQD-PAJERO",
+      "role": "Cuida de transfer, 4x4, cardas, cruzetas, diferenciais, folgas e respiros.",
+      "icon": "P8"
+    },
+    {
+      "id": "AGT-PAJERO-09",
+      "name": "Suspension & Hydraulic Steering Engineer",
+      "handle": "@suspension-hydraulic-steering-engineer",
+      "squad": "SQD-PAJERO",
+      "role": "Analisa suspensao, buchas, geometria, pneus e direcao hidraulica dura.",
+      "icon": "P9"
+    },
+    {
+      "id": "AGT-PAJERO-10",
+      "name": "Brake & Road Safety Inspector",
+      "handle": "@brake-road-safety-inspector",
+      "squad": "SQD-PAJERO",
+      "role": "Libera, restringe ou bloqueia teste de rodagem por freio, pneu, rolamento e ABS.",
+      "icon": "P10"
+    },
+    {
+      "id": "AGT-PAJERO-11",
+      "name": "Visual Teardown Mapper",
+      "handle": "@visual-teardown-mapper",
+      "squad": "SQD-PAJERO",
+      "role": "Cria atlas visual com fotos reais, diagramas, vistas explodidas e legendas.",
+      "icon": "P11"
+    },
+    {
+      "id": "AGT-PAJERO-12",
+      "name": "Work Order & Parts Planner",
+      "handle": "@work-order-parts-planner",
+      "squad": "SQD-PAJERO",
+      "role": "Gera OS, BOM, lista de insumos, riscos e validacao pos-servico.",
+      "icon": "P12"
     }
   ],
   "skills": {
@@ -404,6 +740,24 @@
         "activation_criticality": "alta",
         "activation_enabled": true,
         "activation_trigger": "evento+manual"
+      },
+      {
+        "id": "SKL-CORE-04",
+        "name": "EpicDecomposition",
+        "desc": "Decomposição de épicos em stories acionáveis com critérios de aceite e estimativas.",
+        "agents": [
+          "AGT-CORE-02",
+          "AGT-CORE-03",
+          "AGT-CORE-04"
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-CORE-04.md",
+        "playbook_source": "Local Playbook / Framework Rules",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "build",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
       },
       {
         "id": "SKL-CORE-05",
@@ -851,6 +1205,24 @@
         "activation_trigger": "fase+manual"
       },
       {
+        "id": "SKL-QRO-03",
+        "name": "IncidentResponse",
+        "desc": "Protocolo de resposta a incidentes críticos: checkout offline, deploy falho, perda de dados.",
+        "agents": [
+          "AGT-QRO-01",
+          "AGT-ENG-03",
+          "AGT-ENG-04"
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-QRO-03.md",
+        "playbook_source": "Local Playbook / Framework Rules",
+        "playbook_status": "active",
+        "activation_lane": "suporte_critico",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "evento+manual"
+      },
+      {
         "id": "SKL-QRO-04",
         "name": "AlertRouting",
         "desc": "Execução heurística voltada para conversão e entrega das saídas principais: caso aberto ou resolvido.",
@@ -979,6 +1351,109 @@
         "activation_trigger": "fase+manual"
       }
     ],
+    "LCH": [
+      {
+        "id": "SKL-LCH-01",
+        "name": "EmailLaunchSequence",
+        "desc": "Criação de sequências de email de lançamento PLF (pré-lançamento, carrinho aberto, fechamento) com gatilhos mentais mapeados por dia.",
+        "agents": [
+          "AGT-LCH-01"
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-LCH-01.md",
+        "playbook_source": ".codex/agents/email-specialist.md",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "evento+manual"
+      },
+      {
+        "id": "SKL-LCH-02",
+        "name": "InstagramReelScript",
+        "desc": "Criação de scripts de Reel (hook, desenvolvimento, CTA) com indicação de cenas e legendas otimizadas para conversão.",
+        "agents": [
+          "AGT-LCH-02"
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-LCH-02.md",
+        "playbook_source": ".codex/agents/social-content.md",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "evento+manual"
+      },
+      {
+        "id": "SKL-LCH-03",
+        "name": "SocialProofConstruction",
+        "desc": "Estruturação e amplificação de prova social: depoimentos, UGC briefs, testemunhos formatados para diferentes plataformas.",
+        "agents": [
+          "AGT-LCH-02",
+          "AGT-MKF-03"
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-LCH-03.md",
+        "playbook_source": "Local Playbook / Framework Rules",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "runtime",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "evento+manual"
+      }
+    ],
+    "LTV": [
+      {
+        "id": "SKL-LTV-01",
+        "name": "UpsellFlowDesign",
+        "desc": "Desenho do fluxo de upsell e OTO (One Time Offer): oferta certa, momento certo, preço certo na esteira pós-compra.",
+        "agents": [
+          "AGT-LCH-01",
+          "AGT-CNT-01"
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-LTV-01.md",
+        "playbook_source": "Local Playbook / Framework Rules",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "evento+manual"
+      },
+      {
+        "id": "SKL-LTV-02",
+        "name": "PriceAnchoringCopy",
+        "desc": "Copy de ancoragem de preço e value stack para ofertas de upsell e cross-sell baseada na metodologia Hormozi.",
+        "agents": [
+          "AGT-CNT-01",
+          "AGT-MKF-03"
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-LTV-02.md",
+        "playbook_source": "Local Playbook / Framework Rules",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "runtime",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "evento+manual"
+      },
+      {
+        "id": "SKL-LTV-03",
+        "name": "NurtureEmailFlow",
+        "desc": "Criação de sequências de nutrição pós-compra para aumentar LTV, reativar inativos e preparar a próxima compra.",
+        "agents": [
+          "AGT-LCH-01"
+        ],
+        "playbook_file": "docs/control/skills_playbooks/SKL-LTV-03.md",
+        "playbook_source": ".codex/agents/email-specialist.md",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "runtime",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "evento+manual"
+      }
+    ],
     "MEM": [
       {
         "id": "SKL-MEM-01",
@@ -1042,6 +1517,304 @@
         "activation_lane": "suporte_critico",
         "activation_relevance": "governanca",
         "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
+      }
+    ],
+    "PAJERO": [
+      {
+        "id": "SKL-PAJERO-01",
+        "name": "Diagnostic Flowchart Builder",
+        "desc": "Construcao de fluxogramas diagnosticos por decisao e evidencia.",
+        "agents": [
+          "AGT-PAJERO-11"
+        ],
+        "playbook_file": "Pajero/squad/skills/diagnostic-flowchart-builder.md",
+        "playbook_source": "Pajero/squad/skills",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "diagnostico",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
+      },
+      {
+        "id": "SKL-PAJERO-02",
+        "name": "Exploded View Matcher",
+        "desc": "Relacionamento entre fotos reais, diagramas, vistas explodidas e pecas.",
+        "agents": [
+          "AGT-PAJERO-11"
+        ],
+        "playbook_file": "Pajero/squad/skills/exploded-view-matcher.md",
+        "playbook_source": "Pajero/squad/skills",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "diagnostico",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
+      },
+      {
+        "id": "SKL-PAJERO-03",
+        "name": "Fuel Trim Lambda Analysis",
+        "desc": "Analise de mistura, STFT, LTFT, sondas lambda, consumo e catalisador ausente.",
+        "agents": [
+          "AGT-PAJERO-04"
+        ],
+        "playbook_file": "Pajero/squad/skills/fuel-trim-lambda-analysis.md",
+        "playbook_source": "Pajero/squad/skills",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "diagnostico",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
+      },
+      {
+        "id": "SKL-PAJERO-04",
+        "name": "Hydraulic Steering Load Diagnostic",
+        "desc": "Diagnostico de direcao hidraulica dura por fluido, bomba, mangueiras, caixa e geometria.",
+        "agents": [
+          "AGT-PAJERO-09"
+        ],
+        "playbook_file": "Pajero/squad/skills/hydraulic-steering-load-diagnostic.md",
+        "playbook_source": "Pajero/squad/skills",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "diagnostico",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
+      },
+      {
+        "id": "SKL-PAJERO-05",
+        "name": "Image Annotation",
+        "desc": "Marcacao tecnica de pecas, localizacao, lado do veiculo e observacoes em imagens.",
+        "agents": [
+          "AGT-PAJERO-09",
+          "AGT-PAJERO-11"
+        ],
+        "playbook_file": "Pajero/squad/skills/image-annotation.md",
+        "playbook_source": "Pajero/squad/skills",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "diagnostico",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
+      },
+      {
+        "id": "SKL-PAJERO-06",
+        "name": "Manual Ingestion Indexing",
+        "desc": "Ingestao e indexacao de manuais, boletins, diagramas e fontes tecnicas.",
+        "agents": [
+          "AGT-PAJERO-02"
+        ],
+        "playbook_file": "Pajero/squad/skills/manual-ingestion-indexing.md",
+        "playbook_source": "Pajero/squad/skills",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "diagnostico",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
+      },
+      {
+        "id": "SKL-PAJERO-07",
+        "name": "OBD MUT Diagnostic Interpreter",
+        "desc": "Interpretacao de scanner, DTCs, freeze frame, dados ao vivo e sinais MUT/OBD.",
+        "agents": [
+          "AGT-PAJERO-04",
+          "AGT-PAJERO-05",
+          "AGT-PAJERO-07"
+        ],
+        "playbook_file": "Pajero/squad/skills/obd-mut-diagnostic-interpreter.md",
+        "playbook_source": "Pajero/squad/skills",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "diagnostico",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
+      },
+      {
+        "id": "SKL-PAJERO-08",
+        "name": "Parts Consumables BOM Builder",
+        "desc": "Montagem de BOM de pecas e consumiveis somente apos diagnostico e fonte.",
+        "agents": [
+          "AGT-PAJERO-12"
+        ],
+        "playbook_file": "Pajero/squad/skills/parts-consumables-bom-builder.md",
+        "playbook_source": "Pajero/squad/skills",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "diagnostico",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
+      },
+      {
+        "id": "SKL-PAJERO-09",
+        "name": "Post Service Validation",
+        "desc": "Validacao pos-servico, teste de rodagem, releitura de DTCs e retorno pos-500 km.",
+        "agents": [
+          "AGT-PAJERO-01",
+          "AGT-PAJERO-10",
+          "AGT-PAJERO-12"
+        ],
+        "playbook_file": "Pajero/squad/skills/post-service-validation.md",
+        "playbook_source": "Pajero/squad/skills",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "diagnostico",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
+      },
+      {
+        "id": "SKL-PAJERO-10",
+        "name": "Risk Safety Gate",
+        "desc": "Gate de seguranca para freios, pneus, arrefecimento, rodagem e desmontagem.",
+        "agents": [
+          "AGT-PAJERO-01",
+          "AGT-PAJERO-03",
+          "AGT-PAJERO-06",
+          "AGT-PAJERO-07",
+          "AGT-PAJERO-10"
+        ],
+        "playbook_file": "Pajero/squad/skills/risk-safety-gate.md",
+        "playbook_source": "Pajero/squad/skills",
+        "playbook_status": "active",
+        "activation_lane": "suporte_critico",
+        "activation_relevance": "diagnostico",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
+      },
+      {
+        "id": "SKL-PAJERO-11",
+        "name": "Source Validation",
+        "desc": "Validacao de fonte, aplicabilidade e confianca antes de concluir procedimento.",
+        "agents": [
+          "AGT-PAJERO-01",
+          "AGT-PAJERO-02",
+          "AGT-PAJERO-03",
+          "AGT-PAJERO-05",
+          "AGT-PAJERO-12"
+        ],
+        "playbook_file": "Pajero/squad/skills/source-validation.md",
+        "playbook_source": "Pajero/squad/skills",
+        "playbook_status": "active",
+        "activation_lane": "suporte_critico",
+        "activation_relevance": "diagnostico",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
+      },
+      {
+        "id": "SKL-PAJERO-12",
+        "name": "Symptom Root Cause Mapper",
+        "desc": "Mapeamento de sintomas para causa-raiz provavel e dependencias entre sistemas.",
+        "agents": [
+          "AGT-PAJERO-01",
+          "AGT-PAJERO-04",
+          "AGT-PAJERO-05",
+          "AGT-PAJERO-06",
+          "AGT-PAJERO-08"
+        ],
+        "playbook_file": "Pajero/squad/skills/symptom-root-cause-mapper.md",
+        "playbook_source": "Pajero/squad/skills",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "diagnostico",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
+      },
+      {
+        "id": "SKL-PAJERO-13",
+        "name": "Torque Fluid Table Extractor",
+        "desc": "Extracao controlada de torques, fluidos, capacidades e procedimentos com fonte.",
+        "agents": [
+          "AGT-PAJERO-02",
+          "AGT-PAJERO-03",
+          "AGT-PAJERO-06",
+          "AGT-PAJERO-08"
+        ],
+        "playbook_file": "Pajero/squad/skills/torque-fluid-table-extractor.md",
+        "playbook_source": "Pajero/squad/skills",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "diagnostico",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
+      },
+      {
+        "id": "SKL-PAJERO-14",
+        "name": "Transmission Shock Diagnostic",
+        "desc": "Diagnostico de trancos do V5A51 por motor, ATF, TCU, coxins, folgas e hidraulica.",
+        "agents": [
+          "AGT-PAJERO-07"
+        ],
+        "playbook_file": "Pajero/squad/skills/transmission-shock-diagnostic.md",
+        "playbook_source": "Pajero/squad/skills",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "diagnostico",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
+      },
+      {
+        "id": "SKL-PAJERO-15",
+        "name": "Vehicle Compatibility Filter",
+        "desc": "Filtro de compatibilidade para V77W, 6G75 e V5A51 sem misturar outras versoes.",
+        "agents": [
+          "AGT-PAJERO-02",
+          "AGT-PAJERO-03"
+        ],
+        "playbook_file": "Pajero/squad/skills/vehicle-compatibility-filter.md",
+        "playbook_source": "Pajero/squad/skills",
+        "playbook_status": "active",
+        "activation_lane": "suporte_critico",
+        "activation_relevance": "diagnostico",
+        "activation_criticality": "alta",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
+      },
+      {
+        "id": "SKL-PAJERO-16",
+        "name": "Vehicle Photo Intake",
+        "desc": "Recebimento, triagem e catalogacao de fotos reais do veiculo.",
+        "agents": [
+          "AGT-PAJERO-08",
+          "AGT-PAJERO-09",
+          "AGT-PAJERO-10",
+          "AGT-PAJERO-11"
+        ],
+        "playbook_file": "Pajero/squad/skills/vehicle-photo-intake.md",
+        "playbook_source": "Pajero/squad/skills",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "diagnostico",
+        "activation_criticality": "media",
+        "activation_enabled": true,
+        "activation_trigger": "fase+manual"
+      },
+      {
+        "id": "SKL-PAJERO-17",
+        "name": "Work Order Generator",
+        "desc": "Geracao de ordem de servico priorizada por risco e evidencias.",
+        "agents": [
+          "AGT-PAJERO-12"
+        ],
+        "playbook_file": "Pajero/squad/skills/work-order-generator.md",
+        "playbook_source": "Pajero/squad/skills",
+        "playbook_status": "active",
+        "activation_lane": "producao",
+        "activation_relevance": "diagnostico",
+        "activation_criticality": "media",
         "activation_enabled": true,
         "activation_trigger": "fase+manual"
       }
@@ -1279,10 +2052,11 @@
         "Sofisticada",
         "Naturista"
       ],
-      "bio": "Persona que personifica a marca SommersStore.",
+      "bio": "Persona que personifica a marca SommersStore. Voz técnica dos e-books e validadora de conteúdo botânico.",
       "agents": [
         "@brand-master",
-        "@copywriter"
+        "@copywriter",
+        "@pm"
       ]
     },
     {
@@ -1295,9 +2069,10 @@
         "Cinematográfico",
         "Venda Direta"
       ],
-      "bio": "Inspirador do estilo visual e narrativo cinematográfico.",
+      "bio": "Inspirador do estilo visual narrativo cinematográfico e posicionamento Outlier. Referência para copy de alta percepção de valor.",
       "agents": [
         "@copywriter",
+        "@po",
         "@ux-design-expert"
       ]
     },
@@ -1311,8 +2086,9 @@
         "Lógica",
         "Escala"
       ],
-      "bio": "Fonte para a estrutura de mecanismo único e ofertas irresistíveis.",
+      "bio": "Fonte para orquestração de workflows, mecanismo único e automação de pipelines de IA.",
       "agents": [
+        "@aiox-master",
         "@cro-expert",
         "@marketing"
       ]
@@ -1327,9 +2103,10 @@
         "Direct Response",
         "Atenção"
       ],
-      "bio": "Referência para scripts de alta retenção e VSLs.",
+      "bio": "Referência para scripts de alta retenção, timing de botão CTA e otimização de VSLs.",
       "agents": [
-        "@copywriter"
+        "@copywriter",
+        "@cro-expert"
       ]
     },
     {
@@ -1342,9 +2119,10 @@
         "Posicionamento",
         "Status"
       ],
-      "bio": "Guia para o posicionamento de luxo e branding aristocrático.",
+      "bio": "Guia para posicionamento High Ticket, branding aristocrático e engenharia de prompts de persona.",
       "agents": [
-        "@brand-master"
+        "@brand-master",
+        "@copywriter"
       ]
     },
     {
@@ -1357,10 +2135,343 @@
         "Oferta",
         "Escala"
       ],
-      "bio": "Referencia para arquitetura de funis, oferta e narrativa de conversao orientada a escala.",
+      "bio": "Referência para arquitetura de funis (Dotcom/Expert/Traffic Secrets), oferta e narrativa de conversão orientada a escala.",
       "agents": [
+        "@copywriter",
         "@cro-expert",
         "@marketing"
+      ]
+    },
+    {
+      "id": "prs-elida-dias",
+      "icon": "🔄",
+      "name": "Elida Dias",
+      "role": "Clone de Referência (Funil de Lucro Infinito)",
+      "traits": [
+        "Upsell",
+        "Continuidade",
+        "LTV"
+      ],
+      "bio": "Especialista em esteira de produtos, OTOs e funil de lucro infinito. Referência para maximizar receita por cliente.",
+      "agents": [
+        "@copywriter",
+        "@marketing"
+      ]
+    },
+    {
+      "id": "prs-gary-halbert",
+      "icon": "🎯",
+      "name": "Gary Halbert",
+      "role": "Clone de Referência (Copywriter de Resposta Direta)",
+      "traits": [
+        "AIDA",
+        "Headlines",
+        "Urgência"
+      ],
+      "bio": "O maior copywriter de resposta direta de todos os tempos. Referência para headlines irresistíveis, fascinations e fechamentos de alta conversão.",
+      "agents": [
+        "@copywriter",
+        "@cro-expert"
+      ]
+    },
+    {
+      "id": "prs-david-ogilvy",
+      "icon": "🏆",
+      "name": "David Ogilvy",
+      "role": "Clone de Referência (Publicidade de Longo Prazo)",
+      "traits": [
+        "Big Idea",
+        "Pesquisa",
+        "Especificidade"
+      ],
+      "bio": "Pai da publicidade moderna. Referência para a Big Idea, copy de longa duração, especificidade como credibilidade e demonstração sobre promessa.",
+      "agents": [
+        "@copywriter",
+        "@brand-master"
+      ]
+    },
+    {
+      "id": "prs-eugene-schwartz",
+      "icon": "🧬",
+      "name": "Eugene Schwartz",
+      "role": "Clone de Referência (Sofisticação de Mercado)",
+      "traits": [
+        "Awareness",
+        "Sofisticação",
+        "Desejo de Massa"
+      ],
+      "bio": "Arquiteto dos 5 níveis de consciência e 5 estágios de sofisticação de mercado. Referência para diagnóstico de maturidade do mercado e copy calibrada.",
+      "agents": [
+        "@copywriter",
+        "@analyst",
+        "@marketing"
+      ]
+    },
+    {
+      "id": "prs-alex-hormozi",
+      "icon": "💰",
+      "name": "Alex Hormozi",
+      "role": "Clone de Referência (Ofertas Irresistíveis)",
+      "traits": [
+        "Grand Slam Offer",
+        "Value Stack",
+        "Sem Desconto"
+      ],
+      "bio": "Especialista em construir ofertas impossíveis de recusar sem baixar preço. Referência para value stacking, ancoragem de preço e Grand Slam Offer.",
+      "agents": [
+        "@copywriter",
+        "@marketing",
+        "@cro-expert"
+      ]
+    },
+    {
+      "id": "prs-jeff-walker",
+      "icon": "🚀",
+      "name": "Jeff Walker",
+      "role": "Clone de Referência (Product Launch Formula)",
+      "traits": [
+        "PLF",
+        "Pré-Lançamento",
+        "Antecipação"
+      ],
+      "bio": "Criador do Product Launch Formula. Referência para sequências de pré-lançamento, PLC (Pre-Launch Content) e email de lançamento dia a dia.",
+      "agents": [
+        "@email-specialist",
+        "@marketing",
+        "@social-content"
+      ]
+    },
+    {
+      "id": "prs-joanna-wiebe",
+      "icon": "🔬",
+      "name": "Joanna Wiebe",
+      "role": "Clone de Referência (Voice of Customer)",
+      "traits": [
+        "VoC",
+        "Mineração",
+        "JTBD"
+      ],
+      "bio": "Pioneira do Conversion Copywriting. Referência para mineração de linguagem do cliente, Jobs-to-be-Done e copy baseada em dados qualitativos reais.",
+      "agents": [
+        "@copywriter",
+        "@analyst",
+        "@email-specialist"
+      ]
+    },
+    {
+      "id": "prs-frank-kern",
+      "icon": "✉️",
+      "name": "Frank Kern",
+      "role": "Clone de Referência (Email Relacional)",
+      "traits": [
+        "Mass Control",
+        "Relacionamento",
+        "State of Being"
+      ],
+      "bio": "Mestre do email marketing relacional. Referência para sequências de boas-vindas, State of Being copy e comunicação que constrói confiança em escala.",
+      "agents": [
+        "@email-specialist",
+        "@copywriter"
+      ]
+    },
+    {
+      "id": "prs-enzo-barbatto",
+      "icon": "⚡",
+      "name": "Enzo Barbatto",
+      "role": "Arquiteto de Automações com IA",
+      "traits": [
+        "automação",
+        "protocolo-vlaeg",
+        "full-stack-ia",
+        "n8n",
+        "b2b",
+        "educador",
+        "deploy"
+      ],
+      "bio": "Especialista em criar automações e aplicativos completos usando IA como motor de desenvolvimento. Criador do Protocolo VLAEG — framework que define a ordem correta de construção: Visão, Link, Arquitetura, Estilo, Gatilho. Atua ensinando e vendendo sistemas de automação para empresas, substituindo fluxos N8N por soluções full-stack geradas via linguagem natural com frontend visual integrado.",
+      "agents": [
+        "@dev",
+        "@architect"
+      ]
+    },
+    {
+      "id": "prs-pajero-pajero-chief-diagnostician",
+      "icon": "P1",
+      "name": "Pajero Chief Diagnostician",
+      "role": "Persona tecnica Pajero - Orquestra prioridades, sintomas, dependencias e fases de diagnostico.",
+      "traits": [
+        "diagnostico",
+        "evidencia",
+        "V77W"
+      ],
+      "bio": "Especialista operacional do projeto Pajero V77W. Atua com foco em orquestra prioridades, sintomas, dependencias e fases de diagnostico..",
+      "agents": [
+        "@pajero-chief-diagnostician"
+      ]
+    },
+    {
+      "id": "prs-pajero-oem-technical-librarian",
+      "icon": "P2",
+      "name": "OEM Technical Librarian",
+      "role": "Persona tecnica Pajero - Organiza manuais, fontes, diagramas, torques, fluidos e compatibilidade V77W.",
+      "traits": [
+        "diagnostico",
+        "evidencia",
+        "V77W"
+      ],
+      "bio": "Especialista operacional do projeto Pajero V77W. Atua com foco em organiza manuais, fontes, diagramas, torques, fluidos e compatibilidade v77w..",
+      "agents": [
+        "@oem-technical-librarian"
+      ]
+    },
+    {
+      "id": "prs-pajero-evidence-anti-hallucination-auditor",
+      "icon": "P3",
+      "name": "Evidence & Anti-Hallucination Auditor",
+      "role": "Persona tecnica Pajero - Bloqueia conclusao sem fonte, torque, evidencia ou aplicabilidade correta.",
+      "traits": [
+        "diagnostico",
+        "evidencia",
+        "V77W"
+      ],
+      "bio": "Especialista operacional do projeto Pajero V77W. Atua com foco em bloqueia conclusao sem fonte, torque, evidencia ou aplicabilidade correta..",
+      "agents": [
+        "@evidence-anti-hallucination-auditor"
+      ]
+    },
+    {
+      "id": "prs-pajero-combustion-fuel-trim-engineer",
+      "icon": "P4",
+      "name": "Combustion & Fuel Trim Engineer",
+      "role": "Persona tecnica Pajero - Analisa consumo, marcha lenta, STFT/LTFT, sondas, mistura e catalisador ausente.",
+      "traits": [
+        "diagnostico",
+        "evidencia",
+        "V77W"
+      ],
+      "bio": "Especialista operacional do projeto Pajero V77W. Atua com foco em analisa consumo, marcha lenta, stft/ltft, sondas, mistura e catalisador ausente..",
+      "agents": [
+        "@combustion-fuel-trim-engineer"
+      ]
+    },
+    {
+      "id": "prs-pajero-driveability-electronics-diagnostician",
+      "icon": "P5",
+      "name": "Driveability Electronics Diagnostician",
+      "role": "Persona tecnica Pajero - Interpreta scanner, DTCs, freeze frame, sinais eletricos, sensores e chicotes.",
+      "traits": [
+        "diagnostico",
+        "evidencia",
+        "V77W"
+      ],
+      "bio": "Especialista operacional do projeto Pajero V77W. Atua com foco em interpreta scanner, dtcs, freeze frame, sinais eletricos, sensores e chicotes..",
+      "agents": [
+        "@driveability-electronics-diagnostician"
+      ]
+    },
+    {
+      "id": "prs-pajero-engine-6g75-practical-mechanic",
+      "icon": "P6",
+      "name": "6G75 Practical Engine Mechanic",
+      "role": "Persona tecnica Pajero - Cuida de correia, velas, bobinas, compressao, vazamentos, coxins e arrefecimento.",
+      "traits": [
+        "diagnostico",
+        "evidencia",
+        "V77W"
+      ],
+      "bio": "Especialista operacional do projeto Pajero V77W. Atua com foco em cuida de correia, velas, bobinas, compressao, vazamentos, coxins e arrefecimento..",
+      "agents": [
+        "@engine-6g75-practical-mechanic"
+      ]
+    },
+    {
+      "id": "prs-pajero-transmission-v5a51-specialist",
+      "icon": "P7",
+      "name": "V5A51 Transmission Specialist",
+      "role": "Persona tecnica Pajero - Diagnostica trancos, ATF, TCU, carter, solenoides e corpo de valvulas.",
+      "traits": [
+        "diagnostico",
+        "evidencia",
+        "V77W"
+      ],
+      "bio": "Especialista operacional do projeto Pajero V77W. Atua com foco em diagnostica trancos, atf, tcu, carter, solenoides e corpo de valvulas..",
+      "agents": [
+        "@transmission-v5a51-specialist"
+      ]
+    },
+    {
+      "id": "prs-pajero-super-select-drivetrain-specialist",
+      "icon": "P8",
+      "name": "Super Select & Drivetrain Specialist",
+      "role": "Persona tecnica Pajero - Cuida de transfer, 4x4, cardas, cruzetas, diferenciais, folgas e respiros.",
+      "traits": [
+        "diagnostico",
+        "evidencia",
+        "V77W"
+      ],
+      "bio": "Especialista operacional do projeto Pajero V77W. Atua com foco em cuida de transfer, 4x4, cardas, cruzetas, diferenciais, folgas e respiros..",
+      "agents": [
+        "@super-select-drivetrain-specialist"
+      ]
+    },
+    {
+      "id": "prs-pajero-suspension-hydraulic-steering-engineer",
+      "icon": "P9",
+      "name": "Suspension & Hydraulic Steering Engineer",
+      "role": "Persona tecnica Pajero - Analisa suspensao, buchas, geometria, pneus e direcao hidraulica dura.",
+      "traits": [
+        "diagnostico",
+        "evidencia",
+        "V77W"
+      ],
+      "bio": "Especialista operacional do projeto Pajero V77W. Atua com foco em analisa suspensao, buchas, geometria, pneus e direcao hidraulica dura..",
+      "agents": [
+        "@suspension-hydraulic-steering-engineer"
+      ]
+    },
+    {
+      "id": "prs-pajero-brake-road-safety-inspector",
+      "icon": "P10",
+      "name": "Brake & Road Safety Inspector",
+      "role": "Persona tecnica Pajero - Libera, restringe ou bloqueia teste de rodagem por freio, pneu, rolamento e ABS.",
+      "traits": [
+        "diagnostico",
+        "evidencia",
+        "V77W"
+      ],
+      "bio": "Especialista operacional do projeto Pajero V77W. Atua com foco em libera, restringe ou bloqueia teste de rodagem por freio, pneu, rolamento e abs..",
+      "agents": [
+        "@brake-road-safety-inspector"
+      ]
+    },
+    {
+      "id": "prs-pajero-visual-teardown-mapper",
+      "icon": "P11",
+      "name": "Visual Teardown Mapper",
+      "role": "Persona tecnica Pajero - Cria atlas visual com fotos reais, diagramas, vistas explodidas e legendas.",
+      "traits": [
+        "diagnostico",
+        "evidencia",
+        "V77W"
+      ],
+      "bio": "Especialista operacional do projeto Pajero V77W. Atua com foco em cria atlas visual com fotos reais, diagramas, vistas explodidas e legendas..",
+      "agents": [
+        "@visual-teardown-mapper"
+      ]
+    },
+    {
+      "id": "prs-pajero-work-order-parts-planner",
+      "icon": "P12",
+      "name": "Work Order & Parts Planner",
+      "role": "Persona tecnica Pajero - Gera OS, BOM, lista de insumos, riscos e validacao pos-servico.",
+      "traits": [
+        "diagnostico",
+        "evidencia",
+        "V77W"
+      ],
+      "bio": "Especialista operacional do projeto Pajero V77W. Atua com foco em gera os, bom, lista de insumos, riscos e validacao pos-servico..",
+      "agents": [
+        "@work-order-parts-planner"
       ]
     }
   ]

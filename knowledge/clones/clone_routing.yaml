@@ -55,3 +55,57 @@ clones:
       - "Para decidir qual Design System (Golden, Obsidian, Zen, Cockpit) aplicar ao projeto."
       - "Geração de prompts midjourney/dalle de altíssimo padrão."
     associated_agents: ["@ux-design-expert", "@dev"]
+
+  - id: "david_ogilvy"
+    name: "David Ogilvy (O Pai da Publicidade)"
+    role: "Big Idea, Pesquisa Profunda e Copy que Constrói Marca"
+    triggers:
+      - "O projeto exige uma Big Idea central que unifique toda a campanha."
+      - "Precisamos de copy que construa marca a longo prazo, não só converta imediatamente."
+      - "O produto precisa de demonstração concreta e especificidade como prova de credibilidade."
+    associated_agents: ["@copywriter", "@brand-master"]
+
+  - id: "eugene_schwartz"
+    name: "Eugene Schwartz (O Arquiteto de Mercados)"
+    role: "5 Níveis de Consciência e Sofisticação de Mercado"
+    triggers:
+      - "Na fase de pesquisa de mercado, para diagnosticar o nível de consciência da compradora."
+      - "Quando a copy não está convertendo e precisamos calibrar o ponto de entrada da mensagem."
+      - "Para produtos novos no mercado que precisam criar desejo antes de vender solução."
+    associated_agents: ["@copywriter", "@analyst", "@marketing"]
+
+  - id: "alex_hormozi"
+    name: "Alex Hormozi (O Arquiteto de Ofertas)"
+    role: "Grand Slam Offer, Value Stack e Ancoragem de Preço"
+    triggers:
+      - "Sempre que estamos estruturando ou revisando a oferta principal, bumps e OTOs."
+      - "O preço parece alto para o mercado e precisamos aumentar o valor percebido sem desconto."
+      - "Construção do value stack de bônus com ancoragem de preço e garantia de risco zero."
+    associated_agents: ["@copywriter", "@marketing", "@cro-expert"]
+
+  - id: "jeff_walker"
+    name: "Jeff Walker (O Arquiteto de Lançamentos)"
+    role: "Product Launch Formula e Sequências PLF"
+    triggers:
+      - "Sempre que um novo produto ou edição especial vai ao mercado (abertura de carrinho)."
+      - "Criação do calendário de pré-lançamento com PLC (Pre-Launch Content) em 3 peças."
+      - "Mapeamento dos gatilhos mentais por dia no período de carrinho aberto."
+    associated_agents: ["@email-specialist", "@marketing", "@social-content"]
+
+  - id: "joanna_wiebe"
+    name: "Joanna Wiebe (A Mineradora de Linguagem)"
+    role: "Voice of Customer, VoC Research e Conversion Copywriting"
+    triggers:
+      - "SEMPRE antes de escrever qualquer copy — deve entregar o relatório VoC primeiro."
+      - "Quando a copy está genérica e não ressoa com o público real."
+      - "Estruturação de Jobs-to-be-Done (JTBD) e pesquisa em reviews de concorrentes."
+    associated_agents: ["@copywriter", "@analyst", "@email-specialist"]
+
+  - id: "frank_kern"
+    name: "Frank Kern (O Conversador)"
+    role: "Email Marketing Relacional e Mass Control"
+    triggers:
+      - "Criação de sequências de email de boas-vindas, nutrição e carrinho abandonado."
+      - "O tom dos emails está corporativo ou distante — precisamos humanizar a voz."
+      - "Aplicação do State of Being copy: fazer a leitora sentir o resultado antes de comprar."
+    associated_agents: ["@email-specialist", "@copywriter"]

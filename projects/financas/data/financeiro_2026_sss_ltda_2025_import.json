@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "source": {
+    "file_name": "Financeiro 2026.xlsx",
+    "desktop_path": "C:\\Users\\ADMIN\\Desktop\\Financeiro 2026.xlsx",
+    "sheet": "SsS Ltda 2025",
+    "last_modified_local": "2026-05-04 11:32:39",
+    "analyzed_at": "2026-05-04",
+    "method": "xlsx zip extraction with robust worksheet XML parsing for normal and self-closing cells"
+  },
+  "sheet_profile": {
+    "dimension": "A1:CA494",
+    "role": "orcamento operacional mensal 2025/2026",
+    "period_columns": {
+      "2025-11": "C",
+      "2025-12": "E",
+      "2026-01": "G",
+      "2026-02": "I",
+      "2026-03": "K",
+      "2026-04": "M",
+      "2026-05": "O",
+      "2026-06": "Q",
+      "2026-07": "S",
+      "2026-08": "U",
+      "2026-09": "W",
+      "2026-10": "Y",
+      "2026-11": "AA",
+      "2026-12": "AC"
+    },
+    "blocks": [
+      { "name": "despesas", "rows": "4:16" },
+      { "name": "dividas", "rows": "17:38" },
+      { "name": "receitas", "rows": "39:44" },
+      { "name": "resultado", "rows": "45:50" },
+      { "name": "uber_diario", "rows": "261:280+" },
+      { "name": "investimentos_reserva", "rows": "52:78" }
+    ]
+  },
+  "current_snapshot": {
+    "period": "2026-05",
+    "month": "Maio",
+    "source_col": "O",
+    "income": 11257,
+    "expenses": 2792,
+    "debts_payment": 11654,
+    "total_outflow": 14446,
+    "monthly_balance": -3189,
+    "accumulated_balance": -14261,
+    "reserve": 0,
+    "estimated_remaining_debt": 129824.5
+  },
+  "monthly_forecast": [
+    { "period": "2025-11", "month": "Novembro", "income": 9857, "expenses": 1516, "debts_payment": 4208, "total_outflow": 5724, "monthly_balance": 4133, "accumulated_balance": 4133 },
+    { "period": "2025-12", "month": "Dezembro", "income": 14257, "expenses": 3062, "debts_payment": 3854, "total_outflow": 6916, "monthly_balance": 7341, "accumulated_balance": 11474 },
+    { "period": "2026-01", "month": "Janeiro", "income": 11257, "expenses": 3062, "debts_payment": 21054, "total_outflow": 24116, "monthly_balance": -12859, "accumulated_balance": -1385 },
+    { "period": "2026-02", "month": "Fevereiro", "income": 11257, "expenses": 2912, "debts_payment": 11654, "total_outflow": 14566, "monthly_balance": -3309, "accumulated_balance": -4694 },
+    { "period": "2026-03", "month": "Marco", "income": 11257, "expenses": 2792, "debts_payment": 11654, "total_outflow": 14446, "monthly_balance": -3189, "accumulated_balance": -7883 },
+    { "period": "2026-04", "month": "Abril", "income": 11257, "expenses": 2792, "debts_payment": 11654, "total_outflow": 14446, "monthly_balance": -3189, "accumulated_balance": -11072 },
+    { "period": "2026-05", "month": "Maio", "income": 11257, "expenses": 2792, "debts_payment": 11654, "total_outflow": 14446, "monthly_balance": -3189, "accumulated_balance": -14261 },
+    { "period": "2026-06", "month": "Junho", "income": 11257, "expenses": 2792, "debts_payment": 11654, "total_outflow": 14446, "monthly_balance": -3189, "accumulated_balance": -17450 },
+    { "period": "2026-07", "month": "Julho", "income": 11257, "expenses": 2792, "debts_payment": 11654, "total_outflow": 14446, "monthly_balance": -3189, "accumulated_balance": -20639 },
+    { "period": "2026-08", "month": "Agosto", "income": 11257, "expenses": 2557, "debts_payment": 11654, "total_outflow": 14211, "monthly_balance": -2954, "accumulated_balance": -23593 },
+    { "period": "2026-09", "month": "Setembro", "income": 11257, "expenses": 2557, "debts_payment": 11654, "total_outflow": 14211, "monthly_balance": -2954, "accumulated_balance": -26547 },
+    { "period": "2026-10", "month": "Outubro", "income": 11257, "expenses": 2557, "debts_payment": 11654, "total_outflow": 14211, "monthly_balance": -2954, "accumulated_balance": -29501 },
+    { "period": "2026-11", "month": "Novembro", "income": 11257, "expenses": 2557, "debts_payment": 11654, "total_outflow": 14211, "monthly_balance": -2954, "accumulated_balance": -32455 },
+    { "period": "2026-12", "month": "Dezembro", "income": 11257, "expenses": 2557, "debts_payment": 11654, "total_outflow": 14211, "monthly_balance": -2954, "accumulated_balance": -35409 }
+  ],
+  "current_period_lines": {
+    "income": [
+      { "label": "Pagto PM", "amount": 6257, "source_ref": "SsS Ltda 2025!O40" },
+      { "label": "UBER", "amount": 5000, "source_ref": "SsS Ltda 2025!O41" },
+      { "label": "Outros", "amount": 0, "source_ref": "SsS Ltda 2025!O42" },
+      { "label": "CNPJ", "amount": 0, "source_ref": "SsS Ltda 2025!O44" }
+    ],
+    "expenses": [
+      { "label": "Mercado", "amount": 1800, "source_ref": "SsS Ltda 2025!O4" },
+      { "label": "Celular PJ", "amount": 112, "source_ref": "SsS Ltda 2025!O5" },
+      { "label": "Celular PF", "amount": 45, "source_ref": "SsS Ltda 2025!O6" },
+      { "label": "SemParar PJ", "amount": 50, "source_ref": "SsS Ltda 2025!O8" },
+      { "label": "Luz Rosa", "amount": 350, "source_ref": "SsS Ltda 2025!O9" },
+      { "label": "Luz Rosa At", "amount": 235, "source_ref": "SsS Ltda 2025!O10" },
+      { "label": "Gas", "amount": 100, "source_ref": "SsS Ltda 2025!O11" },
+      { "label": "Net", "amount": 100, "source_ref": "SsS Ltda 2025!O13" }
+    ],
+    "debts": [
+      { "label": "Bradesco", "monthly_payment": 1138, "factor": 58, "estimated_remaining": 66004, "source_ref": "SsS Ltda 2025!O17" },
+      { "label": "Bradesco", "monthly_payment": 469, "factor": 26, "estimated_remaining": 12194, "source_ref": "SsS Ltda 2025!O18" },
+      { "label": "Bradesco", "monthly_payment": 53, "factor": 0.5, "estimated_remaining": 26.5, "source_ref": "SsS Ltda 2025!O19" },
+      { "label": "Safra", "monthly_payment": 156, "factor": 9, "estimated_remaining": 1404, "source_ref": "SsS Ltda 2025!O20" },
+      { "label": "Daycoval", "monthly_payment": 208, "factor": 8, "estimated_remaining": 1664, "source_ref": "SsS Ltda 2025!O21" },
+      { "label": "Daycoval", "monthly_payment": 34, "factor": 3, "estimated_remaining": 102, "source_ref": "SsS Ltda 2025!O22" },
+      { "label": "Santander", "monthly_payment": 83, "factor": 4, "estimated_remaining": 332, "source_ref": "SsS Ltda 2025!O23" },
+      { "label": "BMG", "monthly_payment": 303, "factor": 6, "estimated_remaining": 1818, "source_ref": "SsS Ltda 2025!O24" },
+      { "label": "EAGLE", "monthly_payment": 950, "factor": 24, "estimated_remaining": 22800, "source_ref": "SsS Ltda 2025!O25" },
+      { "label": "Seguro", "monthly_payment": 360, "factor": 3, "estimated_remaining": 1080, "source_ref": "SsS Ltda 2025!O29" },
+      { "label": "M.C. Nu PJ", "monthly_payment": 2500, "factor": 2.4, "estimated_remaining": 6000, "source_ref": "SsS Ltda 2025!O32" },
+      { "label": "Horto", "monthly_payment": 2800, "factor": 4, "estimated_remaining": 11200, "source_ref": "SsS Ltda 2025!O34" },
+      { "label": "Mamud", "monthly_payment": 2600, "factor": 2, "estimated_remaining": 5200, "source_ref": "SsS Ltda 2025!O35" }
+    ]
+  },
+  "data_quality_flags": [
+    "O forecast mostra deficit mensal recorrente de R$ 3.189 entre marco e julho/2026.",
+    "Maio/2026 acumula R$ 14.261 negativos sem reserva emergencial.",
+    "A aba traz parcelas e fatores, mas nao o saldo real formal de cada contrato.",
+    "A area diaria de Uber registra gasolina/outros e precisa virar fechamento mensal de custo operacional.",
+    "Linhas com valor zero ainda precisam de status: pausada, quitada, prevista ou erro."
+  ],
+  "recommendations": [
+    "Adicionar coluna `saldo real` ao lado de cada divida.",
+    "Adicionar coluna `status` por linha mensal: previsto, realizado, pago, atrasado, negociar.",
+    "Criar uma aba `Realizado 2026` com os mesmos blocos para comparar previsto vs realizado.",
+    "Priorizar reducao de parcelas em Horto, Mamud, M.C. Nu PJ, Bradesco e EAGLE.",
+    "Separar UBER bruto de UBER liquido no painel."
+  ]
+}

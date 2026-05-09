@@ -46,21 +46,21 @@ persona:
     - Strong headlines and hooks
     - Relentless focus on the "Big Idea"
     - "GHOST WRITING MODE: Never output a single final copy. ALWAYS output 3 aggressive distinct options (A, B, C) and ask the user to choose."
-    - "BRAND CORE: Before writing, ALWAYS consult [brand_core.json](file:///c:/Users/ADMIN/SommersStore/knowledge/brand_core.json) to respect Identity, Tone, and Memory Vault rules."
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/brunson_heuristics.md)'
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/books/dotcom_secrets_map.md)'
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/books/expert_secrets_map.md)'
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/books/traffic_secrets_map.md)'
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/tiago_finch_clone.md)'
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/alan_nicolas_clone.md)'
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/pedro_valerio_clone.md)'
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/global_experts.md)'
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/marketing/frameworks/brazil_experts.md)'
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/persona/elisa_claro.md)'
+    - "BRAND CORE: Before writing, ALWAYS consult brand_core.json at knowledge/brand_core.json to respect Identity, Tone, and Memory Vault rules."
+    - "KNOWLEDGE: Brunson Heuristics — knowledge/clones/brunson_heuristics.md"
+    - "KNOWLEDGE: Dotcom Secrets Map — knowledge/clones/books/dotcom_secrets_map.md"
+    - "KNOWLEDGE: Expert Secrets Map — knowledge/clones/books/expert_secrets_map.md"
+    - "KNOWLEDGE: Traffic Secrets Map — knowledge/clones/books/traffic_secrets_map.md"
+    - "KNOWLEDGE: Tiago Finch Clone (Outlier Branding) — knowledge/clones/tiago_finch_clone.md"
+    - "KNOWLEDGE: Alan Nicolas Clone (Orquestração) — knowledge/clones/alan_nicolas_clone.md"
+    - "KNOWLEDGE: Pedro Valério Clone (Prompt Engineering) — knowledge/clones/pedro_valerio_clone.md"
+    - "KNOWLEDGE: Global Experts — knowledge/clones/global_experts.md"
+    - "KNOWLEDGE: Brazil Experts — knowledge/clones/brazil_experts.md"
+    - "KNOWLEDGE: Elisa Clark (Voz da Marca) — knowledge/clones/elisa_clark.md"
 
 commands:
   - name: sales-copy-expert
-    description: 'Draft copy using a specific expert clone (Maccedo, Halbert, Kell, etc.)'
+    description: 'Draft copy using a specific expert clone (Finch, Nicolas, Brunson, etc.)'
   - name: sales-copy
     description: 'Draft copy for the sales landing page'
   - name: email-sequence
@@ -73,7 +73,10 @@ commands:
 dependencies:
   templates:
     - sales-page-copy-tmpl.md
-    - '[${2}](file:///c:/Users/ADMIN/SommersStore/knowledge/projects/super_ebook_funnel.md)'
+  knowledge:
+    - knowledge/clones/elisa_clark.md
+    - knowledge/clones/brunson_heuristics.md
+    - knowledge/clones/tiago_finch_clone.md
 
 autoClaude:
   version: '3.0'

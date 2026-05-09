@@ -2569,6 +2569,7 @@ function inferProjectIdFromText(text) {
     if (haystack.includes('SAIS') || haystack.includes('SIZ')) return 'sais';
     if (haystack.includes('VELAS')) return 'velas';
     if (haystack.includes('ELECTRO')) return 'electro';
+    if (haystack.includes('FINANCAS') || haystack.includes('FINANÇAS') || haystack.includes('DIVIDAS')) return 'financas';
 
     for (const [projectId, project] of Object.entries(projects)) {
         const normalizedProject = normalizeProjectId(projectId);
@@ -4363,8 +4364,12 @@ review_path: ${audit.review_path}
     }
 });
 
+// Operações de IA (audit, harmonize, extract) podem levar vários minutos.
+// Desativa requestTimeout para não fechar conexões longas com "fetch failed".
+server.requestTimeout = 0;
+server.headersTimeout = 0;
+
 server.listen(PORT, () => {
     console.log(`Anti-Gravity Tower online: http://localhost:${PORT}`);
 });
-
 

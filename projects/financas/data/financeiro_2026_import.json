@@ -1,0 +1,392 @@
+{
+  "version": 1,
+  "source": {
+    "file_name": "Financeiro 2026.xlsx",
+    "desktop_path": "C:\\Users\\ADMIN\\Desktop\\Financeiro 2026.xlsx",
+    "last_modified_local": "2026-05-04 11:32:39",
+    "analyzed_at": "2026-05-04",
+    "method": "xlsx zip extraction with workbook.xml, sharedStrings.xml and worksheet XML parsing"
+  },
+  "workbook": {
+    "sheet_count": 8,
+    "sheets": [
+      {
+        "name": "Deriv Robo",
+        "dimension": "A1:AD1000",
+        "role": "trading_projection",
+        "summary": "Simulacao de robo/Deriv com saque, juros e curvas de capital. Nao deve ser misturada ao caixa pessoal realizado."
+      },
+      {
+        "name": "2024",
+        "dimension": "A1:Z972",
+        "role": "historical_cashflow",
+        "summary": "Historico mensal de receitas, despesas, cartoes e dividas de 2024."
+      },
+      {
+        "name": "PESSOAL",
+        "dimension": "A1:Y28",
+        "role": "current_snapshot",
+        "summary": "Retrato financeiro atual: receitas, despesas, dividas, reserva, saldo e objetivos."
+      },
+      {
+        "name": "Projecao Futura",
+        "dimension": "A1:W1000",
+        "role": "projection",
+        "summary": "Simulacao futura com meses, saques, imposto/rateios e resultados projetados."
+      },
+      {
+        "name": "Planilha2",
+        "dimension": "A1:AM1001",
+        "role": "model_sandbox",
+        "summary": "Sandbox de formulas com varios resultados de simulacao e erros #REF!/#VALUE!; manter fora do caixa real."
+      },
+      {
+        "name": "Hedging",
+        "dimension": "A1:AI1011",
+        "role": "hedging_model",
+        "summary": "Modelo de BUY/SELL, spread, volume, TP e intervalo. Serve para estudo de risco, nao para orcamento domestico."
+      },
+      {
+        "name": "SsS Ltda 2025",
+        "dimension": "A1:CA494",
+        "role": "business_budget",
+        "summary": "Orcamento mensal de 2025/2026 para receitas, despesas recorrentes, dividas e saldos projetados."
+      },
+      {
+        "name": "Graf1",
+        "role": "hidden_chart",
+        "summary": "Aba de grafico oculta."
+      }
+    ]
+  },
+  "current_snapshot": {
+    "sheet": "PESSOAL",
+    "cell_refs": {
+      "receita_total": "PESSOAL!F19",
+      "despesas": "PESSOAL!F4",
+      "dividas_mensais": "PESSOAL!H4",
+      "despesas_mais_dividas": "PESSOAL!F20",
+      "saldo": "PESSOAL!E21",
+      "divida_total": "PESSOAL!F2",
+      "reserva_total": "PESSOAL!H2"
+    },
+    "receita_total": 15507.03,
+    "despesas": 1870,
+    "dividas_mensais": 5815.44,
+    "despesas_mais_dividas": 7685.44,
+    "saldo": 7821.59,
+    "divida_total": 178744,
+    "divida_menos_reserva": 178694,
+    "reserva_total": 50,
+    "objetivos": [
+      "Quitar",
+      100000,
+      1000000
+    ]
+  },
+  "income": [
+    {
+      "id": "inc-pm-liquido",
+      "label": "PM liquido",
+      "amount": 5907.03,
+      "kind": "fixa",
+      "source_ref": "PESSOAL!B12"
+    },
+    {
+      "id": "inc-uber",
+      "label": "Uber",
+      "amount": 9600,
+      "kind": "variavel",
+      "source_ref": "PESSOAL!F11"
+    },
+    {
+      "id": "inc-outras-rec-programadas",
+      "label": "Outras receitas programadas",
+      "amount": 0,
+      "kind": "cenario",
+      "source_ref": "PESSOAL!J4:K17",
+      "notes": "A planilha lista 13o, Patricia e outros valores, mas o total atual de receita usa PM liquido + Uber. Manter como cenario ate confirmar recorrencia."
+    }
+  ],
+  "expenses": [
+    {
+      "id": "exp-rosa",
+      "label": "Rosa",
+      "amount": 1700,
+      "kind": "essencial",
+      "source_ref": "PESSOAL!F5"
+    },
+    {
+      "id": "exp-celular-internet",
+      "label": "Celular / internet",
+      "amount": 170,
+      "kind": "essencial",
+      "source_ref": "PESSOAL!F6"
+    },
+    {
+      "id": "exp-gasolina-revisar",
+      "label": "Gasolina - revisar classificacao",
+      "amount": 0,
+      "kind": "revisar",
+      "source_ref": "PESSOAL!F7",
+      "notes": "Linha visual mostra 197, mas o total cacheado de despesas esta em 1870. Confirmar se gasolina entra em despesas pessoais ou custo do Uber."
+    }
+  ],
+  "debts": [
+    {
+      "id": "debt-holerite-bradesco-1",
+      "creditor": "Bradesco",
+      "type": "holerite",
+      "current_amount": 26000,
+      "monthly_payment": 469.15,
+      "target_offer": 7800,
+      "installments": 55,
+      "priority": "alta",
+      "status": "mapear",
+      "source_ref": "PESSOAL!B18:D18"
+    },
+    {
+      "id": "debt-holerite-bradesco-2",
+      "creditor": "Bradesco",
+      "type": "holerite",
+      "current_amount": 58000,
+      "monthly_payment": 1138.71,
+      "target_offer": 17400,
+      "installments": 51,
+      "priority": "alta",
+      "status": "mapear",
+      "source_ref": "PESSOAL!B19:D19"
+    },
+    {
+      "id": "debt-holerite-daycoval1",
+      "creditor": "Daycoval 1",
+      "type": "holerite",
+      "current_amount": 6000,
+      "monthly_payment": 34.11,
+      "target_offer": 1800,
+      "installments": 176,
+      "priority": "media",
+      "status": "mapear",
+      "source_ref": "PESSOAL!B20:D20"
+    },
+    {
+      "id": "debt-holerite-daycoval2",
+      "creditor": "Daycoval 2",
+      "type": "holerite",
+      "current_amount": 21000,
+      "monthly_payment": 208.44,
+      "target_offer": 6300,
+      "installments": 101,
+      "priority": "media",
+      "status": "mapear",
+      "source_ref": "PESSOAL!B21:D21"
+    },
+    {
+      "id": "debt-holerite-bmg",
+      "creditor": "BMG",
+      "type": "holerite",
+      "current_amount": 6000,
+      "monthly_payment": 303.56,
+      "target_offer": 1800,
+      "installments": 20,
+      "priority": "media",
+      "status": "mapear",
+      "source_ref": "PESSOAL!B22:D22"
+    },
+    {
+      "id": "debt-holerite-std",
+      "creditor": "STD",
+      "type": "holerite",
+      "current_amount": 4300,
+      "monthly_payment": 82.47,
+      "target_offer": 1290,
+      "installments": 52,
+      "priority": "media",
+      "status": "mapear",
+      "source_ref": "PESSOAL!B23:D23"
+    },
+    {
+      "id": "debt-holerite-safra",
+      "creditor": "Safra",
+      "type": "holerite",
+      "current_amount": 8000,
+      "monthly_payment": 156,
+      "target_offer": 2400,
+      "installments": 51,
+      "priority": "media",
+      "status": "mapear",
+      "source_ref": "PESSOAL!B24:D24"
+    },
+    {
+      "id": "debt-holerite-eagle",
+      "creditor": "EAGLE",
+      "type": "holerite",
+      "current_amount": 8000,
+      "monthly_payment": 869,
+      "target_offer": 2400,
+      "installments": 9,
+      "priority": "alta",
+      "status": "mapear",
+      "source_ref": "PESSOAL!B25:D25"
+    },
+    {
+      "id": "debt-cartoes",
+      "creditor": "Cartoes",
+      "type": "cartao",
+      "current_amount": 400,
+      "monthly_payment": 400,
+      "target_offer": 120,
+      "installments": 1,
+      "priority": "alta",
+      "status": "mapear",
+      "source_ref": "PESSOAL!G6:I8"
+    },
+    {
+      "id": "debt-outras-bradesco-1",
+      "creditor": "Bradesco",
+      "type": "outras_dividas",
+      "current_amount": 2194,
+      "monthly_payment": 1097,
+      "target_offer": 658.2,
+      "installments": 2,
+      "priority": "alta",
+      "status": "mapear",
+      "source_ref": "PESSOAL!G10:I10"
+    },
+    {
+      "id": "debt-outras-bradesco-2",
+      "creditor": "Bradesco",
+      "type": "outras_dividas",
+      "current_amount": 650,
+      "monthly_payment": 57,
+      "target_offer": 195,
+      "installments": 11,
+      "priority": "media",
+      "status": "mapear",
+      "source_ref": "PESSOAL!G11:I11"
+    },
+    {
+      "id": "debt-outras-sem-nome-7200",
+      "creditor": "Credor a identificar 7200",
+      "type": "outras_dividas",
+      "current_amount": 7200,
+      "monthly_payment": 1000,
+      "target_offer": 2160,
+      "installments": 7,
+      "priority": "alta",
+      "status": "mapear",
+      "source_ref": "PESSOAL!G12:I12",
+      "notes": "A planilha tem valor e parcela, mas o nome do credor nao esta visivel na linha."
+    },
+    {
+      "id": "debt-outras-sem-nome-6000",
+      "creditor": "Credor a identificar 6000",
+      "type": "outras_dividas",
+      "current_amount": 6000,
+      "monthly_payment": 0,
+      "target_offer": 1800,
+      "installments": 12,
+      "priority": "media",
+      "status": "mapear",
+      "source_ref": "PESSOAL!G13:I13",
+      "notes": "A planilha tem saldo sem parcela atual; confirmar status."
+    },
+    {
+      "id": "debt-pajero",
+      "creditor": "Pajero",
+      "type": "veiculo",
+      "current_amount": 10000,
+      "monthly_payment": 0,
+      "target_offer": 3000,
+      "installments": 12,
+      "priority": "media",
+      "status": "mapear",
+      "source_ref": "PESSOAL!G14:I14"
+    },
+    {
+      "id": "debt-corsa",
+      "creditor": "Corsa",
+      "type": "veiculo",
+      "current_amount": 5000,
+      "monthly_payment": 0,
+      "target_offer": 1500,
+      "installments": 12,
+      "priority": "media",
+      "status": "mapear",
+      "source_ref": "PESSOAL!G15:I15"
+    },
+    {
+      "id": "debt-bb",
+      "creditor": "BB",
+      "type": "outras_dividas",
+      "current_amount": 10000,
+      "monthly_payment": 0,
+      "target_offer": 3000,
+      "installments": 12,
+      "priority": "media",
+      "status": "mapear",
+      "source_ref": "PESSOAL!G16:I16"
+    }
+  ],
+  "business_budget": {
+    "source_sheet": "SsS Ltda 2025",
+    "recurring_income_base": 11257,
+    "recurring_income_lines": [
+      {
+        "label": "Pagto PM",
+        "amount": 6257
+      },
+      {
+        "label": "Uber",
+        "amount": 5000
+      }
+    ],
+    "recurring_expense_base": 2792,
+    "expense_lines_seen": [
+      "Mercado",
+      "Celular PJ",
+      "Celular PF",
+      "SemParar PJ",
+      "Luz Rosa",
+      "Luz Rosa At",
+      "Gas"
+    ],
+    "pressure_months_seen": [
+      {
+        "month": "2025-03",
+        "projected_month_balance": -12859
+      },
+      {
+        "month": "2025-04",
+        "projected_month_balance": -3309
+      },
+      {
+        "month": "2025-05 onward",
+        "projected_month_balance": -3189
+      }
+    ]
+  },
+  "data_quality_flags": [
+    "A planilha mistura caixa pessoal, orcamento da empresa, historico e simulacoes de trading no mesmo arquivo.",
+    "Aba PESSOAL tem linhas de despesas que precisam reconciliar gasolina/custo de Uber contra o total usado.",
+    "Duas linhas de outras dividas nao possuem nome de credor visivel.",
+    "Debitos com parcela zero precisam ser classificados como pausados, vencidos, quitados ou apenas provisionados.",
+    "Planilha2 contem erros #REF! e #VALUE!, portanto nao deve alimentar KPIs financeiros reais.",
+    "Receita de Uber precisa separar bruto, gasolina, manutencao, plataforma, imposto e liquido."
+  ],
+  "recommendations": [
+    "Separar abas em quatro blocos: lancamentos brutos, dossie de dividas, orcamento mensal e simulacoes.",
+    "Transformar cada tabela em formato tabular com cabecalhos fixos: data, competencia, origem, categoria, subcategoria, valor, status e observacao.",
+    "Criar identificador unico por divida: credor, contrato, saldo atualizado, parcela atual, atraso, protesto, SPC/Serasa, processo, oferta alvo, comprovante e proxima acao.",
+    "Manter trading/Deriv/Hedging em arquivo ou aba de simulacao isolada, sem contaminar saldo pessoal.",
+    "Fechar o mes sempre comparando previsto vs realizado e salvando o snapshot no painel.",
+    "Usar o Anti-Gravity como cockpit: planilha importa dados, aba Financas organiza, dividas viram tarefas e o plano mensal vira rotina."
+  ],
+  "panel_workflow": [
+    "Abrir a aba Financas e entrar na subaba Planilha para validar a origem e os alertas.",
+    "Usar Caixa para corrigir receita liquida, Uber e despesas recorrentes.",
+    "Usar Dividas para completar credor, contrato, risco, comprovantes e proxima acao de cada linha.",
+    "Usar Plano para fechar o mes: atualizar saldo, reserva, ofertas e status de cada divida.",
+    "Salvar dados para persistir `projects/financas/data/finance_state.json` e manter o Excel apenas como fonte bruta/importavel."
+  ]
+}

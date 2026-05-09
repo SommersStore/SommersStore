@@ -1,0 +1,128 @@
+{
+  "squad": {
+    "id": "pajero-v77w-diagnostic-squad",
+    "nome": "PAJERO V77W RESTORATION & DIAGNOSTIC SQUAD",
+    "missao": "Diagnosticar, documentar e planejar a revisao completa da Pajero V77W 6G75 V5A51 com causa-raiz, fontes, imagens reais, seguranca e validacao.",
+    "regra_mae": [
+      "Diagnostico antes de peca",
+      "Fonte antes de procedimento",
+      "Torque antes de montagem",
+      "Foto antes de desmontagem",
+      "Scanner antes de conclusao",
+      "Teste final antes de validacao"
+    ]
+  },
+  "camadas": [
+    {
+      "id": "comando",
+      "nome": "Comando e Verdade Tecnica",
+      "agentes": ["pajero-chief-diagnostician", "oem-technical-librarian", "evidence-anti-hallucination-auditor"]
+    },
+    {
+      "id": "diagnostico-critico",
+      "nome": "Diagnostico Critico",
+      "agentes": ["combustion-fuel-trim-engineer", "driveability-electronics-diagnostician", "engine-6g75-practical-mechanic", "transmission-v5a51-specialist", "super-select-drivetrain-specialist"]
+    },
+    {
+      "id": "execucao-visual",
+      "nome": "Revisao, Visual e Execucao",
+      "agentes": ["suspension-hydraulic-steering-engineer", "brake-road-safety-inspector", "visual-teardown-mapper", "work-order-parts-planner"]
+    }
+  ],
+  "agentes": [
+    {
+      "id": "pajero-chief-diagnostician",
+      "nome": "Pajero Chief Diagnostician",
+      "funcao": "Orquestra prioridades, sintomas, dependencias e fases de diagnostico.",
+      "arquivo": "squad/agents/pajero-chief-diagnostician.md",
+      "skills": ["symptom-root-cause-mapper", "risk-safety-gate", "source-validation", "post-service-validation"]
+    },
+    {
+      "id": "oem-technical-librarian",
+      "nome": "OEM Technical Librarian",
+      "funcao": "Organiza manuais, fontes, diagramas, torques, fluidos e compatibilidade V77W.",
+      "arquivo": "squad/agents/oem-technical-librarian.md",
+      "skills": ["manual-ingestion-indexing", "source-validation", "vehicle-compatibility-filter", "torque-fluid-table-extractor"]
+    },
+    {
+      "id": "evidence-anti-hallucination-auditor",
+      "nome": "Evidence & Anti-Hallucination Auditor",
+      "funcao": "Bloqueia conclusao sem fonte, torque, evidencia ou aplicabilidade correta.",
+      "arquivo": "squad/agents/evidence-anti-hallucination-auditor.md",
+      "skills": ["source-validation", "vehicle-compatibility-filter", "risk-safety-gate", "torque-fluid-table-extractor"]
+    },
+    {
+      "id": "combustion-fuel-trim-engineer",
+      "nome": "Combustion & Fuel Trim Engineer",
+      "funcao": "Analisa consumo, marcha lenta, STFT/LTFT, sondas, mistura e catalisador ausente.",
+      "arquivo": "squad/agents/combustion-fuel-trim-engineer.md",
+      "skills": ["fuel-trim-lambda-analysis", "obd-mut-diagnostic-interpreter", "symptom-root-cause-mapper"]
+    },
+    {
+      "id": "driveability-electronics-diagnostician",
+      "nome": "Driveability Electronics Diagnostician",
+      "funcao": "Interpreta scanner, DTCs, freeze frame, sinais eletricos, sensores e chicotes.",
+      "arquivo": "squad/agents/driveability-electronics-diagnostician.md",
+      "skills": ["obd-mut-diagnostic-interpreter", "source-validation", "symptom-root-cause-mapper"]
+    },
+    {
+      "id": "engine-6g75-practical-mechanic",
+      "nome": "6G75 Practical Engine Mechanic",
+      "funcao": "Cuida de correia, velas, bobinas, compressao, vazamentos, coxins e arrefecimento.",
+      "arquivo": "squad/agents/engine-6g75-practical-mechanic.md",
+      "skills": ["risk-safety-gate", "symptom-root-cause-mapper", "torque-fluid-table-extractor"]
+    },
+    {
+      "id": "transmission-v5a51-specialist",
+      "nome": "V5A51 Transmission Specialist",
+      "funcao": "Diagnostica trancos, ATF, TCU, carter, solenoides e corpo de valvulas.",
+      "arquivo": "squad/agents/transmission-v5a51-specialist.md",
+      "skills": ["transmission-shock-diagnostic", "obd-mut-diagnostic-interpreter", "risk-safety-gate"]
+    },
+    {
+      "id": "super-select-drivetrain-specialist",
+      "nome": "Super Select & Drivetrain Specialist",
+      "funcao": "Cuida de transfer, 4x4, cardas, cruzetas, diferenciais, folgas e respiros.",
+      "arquivo": "squad/agents/super-select-drivetrain-specialist.md",
+      "skills": ["symptom-root-cause-mapper", "vehicle-photo-intake", "torque-fluid-table-extractor"]
+    },
+    {
+      "id": "suspension-hydraulic-steering-engineer",
+      "nome": "Suspension & Hydraulic Steering Engineer",
+      "funcao": "Analisa suspensao, buchas, geometria, pneus e direcao hidraulica dura.",
+      "arquivo": "squad/agents/suspension-hydraulic-steering-engineer.md",
+      "skills": ["hydraulic-steering-load-diagnostic", "vehicle-photo-intake", "image-annotation"]
+    },
+    {
+      "id": "brake-road-safety-inspector",
+      "nome": "Brake & Road Safety Inspector",
+      "funcao": "Libera, restringe ou bloqueia teste de rodagem por freio, pneu, rolamento e ABS.",
+      "arquivo": "squad/agents/brake-road-safety-inspector.md",
+      "skills": ["risk-safety-gate", "post-service-validation", "vehicle-photo-intake"]
+    },
+    {
+      "id": "visual-teardown-mapper",
+      "nome": "Visual Teardown Mapper",
+      "funcao": "Cria atlas visual com fotos reais, diagramas, vistas explodidas e legendas.",
+      "arquivo": "squad/agents/visual-teardown-mapper.md",
+      "skills": ["vehicle-photo-intake", "image-annotation", "exploded-view-matcher", "diagnostic-flowchart-builder"]
+    },
+    {
+      "id": "work-order-parts-planner",
+      "nome": "Work Order & Parts Planner",
+      "funcao": "Gera OS, BOM, lista de insumos, riscos e validacao pos-servico.",
+      "arquivo": "squad/agents/work-order-parts-planner.md",
+      "skills": ["work-order-generator", "parts-consumables-bom-builder", "source-validation", "post-service-validation"]
+    }
+  ],
+  "workflows": [
+    "workflow-diagnostico-inicial.md",
+    "workflow-motor-consumo-lenta.md",
+    "workflow-cambio-v5a51.md",
+    "workflow-transfer-diferenciais.md",
+    "workflow-suspensao-direcao.md",
+    "workflow-freios-seguranca.md",
+    "workflow-imagens-e-diagramas.md",
+    "workflow-qa-final.md"
+  ]
+}

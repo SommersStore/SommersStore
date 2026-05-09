@@ -1,5 +1,4 @@
 {
-  "language": "portuguese",
   "permissions": {
     "allow": [
       "Bash(git add:*)",
@@ -14,7 +13,12 @@
       "Bash(npm run build:*)",
       "Bash(npm run lint:*)",
       "Bash(npm run typecheck:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(curl -s -X POST \"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDa0buK730YaV75ERKONzmQanbV5kuvdPU\" -H \"Content-Type: application/json\" -d \"{\\\\\"email\\\\\":\\\\\"elite@sommersstore.com\\\\\",\\\\\"password\\\\\":\\\\\"Elite2026!\\\\\",\\\\\"returnSecureToken\\\\\":true}\")",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('OK - localId:', d.get\\('localId','?'\\)\\) if 'localId' in d else print\\('ERRO:', d.get\\('error',{}\\).get\\('message','?'\\)\\)\")",
+      "Bash(node -e ' *)",
+      "Bash(tasklist /fi \"imagename eq node.exe\")",
+      "Bash(powershell -Command \"Get-Process -Name node -ErrorAction SilentlyContinue | Select-Object Id, CPU, WorkingSet, StartTime\")"
     ],
     "deny": [
       "Bash(git push:*)",
@@ -22,5 +26,6 @@
       "Bash(gh pr create:*)",
       "Bash(gh pr merge:*)"
     ]
-  }
+  },
+  "language": "portuguese"
 }

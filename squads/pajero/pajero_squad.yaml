@@ -1,0 +1,36 @@
+name: "PAJERO V77W RESTORATION & DIAGNOSTIC SQUAD"
+id: pajero-v77w-diagnostic-squad
+description: "Squad tecnico para diagnostico e revisao completa da Pajero V77W 6G75 V5A51."
+status: "ACTIVE"
+project_path: "../../Pajero"
+manifest_path: "../../Pajero/squad/squad.yaml"
+dashboard_path: "../../Pajero/ui/index.html"
+leader: pajero-chief-diagnostician
+
+members:
+  - agent: pajero-chief-diagnostician
+    role: "Orquestra prioridades, sintomas, riscos e sequencia de diagnostico."
+  - agent: oem-technical-librarian
+    role: "Organiza fontes, manuais, diagramas, torques, fluidos e compatibilidade."
+  - agent: evidence-anti-hallucination-auditor
+    role: "Bloqueia conclusoes sem fonte, evidencia, torque ou aplicabilidade correta."
+  - agent: combustion-fuel-trim-engineer
+    role: "Analisa consumo, marcha lenta, mistura, sondas e catalisador ausente."
+  - agent: transmission-v5a51-specialist
+    role: "Diagnostica trancos, ATF, TCU, carter, solenoides e corpo de valvulas."
+  - agent: visual-teardown-mapper
+    role: "Cria atlas visual com fotos reais, diagramas e metadados."
+
+workflow:
+  trigger: "Sempre que houver novo sintoma, foto, scanner, ordem de servico ou decisao de compra."
+  steps:
+    - step: 1
+      action: "@pajero-chief-diagnostician define a fase e agente responsavel."
+    - step: 2
+      action: "Especialista executa checklist e registra evidencias."
+    - step: 3
+      action: "@evidence-anti-hallucination-auditor valida fonte, risco e aplicabilidade."
+    - step: 4
+      action: "@work-order-parts-planner gera OS/BOM somente com evidencias suficientes."
+  success_criteria: "Diagnostico rastreavel, sem peca aleatoria, com fonte, foto, torque e validacao."
+
