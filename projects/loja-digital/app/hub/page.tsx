@@ -42,7 +42,7 @@ const METODO_BONUS: ProductCard[] = [
   {
     id: "bonus-blends",
     title: "10 Receitas de Blends",
-    subtitle: "Bônus · Prontas para Vender",
+    subtitle: "Prontas para Vender",
     cover: "/sais/assets/bonus-1-v2.png",
     tag: "BÔNUS",
     tagVariant: "green",
@@ -51,7 +51,7 @@ const METODO_BONUS: ProductCard[] = [
   {
     id: "bonus-fornecedores",
     title: "Lista de Fornecedores BR",
-    subtitle: "Bônus · Preços e Contatos",
+    subtitle: "Preços e Contatos",
     cover: "/sais/assets/bonus-2.png",
     tag: "BÔNUS",
     tagVariant: "green",
@@ -60,7 +60,7 @@ const METODO_BONUS: ProductCard[] = [
   {
     id: "bonus-posts",
     title: "Kit de Posts + Scripts",
-    subtitle: "Bônus · Instagram & WhatsApp",
+    subtitle: "Instagram & WhatsApp",
     cover: "/sais/assets/bonus-3.png",
     tag: "BÔNUS",
     tagVariant: "green",
@@ -102,7 +102,7 @@ const METODO_OBS: ProductCard[] = [
 const COFRE: ProductCard = {
   id: "cofre",
   title: "O Cofre das Botânicas Secretas",
-  subtitle: "Upsell Principal · Viewer + PDFs",
+  subtitle: "Upsell · Viewer + PDFs",
   cover: "/ebook/master_cover_v2.png",
   tag: "UPSELL",
   tagVariant: "purple",
@@ -156,13 +156,31 @@ const COFRE_COMPLEMENTOS: ProductCard[] = [
   },
 ];
 
-/* ─── helpers ────────────────────────────── */
+/* ─── paleta ─────────────────────────────── */
 const TAG_STYLES: Record<string, { bg: string; color: string; border: string }> = {
-  gold:   { bg: "rgba(197,160,89,0.12)",  color: "#C5A059", border: "rgba(197,160,89,0.35)" },
-  green:  { bg: "rgba(111,175,111,0.12)", color: "#6FAF6F", border: "rgba(111,175,111,0.35)" },
-  purple: { bg: "rgba(160,123,197,0.12)", color: "#A07BC5", border: "rgba(160,123,197,0.35)" },
-  blue:   { bg: "rgba(100,149,237,0.12)", color: "#6495ED", border: "rgba(100,149,237,0.35)" },
-  muted:  { bg: "rgba(255,255,255,0.04)", color: "rgba(229,229,229,0.3)", border: "rgba(255,255,255,0.1)" },
+  gold:   { bg: "rgba(197,160,89,0.15)",  color: "#C5A059", border: "rgba(197,160,89,0.4)" },
+  green:  { bg: "rgba(111,175,111,0.13)", color: "#7ABF7A", border: "rgba(111,175,111,0.38)" },
+  purple: { bg: "rgba(160,123,197,0.13)", color: "#B08BD4", border: "rgba(160,123,197,0.38)" },
+  blue:   { bg: "rgba(100,149,237,0.13)", color: "#7AABF0", border: "rgba(100,149,237,0.38)" },
+  muted:  { bg: "rgba(255,255,255,0.04)", color: "rgba(229,229,229,0.25)", border: "rgba(255,255,255,0.08)" },
+};
+
+const GROUP_ACCENT: Record<string, { border: string; bg: string; label: string }> = {
+  bonus: {
+    border: "rgba(111,175,111,0.2)",
+    bg: "rgba(111,175,111,0.04)",
+    label: "rgba(111,175,111,0.55)",
+  },
+  ob: {
+    border: "rgba(100,149,237,0.2)",
+    bg: "rgba(100,149,237,0.04)",
+    label: "rgba(100,149,237,0.55)",
+  },
+  included: {
+    border: "rgba(160,123,197,0.2)",
+    bg: "rgba(160,123,197,0.04)",
+    label: "rgba(160,123,197,0.55)",
+  },
 };
 
 export default function EliteHub() {
@@ -175,9 +193,9 @@ export default function EliteHub() {
   };
 
   const navigate = (action: CardAction) => {
-    if (action.type === "viewer")  router.push(action.path);
-    if (action.type === "both")    router.push(action.viewerPath);
-    if (action.type === "pdf")     window.open(`/downloads/${action.file}`, "_blank");
+    if (action.type === "viewer") router.push(action.path);
+    if (action.type === "both")   router.push(action.viewerPath);
+    if (action.type === "pdf")    window.open(`/downloads/${action.file}`, "_blank");
   };
 
   const card = (p: ProductCard, size: "anchor" | "companion" = "companion") => (
@@ -187,177 +205,279 @@ export default function EliteHub() {
   return (
     <AuthGuard>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700;900&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .hub { display: flex; min-height: 100vh; background: #0a0a0d; color: #e0e0d0; font-family: 'Montserrat', sans-serif; }
+        :root {
+          --gold: #C5A059;
+          --gold-dim: rgba(197,160,89,0.18);
+          --gold-line: rgba(197,160,89,0.12);
+          --surface: #0d0d11;
+          --surface-2: #111118;
+          --surface-3: #16161f;
+          --text: #e8e8d8;
+          --text-dim: rgba(232,232,216,0.4);
+          --text-muted: rgba(232,232,216,0.18);
+        }
 
-        /* ── SIDEBAR ── */
+        .hub { display: flex; min-height: 100vh; background: #090910; color: var(--text); font-family: 'Montserrat', sans-serif; }
+
+        /* ══ SIDEBAR ══ */
         .hub-side {
-          width: 210px; flex-shrink: 0;
-          background: #0d0d11;
-          border-right: 1px solid rgba(197,160,89,0.08);
+          width: 216px; flex-shrink: 0;
+          background: var(--surface);
+          border-right: 1px solid var(--gold-line);
           display: flex; flex-direction: column;
-          padding: 32px 0;
+          padding: 36px 0;
           position: sticky; top: 0; height: 100vh; overflow-y: auto;
         }
-        .hub-logo { padding: 0 24px 28px; border-bottom: 1px solid rgba(197,160,89,0.06); margin-bottom: 20px; }
-        .hub-logo-text { font-size: 9px; font-weight: 900; letter-spacing: 6px; color: #C5A059; text-transform: uppercase; display: block; }
-        .hub-logo-sub  { font-size: 7px; letter-spacing: 2px; color: rgba(229,229,229,0.2); text-transform: uppercase; margin-top: 4px; display: block; }
+        .hub-logo {
+          padding: 0 26px 28px;
+          border-bottom: 1px solid var(--gold-line);
+          margin-bottom: 22px;
+        }
+        .hub-logo-mark {
+          width: 28px; height: 2px;
+          background: linear-gradient(90deg, var(--gold), transparent);
+          margin-bottom: 10px;
+        }
+        .hub-logo-text { font-size: 8px; font-weight: 900; letter-spacing: 5px; color: var(--gold); text-transform: uppercase; display: block; }
+        .hub-logo-sub  { font-size: 6.5px; letter-spacing: 2.5px; color: var(--text-muted); text-transform: uppercase; margin-top: 5px; display: block; }
+
+        .hub-nav-group-label {
+          padding: 0 26px; margin-bottom: 6px; margin-top: 16px;
+          font-size: 6px; font-weight: 700; letter-spacing: 3px;
+          text-transform: uppercase; color: var(--text-muted);
+        }
         .hub-nav-item {
-          display: flex; align-items: center; gap: 10px;
-          padding: 11px 24px; font-size: 8px; font-weight: 700; letter-spacing: 2px;
-          text-transform: uppercase; color: rgba(229,229,229,0.3); cursor: pointer;
+          display: flex; align-items: center; gap: 11px;
+          padding: 10px 26px; font-size: 8px; font-weight: 600; letter-spacing: 1.5px;
+          text-transform: uppercase; color: var(--text-dim); cursor: pointer;
           border-left: 2px solid transparent; transition: all 0.2s;
           background: none; border-top: none; border-right: none; border-bottom: none;
           width: 100%; text-align: left; font-family: 'Montserrat', sans-serif;
         }
-        .hub-nav-item:hover  { color: rgba(229,229,229,0.7); background: rgba(255,255,255,0.02); }
-        .hub-nav-item.active { color: #C5A059; border-left-color: #C5A059; background: rgba(197,160,89,0.05); }
-        .hub-nav-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
-        .hub-side-footer { margin-top: auto; padding: 20px 24px 0; border-top: 1px solid rgba(197,160,89,0.06); }
-        .hub-user-badge { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-        .hub-avatar { width: 32px; height: 32px; border-radius: 50%; background: rgba(197,160,89,0.1); border: 1px solid rgba(197,160,89,0.25); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
-        .hub-user-name  { font-size: 9px; font-weight: 700; color: #C5A059; letter-spacing: 1px; text-transform: uppercase; }
-        .hub-user-email { font-size: 7px; color: rgba(229,229,229,0.25); letter-spacing: 0.3px; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 140px; }
+        .hub-nav-item:hover  { color: rgba(232,232,216,0.75); background: rgba(255,255,255,0.02); }
+        .hub-nav-item.active { color: var(--gold); border-left-color: var(--gold); background: var(--gold-dim); }
+        .hub-nav-dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; flex-shrink: 0; opacity: 0.7; }
+
+        .hub-side-footer {
+          margin-top: auto; padding: 20px 26px 0;
+          border-top: 1px solid var(--gold-line);
+        }
+        .hub-user-badge { display: flex; align-items: center; gap: 11px; margin-bottom: 16px; }
+        .hub-avatar {
+          width: 34px; height: 34px; border-radius: 50%;
+          background: linear-gradient(135deg, rgba(197,160,89,0.2), rgba(197,160,89,0.05));
+          border: 1px solid rgba(197,160,89,0.3);
+          display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;
+        }
+        .hub-user-name  { font-size: 8px; font-weight: 700; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; }
+        .hub-user-email { font-size: 6.5px; color: var(--text-muted); margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 138px; }
         .hub-logout-btn {
           width: 100%; padding: 9px; background: none;
-          border: 1px solid rgba(255,255,255,0.07); color: rgba(229,229,229,0.25);
+          border: 1px solid rgba(255,255,255,0.06); color: var(--text-muted);
           font-family: 'Montserrat', sans-serif; font-size: 7px; font-weight: 700;
-          letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+          letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.25s;
         }
-        .hub-logout-btn:hover { border-color: rgba(197,160,89,0.3); color: #C5A059; }
+        .hub-logout-btn:hover { border-color: rgba(197,160,89,0.28); color: var(--gold); }
 
-        /* ── MAIN ── */
-        .hub-main { flex: 1; padding: 40px 40px 64px; overflow-y: auto; min-width: 0; }
+        /* ══ MAIN ══ */
+        .hub-main { flex: 1; overflow-y: auto; min-width: 0; }
 
-        /* ── PRODUCT ROW ── */
+        /* Welcome strip */
+        .hub-welcome {
+          padding: 28px 44px 22px;
+          border-bottom: 1px solid var(--gold-line);
+          background: linear-gradient(180deg, rgba(197,160,89,0.04) 0%, transparent 100%);
+        }
+        .hub-welcome-eyebrow { font-size: 7px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+        .hub-welcome-title {
+          font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300;
+          color: var(--text); letter-spacing: 1px; line-height: 1.2;
+        }
+        .hub-welcome-title em { font-style: italic; color: var(--gold); }
+
+        /* Content area */
+        .hub-content { padding: 36px 44px 72px; }
+
+        /* ══ PRODUCT ROW ══ */
+        .hub-row-wrap { margin-bottom: 44px; }
+
+        .hub-row-eyebrow {
+          display: flex; align-items: center; gap: 14px; margin-bottom: 12px;
+        }
+        .hub-row-num {
+          width: 22px; height: 22px; border-radius: 50%;
+          background: linear-gradient(135deg, rgba(197,160,89,0.2), rgba(197,160,89,0.06));
+          border: 1px solid rgba(197,160,89,0.3);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 8px; font-weight: 900; color: var(--gold); flex-shrink: 0;
+        }
+        .hub-row-title { font-size: 8px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--text-dim); }
+        .hub-row-rule  { flex: 1; height: 1px; background: var(--gold-line); }
+
         .hub-product-row {
-          display: flex;
-          align-items: flex-start;
-          gap: 0;
-          margin-bottom: 48px;
-          background: rgba(255,255,255,0.015);
-          border: 1px solid rgba(255,255,255,0.05);
-          border-radius: 6px;
-          overflow: hidden;
+          display: flex; align-items: stretch; gap: 0;
+          background: var(--surface-2);
+          border: 1px solid rgba(255,255,255,0.06);
+          border-top: 2px solid var(--gold-line);
+          border-radius: 4px; overflow: hidden;
         }
+        .hub-product-row.upsell { border-top-color: rgba(160,123,197,0.35); }
 
-        /* Anchor — produto principal da linha */
+        /* Anchor */
         .hub-anchor {
-          flex-shrink: 0;
-          padding: 20px;
-          background: rgba(0,0,0,0.25);
+          flex-shrink: 0; width: 228px;
+          padding: 22px 20px;
+          background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.15) 100%);
           border-right: 1px solid rgba(255,255,255,0.05);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 0;
+          display: flex; flex-direction: column; align-items: center;
         }
-        .hub-anchor-label {
-          font-size: 7px; font-weight: 900; letter-spacing: 4px;
-          text-transform: uppercase; color: rgba(197,160,89,0.4);
+        .hub-anchor-eyebrow {
+          font-size: 6px; font-weight: 700; letter-spacing: 3.5px;
+          text-transform: uppercase; color: var(--text-muted);
           margin-bottom: 14px; text-align: center;
         }
 
-        /* Companions — complementos à direita */
+        /* Companion area */
         .hub-companions {
           flex: 1; min-width: 0;
           display: flex;
-          flex-direction: column;
-          gap: 0;
         }
+
+        /* Group */
         .hub-group {
-          display: flex;
-          flex-direction: column;
-          padding: 16px 20px 18px;
-          border-bottom: 1px solid rgba(255,255,255,0.04);
+          flex: 1; min-width: 0;
+          display: flex; flex-direction: column;
+          padding: 20px 20px 22px;
         }
-        .hub-group:last-child { border-bottom: none; }
+        .hub-group + .hub-group {
+          border-left: 1px solid rgba(255,255,255,0.05);
+        }
+        .hub-group-header {
+          display: flex; align-items: center; gap: 10px;
+          margin-bottom: 16px;
+        }
+        .hub-group-dot {
+          width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+        }
         .hub-group-label {
           font-size: 7px; font-weight: 700; letter-spacing: 3px;
-          text-transform: uppercase; color: rgba(229,229,229,0.2);
-          margin-bottom: 12px;
-          display: flex; align-items: center; gap: 10px;
+          text-transform: uppercase;
         }
-        .hub-group-label::after {
-          content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.04);
+        .hub-group-rule { flex: 1; height: 1px; }
+        .hub-group-count {
+          font-size: 6.5px; font-weight: 600; letter-spacing: 1px;
+          padding: 2px 7px; border-radius: 10px; border: 1px solid;
         }
         .hub-group-cards { display: flex; flex-wrap: wrap; gap: 12px; }
 
-        /* ── CARDS ── */
+        /* ══ CARDS ══ */
         .hub-card {
-          background: #111118; border: 1px solid rgba(255,255,255,0.06);
+          background: var(--surface-3);
+          border: 1px solid rgba(255,255,255,0.06);
           border-radius: 3px; overflow: hidden; cursor: pointer;
-          transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+          transition: transform 0.3s cubic-bezier(.2,.8,.2,1), border-color 0.3s, box-shadow 0.3s;
           position: relative; flex-shrink: 0;
         }
-        .hub-card-anchor   { width: 200px; }
-        .hub-card-companion { width: 152px; }
-        .hub-card:hover { transform: translateY(-3px); border-color: rgba(197,160,89,0.22); box-shadow: 0 10px 28px rgba(0,0,0,0.5); }
-        .hub-card.locked { opacity: 0.4; cursor: default; }
+        .hub-card-anchor    { width: 184px; }
+        .hub-card-companion { width: 166px; }
+
+        .hub-card:hover {
+          transform: translateY(-4px);
+          border-color: rgba(197,160,89,0.28);
+          box-shadow: 0 14px 36px rgba(0,0,0,0.6), 0 0 0 1px rgba(197,160,89,0.08);
+        }
+        .hub-card.locked { opacity: 0.38; cursor: default; }
         .hub-card.locked:hover { transform: none; border-color: rgba(255,255,255,0.06); box-shadow: none; }
 
+        /* Image */
         .hub-card-img { width: 100%; aspect-ratio: 3/4; overflow: hidden; position: relative; background: #1a1a22; }
-        .hub-card-img-inner { width: 100%; height: 100%; background-size: cover; background-position: center; transition: transform 0.5s; }
-        .hub-card:hover .hub-card-img-inner { transform: scale(1.04); }
-        .hub-card-img-fade { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(10,10,13,0.8) 100%); }
-        .hub-card-tag {
-          position: absolute; top: 8px; left: 8px;
-          font-size: 6px; font-weight: 700; letter-spacing: 2px;
-          text-transform: uppercase; padding: 2px 7px;
-          border-radius: 2px; border: 1px solid;
+        .hub-card-img-inner { width: 100%; height: 100%; background-size: cover; background-position: center; transition: transform 0.55s cubic-bezier(.2,.8,.2,1); }
+        .hub-card:hover .hub-card-img-inner { transform: scale(1.05); }
+        .hub-card-img-fade {
+          position: absolute; inset: 0;
+          background: linear-gradient(to bottom, transparent 45%, rgba(8,8,14,0.85) 100%);
         }
-        .hub-card-lock { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(10,10,13,0.6); font-size: 20px; }
-        .hub-card-progress { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.06); }
-        .hub-card-progress-fill { height: 100%; background: #C5A059; }
-        .hub-badge-done { position: absolute; top: 8px; right: 8px; font-size: 6px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 2px 6px; background: rgba(111,175,111,0.2); color: #6faf6f; border: 1px solid rgba(111,175,111,0.4); border-radius: 2px; }
+        .hub-card-tag {
+          position: absolute; top: 9px; left: 9px;
+          font-size: 5.5px; font-weight: 800; letter-spacing: 2px;
+          text-transform: uppercase; padding: 3px 8px;
+          border-radius: 2px; border: 1px solid; backdrop-filter: blur(4px);
+        }
+        .hub-card-lock {
+          position: absolute; inset: 0;
+          display: flex; align-items: center; justify-content: center;
+          background: rgba(8,8,14,0.65); font-size: 22px;
+        }
+        .hub-card-progress { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: rgba(255,255,255,0.06); }
+        .hub-card-progress-fill { height: 100%; background: linear-gradient(90deg, rgba(197,160,89,0.6), var(--gold)); }
+        .hub-badge-done {
+          position: absolute; top: 9px; right: 9px;
+          font-size: 5.5px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+          padding: 3px 7px; background: rgba(111,175,111,0.18); color: #7ABF7A;
+          border: 1px solid rgba(111,175,111,0.35); border-radius: 2px; backdrop-filter: blur(4px);
+        }
 
-        .hub-card-body { padding: 10px 12px 12px; }
-        .hub-card-sub   { font-size: 6px; letter-spacing: 1.5px; color: rgba(229,229,229,0.2); text-transform: uppercase; margin-bottom: 4px; }
-        .hub-card-title { font-family: 'Libre Baskerville', serif; font-size: 12px; font-weight: 400; color: #e5e5e5; line-height: 1.35; margin-bottom: 9px; }
-        .hub-card-anchor .hub-card-title { font-size: 14px; }
+        /* Body */
+        .hub-card-body { padding: 11px 13px 13px; }
+        .hub-card-sub {
+          font-size: 5.5px; letter-spacing: 1.5px; color: var(--text-muted);
+          text-transform: uppercase; margin-bottom: 5px;
+        }
+        .hub-card-title {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 13.5px; font-weight: 400; color: var(--text);
+          line-height: 1.3; margin-bottom: 10px;
+        }
+        .hub-card-anchor .hub-card-title { font-size: 15px; }
 
-        .hub-card-actions { display: flex; gap: 5px; }
+        /* Buttons */
+        .hub-card-actions { display: flex; gap: 6px; }
         .hub-btn {
-          flex: 1; padding: 6px 4px; font-family: 'Montserrat', sans-serif;
-          font-size: 6px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+          flex: 1; padding: 7px 5px; font-family: 'Montserrat', sans-serif;
+          font-size: 5.5px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
           cursor: pointer; transition: all 0.2s; border-radius: 2px; border: 1px solid; white-space: nowrap;
         }
-        .hub-btn-primary   { background: rgba(197,160,89,0.1); color: #C5A059; border-color: rgba(197,160,89,0.25); }
-        .hub-btn-primary:hover { background: rgba(197,160,89,0.2); border-color: rgba(197,160,89,0.5); }
-        .hub-btn-secondary { background: rgba(255,255,255,0.03); color: rgba(229,229,229,0.35); border-color: rgba(255,255,255,0.08); }
-        .hub-btn-secondary:hover { background: rgba(255,255,255,0.06); color: rgba(229,229,229,0.6); }
-        .hub-btn-soon { background: none; color: rgba(229,229,229,0.2); border-color: rgba(255,255,255,0.06); cursor: default; flex: 1; padding: 6px 4px; font-size: 6px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
-
-        /* ── FUNNEL ARROW ── */
-        .hub-funnel-arrow {
-          display: flex; align-items: center; justify-content: flex-start;
-          height: 28px; gap: 8px; margin-bottom: 12px; padding-left: 20px;
+        .hub-btn-primary {
+          background: linear-gradient(135deg, rgba(197,160,89,0.14), rgba(197,160,89,0.06));
+          color: var(--gold); border-color: rgba(197,160,89,0.28);
         }
-        .hub-funnel-arrow-line { width: 32px; height: 1px; background: rgba(197,160,89,0.12); }
-        .hub-funnel-arrow-icon { font-size: 9px; color: rgba(197,160,89,0.3); }
-
-        /* ── ROW HEADER ── */
-        .hub-row-header {
-          display: flex; align-items: center; gap: 12px;
-          padding: 0 0 10px 0; margin-bottom: 0;
+        .hub-btn-primary:hover { background: rgba(197,160,89,0.22); border-color: rgba(197,160,89,0.55); }
+        .hub-btn-secondary {
+          background: rgba(255,255,255,0.03); color: var(--text-dim); border-color: rgba(255,255,255,0.08);
         }
-        .hub-row-num {
-          width: 20px; height: 20px; border-radius: 50%;
-          background: rgba(197,160,89,0.1); border: 1px solid rgba(197,160,89,0.25);
-          display: flex; align-items: center; justify-content: center;
-          font-size: 8px; font-weight: 900; color: #C5A059; flex-shrink: 0;
+        .hub-btn-secondary:hover { background: rgba(255,255,255,0.07); color: rgba(232,232,216,0.65); }
+        .hub-btn-soon {
+          flex: 1; padding: 7px 5px; font-size: 5.5px; font-weight: 800; letter-spacing: 1.5px;
+          text-transform: uppercase; background: none; color: var(--text-muted);
+          border: 1px solid rgba(255,255,255,0.05); cursor: default;
         }
-        .hub-row-title { font-size: 8px; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase; color: rgba(229,229,229,0.28); }
 
-        @media (max-width: 900px) {
+        /* ══ FUNNEL CONNECTOR ══ */
+        .hub-connector {
+          display: flex; align-items: center; gap: 0;
+          margin: 0 0 20px 22px; height: 36px;
+        }
+        .hub-connector-vline {
+          width: 1px; height: 100%;
+          background: linear-gradient(180deg, var(--gold-line), rgba(197,160,89,0.04));
+        }
+        .hub-connector-label {
+          margin-left: 12px; font-size: 6px; font-weight: 700; letter-spacing: 3px;
+          text-transform: uppercase; color: var(--text-muted);
+        }
+
+        @media (max-width: 960px) {
           .hub-side { display: none; }
-          .hub-main { padding: 24px 16px 48px; }
+          .hub-welcome, .hub-content { padding-left: 20px; padding-right: 20px; }
           .hub-product-row { flex-direction: column; }
-          .hub-anchor { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); width: 100%; flex-direction: row; flex-wrap: wrap; justify-content: center; }
-          .hub-card-anchor { width: 160px; }
-          .hub-card-companion { width: 130px; }
+          .hub-anchor { width: 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 12px; }
+          .hub-companions { flex-direction: column; }
+          .hub-group + .hub-group { border-left: none; border-top: 1px solid rgba(255,255,255,0.05); }
+          .hub-card-anchor    { width: 155px; }
+          .hub-card-companion { width: 145px; }
         }
       `}</style>
 
@@ -365,16 +485,18 @@ export default function EliteHub() {
         {/* ── SIDEBAR ── */}
         <aside className="hub-side">
           <div className="hub-logo">
+            <div className="hub-logo-mark" />
             <span className="hub-logo-text">Sommers Store</span>
             <span className="hub-logo-sub">Área de Membros</span>
           </div>
 
+          <span className="hub-nav-group-label">Menu</span>
           {[
-            { label: "Meu Acervo", dot: true },
-            { label: "Comunidade", dot: false },
-            { label: "Suporte",    dot: false },
+            { label: "Meu Acervo", active: true },
+            { label: "Comunidade", active: false },
+            { label: "Suporte",    active: false },
           ].map((item) => (
-            <button key={item.label} className={`hub-nav-item${item.dot ? " active" : ""}`}>
+            <button key={item.label} className={`hub-nav-item${item.active ? " active" : ""}`}>
               <span className="hub-nav-dot" />
               {item.label}
             </button>
@@ -395,86 +517,121 @@ export default function EliteHub() {
         {/* ── MAIN ── */}
         <main className="hub-main">
 
-          {/* ─── LINHA 1 — Método Essência Ativa BR ─── */}
-          <div className="hub-row-header" style={{ marginBottom: 10 }}>
-            <div className="hub-row-num">1</div>
-            <span className="hub-row-title">Método Essência Ativa BR</span>
+          {/* Welcome */}
+          <div className="hub-welcome">
+            <p className="hub-welcome-eyebrow">Bem-vinda de volta</p>
+            <h1 className="hub-welcome-title">Seu <em>acervo</em> completo</h1>
           </div>
 
-          <div className="hub-product-row">
-            {/* Produto principal */}
-            <div className="hub-anchor">
-              <span className="hub-anchor-label">Principal</span>
-              {card(METODO, "anchor")}
-            </div>
+          <div className="hub-content">
 
-            {/* Complementos */}
-            <div className="hub-companions">
-              <div className="hub-group">
-                <div className="hub-group-label">Bônus Inclusos</div>
-                <div className="hub-group-cards">
-                  {METODO_BONUS.map((p) => card(p))}
+            {/* ① Método Essência Ativa BR */}
+            <div className="hub-row-wrap">
+              <div className="hub-row-eyebrow">
+                <div className="hub-row-num">1</div>
+                <span className="hub-row-title">Método Essência Ativa BR</span>
+                <div className="hub-row-rule" />
+              </div>
+
+              <div className="hub-product-row">
+                {/* Âncora */}
+                <div className="hub-anchor">
+                  <span className="hub-anchor-eyebrow">Produto Principal</span>
+                  {card(METODO, "anchor")}
+                </div>
+
+                {/* Grupos lado a lado */}
+                <div className="hub-companions">
+
+                  {/* Bônus */}
+                  <div className="hub-group" style={{ background: GROUP_ACCENT.bonus.bg }}>
+                    <div className="hub-group-header">
+                      <div className="hub-group-dot" style={{ background: GROUP_ACCENT.bonus.label }} />
+                      <span className="hub-group-label" style={{ color: GROUP_ACCENT.bonus.label }}>Bônus Inclusos</span>
+                      <div className="hub-group-rule" style={{ background: GROUP_ACCENT.bonus.border }} />
+                      <span className="hub-group-count" style={{ color: GROUP_ACCENT.bonus.label, borderColor: GROUP_ACCENT.bonus.border }}>
+                        {METODO_BONUS.length}
+                      </span>
+                    </div>
+                    <div className="hub-group-cards">
+                      {METODO_BONUS.map((p) => card(p))}
+                    </div>
+                  </div>
+
+                  {/* Order Bumps */}
+                  <div className="hub-group" style={{ background: GROUP_ACCENT.ob.bg }}>
+                    <div className="hub-group-header">
+                      <div className="hub-group-dot" style={{ background: GROUP_ACCENT.ob.label }} />
+                      <span className="hub-group-label" style={{ color: GROUP_ACCENT.ob.label }}>Ofertas Especiais</span>
+                      <div className="hub-group-rule" style={{ background: GROUP_ACCENT.ob.border }} />
+                      <span className="hub-group-count" style={{ color: GROUP_ACCENT.ob.label, borderColor: GROUP_ACCENT.ob.border }}>
+                        {METODO_OBS.length}
+                      </span>
+                    </div>
+                    <div className="hub-group-cards">
+                      {METODO_OBS.map((p) => card(p))}
+                    </div>
+                  </div>
+
                 </div>
               </div>
-              <div className="hub-group">
-                <div className="hub-group-label">Ofertas Especiais (Order Bumps)</div>
-                <div className="hub-group-cards">
-                  {METODO_OBS.map((p) => card(p))}
+            </div>
+
+            {/* Conector de funil */}
+            <div className="hub-connector">
+              <div className="hub-connector-vline" />
+              <span className="hub-connector-label">Oferta de Expansão</span>
+            </div>
+
+            {/* ② O Cofre das Botânicas Secretas */}
+            <div className="hub-row-wrap">
+              <div className="hub-row-eyebrow">
+                <div className="hub-row-num" style={{ borderColor: "rgba(160,123,197,0.4)", background: "rgba(160,123,197,0.12)", color: "#B08BD4" }}>2</div>
+                <span className="hub-row-title">O Cofre das Botânicas Secretas</span>
+                <div className="hub-row-rule" style={{ background: "rgba(160,123,197,0.15)" }} />
+              </div>
+
+              <div className="hub-product-row upsell">
+                {/* Âncora */}
+                <div className="hub-anchor" style={{ background: "linear-gradient(180deg, rgba(160,123,197,0.08) 0%, rgba(0,0,0,0.2) 100%)" }}>
+                  <span className="hub-anchor-eyebrow">Upsell Principal</span>
+                  {card(COFRE, "anchor")}
+                </div>
+
+                {/* Complementos */}
+                <div className="hub-companions">
+                  <div className="hub-group" style={{ background: GROUP_ACCENT.included.bg }}>
+                    <div className="hub-group-header">
+                      <div className="hub-group-dot" style={{ background: GROUP_ACCENT.included.label }} />
+                      <span className="hub-group-label" style={{ color: GROUP_ACCENT.included.label }}>Conteúdos Inclusos</span>
+                      <div className="hub-group-rule" style={{ background: GROUP_ACCENT.included.border }} />
+                      <span className="hub-group-count" style={{ color: GROUP_ACCENT.included.label, borderColor: GROUP_ACCENT.included.border }}>
+                        {COFRE_COMPLEMENTOS.length}
+                      </span>
+                    </div>
+                    <div className="hub-group-cards">
+                      {COFRE_COMPLEMENTOS.map((p) => card(p))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+
           </div>
-
-          {/* seta de funil */}
-          <div className="hub-funnel-arrow">
-            <div className="hub-funnel-arrow-line" />
-            <span className="hub-funnel-arrow-icon">▼</span>
-            <div className="hub-funnel-arrow-line" />
-          </div>
-
-          {/* ─── LINHA 2 — O Cofre das Botânicas Secretas (Upsell) ─── */}
-          <div className="hub-row-header" style={{ marginBottom: 10 }}>
-            <div className="hub-row-num">2</div>
-            <span className="hub-row-title">O Cofre das Botânicas Secretas — Upsell</span>
-          </div>
-
-          <div className="hub-product-row">
-            {/* Upsell principal */}
-            <div className="hub-anchor">
-              <span className="hub-anchor-label">Upsell</span>
-              {card(COFRE, "anchor")}
-            </div>
-
-            {/* Complementos */}
-            <div className="hub-companions">
-              <div className="hub-group">
-                <div className="hub-group-label">Conteúdos Inclusos</div>
-                <div className="hub-group-cards">
-                  {COFRE_COMPLEMENTOS.map((p) => card(p))}
-                </div>
-              </div>
-            </div>
-          </div>
-
         </main>
       </div>
     </AuthGuard>
   );
 }
 
-/* ── sub-componentes ───────────────────── */
+/* ── sub-componentes ─── */
 
-function Card({
-  p, size = "companion", hovered, setHovered, navigate,
-}: {
-  p: ProductCard;
-  size?: "anchor" | "companion";
-  hovered: string | null;
-  setHovered: (id: string | null) => void;
+function Card({ p, size = "companion", hovered, setHovered, navigate }: {
+  p: ProductCard; size?: "anchor" | "companion";
+  hovered: string | null; setHovered: (id: string | null) => void;
   navigate: (a: CardAction) => void;
 }) {
   const tag = TAG_STYLES[p.tagVariant];
-
   return (
     <div
       className={`hub-card hub-card-${size}${p.locked ? " locked" : ""}`}
@@ -485,15 +642,11 @@ function Card({
       <div className="hub-card-img">
         <div className="hub-card-img-inner" style={{ backgroundImage: `url('${p.cover}')` }} />
         <div className="hub-card-img-fade" />
-        <span className="hub-card-tag" style={{ background: tag.bg, color: tag.color, borderColor: tag.border }}>
-          {p.tag}
-        </span>
+        <span className="hub-card-tag" style={{ background: tag.bg, color: tag.color, borderColor: tag.border }}>{p.tag}</span>
         {p.locked && <div className="hub-card-lock">🔒</div>}
         {p.progress === 100 && <span className="hub-badge-done">✓ Concluído</span>}
         {typeof p.progress === "number" && p.progress > 0 && p.progress < 100 && (
-          <div className="hub-card-progress">
-            <div className="hub-card-progress-fill" style={{ width: `${p.progress}%` }} />
-          </div>
+          <div className="hub-card-progress"><div className="hub-card-progress-fill" style={{ width: `${p.progress}%` }} /></div>
         )}
       </div>
       <div className="hub-card-body">
