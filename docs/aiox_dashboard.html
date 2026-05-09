@@ -3532,6 +3532,7 @@ window.MASTER_VIEW = window.MASTER_VIEW || 'construcao';
 window.MASTER_SELECTED_ID = window.MASTER_SELECTED_ID || '';
 window.PROJECT_FLOWS = window.PROJECT_FLOWS || { projects: {} };
 window.MASTER_FILTERS = window.MASTER_FILTERS || { query: '', status: 'all', owner: '' };
+window.MASTER_CATALOG_SHOW_ALL = window.MASTER_CATALOG_SHOW_ALL || false;
 
 const MASTER_UI_STORAGE_KEY = 'aiox.master.ui.v2';
 const MASTER_CLONE_SECTION_STORAGE_KEY = 'aiox.master.clone.sections.v1';
@@ -4091,27 +4092,75 @@ function openProjectPanel(panelPath) {
     window.open(url, '_blank', 'noopener');
 }
 
-function getPajeroRegistryView(registry) {
+function getMasterProjectScope(projectId, registry) {
     const source = registry || {};
-    const pajeroAgents = (source.agents || []).filter(agent => agent.squad === 'SQD-PAJERO');
-    const pajeroAgentIds = new Set(pajeroAgents.map(agent => agent.id));
-    const pajeroHandles = new Set(pajeroAgents.map(agent => agent.handle));
+    const flows = getMasterProjectFlows();
+    const project = flows[projectId] || {};
+    const squadIds = new Set();
+    const tag = String(projectId || '').toUpperCase();
+
+    [...(project.construcao || []), ...(project.vendas || [])].forEach(node => {
+        if (node && node.squad) squadIds.add(node.squad);
+    });
+
+    (source.squads || []).forEach(squad => {
+        const squadTag = String(squad.tag || '').toUpperCase();
+        const squadId = String(squad.id || '').toUpperCase();
+        if (squadTag === tag || squadId.includes(`-${tag}`)) squadIds.add(squad.id);
+    });
+
+    const agentIds = new Set();
+    (source.squads || []).forEach(squad => {
+        if (!squadIds.has(squad.id)) return;
+        (squad.agents || []).forEach(agentId => agentIds.add(agentId));
+    });
+
+    (source.agents || []).forEach(agent => {
+        if (squadIds.has(agent.squad)) agentIds.add(agent.id);
+    });
+
+    const handles = new Set((source.agents || [])
+        .filter(agent => agentIds.has(agent.id))
+        .map(agent => agent.handle)
+        .filter(Boolean));
+
+    return { squadIds, agentIds, handles, tag };
+}
+
+function getMasterProjectRegistryView(registry, projectId) {
+    const source = registry || {};
+    const scope = getMasterProjectScope(projectId, source);
+    if (!scope.squadIds.size && !scope.agentIds.size) return source;
+
+    const projectAgents = (source.agents || []).filter(agent => scope.agentIds.has(agent.id));
     const skills = {};
     Object.entries(source.skills || {}).forEach(([group, items]) => {
+        const groupMatchesProject = String(group || '').toUpperCase() === scope.tag;
         const filtered = (items || []).filter(skill =>
-            group === 'PAJERO' || (skill.agents || []).some(agentId => pajeroAgentIds.has(agentId))
+            groupMatchesProject || (skill.agents || []).some(agentId => scope.agentIds.has(agentId))
         );
         if (filtered.length) skills[group] = filtered;
     });
+
     return {
         ...source,
-        squads: (source.squads || []).filter(squad => squad.id === 'SQD-PAJERO'),
-        agents: pajeroAgents,
+        squads: (source.squads || []).filter(squad => scope.squadIds.has(squad.id)),
+        agents: projectAgents,
         skills,
         personas: (source.personas || []).filter(persona =>
-            (persona.agents || []).some(handle => pajeroHandles.has(handle))
+            (persona.agents || []).some(handle => scope.handles.has(handle))
         )
     };
+}
+
+function getPajeroRegistryView(registry) {
+    return getMasterProjectRegistryView(registry, 'pajero');
+}
+
+function setMasterCatalogShowAll(value) {
+    window.MASTER_CATALOG_SHOW_ALL = Boolean(value);
+    window.MASTER_SELECTED_ID = '';
+    renderMasterHub();
 }
 
 function statusBadgeStyle(status) {
@@ -4151,6 +4200,7 @@ function setMasterProject(projectId) {
     if (!flows[projectId]) return;
     window.MASTER_PROJECT = projectId;
     window.MASTER_SELECTED_ID = '';
+    window.MASTER_CATALOG_SHOW_ALL = false;
     persistMasterUiState();
     renderMasterHub();
 }
@@ -4212,7 +4262,9 @@ function getMasterViewItemsFor(projectId, view) {
     const activeProjectId = flows[projectId] ? projectId : (flows.sais ? 'sais' : Object.keys(flows)[0]);
     const project = flows[activeProjectId] || fallbackProject;
     const activeView = MASTER_VIEW_ORDER.includes(view) ? view : 'construcao';
-    const isPajeroProject = activeProjectId === 'pajero';
+    const projectRegistry = window.MASTER_CATALOG_SHOW_ALL ? REGISTRY : getMasterProjectRegistryView(REGISTRY, activeProjectId);
+    const projectAgentIds = new Set((projectRegistry.agents || []).map(agent => agent.id));
+    const projectSkillIds = new Set(Object.values(projectRegistry.skills || {}).flatMap(items => (items || []).map(skill => skill.id)));
     if (activeView === 'construcao' || activeView === 'vendas') {
         return (project[activeView] || []).map(node => ({
             key: `${activeProjectId}-${activeView}-${node.id}`,
@@ -4232,7 +4284,7 @@ function getMasterViewItemsFor(projectId, view) {
         }));
     }
     if (activeView === 'squads') {
-        const registry = isPajeroProject ? getPajeroRegistryView(REGISTRY) : REGISTRY;
+        const registry = projectRegistry;
         const agents = registry.agents || [];
         const skillNodes = getSkillNodes();
         const cloneNodes = getCloneNodes();
@@ -4264,9 +4316,7 @@ function getMasterViewItemsFor(projectId, view) {
     if (activeView === 'agentes') {
         const skillNodes = getSkillNodes();
         const cloneNodes = getCloneNodes();
-        const agentSource = isPajeroProject
-            ? (REGISTRY.agents || []).filter(agent => agent.squad === 'SQD-PAJERO')
-            : (REGISTRY.agents || []);
+        const agentSource = projectRegistry.agents || [];
         return agentSource.map(agent => ({
             key: `agent-${agent.id}`,
             id: agent.id,
@@ -4287,12 +4337,15 @@ function getMasterViewItemsFor(projectId, view) {
         }));
     }
     if (activeView === 'clones') {
-        if (!isPajeroProject) return getCloneNodes();
-        const pajeroAgentIds = new Set((REGISTRY.agents || []).filter(agent => agent.squad === 'SQD-PAJERO').map(agent => agent.id));
-        return getCloneNodes().filter(clone => (clone.owner_agent_ids || []).some(agentId => pajeroAgentIds.has(agentId)));
+        const clones = getCloneNodes();
+        return window.MASTER_CATALOG_SHOW_ALL
+            ? clones
+            : clones.filter(clone => (clone.owner_agent_ids || []).some(agentId => projectAgentIds.has(agentId)));
     }
     const skills = getFlattenedSkills();
-    return isPajeroProject ? skills.filter(skill => skill.owner === 'PAJERO') : skills;
+    return window.MASTER_CATALOG_SHOW_ALL
+        ? skills
+        : skills.filter(skill => projectSkillIds.has(skill.id));
 }
 
 function getMasterViewItems() {
@@ -5458,7 +5511,7 @@ function renderMasterHub() {
         
         if (window.MASTER_VIEW === 'squads' && !globalSearch) {
             canvas.classList.add('master-squads-board-canvas');
-            const boardRegistry = window.MASTER_PROJECT === 'pajero' ? getPajeroRegistryView(REGISTRY) : REGISTRY;
+            const boardRegistry = window.MASTER_CATALOG_SHOW_ALL ? REGISTRY : getMasterProjectRegistryView(REGISTRY, window.MASTER_PROJECT);
             canvas.innerHTML = typeof buildSquadsBoardHtml === 'function' ? buildSquadsBoardHtml(boardRegistry) : '';
             if (window.MASTER_SELECTED_ID && window.MASTER_SELECTED_ID.startsWith('squad-agent-config-')) {
                 const agentId = window.MASTER_SELECTED_ID.replace('squad-agent-config-', '');
@@ -6563,6 +6616,10 @@ function buildSquadsBoardHtml(registry) {
 
     let unassignedHtml = `
         <div class="master-card flex flex-col w-full min-w-0 max-w-full overflow-hidden" style="border-top: 2px solid #8b5cf6; padding:10px; background: rgba(12,15,24,0.85); box-shadow: inset 0 0 20px rgba(139,92,246,0.05);">
+        <div class="flex items-center justify-end gap-1.5 mb-2">
+            <button class="master-mini-btn" onclick="event.stopPropagation();setMasterCatalogShowAll(true)">Mostrar Todos</button>
+            ${window.MASTER_CATALOG_SHOW_ALL ? `<button class="master-mini-btn" onclick="event.stopPropagation();setMasterCatalogShowAll(false)">Filtrar Projeto</button>` : ''}
+        </div>
         <div class="flex items-center justify-between mb-2">
             <div class="flex items-center gap-2">
                 <div class="w-7 h-7 rounded-lg flex items-center justify-center text-white" style="background:#8b5cf640">

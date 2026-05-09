@@ -2,25 +2,26 @@
   "auto_sync_memory": false,
   "in_progress": true,
   "pending_trigger": null,
-  "last_sync_id": "SYNC-20260509-1778302934958",
+  "last_sync_id": "SYNC-20260509-1778312633620",
   "last_status": "running",
   "last_summary": "Sincronizacao em andamento...",
   "last_trigger": "save_all_one_click",
   "last_scope": "all",
   "last_target": "all",
-  "last_started_at": "2026-05-09T02:02:14-03:00",
-  "last_completed_at": "2026-04-28T21:21:24-03:00",
+  "last_started_at": "2026-05-09T04:43:53-03:00",
+  "last_completed_at": "2026-05-09T02:06:53-03:00",
   "github": {
-    "status": "success",
-    "note": "Commit e push enviados ao GitHub.",
+    "status": "partial",
+    "note": "Commit criado, mas push falhou.",
     "scope": "all",
     "changed_files": 0,
-    "commit_message": "chore(workspace): cloud sync 2026-04-28 21:21:03 (save_all_one_click)",
-    "branch": "master"
+    "commit_message": "chore(workspace): cloud sync 2026-05-09 02:02:14 (save_all_one_click)",
+    "branch": "master",
+    "error": "error: RPC failed; HTTP 408 curl 22 The requested URL returned error: 408\nsend-pack: unexpected disconnect while reading sideband packet\nfatal: the remote end hung up unexpectedly\nEverything up-to-date"
   },
   "firebase": {
     "status": "success",
     "note": "Deploy Firebase Hosting concluido.",
-    "duration_ms": 14249
+    "duration_ms": 125993
   }
 }
