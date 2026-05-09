@@ -6636,8 +6636,9 @@ function buildSquadsBoardHtml(registry) {
 
     const catalogToggleHtml = `
         <div class="flex items-center justify-end gap-1.5 mb-2">
-            <button class="master-mini-btn" onclick="event.stopPropagation();setMasterCatalogShowAll(true)">Mostrar Todos</button>
-            ${window.MASTER_CATALOG_SHOW_ALL ? `<button class="master-mini-btn" onclick="event.stopPropagation();setMasterCatalogShowAll(false)">Filtrar Projeto</button>` : ''}
+            <button class="btn-ghost text-[10px] py-1.5 px-3" onclick="event.stopPropagation();setMasterCatalogShowAll(!window.MASTER_CATALOG_SHOW_ALL);renderMasterHub();">
+                <i data-lucide="layers" class="w-3 h-3 inline mr-1"></i> ${window.MASTER_CATALOG_SHOW_ALL ? 'Filtrar Projeto' : 'Mostrar Todos'}
+            </button>
         </div>
     `;
 
