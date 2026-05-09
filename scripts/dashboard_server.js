@@ -4004,6 +4004,42 @@ review_path: ${audit.review_path}
             return sendJson(res, { success: true, skill, file_path: relPath });
         }
 
+        if (pathname === '/api/registry/squads' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const name = String(body.name || '').trim();
+            const id = String(body.id || '').trim().toUpperCase().replace(/[^A-Z0-9-]/g, '-');
+            if (!name) return sendJson(res, { error: 'name required' }, 400);
+
+            const registry = ensureControlJson('registry.json', {});
+            registry.squads = asArray(registry.squads);
+            if (registry.squads.some(s => s && (s.id === id || String(s.name || '').toLowerCase() === name.toLowerCase()))) {
+                return sendJson(res, { error: 'squad already exists', id }, 409);
+            }
+
+            const squadId = id || `SQD-${(slugifySegment(name).toUpperCase().slice(0, 6) || 'NEW')}`;
+            const squad = {
+                id: squadId,
+                name,
+                mission: String(body.mission || 'Squad operacional.').trim(),
+                description: String(body.description || body.mission || '').trim(),
+                inputs: asArray(body.inputs),
+                outputs: asArray(body.outputs)
+            };
+
+            registry.squads.push(squad);
+            writeControlJson('registry.json', registry);
+
+            const fileName = slugifySegment(name) || squadId.toLowerCase();
+            const relPath = `.codex/squads/${fileName}.md`;
+            const fullPath = safeWorkspacePath(relPath);
+            if (!fs.existsSync(fullPath)) {
+                writeText(fullPath, `# ${name}\n\n## ID\n${squadId}\n\n## Missão\n${squad.mission}\n\n## Agentes\n_Arraste agentes para este squad no painel de Squads._\n`);
+            }
+            appendExecutionLog('registry_create', squadId, `Squad criado: ${name}`, body.initiated_by || 'human', null, body.project_id || null);
+            appendMemoryMutation('registry', `Novo squad registrado: ${name}`, body.initiated_by || 'human', body.project_id || null);
+            return sendJson(res, { success: true, squad, file_path: relPath });
+        }
+
         if (pathname.startsWith('/api/build/') && req.method === 'POST') {
             const phaseId = pathname.split('/')[3];
             const body = await parseBody(req);
