@@ -154,6 +154,21 @@
         .vm-ebar-btn.vm-eb-active { box-shadow:0 0 0 2px currentColor;opacity:1; }
         .vm-ebar-btn.vm-eb-del-active { border-color:rgba(239,68,68,0.5)!important;color:#f87171!important;background:rgba(239,68,68,0.09)!important;box-shadow:0 0 0 2px rgba(239,68,68,0.3); }
         .vm-ebar-zoom { font-size:7.5px;font-weight:800;color:#4a4a60;min-width:32px;text-align:center;flex-shrink:0; }
+        /* ── Catalog Panel ── */
+        .vce-atab { padding:4px 12px;border-radius:4px;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.03);cursor:pointer;transition:all .15s; }
+        .vce-atab:hover { color:rgba(255,255,255,0.65); }
+        .vce-atab.vce-atab-active { background:rgba(197,160,89,0.12);border-color:rgba(197,160,89,0.4);color:#C5A059; }
+        .vcat-row { background:#0d0f18;border:1px solid rgba(255,255,255,0.06);border-top:2px solid rgba(197,160,89,0.2);border-radius:8px;overflow:hidden; }
+        .vcat-row-header { display:flex;align-items:center;gap:12px;padding:12px 18px;background:rgba(255,255,255,0.02);border-bottom:1px solid rgba(255,255,255,0.05); }
+        .vcat-anchor { padding:16px;background:rgba(0,0,0,0.25);border-right:1px solid rgba(255,255,255,0.06);display:flex;align-items:flex-start;gap:12px;min-width:260px; }
+        .vcat-groups { flex:1;overflow-x:auto;display:flex;align-items:stretch; }
+        .vcat-group { padding:14px 16px;min-width:200px;flex-shrink:0; }
+        .vcat-group + .vcat-group { border-left:1px solid rgba(255,255,255,0.05); }
+        .vcat-item { display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid rgba(255,255,255,0.05);border-radius:6px;background:rgba(255,255,255,0.02);margin-bottom:6px;cursor:pointer;transition:all .15s; }
+        .vcat-item:hover { border-color:rgba(197,160,89,0.3);background:rgba(197,160,89,0.05); }
+        .vcat-mini-cover { width:32px;height:43px;border-radius:3px;background-size:cover;background-position:center;background-color:#1a1a28;flex-shrink:0; }
+        .vcat-item-info { flex:1;min-width:0; }
+        .vcat-action-badge { display:inline-block;font-size:6px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:2px 6px;border-radius:3px;border:1px solid; }
         .vm-sbar { position:absolute;bottom:0;left:0;right:0;height:20px;z-index:9;background:rgba(8,8,16,0.96);border-top:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;padding:0 14px;gap:16px;pointer-events:none; }
         .vm-sbar span { font-size:6.5px;font-weight:700;color:#2a2a3a;letter-spacing:0.05em; }
         .vm-sbar .vm-sbar-mode { color:#a855f7;pointer-events:auto; }
@@ -1581,6 +1596,8 @@
             </div>
             <!-- Editor Toolbar -->
             <div id="vm-ebar" class="vm-ebar">
+                <button class="vm-ebar-btn" id="vm-btn-catalog" onclick="toggleMapCatalog()" style="background:rgba(197,160,89,0.08);border-color:rgba(197,160,89,0.25);color:#C5A059;font-weight:800;">📦 Entregáveis</button>
+                <div class="vm-ebar-sep"></div>
                 <button class="vm-ebar-btn vm-eb-add" onclick="vmAddNodeModal()">＋ Nó</button>
                 <button class="vm-ebar-btn vm-eb-connect" id="vm-btn-connect" onclick="vmToggleConnect()">⬡ Conectar</button>
                 <button class="vm-ebar-btn" id="vm-btn-delmode" onclick="vmToggleDeleteMode()">✕ Modo Excluir</button>
@@ -1599,6 +1616,77 @@
                 <div class="vm-ebar-sep"></div>
                 <button class="vm-ebar-btn vm-eb-save" id="vm-btn-save" onclick="vmSave()">💾 Salvar</button>
                 <span id="vm-save-st" style="font-size:7px;font-weight:700;margin-left:2px"></span>
+            </div>
+            <!-- ═══ CATALOG PANEL ═══ -->
+            <div id="vm-catalog-panel" style="display:none;position:absolute;inset:0;top:139px;background:#090c14;z-index:20;overflow-y:auto;padding:24px 32px 48px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+                    <div>
+                        <p style="font-size:7px;font-weight:900;letter-spacing:0.3em;text-transform:uppercase;color:#C5A059;margin-bottom:3px;">Área de Membros · Catálogo de Produtos</p>
+                        <h2 style="font-size:16px;font-weight:900;color:#fff;letter-spacing:-0.02em;">Funil & Entregáveis</h2>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <span id="vm-catalog-save-st" style="font-size:9px;color:#34d399;font-weight:700;display:none;">✓ Salvo</span>
+                        <button onclick="addCatalogRow()" style="padding:7px 14px;background:rgba(197,160,89,0.1);border:1px solid rgba(197,160,89,0.3);border-radius:6px;color:#C5A059;font-size:9px;font-weight:700;cursor:pointer;letter-spacing:1px;text-transform:uppercase;">+ Nova Linha</button>
+                        <button onclick="toggleMapCatalog()" style="padding:7px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#6b7280;font-size:9px;font-weight:700;cursor:pointer;">✕ Fechar</button>
+                    </div>
+                </div>
+                <div id="vm-catalog-body" style="display:flex;flex-direction:column;gap:20px;"></div>
+            </div>
+            <!-- ═══ CATALOG ITEM EDIT MODAL ═══ -->
+            <div id="vm-catalog-edit-modal" style="display:none;position:fixed;inset:0;z-index:400;align-items:center;justify-content:center;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);">
+                <div style="background:#0f0f16;border:1px solid rgba(197,160,89,0.25);border-radius:12px;width:520px;max-width:95vw;max-height:90vh;overflow-y:auto;padding:28px;box-shadow:0 24px 80px rgba(0,0,0,0.7);">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;">
+                        <h3 id="vce-modal-title" style="font-size:13px;font-weight:800;color:#fff;">Editar Item</h3>
+                        <button onclick="closeCatalogEditModal()" style="background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.4);border-radius:6px;padding:4px 12px;cursor:pointer;font-size:16px;">×</button>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:14px;">
+                        <input type="hidden" id="vce-row-id">
+                        <input type="hidden" id="vce-item-id">
+                        <input type="hidden" id="vce-is-anchor">
+                        <input type="hidden" id="vce-group-id">
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                            <div><label style="font-size:8px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:5px;">Título</label>
+                            <input id="vce-title" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:8px 10px;color:#e5e7eb;font-size:11px;" placeholder="Título do produto"></div>
+                            <div><label style="font-size:8px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:5px;">Subtítulo</label>
+                            <input id="vce-subtitle" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:8px 10px;color:#e5e7eb;font-size:11px;" placeholder="Ex: Ebook Principal · 144 pág."></div>
+                        </div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                            <div><label style="font-size:8px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:5px;">Tag</label>
+                            <input id="vce-tag" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:8px 10px;color:#e5e7eb;font-size:11px;" placeholder="Ex: BÔNUS"></div>
+                            <div><label style="font-size:8px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:5px;">Cor da Tag</label>
+                            <select id="vce-tag-variant" style="width:100%;background:#1a1a28;border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:8px 10px;color:#e5e7eb;font-size:11px;">
+                                <option value="gold">Dourado</option>
+                                <option value="green">Verde</option>
+                                <option value="purple">Roxo</option>
+                                <option value="blue">Azul</option>
+                                <option value="muted">Apagado</option>
+                            </select></div>
+                        </div>
+                        <div><label style="font-size:8px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:5px;">Imagem de Capa (caminho)</label>
+                        <input id="vce-cover" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:8px 10px;color:#e5e7eb;font-size:11px;" placeholder="/ebook/capa_mistica_dourada.png"></div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                            <div><label style="font-size:8px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:5px;">Progresso (0–100)</label>
+                            <input id="vce-progress" type="number" min="0" max="100" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:8px 10px;color:#e5e7eb;font-size:11px;" placeholder="65"></div>
+                            <div style="display:flex;align-items:center;gap:8px;padding-top:22px;">
+                                <input type="checkbox" id="vce-locked" style="width:14px;height:14px;cursor:pointer;">
+                                <label for="vce-locked" style="font-size:9px;font-weight:600;color:rgba(255,255,255,0.5);cursor:pointer;">Bloqueado 🔒</label>
+                            </div>
+                        </div>
+                        <div><label style="font-size:8px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:8px;">Acesso ao Conteúdo</label>
+                        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;" id="vce-action-tabs">
+                            <button class="vce-atab vce-atab-active" data-type="soon" onclick="setCatalogActionType('soon')">Em Breve</button>
+                            <button class="vce-atab" data-type="viewer" onclick="setCatalogActionType('viewer')">Viewer HTML</button>
+                            <button class="vce-atab" data-type="pdf" onclick="setCatalogActionType('pdf')">PDF Download</button>
+                            <button class="vce-atab" data-type="both" onclick="setCatalogActionType('both')">Viewer + PDF</button>
+                        </div>
+                        <div id="vce-action-fields" style="display:flex;flex-direction:column;gap:8px;"></div>
+                        </div>
+                    </div>
+                    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:22px;">
+                        <button onclick="closeCatalogEditModal()" style="padding:8px 20px;background:none;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:rgba(255,255,255,0.4);font-size:10px;font-weight:700;cursor:pointer;">Cancelar</button>
+                        <button onclick="saveCatalogItemEdit()" style="padding:8px 20px;background:rgba(197,160,89,0.15);border:1px solid rgba(197,160,89,0.4);border-radius:6px;color:#C5A059;font-size:10px;font-weight:800;cursor:pointer;letter-spacing:1px;text-transform:uppercase;">Salvar Item</button>
+                    </div>
+                </div>
             </div>
             <!-- Scroll Canvas -->
             <div id="vm-scroll" style="overflow:auto;height:calc(100vh - 139px);padding:20px 20px 50px">
@@ -1738,70 +1826,128 @@
         </div>
 
         <!-- ═══════ FINANCAS ═══════ -->
-        <div id="pane-financas" class="tab-pane" style="background:#090c14;overflow:hidden;position:relative">
-            <div class="finance-shell">
-                <div class="finance-toolbar">
-                    <div class="finance-toolbar-title">
-                        <span class="finance-toolbar-kicker">Projeto Financas · Mapa Operacional</span>
-                        <h2>Caixa, Dividas e <span>Futuro</span></h2>
-                        <p>Painel para alimentar dados reais, negociar dividas e simular patrimonio.</p>
-                    </div>
-                    <div class="finance-toolbar-center">
-                        <div class="finance-filter-row" id="finance-map-filters">
-                            <button class="finance-filter-btn active" onclick="filterFinanceMap('all')">Todos</button>
-                            <button class="finance-filter-btn" onclick="filterFinanceMap('pressure')">Pressao</button>
-                            <button class="finance-filter-btn" onclick="filterFinanceMap('debt')">Dividas</button>
-                            <button class="finance-filter-btn" onclick="filterFinanceMap('wealth')">Patrimonio</button>
-                            <button class="finance-filter-btn" onclick="filterFinanceMap('missing')">Pendencias</button>
-                        </div>
-                        <div class="finance-legend-row">
-                            <span class="finance-legend-chip"><span class="finance-legend-dot" style="background:#10b981"></span> Saudavel</span>
-                            <span class="finance-legend-chip"><span class="finance-legend-dot" style="background:#f59e0b"></span> Atenção</span>
-                            <span class="finance-legend-chip"><span class="finance-legend-dot" style="background:#ef4444"></span> Pressão</span>
-                            <span class="finance-legend-chip"><span class="finance-legend-dot" style="background:#6b7280"></span> Pendente</span>
-                        </div>
-                    </div>
-                    <div class="finance-toolbar-right">
-                        <div id="finance-map-stats" class="finance-toolbar-stats"></div>
-                        <div class="finance-actions-row">
-                            <button onclick="saveFinanceState()" class="btn-success"><i data-lucide="save" class="w-3 h-3 inline"></i> Salvar Dados</button>
-                            <button onclick="setMasterProject('financas'); setMasterView('construcao'); switchTab('master')" class="btn-ghost">
-                                <i data-lucide="layout-dashboard" class="w-3 h-3 inline"></i> Master
-                            </button>
-                            <button onclick='openEditorModal("projects/financas/data/finance_state.json","finance_state.json")' class="btn-ghost">
-                                <i data-lucide="file-json" class="w-3 h-3 inline"></i> JSON
-                            </button>
-                        </div>
-                        <div class="finance-toolbar-hint">Clique para detalhes · Arraste nos · Salve no JSON</div>
-                    </div>
+        <div id="pane-financas" class="tab-pane" style="background:#090c14;overflow:hidden;position:relative;display:flex;flex-direction:column">
+
+            <!-- ── Top nav: Planilha | Dívidas | Mapa ── -->
+            <div class="fin2-topnav">
+                <div class="fin2-topnav-left">
+                    <span class="fin2-topnav-brand">Finanças</span>
+                    <span class="fin2-topnav-year">2026</span>
                 </div>
+                <div class="fin2-topnav-tabs">
+                    <button class="fin2-navbtn" id="fin2-btn-planilha" onclick="fin2Switch('planilha')">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+                        Planilha
+                    </button>
+                    <button class="fin2-navbtn active" id="fin2-btn-dividas" onclick="fin2Switch('dividas')">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
+                        Dívidas
+                    </button>
+                    <button class="fin2-navbtn" id="fin2-btn-mapa" onclick="fin2Switch('mapa')">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+                        Mapa
+                    </button>
+                </div>
+                <div class="fin2-topnav-actions">
+                    <button onclick="saveFinanceState()" class="fin2-action-btn fin2-action-save">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2l11 0 5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                        Salvar
+                    </button>
+                    <button onclick='openEditorModal("projects/financas/data/finance_state.json","finance_state.json")' class="fin2-action-btn">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        JSON
+                    </button>
+                </div>
+            </div>
 
-                <div class="finance-scroll">
-                    <div id="finance-status" class="hidden text-[9px] font-bold uppercase tracking-widest"></div>
-                    <div id="finance-kpis" class="finance-kpi-grid"></div>
-                    <div id="finance-goals-strip" class="fin-goals-strip"></div>
-                    <section class="finance-map-frame">
-                        <div class="finance-map-scroll" id="finance-map-scroll">
-                            <div id="finance-map-canvas" class="finance-canvas">
-                                <svg id="finance-map-edges" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1" overflow="visible"></svg>
-                            </div>
-                        </div>
-                        <aside id="finance-map-detail" class="finance-detail-panel">
-                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-                                <span id="finance-detail-title" style="font-size:12px;font-weight:900;color:#fff;line-height:1.3"></span>
-                                <button onclick="closeFinanceMapDetail()" style="background:none;border:none;color:#6b7280;cursor:pointer;padding:2px;font-size:14px;line-height:1">x</button>
-                            </div>
-                            <div id="finance-detail-body"></div>
-                        </aside>
-                    </section>
-                    <div id="finance-tabs" class="finance-tabs"></div>
-
-                    <div class="finance-layout">
-                        <section id="finance-main" class="min-w-0"></section>
-                        <aside id="finance-side" class="min-w-0"></aside>
+            <!-- ── Pane: Planilha ── -->
+            <div id="fin2-pane-planilha" class="fin2-panel" style="display:none;overflow:auto">
+                <div class="fin2-sheet-wrap">
+                    <div class="fin2-sheet-header">
+                        <h3>Fluxo de Caixa <span id="fin2-sheet-year">2026</span></h3>
+                        <p>Edite os valores diretamente. Os totais são recalculados automaticamente.</p>
+                    </div>
+                    <div class="fin2-sheet-scroll">
+                        <table id="fin2-sheet" class="fin2-sheet-table"></table>
                     </div>
                 </div>
             </div>
+
+            <!-- ── Pane: Dívidas ── -->
+            <div id="fin2-pane-dividas" class="fin2-panel" style="display:flex;flex:1;overflow:hidden">
+                <div class="fin2-debt-col" id="fin2-debt-col"></div>
+                <aside class="fin2-drawer" id="fin2-drawer">
+                    <div class="fin2-drawer-empty" id="fin2-drawer-empty">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#3a3f55" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
+                        <p>Selecione uma dívida<br>para ver os detalhes</p>
+                    </div>
+                    <div class="fin2-drawer-content" id="fin2-drawer-content" style="display:none"></div>
+                </aside>
+            </div>
+
+            <!-- ── Pane: Mapa (conteúdo ORIGINAL preservado) ── -->
+            <div id="fin2-pane-mapa" class="fin2-panel" style="display:none;flex:1;overflow:hidden">
+                <div class="finance-shell" style="height:100%">
+                    <div class="finance-toolbar">
+                        <div class="finance-toolbar-title">
+                            <span class="finance-toolbar-kicker">Projeto Financas · Mapa Operacional</span>
+                            <h2>Caixa, Dividas e <span>Futuro</span></h2>
+                            <p>Painel para alimentar dados reais, negociar dividas e simular patrimonio.</p>
+                        </div>
+                        <div class="finance-toolbar-center">
+                            <div class="finance-filter-row" id="finance-map-filters">
+                                <button class="finance-filter-btn active" onclick="filterFinanceMap('all')">Todos</button>
+                                <button class="finance-filter-btn" onclick="filterFinanceMap('pressure')">Pressao</button>
+                                <button class="finance-filter-btn" onclick="filterFinanceMap('debt')">Dividas</button>
+                                <button class="finance-filter-btn" onclick="filterFinanceMap('wealth')">Patrimonio</button>
+                                <button class="finance-filter-btn" onclick="filterFinanceMap('missing')">Pendencias</button>
+                            </div>
+                            <div class="finance-legend-row">
+                                <span class="finance-legend-chip"><span class="finance-legend-dot" style="background:#10b981"></span> Saudavel</span>
+                                <span class="finance-legend-chip"><span class="finance-legend-dot" style="background:#f59e0b"></span> Atenção</span>
+                                <span class="finance-legend-chip"><span class="finance-legend-dot" style="background:#ef4444"></span> Pressão</span>
+                                <span class="finance-legend-chip"><span class="finance-legend-dot" style="background:#6b7280"></span> Pendente</span>
+                            </div>
+                        </div>
+                        <div class="finance-toolbar-right">
+                            <div id="finance-map-stats" class="finance-toolbar-stats"></div>
+                            <div class="finance-actions-row">
+                                <button onclick="setMasterProject('financas'); setMasterView('construcao'); switchTab('master')" class="btn-ghost">
+                                    <i data-lucide="layout-dashboard" class="w-3 h-3 inline"></i> Master
+                                </button>
+                            </div>
+                            <div class="finance-toolbar-hint">Clique para detalhes · Arraste nos · Salve no JSON</div>
+                        </div>
+                    </div>
+
+                    <div class="finance-scroll">
+                        <div id="finance-status" class="hidden text-[9px] font-bold uppercase tracking-widest"></div>
+                        <div id="finance-kpis" class="finance-kpi-grid"></div>
+                        <div id="finance-goals-strip" class="fin-goals-strip"></div>
+                        <section class="finance-map-frame">
+                            <div class="finance-map-scroll" id="finance-map-scroll">
+                                <div id="finance-map-canvas" class="finance-canvas">
+                                    <svg id="finance-map-edges" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1" overflow="visible"></svg>
+                                </div>
+                            </div>
+                            <aside id="finance-map-detail" class="finance-detail-panel">
+                                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+                                    <span id="finance-detail-title" style="font-size:12px;font-weight:900;color:#fff;line-height:1.3"></span>
+                                    <button onclick="closeFinanceMapDetail()" style="background:none;border:none;color:#6b7280;cursor:pointer;padding:2px;font-size:14px;line-height:1">x</button>
+                                </div>
+                                <div id="finance-detail-body"></div>
+                            </aside>
+                        </section>
+                        <div id="finance-tabs" class="finance-tabs"></div>
+
+                        <div class="finance-layout">
+                            <section id="finance-main" class="min-w-0"></section>
+                            <aside id="finance-side" class="min-w-0"></aside>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <!-- ═══════ SQUADS (Legacy, updated) ═══════ -->
@@ -7710,6 +7856,269 @@ function generatePdfFromHtml(id, label) {
 }
 
 // ══════════════════════════════════════════
+// MAPA CATALOG (Hub Entregáveis)
+// ══════════════════════════════════════════
+let _hubCatalog = null;
+
+const CATALOG_ACCENT = {
+    bonus:    { border:'rgba(111,175,111,0.3)',  bg:'rgba(111,175,111,0.06)',  label:'rgba(111,175,111,0.7)',  badgeBg:'rgba(111,175,111,0.15)',  badgeColor:'#7ABF7A'  },
+    ob:       { border:'rgba(100,149,237,0.3)',  bg:'rgba(100,149,237,0.06)',  label:'rgba(100,149,237,0.7)',  badgeBg:'rgba(100,149,237,0.15)',  badgeColor:'#7AABF0'  },
+    included: { border:'rgba(160,123,197,0.3)',  bg:'rgba(160,123,197,0.06)',  label:'rgba(160,123,197,0.7)',  badgeBg:'rgba(160,123,197,0.15)',  badgeColor:'#B08BD4'  },
+};
+const CATALOG_TAG_COLORS = {
+    gold:'#C5A059', green:'#7ABF7A', purple:'#B08BD4', blue:'#7AABF0', muted:'rgba(229,229,229,0.3)'
+};
+
+function actionLabel(action) {
+    if (!action) return 'EM BREVE';
+    const map = { soon:'EM BREVE', viewer:'VIEWER', pdf:'PDF', both:'VIEWER+PDF' };
+    return map[action.type] || 'EM BREVE';
+}
+function actionBadgeStyle(action) {
+    const t = action?.type || 'soon';
+    if (t === 'viewer') return 'background:rgba(99,102,241,0.15);color:#818cf8;border-color:rgba(99,102,241,0.3)';
+    if (t === 'pdf')    return 'background:rgba(239,68,68,0.12);color:#f87171;border-color:rgba(239,68,68,0.25)';
+    if (t === 'both')   return 'background:rgba(16,185,129,0.12);color:#34d399;border-color:rgba(16,185,129,0.25)';
+    return 'background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.25);border-color:rgba(255,255,255,0.08)';
+}
+
+function toggleMapCatalog() {
+    const panel = document.getElementById('vm-catalog-panel');
+    const btn = document.getElementById('vm-btn-catalog');
+    const isOpen = panel.style.display !== 'none';
+    if (isOpen) {
+        panel.style.display = 'none';
+        btn.style.background = 'rgba(197,160,89,0.08)';
+    } else {
+        panel.style.display = 'block';
+        btn.style.background = 'rgba(197,160,89,0.2)';
+        loadHubCatalog();
+    }
+}
+
+async function loadHubCatalog() {
+    const body = document.getElementById('vm-catalog-body');
+    body.innerHTML = '<p style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;padding:32px;">Carregando catálogo...</p>';
+    try {
+        const r = await fetch('/api/hub-catalog');
+        _hubCatalog = await r.json();
+        renderCatalogPanel(_hubCatalog);
+    } catch (e) {
+        body.innerHTML = '<p style="font-size:10px;color:#f87171;text-align:center;padding:32px;">Erro ao carregar (servidor offline?)</p>';
+    }
+}
+
+function renderCatalogPanel(catalog) {
+    const body = document.getElementById('vm-catalog-body');
+    if (!catalog || !catalog.rows || !catalog.rows.length) {
+        body.innerHTML = '<p style="font-size:10px;color:rgba(255,255,255,0.25);text-align:center;padding:32px;">Nenhuma linha no catálogo. Clique em "+ Nova Linha".</p>';
+        return;
+    }
+    body.innerHTML = catalog.rows.map((row, rIdx) => {
+        const isUpsell = row.rowVariant === 'upsell';
+        const topBorder = isUpsell ? '2px solid rgba(160,123,197,0.35)' : '2px solid rgba(197,160,89,0.2)';
+        const pageTypeBadge = { sales:'VENDA', upsell:'UPSELL', downsell:'DOWNSELL' }[row.pageType] || row.pageType?.toUpperCase() || '';
+        const ptColor = { sales:'#C5A059', upsell:'#B08BD4', downsell:'#7AABF0' }[row.pageType] || '#6b7280';
+
+        const anchorA = row.anchor;
+        const anchorHtml = `
+            <div class="vcat-anchor">
+                <div class="vcat-mini-cover" style="width:44px;height:58px;background-image:url('${anchorA.cover || ''}')"></div>
+                <div style="flex:1;min-width:0;">
+                    <p style="font-size:7px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:3px;">${row.anchorLabel || 'Principal'}</p>
+                    <p style="font-size:11px;font-weight:700;color:#e5e7eb;line-height:1.3;margin-bottom:4px;">${anchorA.title || ''}</p>
+                    <p style="font-size:8px;color:rgba(255,255,255,0.3);margin-bottom:6px;">${anchorA.subtitle || ''}</p>
+                    <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+                        <span class="vcat-action-badge" style="${actionBadgeStyle(anchorA.action)}">${actionLabel(anchorA.action)}</span>
+                        <button onclick="openCatalogItemEdit(${rIdx}, null, true, null)" style="padding:3px 10px;background:rgba(197,160,89,0.1);border:1px solid rgba(197,160,89,0.25);border-radius:4px;color:#C5A059;font-size:7px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">✏ Editar</button>
+                    </div>
+                </div>
+            </div>`;
+
+        const groupsHtml = (row.groups || []).map((group, gIdx) => {
+            const acc = CATALOG_ACCENT[group.accentKey] || CATALOG_ACCENT.bonus;
+            const itemsHtml = (group.items || []).map((item, iIdx) => `
+                <div class="vcat-item" onclick="openCatalogItemEdit(${rIdx}, ${iIdx}, false, ${gIdx})">
+                    <div class="vcat-mini-cover" style="background-image:url('${item.cover || ''}')"></div>
+                    <div class="vcat-item-info">
+                        <p style="font-size:9px;font-weight:700;color:#e5e7eb;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:120px;">${item.title || ''}</p>
+                        <span class="vcat-action-badge" style="${actionBadgeStyle(item.action)}">${actionLabel(item.action)}</span>
+                    </div>
+                    ${item.locked ? '<span style="font-size:12px;">🔒</span>' : ''}
+                </div>`).join('');
+            return `
+                <div class="vcat-group" style="background:${acc.bg};">
+                    <p style="font-size:7px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:${acc.label};margin-bottom:8px;">${group.label} <span style="opacity:0.6">(${group.items?.length || 0})</span></p>
+                    ${itemsHtml}
+                    <button onclick="addCatalogItem(${rIdx}, ${gIdx})" style="width:100%;padding:5px;background:rgba(255,255,255,0.02);border:1px dashed rgba(255,255,255,0.08);border-radius:5px;color:rgba(255,255,255,0.2);font-size:8px;font-weight:700;cursor:pointer;transition:all .15s;text-transform:uppercase;letter-spacing:1px;" onmouseover="this.style.borderColor='rgba(255,255,255,0.2)';this.style.color='rgba(255,255,255,0.5)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)';this.style.color='rgba(255,255,255,0.2)'">+ Item</button>
+                </div>`;
+        }).join('');
+
+        return `
+            <div class="vcat-row" style="border-top:${topBorder};">
+                <div class="vcat-row-header">
+                    <div style="width:24px;height:24px;border-radius:50%;background:rgba(197,160,89,0.12);border:1px solid rgba(197,160,89,0.3);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#C5A059;flex-shrink:0;">${row.rowNum || rIdx+1}</div>
+                    <div style="flex:1;">
+                        <p style="font-size:11px;font-weight:800;color:#fff;">${row.label || 'Linha'}</p>
+                        <p style="font-size:7px;color:rgba(255,255,255,0.3);">${row.projectRef ? `Projeto: ${row.projectRef}` : 'Projeto externo'}</p>
+                    </div>
+                    <span style="padding:3px 10px;border-radius:4px;font-size:7px;font-weight:800;letter-spacing:2px;text-transform:uppercase;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.08);color:${ptColor};">${pageTypeBadge}</span>
+                    <button onclick="addCatalogGroup(${rIdx})" style="padding:4px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:5px;color:rgba(255,255,255,0.3);font-size:8px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">+ Grupo</button>
+                    <button onclick="removeCatalogRow(${rIdx})" style="padding:4px 8px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2);border-radius:5px;color:#f87171;font-size:8px;font-weight:700;cursor:pointer;" title="Remover linha">✕</button>
+                </div>
+                <div style="display:flex;overflow:hidden;">
+                    ${anchorHtml}
+                    <div class="vcat-groups">${groupsHtml}</div>
+                </div>
+                ${row.connectorAfter ? `<div style="padding:8px 18px;border-top:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;gap:8px;"><span style="font-size:7px;color:rgba(255,255,255,0.2);">↓ Conector:</span> <span style="font-size:8px;font-weight:700;color:rgba(255,255,255,0.4);">${row.connectorAfter}</span></div>` : ''}
+            </div>`;
+    }).join('');
+}
+
+function openCatalogItemEdit(rowIdx, itemIdx, isAnchor, groupIdx) {
+    const row = _hubCatalog.rows[rowIdx];
+    const item = isAnchor ? row.anchor : row.groups[groupIdx].items[itemIdx];
+    document.getElementById('vce-row-id').value = rowIdx;
+    document.getElementById('vce-item-id').value = itemIdx ?? '';
+    document.getElementById('vce-is-anchor').value = isAnchor ? '1' : '0';
+    document.getElementById('vce-group-id').value = groupIdx ?? '';
+    document.getElementById('vce-modal-title').textContent = isAnchor ? `Editar Âncora — ${row.label}` : `Editar Item`;
+    document.getElementById('vce-title').value = item.title || '';
+    document.getElementById('vce-subtitle').value = item.subtitle || '';
+    document.getElementById('vce-tag').value = item.tag || '';
+    document.getElementById('vce-tag-variant').value = item.tagVariant || 'gold';
+    document.getElementById('vce-cover').value = item.cover || '';
+    document.getElementById('vce-progress').value = item.progress ?? '';
+    document.getElementById('vce-locked').checked = !!item.locked;
+    const actionType = item.action?.type || 'soon';
+    setCatalogActionType(actionType, item.action);
+    document.getElementById('vm-catalog-edit-modal').style.display = 'flex';
+}
+
+function closeCatalogEditModal() {
+    document.getElementById('vm-catalog-edit-modal').style.display = 'none';
+}
+
+let _currentActionType = 'soon';
+function setCatalogActionType(type, existingAction) {
+    _currentActionType = type;
+    document.querySelectorAll('.vce-atab').forEach(b => {
+        b.classList.toggle('vce-atab-active', b.dataset.type === type);
+    });
+    const fields = document.getElementById('vce-action-fields');
+    const style = 'width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:8px 10px;color:#e5e7eb;font-size:11px;';
+    if (type === 'soon') {
+        fields.innerHTML = '';
+    } else if (type === 'viewer') {
+        fields.innerHTML = `<div><label style="font-size:8px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:5px;">Caminho do Viewer</label><input id="vce-viewer-path" style="${style}" placeholder="/ebook/viewer/cofre" value="${existingAction?.path || ''}"></div>`;
+    } else if (type === 'pdf') {
+        fields.innerHTML = `<div><label style="font-size:8px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:5px;">Arquivo PDF</label><input id="vce-pdf-file" style="${style}" placeholder="O_Cofre_das_Botanicas_Secretas.pdf" value="${existingAction?.file || ''}"></div>`;
+    } else if (type === 'both') {
+        fields.innerHTML = `
+            <div><label style="font-size:8px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:5px;">Caminho do Viewer</label><input id="vce-viewer-path" style="${style}" placeholder="/ebook/viewer/cofre" value="${existingAction?.viewerPath || ''}"></div>
+            <div><label style="font-size:8px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:5px;">Arquivo PDF</label><input id="vce-pdf-file" style="${style}" placeholder="O_Cofre.pdf" value="${existingAction?.pdfFile || ''}"></div>`;
+    }
+}
+
+function saveCatalogItemEdit() {
+    const rowIdx = parseInt(document.getElementById('vce-row-id').value);
+    const itemIdx = document.getElementById('vce-item-id').value;
+    const isAnchor = document.getElementById('vce-is-anchor').value === '1';
+    const groupIdx = document.getElementById('vce-group-id').value;
+    const progressVal = document.getElementById('vce-progress').value;
+    let action;
+    if (_currentActionType === 'viewer')
+        action = { type:'viewer', path: document.getElementById('vce-viewer-path')?.value || '' };
+    else if (_currentActionType === 'pdf')
+        action = { type:'pdf', file: document.getElementById('vce-pdf-file')?.value || '' };
+    else if (_currentActionType === 'both')
+        action = { type:'both', viewerPath: document.getElementById('vce-viewer-path')?.value || '', pdfFile: document.getElementById('vce-pdf-file')?.value || '' };
+    else
+        action = { type:'soon' };
+
+    const updated = {
+        title: document.getElementById('vce-title').value,
+        subtitle: document.getElementById('vce-subtitle').value,
+        tag: document.getElementById('vce-tag').value,
+        tagVariant: document.getElementById('vce-tag-variant').value,
+        cover: document.getElementById('vce-cover').value,
+        locked: document.getElementById('vce-locked').checked,
+        action,
+    };
+    if (progressVal !== '') updated.progress = parseInt(progressVal);
+
+    const row = _hubCatalog.rows[rowIdx];
+    if (isAnchor) {
+        Object.assign(row.anchor, updated);
+        row.anchor.id = row.anchor.id || row.id;
+    } else {
+        const item = row.groups[parseInt(groupIdx)].items[parseInt(itemIdx)];
+        Object.assign(item, updated);
+    }
+    closeCatalogEditModal();
+    saveHubCatalog();
+}
+
+function addCatalogItem(rowIdx, groupIdx) {
+    const newId = 'item-' + Date.now();
+    _hubCatalog.rows[rowIdx].groups[groupIdx].items.push({
+        id: newId, title:'Novo Item', subtitle:'', cover:'', tag:'BÔNUS', tagVariant:'green', action:{type:'soon'}
+    });
+    saveHubCatalog().then(() => openCatalogItemEdit(rowIdx, _hubCatalog.rows[rowIdx].groups[groupIdx].items.length - 1, false, groupIdx));
+}
+
+function addCatalogGroup(rowIdx) {
+    const keys = ['bonus', 'ob', 'included'];
+    const existing = _hubCatalog.rows[rowIdx].groups.map(g => g.accentKey);
+    const next = keys.find(k => !existing.includes(k)) || 'bonus';
+    _hubCatalog.rows[rowIdx].groups.push({
+        id: 'group-' + Date.now(), label:'Novo Grupo', accentKey: next, items:[]
+    });
+    saveHubCatalog();
+}
+
+function addCatalogRow() {
+    const rowNum = (_hubCatalog.rows?.length || 0) + 1;
+    _hubCatalog.rows = _hubCatalog.rows || [];
+    _hubCatalog.rows.push({
+        id: 'row-' + Date.now(), rowNum, label:'Nova Linha', pageType:'sales', projectRef:null,
+        rowVariant:'default', anchorLabel:'Produto Principal', connectorAfter:null,
+        anchor:{ id:'novo-produto', title:'Novo Produto', subtitle:'', cover:'', tag:'PRINCIPAL', tagVariant:'gold', action:{type:'soon'} },
+        groups:[]
+    });
+    saveHubCatalog();
+}
+
+function removeCatalogRow(rowIdx) {
+    if (!confirm('Remover esta linha do catálogo?')) return;
+    _hubCatalog.rows.splice(rowIdx, 1);
+    _hubCatalog.rows.forEach((r, i) => r.rowNum = i + 1);
+    saveHubCatalog();
+}
+
+async function saveHubCatalog() {
+    const st = document.getElementById('vm-catalog-save-st');
+    st.style.display = 'inline';
+    st.textContent = '⏳ Salvando...';
+    st.style.color = '#818cf8';
+    try {
+        const r = await fetch('/api/hub-catalog', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify(_hubCatalog)
+        });
+        const res = await r.json();
+        if (res.error) throw new Error(res.error);
+        st.textContent = '✓ Salvo';
+        st.style.color = '#34d399';
+        setTimeout(() => { st.style.display = 'none'; }, 3000);
+        renderCatalogPanel(_hubCatalog);
+    } catch(e) {
+        st.textContent = 'Erro: ' + e.message;
+        st.style.color = '#f87171';
+    }
+}
+
+// ══════════════════════════════════════════
 // DATA LOADING & SYNC
 // Definição completa em window.loadAllData (mais abaixo).
 // ══════════════════════════════════════════
@@ -10341,6 +10750,576 @@ window.vmHideCtx         = vmHideCtx;
 
 })();
 </script>
+
+<!-- ═══════ FIN2 CSS ═══════ -->
+<style>
+/* ── Top nav ── */
+.fin2-topnav {
+  display:flex;align-items:center;gap:0;
+  background:#0d111f;border-bottom:1px solid #1e2540;
+  padding:0 16px;height:44px;flex-shrink:0;
+}
+.fin2-topnav-brand {
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:17px;font-weight:700;color:#c9a84c;letter-spacing:.02em;
+}
+.fin2-topnav-year {
+  font-size:10px;color:#4a5275;font-weight:600;letter-spacing:.1em;
+  margin-left:8px;padding-top:2px;
+}
+.fin2-topnav-left { display:flex;align-items:baseline;gap:4px;margin-right:auto; }
+.fin2-topnav-tabs { display:flex;gap:2px;margin:0 auto; }
+.fin2-topnav-actions { display:flex;gap:6px;margin-left:auto; }
+.fin2-navbtn {
+  display:flex;align-items:center;gap:6px;
+  padding:0 14px;height:44px;border:none;background:transparent;
+  font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:#4a5275;cursor:pointer;border-bottom:2px solid transparent;
+  transition:color .2s,border-color .2s;
+}
+.fin2-navbtn:hover { color:#c9a84c; }
+.fin2-navbtn.active { color:#c9a84c;border-bottom-color:#c9a84c; }
+.fin2-action-btn {
+  display:flex;align-items:center;gap:5px;
+  padding:0 10px;height:28px;border-radius:5px;
+  font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  border:1px solid #2a3050;background:#141829;color:#7a8099;cursor:pointer;
+  transition:all .2s;
+}
+.fin2-action-btn:hover { color:#c9a84c;border-color:#c9a84c44; }
+.fin2-action-save:hover { background:#1a2010;color:#6fcf50;border-color:#6fcf5044; }
+
+/* ── Generic panel ── */
+.fin2-panel { flex:1;overflow:hidden; }
+
+/* ── Planilha ── */
+.fin2-sheet-wrap { padding:20px 24px;min-width:900px; }
+.fin2-sheet-header h3 {
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:22px;font-weight:700;color:#fff;margin:0 0 4px;
+}
+.fin2-sheet-header h3 span { color:#c9a84c; }
+.fin2-sheet-header p { font-size:11px;color:#4a5275;margin:0 0 18px; }
+.fin2-sheet-scroll { overflow-x:auto; }
+.fin2-sheet-table {
+  border-collapse:collapse;width:100%;
+  font-size:11px;
+}
+.fin2-sheet-table th {
+  padding:6px 10px;background:#0f1422;
+  color:#4a5275;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  border-bottom:1px solid #1e2540;text-align:center;white-space:nowrap;
+}
+.fin2-sheet-table th.fin2-th-label { text-align:left;min-width:130px; }
+.fin2-sheet-table td {
+  padding:3px 4px;border-bottom:1px solid #131828;
+  text-align:center;
+}
+.fin2-sheet-table td.fin2-td-label {
+  text-align:left;padding-left:10px;
+  color:#ccd0e8;font-size:11px;white-space:nowrap;
+}
+.fin2-section-row td {
+  background:#0f1422;color:#c9a84c;
+  font-weight:800;font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+  padding:8px 10px 4px;border-bottom:1px solid #1e2540;
+}
+.fin2-total-row td {
+  background:#0f1422;font-weight:700;color:#fff;
+  border-top:1px solid #2a3050;border-bottom:2px solid #2a3050;
+}
+.fin2-total-row td.fin2-td-label { color:#c9a84c;font-size:11px; }
+.fin2-cashflow-row td { background:#0c1a10; }
+.fin2-cashflow-row td.fin2-td-label { color:#6fcf50; }
+.fin2-cashflow-pos { color:#6fcf50;font-weight:700; }
+.fin2-cashflow-neg { color:#ef4444;font-weight:700; }
+.fin2-input {
+  width:72px;padding:3px 5px;
+  background:#141829;border:1px solid transparent;border-radius:4px;
+  color:#e2e6ff;font-size:11px;text-align:right;
+  outline:none;transition:border-color .2s;
+}
+.fin2-input:hover { border-color:#2a3050; }
+.fin2-input:focus { border-color:#c9a84c55;background:#1a1f30; }
+.fin2-sh-tot {
+  display:block;padding:3px 6px;
+  color:#e2e6ff;font-size:11px;font-weight:600;text-align:right;
+}
+
+/* ── Dívidas col ── */
+.fin2-debt-col {
+  width:300px;flex-shrink:0;overflow-y:auto;
+  border-right:1px solid #1e2540;padding:12px;
+  display:flex;flex-direction:column;gap:8px;
+  background:#0a0e1a;
+}
+.fin2-debt-col-hdr {
+  padding:0 4px 8px;border-bottom:1px solid #1e2540;
+  display:flex;align-items:baseline;justify-content:space-between;
+}
+.fin2-debt-col-hdr h4 {
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:15px;font-weight:700;color:#fff;margin:0;
+}
+.fin2-debt-col-hdr span { font-size:10px;color:#4a5275; }
+.fin2-debt-card {
+  background:#111525;border:1px solid #1e2540;border-radius:8px;
+  padding:10px 12px;cursor:pointer;transition:all .2s;position:relative;
+}
+.fin2-debt-card:hover { border-color:#c9a84c44;background:#141829; }
+.fin2-debt-card.active { border-color:#c9a84c;background:#1a1e2e; }
+.fin2-debt-card.pendurada { border-left:3px solid #ef4444; }
+.fin2-dc-row { display:flex;align-items:center;justify-content:space-between;margin-bottom:5px; }
+.fin2-dc-name { font-size:12px;font-weight:700;color:#e2e6ff;letter-spacing:.02em; }
+.fin2-dc-badge {
+  font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  padding:2px 6px;border-radius:3px;
+}
+.fin2-badge-alta   { background:#3d1515;color:#ef4444;border:1px solid #ef444433; }
+.fin2-badge-media  { background:#2d2610;color:#f59e0b;border:1px solid #f59e0b33; }
+.fin2-badge-baixa  { background:#0e2010;color:#6fcf50;border:1px solid #6fcf5033; }
+.fin2-dc-vals { display:flex;gap:12px;align-items:baseline; }
+.fin2-dc-monthly { font-family:'Cormorant Garamond',Georgia,serif;font-size:15px;font-weight:700;color:#c9a84c; }
+.fin2-dc-saldo { font-size:10px;color:#4a5275; }
+.fin2-dc-prog { height:3px;background:#1e2540;border-radius:2px;margin-top:7px;overflow:hidden; }
+.fin2-dc-prog-bar { height:100%;background:#c9a84c;border-radius:2px;transition:width .4s; }
+.fin2-dc-prog-lbl { display:flex;justify-content:space-between;margin-top:3px; }
+.fin2-dc-prog-lbl span { font-size:9px;color:#4a5275; }
+.fin2-dc-pendurada-tag {
+  position:absolute;top:8px;right:8px;
+  font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:#ef4444;opacity:.7;
+}
+
+/* ── Drawer ── */
+.fin2-drawer {
+  flex:1;overflow-y:auto;background:#0d111f;
+  border-left:none;display:flex;flex-direction:column;
+}
+.fin2-drawer-empty {
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:12px;height:100%;color:#3a3f55;font-size:12px;text-align:center;line-height:1.6;
+}
+.fin2-drawer-content { padding:20px 22px;display:flex;flex-direction:column;gap:16px; }
+.fin2-dr-header { display:flex;align-items:flex-start;justify-content:space-between;gap:8px; }
+.fin2-dr-title {
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:22px;font-weight:700;color:#fff;line-height:1.2;
+}
+.fin2-dr-close {
+  background:none;border:none;color:#4a5275;cursor:pointer;
+  font-size:18px;line-height:1;padding:2px;transition:color .2s;flex-shrink:0;margin-top:4px;
+}
+.fin2-dr-close:hover { color:#ef4444; }
+.fin2-dr-kpis { display:grid;grid-template-columns:repeat(3,1fr);gap:8px; }
+.fin2-dr-kpi {
+  background:#111525;border:1px solid #1e2540;border-radius:7px;
+  padding:10px 12px;display:flex;flex-direction:column;gap:3px;
+}
+.fin2-dr-kpi-label { font-size:9px;color:#4a5275;font-weight:700;letter-spacing:.09em;text-transform:uppercase; }
+.fin2-dr-kpi-val {
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:18px;font-weight:700;color:#c9a84c;
+}
+.fin2-dr-kpi-val.red { color:#ef4444; }
+.fin2-dr-kpi-val.green { color:#6fcf50; }
+.fin2-dr-section { display:flex;flex-direction:column;gap:6px; }
+.fin2-dr-section-title { font-size:9px;color:#4a5275;font-weight:800;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid #1e2540;padding-bottom:5px; }
+.fin2-installment-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(30px,1fr));gap:5px; }
+.fin2-sq {
+  width:30px;height:30px;border-radius:5px;border:1px solid #2a3050;
+  background:#111525;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:700;color:#4a5275;transition:all .2s;
+}
+.fin2-sq:hover { border-color:#c9a84c44; }
+.fin2-sq.paid { background:#1a2a14;border-color:#6fcf5066;color:#6fcf50; }
+.fin2-sq.paid::after { content:'✓'; }
+.fin2-sq:not(.paid)::after { content:attr(data-n); }
+.fin2-dr-row { display:flex;align-items:center;gap:8px; }
+.fin2-dr-row label { font-size:10px;color:#7a8099;width:100px;flex-shrink:0; }
+.fin2-dr-row select, .fin2-dr-row input[type=date] {
+  flex:1;background:#111525;border:1px solid #2a3050;border-radius:5px;
+  color:#e2e6ff;font-size:11px;padding:5px 8px;outline:none;
+}
+.fin2-dr-row select:focus, .fin2-dr-row input[type=date]:focus { border-color:#c9a84c55; }
+.fin2-notes {
+  width:100%;min-height:70px;resize:vertical;
+  background:#111525;border:1px solid #2a3050;border-radius:6px;
+  color:#e2e6ff;font-size:11px;padding:8px 10px;outline:none;
+  font-family:inherit;transition:border-color .2s;
+}
+.fin2-notes:focus { border-color:#c9a84c55; }
+.fin2-dr-btns { display:flex;gap:8px;flex-wrap:wrap; }
+.fin2-btn {
+  display:flex;align-items:center;gap:5px;
+  padding:7px 14px;border-radius:6px;font-size:10px;font-weight:700;
+  letter-spacing:.07em;text-transform:uppercase;border:none;cursor:pointer;
+  transition:all .2s;
+}
+.fin2-btn-pend { background:#3d1515;color:#ef4444;border:1px solid #ef444433; }
+.fin2-btn-pend:hover { background:#4a1a1a; }
+.fin2-btn-pend.is-pend { background:#1a0a0a;color:#ef4444;opacity:.6; }
+.fin2-btn-remove { background:#1e2540;color:#7a8099;border:1px solid #2a3050; }
+.fin2-btn-remove:hover { color:#ef4444;border-color:#ef444433; }
+.fin2-btn-save { background:#1a2a14;color:#6fcf50;border:1px solid #6fcf5033; }
+.fin2-btn-save:hover { background:#1e3018; }
+.fin2-prazo-row { display:flex;gap:8px; }
+.fin2-prazo-row .fin2-dr-row { flex:1; }
+</style>
+
+<!-- ═══════ FIN2 JS ═══════ -->
+<script>
+(function(){
+/* ─────────── DATA ─────────── */
+let FIN2_SHEET = {
+  year: 2026,
+  receitas: [
+    { id:'pm',     label:'Pagamento PM',   values: Array(12).fill(6257) },
+    { id:'uber',   label:'UBER',           values: Array(12).fill(5000) },
+    { id:'outros', label:'Outros / Bônus', values: Array(12).fill(0) },
+  ],
+  despesas: [
+    { id:'mercado',   label:'Mercado',     values: Array(12).fill(1800) },
+    { id:'celularpj', label:'Celular PJ',  values: Array(12).fill(112) },
+    { id:'celularpf', label:'Celular PF',  values: Array(12).fill(45) },
+    { id:'luzgas',    label:'Luz + Gás',   values: [470,470,350,350,350,350,350,350,350,350,350,350] },
+    { id:'net',       label:'Net',         values: Array(12).fill(100) },
+    { id:'semparar',  label:'SemParar PJ', values: Array(12).fill(50) },
+  ],
+  dividas: [
+    { id:'brad1',  label:'Bradesco',   cid:'d-brad1',  values: Array(12).fill(1138) },
+    { id:'brad2',  label:'Bradesco',   cid:'d-brad2',  values: Array(12).fill(469) },
+    { id:'brad3',  label:'Bradesco',   cid:'d-brad3',  values: Array(12).fill(53) },
+    { id:'eagle',  label:'EAGLE',      cid:'d-eagle',  values: Array(12).fill(950) },
+    { id:'nucnpj', label:'M.C. Nu PJ', cid:'d-nucnpj', values: Array(12).fill(2500) },
+    { id:'bmg',    label:'BMG',        cid:'d-bmg',    values: Array(12).fill(303) },
+    { id:'safra',  label:'Safra',      cid:'d-safra',  values: Array(12).fill(156) },
+    { id:'seguro', label:'Seguro',     cid:'d-seguro', values: Array(12).fill(360) },
+    { id:'dayco1', label:'Daycoval',   cid:'d-dayco1', values: Array(12).fill(208) },
+    { id:'dayco2', label:'Daycoval',   cid:'d-dayco2', values: Array(12).fill(34) },
+    { id:'sant',   label:'Santander',  cid:'d-sant',   values: Array(12).fill(83) },
+    { id:'horto',  label:'Horto',      cid:'d-horto',  values: Array(12).fill(2800) },
+    { id:'mamud',  label:'Mamud',      cid:'d-mamud',  values: Array(12).fill(2600) },
+    { id:'patric', label:'Patrícia*',  cid:'d-patric', values: [4200,0,0,0,0,0,0,0,0,0,0,0] },
+    { id:'rose',   label:'Rose',       cid:'d-rose',   values: [1400,0,0,0,0,0,0,0,0,0,0,0] },
+    { id:'lion',   label:'Lion',       cid:'d-lion',   values: [3800,0,0,0,0,0,0,0,0,0,0,0] },
+  ]
+};
+
+let FIN2_CREDITORS = [
+  { id:'d-brad1',  name:'Bradesco',   monthly:1138, installments:58, paid:0, saldo:66004, oferta:19801, prazo:'', priority:'alta',  status:'mapear', notes:'', pendurada:false },
+  { id:'d-brad2',  name:'Bradesco',   monthly:469,  installments:26, paid:0, saldo:12194, oferta:3658,  prazo:'', priority:'media', status:'mapear', notes:'', pendurada:false },
+  { id:'d-brad3',  name:'Bradesco',   monthly:53,   installments:12, paid:0, saldo:636,   oferta:200,   prazo:'', priority:'baixa', status:'mapear', notes:'', pendurada:false },
+  { id:'d-eagle',  name:'EAGLE',      monthly:950,  installments:24, paid:0, saldo:22800, oferta:6840,  prazo:'', priority:'alta',  status:'mapear', notes:'', pendurada:false },
+  { id:'d-nucnpj', name:'M.C. Nu PJ', monthly:2500, installments:12, paid:0, saldo:30000, oferta:9000,  prazo:'', priority:'alta',  status:'mapear', notes:'', pendurada:false },
+  { id:'d-bmg',    name:'BMG',        monthly:303,  installments:12, paid:0, saldo:3636,  oferta:1090,  prazo:'', priority:'media', status:'mapear', notes:'', pendurada:false },
+  { id:'d-safra',  name:'Safra',      monthly:156,  installments:12, paid:0, saldo:1872,  oferta:562,   prazo:'', priority:'baixa', status:'mapear', notes:'', pendurada:false },
+  { id:'d-seguro', name:'Seguro',     monthly:360,  installments:12, paid:0, saldo:4320,  oferta:0,     prazo:'', priority:'media', status:'ativo',  notes:'Seguro veículo', pendurada:false },
+  { id:'d-dayco1', name:'Daycoval',   monthly:208,  installments:12, paid:0, saldo:2496,  oferta:748,   prazo:'', priority:'media', status:'mapear', notes:'', pendurada:false },
+  { id:'d-dayco2', name:'Daycoval',   monthly:34,   installments:12, paid:0, saldo:408,   oferta:122,   prazo:'', priority:'baixa', status:'mapear', notes:'', pendurada:false },
+  { id:'d-sant',   name:'Santander',  monthly:83,   installments:12, paid:0, saldo:996,   oferta:299,   prazo:'', priority:'baixa', status:'mapear', notes:'', pendurada:false },
+  { id:'d-horto',  name:'Horto',      monthly:2800, installments:12, paid:0, saldo:33600, oferta:10080, prazo:'', priority:'alta',  status:'mapear', notes:'', pendurada:false },
+  { id:'d-mamud',  name:'Mamud',      monthly:2600, installments:12, paid:0, saldo:31200, oferta:9360,  prazo:'', priority:'alta',  status:'mapear', notes:'', pendurada:false },
+  { id:'d-patric', name:'Patrícia*',  monthly:4200, installments:1,  paid:0, saldo:4200,  oferta:3000,  prazo:'', priority:'alta',  status:'mapear', notes:'Jan/26 apenas', pendurada:false },
+  { id:'d-rose',   name:'Rose',       monthly:1400, installments:1,  paid:0, saldo:1400,  oferta:1000,  prazo:'', priority:'media', status:'mapear', notes:'Jan/26 apenas', pendurada:false },
+  { id:'d-lion',   name:'Lion',       monthly:3800, installments:1,  paid:0, saldo:3800,  oferta:2500,  prazo:'', priority:'alta',  status:'mapear', notes:'Jan/26 apenas', pendurada:false },
+];
+
+const MONTHS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+let fin2ActiveDebt = null;
+
+/* ─────────── NAV ─────────── */
+window.fin2Switch = function(tab) {
+  ['planilha','dividas','mapa'].forEach(t => {
+    const pane = document.getElementById('fin2-pane-'+t);
+    const btn  = document.getElementById('fin2-btn-'+t);
+    if (!pane || !btn) return;
+    const show = t === tab;
+    pane.style.display = show ? (t==='dividas'?'flex':'block') : 'none';
+    btn.classList.toggle('active', show);
+  });
+  if (tab === 'planilha') fin2RenderSheet();
+  if (tab === 'dividas')  fin2RenderDebtCol();
+  if (tab === 'mapa') {
+    if (typeof _fin2OrigRender === 'function') try { _fin2OrigRender(); } catch(e){}
+  }
+};
+
+/* ─────────── PLANILHA ─────────── */
+window.fin2RenderSheet = function() {
+  const tbl = document.getElementById('fin2-sheet');
+  if (!tbl) return;
+  const s = FIN2_SHEET;
+  let html = '<thead><tr><th class="fin2-th-label">Item</th>';
+  MONTHS.forEach(m => html += `<th>${m}</th>`);
+  html += '<th>Total</th></tr></thead><tbody>';
+
+  function renderRows(group, groupKey) {
+    html += `<tr class="fin2-section-row"><td colspan="${MONTHS.length+2}">${groupKey==='receitas'?'RECEITAS':groupKey==='despesas'?'DESPESAS FIXAS':'DÍVIDAS'}</td></tr>`;
+    group.forEach(row => {
+      const total = row.values.reduce((a,b)=>a+b,0);
+      html += `<tr><td class="fin2-td-label">${row.label}</td>`;
+      row.values.forEach((v,mi) => {
+        html += `<td><input class="fin2-input" type="number" min="0" step="1" value="${v}" onchange="fin2UpdateCell('${groupKey}','${row.id}',${mi},this.value)"></td>`;
+      });
+      html += `<td><span class="fin2-sh-tot" id="fin2-tot-${groupKey}-${row.id}">R$${total.toLocaleString('pt-BR')}</span></td></tr>`;
+    });
+    // totalizador do grupo
+    const tots = Array(12).fill(0);
+    group.forEach(row => row.values.forEach((v,i) => tots[i]+=v));
+    const grandTotal = tots.reduce((a,b)=>a+b,0);
+    const lbl = groupKey==='receitas'?'Total Receitas':groupKey==='despesas'?'Total Despesas':'Total Dívidas';
+    html += `<tr class="fin2-total-row"><td class="fin2-td-label">${lbl}</td>`;
+    tots.forEach((v,i) => html += `<td><span class="fin2-sh-tot" id="fin2-grptot-${groupKey}-${i}">R$${v.toLocaleString('pt-BR')}</span></td>`);
+    html += `<td><span class="fin2-sh-tot" id="fin2-grptot-${groupKey}-total">R$${grandTotal.toLocaleString('pt-BR')}</span></td></tr>`;
+  }
+
+  renderRows(s.receitas,'receitas');
+  renderRows(s.despesas,'despesas');
+  renderRows(s.dividas,'dividas');
+
+  // Fluxo de caixa
+  html += '<tr class="fin2-section-row"><td colspan="'+( MONTHS.length+2)+'">FLUXO DE CAIXA</td></tr>';
+  html += '<tr class="fin2-cashflow-row"><td class="fin2-td-label">Saldo do Mês</td>';
+  for (let i=0;i<12;i++) {
+    const rec = s.receitas.reduce((a,r)=>a+r.values[i],0);
+    const dep = s.despesas.reduce((a,r)=>a+r.values[i],0);
+    const div = s.dividas.reduce((a,r)=>a+r.values[i],0);
+    const saldo = rec - dep - div;
+    const cls = saldo>=0?'fin2-cashflow-pos':'fin2-cashflow-neg';
+    html += `<td><span class="${cls}" id="fin2-cf-${i}">R$${saldo.toLocaleString('pt-BR')}</span></td>`;
+  }
+  const totRec = s.receitas.reduce((a,r)=>a+r.values.reduce((x,y)=>x+y,0),0);
+  const totDep = s.despesas.reduce((a,r)=>a+r.values.reduce((x,y)=>x+y,0),0);
+  const totDiv = s.dividas.reduce((a,r)=>a+r.values.reduce((x,y)=>x+y,0),0);
+  const saldoTotal = totRec-totDep-totDiv;
+  html += `<td><span class="${saldoTotal>=0?'fin2-cashflow-pos':'fin2-cashflow-neg'}">R$${saldoTotal.toLocaleString('pt-BR')}</span></td></tr>`;
+
+  html += '</tbody>';
+  tbl.innerHTML = html;
+};
+
+window.fin2UpdateCell = function(groupKey, rowId, monthIdx, rawVal) {
+  const val = parseFloat(rawVal)||0;
+  const group = FIN2_SHEET[groupKey];
+  const row = group.find(r=>r.id===rowId);
+  if (!row) return;
+  row.values[monthIdx] = val;
+  fin2RecalcSheet(groupKey);
+};
+
+window.fin2RecalcSheet = function(groupKey) {
+  const group = FIN2_SHEET[groupKey];
+  // row totals
+  group.forEach(row => {
+    const el = document.getElementById(`fin2-tot-${groupKey}-${row.id}`);
+    if (el) el.textContent = 'R$'+row.values.reduce((a,b)=>a+b,0).toLocaleString('pt-BR');
+  });
+  // group totals per month
+  const tots = Array(12).fill(0);
+  group.forEach(row => row.values.forEach((v,i)=>tots[i]+=v));
+  tots.forEach((v,i)=>{
+    const el = document.getElementById(`fin2-grptot-${groupKey}-${i}`);
+    if (el) el.textContent='R$'+v.toLocaleString('pt-BR');
+  });
+  const el = document.getElementById(`fin2-grptot-${groupKey}-total`);
+  if (el) el.textContent='R$'+tots.reduce((a,b)=>a+b,0).toLocaleString('pt-BR');
+  // cashflow
+  for (let i=0;i<12;i++){
+    const rec = FIN2_SHEET.receitas.reduce((a,r)=>a+r.values[i],0);
+    const dep = FIN2_SHEET.despesas.reduce((a,r)=>a+r.values[i],0);
+    const div = FIN2_SHEET.dividas.reduce((a,r)=>a+r.values[i],0);
+    const saldo = rec-dep-div;
+    const el2 = document.getElementById(`fin2-cf-${i}`);
+    if (el2){ el2.textContent='R$'+saldo.toLocaleString('pt-BR'); el2.className=saldo>=0?'fin2-cashflow-pos':'fin2-cashflow-neg'; }
+  }
+};
+
+/* ─────────── DÍVIDAS COL ─────────── */
+window.fin2RenderDebtCol = function() {
+  const col = document.getElementById('fin2-debt-col');
+  if (!col) return;
+  const totalSaldo = FIN2_CREDITORS.reduce((a,c)=>a+c.saldo,0);
+  let html = `<div class="fin2-debt-col-hdr"><h4>Credores</h4><span>Saldo: R$${totalSaldo.toLocaleString('pt-BR')}</span></div>`;
+  FIN2_CREDITORS.forEach(c => {
+    const prog = Math.min(100, Math.round((c.paid/Math.max(1,c.installments))*100));
+    const activeClass = fin2ActiveDebt===c.id ? ' active' : '';
+    const pendClass = c.pendurada ? ' pendurada' : '';
+    html += `<div class="fin2-debt-card${activeClass}${pendClass}" onclick="fin2OpenDrawer('${c.id}')">
+      ${c.pendurada?'<span class="fin2-dc-pendurada-tag">PEND</span>':''}
+      <div class="fin2-dc-row">
+        <span class="fin2-dc-name">${c.name}</span>
+        <span class="fin2-dc-badge fin2-badge-${c.priority}">${c.priority.toUpperCase()}</span>
+      </div>
+      <div class="fin2-dc-vals">
+        <span class="fin2-dc-monthly">R$${c.monthly.toLocaleString('pt-BR')}<small style="font-size:10px;color:#7a8099">/mês</small></span>
+        <span class="fin2-dc-saldo">Saldo R$${c.saldo.toLocaleString('pt-BR')}</span>
+      </div>
+      <div class="fin2-dc-prog"><div class="fin2-dc-prog-bar" style="width:${prog}%"></div></div>
+      <div class="fin2-dc-prog-lbl"><span>${c.paid} de ${c.installments} pagas</span><span>${prog}%</span></div>
+    </div>`;
+  });
+  col.innerHTML = html;
+};
+
+/* ─────────── DRAWER ─────────── */
+window.fin2OpenDrawer = function(cid) {
+  fin2ActiveDebt = cid;
+  fin2RenderDebtCol();
+  const c = FIN2_CREDITORS.find(x=>x.id===cid);
+  if (!c) return;
+  const empty   = document.getElementById('fin2-drawer-empty');
+  const content = document.getElementById('fin2-drawer-content');
+  if (empty)   empty.style.display='none';
+  if (content) { content.style.display='flex'; content.style.flexDirection='column'; content.style.gap='16px'; }
+
+  const desconto = c.oferta>0 ? Math.round((1-(c.oferta/c.saldo))*100) : 0;
+  const restantes = c.installments - c.paid;
+
+  let instHtml = '';
+  for (let i=0;i<c.installments;i++){
+    const isPaid = i < c.paid;
+    instHtml += `<div class="fin2-sq${isPaid?' paid':''}" data-n="${i+1}" data-cid="${cid}" data-idx="${i}" onclick="fin2ToggleInstallment('${cid}',${i})" title="Parcela ${i+1}"></div>`;
+  }
+
+  const statusOpts = ['mapear','ativo','negociando','acordo','quitado','suspenso']
+    .map(s=>`<option value="${s}"${c.status===s?' selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('');
+
+  content.innerHTML = `
+    <div class="fin2-dr-header">
+      <div>
+        <div class="fin2-dr-title">${c.name}</div>
+        <span class="fin2-dc-badge fin2-badge-${c.priority}" style="display:inline-block;margin-top:6px">${c.priority.toUpperCase()}</span>
+      </div>
+      <button class="fin2-dr-close" onclick="fin2CloseDrawer()" title="Fechar">×</button>
+    </div>
+
+    <div class="fin2-dr-kpis">
+      <div class="fin2-dr-kpi">
+        <span class="fin2-dr-kpi-label">R$/mês</span>
+        <span class="fin2-dr-kpi-val">R$${c.monthly.toLocaleString('pt-BR')}</span>
+      </div>
+      <div class="fin2-dr-kpi">
+        <span class="fin2-dr-kpi-label">Saldo</span>
+        <span class="fin2-dr-kpi-val red">R$${c.saldo.toLocaleString('pt-BR')}</span>
+      </div>
+      <div class="fin2-dr-kpi">
+        <span class="fin2-dr-kpi-label">Oferta Alvo</span>
+        <span class="fin2-dr-kpi-val green">${c.oferta>0?'R$'+c.oferta.toLocaleString('pt-BR'):'—'}</span>
+      </div>
+      <div class="fin2-dr-kpi">
+        <span class="fin2-dr-kpi-label">Desconto</span>
+        <span class="fin2-dr-kpi-val green">${desconto>0?desconto+'%':'—'}</span>
+      </div>
+      <div class="fin2-dr-kpi">
+        <span class="fin2-dr-kpi-label">Parcelas</span>
+        <span class="fin2-dr-kpi-val">${c.paid}/${c.installments}</span>
+      </div>
+      <div class="fin2-dr-kpi">
+        <span class="fin2-dr-kpi-label">Restantes</span>
+        <span class="fin2-dr-kpi-val ${restantes>6?'red':''}">${restantes}</span>
+      </div>
+    </div>
+
+    <div class="fin2-dr-section">
+      <div class="fin2-dr-section-title">Parcelas</div>
+      <div class="fin2-installment-grid">${instHtml}</div>
+    </div>
+
+    <div class="fin2-dr-section">
+      <div class="fin2-dr-section-title">Controle</div>
+      <div class="fin2-dr-row">
+        <label>Status</label>
+        <select onchange="fin2SaveStatus('${cid}',this.value)">${statusOpts}</select>
+      </div>
+      <div class="fin2-dr-row" style="margin-top:6px">
+        <label>Prazo Final</label>
+        <input type="date" value="${c.prazo||''}" onchange="fin2SavePrazo('${cid}',this.value)">
+      </div>
+    </div>
+
+    <div class="fin2-dr-section">
+      <div class="fin2-dr-section-title">Plano de Quitação</div>
+      <textarea class="fin2-notes" placeholder="Anote estratégia, contatos, datas de negociação..." onblur="fin2SaveNotes('${cid}',this.value)">${c.notes||''}</textarea>
+    </div>
+
+    <div class="fin2-dr-btns">
+      <button class="fin2-btn fin2-btn-pend${c.pendurada?' is-pend':''}" onclick="fin2TogglePendurada('${cid}')">
+        ⚑ ${c.pendurada?'Retirar Pendência':'Marcar Pendurada'}
+      </button>
+      <button class="fin2-btn fin2-btn-remove" onclick="fin2RemoveDebt('${cid}')">
+        ✕ Remover
+      </button>
+    </div>
+  `;
+};
+
+window.fin2CloseDrawer = function() {
+  fin2ActiveDebt = null;
+  const empty   = document.getElementById('fin2-drawer-empty');
+  const content = document.getElementById('fin2-drawer-content');
+  if (empty)   empty.style.display='flex';
+  if (content) content.style.display='none';
+  fin2RenderDebtCol();
+};
+
+window.fin2ToggleInstallment = function(cid, idx) {
+  const c = FIN2_CREDITORS.find(x=>x.id===cid);
+  if (!c) return;
+  c.paid = (idx < c.paid) ? idx : idx+1;
+  fin2OpenDrawer(cid);
+};
+
+window.fin2SaveNotes = function(cid, val) {
+  const c = FIN2_CREDITORS.find(x=>x.id===cid);
+  if (c) c.notes = val;
+};
+
+window.fin2SaveStatus = function(cid, val) {
+  const c = FIN2_CREDITORS.find(x=>x.id===cid);
+  if (c) c.status = val;
+  fin2RenderDebtCol();
+};
+
+window.fin2SavePrazo = function(cid, val) {
+  const c = FIN2_CREDITORS.find(x=>x.id===cid);
+  if (c) c.prazo = val;
+};
+
+window.fin2TogglePendurada = function(cid) {
+  const c = FIN2_CREDITORS.find(x=>x.id===cid);
+  if (!c) return;
+  c.pendurada = !c.pendurada;
+  fin2OpenDrawer(cid);
+};
+
+window.fin2RemoveDebt = function(cid) {
+  if (!confirm('Remover este credor da lista?')) return;
+  const idx = FIN2_CREDITORS.findIndex(x=>x.id===cid);
+  if (idx>-1) FIN2_CREDITORS.splice(idx,1);
+  // remove do sheet também
+  ['dividas'].forEach(gk => {
+    const arr = FIN2_SHEET[gk];
+    const si = arr.findIndex(r=>r.cid===cid);
+    if (si>-1) arr.splice(si,1);
+  });
+  fin2CloseDrawer();
+};
+
+/* ─────────── OVERRIDE renderFinancas ─────────── */
+const _fin2OrigRender = window.renderFinancas;
+window.renderFinancas = function() {
+  fin2Switch('dividas');
+};
+
+/* ─────────── INIT ─────────── */
+document.addEventListener('DOMContentLoaded', function(){
+  // nothing on load — panels render on demand
+});
+
+})();
+</script>
+
 </body>
 </html>
 

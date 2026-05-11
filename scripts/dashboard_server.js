@@ -4374,6 +4374,22 @@ review_path: ${audit.review_path}
             });
         }
 
+        // ── Hub Catalog ─────────────────────────────────────────────────────
+        const HUB_CATALOG_PATH = path.join(__dirname, '..', 'projects', 'loja-digital', 'hub_catalog.json');
+
+        if (pathname === '/api/hub-catalog' && req.method === 'GET') {
+            if (!fs.existsSync(HUB_CATALOG_PATH)) return sendJson(res, { rows: [] });
+            return sendJson(res, JSON.parse(fs.readFileSync(HUB_CATALOG_PATH, 'utf8')));
+        }
+
+        if (pathname === '/api/hub-catalog' && req.method === 'POST') {
+            const body = await parseBody(req);
+            if (!body || !Array.isArray(body.rows)) return sendJson(res, { error: 'payload inválido: rows[] obrigatório' }, 400);
+            body.updated_at = new Date().toISOString().slice(0, 10);
+            writeJsonAtomic(HUB_CATALOG_PATH, body);
+            return sendJson(res, { success: true, updated_at: body.updated_at });
+        }
+
         // ── PDF Manager ─────────────────────────────────────────────────────
         const DOWNLOADS_DIR = path.join(__dirname, '..', 'projects', 'loja-digital', 'out_deploy', 'downloads');
 
