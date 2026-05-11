@@ -800,9 +800,6 @@
         <button id="btn-save-all-master" class="flex items-center gap-2 px-6 py-2 rounded-full bg-secondary/10 border border-secondary/20 text-secondary hover:bg-secondary/20 hover:scale-105 transition-all text-[11px] font-black uppercase tracking-widest shadow-lg shadow-secondary/5" onclick="saveAllNow()">
             <i data-lucide="cloud-upload" class="w-4 h-4"></i> Salvar Tudo
         </button>
-        <button class="flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-muted hover:text-white hover:bg-white/10 hover:scale-105 transition-all text-[10px] font-black uppercase tracking-widest" onclick="openPdfManager()">
-            <i data-lucide="file-text" class="w-3.5 h-3.5"></i> PDFs
-        </button>
         <button id="fs-connect-btn" onclick="connectProjectFolder()" title="Conecta a pasta do projeto — leitura/escrita direta nos arquivos JSON sem precisar do servidor AIOX" class="flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-muted hover:text-white hover:bg-white/10 hover:scale-105 transition-all text-[10px] font-black uppercase tracking-widest">
             <i data-lucide="folder-open" class="w-3.5 h-3.5"></i> Conectar Pasta
         </button>
@@ -2028,62 +2025,6 @@
 </div>
 
 <!-- ═══════ EDITOR MODAL ═══════ -->
-<!-- ═══════ PDF MANAGER MODAL ═══════ -->
-<div id="pdf-manager-modal" class="editor-modal" style="display:none;position:fixed;inset:0;z-index:300;align-items:center;justify-content:center;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);">
-    <div style="background:#0f0f16;border:1px solid rgba(99,102,241,0.3);border-radius:14px;width:860px;max-width:95vw;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.7);">
-        <!-- Header -->
-        <div style="height:56px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(255,255,255,0.03);flex-shrink:0;">
-            <div style="display:flex;align-items:center;gap:12px;">
-                <div style="width:32px;height:32px;border-radius:50%;background:rgba(99,102,241,0.2);display:flex;align-items:center;justify-content:center;"><i data-lucide="file-text" style="width:16px;height:16px;color:#818cf8;"></i></div>
-                <div><p style="font-size:13px;font-weight:700;color:#fff;">Gerenciador de PDFs</p><p style="font-size:9px;color:rgba(255,255,255,0.3);font-family:monospace;">out_deploy/downloads/</p></div>
-            </div>
-            <button onclick="closePdfManager()" style="background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.4);border-radius:6px;padding:4px 12px;cursor:pointer;font-size:16px;transition:all .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">×</button>
-        </div>
-        <!-- Body -->
-        <div style="flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:20px;">
-            <!-- Drag and Drop -->
-            <div id="pdf-dropzone" style="border:2px dashed rgba(99,102,241,0.3);border-radius:10px;padding:32px;text-align:center;cursor:pointer;transition:all .2s;background:rgba(99,102,241,0.03);"
-                ondragover="event.preventDefault();this.style.borderColor='rgba(99,102,241,0.8)';this.style.background='rgba(99,102,241,0.08)'"
-                ondragleave="this.style.borderColor='rgba(99,102,241,0.3)';this.style.background='rgba(99,102,241,0.03)'"
-                ondrop="handlePdfDrop(event)"
-                onclick="document.getElementById('pdf-file-input').click()">
-                <i data-lucide="upload-cloud" style="width:36px;height:36px;color:rgba(99,102,241,0.5);margin:0 auto 12px;display:block;"></i>
-                <p style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:2px;">Arraste PDFs aqui</p>
-                <p style="font-size:9px;color:rgba(255,255,255,0.25);margin-top:6px;">ou clique para selecionar arquivos</p>
-                <input type="file" id="pdf-file-input" accept=".pdf" multiple style="display:none;" onchange="handlePdfFileInput(this)">
-            </div>
-            <!-- Upload progress -->
-            <div id="pdf-upload-status" style="display:none;font-size:10px;color:#818cf8;text-align:center;padding:8px;background:rgba(99,102,241,0.08);border-radius:6px;border:1px solid rgba(99,102,241,0.2);"></div>
-            <!-- Generate from HTML -->
-            <div style="border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px;">
-                <p style="font-size:8px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:12px;">Gerar PDF de Ebook HTML</p>
-                <div style="display:flex;flex-wrap:wrap;gap:8px;" id="pdf-generate-btns">
-                    <button onclick="generatePdfFromHtml('cofre','O Cofre das Botânicas')" style="display:flex;align-items:center;gap:6px;padding:7px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:rgba(255,255,255,0.6);font-size:9px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all .2s;text-transform:uppercase;" onmouseover="this.style.borderColor='rgba(99,102,241,0.5)';this.style.color='#818cf8'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.6)'">
-                        <i data-lucide="zap" style="width:10px;height:10px;"></i> O Cofre das Botânicas
-                    </button>
-                    <button onclick="generatePdfFromHtml('sinergias','30 Sinergias')" style="display:flex;align-items:center;gap:6px;padding:7px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:rgba(255,255,255,0.6);font-size:9px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all .2s;text-transform:uppercase;" onmouseover="this.style.borderColor='rgba(99,102,241,0.5)';this.style.color='#818cf8'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.6)'">
-                        <i data-lucide="zap" style="width:10px;height:10px;"></i> 30 Sinergias
-                    </button>
-                    <button onclick="generatePdfFromHtml('fornecedores','Guia Fornecedores')" style="display:flex;align-items:center;gap:6px;padding:7px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:rgba(255,255,255,0.6);font-size:9px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all .2s;text-transform:uppercase;" onmouseover="this.style.borderColor='rgba(99,102,241,0.5)';this.style.color='#818cf8'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.6)'">
-                        <i data-lucide="zap" style="width:10px;height:10px;"></i> Guia Fornecedores
-                    </button>
-                    <button onclick="generatePdfFromHtml('ritual-noite','Ritual da Meia-Noite')" style="display:flex;align-items:center;gap:6px;padding:7px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:rgba(255,255,255,0.6);font-size:9px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all .2s;text-transform:uppercase;" onmouseover="this.style.borderColor='rgba(99,102,241,0.5)';this.style.color='#818cf8'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.6)'">
-                        <i data-lucide="zap" style="width:10px;height:10px;"></i> Ritual da Meia-Noite
-                    </button>
-                </div>
-                <p style="font-size:8px;color:rgba(255,255,255,0.2);margin-top:10px;">⚠️ O servidor Next.js deve estar rodando na porta 3000 para gerar PDFs de HTML.</p>
-            </div>
-            <!-- File list -->
-            <div>
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-                    <p style="font-size:8px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);">PDFs Disponíveis</p>
-                    <button onclick="loadPdfList()" style="background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.3);border-radius:4px;padding:3px 10px;font-size:8px;cursor:pointer;">↻ Atualizar</button>
-                </div>
-                <div id="pdf-file-list" style="display:flex;flex-direction:column;gap:6px;"></div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div id="editor-modal" class="editor-modal">
     <div class="bg-[#0f0f16] border border-primary/30 rounded-xl w-[900px] max-w-[95vw] h-[85vh] flex flex-col shadow-2xl overflow-hidden">
@@ -7726,136 +7667,6 @@ function closeDrawer() {
 }
 
 // ══════════════════════════════════════════
-// PDF MANAGER
-// ══════════════════════════════════════════
-function openPdfManager() {
-    const m = document.getElementById('pdf-manager-modal');
-    m.style.display = 'flex';
-    loadPdfList();
-    if (typeof lucide !== 'undefined') lucide.createIcons();
-}
-function closePdfManager() {
-    document.getElementById('pdf-manager-modal').style.display = 'none';
-}
-function handlePdfDrop(event) {
-    event.preventDefault();
-    const dz = document.getElementById('pdf-dropzone');
-    dz.style.borderColor = 'rgba(99,102,241,0.3)';
-    dz.style.background = 'rgba(99,102,241,0.03)';
-    const files = Array.from(event.dataTransfer.files).filter(f => f.name.toLowerCase().endsWith('.pdf'));
-    if (!files.length) return;
-    files.forEach(f => uploadPdf(f));
-}
-function handlePdfFileInput(input) {
-    const files = Array.from(input.files).filter(f => f.name.toLowerCase().endsWith('.pdf'));
-    files.forEach(f => uploadPdf(f));
-    input.value = '';
-}
-function uploadPdf(file) {
-    const status = document.getElementById('pdf-upload-status');
-    status.style.display = 'block';
-    status.style.color = '#818cf8';
-    status.textContent = `Enviando: ${file.name}...`;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const base64 = e.target.result.split(',')[1];
-        fetch('/api/pdf/upload', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ filename: file.name, data: base64 })
-        })
-        .then(r => r.json())
-        .then(r => {
-            if (r.error) throw new Error(r.error);
-            status.style.color = '#34d399';
-            status.textContent = `✓ ${file.name} (${(r.size / 1024).toFixed(1)} KB)`;
-            setTimeout(() => { status.style.display = 'none'; status.style.color = '#818cf8'; }, 3000);
-            loadPdfList();
-        })
-        .catch(err => {
-            status.style.color = '#f87171';
-            status.textContent = `Erro: ${err.message}`;
-        });
-    };
-    reader.readAsDataURL(file);
-}
-function loadPdfList() {
-    const container = document.getElementById('pdf-file-list');
-    if (!container) return;
-    container.innerHTML = '<p style="font-size:9px;color:rgba(255,255,255,0.3);text-align:center;padding:12px;">Carregando...</p>';
-    fetch('/api/pdf/list')
-    .then(r => r.json())
-    .then(files => {
-        if (!files.length) {
-            container.innerHTML = '<p style="font-size:9px;color:rgba(255,255,255,0.2);text-align:center;padding:16px;">Nenhum PDF disponível</p>';
-            return;
-        }
-        container.innerHTML = files.map(f => `
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;">
-                <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1;">
-                    <i data-lucide="file-text" style="width:14px;height:14px;color:#818cf8;flex-shrink:0;"></i>
-                    <div style="min-width:0;">
-                        <p style="font-size:10px;font-weight:600;color:#e5e7eb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${f.name}</p>
-                        <p style="font-size:8px;color:rgba(255,255,255,0.3);">${(f.size / 1024).toFixed(1)} KB</p>
-                    </div>
-                </div>
-                <div style="display:flex;gap:6px;flex-shrink:0;margin-left:12px;">
-                    <a href="/downloads/${f.name}" target="_blank" style="padding:4px 10px;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);border-radius:4px;color:#818cf8;font-size:8px;font-weight:700;text-decoration:none;white-space:nowrap;">↗ Abrir</a>
-                    <button onclick="deletePdf(${JSON.stringify(f.name)},this)" style="padding:4px 10px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.25);border-radius:4px;color:#f87171;font-size:8px;font-weight:700;cursor:pointer;">✕ Excluir</button>
-                </div>
-            </div>
-        `).join('');
-        if (typeof lucide !== 'undefined') lucide.createIcons();
-    })
-    .catch(() => {
-        container.innerHTML = '<p style="font-size:9px;color:#f87171;text-align:center;padding:12px;">Erro ao carregar lista (servidor offline?)</p>';
-    });
-}
-function deletePdf(filename, btn) {
-    if (!confirm(`Excluir "${filename}"?`)) return;
-    btn.textContent = '...';
-    btn.disabled = true;
-    fetch('/api/pdf/delete', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ filename })
-    })
-    .then(r => r.json())
-    .then(r => {
-        if (r.error) throw new Error(r.error);
-        loadPdfList();
-    })
-    .catch(err => {
-        alert('Erro ao excluir: ' + err.message);
-        btn.textContent = '✕ Excluir';
-        btn.disabled = false;
-    });
-}
-function generatePdfFromHtml(id, label) {
-    const status = document.getElementById('pdf-upload-status');
-    status.style.display = 'block';
-    status.style.color = '#818cf8';
-    status.textContent = `⏳ Gerando PDF: ${label}... (30–60s)`;
-    fetch('/api/pdf/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id })
-    })
-    .then(r => r.json())
-    .then(r => {
-        if (r.error) throw new Error(r.error);
-        status.style.color = '#34d399';
-        status.textContent = `✓ PDF gerado: ${r.filename} (${(r.size / 1024 / 1024).toFixed(1)} MB)`;
-        setTimeout(() => { status.style.display = 'none'; status.style.color = '#818cf8'; }, 6000);
-        loadPdfList();
-    })
-    .catch(err => {
-        status.style.color = '#f87171';
-        status.textContent = `Erro: ${err.message}`;
-    });
-}
-
-// ══════════════════════════════════════════
 // MAPA CATALOG (Hub Entregáveis)
 // ══════════════════════════════════════════
 let _hubCatalog = null;
@@ -11030,7 +10841,7 @@ let fin2ActiveDebt = null;
 
 /* ─────────── NAV ─────────── */
 window.fin2Switch = function(tab) {
-  ['planilha','dividas','mapa'].forEach(t => {
+  ['planilha','dividas'].forEach(t => {
     const pane = document.getElementById('fin2-pane-'+t);
     const btn  = document.getElementById('fin2-btn-'+t);
     if (!pane || !btn) return;
@@ -11040,9 +10851,6 @@ window.fin2Switch = function(tab) {
   });
   if (tab === 'planilha') fin2RenderSheet();
   if (tab === 'dividas')  fin2RenderDebtCol();
-  if (tab === 'mapa') {
-    if (typeof _fin2OrigRender === 'function') try { _fin2OrigRender(); } catch(e){}
-  }
 };
 
 /* ─────────── PLANILHA ─────────── */
@@ -11306,8 +11114,7 @@ window.fin2RemoveDebt = function(cid) {
   fin2CloseDrawer();
 };
 
-/* ─────────── OVERRIDE renderFinancas ─────────── */
-const _fin2OrigRender = window.renderFinancas;
+/* ─────────── INIT renderFinancas ─────────── */
 window.renderFinancas = function() {
   fin2Switch('dividas');
 };
