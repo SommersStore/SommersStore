@@ -728,6 +728,31 @@ function writeFileAtomic(fullPath, content) {
     }
 }
 
+function writeBufferAtomic(fullPath, buffer) {
+    ensureDir(path.dirname(fullPath));
+    const tempPath = path.join(
+        path.dirname(fullPath),
+        `.${path.basename(fullPath)}.${process.pid}.${Date.now()}.tmp`
+    );
+    let fd = null;
+    try {
+        fd = fs.openSync(tempPath, 'w');
+        fs.writeFileSync(fd, buffer);
+        fs.fsyncSync(fd);
+        fs.closeSync(fd);
+        fd = null;
+        fs.renameSync(tempPath, fullPath);
+    } catch (error) {
+        if (fd !== null) {
+            try { fs.closeSync(fd); } catch (_) { /* ignore */ }
+        }
+        try {
+            if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath);
+        } catch (_) { /* ignore */ }
+        throw error;
+    }
+}
+
 function writeJsonAtomic(fullPath, data, spaces = 2) {
     const content = `${JSON.stringify(data, null, spaces)}\n`;
     JSON.parse(content);
@@ -2400,7 +2425,7 @@ function buildPersonaAssetsPayload() {
         const cloneContent = clonePath ? safeReadWorkspaceText(clonePath) : '';
         const promptLinked = markdownLinkedPaths(cloneContent);
 
-        const isFullTranscriptPath = p => p.includes('/book_transcripts/') || p.includes('/full_transcripts/');
+        const isFullTranscriptPath = p => p.includes('/book_transcripts/') || p.includes('/full_transcripts/') || p.includes('/source_materials/') || p.includes('/context_packets/');
         const isTranscriptPath = p => (p.includes('/transcripts/') || p.includes('/raw_transcripts/')) && !isFullTranscriptPath(p);
         const isBookPath = p => p.includes('/books/');
 
@@ -4349,6 +4374,75 @@ review_path: ${audit.review_path}
             });
         }
 
+        // ── PDF Manager ─────────────────────────────────────────────────────
+        const DOWNLOADS_DIR = path.join(__dirname, '..', 'projects', 'loja-digital', 'out_deploy', 'downloads');
+
+        if (pathname === '/api/pdf/list' && req.method === 'GET') {
+            if (!fs.existsSync(DOWNLOADS_DIR)) fs.mkdirSync(DOWNLOADS_DIR, { recursive: true });
+            const files = fs.readdirSync(DOWNLOADS_DIR)
+                .filter(f => f.toLowerCase().endsWith('.pdf'))
+                .map(f => {
+                    const stat = fs.statSync(path.join(DOWNLOADS_DIR, f));
+                    return { name: f, size: stat.size, modified: stat.mtime.toISOString() };
+                })
+                .sort((a, b) => b.modified.localeCompare(a.modified));
+            return sendJson(res, { files });
+        }
+
+        if (pathname === '/api/pdf/upload' && req.method === 'POST') {
+            const body = await parseBody(req);
+            if (!body.filename || !body.data) return sendJson(res, { error: 'filename e data obrigatórios' }, 400);
+            const safeName = path.basename(body.filename).replace(/[^a-zA-Z0-9._\- ]/g, '_');
+            if (!safeName.toLowerCase().endsWith('.pdf')) return sendJson(res, { error: 'Apenas arquivos PDF são permitidos' }, 400);
+            if (!fs.existsSync(DOWNLOADS_DIR)) fs.mkdirSync(DOWNLOADS_DIR, { recursive: true });
+            const buffer = Buffer.from(body.data, 'base64');
+            writeBufferAtomic(path.join(DOWNLOADS_DIR, safeName), buffer);
+            return sendJson(res, { success: true, filename: safeName, size: buffer.length });
+        }
+
+        if (pathname === '/api/pdf/delete' && req.method === 'POST') {
+            const body = await parseBody(req);
+            if (!body.filename) return sendJson(res, { error: 'filename obrigatório' }, 400);
+            const safeName = path.basename(body.filename);
+            const target = path.join(DOWNLOADS_DIR, safeName);
+            if (!fs.existsSync(target)) return sendJson(res, { error: 'Arquivo não encontrado' }, 404);
+            fs.unlinkSync(target);
+            return sendJson(res, { success: true });
+        }
+
+        if (pathname === '/api/pdf/generate' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const id = String(body.id || '').trim();
+            const fileMap = {
+                'cofre': 'O_Cofre_das_Botanicas_Secretas.pdf',
+                'sinergias': '30_Sinergias_Sommers_Store.pdf',
+                'fornecedores': 'Guia_Fornecedores_Master.pdf',
+                'ritual-noite': 'Ritual_da_Meia_Noite.pdf'
+            };
+            if (!fileMap[id]) return sendJson(res, { error: `id inválido. Use: ${Object.keys(fileMap).join(', ')}` }, 400);
+            try {
+                const puppeteer = require('puppeteer');
+                if (!fs.existsSync(DOWNLOADS_DIR)) fs.mkdirSync(DOWNLOADS_DIR, { recursive: true });
+                const browser = await puppeteer.launch({ headless: 'new', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+                const page = await browser.newPage();
+                await page.setViewport({ width: 1240, height: 1754 });
+                const port = process.env.NEXT_PORT || 3000;
+                await page.goto(`http://localhost:${port}/ebook/viewer/${id}?print=1`, { waitUntil: 'networkidle0', timeout: 60000 });
+                await new Promise(r => setTimeout(r, 4000));
+                await page.evaluate(() => {
+                    document.querySelectorAll('[style*="position: fixed"], [style*="position:fixed"]').forEach(el => el.style.display = 'none');
+                });
+                const outputPath = path.join(DOWNLOADS_DIR, fileMap[id]);
+                await page.pdf({ path: outputPath, format: 'A4', printBackground: true, margin: { top: '0', right: '0', bottom: '0', left: '0' } });
+                await browser.close();
+                const stat = fs.statSync(outputPath);
+                return sendJson(res, { success: true, filename: fileMap[id], size: stat.size });
+            } catch (err) {
+                return sendJson(res, { success: false, error: err.message }, 500);
+            }
+        }
+        // ────────────────────────────────────────────────────────────────────
+
         if (pathname.startsWith('/api/file') && req.method === 'GET') {
             const relative = decodeURIComponent(url.searchParams.get('path') || '');
             try {
@@ -4408,4 +4502,3 @@ server.headersTimeout = 0;
 server.listen(PORT, () => {
     console.log(`Anti-Gravity Tower online: http://localhost:${PORT}`);
 });
-
