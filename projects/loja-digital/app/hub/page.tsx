@@ -35,7 +35,7 @@ const METODO: ProductCard = {
   tag: "PRINCIPAL",
   tagVariant: "gold",
   progress: 0,
-  action: { type: "pdf", file: "O_Cofre_das_Botanicas_Secretas.pdf" },
+  action: { type: "soon" },
 };
 
 const METODO_BONUS: ProductCard[] = [
@@ -46,7 +46,7 @@ const METODO_BONUS: ProductCard[] = [
     cover: "/sais/assets/bonus-1-v2.png",
     tag: "BÔNUS",
     tagVariant: "green",
-    action: { type: "pdf", file: "30_Blends_OB1.pdf" },
+    action: { type: "soon" },
   },
   {
     id: "bonus-fornecedores",
@@ -55,7 +55,7 @@ const METODO_BONUS: ProductCard[] = [
     cover: "/sais/assets/bonus-2.png",
     tag: "BÔNUS",
     tagVariant: "green",
-    action: { type: "pdf", file: "Guia_Fornecedores_Master.pdf" },
+    action: { type: "soon" },
   },
   {
     id: "bonus-posts",
@@ -76,7 +76,7 @@ const METODO_OBS: ProductCard[] = [
     cover: "/sais/assets/10-blends.png",
     tag: "OB 01",
     tagVariant: "blue",
-    action: { type: "pdf", file: "30_Blends_OB1.pdf" },
+    action: { type: "soon" },
   },
   {
     id: "ob2",
@@ -85,7 +85,7 @@ const METODO_OBS: ProductCard[] = [
     cover: "/ebook/capa_mistica_rosto.png",
     tag: "OB 02",
     tagVariant: "blue",
-    action: { type: "pdf", file: "Mindset_OB2.pdf" },
+    action: { type: "soon" },
   },
   {
     id: "ob3",
@@ -102,16 +102,12 @@ const METODO_OBS: ProductCard[] = [
 const COFRE: ProductCard = {
   id: "cofre",
   title: "O Cofre das Botânicas Secretas",
-  subtitle: "Upsell · Viewer + PDFs",
+  subtitle: "Upsell · Viewer HTML",
   cover: "/ebook/master_cover_v2.png",
   tag: "UPSELL",
   tagVariant: "purple",
   progress: 65,
-  action: {
-    type: "both",
-    viewerPath: "/ebook/viewer/cofre",
-    pdfFile: "O_Cofre_das_Botanicas_Secretas.pdf",
-  },
+  action: { type: "viewer", path: "/ebook/viewer/cofre" },
 };
 
 const COFRE_COMPLEMENTOS: ProductCard[] = [
@@ -122,7 +118,7 @@ const COFRE_COMPLEMENTOS: ProductCard[] = [
     cover: "/ebook/capa_mistica_dourada.png",
     tag: "ELITE",
     tagVariant: "gold",
-    action: { type: "pdf", file: "O_Cofre_das_Botanicas_Secretas_Elite.pdf" },
+    action: { type: "soon" },
   },
   {
     id: "sinergias",
