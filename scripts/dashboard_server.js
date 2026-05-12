@@ -3879,6 +3879,48 @@ review_path: ${audit.review_path}
                 return sendJson(res, { error: 'Parse falhou: ' + err.message }, 500);
             }
         }
+        // ── Finanças AI: upload de contrato ──
+        if (pathname === '/api/fin/contract/upload' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const creditorId = String(body.creditorId || '').trim();
+            const fileName   = String(body.fileName   || '').trim().replace(/[^a-zA-Z0-9._\-À-ɏ ]/g, '_');
+            const fileData   = String(body.fileData   || '').trim(); // base64 data URL ou raw base64
+            if (!creditorId || !fileName || !fileData) return sendJson(res, { error: 'creditorId, fileName e fileData obrigatorios' }, 400);
+            const contractsDir = path.join(ROOT_DIR, 'projects', 'financas', 'contracts', creditorId);
+            fs.mkdirSync(contractsDir, { recursive: true });
+            const filePath = path.join(contractsDir, fileName);
+            const base64Data = fileData.includes(',') ? fileData.split(',')[1] : fileData;
+            writeFileAtomic(filePath, Buffer.from(base64Data, 'base64'));
+            const relPath = `projects/financas/contracts/${creditorId}/${fileName}`;
+            // Atualiza finance_state.json
+            const fsPath = path.join(ROOT_DIR, 'projects', 'financas', 'data', 'finance_state.json');
+            let state = {};
+            try { state = JSON.parse(fs.readFileSync(fsPath, 'utf8')); } catch(e) {}
+            if (!state.contracts) state.contracts = [];
+            state.contracts = state.contracts.filter(c => !(c.creditorId === creditorId && c.fileName === fileName));
+            state.contracts.push({ creditorId, fileName, path: relPath, uploadedAt: new Date().toISOString() });
+            writeJsonAtomic(fsPath, state);
+            return sendJson(res, { ok: true, path: relPath, fileName, creditorId });
+        }
+        if (pathname === '/api/fin/contracts' && req.method === 'GET') {
+            const fsPath = path.join(ROOT_DIR, 'projects', 'financas', 'data', 'finance_state.json');
+            let state = {};
+            try { state = JSON.parse(fs.readFileSync(fsPath, 'utf8')); } catch(e) {}
+            return sendJson(res, { contracts: state.contracts || [] });
+        }
+        if (pathname === '/api/fin/contract/delete' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const creditorId = String(body.creditorId || '').trim();
+            const fileName   = String(body.fileName   || '').trim();
+            const fsPath = path.join(ROOT_DIR, 'projects', 'financas', 'data', 'finance_state.json');
+            let state = {};
+            try { state = JSON.parse(fs.readFileSync(fsPath, 'utf8')); } catch(e) {}
+            state.contracts = (state.contracts || []).filter(c => !(c.creditorId === creditorId && c.fileName === fileName));
+            writeJsonAtomic(fsPath, state);
+            const filePath = path.join(ROOT_DIR, 'projects', 'financas', 'contracts', creditorId, fileName);
+            try { fs.unlinkSync(filePath); } catch(e) {}
+            return sendJson(res, { ok: true });
+        }
         if (pathname === '/api/project-flows' && req.method === 'GET') return sendJson(res, ensureControlJson(FILES.projectFlows, { projects: {} }));
         if (pathname === '/api/session' && req.method === 'GET') return sendJson(res, ensureControlJson(FILES.session, { current_session: null, history: [] }));
         if (pathname === '/api/cloud-sync/status' && req.method === 'GET') return sendJson(res, loadCloudSyncState());

@@ -104,6 +104,37 @@
         .vm-detail-panel.vm-panel-open { transform: translateX(0); }
         .vm-detail-panel::-webkit-scrollbar { width: 3px; }
         .vm-detail-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
+        /* ── Pipeline Entregáveis Integration ── */
+        .vm-pipe-tabs { display:flex;gap:0;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.07); }
+        .vm-pipe-tab { padding:5px 12px;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#4a4a60;cursor:pointer;border-bottom:2px solid transparent;transition:all .18s;background:none;border-top:none;border-left:none;border-right:none;outline:none; }
+        .vm-pipe-tab.vpt-active { color:#a855f7;border-bottom-color:#a855f7; }
+        .vm-pipe-tab:hover { color:#c084fc; }
+        .vm-entrega-card { display:flex;align-items:flex-start;gap:8px;padding:8px;border-radius:7px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);margin-bottom:6px;transition:all .18s; }
+        .vm-entrega-card:hover { border-color:rgba(168,85,247,0.28);background:rgba(168,85,247,0.04); }
+        .vm-entrega-cover { width:28px;height:37px;object-fit:cover;border-radius:3px;flex-shrink:0; }
+        .vm-entrega-cover-ph { width:28px;height:37px;border-radius:3px;flex-shrink:0;background:rgba(168,85,247,0.08);border:1px dashed rgba(168,85,247,0.2);display:flex;align-items:center;justify-content:center;font-size:10px; }
+        .vm-entrega-status-soon { font-size:6px;padding:1px 5px;border-radius:3px;background:rgba(107,114,128,0.15);border:1px solid rgba(107,114,128,0.25);color:#6b7280;font-weight:700;text-transform:uppercase; }
+        .vm-entrega-status-viewer { font-size:6px;padding:1px 5px;border-radius:3px;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#818cf8;font-weight:700;text-transform:uppercase; }
+        .vm-entrega-status-pdf { font-size:6px;padding:1px 5px;border-radius:3px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25);color:#f87171;font-weight:700;text-transform:uppercase; }
+        .vm-entrega-status-both { font-size:6px;padding:1px 5px;border-radius:3px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.25);color:#34d399;font-weight:700;text-transform:uppercase; }
+        .vm-entrega-count { display:inline-flex;align-items:center;gap:2px;font-size:7px;font-weight:800;color:#c084fc;background:rgba(168,85,247,0.12);border:1px solid rgba(168,85,247,0.25);border-radius:999px;padding:1px 6px;margin-top:4px; }
+        .vm-entrega-empty { padding:14px;text-align:center;color:rgba(255,255,255,0.2);font-size:8px;border:1px dashed rgba(255,255,255,0.06);border-radius:7px;line-height:1.7; }
+        .vm-entrega-link-btn { display:flex;align-items:center;justify-content:center;gap:4px;padding:6px 10px;border-radius:6px;background:rgba(168,85,247,0.06);border:1px dashed rgba(168,85,247,0.28);color:#a855f7;font-size:8px;font-weight:700;cursor:pointer;width:100%;margin-top:6px;transition:all .18s; }
+        .vm-entrega-link-btn:hover { background:rgba(168,85,247,0.12);border-style:solid; }
+        .vm-entrega-group-lbl { font-size:6.5px;color:#3a3a50;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin:10px 0 5px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:space-between; }
+        .vm-pipe-progress { height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;margin-top:5px; }
+        .vm-pipe-progress-bar { height:3px;background:linear-gradient(90deg,#a855f7,#7c3aed);border-radius:2px;transition:width .4s; }
+        .vm-link-picker-overlay { position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.78);backdrop-filter:blur(5px); }
+        .vm-link-picker-box { background:#0f0f16;border:1px solid rgba(168,85,247,0.3);border-radius:12px;width:520px;max-width:95vw;max-height:80vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.7); }
+        .vm-link-picker-hdr { padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:space-between;flex-shrink:0; }
+        .vm-link-picker-body { flex:1;overflow-y:auto;padding:16px; }
+        .vm-link-picker-body::-webkit-scrollbar { width:3px; }
+        .vm-link-picker-body::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.08);border-radius:10px; }
+        .vm-link-picker-row { padding:10px 14px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);margin-bottom:8px; }
+        .vm-link-picker-row-lbl { font-size:9px;font-weight:700;color:#e5e7eb;margin-bottom:8px; }
+        .vm-link-picker-item { display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:5px;cursor:pointer;transition:all .14s;margin-bottom:3px; }
+        .vm-link-picker-item:hover { background:rgba(168,85,247,0.07); }
+        .vm-link-picker-item input[type=checkbox] { width:12px;height:12px;accent-color:#a855f7;flex-shrink:0;cursor:pointer; }
         .vm-hover-preview { position: fixed; pointer-events: none; z-index: 9999; background: rgba(8,8,16,0.97); border: 1px solid rgba(168,85,247,0.28); border-radius: 10px; padding: 7px; width: 262px; display: none; box-shadow: 0 18px 50px rgba(0,0,0,0.65); }
         .vm-hover-preview.vm-prev-show { display: block; }
         .vm-hover-preview .vm-prev-label { font-size: 7.5px; font-weight: 700; color: #a855f7; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.08em; }
@@ -861,7 +892,7 @@
         <!-- FINANCAS -->
         <div class="sb-icon" data-tab="financas" onclick="switchTab('financas')">
             <i data-lucide="wallet-cards" class="w-4 h-4"></i>
-            <span class="sb-label">Financas</span>
+            <span class="sb-label">Finanças</span>
         </div>
     </aside>
 
@@ -929,7 +960,7 @@
                         </button>
                         <button id="master-project-financas" class="master-project-btn" onclick="setMasterProject('financas')">
                             <div class="flex items-center justify-between">
-                                <p class="text-[11px] font-bold text-white">Financas</p>
+                                <p class="text-[11px] font-bold text-white">Finanças AI</p>
                                 <span id="master-project-financas-pct" class="text-[8px] font-black text-secondary">–%</span>
                             </div>
                             <p class="text-[9px] text-muted mt-1">Caixa, dividas e futuro.</p>
@@ -1825,7 +1856,7 @@
         <!-- ═══════ FINANCAS ═══════ -->
         <div id="pane-financas" class="tab-pane" style="background:#090c14;overflow:hidden;position:relative;display:flex;flex-direction:column">
 
-            <!-- ── Top nav: Planilha | Dívidas | Mapa ── -->
+            <!-- ── Top nav: Planilha | Dívidas ── -->
             <div class="fin2-topnav">
                 <div class="fin2-topnav-left">
                     <span class="fin2-topnav-brand">Finanças</span>
@@ -3754,7 +3785,7 @@ const MASTER_PROJECT_FLOWS = {
         ]
     },
     financas: {
-        label: 'Financas',
+        label: 'Finanças AI',
         construcao: [
             { id: 'CF-01', nome: 'Intake Financeiro', squad: 'SQD-CORE', status: 'em_execucao', resumo: 'Renda, gastos, dividas e objetivos.', entrega: 'Inventario financeiro', entrega_para: 'CF-02' },
             { id: 'CF-02', nome: 'Mapa de Caixa', squad: 'SQD-CORE', status: 'em_preparacao', resumo: 'Capacidade mensal de pagamento.', entrega: 'Caixa livre', entrega_para: 'CF-03' },
@@ -4536,10 +4567,20 @@ function getMasterGlobalSearchItems() {
 }
 
 function updateMasterViewUI() {
+    const isFinancas = window.MASTER_PROJECT === 'financas';
+    // Para o projeto Finanças AI, Construção e Vendas são irrelevantes — redireciona para Clones
+    if (isFinancas && ['construcao', 'vendas'].includes(window.MASTER_VIEW)) {
+        window.MASTER_VIEW = 'clones';
+    }
     const modes = MASTER_VIEW_ORDER;
     modes.forEach(mode => {
         const tab = document.getElementById(`master-view-tab-${mode}`);
-        if (tab) tab.classList.toggle('active', window.MASTER_VIEW === mode);
+        if (!tab) return;
+        tab.classList.toggle('active', window.MASTER_VIEW === mode);
+        // Oculta Construção e Vendas apenas para o projeto Finanças AI
+        if (['construcao', 'vendas'].includes(mode)) {
+            tab.style.display = isFinancas ? 'none' : '';
+        }
     });
 
     MASTER_PROJECT_IDS.forEach(project => {
@@ -5762,6 +5803,10 @@ function renderMasterHub() {
         </div>`;
 
         renderMasterInspector(items);
+        // Injeta painel de contratos quando Finanças AI + Clones estão ativos
+        if (window.MASTER_PROJECT === 'financas' && window.MASTER_VIEW === 'clones') {
+            if (typeof fin2InjectContractsPanel === 'function') fin2InjectContractsPanel();
+        }
     } catch (e) {
         console.error('Render Master Hub Error:', e);
     }
@@ -9864,11 +9909,11 @@ const SAIS_LANES = [
 ];
 
 const SAIS_PIPELINE = [
-    { id:'p01', x:14,  y:14, label:'Estratégia',      sub:'CZ-01 · SQD-CORE', status:'in_progress', metric:'Escopo aprovado',      color:'#a855f7', desc:'Definição de oferta, promessa e escopo do produto.', squad:'SQD-CORE', entrega:'Direction package' },
-    { id:'p02', x:184, y:14, label:'Estrutura PDF',   sub:'CZ-02 · SQD-CNT',  status:'pending',     metric:'Índice aprovado',       color:'#a855f7', desc:'Arquitetura editorial dos capítulos e blocos de conteúdo.', squad:'SQD-CNT', entrega:'Skeleton editorial' },
-    { id:'p03', x:354, y:14, label:'Produção E-book', sub:'CZ-03 · SQD-CNT',  status:'draft',       metric:'Capítulos finalizados', color:'#6b7280', desc:'Redação longform, revisão editorial e consistência.', squad:'SQD-CNT', entrega:'E-book pronto' },
-    { id:'p04', x:524, y:14, label:'Pág. de Vendas',  sub:'CZ-04 · SQD-EXP',  status:'draft',       metric:'LCP/UX válidos',        color:'#6b7280', desc:'Composição visual da landing e copy principal.', squad:'SQD-EXP', entrega:'Landing page' },
-    { id:'p05', x:694, y:14, label:'QA e Publicação', sub:'CZ-05 · SQD-QRO',  status:'draft',       metric:'Checklist QA completo', color:'#6b7280', desc:'Validação final, checklist e liberação operacional.', squad:'SQD-QRO', entrega:'Release aprovado' },
+    { id:'p01', x:14,  y:14, label:'Estratégia',      sub:'CZ-01 · SQD-CORE', status:'in_progress', metric:'Escopo aprovado',      color:'#a855f7', desc:'Definição de oferta, promessa e escopo do produto.', squad:'SQD-CORE', entrega:'Direction package', catalogLinks:[] },
+    { id:'p02', x:184, y:14, label:'Estrutura PDF',   sub:'CZ-02 · SQD-CNT',  status:'pending',     metric:'Índice aprovado',       color:'#a855f7', desc:'Arquitetura editorial dos capítulos e blocos de conteúdo.', squad:'SQD-CNT', entrega:'Skeleton editorial', catalogLinks:[] },
+    { id:'p03', x:354, y:14, label:'Produção E-book', sub:'CZ-03 · SQD-CNT',  status:'draft',       metric:'Capítulos finalizados', color:'#6b7280', desc:'Redação longform, revisão editorial e consistência.', squad:'SQD-CNT', entrega:'E-book pronto', catalogLinks:[{rowId:'metodo',type:'anchor',groupId:null}] },
+    { id:'p04', x:524, y:14, label:'Pág. de Vendas',  sub:'CZ-04 · SQD-EXP',  status:'draft',       metric:'LCP/UX válidos',        color:'#6b7280', desc:'Composição visual da landing e copy principal.', squad:'SQD-EXP', entrega:'Landing page', catalogLinks:[{rowId:'metodo',type:'group',groupId:'bonus'},{rowId:'metodo',type:'group',groupId:'ob'}] },
+    { id:'p05', x:694, y:14, label:'QA e Publicação', sub:'CZ-05 · SQD-QRO',  status:'draft',       metric:'Checklist QA completo', color:'#6b7280', desc:'Validação final, checklist e liberação operacional.', squad:'SQD-QRO', entrega:'Release aprovado', catalogLinks:[{rowId:'cofre',type:'anchor',groupId:null},{rowId:'cofre',type:'group',groupId:'included'}] },
 ];
 
 const SAIS_NODES = [
@@ -10037,7 +10082,19 @@ function buildVmNodeEl(n) {
         } else if (n.type==='pipeline') {
             const step = n.id.replace(/[^\d]/g,'');
             el.style.background='rgba(168,85,247,0.06)'; el.style.borderColor='rgba(168,85,247,0.28)';
-            el.innerHTML=`<div class="vm-step-badge">${step}</div><div class="vm-circ-label">${n.label}</div>${statusDot}${bugsLine}`;
+            const pLinks = n.catalogLinks || [];
+            let pTotal = 0, pReady = 0;
+            if (_hubCatalog && _hubCatalog.rows) {
+                pLinks.forEach(lk => {
+                    const row = _hubCatalog.rows.find(r => r.id === lk.rowId);
+                    if (!row) return;
+                    if (lk.type === 'anchor') { pTotal++; if (row.anchor?.action?.type !== 'soon') pReady++; }
+                    else if (lk.type === 'group') { const g = row.groups.find(g => g.id === lk.groupId); if (g) { pTotal += g.items.length; pReady += g.items.filter(i => i.action?.type !== 'soon').length; } }
+                });
+            }
+            const countBadge = pTotal > 0 ? `<span class="vm-entrega-count">📦 ${pReady}/${pTotal}</span>` : '';
+            const progressBar = pTotal > 0 ? `<div class="vm-pipe-progress"><div class="vm-pipe-progress-bar" style="width:${Math.round(pReady/pTotal*100)}%"></div></div>` : '';
+            el.innerHTML=`<div class="vm-step-badge">${step}</div><div class="vm-circ-label">${n.label}</div>${statusDot}${bugsLine}${countBadge}${progressBar}`;
         } else if (n.type==='persona') {
             el.style.background='linear-gradient(135deg,rgba(168,85,247,0.14),rgba(168,85,247,0.05))';
             el.style.borderColor='rgba(168,85,247,0.42)';
@@ -10216,13 +10273,146 @@ function openVmDetail(id) {
     // Editor controls
     const editBar=`<div style="display:flex;gap:4px;margin-bottom:12px"><button onclick="vmEditNodeInline('${id}')" style="flex:1;padding:5px 8px;border-radius:6px;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.28);color:#a855f7;font-size:8px;font-weight:700;cursor:pointer">✏ Editar</button><button onclick="vmDuplicateNode('${id}')" style="flex:1;padding:5px 8px;border-radius:6px;background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.25);color:#06b6d4;font-size:8px;font-weight:700;cursor:pointer">⧉ Duplicar</button><button onclick="vmDeleteNode('${id}')" style="padding:5px 8px;border-radius:6px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2);color:#f87171;font-size:8px;cursor:pointer">🗑</button></div>`;
     document.getElementById('vm-detail-title').textContent=node.label;
-    document.getElementById('vm-detail-body').innerHTML=`${editBar}<span style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:${sc.color};background:${sc.bg};border:1px solid ${sc.border};padding:2px 8px;border-radius:999px">${sc.label}</span><p style="font-size:9px;color:#8a8aa8;margin:10px 0 0;line-height:1.55">${node.desc||node.sub||''}</p>${metricHtml}${squadHtml}${bugsHtml}${actions.length?`<div style="margin-top:14px;border-top:1px solid rgba(255,255,255,0.04);padding-top:10px"><div style="font-size:6.5px;color:#3a3a50;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Navegar</div>${actions.join('')}</div>`:''}${edgesHtml}`;
+    const detailsHtml=`${editBar}<span style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:${sc.color};background:${sc.bg};border:1px solid ${sc.border};padding:2px 8px;border-radius:999px">${sc.label}</span><p style="font-size:9px;color:#8a8aa8;margin:10px 0 0;line-height:1.55">${node.desc||node.sub||''}</p>${metricHtml}${squadHtml}${bugsHtml}${actions.length?`<div style="margin-top:14px;border-top:1px solid rgba(255,255,255,0.04);padding-top:10px"><div style="font-size:6.5px;color:#3a3a50;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Navegar</div>${actions.join('')}</div>`:''}${edgesHtml}`;
+    if (node.type==='pipeline') {
+        const delivHtml = renderPipeDeliverables(node);
+        document.getElementById('vm-detail-body').innerHTML=`<div class="vm-pipe-tabs"><button class="vm-pipe-tab vpt-active" onclick="vmPipeTabSwitch('details','${id}',event)">Detalhes</button><button class="vm-pipe-tab" onclick="vmPipeTabSwitch('entregaveis','${id}',event)">📦 Entregáveis</button></div><div id="vpt-details">${detailsHtml}</div><div id="vpt-entregaveis" style="display:none">${delivHtml}</div>`;
+    } else {
+        document.getElementById('vm-detail-body').innerHTML=detailsHtml;
+    }
     document.getElementById('vm-detail-panel').classList.add('vm-panel-open');
 }
 
 function closeVmDetail() {
     document.getElementById('vm-detail-panel').classList.remove('vm-panel-open');
     [...document.querySelectorAll('.vm-node')].forEach(el=>el.classList.remove('vm-selected'));
+}
+
+// ══════════════════════════════════════════
+// PIPELINE ENTREGÁVEIS — Integração completa
+// ══════════════════════════════════════════
+
+function vmPipeTabSwitch(tab, nodeId, ev) {
+    if (ev) { document.querySelectorAll('.vm-pipe-tab').forEach(b=>b.classList.remove('vpt-active')); ev.target.classList.add('vpt-active'); }
+    const det = document.getElementById('vpt-details');
+    const ent = document.getElementById('vpt-entregaveis');
+    if (!det || !ent) return;
+    if (tab === 'details') { det.style.display=''; ent.style.display='none'; }
+    else {
+        det.style.display='none'; ent.style.display='';
+        if (!_hubCatalog) {
+            ent.innerHTML='<div class="vm-entrega-empty">Carregando catálogo...</div>';
+            loadHubCatalog().then(() => vmRefreshPipeTab(nodeId));
+        }
+    }
+}
+
+function vmRefreshPipeTab(nodeId) {
+    const ent = document.getElementById('vpt-entregaveis');
+    if (!ent) return;
+    const data = MAP_DATA[vmActiveProject]||MAP_DATA.sais;
+    const node = (data.pipeline||[]).find(n=>n.id===nodeId);
+    if (node) ent.innerHTML = renderPipeDeliverables(node);
+}
+
+function renderPipeDeliverables(node) {
+    if (!_hubCatalog || !_hubCatalog.rows) {
+        return `<div class="vm-entrega-empty">Catálogo não carregado<br><small style="font-size:7px">Clique em 📦 Entregáveis na toolbar para carregar</small></div><button class="vm-entrega-link-btn" onclick="loadHubCatalog().then(()=>vmRefreshPipeTab('${node.id}'))">⟳ Carregar Catálogo</button>`;
+    }
+    const links = node.catalogLinks || [];
+    if (!links.length) {
+        return `<div class="vm-entrega-empty">Nenhum entregável vinculado<br><small style="font-size:7px">Use + Vincular para associar itens do catálogo a este passo do pipeline</small></div><button class="vm-entrega-link-btn" onclick="vmOpenLinkPicker('${node.id}')">+ Vincular Entregável</button>`;
+    }
+    let html='', totalItems=0, readyItems=0;
+    links.forEach((lk, lIdx) => {
+        const row = _hubCatalog.rows.find(r=>r.id===lk.rowId);
+        if (!row) { html+=`<div class="vm-entrega-empty" style="font-size:7px">Linha "${lk.rowId}" não encontrada no catálogo</div>`; return; }
+        const rowIdx = _hubCatalog.rows.indexOf(row);
+        if (lk.type==='anchor') {
+            html+=`<div class="vm-entrega-group-lbl"><span>Produto Principal · ${row.label}</span><button onclick="vmUnlinkDeliverable('${node.id}',${lIdx})" style="padding:1px 5px;border-radius:3px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.18);color:#f87171;font-size:6px;cursor:pointer">✕</button></div>`;
+            html += vmDeliverableCard(row.anchor, rowIdx, -1, true, null, node.id, lIdx);
+            totalItems++; if (row.anchor?.action?.type!=='soon') readyItems++;
+        } else if (lk.type==='group') {
+            const grp = row.groups.find(g=>g.id===lk.groupId);
+            if (!grp) return;
+            const gIdx = row.groups.indexOf(grp);
+            html+=`<div class="vm-entrega-group-lbl"><span>${grp.label||grp.id} <span style="color:#3a3a50;font-size:5.5px">· ${row.label}</span></span><button onclick="vmUnlinkDeliverable('${node.id}',${lIdx})" style="padding:1px 5px;border-radius:3px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.18);color:#f87171;font-size:6px;cursor:pointer">✕</button></div>`;
+            grp.items.forEach((item, iIdx) => {
+                html += vmDeliverableCard(item, rowIdx, gIdx, false, iIdx, node.id, lIdx);
+                totalItems++; if (item.action?.type!=='soon') readyItems++;
+            });
+        }
+    });
+    const progressBar = totalItems>0 ? `<div style="margin:10px 0 6px"><div style="font-size:6.5px;color:#3a3a50;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Progresso · ${readyItems}/${totalItems} prontos</div><div class="vm-pipe-progress"><div class="vm-pipe-progress-bar" style="width:${Math.round(readyItems/totalItems*100)}%"></div></div></div>` : '';
+    return `${progressBar}${html}<button class="vm-entrega-link-btn" onclick="vmOpenLinkPicker('${node.id}')">+ Vincular Entregável</button>`;
+}
+
+function vmDeliverableCard(item, rowIdx, gIdx, isAnchor, iIdx, nodeId, lIdx) {
+    if (!item) return '';
+    const t = item.action?.type||'soon';
+    const labels = {soon:'Em Breve',viewer:'Viewer HTML',pdf:'PDF Download',both:'Viewer + PDF'};
+    const editCall = isAnchor ? `openCatalogItemEdit(${rowIdx},-1,true)` : `openCatalogItemEdit(${rowIdx},${iIdx},false,${gIdx})`;
+    const tagColor = {gold:'#C5A059',green:'#7ABF7A',purple:'#B08BD4',blue:'#7AABF0',muted:'rgba(200,200,200,0.3)'}[item.tagVariant]||'#6b7280';
+    const coverEl = item.cover
+        ? `<img src="${item.cover}" class="vm-entrega-cover" onerror="this.outerHTML='<div class=\\'vm-entrega-cover-ph\\'>📦</div>'">`
+        : `<div class="vm-entrega-cover-ph">📦</div>`;
+    const prog = item.progress!=null&&item.progress>0 ? `<div class="vm-pipe-progress" style="margin-top:4px"><div class="vm-pipe-progress-bar" style="width:${item.progress}%;background:${t==='both'?'#10b981':t==='viewer'?'#818cf8':t==='pdf'?'#f87171':'#4b5563'}"></div></div>` : '';
+    const lockIco = item.locked ? '<span style="font-size:8px;opacity:0.5">🔒</span>' : '';
+    return `<div class="vm-entrega-card"><div style="cursor:pointer;display:contents" onclick="${editCall}">${coverEl}<div style="flex:1;min-width:0"><div style="font-size:8.5px;font-weight:700;color:#e5e7eb;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:2px">${item.title}${lockIco}</div><div style="font-size:7px;color:#6b7280;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${item.subtitle||''}</div><div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap">${item.tag?`<span style="font-size:5.5px;font-weight:700;color:${tagColor};background:${tagColor}1a;border:1px solid ${tagColor}30;padding:1px 5px;border-radius:2px">${item.tag}</span>`:''}  <span class="vm-entrega-status-${t}">${labels[t]||'Em Breve'}</span></div>${prog}</div></div><button onclick="${editCall}" style="flex-shrink:0;align-self:flex-start;padding:3px 7px;border-radius:4px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.2);color:#a855f7;font-size:7px;cursor:pointer;margin-left:4px">✏</button></div>`;
+}
+
+function vmUnlinkDeliverable(nodeId, lIdx) {
+    const data = MAP_DATA[vmActiveProject]||MAP_DATA.sais;
+    const node = (data.pipeline||[]).find(n=>n.id===nodeId);
+    if (!node||!node.catalogLinks) return;
+    node.catalogLinks.splice(lIdx,1);
+    VME.dirty=true; vmSyncEditorUI();
+    openVmDetail(nodeId);
+    setTimeout(()=>{ const t=document.querySelector('.vm-pipe-tab:not(.vpt-active)'); if(t&&t.textContent.includes('Entregáveis')) t.click(); },50);
+}
+
+let _vmLinkTarget=null;
+function vmOpenLinkPicker(nodeId) {
+    if (!_hubCatalog||!_hubCatalog.rows) { loadHubCatalog().then(()=>vmOpenLinkPicker(nodeId)); return; }
+    _vmLinkTarget=nodeId;
+    const data=MAP_DATA[vmActiveProject]||MAP_DATA.sais;
+    const node=(data.pipeline||[]).find(n=>n.id===nodeId);
+    const curLinks=node?.catalogLinks||[];
+    let rowsHtml='';
+    _hubCatalog.rows.forEach(row=>{
+        const anchorLinked=curLinks.some(l=>l.rowId===row.id&&l.type==='anchor');
+        const grpItems=row.groups.map(grp=>{
+            const linked=curLinks.some(l=>l.rowId===row.id&&l.type==='group'&&l.groupId===grp.id);
+            return `<div class="vm-link-picker-item" onclick="vmTogglePipeLink('${nodeId}','${row.id}','group','${grp.id}')"><input type="checkbox" id="vmlp-g-${row.id}-${grp.id}" ${linked?'checked':''}><label for="vmlp-g-${row.id}-${grp.id}" style="cursor:pointer"><div style="font-size:8px;font-weight:700;color:#e5e7eb">${grp.label||grp.id}</div><div style="font-size:7px;color:#6b7280">${grp.items.length} ${grp.items.length===1?'item':'itens'}</div></label></div>`;
+        }).join('');
+        rowsHtml+=`<div class="vm-link-picker-row"><div class="vm-link-picker-row-lbl">${row.label} <span style="font-size:7px;color:#4a4a60;font-weight:400;text-transform:capitalize">${row.pageType||''}</span></div><div class="vm-link-picker-item" onclick="vmTogglePipeLink('${nodeId}','${row.id}','anchor',null)"><input type="checkbox" id="vmlp-a-${row.id}" ${anchorLinked?'checked':''}><label for="vmlp-a-${row.id}" style="cursor:pointer"><div style="font-size:8px;font-weight:700;color:#e5e7eb">${row.anchor?.title||'Produto Principal'}</div><div style="font-size:7px;color:#6b7280">${row.anchor?.subtitle||''} · Âncora</div></label></div>${grpItems}</div>`;
+    });
+    const old=document.getElementById('vm-link-picker-overlay'); if(old) old.remove();
+    const overlay=document.createElement('div');
+    overlay.id='vm-link-picker-overlay'; overlay.className='vm-link-picker-overlay';
+    overlay.innerHTML=`<div class="vm-link-picker-box"><div class="vm-link-picker-hdr"><div><p style="font-size:12px;font-weight:800;color:#fff">Vincular Entregáveis</p><p style="font-size:8px;color:#6b7280;margin-top:2px">Selecione itens do catálogo para associar ao passo <strong style="color:#a855f7">${node?.label||nodeId}</strong></p></div><button onclick="vmCloseLinkPicker()" style="background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.4);border-radius:6px;padding:3px 10px;cursor:pointer;font-size:15px">×</button></div><div class="vm-link-picker-body">${rowsHtml}<button onclick="vmCloseLinkPicker()" class="vm-entrega-link-btn" style="margin-top:12px;background:rgba(168,85,247,0.12);border-style:solid">✓ Concluir</button></div></div>`;
+    overlay.addEventListener('click',e=>{ if(e.target===overlay) vmCloseLinkPicker(); });
+    document.body.appendChild(overlay);
+}
+
+function vmCloseLinkPicker() {
+    const overlay=document.getElementById('vm-link-picker-overlay'); if(overlay) overlay.remove();
+    if (_vmLinkTarget) { openVmDetail(_vmLinkTarget); setTimeout(()=>{ const t=document.querySelector('.vm-pipe-tab:not(.vpt-active)'); if(t&&t.textContent.includes('Entregáveis')) t.click(); },60); }
+}
+
+function vmTogglePipeLink(nodeId, rowId, type, groupId) {
+    const data=MAP_DATA[vmActiveProject]||MAP_DATA.sais;
+    const node=(data.pipeline||[]).find(n=>n.id===nodeId);
+    if (!node) return;
+    if (!node.catalogLinks) node.catalogLinks=[];
+    const gId=groupId||null;
+    const idx=node.catalogLinks.findIndex(l=>l.rowId===rowId&&l.type===type&&l.groupId===gId);
+    if (idx>=0) node.catalogLinks.splice(idx,1);
+    else node.catalogLinks.push({rowId,type,groupId:gId});
+    VME.dirty=true; vmSyncEditorUI();
+    // Update checkboxes in picker without closing
+    const chkId = type==='anchor' ? `vmlp-a-${rowId}` : `vmlp-g-${rowId}-${groupId}`;
+    const chk=document.getElementById(chkId); if(chk) chk.checked=(idx<0);
 }
 
 function startVmDragV2(e, id) {
@@ -10635,11 +10825,39 @@ window.vmHideCtx         = vmHideCtx;
   font-weight:800;font-size:10px;letter-spacing:.09em;text-transform:uppercase;
   padding:8px 10px 4px;border-bottom:1px solid #1e2540;
 }
+.fin2-section-row.fin2-sec-receitas td { color:#60a5fa; }
+.fin2-section-row.fin2-sec-dividas  td { color:#fb923c; }
 .fin2-total-row td {
   background:#0f1422;font-weight:700;color:#fff;
   border-top:1px solid #2a3050;border-bottom:2px solid #2a3050;
 }
 .fin2-total-row td.fin2-td-label { color:#c9a84c;font-size:11px; }
+.fin2-total-row.fin2-tot-receitas td { border-top-color:#38bdf877;border-bottom-color:#38bdf877; }
+.fin2-total-row.fin2-tot-receitas td.fin2-td-label { color:#38bdf8; }
+.fin2-total-row.fin2-tot-despesas td { border-top-color:#f59e0b66;border-bottom-color:#f59e0b66; }
+.fin2-total-row.fin2-tot-despesas td.fin2-td-label { color:#f59e0b; }
+.fin2-total-row.fin2-tot-dividas  td { border-top-color:#f9731677;border-bottom-color:#f9731677; }
+.fin2-total-row.fin2-tot-dividas  td.fin2-td-label { color:#f97316; }
+/* add-row button */
+.fin2-add-row td { border:none;padding:4px 6px;background:transparent; }
+.fin2-add-btn {
+  font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:#4a5275;background:transparent;border:1px dashed #2a3050;border-radius:5px;
+  padding:3px 10px;cursor:pointer;transition:all .2s;
+}
+.fin2-add-btn:hover { color:#c9a84c;border-color:#c9a84c55; }
+/* delete row button */
+.fin2-del-btn {
+  background:none;border:none;color:#2a3050;cursor:pointer;
+  font-size:12px;line-height:1;padding:2px 4px;transition:color .15s;
+}
+.fin2-del-btn:hover { color:#ef4444; }
+.fin2-collapse-btn {
+  background:none;border:none;color:inherit;cursor:pointer;
+  font-size:11px;opacity:.45;padding:0 2px 0 6px;vertical-align:middle;float:right;
+  transition:opacity .15s;
+}
+.fin2-collapse-btn:hover { opacity:1; }
 .fin2-cashflow-row td { background:#0c1a10; }
 .fin2-cashflow-row td.fin2-td-label { color:#6fcf50; }
 .fin2-cashflow-pos { color:#6fcf50;font-weight:700; }
@@ -10776,6 +10994,64 @@ window.vmHideCtx         = vmHideCtx;
 .fin2-btn-save:hover { background:#1e3018; }
 .fin2-prazo-row { display:flex;gap:8px; }
 .fin2-prazo-row .fin2-dr-row { flex:1; }
+
+/* ── Drawer inner layout ── */
+.fin2-drawer-inner { display:flex;height:100%;overflow:hidden; }
+.fin2-drawer-main {
+  flex:1;overflow-y:auto;padding:20px 22px;
+  display:flex;flex-direction:column;gap:16px;
+  border-right:1px solid #1e2540;
+}
+
+/* ── Amortization panel ── */
+.fin2-amort-panel {
+  width:230px;flex-shrink:0;overflow-y:auto;
+  padding:14px 10px;background:#090c14;
+}
+.fin2-amort-panel h5 {
+  font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:#4a5275;margin:0 0 10px;padding-bottom:6px;border-bottom:1px solid #1e2540;
+}
+.fin2-amort-table { width:100%;border-collapse:collapse;font-size:10px; }
+.fin2-amort-table th {
+  font-size:8.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:#4a5275;padding:4px 6px;text-align:right;border-bottom:1px solid #1e2540;
+}
+.fin2-amort-table th:first-child { text-align:center; }
+.fin2-amort-table td {
+  padding:4px 6px;text-align:right;border-bottom:1px solid #0f1422;
+  color:#9aa0c0;
+}
+.fin2-amort-table td:first-child { text-align:center;color:#4a5275;font-weight:600; }
+.fin2-amort-table tr.paid-row td { color:#2e3450;text-decoration:line-through; }
+.fin2-amort-table td.quitacao { color:#6fcf50;font-weight:600; }
+.fin2-amort-table tr.paid-row td.quitacao { color:#1e3a18; }
+
+/* ── Installment adjust ── */
+.fin2-inst-adj { display:flex;align-items:center;gap:6px;margin-left:auto; }
+.fin2-adj-btn {
+  width:20px;height:20px;border-radius:4px;border:1px solid #2a3050;
+  background:#111525;color:#c9a84c;font-size:14px;line-height:1;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;font-weight:700;
+}
+.fin2-adj-btn:hover { background:#1a1f35;border-color:#c9a84c55; }
+.fin2-adj-count { font-size:11px;font-weight:700;color:#e2e6ff;min-width:24px;text-align:center; }
+
+/* ── Drop zone ── */
+.fin2-drop-zone {
+  border:2px dashed #2a3050;border-radius:8px;
+  padding:12px;text-align:center;cursor:pointer;
+  font-size:10px;color:#4a5275;transition:all .2s;
+  background:#0d111f;position:relative;
+}
+.fin2-drop-zone:hover, .fin2-drop-zone.dragover {
+  border-color:#c9a84c55;background:#141829;color:#c9a84c;
+}
+.fin2-drop-zone.has-file { border-color:#6fcf5055;color:#6fcf50; }
+.fin2-drop-zone input[type=file] {
+  position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;
+}
 </style>
 
 <!-- ═══════ FIN2 JS ═══════ -->
@@ -10838,6 +11114,7 @@ let FIN2_CREDITORS = [
 
 const MONTHS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 let fin2ActiveDebt = null;
+let fin2Collapsed  = { receitas: false, despesas: false, dividas: false };
 
 /* ─────────── NAV ─────────── */
 window.fin2Switch = function(tab) {
@@ -10860,26 +11137,36 @@ window.fin2RenderSheet = function() {
   const s = FIN2_SHEET;
   let html = '<thead><tr><th class="fin2-th-label">Item</th>';
   MONTHS.forEach(m => html += `<th>${m}</th>`);
-  html += '<th>Total</th></tr></thead><tbody>';
+  html += '<th>Total</th><th></th></tr></thead><tbody>';
 
   function renderRows(group, groupKey) {
-    html += `<tr class="fin2-section-row"><td colspan="${MONTHS.length+2}">${groupKey==='receitas'?'RECEITAS':groupKey==='despesas'?'DESPESAS FIXAS':'DÍVIDAS'}</td></tr>`;
+    const secClass  = groupKey==='receitas'?' fin2-sec-receitas':groupKey==='dividas'?' fin2-sec-dividas':'';
+    const totClass  = groupKey==='receitas'?' fin2-tot-receitas':groupKey==='despesas'?' fin2-tot-despesas':groupKey==='dividas'?' fin2-tot-dividas':'';
+    const secLbl    = groupKey==='receitas'?'RECEITAS':groupKey==='despesas'?'DESPESAS FIXAS':'DÍVIDAS';
+    const collapsed = fin2Collapsed[groupKey];
+    const chevron   = collapsed ? '▸' : '▾';
+    html += `<tr class="fin2-section-row${secClass}"><td colspan="${MONTHS.length+3}">${secLbl}<button class="fin2-collapse-btn" data-group="${groupKey}" onclick="fin2ToggleGroup('${groupKey}')">${chevron}</button></td></tr>`;
     group.forEach(row => {
       const total = row.values.reduce((a,b)=>a+b,0);
-      html += `<tr><td class="fin2-td-label">${row.label}</td>`;
+      html += `<tr class="fin2-group-row-${groupKey}"${collapsed?' style="display:none"':''}>`;
+      html += `<td class="fin2-td-label">${row.label}</td>`;
       row.values.forEach((v,mi) => {
         html += `<td><input class="fin2-input" type="number" min="0" step="1" value="${v}" onchange="fin2UpdateCell('${groupKey}','${row.id}',${mi},this.value)"></td>`;
       });
-      html += `<td><span class="fin2-sh-tot" id="fin2-tot-${groupKey}-${row.id}">R$${total.toLocaleString('pt-BR')}</span></td></tr>`;
+      html += `<td><span class="fin2-sh-tot" id="fin2-tot-${groupKey}-${row.id}">R$${total.toLocaleString('pt-BR')}</span></td>`;
+      html += `<td><button class="fin2-del-btn" onclick="fin2DeleteRow('${groupKey}','${row.id}')" title="Excluir linha">×</button></td></tr>`;
     });
+    // botão adicionar linha
+    const addLbl = groupKey==='receitas'?'Receita':groupKey==='despesas'?'Despesa':'Dívida';
+    html += `<tr class="fin2-add-row fin2-group-row-${groupKey}"${collapsed?' style="display:none"':''}><td colspan="${MONTHS.length+3}"><button class="fin2-add-btn" onclick="fin2AddRow('${groupKey}')">+ Adicionar ${addLbl}</button></td></tr>`;
     // totalizador do grupo
     const tots = Array(12).fill(0);
     group.forEach(row => row.values.forEach((v,i) => tots[i]+=v));
     const grandTotal = tots.reduce((a,b)=>a+b,0);
-    const lbl = groupKey==='receitas'?'Total Receitas':groupKey==='despesas'?'Total Despesas':'Total Dívidas';
-    html += `<tr class="fin2-total-row"><td class="fin2-td-label">${lbl}</td>`;
+    const totLbl = groupKey==='receitas'?'Total Receitas':groupKey==='despesas'?'Total Despesas':'Total Dívidas';
+    html += `<tr class="fin2-total-row${totClass}"><td class="fin2-td-label">${totLbl}</td>`;
     tots.forEach((v,i) => html += `<td><span class="fin2-sh-tot" id="fin2-grptot-${groupKey}-${i}">R$${v.toLocaleString('pt-BR')}</span></td>`);
-    html += `<td><span class="fin2-sh-tot" id="fin2-grptot-${groupKey}-total">R$${grandTotal.toLocaleString('pt-BR')}</span></td></tr>`;
+    html += `<td><span class="fin2-sh-tot" id="fin2-grptot-${groupKey}-total">R$${grandTotal.toLocaleString('pt-BR')}</span></td><td></td></tr>`;
   }
 
   renderRows(s.receitas,'receitas');
@@ -10887,7 +11174,7 @@ window.fin2RenderSheet = function() {
   renderRows(s.dividas,'dividas');
 
   // Fluxo de caixa
-  html += '<tr class="fin2-section-row"><td colspan="'+( MONTHS.length+2)+'">FLUXO DE CAIXA</td></tr>';
+  html += `<tr class="fin2-section-row"><td colspan="${MONTHS.length+3}">FLUXO DE CAIXA</td></tr>`;
   html += '<tr class="fin2-cashflow-row"><td class="fin2-td-label">Saldo do Mês</td>';
   for (let i=0;i<12;i++) {
     const rec = s.receitas.reduce((a,r)=>a+r.values[i],0);
@@ -10901,7 +11188,7 @@ window.fin2RenderSheet = function() {
   const totDep = s.despesas.reduce((a,r)=>a+r.values.reduce((x,y)=>x+y,0),0);
   const totDiv = s.dividas.reduce((a,r)=>a+r.values.reduce((x,y)=>x+y,0),0);
   const saldoTotal = totRec-totDep-totDiv;
-  html += `<td><span class="${saldoTotal>=0?'fin2-cashflow-pos':'fin2-cashflow-neg'}">R$${saldoTotal.toLocaleString('pt-BR')}</span></td></tr>`;
+  html += `<td><span class="${saldoTotal>=0?'fin2-cashflow-pos':'fin2-cashflow-neg'}">R$${saldoTotal.toLocaleString('pt-BR')}</span></td><td></td></tr>`;
 
   html += '</tbody>';
   tbl.innerHTML = html;
@@ -10943,6 +11230,42 @@ window.fin2RecalcSheet = function(groupKey) {
   }
 };
 
+/* ─────────── ADD / DELETE ROW ─────────── */
+window.fin2AddRow = function(groupKey) {
+  const lbl = groupKey==='receitas'?'receita':groupKey==='despesas'?'despesa':'dívida';
+  const label = prompt('Nome da nova ' + lbl + ':');
+  if (!label || !label.trim()) return;
+  const newId = groupKey[0] + Date.now();
+  FIN2_SHEET[groupKey].push({ id: newId, label: label.trim(), values: Array(12).fill(0) });
+  if (groupKey === 'dividas') {
+    FIN2_CREDITORS.push({
+      id: newId, name: label.trim(), monthly: 0, installments: 12, paid: 0,
+      saldo: 0, oferta: 0, prazo: '', prazoInicial: '', priority: 'normal',
+      status: 'mapear', notes: '', pendurada: false, contrato: null
+    });
+    fin2RenderDebtCol();
+  }
+  fin2RenderSheet();
+};
+
+window.fin2DeleteRow = function(groupKey, rowId) {
+  FIN2_SHEET[groupKey] = FIN2_SHEET[groupKey].filter(r => r.id !== rowId);
+  if (groupKey === 'dividas') {
+    FIN2_CREDITORS = FIN2_CREDITORS.filter(c => c.id !== rowId);
+    if (fin2ActiveDebt === rowId) fin2CloseDrawer();
+    else fin2RenderDebtCol();
+  }
+  fin2RenderSheet();
+};
+
+window.fin2ToggleGroup = function(groupKey) {
+  fin2Collapsed[groupKey] = !fin2Collapsed[groupKey];
+  const hidden = fin2Collapsed[groupKey];
+  document.querySelectorAll(`.fin2-group-row-${groupKey}`).forEach(r => r.style.display = hidden ? 'none' : '');
+  const btn = document.querySelector(`.fin2-collapse-btn[data-group="${groupKey}"]`);
+  if (btn) btn.textContent = hidden ? '▸' : '▾';
+};
+
 /* ─────────── DÍVIDAS COL ─────────── */
 window.fin2RenderDebtCol = function() {
   const col = document.getElementById('fin2-debt-col');
@@ -10976,89 +11299,157 @@ window.fin2OpenDrawer = function(cid) {
   fin2RenderDebtCol();
   const c = FIN2_CREDITORS.find(x=>x.id===cid);
   if (!c) return;
+  if (!c.prazoInicial) c.prazoInicial = '';
+  if (!c.contrato)     c.contrato     = null;
+
   const empty   = document.getElementById('fin2-drawer-empty');
   const content = document.getElementById('fin2-drawer-content');
   if (empty)   empty.style.display='none';
-  if (content) { content.style.display='flex'; content.style.flexDirection='column'; content.style.gap='16px'; }
+  if (content) { content.style.display='flex'; content.style.height='100%'; content.style.overflow='hidden'; content.style.padding='0'; }
 
-  const desconto = c.oferta>0 ? Math.round((1-(c.oferta/c.saldo))*100) : 0;
-  const restantes = c.installments - c.paid;
+  const desconto     = c.oferta>0 ? Math.round((1-(c.oferta/c.saldo))*100) : 0;
+  const antecipacao  = c.oferta>0 ? Math.round(c.monthly * c.oferta / c.saldo) : c.monthly;
 
+  // ── Parcelas grid ──
   let instHtml = '';
   for (let i=0;i<c.installments;i++){
     const isPaid = i < c.paid;
-    instHtml += `<div class="fin2-sq${isPaid?' paid':''}" data-n="${i+1}" data-cid="${cid}" data-idx="${i}" onclick="fin2ToggleInstallment('${cid}',${i})" title="Parcela ${i+1}"></div>`;
+    instHtml += `<div class="fin2-sq${isPaid?' paid':''}" data-n="${i+1}" onclick="fin2ToggleInstallment('${cid}',${i})" title="Parcela ${i+1}"></div>`;
+  }
+
+  // ── Amortização ──
+  let amortRows = '';
+  for (let i=0;i<c.installments;i++){
+    const isPaid = i < c.paid;
+    const quitacao = c.oferta>0
+      ? Math.round(c.oferta * (c.installments - i) / c.installments)
+      : Math.round(c.saldo  * (c.installments - i) / c.installments);
+    const antecRow = c.oferta>0
+      ? Math.round(c.monthly * c.oferta / c.saldo)
+      : c.monthly;
+    amortRows += `<tr class="${isPaid?'paid-row':''}">
+      <td>${i+1}</td>
+      <td>R$${c.monthly.toLocaleString('pt-BR')}</td>
+      <td class="antecipacao">R$${antecRow.toLocaleString('pt-BR')}</td>
+      <td class="quitacao">R$${quitacao.toLocaleString('pt-BR')}</td>
+    </tr>`;
   }
 
   const statusOpts = ['mapear','ativo','negociando','acordo','quitado','suspenso']
     .map(s=>`<option value="${s}"${c.status===s?' selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('');
 
+  const contratoLabel = c.contrato
+    ? `📎 ${c.contrato}`
+    : '📎 Arraste o contrato ou clique para selecionar';
+
   content.innerHTML = `
-    <div class="fin2-dr-header">
-      <div>
-        <div class="fin2-dr-title">${c.name}</div>
-        <span class="fin2-dc-badge fin2-badge-${c.priority}" style="display:inline-block;margin-top:6px">${c.priority.toUpperCase()}</span>
+  <div class="fin2-drawer-inner">
+
+    <!-- ── Coluna principal ── -->
+    <div class="fin2-drawer-main">
+
+      <div class="fin2-dr-header">
+        <div>
+          <div class="fin2-dr-title">${c.name}</div>
+          <span class="fin2-dc-badge fin2-badge-${c.priority}" style="display:inline-block;margin-top:6px">${c.priority.toUpperCase()}</span>
+        </div>
+        <button class="fin2-dr-close" onclick="fin2CloseDrawer()" title="Fechar">×</button>
       </div>
-      <button class="fin2-dr-close" onclick="fin2CloseDrawer()" title="Fechar">×</button>
+
+      <div class="fin2-dr-kpis">
+        <div class="fin2-dr-kpi">
+          <span class="fin2-dr-kpi-label">R$/mês</span>
+          <span class="fin2-dr-kpi-val">R$${c.monthly.toLocaleString('pt-BR')}</span>
+        </div>
+        <div class="fin2-dr-kpi">
+          <span class="fin2-dr-kpi-label">Antecipação</span>
+          <span class="fin2-dr-kpi-val green">R$${antecipacao.toLocaleString('pt-BR')}</span>
+        </div>
+        <div class="fin2-dr-kpi">
+          <span class="fin2-dr-kpi-label">Saldo</span>
+          <span class="fin2-dr-kpi-val red">R$${c.saldo.toLocaleString('pt-BR')}</span>
+        </div>
+        <div class="fin2-dr-kpi">
+          <span class="fin2-dr-kpi-label">Oferta Alvo</span>
+          <span class="fin2-dr-kpi-val green">${c.oferta>0?'R$'+c.oferta.toLocaleString('pt-BR'):'—'}</span>
+        </div>
+        <div class="fin2-dr-kpi">
+          <span class="fin2-dr-kpi-label">Desconto</span>
+          <span class="fin2-dr-kpi-val green">${desconto>0?desconto+'%':'—'}</span>
+        </div>
+        <div class="fin2-dr-kpi">
+          <span class="fin2-dr-kpi-label">Parcelas</span>
+          <span class="fin2-dr-kpi-val">${c.paid}/${c.installments}</span>
+        </div>
+      </div>
+
+      <div class="fin2-dr-section">
+        <div class="fin2-dr-section-title" style="display:flex;align-items:center">
+          Parcelas
+          <div class="fin2-inst-adj">
+            <button class="fin2-adj-btn" onclick="fin2AdjInstallments('${cid}',-1)" title="Remover parcela">−</button>
+            <span class="fin2-adj-count">${c.installments}</span>
+            <button class="fin2-adj-btn" onclick="fin2AdjInstallments('${cid}',+1)" title="Adicionar parcela">+</button>
+          </div>
+        </div>
+        <div class="fin2-installment-grid">${instHtml}</div>
+      </div>
+
+      <div class="fin2-dr-section">
+        <div class="fin2-dr-section-title">Controle</div>
+        <div class="fin2-dr-row">
+          <label>Status</label>
+          <select onchange="fin2SaveStatus('${cid}',this.value)">${statusOpts}</select>
+        </div>
+        <div class="fin2-prazo-row" style="margin-top:6px">
+          <div class="fin2-dr-row">
+            <label>Prazo Inicial</label>
+            <input type="date" value="${c.prazoInicial||''}" onchange="fin2SavePrazoInicial('${cid}',this.value)">
+          </div>
+          <div class="fin2-dr-row">
+            <label>Prazo Final</label>
+            <input type="date" value="${c.prazo||''}" onchange="fin2SavePrazo('${cid}',this.value)">
+          </div>
+        </div>
+      </div>
+
+      <div class="fin2-dr-section">
+        <div class="fin2-dr-section-title">Contrato</div>
+        <div class="fin2-drop-zone${c.contrato?' has-file':''}" id="fin2-dz-${cid}"
+          ondragover="event.preventDefault();this.classList.add('dragover')"
+          ondragleave="this.classList.remove('dragover')"
+          ondrop="fin2HandleDrop('${cid}',event);this.classList.remove('dragover')">
+          <input type="file" accept=".pdf,.doc,.docx,.jpg,.png" onchange="fin2HandleFileInput('${cid}',this)">
+          ${contratoLabel}
+        </div>
+      </div>
+
+      <div class="fin2-dr-section">
+        <div class="fin2-dr-section-title">Plano de Quitação</div>
+        <textarea class="fin2-notes" placeholder="Anote estratégia, contatos, datas de negociação..." onblur="fin2SaveNotes('${cid}',this.value)">${c.notes||''}</textarea>
+      </div>
+
+      <div class="fin2-dr-btns">
+        <button class="fin2-btn fin2-btn-pend${c.pendurada?' is-pend':''}" onclick="fin2TogglePendurada('${cid}')">
+          ⚑ ${c.pendurada?'Retirar Pendência':'Marcar Pendurada'}
+        </button>
+        <button class="fin2-btn fin2-btn-remove" onclick="fin2RemoveDebt('${cid}')">
+          ✕ Remover
+        </button>
+      </div>
+
+    </div><!-- /fin2-drawer-main -->
+
+    <!-- ── Coluna amortização ── -->
+    <div class="fin2-amort-panel">
+      <h5>Amortização</h5>
+      <table class="fin2-amort-table">
+        <thead><tr><th>#</th><th>Parcela</th><th>Antecipação</th><th>Quitação</th></tr></thead>
+        <tbody>${amortRows}</tbody>
+      </table>
     </div>
 
-    <div class="fin2-dr-kpis">
-      <div class="fin2-dr-kpi">
-        <span class="fin2-dr-kpi-label">R$/mês</span>
-        <span class="fin2-dr-kpi-val">R$${c.monthly.toLocaleString('pt-BR')}</span>
-      </div>
-      <div class="fin2-dr-kpi">
-        <span class="fin2-dr-kpi-label">Saldo</span>
-        <span class="fin2-dr-kpi-val red">R$${c.saldo.toLocaleString('pt-BR')}</span>
-      </div>
-      <div class="fin2-dr-kpi">
-        <span class="fin2-dr-kpi-label">Oferta Alvo</span>
-        <span class="fin2-dr-kpi-val green">${c.oferta>0?'R$'+c.oferta.toLocaleString('pt-BR'):'—'}</span>
-      </div>
-      <div class="fin2-dr-kpi">
-        <span class="fin2-dr-kpi-label">Desconto</span>
-        <span class="fin2-dr-kpi-val green">${desconto>0?desconto+'%':'—'}</span>
-      </div>
-      <div class="fin2-dr-kpi">
-        <span class="fin2-dr-kpi-label">Parcelas</span>
-        <span class="fin2-dr-kpi-val">${c.paid}/${c.installments}</span>
-      </div>
-      <div class="fin2-dr-kpi">
-        <span class="fin2-dr-kpi-label">Restantes</span>
-        <span class="fin2-dr-kpi-val ${restantes>6?'red':''}">${restantes}</span>
-      </div>
-    </div>
-
-    <div class="fin2-dr-section">
-      <div class="fin2-dr-section-title">Parcelas</div>
-      <div class="fin2-installment-grid">${instHtml}</div>
-    </div>
-
-    <div class="fin2-dr-section">
-      <div class="fin2-dr-section-title">Controle</div>
-      <div class="fin2-dr-row">
-        <label>Status</label>
-        <select onchange="fin2SaveStatus('${cid}',this.value)">${statusOpts}</select>
-      </div>
-      <div class="fin2-dr-row" style="margin-top:6px">
-        <label>Prazo Final</label>
-        <input type="date" value="${c.prazo||''}" onchange="fin2SavePrazo('${cid}',this.value)">
-      </div>
-    </div>
-
-    <div class="fin2-dr-section">
-      <div class="fin2-dr-section-title">Plano de Quitação</div>
-      <textarea class="fin2-notes" placeholder="Anote estratégia, contatos, datas de negociação..." onblur="fin2SaveNotes('${cid}',this.value)">${c.notes||''}</textarea>
-    </div>
-
-    <div class="fin2-dr-btns">
-      <button class="fin2-btn fin2-btn-pend${c.pendurada?' is-pend':''}" onclick="fin2TogglePendurada('${cid}')">
-        ⚑ ${c.pendurada?'Retirar Pendência':'Marcar Pendurada'}
-      </button>
-      <button class="fin2-btn fin2-btn-remove" onclick="fin2RemoveDebt('${cid}')">
-        ✕ Remover
-      </button>
-    </div>
+  </div><!-- /fin2-drawer-inner -->
   `;
 };
 
@@ -11094,6 +11485,75 @@ window.fin2SavePrazo = function(cid, val) {
   if (c) c.prazo = val;
 };
 
+window.fin2SavePrazoInicial = function(cid, val) {
+  const c = FIN2_CREDITORS.find(x=>x.id===cid);
+  if (c) c.prazoInicial = val;
+};
+
+window.fin2AdjInstallments = function(cid, delta) {
+  const c = FIN2_CREDITORS.find(x=>x.id===cid);
+  if (!c) return;
+  const next = Math.max(c.paid, c.installments + delta);
+  if (next < 1) return;
+  c.installments = next;
+  fin2OpenDrawer(cid);
+};
+
+window.fin2HandleDrop = function(cid, event) {
+  event.preventDefault();
+  const file = event.dataTransfer.files[0];
+  if (!file) return;
+  fin2UploadContract(cid, file);
+};
+
+window.fin2HandleFileInput = function(cid, input) {
+  if (!input.files[0]) return;
+  fin2UploadContract(cid, input.files[0]);
+};
+
+window.fin2UploadContract = function(cid, file) {
+  const dz = document.getElementById('fin2-dz-'+cid);
+  if (dz) { dz.textContent = '⏳ Enviando...'; dz.style.pointerEvents = 'none'; }
+  const reader = new FileReader();
+  reader.onload = async function(e) {
+    try {
+      const res = await fetch('/api/fin/contract/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ creditorId: cid, fileName: file.name, fileData: e.target.result })
+      });
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error || 'Falha no upload');
+      fin2AttachContractUI(cid, file.name, data.path);
+    } catch(err) {
+      if (dz) { dz.textContent = '❌ Erro: ' + err.message; dz.style.pointerEvents = ''; }
+    }
+  };
+  reader.readAsDataURL(file);
+};
+
+window.fin2AttachContractUI = function(cid, fileName, filePath) {
+  const c = FIN2_CREDITORS.find(x=>x.id===cid);
+  if (c) c.contrato = fileName;
+  const dz = document.getElementById('fin2-dz-'+cid);
+  if (dz) {
+    dz.classList.add('has-file');
+    dz.style.pointerEvents = '';
+    dz.innerHTML = `<input type="file" accept=".pdf,.doc,.docx,.jpg,.png" onchange="fin2HandleFileInput('${cid}',this)">📎 ${fileName} <a href="/${filePath}" target="_blank" style="color:#c9a84c;margin-left:8px;font-size:9px">abrir</a>`;
+  }
+};
+
+window.fin2LoadContractsFromServer = async function() {
+  try {
+    const res = await fetch('/api/fin/contracts');
+    const data = await res.json();
+    (data.contracts || []).forEach(ct => {
+      const c = FIN2_CREDITORS.find(x=>x.id===ct.creditorId);
+      if (c && !c.contrato) c.contrato = ct.fileName;
+    });
+  } catch(e) {}
+};
+
 window.fin2TogglePendurada = function(cid) {
   const c = FIN2_CREDITORS.find(x=>x.id===cid);
   if (!c) return;
@@ -11119,9 +11579,84 @@ window.renderFinancas = function() {
   fin2Switch('dividas');
 };
 
+/* ─────────── PAINEL DE CONTRATOS NO MASTER (clone section) ─────────── */
+window.fin2BuildContractsPanelHtml = function(contracts) {
+  const byCreditor = {};
+  contracts.forEach(ct => {
+    if (!byCreditor[ct.creditorId]) byCreditor[ct.creditorId] = [];
+    byCreditor[ct.creditorId].push(ct);
+  });
+  const creditorName = id => {
+    const c = FIN2_CREDITORS.find(x=>x.id===id);
+    return c ? c.name : id;
+  };
+  const rows = contracts.length === 0
+    ? '<p style="color:#4a5275;font-size:11px;padding:12px">Nenhum contrato anexado ainda. Use o drawer da aba Finanças AI para enviar.</p>'
+    : Object.entries(byCreditor).map(([cid, cts]) =>
+        `<div style="margin-bottom:12px">
+          <div style="font-size:10px;font-weight:700;color:#c9a84c;margin-bottom:4px">${creditorName(cid)}</div>
+          ${cts.map(ct => `<div style="display:flex;align-items:center;gap:8px;padding:5px 8px;background:#111525;border-radius:5px;margin-bottom:4px">
+            <span style="font-size:18px">📎</span>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:10px;color:#e2e6ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${ct.fileName}</div>
+              <div style="font-size:9px;color:#4a5275">${ct.uploadedAt ? new Date(ct.uploadedAt).toLocaleDateString('pt-BR') : ''}</div>
+            </div>
+            <a href="/${ct.path}" target="_blank" style="font-size:9px;color:#c9a84c;text-decoration:none;flex-shrink:0">Abrir</a>
+            <button onclick="fin2DeleteContract('${ct.creditorId}','${ct.fileName}')" style="background:none;border:none;color:#4a5275;cursor:pointer;font-size:12px;padding:2px" title="Remover">✕</button>
+          </div>`).join('')}
+        </div>`
+      ).join('');
+  return `<div id="fin2-contracts-in-clone" style="grid-column:1/-1;background:#0d111f;border:1px solid #1e2540;border-radius:10px;padding:16px;margin-bottom:12px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div>
+        <div style="font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#c9a84c">Contratos Vinculados</div>
+        <div style="font-size:10px;color:#4a5275;margin-top:2px">${contracts.length} arquivo(s) — compartilhados com o clone @financas-debt-analyst</div>
+      </div>
+      <button onclick="fin2SwitchToDebtDrawer()" style="background:#141829;border:1px solid #2a3050;border-radius:6px;color:#7a8099;font-size:9px;font-weight:700;padding:5px 10px;cursor:pointer;letter-spacing:.06em;text-transform:uppercase">
+        Abrir Aba Dívidas
+      </button>
+    </div>
+    <div>${rows}</div>
+  </div>`;
+};
+
+window.fin2InjectContractsPanel = async function() {
+  if (window.MASTER_PROJECT !== 'financas' || window.MASTER_VIEW !== 'clones') return;
+  const canvas = document.getElementById('master-project-canvas');
+  if (!canvas) return;
+  if (canvas.querySelector('#fin2-contracts-in-clone')) return;
+  try {
+    const res = await fetch('/api/fin/contracts');
+    const data = await res.json();
+    canvas.insertAdjacentHTML('afterbegin', fin2BuildContractsPanelHtml(data.contracts || []));
+  } catch(e) {}
+};
+
+window.fin2DeleteContract = async function(creditorId, fileName) {
+  if (!confirm(`Remover "${fileName}"?`)) return;
+  try {
+    await fetch('/api/fin/contract/delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ creditorId, fileName })
+    });
+    const c = FIN2_CREDITORS.find(x=>x.id===creditorId);
+    if (c && c.contrato === fileName) c.contrato = null;
+    fin2InjectContractsPanel();
+    const panel = document.getElementById('fin2-contracts-in-clone');
+    if (panel) panel.remove();
+    fin2InjectContractsPanel();
+  } catch(e) {}
+};
+
+window.fin2SwitchToDebtDrawer = function() {
+  if (typeof switchTab === 'function') switchTab('financas');
+  setTimeout(() => fin2Switch('dividas'), 100);
+};
+
 /* ─────────── INIT ─────────── */
 document.addEventListener('DOMContentLoaded', function(){
-  // nothing on load — panels render on demand
+  fin2LoadContractsFromServer();
 });
 
 })();
