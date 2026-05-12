@@ -3315,10 +3315,16 @@ const server = http.createServer(async (req, res) => {
 
     try {
         if (pathname === '/' || pathname === '/dashboard') {
-            res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-            res.setHeader('Pragma', 'no-cache');
-            res.setHeader('Expires', '0');
-            return sendText(res, fs.readFileSync(path.join(DOCS_DIR, 'aiox_dashboard.html'), 'utf8'), 'text/html');
+            const html = fs.readFileSync(path.join(DOCS_DIR, 'aiox_dashboard.html'), 'utf8');
+            res.writeHead(200, {
+                'Content-Type': 'text/html; charset=utf-8',
+                'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0',
+                'Access-Control-Allow-Origin': '*'
+            });
+            res.end(html);
+            return;
         }
 
         if (pathname === '/api/registry' && req.method === 'GET') return sendJson(res, ensureControlJson('registry.json', {}));

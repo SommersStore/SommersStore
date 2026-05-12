@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-05-09T04:43:52-03:00
+- updated_at: 2026-05-12T16:11:32-03:00
 
 ## Handoff Atual - Dashboard Stability & UX
 - timestamp: 2026-04-27
@@ -41,7 +41,24 @@
 - validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/` confirmaram renderizacao da aba Financas com 7 KPIs, 12 nos, 12 conexoes, detalhe lateral e filtro `Pressao`.
 - proxima_acao: alimentar credores, gastos reais, propostas e documentos para o mapa deixar de operar com divida consolidada e passar a simular acordos reais.
 
+## Handoff Atual - Pajero Fichas Tecnicas
+- timestamp: 2026-05-10T22:34:43-03:00
+- objetivo: anexar fichas tecnicas rastreaveis aos clones Pajero sem liberar conclusoes sem fonte.
+- acao: story 2.20 concluida; criadas 8 fichas em `Pajero/manuals/fichas-tecnicas/`, anexadas aos 12 clones em `docs/control/persona_materials.json` e aos agentes em `Pajero/data/squad-roster.json`.
+- validacao: `npm run lint`, `npm run typecheck` e `npm test`.
+- proxima_acao: obter/confirmar manual oficial do mercado correto, submodelo exato do V5A51, EPC por VIN e fontes OEM antes de liberar torque, fluido, capacidade, peca ou procedimento.
+
 ## Ultimo fechamento
+- timestamp: 2026-05-12T16:11:32-03:00
+- tipo: usuario
+- resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- proxima_acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- checkpoint: CHK-MEM-0493
+- timestamp: 2026-05-12T14:30:32-03:00
+- tipo: usuario
+- resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- proxima_acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- checkpoint: CHK-MEM-0492
 - timestamp: 2026-05-09T04:43:52-03:00
 - tipo: usuario
 - resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
@@ -79,6 +96,461 @@
 - checkpoint: CHK-MEM-0250
 
 ## Ultimo fechamento automatico
+- timestamp: 2026-05-12T14:24:54-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0491
+- timestamp: 2026-05-12T12:27:12-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0490
+- timestamp: 2026-05-12T12:14:22-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0489
+- timestamp: 2026-05-12T12:07:34-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0488
+- timestamp: 2026-05-12T11:56:33-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0487
+- timestamp: 2026-05-12T11:45:09-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0486
+- timestamp: 2026-05-12T11:43:13-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0485
+- timestamp: 2026-05-12T11:41:25-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0484
+- timestamp: 2026-05-12T11:30:53-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0483
+- timestamp: 2026-05-12T11:29:41-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0482
+- timestamp: 2026-05-12T11:29:27-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0481
+- timestamp: 2026-05-12T11:23:13-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0480
+- timestamp: 2026-05-12T01:16:35-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0479
+- timestamp: 2026-05-12T01:16:34-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0478
+- timestamp: 2026-05-12T01:13:32-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0477
+- timestamp: 2026-05-12T01:03:23-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0476
+- timestamp: 2026-05-12T00:45:51-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0475
+- timestamp: 2026-05-12T00:38:07-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0474
+- timestamp: 2026-05-12T00:37:40-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0473
+- timestamp: 2026-05-12T00:11:46-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0472
+- timestamp: 2026-05-12T00:09:17-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0471
+- timestamp: 2026-05-12T00:07:35-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0470
+- timestamp: 2026-05-12T00:03:11-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0469
+- timestamp: 2026-05-12T00:00:42-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0468
+- timestamp: 2026-05-11T23:58:36-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0467
+- timestamp: 2026-05-11T23:56:09-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0466
+- timestamp: 2026-05-11T23:54:17-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0465
+- timestamp: 2026-05-11T23:49:11-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0464
+- timestamp: 2026-05-11T23:48:06-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0463
+- timestamp: 2026-05-11T23:46:50-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0462
+- timestamp: 2026-05-11T23:45:10-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0461
+- timestamp: 2026-05-11T23:24:50-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0460
+- timestamp: 2026-05-11T23:24:49-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0459
+- timestamp: 2026-05-11T23:23:09-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0458
+- timestamp: 2026-05-11T23:22:19-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0457
+- timestamp: 2026-05-11T23:21:24-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0456
+- timestamp: 2026-05-11T23:20:40-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0455
+- timestamp: 2026-05-11T23:19:19-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0454
+- timestamp: 2026-05-11T23:15:24-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0453
+- timestamp: 2026-05-11T23:13:45-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0452
+- timestamp: 2026-05-11T23:10:44-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0451
+- timestamp: 2026-05-11T23:10:43-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0450
+- timestamp: 2026-05-11T23:09:23-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0449
+- timestamp: 2026-05-11T23:05:28-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0448
+- timestamp: 2026-05-11T23:05:08-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0447
+- timestamp: 2026-05-11T23:01:50-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0446
+- timestamp: 2026-05-11T23:01:06-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0445
+- timestamp: 2026-05-11T22:51:02-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0444
+- timestamp: 2026-05-11T22:49:40-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0443
+- timestamp: 2026-05-11T22:43:16-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0442
+- timestamp: 2026-05-11T22:37:11-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0441
+- timestamp: 2026-05-11T22:36:25-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0440
+- timestamp: 2026-05-11T22:34:06-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0439
+- timestamp: 2026-05-11T22:34:05-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0438
+- timestamp: 2026-05-11T22:26:46-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0437
+- timestamp: 2026-05-11T22:13:20-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0436
+- timestamp: 2026-05-11T22:02:50-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0435
+- timestamp: 2026-05-11T18:51:10-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0434
+- timestamp: 2026-05-11T06:55:18-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0433
+- timestamp: 2026-05-11T06:47:07-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0432
+- timestamp: 2026-05-11T05:56:48-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0431
+- timestamp: 2026-05-11T05:23:14-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0430
+- timestamp: 2026-05-11T04:57:54-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0429
+- timestamp: 2026-05-11T02:19:46-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0428
+- timestamp: 2026-05-11T02:01:27-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0427
+- timestamp: 2026-05-11T01:56:29-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0426
+- timestamp: 2026-05-11T01:54:02-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0425
+- timestamp: 2026-05-11T01:51:58-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0424
+- timestamp: 2026-05-11T01:50:10-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0423
+- timestamp: 2026-05-11T01:44:07-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0422
+- timestamp: 2026-05-11T01:37:19-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0421
+- timestamp: 2026-05-11T01:33:42-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0420
+- timestamp: 2026-05-11T00:55:49-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0419
+- timestamp: 2026-05-11T00:52:56-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0418
+- timestamp: 2026-05-11T00:50:18-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0417
+- timestamp: 2026-05-11T00:47:36-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0416
+- timestamp: 2026-05-11T00:36:04-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0415
+- timestamp: 2026-05-10T23:18:18-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0414
+- timestamp: 2026-05-10T23:15:17-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0413
+- timestamp: 2026-05-10T21:47:20-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0412
+- timestamp: 2026-05-09T21:05:18-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0411
+- timestamp: 2026-05-09T21:02:35-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0410
+- timestamp: 2026-05-09T20:29:29-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0409
+- timestamp: 2026-05-09T16:03:55-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0408
+- timestamp: 2026-05-09T15:57:34-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0407
+- timestamp: 2026-05-09T06:22:52-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0406
+- timestamp: 2026-05-09T06:10:46-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0405
+- timestamp: 2026-05-09T06:10:36-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0404
+- timestamp: 2026-05-09T06:04:10-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0403
+- timestamp: 2026-05-09T05:40:11-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0402
+- timestamp: 2026-05-09T04:59:51-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0401
 - timestamp: 2026-05-09T04:41:28-03:00
 - tipo: automatico
 - resumo: Encerramento automatico (fechamento de aba/janela).

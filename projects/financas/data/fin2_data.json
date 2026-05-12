@@ -1,0 +1,723 @@
+{
+  "sheet": {
+    "year": 2026,
+    "receitas": [
+      {
+        "id": "pm",
+        "label": "Pagamento PM",
+        "values": [
+          6257,
+          6257,
+          6257,
+          6257,
+          6257,
+          6257,
+          6257,
+          6257,
+          6257,
+          6257,
+          6257,
+          6257
+        ]
+      },
+      {
+        "id": "uber",
+        "label": "UBER",
+        "values": [
+          5000,
+          5000,
+          5000,
+          5000,
+          5000,
+          5000,
+          5000,
+          5000,
+          5000,
+          5000,
+          5000,
+          5000
+        ]
+      },
+      {
+        "id": "outros",
+        "label": "Outros / Bônus",
+        "values": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "despesas": [
+      {
+        "id": "mercado",
+        "label": "Mercado",
+        "values": [
+          1800,
+          1800,
+          1800,
+          1800,
+          1800,
+          1800,
+          1800,
+          1800,
+          1800,
+          1800,
+          1800,
+          1800
+        ]
+      },
+      {
+        "id": "celularpj",
+        "label": "Celular PJ",
+        "values": [
+          112,
+          112,
+          112,
+          112,
+          112,
+          112,
+          112,
+          112,
+          112,
+          112,
+          112,
+          112
+        ]
+      },
+      {
+        "id": "celularpf",
+        "label": "Celular PF",
+        "values": [
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45
+        ]
+      },
+      {
+        "id": "luzgas",
+        "label": "Luz + Gás",
+        "values": [
+          470,
+          470,
+          350,
+          350,
+          350,
+          350,
+          350,
+          350,
+          350,
+          350,
+          350,
+          350
+        ]
+      },
+      {
+        "id": "net",
+        "label": "Net",
+        "values": [
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100
+        ]
+      },
+      {
+        "id": "semparar",
+        "label": "SemParar PJ",
+        "values": [
+          50,
+          50,
+          50,
+          50,
+          50,
+          50,
+          50,
+          50,
+          50,
+          50,
+          50,
+          50
+        ]
+      }
+    ],
+    "dividas": [
+      {
+        "id": "brad1",
+        "label": "Bradesco",
+        "cid": "d-brad1",
+        "values": [
+          1138,
+          1138,
+          1138,
+          1138,
+          1138,
+          1138,
+          1138,
+          1138,
+          1138,
+          1138,
+          1138,
+          1138
+        ]
+      },
+      {
+        "id": "brad2",
+        "label": "Bradesco",
+        "cid": "d-brad2",
+        "values": [
+          469,
+          469,
+          469,
+          469,
+          469,
+          469,
+          469,
+          469,
+          469,
+          469,
+          469,
+          469
+        ]
+      },
+      {
+        "id": "brad3",
+        "label": "Bradesco",
+        "cid": "d-brad3",
+        "values": [
+          53,
+          53,
+          53,
+          53,
+          53,
+          53,
+          53,
+          53,
+          53,
+          53,
+          53,
+          53
+        ]
+      },
+      {
+        "id": "eagle",
+        "label": "EAGLE",
+        "cid": "d-eagle",
+        "values": [
+          950,
+          950,
+          950,
+          950,
+          950,
+          950,
+          950,
+          950,
+          950,
+          950,
+          950,
+          950
+        ]
+      },
+      {
+        "id": "nucnpj",
+        "label": "M.C. Nu PJ",
+        "cid": "d-nucnpj",
+        "values": [
+          2500,
+          2500,
+          2500,
+          2500,
+          2500,
+          2500,
+          2500,
+          2500,
+          2500,
+          2500,
+          2500,
+          2500
+        ]
+      },
+      {
+        "id": "bmg",
+        "label": "BMG",
+        "cid": "d-bmg",
+        "values": [
+          303,
+          303,
+          303,
+          303,
+          303,
+          303,
+          303,
+          303,
+          303,
+          303,
+          303,
+          303
+        ]
+      },
+      {
+        "id": "safra",
+        "label": "Safra",
+        "cid": "d-safra",
+        "values": [
+          156,
+          156,
+          156,
+          156,
+          156,
+          156,
+          156,
+          156,
+          156,
+          156,
+          156,
+          156
+        ]
+      },
+      {
+        "id": "seguro",
+        "label": "Seguro",
+        "cid": "d-seguro",
+        "values": [
+          360,
+          360,
+          360,
+          360,
+          360,
+          360,
+          360,
+          360,
+          360,
+          360,
+          360,
+          360
+        ]
+      },
+      {
+        "id": "dayco1",
+        "label": "Daycoval",
+        "cid": "d-dayco1",
+        "values": [
+          208,
+          208,
+          208,
+          208,
+          208,
+          208,
+          208,
+          208,
+          208,
+          208,
+          208,
+          208
+        ]
+      },
+      {
+        "id": "dayco2",
+        "label": "Daycoval",
+        "cid": "d-dayco2",
+        "values": [
+          34,
+          34,
+          34,
+          34,
+          34,
+          34,
+          34,
+          34,
+          34,
+          34,
+          34,
+          34
+        ]
+      },
+      {
+        "id": "sant",
+        "label": "Santander",
+        "cid": "d-sant",
+        "values": [
+          83,
+          83,
+          83,
+          83,
+          83,
+          83,
+          83,
+          83,
+          83,
+          83,
+          83,
+          83
+        ]
+      },
+      {
+        "id": "horto",
+        "label": "Horto",
+        "cid": "d-horto",
+        "values": [
+          2800,
+          2800,
+          2800,
+          2800,
+          2800,
+          2800,
+          2800,
+          2800,
+          2800,
+          2800,
+          2800,
+          2800
+        ]
+      },
+      {
+        "id": "mamud",
+        "label": "Mamud",
+        "cid": "d-mamud",
+        "values": [
+          2600,
+          2600,
+          2600,
+          2600,
+          2600,
+          2600,
+          2600,
+          2600,
+          2600,
+          2600,
+          2600,
+          2600
+        ]
+      },
+      {
+        "id": "patric",
+        "label": "Patrícia*",
+        "cid": "d-patric",
+        "values": [
+          4200,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "rose",
+        "label": "Rose",
+        "cid": "d-rose",
+        "values": [
+          1400,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "lion",
+        "label": "Lion",
+        "cid": "d-lion",
+        "values": [
+          3800,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "creditors": [
+    {
+      "id": "d-brad1",
+      "name": "Bradesco",
+      "monthly": 1138,
+      "installments": 58,
+      "paid": 0,
+      "saldo": 66004,
+      "oferta": 19801,
+      "prazo": "",
+      "priority": "alta",
+      "status": "mapear",
+      "notes": "",
+      "pendurada": false,
+      "prazoInicial": "",
+      "contrato": null
+    },
+    {
+      "id": "d-brad2",
+      "name": "Bradesco",
+      "monthly": 469,
+      "installments": 26,
+      "paid": 0,
+      "saldo": 12194,
+      "oferta": 3658,
+      "prazo": "",
+      "priority": "media",
+      "status": "mapear",
+      "notes": "",
+      "pendurada": false,
+      "prazoInicial": "",
+      "contrato": null
+    },
+    {
+      "id": "d-brad3",
+      "name": "Bradesco",
+      "monthly": 53,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 636,
+      "oferta": 200,
+      "prazo": "",
+      "priority": "baixa",
+      "status": "mapear",
+      "notes": "",
+      "pendurada": false
+    },
+    {
+      "id": "d-eagle",
+      "name": "EAGLE",
+      "monthly": 950,
+      "installments": 24,
+      "paid": 0,
+      "saldo": 22800,
+      "oferta": 6840,
+      "prazo": "",
+      "priority": "alta",
+      "status": "mapear",
+      "notes": "",
+      "pendurada": false
+    },
+    {
+      "id": "d-nucnpj",
+      "name": "M.C. Nu PJ",
+      "monthly": 2500,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 30000,
+      "oferta": 9000,
+      "prazo": "",
+      "priority": "alta",
+      "status": "mapear",
+      "notes": "",
+      "pendurada": false
+    },
+    {
+      "id": "d-bmg",
+      "name": "BMG",
+      "monthly": 303,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 3636,
+      "oferta": 1090,
+      "prazo": "",
+      "priority": "media",
+      "status": "mapear",
+      "notes": "",
+      "pendurada": false
+    },
+    {
+      "id": "d-safra",
+      "name": "Safra",
+      "monthly": 156,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 1872,
+      "oferta": 562,
+      "prazo": "",
+      "priority": "baixa",
+      "status": "mapear",
+      "notes": "",
+      "pendurada": false
+    },
+    {
+      "id": "d-seguro",
+      "name": "Seguro",
+      "monthly": 360,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 4320,
+      "oferta": 0,
+      "prazo": "",
+      "priority": "media",
+      "status": "ativo",
+      "notes": "Seguro veículo",
+      "pendurada": false
+    },
+    {
+      "id": "d-dayco1",
+      "name": "Daycoval",
+      "monthly": 208,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 2496,
+      "oferta": 748,
+      "prazo": "",
+      "priority": "media",
+      "status": "mapear",
+      "notes": "",
+      "pendurada": false
+    },
+    {
+      "id": "d-dayco2",
+      "name": "Daycoval",
+      "monthly": 34,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 408,
+      "oferta": 122,
+      "prazo": "",
+      "priority": "baixa",
+      "status": "mapear",
+      "notes": "",
+      "pendurada": false
+    },
+    {
+      "id": "d-sant",
+      "name": "Santander",
+      "monthly": 83,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 996,
+      "oferta": 299,
+      "prazo": "",
+      "priority": "baixa",
+      "status": "mapear",
+      "notes": "",
+      "pendurada": false
+    },
+    {
+      "id": "d-horto",
+      "name": "Horto",
+      "monthly": 2800,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 33600,
+      "oferta": 10080,
+      "prazo": "",
+      "priority": "alta",
+      "status": "mapear",
+      "notes": "",
+      "pendurada": false
+    },
+    {
+      "id": "d-mamud",
+      "name": "Mamud",
+      "monthly": 2600,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 31200,
+      "oferta": 9360,
+      "prazo": "",
+      "priority": "alta",
+      "status": "mapear",
+      "notes": "",
+      "pendurada": false,
+      "prazoInicial": "",
+      "contrato": null
+    },
+    {
+      "id": "d-patric",
+      "name": "Patrícia*",
+      "monthly": 4200,
+      "installments": 1,
+      "paid": 0,
+      "saldo": 4200,
+      "oferta": 3000,
+      "prazo": "",
+      "priority": "alta",
+      "status": "mapear",
+      "notes": "Jan/26 apenas",
+      "pendurada": false,
+      "prazoInicial": "",
+      "contrato": null
+    },
+    {
+      "id": "d-rose",
+      "name": "Rose",
+      "monthly": 1400,
+      "installments": 1,
+      "paid": 0,
+      "saldo": 1400,
+      "oferta": 1000,
+      "prazo": "",
+      "priority": "media",
+      "status": "mapear",
+      "notes": "Jan/26 apenas",
+      "pendurada": false,
+      "prazoInicial": "",
+      "contrato": null
+    },
+    {
+      "id": "d-lion",
+      "name": "Lion",
+      "monthly": 3800,
+      "installments": 1,
+      "paid": 0,
+      "saldo": 3800,
+      "oferta": 2500,
+      "prazo": "",
+      "priority": "alta",
+      "status": "mapear",
+      "notes": "Jan/26 apenas",
+      "pendurada": false,
+      "prazoInicial": "",
+      "contrato": null
+    }
+  ],
+  "ir": {
+    "ano": 2025,
+    "rendimentos": [],
+    "isentos": [],
+    "deducoes": [],
+    "bens": [],
+    "pagamentos": []
+  }
+}

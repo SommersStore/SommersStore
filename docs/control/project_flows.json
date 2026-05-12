@@ -681,6 +681,113 @@
           "edit_path": "Pajero/relatorios/relatorio-inicial.md"
         }
       ]
+    },
+    "imposto-de-renda": {
+      "label": "Imposto de Renda",
+      "description": "Organizacao e declaracao do IRPF ano-calendario 2025, exercicio 2026.",
+      "construcao": [
+        {
+          "id": "IR-01",
+          "nome": "Intake Documental",
+          "squad": "SQD-CORE",
+          "status": "em_execucao",
+          "resumo": "Reunir informes de rendimento, extratos, recibos, contratos e documentos de bens.",
+          "entrega": "Inventario de documentos por categoria",
+          "entrega_para": "IR-02",
+          "depends_on": [],
+          "metric_main": "Documentos reunidos vs pendentes"
+        },
+        {
+          "id": "IR-02",
+          "nome": "Classificacao de Rendimentos",
+          "squad": "SQD-CORE",
+          "status": "nao_iniciado",
+          "resumo": "Classificar rendimentos por natureza: tributaveis, isentos, exclusivos na fonte.",
+          "entrega": "Mapa de rendimentos classificados",
+          "entrega_para": "IR-03",
+          "depends_on": ["IR-01"],
+          "metric_main": "Fontes classificadas"
+        },
+        {
+          "id": "IR-03",
+          "nome": "Inventario Patrimonial",
+          "squad": "SQD-CORE",
+          "status": "nao_iniciado",
+          "resumo": "Inventariar bens, direitos, dividas e onus em 31/12/2024 e 31/12/2025.",
+          "entrega": "Posicao patrimonial completa",
+          "entrega_para": "IR-04",
+          "depends_on": ["IR-01"],
+          "metric_main": "Bens e dividas declarados"
+        },
+        {
+          "id": "IR-04",
+          "nome": "Levantamento de Deducoes",
+          "squad": "SQD-QRO",
+          "status": "nao_iniciado",
+          "resumo": "Identificar todas as deducoes legais com comprovante: saude, educacao, previdencia, dependentes.",
+          "entrega": "Total de deducoes aplicaveis",
+          "entrega_para": "IR-05",
+          "depends_on": ["IR-02"],
+          "metric_main": "Deducoes documentadas"
+        },
+        {
+          "id": "IR-05",
+          "nome": "Simulacao de Regime",
+          "squad": "SQD-ENG",
+          "status": "nao_iniciado",
+          "resumo": "Comparar declaracao simplificada vs completa e calcular restituicao ou saldo a pagar.",
+          "entrega": "Regime recomendado e simulacao",
+          "entrega_para": "IR-06",
+          "depends_on": ["IR-03", "IR-04"],
+          "metric_main": "Economia calculada"
+        },
+        {
+          "id": "IR-06",
+          "nome": "Revisao e Transmissao",
+          "squad": "SQD-QRO",
+          "status": "nao_iniciado",
+          "resumo": "Validar consistencia, revisar com profissional e transmitir a declaracao.",
+          "entrega": "Recibo de entrega",
+          "entrega_para": "Acompanhamento",
+          "depends_on": ["IR-05"],
+          "metric_main": "Declaracao transmitida"
+        }
+      ],
+      "vendas": [
+        {
+          "id": "IRP-01",
+          "nome": "Checklist de Documentos",
+          "squad": "SQD-CORE",
+          "status": "em_execucao",
+          "resumo": "Rastrear cada documento necessario por categoria com status de coleta.",
+          "entrega": "Checklist atualizado",
+          "entrega_para": "IRP-02",
+          "depends_on": [],
+          "metric_main": "Percentual de documentos reunidos"
+        },
+        {
+          "id": "IRP-02",
+          "nome": "Preenchimento PGD",
+          "squad": "SQD-ENG",
+          "status": "nao_iniciado",
+          "resumo": "Preencher a declaracao no programa ou online da Receita Federal.",
+          "entrega": "Declaracao preenchida",
+          "entrega_para": "IRP-03",
+          "depends_on": ["IR-05", "IRP-01"],
+          "metric_main": "Fichas preenchidas"
+        },
+        {
+          "id": "IRP-03",
+          "nome": "Acompanhamento Pos-Entrega",
+          "squad": "SQD-QRO",
+          "status": "nao_iniciado",
+          "resumo": "Monitorar processamento no e-CAC, lotes de restituicao e necessidade de retificacao.",
+          "entrega": "Status final da declaracao",
+          "entrega_para": "Usuario",
+          "depends_on": ["IR-06"],
+          "metric_main": "Processamento confirmado"
+        }
+      ]
     }
   }
 }

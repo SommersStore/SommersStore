@@ -1,0 +1,29 @@
+{
+  "project": "Financas",
+  "updated_at": "2026-05-11",
+  "standard": {
+    "primary_rule": "Cada agente Financas usa um clone tecnico primario proprio.",
+    "process_material_rule": "Context packet e clone entram como full_transcript_files para liberar Extrair, Auditar e Harmonizar.",
+    "support_rule": "Planilha, drawer e dados financeiros ficam como support_files; skills, agents e squad manifest ficam fora dos anexos diretos.",
+    "global_clone_rule": "Clones globais podem orientar metodo, mas nao podem ser usados como fonte contratual."
+  },
+  "global_reference_clones": [
+    {
+      "id": "prs-alan-nicolas",
+      "use": "orquestracao logica, mecanismo, pipeline e decisao"
+    },
+    {
+      "id": "nectar-auditor",
+      "use": "auditoria de qualidade antes da harmonizacao"
+    }
+  ],
+  "assignments": [
+    {
+      "agent_id": "AGT-FIN-01",
+      "agent_handle": "@financas-debt-analyst",
+      "primary_clone": "prs-financas-debt-contract-analyzer",
+      "reference_clones": ["prs-alan-nicolas", "nectar-auditor"],
+      "focus": "extracao contratual, auditoria de clausulas, simulacao de quitacao e suporte a negociacao"
+    }
+  ]
+}

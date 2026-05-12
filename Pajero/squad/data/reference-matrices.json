@@ -54,5 +54,83 @@
     "uso_no_squad": "Execucao passo a passo, fotos, ferramentas, seguranca basica e clareza para usuario.",
     "fonte": "https://www.chris-fix.com/index.html",
     "status": "fonte_publica_verificada"
+  },
+  {
+    "id": "mmna-techinfo-official-service-portal",
+    "nome": "Mitsubishi Motors North America Service Information Retrieval",
+    "tipo": "fonte oficial / portal tecnico",
+    "uso_no_squad": "Manual oficial, TSBs, OBD-II, MUT-II e documentos tecnicos mediante acesso; prioridade maxima para validacao.",
+    "fonte": "https://www.mitsubishitechinfo.com/epacarb/svcoverview.jsp",
+    "status": "fonte_oficial_confirmada_conteudo_por_assinatura",
+    "ficha": "Pajero/manuals/fichas-tecnicas/ficha-00-fonte-oficial-mmna-techinfo.md",
+    "clones_consumidores": [
+      "Pajero/manuals/fichas-tecnicas/ficha-00-fonte-oficial-mmna-techinfo.md",
+      "Pajero/manuals/fichas-tecnicas/ficha-01-v77w-identificacao-especificacoes-base.md",
+      "Pajero/manuals/fichas-tecnicas/ficha-02-6g75-motor-manutencao.md",
+      "Pajero/manuals/fichas-tecnicas/ficha-03-v5a51-transmissao-transfer.md",
+      "Pajero/manuals/fichas-tecnicas/ficha-04-atf-nivel-v5a51.md",
+      "Pajero/manuals/fichas-tecnicas/ficha-05-super-select-active-trac.md",
+      "Pajero/manuals/fichas-tecnicas/ficha-06-fluidos-arrefecimento-freios.md",
+      "Pajero/manuals/fichas-tecnicas/ficha-07-vin-nhtsa-limitacao.md"
+    ]
+  },
+  {
+    "id": "mmna-2004-montero-technical-highlights",
+    "nome": "2004 Mitsubishi Montero Technical Highlights",
+    "tipo": "fonte oficial publica / especificacao de arquitetura",
+    "uso_no_squad": "Motor 3.8 V6 SOHC, transmissao automatica 5 marchas e ActiveTrac como referencia oficial de Montero EUA.",
+    "fonte": "https://media.mitsubishicars.com/en-US/releases/release-c36e252c038ba2ca88e72b784b06fbf3-2004-mitsubishi-montero-technical-highlights",
+    "status": "oficial_publica_aplicabilidade_pendente_mercado",
+    "ficha": "Pajero/manuals/fichas-tecnicas/ficha-01-v77w-identificacao-especificacoes-base.md",
+    "clones_consumidores": [
+      "prs-pajero-pajero-chief-diagnostician",
+      "prs-pajero-oem-technical-librarian",
+      "prs-pajero-super-select-drivetrain-specialist",
+      "prs-pajero-transmission-v5a51-specialist"
+    ]
+  },
+  {
+    "id": "manualzz-montero-v77w-service-mirror",
+    "nome": "Mitsubishi Montero V77W Service Manual mirror",
+    "tipo": "espelho publico de conteudo OEM",
+    "uso_no_squad": "Triagem de secoes V77W/6G75/V5A51, ATF, arrefecimento e freios; nao confirma sozinho torque, fluido ou procedimento.",
+    "fonte": "https://manualzz.com/doc/6353578/mitsubishi-montero-v77wlyhvl2m-3m--v77wlyxvl2m-3m-vehicle...",
+    "status": "pendente_validacao_origem_e_aplicabilidade",
+    "ficha": "Pajero/manuals/fichas-tecnicas/ficha-01-v77w-identificacao-especificacoes-base.md",
+    "clones_consumidores": [
+      "prs-pajero-oem-technical-librarian",
+      "prs-pajero-evidence-anti-hallucination-auditor",
+      "prs-pajero-engine-6g75-practical-mechanic",
+      "prs-pajero-transmission-v5a51-specialist",
+      "prs-pajero-brake-road-safety-inspector"
+    ]
+  },
+  {
+    "id": "v5a51-service-manual-sample",
+    "nome": "Mitsubishi Automatic Transmission 5A51 Service Manual sample",
+    "tipo": "amostra tecnica de manual de transmissao",
+    "uso_no_squad": "Arquitetura V5A51, componentes hidraulicos e nomenclatura; validar submodelo V77W antes de aplicar valores.",
+    "fonte": "https://manualplace.com/lib/mitsubishi-automatic-transmission-5a51-service-manual-sample.pdf",
+    "status": "pendente_validacao_submodelo_v77w",
+    "ficha": "Pajero/manuals/fichas-tecnicas/ficha-03-v5a51-transmissao-transfer.md",
+    "clones_consumidores": [
+      "prs-pajero-transmission-v5a51-specialist",
+      "prs-pajero-oem-technical-librarian",
+      "prs-pajero-evidence-anti-hallucination-auditor"
+    ]
+  },
+  {
+    "id": "nhtsa-vpic-vin-limitation",
+    "nome": "NHTSA vPIC Decode VIN - limitacao para VIN importado",
+    "tipo": "fonte governamental / auditoria de identificacao",
+    "uso_no_squad": "Registrar que o VIN informado nao deve ser validado como veiculo de mercado EUA na base NHTSA.",
+    "fonte": "https://vpic.nhtsa.dot.gov/api/Home/Index",
+    "status": "consulta_executada_com_erro_de_decodificacao",
+    "ficha": "Pajero/manuals/fichas-tecnicas/ficha-07-vin-nhtsa-limitacao.md",
+    "clones_consumidores": [
+      "prs-pajero-evidence-anti-hallucination-auditor",
+      "prs-pajero-oem-technical-librarian",
+      "prs-pajero-pajero-chief-diagnostician"
+    ]
   }
 ]

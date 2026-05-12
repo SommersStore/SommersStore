@@ -347,6 +347,56 @@
       "agents": []
     },
     {
+      "id": "SQD-FIN",
+      "name": "FINANÇAS GESTÃO & ANÁLISE",
+      "color": "#c9a84c",
+      "icon": "dollar-sign",
+      "mission": "Gerenciar o fluxo de caixa, analisar contratos de dívida, suportar negociações com credores e alimentar a planilha financeira do painel AIOX.",
+      "tag": "FINANCAS",
+      "inputs": [
+        "Contratos de dívida (PDF/imagem)",
+        "Planilha financeira 2026",
+        "Dados de credores"
+      ],
+      "outputs": [
+        "Ficha de extração de contrato",
+        "Simulação de quitação antecipada",
+        "Classificação de cláusulas de risco",
+        "Recomendação de ação"
+      ],
+      "agents": [
+        "AGT-FIN-01"
+      ]
+    },
+    {
+      "id": "SQD-IR",
+      "name": "IMPOSTO DE RENDA & COMPLIANCE TRIBUTÁRIO",
+      "color": "#818cf8",
+      "icon": "file-text",
+      "mission": "Organizar, analisar e resolver situações tributárias do IRPF — incluindo malha fina, retificações, planejamento fiscal e análise de documentos dos últimos 5 anos-calendário.",
+      "tag": "FINANCAS",
+      "inputs": [
+        "Informes de rendimentos (todas as fontes)",
+        "Comprovantes de deduções (saúde, educação, previdência)",
+        "Notificações e intimações da Receita Federal",
+        "Declarações DIRPF anteriores (.dec ou PDF)",
+        "Extratos bancários e de investimentos",
+        "Documentos de bens imóveis e veículos",
+        "Recibos médicos, dentários e hospitalares",
+        "Comprovantes de doações, pensão alimentícia"
+      ],
+      "outputs": [
+        "Diagnóstico de malha fina por ano-calendário",
+        "Declaração retificadora estruturada",
+        "Relatório de deduções otimizadas",
+        "Plano de regularização tributária",
+        "Checklist de documentos faltantes por ano",
+        "Cálculo de multas e juros por atraso",
+        "Comparativo modelo completo vs simplificado"
+      ],
+      "agents": ["AGT-IR-01"]
+    },
+    {
       "id": "SQD-PAJERO",
       "name": "PAJERO TECHNICAL DIAGNOSTICS",
       "color": "#f97316",
@@ -591,6 +641,22 @@
       "squad": "SQD-MEM",
       "role": "Cronista e preservação de dados.",
       "icon": "📜"
+    },
+    {
+      "id": "AGT-FIN-01",
+      "name": "Debt Contract Analyzer",
+      "handle": "@financas-debt-analyst",
+      "squad": "SQD-FIN",
+      "role": "Analisa contratos de dívida, extrai cláusulas críticas, calcula quitação antecipada e suporta negociação com credores.",
+      "icon": "💰"
+    },
+    {
+      "id": "AGT-IR-01",
+      "name": "IR Declaração Specialist",
+      "handle": "@ir-declaracao-specialist",
+      "squad": "SQD-IR",
+      "role": "Especialista em IRPF, malha fina e retificações. Analisa documentos fiscais, identifica inconsistências entre anos, estrutura declarações retificadoras e planeja a regularização tributária dos últimos 5 anos.",
+      "icon": "📋"
     },
     {
       "id": "AGT-PAJERO-01",
@@ -2292,6 +2358,39 @@
       "agents": [
         "@dev",
         "@architect"
+      ]
+    },
+    {
+      "id": "prs-financas-debt-contract-analyzer",
+      "icon": "💰",
+      "name": "Debt Contract Analyzer",
+      "role": "Persona financeira - Analisa contratos de dívida, extrai cláusulas críticas, valida condições e suporta negociação e quitação antecipada.",
+      "traits": [
+        "financas",
+        "contratos",
+        "negociacao"
+      ],
+      "bio": "Especialista operacional do projeto Finanças SommersStore. Atua com foco em extração e auditoria de contratos de dívida, cálculo de quitação antecipada e classificação de risco de cláusulas contratuais.",
+      "agents": [
+        "@financas-debt-analyst"
+      ]
+    },
+    {
+      "id": "prs-ir-declaracao-specialist",
+      "icon": "📋",
+      "name": "IR Declaração Specialist",
+      "role": "Especialista em IRPF e malha fina — analisa inconsistências entre declarações e documentos, estrutura retificações e planeja a regularização tributária de múltiplos anos.",
+      "traits": [
+        "irpf",
+        "malha-fina",
+        "retificacao",
+        "planejamento-fiscal",
+        "documentos-tributarios",
+        "receita-federal"
+      ],
+      "bio": "Especialista em Imposto de Renda Pessoa Física com domínio completo das regras da Receita Federal brasileira. Trabalha com análise sistemática de malha fina, retificações de múltiplos anos-calendário, interpretação de informes de rendimentos, deduções legais, bens e direitos, rendimentos isentos e tributáveis. Identifica a causa raiz de pendências tributárias e estrutura o caminho de regularização mais seguro, evitando multas adicionais. Conhece tabelas progressivas IRPF de 2019 a 2024, limites de deduções por ano, regras de dependentes, e o processo completo de regularização via e-CAC.",
+      "agents": [
+        "@ir-declaracao-specialist"
       ]
     },
     {

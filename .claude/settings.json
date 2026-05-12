@@ -19,12 +19,25 @@
       "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('OK - localId:', d.get\\('localId','?'\\)\\) if 'localId' in d else print\\('ERRO:', d.get\\('error',{}\\).get\\('message','?'\\)\\)\")",
       "Bash(node -e ' *)",
       "Bash(tasklist /fi \"imagename eq node.exe\")",
-      "Bash(powershell -Command \"Get-Process -Name node -ErrorAction SilentlyContinue | Select-Object Id, CPU, WorkingSet, StartTime\")"
+      "Bash(powershell -Command \"Get-Process -Name node -ErrorAction SilentlyContinue | Select-Object Id, CPU, WorkingSet, StartTime\")",
+      "Read(//c/Users/ADMIN/Area-de-Trabalho/**)",
+      "Read(//c/Users/ADMIN//**)",
+      "Bash(powershell -Command \"node 'c:/Users/ADMIN/.gemini/antigravity/scratch/SommersStore/tests/quality/master_hub.test.cjs' 2>&1 | Select-Object -Last 5\")",
+      "Read(//c/Users/ADMIN/**)",
+      "Bash(node ecac_check.js)",
+      "Bash(echo \"Script iniciado em background — PID: $!\")",
+      "Bash(node -e \"const p = require\\('playwright'\\); console.log\\('ok', Object.keys\\(p\\)\\);\")",
+      "Bash(node ecac.js)",
+      "Bash(echo \"PID=$!\")"
     ],
     "deny": [
       "Bash(git push --force:*)",
       "Bash(gh pr create:*)",
       "Bash(gh pr merge:*)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\ADMIN\\.gemini\\antigravity\\scratch\\SommersStore\\projects\\loja-digital\\out_deploy\\downloads",
+      "C:\\Users\\ADMIN\\Desktop"
     ]
   },
   "language": "portuguese"

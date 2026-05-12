@@ -27,8 +27,33 @@
 - [ ] Evoluir projeto Financas com pesquisa juridica, simulacoes e intake real das dividas
 - [/] Alimentar o painel Financas com credores, gastos reais, propostas e documentos
 - [ ] Modularizar HTML do painel (P2 auditoria)
+- [x] Anexar fichas tecnicas do projeto Pajero aos clones corretos
+- [x] Criar projeto Imposto de Renda inicial com brief, funil, estado e checklist
+- [ ] Alimentar projeto IR com informes de rendimento e documentos reais
+- [ ] Integrar aba IR no painel AIOX Dashboard
 
 ## Done in this session
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Checkpoint: CHK-MEM-0493
+
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Checkpoint: CHK-MEM-0492
+
+- [x] Story 2.21 concluida: projeto Imposto de Renda criado com todos os artefatos iniciais.
+- [x] Criados `projects/imposto-de-renda/`: README, brief, funil operacional (10 etapas), estado JSON e checklist de documentos.
+- [x] Registrado projeto `imposto-de-renda` em `docs/control/project_flows.json` com 6 fases de construcao e 3 de operacao.
+- [x] Story 2.21 aberta em `docs/stories/2.21.story.md`.
+
+- [x] Story 2.20 concluida: fichas tecnicas Pajero criadas e anexadas aos 12 clones corretos.
+- [x] Criadas 8 fichas em `Pajero/manuals/fichas-tecnicas/` com fonte, status, aplicabilidade e clones consumidores.
+- [x] Atualizados `docs/control/persona_materials.json`, `Pajero/data/squad-roster.json` e `Pajero/squad/data/reference-matrices.json`.
+- [x] Fontes pendentes da Pajero reconciliadas sem liberar torque, fluido, capacidade, peca ou procedimento sem validacao oficial.
+- [x] Validacao concluida: `npm run lint`, `npm run typecheck` e `npm test`.
+
 - [x] Sessao encerrada pelo usuario.
 - [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
 - [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
@@ -95,4 +120,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-05-09T04:43:52-03:00
+- updated_at: 2026-05-12T16:11:32-03:00

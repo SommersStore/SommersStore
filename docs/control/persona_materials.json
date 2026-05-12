@@ -146,147 +146,402 @@
       "support_files": []
     },
     {
-      "persona_id": "prs-pajero-pajero-chief-diagnostician",
-      "clone_file": "knowledge/clones/pajero/pajero-chief-diagnostician_clone.md",
+      "persona_id": "prs-financas-debt-contract-analyzer",
+      "clone_file": null,
+      "transcript_files": [],
+      "full_transcript_files": [],
+      "book_files": [],
+      "support_files": []
+    },
+    {
+      "persona_id": "prs-ir-declaracao-specialist",
+      "clone_file": "knowledge/clones/ir/ir-declaracao-specialist_clone.md",
       "transcript_files": [],
       "full_transcript_files": [],
       "book_files": [],
       "support_files": [
-        "Pajero/squad/personas/pajero-chief-diagnostician.md",
-        "Pajero/squad/agents/pajero-chief-diagnostician.md",
-        "Pajero/squad/squad-pajero-v77w.md"
+        "knowledge/clones/ir/checklist-documentos-irpf.md"
+      ]
+    },
+    {
+      "persona_id": "prs-pajero-pajero-chief-diagnostician",
+      "clone_file": "knowledge/clones/pajero/pajero-chief-diagnostician_clone.md",
+      "transcript_files": [],
+      "full_transcript_files": [
+        "knowledge/clones/pajero/source_materials/pajero-clone-technical-corpus.md",
+        "knowledge/clones/pajero/context_packets/pajero-chief-diagnostician_context_packet.md"
+      ],
+      "book_files": [],
+      "support_files": [
+        "Pajero/docs/matriz-clones-agentes.md",
+        "Pajero/data/clone-agent-map.json",
+        "Pajero/docs/dossie-tecnico-veiculo.md",
+        "Pajero/docs/regras-antialucinacao.md",
+        "Pajero/docs/diagnostico-sintomas-atuais.md",
+        "Pajero/docs/fontes-tecnicas-pendentes.md",
+        "Pajero/docs/plano-de-revisao.md",
+        "Pajero/docs/fluxograma-diagnostico.md",
+        "Pajero/data/vehicle-profile.json",
+        "Pajero/data/symptoms.json",
+        "Pajero/data/revision-modules.json",
+        "Pajero/data/diagnostic-status.json",
+        "Pajero/data/image-manifest.json",
+        "Pajero/01_DIAGNOSTICO_INICIAL/checklist-diagnostico-inicial.md",
+        "Pajero/relatorios/relatorio-inicial.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-00-fonte-oficial-mmna-techinfo.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-01-v77w-identificacao-especificacoes-base.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-02-6g75-motor-manutencao.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-03-v5a51-transmissao-transfer.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-04-atf-nivel-v5a51.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-05-super-select-active-trac.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-06-fluidos-arrefecimento-freios.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-07-vin-nhtsa-limitacao.md"
       ]
     },
     {
       "persona_id": "prs-pajero-oem-technical-librarian",
       "clone_file": "knowledge/clones/pajero/oem-technical-librarian_clone.md",
       "transcript_files": [],
-      "full_transcript_files": [],
+      "full_transcript_files": [
+        "knowledge/clones/pajero/source_materials/pajero-clone-technical-corpus.md",
+        "knowledge/clones/pajero/context_packets/oem-technical-librarian_context_packet.md"
+      ],
       "book_files": [],
       "support_files": [
-        "Pajero/squad/personas/oem-technical-librarian.md",
-        "Pajero/squad/agents/oem-technical-librarian.md",
-        "Pajero/squad/squad-pajero-v77w.md"
+        "Pajero/docs/matriz-clones-agentes.md",
+        "Pajero/data/clone-agent-map.json",
+        "Pajero/docs/dossie-tecnico-veiculo.md",
+        "Pajero/docs/regras-antialucinacao.md",
+        "Pajero/docs/diagnostico-sintomas-atuais.md",
+        "Pajero/docs/fontes-tecnicas-pendentes.md",
+        "Pajero/docs/plano-de-revisao.md",
+        "Pajero/docs/fluxograma-diagnostico.md",
+        "Pajero/data/vehicle-profile.json",
+        "Pajero/data/symptoms.json",
+        "Pajero/data/revision-modules.json",
+        "Pajero/data/diagnostic-status.json",
+        "Pajero/data/image-manifest.json",
+        "Pajero/manuals/README.md",
+        "Pajero/manuals/manual-servico/README.md",
+        "Pajero/manuals/manual-proprietario/README.md",
+        "Pajero/manuals/manual-cambio-v5a51/README.md",
+        "Pajero/manuals/tabelas-fluidos-torques/README.md",
+        "Pajero/squad/data/reference-matrices.json",
+        "Pajero/manuals/fichas-tecnicas/ficha-00-fonte-oficial-mmna-techinfo.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-01-v77w-identificacao-especificacoes-base.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-02-6g75-motor-manutencao.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-03-v5a51-transmissao-transfer.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-04-atf-nivel-v5a51.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-05-super-select-active-trac.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-06-fluidos-arrefecimento-freios.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-07-vin-nhtsa-limitacao.md"
       ]
     },
     {
       "persona_id": "prs-pajero-evidence-anti-hallucination-auditor",
       "clone_file": "knowledge/clones/pajero/evidence-anti-hallucination-auditor_clone.md",
       "transcript_files": [],
-      "full_transcript_files": [],
+      "full_transcript_files": [
+        "knowledge/clones/pajero/source_materials/pajero-clone-technical-corpus.md",
+        "knowledge/clones/pajero/context_packets/evidence-anti-hallucination-auditor_context_packet.md"
+      ],
       "book_files": [],
       "support_files": [
-        "Pajero/squad/personas/evidence-anti-hallucination-auditor.md",
-        "Pajero/squad/agents/evidence-anti-hallucination-auditor.md",
-        "Pajero/squad/squad-pajero-v77w.md"
+        "Pajero/docs/matriz-clones-agentes.md",
+        "Pajero/data/clone-agent-map.json",
+        "Pajero/docs/dossie-tecnico-veiculo.md",
+        "Pajero/docs/regras-antialucinacao.md",
+        "Pajero/docs/diagnostico-sintomas-atuais.md",
+        "Pajero/docs/fontes-tecnicas-pendentes.md",
+        "Pajero/docs/plano-de-revisao.md",
+        "Pajero/docs/fluxograma-diagnostico.md",
+        "Pajero/data/vehicle-profile.json",
+        "Pajero/data/symptoms.json",
+        "Pajero/data/revision-modules.json",
+        "Pajero/data/diagnostic-status.json",
+        "Pajero/data/image-manifest.json",
+        "Pajero/squad/qa-gates/gate-diagnostico-inicial.md",
+        "Pajero/squad/qa-gates/gate-fonte-torque-fluido.md",
+        "Pajero/squad/qa-gates/gate-cambio-v5a51.md",
+        "Pajero/squad/qa-gates/gate-rodagem-seguranca.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-00-fonte-oficial-mmna-techinfo.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-01-v77w-identificacao-especificacoes-base.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-02-6g75-motor-manutencao.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-03-v5a51-transmissao-transfer.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-04-atf-nivel-v5a51.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-05-super-select-active-trac.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-06-fluidos-arrefecimento-freios.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-07-vin-nhtsa-limitacao.md"
       ]
     },
     {
       "persona_id": "prs-pajero-combustion-fuel-trim-engineer",
       "clone_file": "knowledge/clones/pajero/combustion-fuel-trim-engineer_clone.md",
       "transcript_files": [],
-      "full_transcript_files": [],
+      "full_transcript_files": [
+        "knowledge/clones/pajero/source_materials/pajero-clone-technical-corpus.md",
+        "knowledge/clones/pajero/context_packets/combustion-fuel-trim-engineer_context_packet.md"
+      ],
       "book_files": [],
       "support_files": [
-        "Pajero/squad/personas/combustion-fuel-trim-engineer.md",
-        "Pajero/squad/agents/combustion-fuel-trim-engineer.md",
-        "Pajero/squad/squad-pajero-v77w.md"
+        "Pajero/docs/matriz-clones-agentes.md",
+        "Pajero/data/clone-agent-map.json",
+        "Pajero/docs/dossie-tecnico-veiculo.md",
+        "Pajero/docs/regras-antialucinacao.md",
+        "Pajero/docs/diagnostico-sintomas-atuais.md",
+        "Pajero/docs/fontes-tecnicas-pendentes.md",
+        "Pajero/docs/plano-de-revisao.md",
+        "Pajero/docs/fluxograma-diagnostico.md",
+        "Pajero/data/vehicle-profile.json",
+        "Pajero/data/symptoms.json",
+        "Pajero/data/revision-modules.json",
+        "Pajero/data/diagnostic-status.json",
+        "Pajero/data/image-manifest.json",
+        "Pajero/04_ADMISSAO_IGNICAO_INJECAO/checklist-admissao-ignicao-injecao.md",
+        "Pajero/02_MOTOR_6G75/checklist-motor-6g75.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-01-v77w-identificacao-especificacoes-base.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-02-6g75-motor-manutencao.md"
       ]
     },
     {
       "persona_id": "prs-pajero-driveability-electronics-diagnostician",
       "clone_file": "knowledge/clones/pajero/driveability-electronics-diagnostician_clone.md",
       "transcript_files": [],
-      "full_transcript_files": [],
+      "full_transcript_files": [
+        "knowledge/clones/pajero/source_materials/pajero-clone-technical-corpus.md",
+        "knowledge/clones/pajero/context_packets/driveability-electronics-diagnostician_context_packet.md"
+      ],
       "book_files": [],
       "support_files": [
-        "Pajero/squad/personas/driveability-electronics-diagnostician.md",
-        "Pajero/squad/agents/driveability-electronics-diagnostician.md",
-        "Pajero/squad/squad-pajero-v77w.md"
+        "Pajero/docs/matriz-clones-agentes.md",
+        "Pajero/data/clone-agent-map.json",
+        "Pajero/docs/dossie-tecnico-veiculo.md",
+        "Pajero/docs/regras-antialucinacao.md",
+        "Pajero/docs/diagnostico-sintomas-atuais.md",
+        "Pajero/docs/fontes-tecnicas-pendentes.md",
+        "Pajero/docs/plano-de-revisao.md",
+        "Pajero/docs/fluxograma-diagnostico.md",
+        "Pajero/data/vehicle-profile.json",
+        "Pajero/data/symptoms.json",
+        "Pajero/data/revision-modules.json",
+        "Pajero/data/diagnostic-status.json",
+        "Pajero/data/image-manifest.json",
+        "Pajero/01_DIAGNOSTICO_INICIAL/checklist-diagnostico-inicial.md",
+        "Pajero/11_ELETRICA_SENSORES_CONFORTO/checklist-eletrica-sensores-conforto.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-00-fonte-oficial-mmna-techinfo.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-01-v77w-identificacao-especificacoes-base.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-02-6g75-motor-manutencao.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-03-v5a51-transmissao-transfer.md"
       ]
     },
     {
       "persona_id": "prs-pajero-engine-6g75-practical-mechanic",
       "clone_file": "knowledge/clones/pajero/engine-6g75-practical-mechanic_clone.md",
       "transcript_files": [],
-      "full_transcript_files": [],
+      "full_transcript_files": [
+        "knowledge/clones/pajero/source_materials/pajero-clone-technical-corpus.md",
+        "knowledge/clones/pajero/context_packets/engine-6g75-practical-mechanic_context_packet.md"
+      ],
       "book_files": [],
       "support_files": [
-        "Pajero/squad/personas/engine-6g75-practical-mechanic.md",
-        "Pajero/squad/agents/engine-6g75-practical-mechanic.md",
-        "Pajero/squad/squad-pajero-v77w.md"
+        "Pajero/docs/matriz-clones-agentes.md",
+        "Pajero/data/clone-agent-map.json",
+        "Pajero/docs/dossie-tecnico-veiculo.md",
+        "Pajero/docs/regras-antialucinacao.md",
+        "Pajero/docs/diagnostico-sintomas-atuais.md",
+        "Pajero/docs/fontes-tecnicas-pendentes.md",
+        "Pajero/docs/plano-de-revisao.md",
+        "Pajero/docs/fluxograma-diagnostico.md",
+        "Pajero/data/vehicle-profile.json",
+        "Pajero/data/symptoms.json",
+        "Pajero/data/revision-modules.json",
+        "Pajero/data/diagnostic-status.json",
+        "Pajero/data/image-manifest.json",
+        "Pajero/02_MOTOR_6G75/checklist-motor-6g75.md",
+        "Pajero/03_ARREFECIMENTO/checklist-arrefecimento.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-02-6g75-motor-manutencao.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-06-fluidos-arrefecimento-freios.md"
       ]
     },
     {
       "persona_id": "prs-pajero-transmission-v5a51-specialist",
       "clone_file": "knowledge/clones/pajero/transmission-v5a51-specialist_clone.md",
       "transcript_files": [],
-      "full_transcript_files": [],
+      "full_transcript_files": [
+        "knowledge/clones/pajero/source_materials/pajero-clone-technical-corpus.md",
+        "knowledge/clones/pajero/context_packets/transmission-v5a51-specialist_context_packet.md"
+      ],
       "book_files": [],
       "support_files": [
-        "Pajero/squad/personas/transmission-v5a51-specialist.md",
-        "Pajero/squad/agents/transmission-v5a51-specialist.md",
-        "Pajero/squad/squad-pajero-v77w.md"
+        "Pajero/docs/matriz-clones-agentes.md",
+        "Pajero/data/clone-agent-map.json",
+        "Pajero/docs/dossie-tecnico-veiculo.md",
+        "Pajero/docs/regras-antialucinacao.md",
+        "Pajero/docs/diagnostico-sintomas-atuais.md",
+        "Pajero/docs/fontes-tecnicas-pendentes.md",
+        "Pajero/docs/plano-de-revisao.md",
+        "Pajero/docs/fluxograma-diagnostico.md",
+        "Pajero/data/vehicle-profile.json",
+        "Pajero/data/symptoms.json",
+        "Pajero/data/revision-modules.json",
+        "Pajero/data/diagnostic-status.json",
+        "Pajero/data/image-manifest.json",
+        "Pajero/05_CAMBIO_V5A51/checklist-cambio-v5a51.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-03-v5a51-transmissao-transfer.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-04-atf-nivel-v5a51.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-05-super-select-active-trac.md"
       ]
     },
     {
       "persona_id": "prs-pajero-super-select-drivetrain-specialist",
       "clone_file": "knowledge/clones/pajero/super-select-drivetrain-specialist_clone.md",
       "transcript_files": [],
-      "full_transcript_files": [],
+      "full_transcript_files": [
+        "knowledge/clones/pajero/source_materials/pajero-clone-technical-corpus.md",
+        "knowledge/clones/pajero/context_packets/super-select-drivetrain-specialist_context_packet.md"
+      ],
       "book_files": [],
       "support_files": [
-        "Pajero/squad/personas/super-select-drivetrain-specialist.md",
-        "Pajero/squad/agents/super-select-drivetrain-specialist.md",
-        "Pajero/squad/squad-pajero-v77w.md"
+        "Pajero/docs/matriz-clones-agentes.md",
+        "Pajero/data/clone-agent-map.json",
+        "Pajero/docs/dossie-tecnico-veiculo.md",
+        "Pajero/docs/regras-antialucinacao.md",
+        "Pajero/docs/diagnostico-sintomas-atuais.md",
+        "Pajero/docs/fontes-tecnicas-pendentes.md",
+        "Pajero/docs/plano-de-revisao.md",
+        "Pajero/docs/fluxograma-diagnostico.md",
+        "Pajero/data/vehicle-profile.json",
+        "Pajero/data/symptoms.json",
+        "Pajero/data/revision-modules.json",
+        "Pajero/data/diagnostic-status.json",
+        "Pajero/data/image-manifest.json",
+        "Pajero/06_CAIXA_TRANSFERENCIA_SUPER_SELECT/checklist-transfer.md",
+        "Pajero/07_DIFERENCIAIS/checklist-diferenciais.md",
+        "Pajero/08_CARDANS_HOMOCINETICAS_SEMIEIXOS/checklist-cardans-homocineticas-semieixos.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-03-v5a51-transmissao-transfer.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-05-super-select-active-trac.md"
       ]
     },
     {
       "persona_id": "prs-pajero-suspension-hydraulic-steering-engineer",
       "clone_file": "knowledge/clones/pajero/suspension-hydraulic-steering-engineer_clone.md",
       "transcript_files": [],
-      "full_transcript_files": [],
+      "full_transcript_files": [
+        "knowledge/clones/pajero/source_materials/pajero-clone-technical-corpus.md",
+        "knowledge/clones/pajero/context_packets/suspension-hydraulic-steering-engineer_context_packet.md"
+      ],
       "book_files": [],
       "support_files": [
-        "Pajero/squad/personas/suspension-hydraulic-steering-engineer.md",
-        "Pajero/squad/agents/suspension-hydraulic-steering-engineer.md",
-        "Pajero/squad/squad-pajero-v77w.md"
+        "Pajero/docs/matriz-clones-agentes.md",
+        "Pajero/data/clone-agent-map.json",
+        "Pajero/docs/dossie-tecnico-veiculo.md",
+        "Pajero/docs/regras-antialucinacao.md",
+        "Pajero/docs/diagnostico-sintomas-atuais.md",
+        "Pajero/docs/fontes-tecnicas-pendentes.md",
+        "Pajero/docs/plano-de-revisao.md",
+        "Pajero/docs/fluxograma-diagnostico.md",
+        "Pajero/data/vehicle-profile.json",
+        "Pajero/data/symptoms.json",
+        "Pajero/data/revision-modules.json",
+        "Pajero/data/diagnostic-status.json",
+        "Pajero/data/image-manifest.json",
+        "Pajero/09_SUSPENSAO_DIRECAO/checklist-suspensao-direcao.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-06-fluidos-arrefecimento-freios.md"
       ]
     },
     {
       "persona_id": "prs-pajero-brake-road-safety-inspector",
       "clone_file": "knowledge/clones/pajero/brake-road-safety-inspector_clone.md",
       "transcript_files": [],
-      "full_transcript_files": [],
+      "full_transcript_files": [
+        "knowledge/clones/pajero/source_materials/pajero-clone-technical-corpus.md",
+        "knowledge/clones/pajero/context_packets/brake-road-safety-inspector_context_packet.md"
+      ],
       "book_files": [],
       "support_files": [
-        "Pajero/squad/personas/brake-road-safety-inspector.md",
-        "Pajero/squad/agents/brake-road-safety-inspector.md",
-        "Pajero/squad/squad-pajero-v77w.md"
+        "Pajero/docs/matriz-clones-agentes.md",
+        "Pajero/data/clone-agent-map.json",
+        "Pajero/docs/dossie-tecnico-veiculo.md",
+        "Pajero/docs/regras-antialucinacao.md",
+        "Pajero/docs/diagnostico-sintomas-atuais.md",
+        "Pajero/docs/fontes-tecnicas-pendentes.md",
+        "Pajero/docs/plano-de-revisao.md",
+        "Pajero/docs/fluxograma-diagnostico.md",
+        "Pajero/data/vehicle-profile.json",
+        "Pajero/data/symptoms.json",
+        "Pajero/data/revision-modules.json",
+        "Pajero/data/diagnostic-status.json",
+        "Pajero/data/image-manifest.json",
+        "Pajero/10_FREIOS_RODAS_ROLAMENTOS/checklist-freios-rodas-rolamentos.md",
+        "Pajero/13_TESTE_FINAL_POS_REVISAO/checklist-teste-final-pos-revisao.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-05-super-select-active-trac.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-06-fluidos-arrefecimento-freios.md"
       ]
     },
     {
       "persona_id": "prs-pajero-visual-teardown-mapper",
       "clone_file": "knowledge/clones/pajero/visual-teardown-mapper_clone.md",
       "transcript_files": [],
-      "full_transcript_files": [],
+      "full_transcript_files": [
+        "knowledge/clones/pajero/source_materials/pajero-clone-technical-corpus.md",
+        "knowledge/clones/pajero/context_packets/visual-teardown-mapper_context_packet.md"
+      ],
       "book_files": [],
       "support_files": [
-        "Pajero/squad/personas/visual-teardown-mapper.md",
-        "Pajero/squad/agents/visual-teardown-mapper.md",
-        "Pajero/squad/squad-pajero-v77w.md"
+        "Pajero/docs/matriz-clones-agentes.md",
+        "Pajero/data/clone-agent-map.json",
+        "Pajero/docs/dossie-tecnico-veiculo.md",
+        "Pajero/docs/regras-antialucinacao.md",
+        "Pajero/docs/diagnostico-sintomas-atuais.md",
+        "Pajero/docs/fontes-tecnicas-pendentes.md",
+        "Pajero/docs/plano-de-revisao.md",
+        "Pajero/docs/fluxograma-diagnostico.md",
+        "Pajero/data/vehicle-profile.json",
+        "Pajero/data/symptoms.json",
+        "Pajero/data/revision-modules.json",
+        "Pajero/data/diagnostic-status.json",
+        "Pajero/data/image-manifest.json",
+        "Pajero/assets/imagens_reais/README.md",
+        "Pajero/templates/template-foto.md",
+        "Pajero/squad/templates/laudo-foto.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-01-v77w-identificacao-especificacoes-base.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-05-super-select-active-trac.md"
       ]
     },
     {
       "persona_id": "prs-pajero-work-order-parts-planner",
       "clone_file": "knowledge/clones/pajero/work-order-parts-planner_clone.md",
       "transcript_files": [],
-      "full_transcript_files": [],
+      "full_transcript_files": [
+        "knowledge/clones/pajero/source_materials/pajero-clone-technical-corpus.md",
+        "knowledge/clones/pajero/context_packets/work-order-parts-planner_context_packet.md"
+      ],
       "book_files": [],
       "support_files": [
-        "Pajero/squad/personas/work-order-parts-planner.md",
-        "Pajero/squad/agents/work-order-parts-planner.md",
-        "Pajero/squad/squad-pajero-v77w.md"
+        "Pajero/docs/matriz-clones-agentes.md",
+        "Pajero/data/clone-agent-map.json",
+        "Pajero/docs/dossie-tecnico-veiculo.md",
+        "Pajero/docs/regras-antialucinacao.md",
+        "Pajero/docs/diagnostico-sintomas-atuais.md",
+        "Pajero/docs/fontes-tecnicas-pendentes.md",
+        "Pajero/docs/plano-de-revisao.md",
+        "Pajero/docs/fluxograma-diagnostico.md",
+        "Pajero/data/vehicle-profile.json",
+        "Pajero/data/symptoms.json",
+        "Pajero/data/revision-modules.json",
+        "Pajero/data/diagnostic-status.json",
+        "Pajero/data/image-manifest.json",
+        "Pajero/squad/templates/ordem-servico.md",
+        "Pajero/squad/templates/parecer-diagnostico.md",
+        "Pajero/templates/template-peca.md",
+        "Pajero/relatorios/relatorio-inicial.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-00-fonte-oficial-mmna-techinfo.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-01-v77w-identificacao-especificacoes-base.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-02-6g75-motor-manutencao.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-03-v5a51-transmissao-transfer.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-04-atf-nivel-v5a51.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-06-fluidos-arrefecimento-freios.md",
+        "Pajero/manuals/fichas-tecnicas/ficha-07-vin-nhtsa-limitacao.md"
       ]
     }
   ]

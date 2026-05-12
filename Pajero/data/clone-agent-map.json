@@ -1,0 +1,118 @@
+{
+  "project": "Pajero",
+  "updated_at": "2026-05-09",
+  "standard": {
+    "primary_rule": "Cada agente Pajero usa um clone tecnico primario proprio.",
+    "process_material_rule": "Context packet e corpus tecnico entram como full_transcript_files para liberar Extrair, Auditar e Harmonizar.",
+    "support_rule": "Documentos, checklists e dados ficam como support_files; skills, agents, workflows e squad manifest ficam fora dos anexos diretos.",
+    "global_clone_rule": "Clones globais podem orientar metodo, mas nao podem ser usados como fonte mecanica."
+  },
+  "global_reference_clones": [
+    {
+      "id": "prs-alan-nicolas",
+      "use": "orquestracao logica, mecanismo, pipeline e decisao"
+    },
+    {
+      "id": "prs-enzo-barbatto",
+      "use": "automacao, ingestao de dados, app e fluxo operacional"
+    },
+    {
+      "id": "prs-russell-brunson",
+      "use": "clareza de etapas e estrutura de jornada, somente por analogia"
+    },
+    {
+      "id": "julian_art",
+      "use": "direcao visual do painel e atlas"
+    },
+    {
+      "id": "nectar-auditor",
+      "use": "auditoria de qualidade antes da harmonizacao"
+    }
+  ],
+  "assignments": [
+    {
+      "agent_id": "AGT-PAJERO-01",
+      "agent_handle": "@pajero-chief-diagnostician",
+      "primary_clone": "prs-pajero-pajero-chief-diagnostician",
+      "reference_clones": ["prs-alan-nicolas", "nectar-auditor"],
+      "focus": "prioridade, causa-raiz, dependencia e handoff"
+    },
+    {
+      "agent_id": "AGT-PAJERO-02",
+      "agent_handle": "@oem-technical-librarian",
+      "primary_clone": "prs-pajero-oem-technical-librarian",
+      "reference_clones": ["prs-enzo-barbatto", "nectar-auditor"],
+      "focus": "fontes, manuais, torques, fluidos e compatibilidade"
+    },
+    {
+      "agent_id": "AGT-PAJERO-03",
+      "agent_handle": "@evidence-anti-hallucination-auditor",
+      "primary_clone": "prs-pajero-evidence-anti-hallucination-auditor",
+      "reference_clones": ["nectar-auditor"],
+      "focus": "bloqueio de conclusoes sem fonte ou evidencia"
+    },
+    {
+      "agent_id": "AGT-PAJERO-04",
+      "agent_handle": "@combustion-fuel-trim-engineer",
+      "primary_clone": "prs-pajero-combustion-fuel-trim-engineer",
+      "reference_clones": ["prs-alan-nicolas"],
+      "focus": "consumo, marcha lenta, fuel trim, lambda e escape"
+    },
+    {
+      "agent_id": "AGT-PAJERO-05",
+      "agent_handle": "@driveability-electronics-diagnostician",
+      "primary_clone": "prs-pajero-driveability-electronics-diagnostician",
+      "reference_clones": ["prs-enzo-barbatto"],
+      "focus": "scanner, DTC, freeze frame, sensores e chicotes"
+    },
+    {
+      "agent_id": "AGT-PAJERO-06",
+      "agent_handle": "@engine-6g75-practical-mechanic",
+      "primary_clone": "prs-pajero-engine-6g75-practical-mechanic",
+      "reference_clones": ["nectar-auditor"],
+      "focus": "motor 6G75, correia, ignicao, compressao e arrefecimento"
+    },
+    {
+      "agent_id": "AGT-PAJERO-07",
+      "agent_handle": "@transmission-v5a51-specialist",
+      "primary_clone": "prs-pajero-transmission-v5a51-specialist",
+      "reference_clones": ["nectar-auditor"],
+      "focus": "V5A51, ATF, carter, limalha, solenoides e TCU"
+    },
+    {
+      "agent_id": "AGT-PAJERO-08",
+      "agent_handle": "@super-select-drivetrain-specialist",
+      "primary_clone": "prs-pajero-super-select-drivetrain-specialist",
+      "reference_clones": ["nectar-auditor"],
+      "focus": "Super Select, transfer, diferenciais, cardans e folgas"
+    },
+    {
+      "agent_id": "AGT-PAJERO-09",
+      "agent_handle": "@suspension-hydraulic-steering-engineer",
+      "primary_clone": "prs-pajero-suspension-hydraulic-steering-engineer",
+      "reference_clones": ["nectar-auditor"],
+      "focus": "suspensao, direcao hidraulica, geometria e pneus"
+    },
+    {
+      "agent_id": "AGT-PAJERO-10",
+      "agent_handle": "@brake-road-safety-inspector",
+      "primary_clone": "prs-pajero-brake-road-safety-inspector",
+      "reference_clones": ["nectar-auditor"],
+      "focus": "freios, pneus, rolamentos, ABS e gate de rodagem"
+    },
+    {
+      "agent_id": "AGT-PAJERO-11",
+      "agent_handle": "@visual-teardown-mapper",
+      "primary_clone": "prs-pajero-visual-teardown-mapper",
+      "reference_clones": ["julian_art", "prs-enzo-barbatto"],
+      "focus": "atlas visual, fotos reais, diagramas e legenda tecnica"
+    },
+    {
+      "agent_id": "AGT-PAJERO-12",
+      "agent_handle": "@work-order-parts-planner",
+      "primary_clone": "prs-pajero-work-order-parts-planner",
+      "reference_clones": ["prs-alan-nicolas", "prs-enzo-barbatto"],
+      "focus": "ordem de servico, BOM, insumos e validacao pos-servico"
+    }
+  ]
+}

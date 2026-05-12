@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Painel Anti-Gravity</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -90,12 +93,14 @@
         .vm-node.status-blocked     { animation: vm-pulse-red    1.5s ease-in-out infinite; }
         .vm-node.status-pending     { animation: vm-pulse-purple 2.5s ease-in-out infinite; }
         /* ── Formas extras (além do círculo) ── */
+        /* ── Novas classes de forma unificadas ── */
+        .vm-shape-circle { border-radius:50% !important; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; text-align:center !important; overflow:hidden !important; padding:8px !important; }
+        .vm-shape-square { border-radius:10px !important; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; text-align:center !important; overflow:hidden !important; padding:8px !important; }
+        .vm-shape-rect   { border-radius:8px !important; display:flex !important; flex-direction:column !important; align-items:flex-start !important; justify-content:center !important; overflow:hidden !important; padding:8px 10px !important; }
+        .vm-shape-mini   { border-radius:6px !important; display:flex !important; flex-direction:row !important; align-items:center !important; gap:6px !important; padding:0 8px !important; overflow:hidden !important; }
+        .vm-shape-pipeline { border-radius:10px !important; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; text-align:center !important; overflow:hidden !important; padding:10px !important; }
+        /* legado (mantido para compatibilidade) */
         .vm-shape { display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; text-align:center !important; padding:10px !important; overflow:hidden !important; }
-        .vm-node-square  { border-radius: 6px !important; }
-        .vm-node-rect    { border-radius: 6px !important; }
-        .vm-node-card    { border-radius: 18px !important; }
-        .vm-node-diamond { clip-path: polygon(50% 0%,100% 50%,50% 100%,0% 50%); border-radius:0 !important; }
-        .vm-node-hexagon { clip-path: polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0% 50%); border-radius:0 !important; }
         .vm-node-diamond:hover, .vm-node-hexagon:hover { transform: none !important; }
         .vm-filter-btn { padding: 3px 10px; border-radius: 999px; font-size: 7.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; border: 1px solid rgba(255,255,255,0.08); color: #6b7280; cursor: pointer; transition: all 0.18s; background: transparent; }
         .vm-filter-btn:hover { border-color: rgba(168,85,247,0.3); color: #a855f7; }
@@ -141,11 +146,11 @@
         .vm-prev-iframe-wrap { width: 248px; height: 138px; overflow: hidden; border-radius: 6px; background: #000; }
         .vm-prev-iframe-wrap iframe { width: 870px; height: 484px; border: none; transform: scale(0.285); transform-origin: top left; pointer-events: none; }
         /* === VM ENHANCED NODE TYPES === */
-        .vm-canvas { position: relative; width: 2400px; min-height: 860px; background-image: radial-gradient(rgba(255,255,255,0.022) 1px, transparent 0); background-size: 22px 22px; }
+        .vm-canvas { position: relative; width: 2400px; min-height: 860px; }
         .vm-lane-bg { position: absolute; top: 0; bottom: 0; border-right: 1px solid rgba(255,255,255,0.05); }
         .vm-lane-label { position: absolute; top: 152px; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(255,255,255,0.38); white-space: nowrap; text-shadow: 0 0 12px rgba(168,85,247,0.25); }
-        .vm-pipeline-bg { position: absolute; top: 0; left: 0; right: 0; height: 142px; background: linear-gradient(180deg, rgba(168,85,247,0.05) 0%, transparent 100%); border-bottom: 1px solid rgba(168,85,247,0.1); }
-        .vm-pipeline-label { position: absolute; top: 6px; left: 14px; font-size: 6.5px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(168,85,247,0.5); }
+        .vm-pipeline-bg { position: absolute; top: 0; left: 0; right: 0; height: 142px; background: linear-gradient(180deg, rgba(168,85,247,0.10) 0%, rgba(168,85,247,0.03) 60%, transparent 100%); border-bottom: 1px solid rgba(168,85,247,0.18); }
+        .vm-pipeline-label { position: absolute; top: 7px; left: 14px; font-size: 8px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.22em; color: rgba(168,85,247,0.75); text-shadow: 0 0 16px rgba(168,85,247,0.4); }
         /* circle source node */
         .vm-node-source { border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 10px 6px; }
         /* persona diamond */
@@ -315,6 +320,8 @@
         .finance-detail-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
         .finance-map-action { display: inline-flex; align-items: center; gap: 4px; padding: 5px 9px; border-radius: 7px; font-size: 8px; font-weight: 800; cursor: pointer; border: 1px solid rgba(16,185,129,0.28); color: #10b981; background: rgba(16,185,129,0.08); margin: 3px 3px 0 0; transition: all 0.15s; }
         .finance-map-action:hover { background: rgba(16,185,129,0.16); color: #fff; }
+        #finance-map-detail.open { width: 240px !important; }
+        .finance-filter-btn.active { background: rgba(255,255,255,0.12) !important; color: #fff !important; border-color: rgba(255,255,255,0.2) !important; }
         .finance-kpi-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; }
         .finance-kpi { background: rgba(0,0,0,0.24); border: 1px solid rgba(255,255,255,0.06); border-top: 2px solid var(--finance-accent, rgba(255,255,255,0.08)); border-radius: 8px; padding: 10px; min-width: 0; }
         .finance-kpi-label { font-size: 7px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.13em; font-weight: 900; }
@@ -1642,8 +1649,7 @@
                 <button class="vm-ebar-btn" onclick="vmImportJSON()">📥 Import</button>
                 <button class="vm-ebar-btn" onclick="vmExportJSON()">⬇ Export</button>
                 <div class="vm-ebar-sep"></div>
-                <button class="vm-ebar-btn vm-eb-save" id="vm-btn-save" onclick="vmSave()">💾 Salvar</button>
-                <span id="vm-save-st" style="font-size:7px;font-weight:700;margin-left:2px"></span>
+                <span id="vm-save-st" style="font-size:7px;font-weight:700;margin-left:2px;opacity:0.7"></span>
             </div>
             <!-- ═══ CATALOG PANEL ═══ -->
             <div id="vm-catalog-panel" style="display:none;position:absolute;inset:0;top:139px;background:#090c14;z-index:20;overflow-y:auto;padding:24px 32px 48px;">
@@ -1871,16 +1877,17 @@
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
                         Dívidas
                     </button>
+                    <button class="fin2-navbtn" id="fin2-btn-ir" onclick="fin2Switch('ir')">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        Imp. de Renda
+                    </button>
                     <button class="fin2-navbtn" id="fin2-btn-mapa" onclick="fin2Switch('mapa')">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
                         Mapa
                     </button>
                 </div>
                 <div class="fin2-topnav-actions">
-                    <button onclick="saveFinanceState()" class="fin2-action-btn fin2-action-save">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2l11 0 5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-                        Salvar
-                    </button>
+                    <span id="fin2-autosave-status" style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#2a3050;transition:color .3s"></span>
                     <button onclick='openEditorModal("projects/financas/data/finance_state.json","finance_state.json")' class="fin2-action-btn">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                         JSON
@@ -1913,68 +1920,38 @@
                 </aside>
             </div>
 
-            <!-- ── Pane: Mapa (conteúdo ORIGINAL preservado) ── -->
-            <div id="fin2-pane-mapa" class="fin2-panel" style="display:none;flex:1;overflow:hidden">
-                <div class="finance-shell" style="height:100%">
-                    <div class="finance-toolbar">
-                        <div class="finance-toolbar-title">
-                            <span class="finance-toolbar-kicker">Projeto Financas · Mapa Operacional</span>
-                            <h2>Caixa, Dividas e <span>Futuro</span></h2>
-                            <p>Painel para alimentar dados reais, negociar dividas e simular patrimonio.</p>
-                        </div>
-                        <div class="finance-toolbar-center">
-                            <div class="finance-filter-row" id="finance-map-filters">
-                                <button class="finance-filter-btn active" onclick="filterFinanceMap('all')">Todos</button>
-                                <button class="finance-filter-btn" onclick="filterFinanceMap('pressure')">Pressao</button>
-                                <button class="finance-filter-btn" onclick="filterFinanceMap('debt')">Dividas</button>
-                                <button class="finance-filter-btn" onclick="filterFinanceMap('wealth')">Patrimonio</button>
-                                <button class="finance-filter-btn" onclick="filterFinanceMap('missing')">Pendencias</button>
-                            </div>
-                            <div class="finance-legend-row">
-                                <span class="finance-legend-chip"><span class="finance-legend-dot" style="background:#10b981"></span> Saudavel</span>
-                                <span class="finance-legend-chip"><span class="finance-legend-dot" style="background:#f59e0b"></span> Atenção</span>
-                                <span class="finance-legend-chip"><span class="finance-legend-dot" style="background:#ef4444"></span> Pressão</span>
-                                <span class="finance-legend-chip"><span class="finance-legend-dot" style="background:#6b7280"></span> Pendente</span>
-                            </div>
-                        </div>
-                        <div class="finance-toolbar-right">
-                            <div id="finance-map-stats" class="finance-toolbar-stats"></div>
-                            <div class="finance-actions-row">
-                                <button onclick="setMasterProject('financas'); setMasterView('construcao'); switchTab('master')" class="btn-ghost">
-                                    <i data-lucide="layout-dashboard" class="w-3 h-3 inline"></i> Master
-                                </button>
-                            </div>
-                            <div class="finance-toolbar-hint">Clique para detalhes · Arraste nos · Salve no JSON</div>
+            <!-- ── Pane: Imposto de Renda ── -->
+            <div id="fin2-pane-ir" class="fin2-panel" style="display:none;overflow-y:auto"></div>
+
+            <!-- ── Pane: Mapa Operacional ── -->
+            <div id="fin2-pane-mapa" class="fin2-panel" style="display:none;flex:1;overflow:hidden;position:relative;flex-direction:column">
+                <!-- toolbar -->
+                <div style="display:flex;align-items:center;gap:6px;padding:8px 14px;border-bottom:1px solid rgba(255,255,255,0.05);flex-shrink:0">
+                    <span id="finance-map-stats" style="font-size:8px;color:#6b7280;flex:1"></span>
+                    <button class="finance-filter-btn active" onclick="filterFinanceMap('all')" style="font-size:7.5px;padding:3px 9px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.06);color:#d1d5db;cursor:pointer">Todos</button>
+                    <button class="finance-filter-btn" onclick="filterFinanceMap('pressure')" style="font-size:7.5px;padding:3px 9px;border-radius:6px;border:1px solid rgba(239,68,68,0.25);background:rgba(239,68,68,0.06);color:#fca5a5;cursor:pointer">Pressão</button>
+                    <button class="finance-filter-btn" onclick="filterFinanceMap('debt')" style="font-size:7.5px;padding:3px 9px;border-radius:6px;border:1px solid rgba(245,158,11,0.25);background:rgba(245,158,11,0.06);color:#fcd34d;cursor:pointer">Dívidas</button>
+                    <button class="finance-filter-btn" onclick="filterFinanceMap('wealth')" style="font-size:7.5px;padding:3px 9px;border-radius:6px;border:1px solid rgba(16,185,129,0.25);background:rgba(16,185,129,0.06);color:#6ee7b7;cursor:pointer">Patrimônio</button>
+                    <button class="finance-filter-btn" onclick="filterFinanceMap('missing')" style="font-size:7.5px;padding:3px 9px;border-radius:6px;border:1px solid rgba(168,85,247,0.25);background:rgba(168,85,247,0.06);color:#c4b5fd;cursor:pointer">Pendências</button>
+                </div>
+                <!-- canvas area -->
+                <div style="display:flex;flex:1;overflow:hidden;position:relative">
+                    <div id="finance-map-scroll" class="finance-map-scroll" style="flex:1;position:relative;overflow:auto">
+                        <div id="finance-map-canvas" class="finance-map-frame" style="position:relative;min-width:700px;min-height:390px">
+                            <svg id="finance-map-edges" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible" xmlns="http://www.w3.org/2000/svg"></svg>
                         </div>
                     </div>
-
-                    <div class="finance-scroll">
-                        <div id="finance-status" class="hidden text-[9px] font-bold uppercase tracking-widest"></div>
-                        <div id="finance-kpis" class="finance-kpi-grid"></div>
-                        <div id="finance-goals-strip" class="fin-goals-strip"></div>
-                        <section class="finance-map-frame">
-                            <div class="finance-map-scroll" id="finance-map-scroll">
-                                <div id="finance-map-canvas" class="finance-canvas">
-                                    <svg id="finance-map-edges" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1" overflow="visible"></svg>
-                                </div>
-                            </div>
-                            <aside id="finance-map-detail" class="finance-detail-panel">
-                                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-                                    <span id="finance-detail-title" style="font-size:12px;font-weight:900;color:#fff;line-height:1.3"></span>
-                                    <button onclick="closeFinanceMapDetail()" style="background:none;border:none;color:#6b7280;cursor:pointer;padding:2px;font-size:14px;line-height:1">x</button>
-                                </div>
-                                <div id="finance-detail-body"></div>
-                            </aside>
-                        </section>
-                        <div id="finance-tabs" class="finance-tabs"></div>
-
-                        <div class="finance-layout">
-                            <section id="finance-main" class="min-w-0"></section>
-                            <aside id="finance-side" class="min-w-0"></aside>
+                    <!-- detail panel -->
+                    <div id="finance-map-detail" style="width:0;overflow:hidden;transition:width .2s;border-left:1px solid rgba(255,255,255,0.05);flex-shrink:0;display:flex;flex-direction:column">
+                        <div style="padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+                            <span id="finance-detail-title" style="font-size:10px;font-weight:800;color:#fff;letter-spacing:.02em"></span>
+                            <button onclick="closeFinanceMapDetail()" style="background:none;border:none;color:#6b7280;cursor:pointer;font-size:14px;line-height:1">×</button>
                         </div>
+                        <div id="finance-detail-body" style="flex:1;overflow-y:auto;padding:12px"></div>
                     </div>
                 </div>
             </div>
+
 
         </div>
 
@@ -4520,9 +4497,21 @@ function getMasterViewItemsFor(projectId, view) {
     }
     if (activeView === 'clones') {
         const clones = getCloneNodes();
-        return window.MASTER_CATALOG_SHOW_ALL
-            ? clones
-            : clones.filter(clone => (clone.owner_agent_ids || []).some(agentId => projectAgentIds.has(agentId)));
+        if (window.MASTER_CATALOG_SHOW_ALL) return clones;
+        // Use only agents from squads exclusively tagged for this project (e.g. SQD-FIN for 'financas').
+        // Fall back to broad projectAgentIds when no tag-exclusive squads exist (e.g. 'sais').
+        const exclusiveSquadIds = new Set(
+            (REGISTRY.squads || [])
+                .filter(sq => String(sq.tag || '').toUpperCase() === activeProjectId.toUpperCase())
+                .map(sq => sq.id)
+        );
+        const exclusiveAgentIds = new Set(
+            (REGISTRY.agents || [])
+                .filter(agent => exclusiveSquadIds.has(agent.squad))
+                .map(agent => agent.id)
+        );
+        const filterIds = exclusiveAgentIds.size ? exclusiveAgentIds : projectAgentIds;
+        return clones.filter(clone => (clone.owner_agent_ids || []).some(agentId => filterIds.has(agentId)));
     }
     const skills = getFlattenedSkills();
     return window.MASTER_CATALOG_SHOW_ALL
@@ -5579,7 +5568,7 @@ function renderMasterInspector(items) {
                     <button class="btn-ghost text-[10px] py-1.5 w-full" onclick='openEditorModal("docs/control/persona_materials.json", "persona_materials.json")'>
                         <i data-lucide="map" class="w-3 h-3 inline mr-1"></i> Editar Mapa Global (JSON)
                     </button>
-                    <button class="btn-ghost text-[10px] py-1.5 w-full" onclick="setMasterCatalogShowAll(!window.MASTER_CATALOG_SHOW_ALL); renderMasterHub();">
+                    <button class="btn-ghost text-[10px] py-1.5 w-full" onclick="setMasterCatalogShowAll(!window.MASTER_CATALOG_SHOW_ALL);">
                         <i data-lucide="layers" class="w-3 h-3 inline mr-1"></i> ${window.MASTER_CATALOG_SHOW_ALL ? 'Filtrar Projeto' : 'Mostrar Todos'}
                     </button>
                 </div>
@@ -5595,7 +5584,7 @@ function renderMasterInspector(items) {
                     <button class="btn-ghost text-[10px] py-1.5 w-full" onclick='openEditorModal("docs/control/registry.json", "registry.json")'>
                         <i data-lucide="map" class="w-3 h-3 inline mr-1"></i> Mapa Global (JSON)
                     </button>
-                    <button class="btn-ghost text-[10px] py-1.5 w-full" onclick="setMasterCatalogShowAll(!window.MASTER_CATALOG_SHOW_ALL); renderMasterHub();">
+                    <button class="btn-ghost text-[10px] py-1.5 w-full" onclick="setMasterCatalogShowAll(!window.MASTER_CATALOG_SHOW_ALL);">
                         <i data-lucide="layers" class="w-3 h-3 inline mr-1"></i> ${window.MASTER_CATALOG_SHOW_ALL ? 'Filtrar Projeto' : 'Mostrar Todos'}
                     </button>
                 </div>
@@ -7754,13 +7743,13 @@ function toggleMapCatalog() {
 
 async function loadHubCatalog() {
     const body = document.getElementById('vm-catalog-body');
-    body.innerHTML = '<p style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;padding:32px;">Carregando catálogo...</p>';
+    if (body) body.innerHTML = '<p style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;padding:32px;">Carregando catálogo...</p>';
     try {
         const r = await fetch('/api/hub-catalog');
         _hubCatalog = await r.json();
-        renderCatalogPanel(_hubCatalog);
+        if (body) renderCatalogPanel(_hubCatalog);
     } catch (e) {
-        body.innerHTML = '<p style="font-size:10px;color:#f87171;text-align:center;padding:32px;">Erro ao carregar (servidor offline?)</p>';
+        if (body) body.innerHTML = '<p style="font-size:10px;color:#f87171;text-align:center;padding:32px;">Erro ao carregar (servidor offline?)</p>';
     }
 }
 
@@ -9909,11 +9898,11 @@ const SAIS_LANES = [
 ];
 
 const SAIS_PIPELINE = [
-    { id:'p01', x:14,  y:14, label:'Estratégia',      sub:'CZ-01 · SQD-CORE', status:'in_progress', metric:'Escopo aprovado',      color:'#a855f7', desc:'Definição de oferta, promessa e escopo do produto.', squad:'SQD-CORE', entrega:'Direction package', catalogLinks:[] },
-    { id:'p02', x:184, y:14, label:'Estrutura PDF',   sub:'CZ-02 · SQD-CNT',  status:'pending',     metric:'Índice aprovado',       color:'#a855f7', desc:'Arquitetura editorial dos capítulos e blocos de conteúdo.', squad:'SQD-CNT', entrega:'Skeleton editorial', catalogLinks:[] },
-    { id:'p03', x:354, y:14, label:'Produção E-book', sub:'CZ-03 · SQD-CNT',  status:'draft',       metric:'Capítulos finalizados', color:'#6b7280', desc:'Redação longform, revisão editorial e consistência.', squad:'SQD-CNT', entrega:'E-book pronto', catalogLinks:[{rowId:'metodo',type:'anchor',groupId:null}] },
-    { id:'p04', x:524, y:14, label:'Pág. de Vendas',  sub:'CZ-04 · SQD-EXP',  status:'draft',       metric:'LCP/UX válidos',        color:'#6b7280', desc:'Composição visual da landing e copy principal.', squad:'SQD-EXP', entrega:'Landing page', catalogLinks:[{rowId:'metodo',type:'group',groupId:'bonus'},{rowId:'metodo',type:'group',groupId:'ob'}] },
-    { id:'p05', x:694, y:14, label:'QA e Publicação', sub:'CZ-05 · SQD-QRO',  status:'draft',       metric:'Checklist QA completo', color:'#6b7280', desc:'Validação final, checklist e liberação operacional.', squad:'SQD-QRO', entrega:'Release aprovado', catalogLinks:[{rowId:'cofre',type:'anchor',groupId:null},{rowId:'cofre',type:'group',groupId:'included'}] },
+    { id:'p01', type:'pipeline', x:14,  y:14, label:'Estratégia',      sub:'CZ-01 · SQD-CORE', status:'in_progress', metric:'Escopo aprovado',      color:'#a855f7', desc:'Definição de oferta, promessa e escopo do produto.', squad:'SQD-CORE', entrega:'Direction package', catalogLinks:[] },
+    { id:'p02', type:'pipeline', x:184, y:14, label:'Estrutura PDF',   sub:'CZ-02 · SQD-CNT',  status:'pending',     metric:'Índice aprovado',       color:'#a855f7', desc:'Arquitetura editorial dos capítulos e blocos de conteúdo.', squad:'SQD-CNT', entrega:'Skeleton editorial', catalogLinks:[] },
+    { id:'p03', type:'pipeline', x:354, y:14, label:'Produção E-book', sub:'CZ-03 · SQD-CNT',  status:'draft',       metric:'Capítulos finalizados', color:'#6b7280', desc:'Redação longform, revisão editorial e consistência.', squad:'SQD-CNT', entrega:'E-book pronto', catalogLinks:[{rowId:'metodo',type:'anchor',groupId:null}] },
+    { id:'p04', type:'pipeline', x:524, y:14, label:'Landing Page',   sub:'CZ-04 · SQD-EXP',  status:'draft',       metric:'LCP/UX válidos',        color:'#6b7280', desc:'Composição visual da landing e copy principal.', squad:'SQD-EXP', entrega:'Landing page', catalogLinks:[{rowId:'metodo',type:'group',groupId:'bonus'},{rowId:'metodo',type:'group',groupId:'ob'}] },
+    { id:'p05', type:'pipeline', x:694, y:14, label:'QA e Publicação', sub:'CZ-05 · SQD-QRO',  status:'draft',       metric:'Checklist QA completo', color:'#6b7280', desc:'Validação final, checklist e liberação operacional.', squad:'SQD-QRO', entrega:'Release aprovado', catalogLinks:[{rowId:'cofre',type:'anchor',groupId:null},{rowId:'cofre',type:'group',groupId:'included'}] },
 ];
 
 const SAIS_NODES = [
@@ -10017,105 +10006,86 @@ const MAP_DATA = {
 };
 
 function vmNodeDims(type) {
-    if (type==='source')   return {w:90,  h:90 };
-    if (type==='bonus')    return {w:200, h:28 };
-    if (type==='ebook')    return {w:170, h:82 };
-    if (type==='hub')      return {w:130, h:130};
-    if (type==='pipeline') return {w:110, h:110};
-    if (type==='square')   return {w:110, h:110};
-    if (type==='rect')     return {w:190, h:78 };
-    if (type==='card')     return {w:158, h:110};
-    if (type==='diamond')  return {w:120, h:120};
-    if (type==='hexagon')  return {w:128, h:112};
-    return                        {w:115, h:115};
+    if (type==='pipeline')                                              return {w:148, h:90 };
+    if (type==='source' || type==='persona')                            return {w:82,  h:82 };
+    if (type==='hub'    || type==='checkout')                           return {w:88,  h:88 };
+    if (type==='bump'   || type==='free' || type==='bonus')             return {w:82,  h:34 };
+    if (['page','video','email','retain','upsell','ebook'].includes(type)) return {w:132, h:58 };
+    return {w:110, h:58};
 }
 
 function renderVmLanes(lanes, canvas) {
     canvas.querySelectorAll('.vm-lane-bg,.vm-lane-label,.vm-pipeline-bg,.vm-pipeline-label').forEach(el => el.remove());
     const pipeBg = document.createElement('div'); pipeBg.className='vm-pipeline-bg'; canvas.appendChild(pipeBg);
     const pipeLbl = document.createElement('div'); pipeLbl.className='vm-pipeline-label'; pipeLbl.textContent='⚙ Pipeline de Produção'; canvas.appendChild(pipeLbl);
-    lanes.forEach((lane, i) => {
-        const bg = document.createElement('div'); bg.className='vm-lane-bg';
-        bg.style.cssText=`left:${lane.x}px;width:${lane.w}px;background:${i%2===0?'rgba(255,255,255,0.005)':'transparent'}`;
-        canvas.appendChild(bg);
-        const lbl = document.createElement('div'); lbl.className='vm-lane-label';
-        lbl.style.left=(lane.x+8)+'px'; lbl.textContent=lane.label; canvas.appendChild(lbl);
-    });
 }
 
 function buildVmNodeEl(n) {
     const sc = VM_STATUS[n.status]||VM_STATUS.draft;
     const dim = vmNodeDims(n.type);
     const hasBugs = n.bugs&&n.bugs.length>0;
-    const badge = `<span style="display:inline-flex;padding:1px 6px;border-radius:999px;font-size:6px;font-weight:700;text-transform:uppercase;color:${sc.color};background:${sc.bg};border:1px solid ${sc.border}">${sc.label}</span>`;
-    const bugBadge = hasBugs ? `<span style="font-size:7px;color:#ef4444;font-weight:800;margin-left:4px">⚠ ${n.bugs.length}</span>` : '';
+    const ICONS = {page:'🛒',video:'🎬',hub:'🔐',checkout:'💳',upsell:'⬆',bump:'➕',free:'🎁',email:'📧',retain:'🔁',persona:'✨',pipeline:'⚙',source:'📡',ebook:'📖',bonus:'◇'};
+    const ico = ICONS[n.type] || VM_EMOJI[n.group] || '◇';
 
     const el = document.createElement('div');
     el.id = n.id;
     el.className = `vm-node vm-node-${n.type} status-${n.status}`;
-    el.style.cssText = `left:${n.x}px;top:${n.y}px;border-color:${sc.border};width:${dim.w}px;`;
+    el.style.cssText = `left:${n.x}px;top:${n.y}px;width:${dim.w}px;height:${dim.h}px;border-color:${sc.border};`;
 
-    if (n.type==='source') {
-        el.style.height=dim.h+'px'; el.style.borderRadius='50%';
-        el.style.background=n.color+'18'; el.style.borderColor=n.color+'55';
-        el.innerHTML=`<div style="font-size:18px;margin-bottom:3px">${VM_EMOJI[n.group]||'●'}</div><div style="font-size:8.5px;font-weight:800;color:#f1f0f5;line-height:1.2">${n.label}</div><div style="font-size:7px;color:#6b7280;margin-top:2px">${n.sub}</div><div style="margin-top:4px">${badge}</div>`;
-    } else if (n.type==='bonus') {
-        el.style.background=n.color+'0d'; el.style.borderColor=n.color+'30';
-        el.innerHTML=`<span style="font-size:10px;flex-shrink:0">${VM_EMOJI[n.group]||'◇'}</span><span style="font-size:8px;font-weight:700;color:#c8c5d8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1">${n.label}</span>${hasBugs?'<span style="font-size:9px;color:#ef4444;flex-shrink:0">⚠</span>':''}`;
-    } else if (n.type==='ebook') {
-        el.style.borderLeftColor=n.color; el.style.borderLeftWidth='3px';
-        el.innerHTML=`<div style="display:flex;gap:8px;align-items:flex-start"><span style="font-size:16px;line-height:1">📖</span><div style="flex:1;min-width:0"><div style="font-size:9.5px;font-weight:800;color:#f1f0f5;margin-bottom:2px;line-height:1.25">${n.label}</div><div style="font-size:7.5px;color:#6b7280;margin-bottom:4px;line-height:1.3">${n.sub}</div>${badge}${bugBadge}</div></div>`;
-    } else {
-        const SHAPE_TYPES = ['square','rect','card','diamond','hexagon'];
-        const isShape = SHAPE_TYPES.includes(n.type);
-        el.classList.add(isShape ? 'vm-shape' : 'vm-circ');
-        if (isShape) el.classList.add('vm-node-'+n.type);
-        el.style.height = dim.h + 'px';
-        const ICONS = {page:'🛒',video:'🎬',hub:'🔐',checkout:'💳',upsell:'⬆',bump:'➕',email:'📧',retain:'🔁',persona:'✨',pipeline:'⚙'};
-        const ico = ICONS[n.type] || VM_EMOJI[n.group] || '◇';
-        const statusDot = `<div class="vm-circ-status" style="background:${sc.color};box-shadow:0 0 6px ${sc.color}70"></div>`;
-        const bugsLine = hasBugs ? `<div class="vm-circ-bugs">⚠ ${n.bugs.length}</div>` : '';
+    // Badge de entregáveis (todos os nós)
+    const pLinks = n.catalogLinks || [];
+    let pTotal = 0, pReady = 0;
+    if (_hubCatalog && _hubCatalog.rows && pLinks.length) {
+        pLinks.forEach(lk => {
+            const row = _hubCatalog.rows.find(r => r.id === lk.rowId);
+            if (!row) return;
+            if (lk.type==='anchor') { pTotal++; if (row.anchor?.action?.type!=='soon') pReady++; }
+            else if (lk.type==='group') { const g=row.groups.find(g=>g.id===lk.groupId); if(g){ pTotal+=g.items.length; pReady+=g.items.filter(i=>i.action?.type!=='soon').length; } }
+        });
+    }
+    const countBadge = pTotal>0 ? `<span class="vm-entrega-count">📦 ${pReady}/${pTotal}</span>` : '';
+    const progressBar = pTotal>0 ? `<div class="vm-pipe-progress"><div class="vm-pipe-progress-bar" style="width:${Math.round(pReady/pTotal*100)}%"></div></div>` : '';
+    const statusDot = `<div class="vm-circ-status" style="background:${sc.color};box-shadow:0 0 6px ${sc.color}70"></div>`;
+    const bugsLine = hasBugs ? `<div class="vm-circ-bugs">⚠ ${n.bugs.length}</div>` : '';
 
-        if (isShape) {
-            el.style.borderColor = n.color ? n.color+'60' : sc.border;
-            el.innerHTML=`<div class="vm-circ-label" style="max-width:${dim.w-16}px">${n.label}</div>${statusDot}${bugsLine}`;
-        } else if (n.type==='pipeline') {
-            const step = n.id.replace(/[^\d]/g,'');
-            el.style.background='rgba(168,85,247,0.06)'; el.style.borderColor='rgba(168,85,247,0.28)';
-            const pLinks = n.catalogLinks || [];
-            let pTotal = 0, pReady = 0;
-            if (_hubCatalog && _hubCatalog.rows) {
-                pLinks.forEach(lk => {
-                    const row = _hubCatalog.rows.find(r => r.id === lk.rowId);
-                    if (!row) return;
-                    if (lk.type === 'anchor') { pTotal++; if (row.anchor?.action?.type !== 'soon') pReady++; }
-                    else if (lk.type === 'group') { const g = row.groups.find(g => g.id === lk.groupId); if (g) { pTotal += g.items.length; pReady += g.items.filter(i => i.action?.type !== 'soon').length; } }
-                });
-            }
-            const countBadge = pTotal > 0 ? `<span class="vm-entrega-count">📦 ${pReady}/${pTotal}</span>` : '';
-            const progressBar = pTotal > 0 ? `<div class="vm-pipe-progress"><div class="vm-pipe-progress-bar" style="width:${Math.round(pReady/pTotal*100)}%"></div></div>` : '';
-            el.innerHTML=`<div class="vm-step-badge">${step}</div><div class="vm-circ-label">${n.label}</div>${statusDot}${bugsLine}${countBadge}${progressBar}`;
-        } else if (n.type==='persona') {
-            el.style.background='linear-gradient(135deg,rgba(168,85,247,0.14),rgba(168,85,247,0.05))';
-            el.style.borderColor='rgba(168,85,247,0.42)';
-            el.innerHTML=`<div class="vm-circ-label">${n.label}</div>${statusDot}${bugsLine}`;
-        } else if (n.type==='checkout') {
-            el.style.background='linear-gradient(135deg,rgba(16,185,129,0.12),rgba(16,185,129,0.04))';
-            el.style.borderColor='rgba(16,185,129,0.42)';
-            el.innerHTML=`<div class="vm-circ-label">${n.label}</div>${statusDot}${bugsLine}`;
-        } else if (n.type==='hub') {
-            el.style.borderColor=n.color+'70'; el.style.borderWidth='2.5px';
-            el.innerHTML=`<div class="vm-circ-label">${n.label}</div>${statusDot}${bugsLine}`;
-        } else if (n.type==='video') {
-            el.style.background='rgba(239,68,68,0.05)'; el.style.borderColor=sc.color+'50';
-            el.innerHTML=`<div class="vm-circ-label">${n.label}</div>${statusDot}${bugsLine}`;
-        } else if (n.type==='upsell') {
-            el.style.borderColor=sc.color+'60'; el.style.borderWidth='2px';
-            el.innerHTML=`<div class="vm-circ-label">${n.label}</div>${statusDot}${bugsLine}`;
+    // ── Pipeline ──────────────────────────────────────────────────
+    if (n.type==='pipeline') {
+        el.classList.add('vm-shape-pipeline');
+        el.style.background='rgba(168,85,247,0.06)'; el.style.borderColor='rgba(168,85,247,0.28)';
+        const step = n.id.replace(/[^\d]/g,'');
+        el.innerHTML=`<div class="vm-step-badge">${step}</div><div class="vm-circ-label">${n.label}</div>${statusDot}${bugsLine}${countBadge}${progressBar}`;
+
+    // ── Círculo: source, persona ───────────────────────────────────
+    } else if (n.type==='source' || n.type==='persona') {
+        el.classList.add('vm-shape-circle');
+        if (n.type==='source') {
+            el.style.background=n.color+'18'; el.style.borderColor=n.color+'55';
+            el.innerHTML=`<div style="font-size:17px;margin-bottom:2px">${VM_EMOJI[n.group]||ico}</div><div style="font-size:8px;font-weight:800;color:#f1f0f5;line-height:1.2;text-align:center">${n.label}</div>${statusDot}${countBadge}`;
         } else {
-            // page, email, retain, bump e demais
-            el.innerHTML=`<div class="vm-circ-label">${n.label}</div>${statusDot}${bugsLine}`;
+            el.style.background='linear-gradient(135deg,rgba(168,85,247,0.14),rgba(168,85,247,0.05))'; el.style.borderColor='rgba(168,85,247,0.42)';
+            el.innerHTML=`<div style="font-size:17px;margin-bottom:2px">✨</div><div style="font-size:8px;font-weight:800;color:#f1f0f5;line-height:1.2;text-align:center">${n.label}</div>${statusDot}${countBadge}`;
         }
+
+    // ── Quadrado: hub, checkout ────────────────────────────────────
+    } else if (n.type==='hub' || n.type==='checkout') {
+        el.classList.add('vm-shape-square');
+        if (n.type==='hub') { el.style.borderColor=(n.color||'#a855f7')+'70'; el.style.borderWidth='2.5px'; }
+        else { el.style.background='linear-gradient(135deg,rgba(16,185,129,0.12),rgba(16,185,129,0.04))'; el.style.borderColor='rgba(16,185,129,0.42)'; }
+        el.innerHTML=`<div style="font-size:18px;margin-bottom:4px">${ico}</div><div style="font-size:8.5px;font-weight:800;color:#f1f0f5;line-height:1.2;text-align:center">${n.label}</div>${statusDot}${bugsLine}${countBadge}`;
+
+    // ── Mini retângulo: bump, free, bonus ─────────────────────────
+    } else if (n.type==='bump' || n.type==='free' || n.type==='bonus') {
+        el.classList.add('vm-shape-mini');
+        el.style.background=(n.color||'#6b7280')+'0d'; el.style.borderColor=(n.color||'#6b7280')+'30';
+        el.innerHTML=`<span style="font-size:10px;flex-shrink:0">${ico}</span><span style="font-size:7.5px;font-weight:700;color:#c8c5d8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1">${n.label}</span>${hasBugs?'<span style="font-size:9px;color:#ef4444;flex-shrink:0">⚠</span>':''}${countBadge}`;
+
+    // ── Retângulo: page, video, email, retain, upsell, ebook e demais ─
+    } else {
+        el.classList.add('vm-shape-rect');
+        if (n.type==='video')  { el.style.background='rgba(239,68,68,0.05)'; el.style.borderColor=sc.color+'50'; }
+        else if (n.type==='upsell') { el.style.borderColor=sc.color+'60'; el.style.borderWidth='2px'; }
+        else if (n.type==='ebook')  { el.style.borderLeftColor=n.color; el.style.borderLeftWidth='3px'; }
+        el.innerHTML=`<div style="display:flex;align-items:center;gap:6px;width:100%"><span style="font-size:13px;flex-shrink:0">${ico}</span><div style="flex:1;min-width:0"><div style="font-size:8.5px;font-weight:800;color:#f1f0f5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${n.label}</div><div style="font-size:6.5px;color:#6b7280;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${n.sub||''}</div></div></div>${statusDot}${bugsLine}${countBadge}${progressBar}`;
     }
     return el;
 }
@@ -10274,12 +10244,8 @@ function openVmDetail(id) {
     const editBar=`<div style="display:flex;gap:4px;margin-bottom:12px"><button onclick="vmEditNodeInline('${id}')" style="flex:1;padding:5px 8px;border-radius:6px;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.28);color:#a855f7;font-size:8px;font-weight:700;cursor:pointer">✏ Editar</button><button onclick="vmDuplicateNode('${id}')" style="flex:1;padding:5px 8px;border-radius:6px;background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.25);color:#06b6d4;font-size:8px;font-weight:700;cursor:pointer">⧉ Duplicar</button><button onclick="vmDeleteNode('${id}')" style="padding:5px 8px;border-radius:6px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2);color:#f87171;font-size:8px;cursor:pointer">🗑</button></div>`;
     document.getElementById('vm-detail-title').textContent=node.label;
     const detailsHtml=`${editBar}<span style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:${sc.color};background:${sc.bg};border:1px solid ${sc.border};padding:2px 8px;border-radius:999px">${sc.label}</span><p style="font-size:9px;color:#8a8aa8;margin:10px 0 0;line-height:1.55">${node.desc||node.sub||''}</p>${metricHtml}${squadHtml}${bugsHtml}${actions.length?`<div style="margin-top:14px;border-top:1px solid rgba(255,255,255,0.04);padding-top:10px"><div style="font-size:6.5px;color:#3a3a50;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Navegar</div>${actions.join('')}</div>`:''}${edgesHtml}`;
-    if (node.type==='pipeline') {
-        const delivHtml = renderPipeDeliverables(node);
-        document.getElementById('vm-detail-body').innerHTML=`<div class="vm-pipe-tabs"><button class="vm-pipe-tab vpt-active" onclick="vmPipeTabSwitch('details','${id}',event)">Detalhes</button><button class="vm-pipe-tab" onclick="vmPipeTabSwitch('entregaveis','${id}',event)">📦 Entregáveis</button></div><div id="vpt-details">${detailsHtml}</div><div id="vpt-entregaveis" style="display:none">${delivHtml}</div>`;
-    } else {
-        document.getElementById('vm-detail-body').innerHTML=detailsHtml;
-    }
+    const delivHtml = renderPipeDeliverables(node);
+    document.getElementById('vm-detail-body').innerHTML=`<div class="vm-pipe-tabs"><button class="vm-pipe-tab vpt-active" onclick="vmPipeTabSwitch('details','${id}',event)">Detalhes</button><button class="vm-pipe-tab" onclick="vmPipeTabSwitch('entregaveis','${id}',event)">📦 Entregáveis</button></div><div id="vpt-details">${detailsHtml}</div><div id="vpt-entregaveis" style="display:none">${delivHtml}</div>`;
     document.getElementById('vm-detail-panel').classList.add('vm-panel-open');
 }
 
@@ -10300,18 +10266,24 @@ function vmPipeTabSwitch(tab, nodeId, ev) {
     if (tab === 'details') { det.style.display=''; ent.style.display='none'; }
     else {
         det.style.display='none'; ent.style.display='';
-        if (!_hubCatalog) {
+        if (!_hubCatalog || !_hubCatalog.rows) {
             ent.innerHTML='<div class="vm-entrega-empty">Carregando catálogo...</div>';
             loadHubCatalog().then(() => vmRefreshPipeTab(nodeId));
+        } else {
+            vmRefreshPipeTab(nodeId);
         }
     }
+}
+
+function vmFindAnyNode(nodeId) {
+    const data = MAP_DATA[vmActiveProject]||MAP_DATA.sais;
+    return [...(data.pipeline||[]), ...(data.nodes||[])].find(n=>n.id===nodeId);
 }
 
 function vmRefreshPipeTab(nodeId) {
     const ent = document.getElementById('vpt-entregaveis');
     if (!ent) return;
-    const data = MAP_DATA[vmActiveProject]||MAP_DATA.sais;
-    const node = (data.pipeline||[]).find(n=>n.id===nodeId);
+    const node = vmFindAnyNode(nodeId);
     if (node) ent.innerHTML = renderPipeDeliverables(node);
 }
 
@@ -10362,11 +10334,10 @@ function vmDeliverableCard(item, rowIdx, gIdx, isAnchor, iIdx, nodeId, lIdx) {
 }
 
 function vmUnlinkDeliverable(nodeId, lIdx) {
-    const data = MAP_DATA[vmActiveProject]||MAP_DATA.sais;
-    const node = (data.pipeline||[]).find(n=>n.id===nodeId);
+    const node = vmFindAnyNode(nodeId);
     if (!node||!node.catalogLinks) return;
     node.catalogLinks.splice(lIdx,1);
-    VME.dirty=true; vmSyncEditorUI();
+    VME.dirty=true; vmSyncEditorUI(); vmScheduleAutoSave();
     openVmDetail(nodeId);
     setTimeout(()=>{ const t=document.querySelector('.vm-pipe-tab:not(.vpt-active)'); if(t&&t.textContent.includes('Entregáveis')) t.click(); },50);
 }
@@ -10375,8 +10346,7 @@ let _vmLinkTarget=null;
 function vmOpenLinkPicker(nodeId) {
     if (!_hubCatalog||!_hubCatalog.rows) { loadHubCatalog().then(()=>vmOpenLinkPicker(nodeId)); return; }
     _vmLinkTarget=nodeId;
-    const data=MAP_DATA[vmActiveProject]||MAP_DATA.sais;
-    const node=(data.pipeline||[]).find(n=>n.id===nodeId);
+    const node=vmFindAnyNode(nodeId);
     const curLinks=node?.catalogLinks||[];
     let rowsHtml='';
     _hubCatalog.rows.forEach(row=>{
@@ -10401,15 +10371,14 @@ function vmCloseLinkPicker() {
 }
 
 function vmTogglePipeLink(nodeId, rowId, type, groupId) {
-    const data=MAP_DATA[vmActiveProject]||MAP_DATA.sais;
-    const node=(data.pipeline||[]).find(n=>n.id===nodeId);
+    const node=vmFindAnyNode(nodeId);
     if (!node) return;
     if (!node.catalogLinks) node.catalogLinks=[];
     const gId=groupId||null;
     const idx=node.catalogLinks.findIndex(l=>l.rowId===rowId&&l.type===type&&l.groupId===gId);
     if (idx>=0) node.catalogLinks.splice(idx,1);
     else node.catalogLinks.push({rowId,type,groupId:gId});
-    VME.dirty=true; vmSyncEditorUI();
+    VME.dirty=true; vmSyncEditorUI(); vmScheduleAutoSave();
     // Update checkboxes in picker without closing
     const chkId = type==='anchor' ? `vmlp-a-${rowId}` : `vmlp-g-${rowId}-${groupId}`;
     const chk=document.getElementById(chkId); if(chk) chk.checked=(idx<0);
@@ -10439,17 +10408,45 @@ function startVmDragV2(e, id) {
 //  VM EDITOR — Criação · Edição · Exclusão · Conexão · Histórico · Zoom
 // ═══════════════════════════════════════════════════════════════════════════
 
-const VME = { history:[], future:[], zoom:1, connectMode:false, connectFrom:null, deleteMode:false, ctxTarget:null, dirty:false, LS:'sais_map_v2', _addPos:{x:120,y:220} };
+const VME = { history:[], future:[], zoom:1, connectMode:false, connectFrom:null, deleteMode:false, ctxTarget:null, dirty:false, LS:'sais_map_v3', _addPos:{x:120,y:220}, _saveTimer:null };
 
 // ── Histórico ────────────────────────────────────────────────────────────
 function vmClone(proj) { const d=MAP_DATA[proj]; return JSON.parse(JSON.stringify({title:d.title,subtitle:d.subtitle||'',pipeline:d.pipeline||[],nodes:d.nodes||[],edges:d.edges||[],lanes:d.lanes||[]})); }
-function vmPushHistory() { VME.history.push(vmClone(vmActiveProject)); if(VME.history.length>60) VME.history.shift(); VME.future=[]; VME.dirty=true; vmSyncEditorUI(); }
+function vmPushHistory() { VME.history.push(vmClone(vmActiveProject)); if(VME.history.length>60) VME.history.shift(); VME.future=[]; VME.dirty=true; vmSyncEditorUI(); vmScheduleAutoSave(); vmScheduleAutoSave(); }
 function vmUndo() { if(!VME.history.length) return; VME.future.push(vmClone(vmActiveProject)); MAP_DATA[vmActiveProject]=VME.history.pop(); vmSyncEditorUI(); renderVisualMap(); }
 function vmRedo() { if(!VME.future.length) return; VME.history.push(vmClone(vmActiveProject)); MAP_DATA[vmActiveProject]=VME.future.pop(); vmSyncEditorUI(); renderVisualMap(); }
 
 // ── Save / Load ──────────────────────────────────────────────────────────
-function vmSave() { const s={}; ['sais','velas','electro'].forEach(p=>{ s[p]=vmClone(p); }); try { localStorage.setItem(VME.LS,JSON.stringify(s)); VME.dirty=false; vmSyncEditorUI(); vmFlashSave('✓ Salvo','#10b981'); } catch(e){ vmFlashSave('✗ Erro','#ef4444'); } }
-function vmLoadSaved() { try { const r=localStorage.getItem(VME.LS); if(!r) return; const s=JSON.parse(r); ['sais','velas','electro'].forEach(p=>{ if(s[p]) MAP_DATA[p]=s[p]; }); } catch(e){} }
+function vmSave() { const s={}; ['sais','velas','electro'].forEach(p=>{ s[p]=vmClone(p); }); try { localStorage.setItem(VME.LS,JSON.stringify(s)); VME.dirty=false; vmSyncEditorUI(); vmFlashSave('● Auto-salvo','#10b981'); } catch(e){ vmFlashSave('✗ Erro salvar','#ef4444'); } }
+function vmScheduleAutoSave() { clearTimeout(VME._saveTimer); VME._saveTimer=setTimeout(vmSave,1500); }
+function vmLoadSaved() {
+    try {
+        const r = localStorage.getItem(VME.LS);
+        if (!r) return;
+        const s = JSON.parse(r);
+        ['sais','velas','electro'].forEach(p => {
+            if (!s[p]) return;
+            const saved = s[p];
+            const code = MAP_DATA[p];
+            if (!code) { MAP_DATA[p] = saved; return; }
+            // Merge: aplicar apenas campos editáveis pelo usuário sobre a estrutura do código
+            const mergeNodes = (codeList, savedList) => {
+                if (!codeList || !savedList) return;
+                codeList.forEach(cn => {
+                    const sn = savedList.find(n => n.id === cn.id);
+                    if (!sn) return;
+                    if (sn.x !== undefined) cn.x = sn.x;
+                    if (sn.y !== undefined) cn.y = sn.y;
+                    if (sn.status !== undefined) cn.status = sn.status;
+                    if (sn.catalogLinks !== undefined) cn.catalogLinks = sn.catalogLinks;
+                });
+            };
+            mergeNodes(code.pipeline, saved.pipeline);
+            mergeNodes(code.nodes, saved.nodes);
+            if (saved.edges) code.edges = saved.edges;
+        });
+    } catch(e) {}
+}
 function vmFlashSave(msg,col) { const el=document.getElementById('vm-save-st'); if(!el) return; el.textContent=msg; el.style.color=col; setTimeout(()=>{ el.textContent=''; },2400); }
 
 // ── UI Sync ───────────────────────────────────────────────────────────────
@@ -10457,8 +10454,6 @@ function vmSyncEditorUI() {
     const u=document.getElementById('vm-btn-undo'), r=document.getElementById('vm-btn-redo');
     if(u) u.disabled=VME.history.length===0;
     if(r) r.disabled=VME.future.length===0;
-    const sv=document.getElementById('vm-btn-save');
-    if(sv) sv.style.borderColor=VME.dirty?'rgba(245,158,11,0.7)':'rgba(16,185,129,0.38)';
     const data=MAP_DATA[vmActiveProject]||MAP_DATA.sais;
     const total=(data.pipeline||[]).length+(data.nodes||[]).length;
     const el=document.getElementById('vm-sbar-nodes');
@@ -10733,6 +10728,8 @@ window.vmToggleDeleteMode= vmToggleDeleteMode;
 window.vmUndo            = vmUndo;
 window.vmRedo            = vmRedo;
 window.vmSave            = vmSave;
+window.vmScheduleAutoSave= vmScheduleAutoSave;
+window.vmFindAnyNode     = vmFindAnyNode;
 window.vmZoomIn          = vmZoomIn;
 window.vmZoomOut         = vmZoomOut;
 window.vmZoomReset       = vmZoomReset;
@@ -10748,6 +10745,13 @@ window.vmCtxAddEdgeTo    = vmCtxAddEdgeTo;
 window.vmCtxDelete       = vmCtxDelete;
 window.vmCtxChangeStatus = vmCtxChangeStatus;
 window.vmHideCtx         = vmHideCtx;
+// Pipeline Entregáveis
+window.vmPipeTabSwitch     = vmPipeTabSwitch;
+window.vmRefreshPipeTab    = vmRefreshPipeTab;
+window.vmOpenLinkPicker    = vmOpenLinkPicker;
+window.vmCloseLinkPicker   = vmCloseLinkPicker;
+window.vmTogglePipeLink    = vmTogglePipeLink;
+window.vmUnlinkDeliverable = vmUnlinkDeliverable;
 
 })();
 </script>
@@ -10823,9 +10827,10 @@ window.vmHideCtx         = vmHideCtx;
 .fin2-section-row td {
   background:#0f1422;color:#c9a84c;
   font-weight:800;font-size:10px;letter-spacing:.09em;text-transform:uppercase;
-  padding:8px 10px 4px;border-bottom:1px solid #1e2540;
+  padding:8px 10px 4px;border-bottom:1px solid #1e2540;text-align:left;
 }
 .fin2-section-row.fin2-sec-receitas td { color:#60a5fa; }
+.fin2-section-row.fin2-sec-despesas td { color:#4ade80; }
 .fin2-section-row.fin2-sec-dividas  td { color:#fb923c; }
 .fin2-total-row td {
   background:#0f1422;font-weight:700;color:#fff;
@@ -10834,8 +10839,8 @@ window.vmHideCtx         = vmHideCtx;
 .fin2-total-row td.fin2-td-label { color:#c9a84c;font-size:11px; }
 .fin2-total-row.fin2-tot-receitas td { border-top-color:#38bdf877;border-bottom-color:#38bdf877; }
 .fin2-total-row.fin2-tot-receitas td.fin2-td-label { color:#38bdf8; }
-.fin2-total-row.fin2-tot-despesas td { border-top-color:#f59e0b66;border-bottom-color:#f59e0b66; }
-.fin2-total-row.fin2-tot-despesas td.fin2-td-label { color:#f59e0b; }
+.fin2-total-row.fin2-tot-despesas td { border-top-color:#4ade8066;border-bottom-color:#4ade8066; }
+.fin2-total-row.fin2-tot-despesas td.fin2-td-label { color:#4ade80; }
 .fin2-total-row.fin2-tot-dividas  td { border-top-color:#f9731677;border-bottom-color:#f9731677; }
 .fin2-total-row.fin2-tot-dividas  td.fin2-td-label { color:#f97316; }
 /* add-row button */
@@ -10847,17 +10852,24 @@ window.vmHideCtx         = vmHideCtx;
 }
 .fin2-add-btn:hover { color:#c9a84c;border-color:#c9a84c55; }
 /* delete row button */
-.fin2-del-btn {
-  background:none;border:none;color:#2a3050;cursor:pointer;
-  font-size:12px;line-height:1;padding:2px 4px;transition:color .15s;
-}
-.fin2-del-btn:hover { color:#ef4444; }
 .fin2-collapse-btn {
-  background:none;border:none;color:inherit;cursor:pointer;
-  font-size:11px;opacity:.45;padding:0 2px 0 6px;vertical-align:middle;float:right;
-  transition:opacity .15s;
+  background:#ffffff0a;border:1px solid #ffffff1e;color:inherit;cursor:pointer;
+  font-size:11px;font-weight:700;opacity:.75;padding:2px 7px;border-radius:4px;
+  vertical-align:middle;transition:all .15s;line-height:1;margin-right:7px;
 }
-.fin2-collapse-btn:hover { opacity:1; }
+.fin2-collapse-btn:hover { opacity:1;background:#ffffff18;border-color:currentColor; }
+.fin2-del-btn {
+  background:#ef44440d;border:1px solid #ef444428;color:#a05068;cursor:pointer;
+  font-size:12px;font-weight:700;padding:2px 6px;border-radius:4px;
+  transition:all .15s;line-height:1;vertical-align:middle;
+}
+.fin2-del-btn:hover { color:#ef4444;background:#ef444422;border-color:#ef444460; }
+.fin2-toggle-all-icon {
+  background:#c9a84c0e;border:1px solid #c9a84c33;color:#c9a84caa;cursor:pointer;
+  font-size:13px;font-weight:700;padding:2px 6px;border-radius:4px;
+  transition:all .15s;line-height:1;display:block;margin:0 auto;
+}
+.fin2-toggle-all-icon:hover { color:#c9a84c;border-color:#c9a84c77;background:#c9a84c1a; }
 .fin2-cashflow-row td { background:#0c1a10; }
 .fin2-cashflow-row td.fin2-td-label { color:#6fcf50; }
 .fin2-cashflow-pos { color:#6fcf50;font-weight:700; }
@@ -11005,8 +11017,8 @@ window.vmHideCtx         = vmHideCtx;
 
 /* ── Amortization panel ── */
 .fin2-amort-panel {
-  width:230px;flex-shrink:0;overflow-y:auto;
-  padding:14px 10px;background:#090c14;
+  width:290px;flex-shrink:0;overflow-y:auto;overflow-x:hidden;
+  padding:14px 12px;background:#090c14;
 }
 .fin2-amort-panel h5 {
   font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
@@ -11017,13 +11029,18 @@ window.vmHideCtx         = vmHideCtx;
   font-size:8.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
   color:#4a5275;padding:4px 6px;text-align:right;border-bottom:1px solid #1e2540;
 }
-.fin2-amort-table th:first-child { text-align:center; }
+.fin2-amort-table th:first-child  { text-align:center; }
+.fin2-amort-table th:nth-child(2) { color:#c9a84c; }
+.fin2-amort-table th:nth-child(3) { color:#38bdf8; }
+.fin2-amort-table th:nth-child(4) { color:#6fcf50; }
 .fin2-amort-table td {
   padding:4px 6px;text-align:right;border-bottom:1px solid #0f1422;
   color:#9aa0c0;
 }
 .fin2-amort-table td:first-child { text-align:center;color:#4a5275;font-weight:600; }
 .fin2-amort-table tr.paid-row td { color:#2e3450;text-decoration:line-through; }
+.fin2-amort-table td.antecipacao { color:#38bdf8;font-weight:600; }
+.fin2-amort-table tr.paid-row td.antecipacao { color:#1a2e40; }
 .fin2-amort-table td.quitacao { color:#6fcf50;font-weight:600; }
 .fin2-amort-table tr.paid-row td.quitacao { color:#1e3a18; }
 
@@ -11052,6 +11069,67 @@ window.vmHideCtx         = vmHideCtx;
 .fin2-drop-zone input[type=file] {
   position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;
 }
+
+/* ── Imposto de Renda ── */
+.fin2-ir-wrap { padding:16px 20px;display:flex;flex-direction:column;gap:14px; }
+.fin2-ir-result-bar {
+  display:flex;align-items:flex-end;gap:0;
+  background:#0d1120;border:1px solid #1e2540;border-radius:10px;
+  padding:14px 20px;flex-wrap:wrap;gap:10px;
+}
+.fin2-ir-kpi { display:flex;flex-direction:column;gap:3px;flex:1;min-width:90px; }
+.fin2-ir-kpi-resultado { min-width:130px;border-left:1px solid #1e2540;padding-left:14px;margin-left:4px; }
+.fin2-ir-kpi-label { font-size:9px;color:#4a5275;font-weight:700;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap; }
+.fin2-ir-kpi-val { font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;font-weight:700;white-space:nowrap; }
+.fin2-ir-kpi-sep { font-size:16px;color:#2a3050;padding:0 2px;align-self:flex-end;padding-bottom:3px; }
+.fin2-ir-modelo-tag {
+  background:#1a2a14;color:#6fcf50;font-size:7px;font-weight:700;
+  padding:1px 5px;border-radius:3px;text-transform:uppercase;
+  letter-spacing:.06em;margin-left:5px;vertical-align:middle;
+}
+.fin2-ir-grid { display:flex;flex-direction:column;gap:10px; }
+.fin2-ir-section { background:#0d1120;border:1px solid #1e2540;border-radius:8px;overflow:hidden; }
+.fin2-ir-sec-hdr {
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 14px;font-size:10px;font-weight:800;letter-spacing:.07em;
+  text-transform:uppercase;border-bottom:1px solid #1e2540;background:#090c14;
+}
+.fin2-ir-sec-total { font-family:'Cormorant Garamond',Georgia,serif;font-size:15px;font-weight:700; }
+.fin2-ir-table { width:100%;border-collapse:collapse;font-size:11px; }
+.fin2-ir-table th {
+  font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:#4a5275;padding:6px 10px;text-align:left;
+  border-bottom:1px solid #141829;background:#0a0d18;
+}
+.fin2-ir-table td { padding:5px 8px;border-bottom:1px solid #0f1422;vertical-align:middle; }
+.fin2-ir-table tr:last-child td { border-bottom:none; }
+.fin2-ir-input {
+  background:transparent;border:none;border-bottom:1px solid transparent;
+  color:#c8ceef;font-size:11px;padding:2px 4px;width:100%;outline:none;
+  transition:border-color .15s;
+}
+.fin2-ir-input:focus { border-bottom-color:#c9a84c55; }
+.fin2-ir-input[type=number] { text-align:right; }
+.fin2-ir-select {
+  background:#111525;border:1px solid #2a3050;border-radius:4px;
+  color:#c8ceef;font-size:10px;padding:3px 6px;outline:none;width:100%;
+}
+.fin2-ir-select:focus { border-color:#c9a84c55; }
+.fin2-ir-del {
+  background:#ef44440d;border:1px solid #ef444428;color:#a05068;
+  cursor:pointer;font-size:12px;font-weight:700;padding:2px 6px;
+  border-radius:4px;transition:all .15s;line-height:1;
+}
+.fin2-ir-del:hover { color:#ef4444;background:#ef444422;border-color:#ef444460; }
+.fin2-ir-add-btn {
+  display:block;width:100%;padding:7px 14px;background:transparent;
+  border:none;border-top:1px dashed #1e2540;
+  font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  cursor:pointer;text-align:left;transition:background .15s;
+}
+.fin2-ir-add-btn:hover { background:#ffffff05; }
+.fin2-ir-auto-val { color:#4ade80;font-size:11px;font-weight:600;padding:2px 4px; }
+.fin2-ir-nota { font-size:9px;color:#2a3050;padding:6px 14px 8px;font-style:italic; }
 </style>
 
 <!-- ═══════ FIN2 JS ═══════ -->
@@ -11116,18 +11194,271 @@ const MONTHS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov
 let fin2ActiveDebt = null;
 let fin2Collapsed  = { receitas: false, despesas: false, dividas: false };
 
+/* ─────────── IMPOSTO DE RENDA ─────────── */
+
+let FIN2_IR = { ano:2025, rendimentos:[], isentos:[], deducoes:[], bens:[], pagamentos:[] };
+
+const FIN2_IR_TABELA = [
+  { limite:24751.74,  aliquota:0,     deducao:0       },
+  { limite:33919.80,  aliquota:0.075, deducao:1856.38 },
+  { limite:45012.60,  aliquota:0.15,  deducao:4406.91 },
+  { limite:55976.16,  aliquota:0.225, deducao:7783.69 },
+  { limite:Infinity,  aliquota:0.275, deducao:10582.65},
+];
+const FIN2_IR_DED_DEP   = 2275.08;
+const FIN2_IR_LIM_EDU   = 3561.50;
+
+function fin2IRCalc() {
+  const rendBruto  = FIN2_IR.rendimentos.reduce((a,r)=>a+(r.valorBruto||0),0);
+  const irrf       = FIN2_IR.rendimentos.reduce((a,r)=>a+(r.irrf||0),0);
+  const pagos      = FIN2_IR.pagamentos.reduce((a,p)=>a+(p.valor||0),0);
+  const depValor   = FIN2_IR.deducoes.filter(d=>d.tipo==='dependente').length * FIN2_IR_DED_DEP;
+  const saude      = FIN2_IR.deducoes.filter(d=>d.tipo==='saude').reduce((a,d)=>a+(d.valor||0),0);
+  const educRaw    = FIN2_IR.deducoes.filter(d=>d.tipo==='educacao').reduce((a,d)=>a+(d.valor||0),0);
+  const educacao   = Math.min(educRaw, FIN2_IR_LIM_EDU);
+  const inss       = FIN2_IR.deducoes.filter(d=>d.tipo==='inss').reduce((a,d)=>a+(d.valor||0),0);
+  const pgbl       = FIN2_IR.deducoes.filter(d=>d.tipo==='pgbl').reduce((a,d)=>a+(d.valor||0),0);
+  const outros     = FIN2_IR.deducoes.filter(d=>!['dependente','saude','educacao','inss','pgbl'].includes(d.tipo)).reduce((a,d)=>a+(d.valor||0),0);
+  const dedCompleta    = depValor+saude+educacao+inss+pgbl+outros;
+  const dedSimplif     = Math.min(rendBruto*0.20, 16754.34);
+  const dedUsada       = dedCompleta>=dedSimplif ? dedCompleta : dedSimplif;
+  const modelo         = dedCompleta>=dedSimplif ? 'completa' : 'simplificada';
+  const base           = Math.max(0, rendBruto - dedUsada);
+  const faixa          = FIN2_IR_TABELA.find(f=>base<=f.limite)||FIN2_IR_TABELA[FIN2_IR_TABELA.length-1];
+  const imposto        = Math.max(0, base*faixa.aliquota - faixa.deducao);
+  const totalPago      = irrf+pagos;
+  const resultado      = totalPago - imposto;
+  return { rendBruto,irrf,pagos,totalPago,dedCompleta,dedSimplif,dedUsada,modelo,base,imposto,resultado,faixa,educRaw,educacao };
+}
+
+window.fin2RenderIR = function() {
+  const pane = document.getElementById('fin2-pane-ir');
+  if (!pane) return;
+  const c   = fin2IRCalc();
+  const fmt = v => 'R$'+Math.abs(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const resultColor = c.resultado>=0 ? '#6fcf50' : '#ef4444';
+  const resultLabel = c.resultado>=0 ? 'A Restituir ▲' : 'A Pagar ▼';
+
+  const tipoRend = ['salario','pro_labore','aluguel','aposentadoria','outros'];
+  const tipoIsen = ['fgts','indenizacao','dividendos','poupanca','lci_lca','outros'];
+  const tipoDed  = [{v:'dependente',l:'Dependente'},{v:'saude',l:'Saúde'},{v:'educacao',l:'Educação'},{v:'inss',l:'INSS / Prev. Oficial'},{v:'pgbl',l:'PGBL (Prev. Privada)'},{v:'livro_caixa',l:'Livro Caixa'},{v:'outros',l:'Outros'}];
+  const tipoBem  = ['imovel','veiculo','conta_bancaria','investimento','outros'];
+  const tipoPag  = ['darf','carne_leao','quota','outros'];
+  const opts = (list, cur) => list.map(t => typeof t==='string'
+    ? `<option value="${t}" ${cur===t?'selected':''}>${t.replace(/_/g,' ')}</option>`
+    : `<option value="${t.v}" ${cur===t.v?'selected':''}>${t.l}</option>`).join('');
+
+  pane.innerHTML = `<div class="fin2-ir-wrap">
+
+  <!-- ── Barra de Resultado ── -->
+  <div class="fin2-ir-result-bar">
+    <div class="fin2-ir-kpi">
+      <div class="fin2-ir-kpi-label">Renda Bruta</div>
+      <div class="fin2-ir-kpi-val" style="color:#60a5fa">${fmt(c.rendBruto)}</div>
+    </div>
+    <div class="fin2-ir-kpi-sep">−</div>
+    <div class="fin2-ir-kpi">
+      <div class="fin2-ir-kpi-label">Deduções <span class="fin2-ir-modelo-tag">${c.modelo}</span></div>
+      <div class="fin2-ir-kpi-val" style="color:#4ade80">${fmt(c.dedUsada)}</div>
+    </div>
+    <div class="fin2-ir-kpi-sep">=</div>
+    <div class="fin2-ir-kpi">
+      <div class="fin2-ir-kpi-label">Base de Cálculo</div>
+      <div class="fin2-ir-kpi-val" style="color:#e2e6ff">${fmt(c.base)}</div>
+    </div>
+    <div class="fin2-ir-kpi-sep">×</div>
+    <div class="fin2-ir-kpi">
+      <div class="fin2-ir-kpi-label">Alíquota</div>
+      <div class="fin2-ir-kpi-val" style="color:#c9a84c">${(c.faixa.aliquota*100).toFixed(1)}%</div>
+    </div>
+    <div class="fin2-ir-kpi-sep">=</div>
+    <div class="fin2-ir-kpi">
+      <div class="fin2-ir-kpi-label">Imposto Calculado</div>
+      <div class="fin2-ir-kpi-val" style="color:#ef4444">${fmt(c.imposto)}</div>
+    </div>
+    <div class="fin2-ir-kpi-sep">−</div>
+    <div class="fin2-ir-kpi">
+      <div class="fin2-ir-kpi-label">IRRF + Pagos</div>
+      <div class="fin2-ir-kpi-val" style="color:#4ade80">${fmt(c.totalPago)}</div>
+    </div>
+    <div class="fin2-ir-kpi fin2-ir-kpi-resultado">
+      <div class="fin2-ir-kpi-label">${resultLabel}</div>
+      <div class="fin2-ir-kpi-val" style="color:${resultColor};font-size:22px">${fmt(c.resultado)}</div>
+    </div>
+  </div>
+
+  <div class="fin2-ir-grid">
+
+  <!-- ── Rendimentos Tributáveis ── -->
+  <div class="fin2-ir-section">
+    <div class="fin2-ir-sec-hdr" style="color:#60a5fa">
+      <span>Rendimentos Tributáveis</span>
+      <span class="fin2-ir-sec-total" style="color:#60a5fa">${fmt(FIN2_IR.rendimentos.reduce((a,r)=>a+(r.valorBruto||0),0))}</span>
+    </div>
+    <table class="fin2-ir-table"><thead><tr>
+      <th>Fonte Pagadora / CNPJ</th><th>Tipo</th>
+      <th style="color:#60a5fa;text-align:right">Valor Bruto</th>
+      <th style="color:#4ade80;text-align:right">IRRF Retido</th>
+      <th style="width:28px"></th>
+    </tr></thead><tbody>
+    ${FIN2_IR.rendimentos.map(r=>`<tr>
+      <td><input class="fin2-ir-input" value="${(r.fonte||'').replace(/"/g,'&quot;')}" placeholder="Ex: Empresa ABC" onblur="fin2IRSave('rendimentos','${r.id}','fonte',this.value)"></td>
+      <td><select class="fin2-ir-select" onchange="fin2IRChange('rendimentos','${r.id}','tipo',this.value)">${opts(tipoRend,r.tipo)}</select></td>
+      <td><input class="fin2-ir-input" type="number" step="0.01" value="${r.valorBruto||0}" style="text-align:right" onblur="fin2IRChange('rendimentos','${r.id}','valorBruto',+this.value)"></td>
+      <td><input class="fin2-ir-input" type="number" step="0.01" value="${r.irrf||0}" style="text-align:right" onblur="fin2IRChange('rendimentos','${r.id}','irrf',+this.value)"></td>
+      <td><button class="fin2-ir-del" onclick="fin2IRDelete('rendimentos','${r.id}')">×</button></td>
+    </tr>`).join('')}
+    </tbody></table>
+    <button class="fin2-ir-add-btn" style="color:#60a5fa" onclick="fin2IRAdd('rendimentos')">+ Adicionar Rendimento</button>
+  </div>
+
+  <!-- ── Rendimentos Isentos ── -->
+  <div class="fin2-ir-section">
+    <div class="fin2-ir-sec-hdr" style="color:#38bdf8">
+      <span>Rendimentos Isentos / Não Tributáveis</span>
+      <span class="fin2-ir-sec-total" style="color:#38bdf8">${fmt(FIN2_IR.isentos.reduce((a,r)=>a+(r.valor||0),0))}</span>
+    </div>
+    <table class="fin2-ir-table"><thead><tr>
+      <th>Descrição</th><th>Tipo</th>
+      <th style="color:#38bdf8;text-align:right">Valor</th>
+      <th style="width:28px"></th>
+    </tr></thead><tbody>
+    ${FIN2_IR.isentos.map(r=>`<tr>
+      <td><input class="fin2-ir-input" value="${(r.descricao||'').replace(/"/g,'&quot;')}" placeholder="Ex: FGTS recebido" onblur="fin2IRSave('isentos','${r.id}','descricao',this.value)"></td>
+      <td><select class="fin2-ir-select" onchange="fin2IRChange('isentos','${r.id}','tipo',this.value)">${opts(tipoIsen,r.tipo)}</select></td>
+      <td><input class="fin2-ir-input" type="number" step="0.01" value="${r.valor||0}" style="text-align:right" onblur="fin2IRChange('isentos','${r.id}','valor',+this.value)"></td>
+      <td><button class="fin2-ir-del" onclick="fin2IRDelete('isentos','${r.id}')">×</button></td>
+    </tr>`).join('')}
+    </tbody></table>
+    <button class="fin2-ir-add-btn" style="color:#38bdf8" onclick="fin2IRAdd('isentos')">+ Adicionar Rendimento Isento</button>
+  </div>
+
+  <!-- ── Deduções ── -->
+  <div class="fin2-ir-section">
+    <div class="fin2-ir-sec-hdr" style="color:#4ade80">
+      <span>Deduções Legais</span>
+      <div style="display:flex;gap:12px;align-items:center">
+        <span style="font-size:8px;color:#4a5275">Simplificada: ${fmt(c.dedSimplif)}</span>
+        <span class="fin2-ir-sec-total" style="color:#4ade80">${fmt(c.dedCompleta)}</span>
+      </div>
+    </div>
+    ${c.educRaw>FIN2_IR_LIM_EDU?`<div class="fin2-ir-nota">⚠ Educação limitada a R$3.561,50/ano — excesso de ${fmt(c.educRaw-FIN2_IR_LIM_EDU)} não dedutível.</div>`:''}
+    <table class="fin2-ir-table"><thead><tr>
+      <th>Tipo</th><th>Descrição / Beneficiário</th>
+      <th style="color:#4ade80;text-align:right">Valor</th>
+      <th style="width:28px"></th>
+    </tr></thead><tbody>
+    ${FIN2_IR.deducoes.map(d=>`<tr>
+      <td><select class="fin2-ir-select" onchange="fin2IRChange('deducoes','${d.id}','tipo',this.value)">${opts(tipoDed,d.tipo)}</select></td>
+      <td><input class="fin2-ir-input" value="${(d.descricao||'').replace(/"/g,'&quot;')}" placeholder="${d.tipo==='dependente'?'Ex: Filho(a), Cônjuge':'Ex: Plano de saúde'}" onblur="fin2IRSave('deducoes','${d.id}','descricao',this.value)"></td>
+      <td>${d.tipo==='dependente'
+        ?`<span class="fin2-ir-auto-val">${fmt(FIN2_IR_DED_DEP)}</span>`
+        :`<input class="fin2-ir-input" type="number" step="0.01" value="${d.valor||0}" style="text-align:right" onblur="fin2IRChange('deducoes','${d.id}','valor',+this.value)">`
+      }</td>
+      <td><button class="fin2-ir-del" onclick="fin2IRDelete('deducoes','${d.id}')">×</button></td>
+    </tr>`).join('')}
+    </tbody></table>
+    <button class="fin2-ir-add-btn" style="color:#4ade80" onclick="fin2IRAdd('deducoes')">+ Adicionar Dedução</button>
+  </div>
+
+  <!-- ── Bens e Direitos ── -->
+  <div class="fin2-ir-section">
+    <div class="fin2-ir-sec-hdr" style="color:#c9a84c">
+      <span>Bens e Direitos</span>
+      <span class="fin2-ir-sec-total" style="color:#c9a84c">${fmt(FIN2_IR.bens.reduce((a,b)=>a+(b.valorAtual||0),0))}</span>
+    </div>
+    <table class="fin2-ir-table"><thead><tr>
+      <th>Tipo</th><th>Descrição</th>
+      <th style="text-align:right">Valor Ant.</th>
+      <th style="color:#c9a84c;text-align:right">Valor Atual</th>
+      <th style="width:28px"></th>
+    </tr></thead><tbody>
+    ${FIN2_IR.bens.map(b=>`<tr>
+      <td><select class="fin2-ir-select" onchange="fin2IRChange('bens','${b.id}','tipo',this.value)">${opts(tipoBem,b.tipo)}</select></td>
+      <td><input class="fin2-ir-input" value="${(b.descricao||'').replace(/"/g,'&quot;')}" placeholder="Ex: Apartamento, Gol 2020" onblur="fin2IRSave('bens','${b.id}','descricao',this.value)"></td>
+      <td><input class="fin2-ir-input" type="number" step="0.01" value="${b.valorAnterior||0}" style="text-align:right" onblur="fin2IRChange('bens','${b.id}','valorAnterior',+this.value)"></td>
+      <td><input class="fin2-ir-input" type="number" step="0.01" value="${b.valorAtual||0}" style="text-align:right" onblur="fin2IRChange('bens','${b.id}','valorAtual',+this.value)"></td>
+      <td><button class="fin2-ir-del" onclick="fin2IRDelete('bens','${b.id}')">×</button></td>
+    </tr>`).join('')}
+    </tbody></table>
+    <button class="fin2-ir-add-btn" style="color:#c9a84c" onclick="fin2IRAdd('bens')">+ Adicionar Bem ou Direito</button>
+  </div>
+
+  <!-- ── Pagamentos / DARF ── -->
+  <div class="fin2-ir-section">
+    <div class="fin2-ir-sec-hdr" style="color:#a78bfa">
+      <span>Pagamentos e DARF</span>
+      <span class="fin2-ir-sec-total" style="color:#a78bfa">${fmt(FIN2_IR.pagamentos.reduce((a,p)=>a+(p.valor||0),0))}</span>
+    </div>
+    <table class="fin2-ir-table"><thead><tr>
+      <th>Descrição</th><th>Tipo</th><th>Data</th>
+      <th style="color:#a78bfa;text-align:right">Valor</th>
+      <th style="width:28px"></th>
+    </tr></thead><tbody>
+    ${FIN2_IR.pagamentos.map(p=>`<tr>
+      <td><input class="fin2-ir-input" value="${(p.descricao||'').replace(/"/g,'&quot;')}" placeholder="Ex: DARF julho 2024" onblur="fin2IRSave('pagamentos','${p.id}','descricao',this.value)"></td>
+      <td><select class="fin2-ir-select" onchange="fin2IRChange('pagamentos','${p.id}','tipo',this.value)">${opts(tipoPag,p.tipo)}</select></td>
+      <td><input class="fin2-ir-input" type="date" value="${p.data||''}" onblur="fin2IRSave('pagamentos','${p.id}','data',this.value)"></td>
+      <td><input class="fin2-ir-input" type="number" step="0.01" value="${p.valor||0}" style="text-align:right" onblur="fin2IRChange('pagamentos','${p.id}','valor',+this.value)"></td>
+      <td><button class="fin2-ir-del" onclick="fin2IRDelete('pagamentos','${p.id}')">×</button></td>
+    </tr>`).join('')}
+    </tbody></table>
+    <button class="fin2-ir-add-btn" style="color:#a78bfa" onclick="fin2IRAdd('pagamentos')">+ Adicionar Pagamento / DARF</button>
+  </div>
+
+  </div><!-- /fin2-ir-grid -->
+  <div style="font-size:9px;color:#2a3050;text-align:center;padding-bottom:8px">
+    Tabela IRPF 2024 · Ano-calendário 2024 · Declaração 2025 · Valores calculados são estimativos — consulte seu contador
+  </div>
+  </div><!-- /fin2-ir-wrap -->`;
+};
+
+window.fin2IRAdd = function(section) {
+  const defaults = {
+    rendimentos: { fonte:'', tipo:'salario', valorBruto:0, irrf:0 },
+    isentos:     { descricao:'', tipo:'outros', valor:0 },
+    deducoes:    { tipo:'saude', descricao:'', valor:0 },
+    bens:        { tipo:'imovel', descricao:'', valorAtual:0, valorAnterior:0 },
+    pagamentos:  { descricao:'', tipo:'darf', data:'', valor:0 },
+  };
+  FIN2_IR[section].push({ id: section[0]+Date.now(), ...defaults[section] });
+  fin2RenderIR();
+  fin2TriggerAutoSave();
+};
+
+window.fin2IRDelete = function(section, id) {
+  FIN2_IR[section] = FIN2_IR[section].filter(x => x.id !== id);
+  fin2RenderIR();
+  fin2TriggerAutoSave();
+};
+
+window.fin2IRSave = function(section, id, field, value) {
+  const item = FIN2_IR[section].find(x => x.id === id);
+  if (item) item[field] = value;
+  fin2TriggerAutoSave();
+};
+
+window.fin2IRChange = function(section, id, field, value) {
+  const item = FIN2_IR[section].find(x => x.id === id);
+  if (item) item[field] = value;
+  fin2TriggerAutoSave();
+  fin2RenderIR();
+};
+
 /* ─────────── NAV ─────────── */
 window.fin2Switch = function(tab) {
-  ['planilha','dividas'].forEach(t => {
+  ['planilha','dividas','ir','mapa'].forEach(t => {
     const pane = document.getElementById('fin2-pane-'+t);
     const btn  = document.getElementById('fin2-btn-'+t);
     if (!pane || !btn) return;
     const show = t === tab;
-    pane.style.display = show ? (t==='dividas'?'flex':'block') : 'none';
+    pane.style.display = show ? (t==='dividas'?'flex': t==='mapa'?'flex':'block') : 'none';
     btn.classList.toggle('active', show);
   });
   if (tab === 'planilha') fin2RenderSheet();
   if (tab === 'dividas')  fin2RenderDebtCol();
+  if (tab === 'ir')       fin2RenderIR();
+  if (tab === 'mapa')     renderFinanceMap();
 };
 
 /* ─────────── PLANILHA ─────────── */
@@ -11135,38 +11466,40 @@ window.fin2RenderSheet = function() {
   const tbl = document.getElementById('fin2-sheet');
   if (!tbl) return;
   const s = FIN2_SHEET;
-  let html = '<thead><tr><th class="fin2-th-label">Item</th>';
+  // col order: [ctrl] [label] [12 months] [total]
+  const allCollapsed = Object.values(fin2Collapsed).every(v=>v);
+  let html = `<thead><tr><th style="width:28px;text-align:center;vertical-align:middle"><button class="fin2-toggle-all-icon" id="fin2-toggle-all-btn" onclick="fin2ToggleAll()" title="Recolher/Expandir tudo">${allCollapsed?'▸':'▾'}</button></th><th class="fin2-th-label">Item</th>`;
   MONTHS.forEach(m => html += `<th>${m}</th>`);
-  html += '<th>Total</th><th></th></tr></thead><tbody>';
+  html += '<th>Total</th></tr></thead><tbody>';
 
   function renderRows(group, groupKey) {
-    const secClass  = groupKey==='receitas'?' fin2-sec-receitas':groupKey==='dividas'?' fin2-sec-dividas':'';
+    const secClass  = groupKey==='receitas'?' fin2-sec-receitas':groupKey==='despesas'?' fin2-sec-despesas':groupKey==='dividas'?' fin2-sec-dividas':'';
     const totClass  = groupKey==='receitas'?' fin2-tot-receitas':groupKey==='despesas'?' fin2-tot-despesas':groupKey==='dividas'?' fin2-tot-dividas':'';
     const secLbl    = groupKey==='receitas'?'RECEITAS':groupKey==='despesas'?'DESPESAS FIXAS':'DÍVIDAS';
     const collapsed = fin2Collapsed[groupKey];
     const chevron   = collapsed ? '▸' : '▾';
-    html += `<tr class="fin2-section-row${secClass}"><td colspan="${MONTHS.length+3}">${secLbl}<button class="fin2-collapse-btn" data-group="${groupKey}" onclick="fin2ToggleGroup('${groupKey}')">${chevron}</button></td></tr>`;
+    html += `<tr class="fin2-section-row${secClass}"><td style="text-align:center;vertical-align:middle"><button class="fin2-collapse-btn" data-group="${groupKey}" onclick="fin2ToggleGroup('${groupKey}')" title="Recolher/Expandir">${chevron}</button></td><td colspan="${MONTHS.length+2}">${secLbl}</td></tr>`;
     group.forEach(row => {
       const total = row.values.reduce((a,b)=>a+b,0);
       html += `<tr class="fin2-group-row-${groupKey}"${collapsed?' style="display:none"':''}>`;
+      html += `<td style="text-align:center"><button class="fin2-del-btn" onclick="fin2DeleteRow('${groupKey}','${row.id}')" title="Excluir linha">×</button></td>`;
       html += `<td class="fin2-td-label">${row.label}</td>`;
       row.values.forEach((v,mi) => {
         html += `<td><input class="fin2-input" type="number" min="0" step="1" value="${v}" onchange="fin2UpdateCell('${groupKey}','${row.id}',${mi},this.value)"></td>`;
       });
-      html += `<td><span class="fin2-sh-tot" id="fin2-tot-${groupKey}-${row.id}">R$${total.toLocaleString('pt-BR')}</span></td>`;
-      html += `<td><button class="fin2-del-btn" onclick="fin2DeleteRow('${groupKey}','${row.id}')" title="Excluir linha">×</button></td></tr>`;
+      html += `<td><span class="fin2-sh-tot" id="fin2-tot-${groupKey}-${row.id}">R$${total.toLocaleString('pt-BR')}</span></td></tr>`;
     });
     // botão adicionar linha
     const addLbl = groupKey==='receitas'?'Receita':groupKey==='despesas'?'Despesa':'Dívida';
-    html += `<tr class="fin2-add-row fin2-group-row-${groupKey}"${collapsed?' style="display:none"':''}><td colspan="${MONTHS.length+3}"><button class="fin2-add-btn" onclick="fin2AddRow('${groupKey}')">+ Adicionar ${addLbl}</button></td></tr>`;
+    html += `<tr class="fin2-add-row fin2-group-row-${groupKey}"${collapsed?' style="display:none"':''}><td colspan="2" style="white-space:nowrap"><button class="fin2-add-btn" onclick="fin2AddRow('${groupKey}')">+ Adicionar ${addLbl}</button></td><td colspan="${MONTHS.length+1}"></td></tr>`;
     // totalizador do grupo
     const tots = Array(12).fill(0);
     group.forEach(row => row.values.forEach((v,i) => tots[i]+=v));
     const grandTotal = tots.reduce((a,b)=>a+b,0);
     const totLbl = groupKey==='receitas'?'Total Receitas':groupKey==='despesas'?'Total Despesas':'Total Dívidas';
-    html += `<tr class="fin2-total-row${totClass}"><td class="fin2-td-label">${totLbl}</td>`;
+    html += `<tr class="fin2-total-row${totClass}"><td></td><td class="fin2-td-label">${totLbl}</td>`;
     tots.forEach((v,i) => html += `<td><span class="fin2-sh-tot" id="fin2-grptot-${groupKey}-${i}">R$${v.toLocaleString('pt-BR')}</span></td>`);
-    html += `<td><span class="fin2-sh-tot" id="fin2-grptot-${groupKey}-total">R$${grandTotal.toLocaleString('pt-BR')}</span></td><td></td></tr>`;
+    html += `<td><span class="fin2-sh-tot" id="fin2-grptot-${groupKey}-total">R$${grandTotal.toLocaleString('pt-BR')}</span></td></tr>`;
   }
 
   renderRows(s.receitas,'receitas');
@@ -11174,8 +11507,8 @@ window.fin2RenderSheet = function() {
   renderRows(s.dividas,'dividas');
 
   // Fluxo de caixa
-  html += `<tr class="fin2-section-row"><td colspan="${MONTHS.length+3}">FLUXO DE CAIXA</td></tr>`;
-  html += '<tr class="fin2-cashflow-row"><td class="fin2-td-label">Saldo do Mês</td>';
+  html += `<tr class="fin2-section-row"><td></td><td colspan="${MONTHS.length+2}">FLUXO DE CAIXA</td></tr>`;
+  html += '<tr class="fin2-cashflow-row"><td></td><td class="fin2-td-label">Saldo do Mês</td>';
   for (let i=0;i<12;i++) {
     const rec = s.receitas.reduce((a,r)=>a+r.values[i],0);
     const dep = s.despesas.reduce((a,r)=>a+r.values[i],0);
@@ -11188,7 +11521,7 @@ window.fin2RenderSheet = function() {
   const totDep = s.despesas.reduce((a,r)=>a+r.values.reduce((x,y)=>x+y,0),0);
   const totDiv = s.dividas.reduce((a,r)=>a+r.values.reduce((x,y)=>x+y,0),0);
   const saldoTotal = totRec-totDep-totDiv;
-  html += `<td><span class="${saldoTotal>=0?'fin2-cashflow-pos':'fin2-cashflow-neg'}">R$${saldoTotal.toLocaleString('pt-BR')}</span></td><td></td></tr>`;
+  html += `<td><span class="${saldoTotal>=0?'fin2-cashflow-pos':'fin2-cashflow-neg'}">R$${saldoTotal.toLocaleString('pt-BR')}</span></td></tr>`;
 
   html += '</tbody>';
   tbl.innerHTML = html;
@@ -11201,6 +11534,7 @@ window.fin2UpdateCell = function(groupKey, rowId, monthIdx, rawVal) {
   if (!row) return;
   row.values[monthIdx] = val;
   fin2RecalcSheet(groupKey);
+  fin2TriggerAutoSave();
 };
 
 window.fin2RecalcSheet = function(groupKey) {
@@ -11246,6 +11580,7 @@ window.fin2AddRow = function(groupKey) {
     fin2RenderDebtCol();
   }
   fin2RenderSheet();
+  fin2TriggerAutoSave();
 };
 
 window.fin2DeleteRow = function(groupKey, rowId) {
@@ -11256,6 +11591,7 @@ window.fin2DeleteRow = function(groupKey, rowId) {
     else fin2RenderDebtCol();
   }
   fin2RenderSheet();
+  fin2TriggerAutoSave();
 };
 
 window.fin2ToggleGroup = function(groupKey) {
@@ -11264,6 +11600,26 @@ window.fin2ToggleGroup = function(groupKey) {
   document.querySelectorAll(`.fin2-group-row-${groupKey}`).forEach(r => r.style.display = hidden ? 'none' : '');
   const btn = document.querySelector(`.fin2-collapse-btn[data-group="${groupKey}"]`);
   if (btn) btn.textContent = hidden ? '▸' : '▾';
+  fin2SyncToggleAllBtn();
+};
+
+window.fin2ToggleAll = function() {
+  const allCollapsed = Object.values(fin2Collapsed).every(v => v);
+  const target = !allCollapsed;
+  ['receitas','despesas','dividas'].forEach(gk => {
+    fin2Collapsed[gk] = target;
+    document.querySelectorAll(`.fin2-group-row-${gk}`).forEach(r => r.style.display = target ? 'none' : '');
+    const btn = document.querySelector(`.fin2-collapse-btn[data-group="${gk}"]`);
+    if (btn) btn.textContent = target ? '▸' : '▾';
+  });
+  fin2SyncToggleAllBtn();
+};
+
+window.fin2SyncToggleAllBtn = function() {
+  const btn = document.getElementById('fin2-toggle-all-btn');
+  if (!btn) return;
+  const allCollapsed = Object.values(fin2Collapsed).every(v => v);
+  btn.textContent = allCollapsed ? '▸' : '▾';
 };
 
 /* ─────────── DÍVIDAS COL ─────────── */
@@ -11467,27 +11823,29 @@ window.fin2ToggleInstallment = function(cid, idx) {
   if (!c) return;
   c.paid = (idx < c.paid) ? idx : idx+1;
   fin2OpenDrawer(cid);
+  fin2TriggerAutoSave();
 };
 
 window.fin2SaveNotes = function(cid, val) {
   const c = FIN2_CREDITORS.find(x=>x.id===cid);
-  if (c) c.notes = val;
+  if (c) { c.notes = val; fin2TriggerAutoSave(); }
 };
 
 window.fin2SaveStatus = function(cid, val) {
   const c = FIN2_CREDITORS.find(x=>x.id===cid);
   if (c) c.status = val;
   fin2RenderDebtCol();
+  fin2TriggerAutoSave();
 };
 
 window.fin2SavePrazo = function(cid, val) {
   const c = FIN2_CREDITORS.find(x=>x.id===cid);
-  if (c) c.prazo = val;
+  if (c) { c.prazo = val; fin2TriggerAutoSave(); }
 };
 
 window.fin2SavePrazoInicial = function(cid, val) {
   const c = FIN2_CREDITORS.find(x=>x.id===cid);
-  if (c) c.prazoInicial = val;
+  if (c) { c.prazoInicial = val; fin2TriggerAutoSave(); }
 };
 
 window.fin2AdjInstallments = function(cid, delta) {
@@ -11497,6 +11855,7 @@ window.fin2AdjInstallments = function(cid, delta) {
   if (next < 1) return;
   c.installments = next;
   fin2OpenDrawer(cid);
+  fin2TriggerAutoSave();
 };
 
 window.fin2HandleDrop = function(cid, event) {
@@ -11559,6 +11918,7 @@ window.fin2TogglePendurada = function(cid) {
   if (!c) return;
   c.pendurada = !c.pendurada;
   fin2OpenDrawer(cid);
+  fin2TriggerAutoSave();
 };
 
 window.fin2RemoveDebt = function(cid) {
@@ -11574,9 +11934,67 @@ window.fin2RemoveDebt = function(cid) {
   fin2CloseDrawer();
 };
 
+/* ─────────── PERSISTÊNCIA FIN2 ─────────── */
+const FIN2_DATA_PATH = 'projects/financas/data/fin2_data.json';
+let fin2SaveTimer = null;
+
+window.fin2SaveData = async function() {
+  const el = document.getElementById('fin2-autosave-status');
+  try {
+    const payload = { sheet: FIN2_SHEET, creditors: FIN2_CREDITORS, ir: FIN2_IR };
+    const res = await fetch('/api/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        path: FIN2_DATA_PATH,
+        content: JSON.stringify(payload, null, 2),
+        initiated_by: 'human',
+        project_id: 'financas'
+      })
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    if (el) { el.textContent = '✓ salvo'; el.style.color = '#4ade80'; }
+    setTimeout(() => { if (el) el.textContent = ''; }, 2500);
+  } catch(e) {
+    if (el) { el.textContent = '✗ erro ao salvar'; el.style.color = '#ef4444'; }
+    console.error('[fin2] save error:', e);
+  }
+};
+
+window.fin2LoadData = async function() {
+  try {
+    const res = await fetch('/api/file?path=' + encodeURIComponent(FIN2_DATA_PATH));
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data.sheet) {
+      if (Array.isArray(data.sheet.receitas)) FIN2_SHEET.receitas = data.sheet.receitas;
+      if (Array.isArray(data.sheet.despesas)) FIN2_SHEET.despesas = data.sheet.despesas;
+      if (Array.isArray(data.sheet.dividas))  FIN2_SHEET.dividas  = data.sheet.dividas;
+    }
+    if (Array.isArray(data.creditors)) FIN2_CREDITORS = data.creditors;
+    if (data.ir && typeof data.ir === 'object') {
+      if (typeof data.ir.ano === 'number')          FIN2_IR.ano         = data.ir.ano;
+      if (Array.isArray(data.ir.rendimentos))        FIN2_IR.rendimentos = data.ir.rendimentos;
+      if (Array.isArray(data.ir.isentos))            FIN2_IR.isentos     = data.ir.isentos;
+      if (Array.isArray(data.ir.deducoes))           FIN2_IR.deducoes    = data.ir.deducoes;
+      if (Array.isArray(data.ir.bens))               FIN2_IR.bens        = data.ir.bens;
+      if (Array.isArray(data.ir.pagamentos))         FIN2_IR.pagamentos  = data.ir.pagamentos;
+    }
+  } catch(e) {
+    console.warn('[fin2] load error (usando padrões):', e);
+  }
+};
+
+window.fin2TriggerAutoSave = function() {
+  const el = document.getElementById('fin2-autosave-status');
+  if (el) { el.textContent = '● salvando...'; el.style.color = '#c9a84c'; }
+  clearTimeout(fin2SaveTimer);
+  fin2SaveTimer = setTimeout(fin2SaveData, 1200);
+};
+
 /* ─────────── INIT renderFinancas ─────────── */
 window.renderFinancas = function() {
-  fin2Switch('dividas');
+  fin2LoadData().then(() => fin2Switch('dividas'));
 };
 
 /* ─────────── PAINEL DE CONTRATOS NO MASTER (clone section) ─────────── */

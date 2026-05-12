@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-11",
+  "updated_at": "2026-05-12",
   "rows": [
     {
       "id": "metodo",
@@ -17,7 +17,9 @@
         "cover": "/ebook/master_cover_v2.png",
         "tag": "PRINCIPAL",
         "tagVariant": "gold",
-        "action": { "type": "soon" }
+        "action": {
+          "type": "soon"
+        }
       },
       "groups": [
         {
@@ -32,7 +34,9 @@
               "cover": "/sais/assets/bonus-1-v2.png",
               "tag": "BÔNUS",
               "tagVariant": "green",
-              "action": { "type": "soon" }
+              "action": {
+                "type": "soon"
+              }
             },
             {
               "id": "bonus-fornecedores",
@@ -41,7 +45,9 @@
               "cover": "/sais/assets/bonus-2.png",
               "tag": "BÔNUS",
               "tagVariant": "green",
-              "action": { "type": "soon" }
+              "action": {
+                "type": "soon"
+              }
             },
             {
               "id": "bonus-posts",
@@ -50,7 +56,20 @@
               "cover": "/sais/assets/bonus-3.png",
               "tag": "BÔNUS",
               "tagVariant": "green",
-              "action": { "type": "soon" }
+              "action": {
+                "type": "soon"
+              }
+            },
+            {
+              "id": "item-1778604798910",
+              "title": "Novo Item",
+              "subtitle": "",
+              "cover": "",
+              "tag": "BÔNUS",
+              "tagVariant": "green",
+              "action": {
+                "type": "soon"
+              }
             }
           ]
         },
@@ -66,7 +85,11 @@
               "cover": "/sais/assets/10-blends.png",
               "tag": "OB 01",
               "tagVariant": "blue",
-              "action": { "type": "soon" }
+              "action": {
+                "type": "pdf",
+                "file": ""
+              },
+              "locked": false
             },
             {
               "id": "ob2",
@@ -75,7 +98,9 @@
               "cover": "/ebook/capa_mistica_rosto.png",
               "tag": "OB 02",
               "tagVariant": "blue",
-              "action": { "type": "soon" }
+              "action": {
+                "type": "soon"
+              }
             },
             {
               "id": "ob3",
@@ -85,7 +110,42 @@
               "tag": "OB 03",
               "tagVariant": "muted",
               "locked": true,
-              "action": { "type": "soon" }
+              "action": {
+                "type": "soon"
+              }
+            },
+            {
+              "id": "item-1778475732569",
+              "title": "Novo Item",
+              "subtitle": "",
+              "cover": "",
+              "tag": "BÔNUS",
+              "tagVariant": "green",
+              "action": {
+                "type": "soon"
+              }
+            },
+            {
+              "id": "item-1778555148042",
+              "title": "Novo Item",
+              "subtitle": "",
+              "cover": "",
+              "tag": "BÔNUS",
+              "tagVariant": "green",
+              "action": {
+                "type": "soon"
+              }
+            },
+            {
+              "id": "item-1778557613449",
+              "title": "Novo Item",
+              "subtitle": "",
+              "cover": "",
+              "tag": "BÔNUS",
+              "tagVariant": "green",
+              "action": {
+                "type": "soon"
+              }
             }
           ]
         }
@@ -108,7 +168,10 @@
         "tag": "UPSELL",
         "tagVariant": "purple",
         "progress": 65,
-        "action": { "type": "viewer", "path": "/ebook/viewer/cofre" }
+        "action": {
+          "type": "viewer",
+          "path": "/ebook/viewer/cofre"
+        }
       },
       "groups": [
         {
@@ -123,7 +186,9 @@
               "cover": "/ebook/capa_mistica_dourada.png",
               "tag": "ELITE",
               "tagVariant": "gold",
-              "action": { "type": "soon" }
+              "action": {
+                "type": "soon"
+              }
             },
             {
               "id": "sinergias",
@@ -133,7 +198,10 @@
               "tag": "BÔNUS",
               "tagVariant": "green",
               "progress": 40,
-              "action": { "type": "viewer", "path": "/ebook/viewer/sinergias" }
+              "action": {
+                "type": "viewer",
+                "path": "/ebook/viewer/sinergias"
+              }
             },
             {
               "id": "fornecedores",
@@ -143,7 +211,10 @@
               "tag": "BÔNUS",
               "tagVariant": "green",
               "progress": 100,
-              "action": { "type": "viewer", "path": "/ebook/viewer/fornecedores" }
+              "action": {
+                "type": "viewer",
+                "path": "/ebook/viewer/fornecedores"
+              }
             },
             {
               "id": "ritual-noite",
@@ -153,7 +224,10 @@
               "tag": "BÔNUS",
               "tagVariant": "green",
               "progress": 15,
-              "action": { "type": "viewer", "path": "/ebook/viewer/ritual-noite" }
+              "action": {
+                "type": "viewer",
+                "path": "/ebook/viewer/ritual-noite"
+              }
             }
           ]
         }

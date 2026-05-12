@@ -1,0 +1,61 @@
+squad:
+  id: SQD-FIN
+  name: FINANÇAS GESTÃO & ANÁLISE
+  color: "#c9a84c"
+  icon: dollar-sign
+  tag: FINANCAS
+  missao: >
+    Gerenciar o fluxo de caixa, analisar contratos de dívida, suportar
+    negociações com credores e alimentar a planilha financeira do painel AIOX.
+  regra_mae:
+    - Contrato antes de conclusao
+    - Fonte antes de numero
+    - Fluxo de caixa antes de quitacao
+    - Clausula antes de recomendacao
+    - Risco classificado antes de acao
+    - Validacao antes de encerramento
+
+camadas:
+  - id: analise
+    nome: Análise e Extração
+    agentes:
+      - financas-debt-analyst
+
+agentes:
+  - id: AGT-FIN-01
+    nome: Debt Contract Analyzer
+    handle: "@financas-debt-analyst"
+    funcao: >
+      Analisa contratos de dívida submetidos pelo usuário, extrai cláusulas
+      críticas, calcula simulações de quitação antecipada e alimenta o drawer
+      de dívidas do painel AIOX.
+    arquivo: financas/squad/agents/debt-contract-analyzer.md
+    skills:
+      - contract-extraction
+      - interest-rate-audit
+      - payoff-simulation
+      - risk-clause-classifier
+      - negotiation-advisor
+    clone_primario: prs-financas-debt-contract-analyzer
+    clones_de_referencia:
+      - prs-alan-nicolas
+      - nectar-auditor
+    materiais_processaveis:
+      - knowledge/clones/financas/debt-contract-analyzer_clone.md
+      - knowledge/clones/financas/context_packets/debt-contract-analyzer_context_packet.md
+    materiais_suporte:
+      - docs/aiox_dashboard.html
+      - financas/data/squad-roster.json
+      - financas/data/clone-agent-map.json
+
+inputs:
+  - Contrato PDF ou imagem submetido pelo usuario
+  - ID do credor na planilha (ex: d-brad1, d-eagle)
+  - Numero de parcelas pagas
+
+outputs:
+  - Ficha de extracao do contrato
+  - Simulacao de quitacao antecipada
+  - Classificacao de clausulas de risco
+  - Recomendacao de acao
+  - Dados para drawer do painel AIOX

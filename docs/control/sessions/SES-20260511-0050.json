@@ -1,0 +1,40 @@
+{
+  "id": "SES-20260511-0050",
+  "status": "closed",
+  "started_at": "2026-05-11T23:54:22-03:00",
+  "started_by": "dashboard",
+  "source": "dashboard_auto_boot",
+  "model_hint": "dashboard",
+  "project_id": "sais",
+  "last_seen_at": "2026-05-11T23:56:05-03:00",
+  "context_flash": {
+    "project": "SommersStore Elite",
+    "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
+    "active_task": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+    "build_phase": "BLD-07",
+    "ops_stage": "OPS-01",
+    "latest_checkpoint_id": "CHK-MEM-0400",
+    "latest_checkpoint_next_action": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+    "latest_raw_checkpoint_id": "CHK-MEM-0465",
+    "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+    "checkpoint_resolution": "last_actionable_checkpoint",
+    "latest_active_decision_id": "DEC-MEM-0004",
+    "open_loops_count": 2,
+    "open_loop_ids": [
+      "LOOP-0001",
+      "LOOP-0003"
+    ],
+    "tracked_files": [],
+    "continuity_file": "docs/memory/startup_context_latest.md",
+    "continuity_window_days": 7
+  },
+  "last_context_note": "background",
+  "last_pulse_logged_at": "2026-05-11T23:56:05-03:00",
+  "last_pulse_note": "background",
+  "ended_at": "2026-05-11T23:56:09-03:00",
+  "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+  "next_action": null,
+  "completed_tasks": [],
+  "checkpoint_id": "CHK-MEM-0466",
+  "closed_by": "system"
+}

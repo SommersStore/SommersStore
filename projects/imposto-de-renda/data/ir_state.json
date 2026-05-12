@@ -1,0 +1,88 @@
+{
+  "projeto": "Imposto de Renda PF",
+  "ano_calendario": 2025,
+  "exercicio": 2026,
+  "status": "intake",
+  "regime_escolhido": null,
+  "prazo_final": null,
+  "updated_at": "2026-05-12T11:06:00-03:00",
+  "declarante": {
+    "nome": null,
+    "cpf": null,
+    "data_nascimento": null,
+    "titulo_eleitor": null,
+    "endereco": null,
+    "ocupacao_principal": null,
+    "natureza_ocupacao": null,
+    "dependentes": []
+  },
+  "rendimentos": {
+    "tributaveis": [],
+    "isentos_nao_tributaveis": [],
+    "exclusivos_na_fonte": [],
+    "recebidos_acumuladamente": [],
+    "exterior": []
+  },
+  "deducoes": {
+    "previdencia_oficial": 0,
+    "previdencia_privada_pgbl": 0,
+    "dependentes_valor": 0,
+    "saude": [],
+    "educacao": [],
+    "pensao_alimenticia": [],
+    "livro_caixa": [],
+    "outras": []
+  },
+  "bens_direitos": {
+    "imoveis": [],
+    "veiculos": [],
+    "contas_bancarias": [],
+    "investimentos": [],
+    "participacoes_societarias": [],
+    "outros": []
+  },
+  "dividas_onus": [],
+  "pagamentos_efetuados": [],
+  "doacoes": [],
+  "ganhos_capital": [],
+  "operacoes_bolsa": {
+    "operou_em_bolsa": false,
+    "lucro_isento_ate_20k": 0,
+    "lucro_tributavel": 0,
+    "prejuizo_acumulado": 0,
+    "darf_pago": 0
+  },
+  "simulacao": {
+    "simplificado": {
+      "base_calculo": 0,
+      "imposto_devido": 0,
+      "retido_na_fonte": 0,
+      "restituicao_ou_pagar": 0
+    },
+    "completo": {
+      "base_calculo": 0,
+      "deducoes_totais": 0,
+      "imposto_devido": 0,
+      "retido_na_fonte": 0,
+      "restituicao_ou_pagar": 0
+    },
+    "regime_recomendado": null,
+    "economia_vs_outro": 0
+  },
+  "documentos_checklist": {
+    "informes_rendimento": { "total": 0, "reunidos": 0, "pendentes": 0 },
+    "informes_financeiros": { "total": 0, "reunidos": 0, "pendentes": 0 },
+    "recibos_saude": { "total": 0, "reunidos": 0, "pendentes": 0 },
+    "recibos_educacao": { "total": 0, "reunidos": 0, "pendentes": 0 },
+    "documentos_bens": { "total": 0, "reunidos": 0, "pendentes": 0 },
+    "contratos_dividas": { "total": 0, "reunidos": 0, "pendentes": 0 },
+    "outros": { "total": 0, "reunidos": 0, "pendentes": 0 }
+  },
+  "entrega": {
+    "status": "nao_enviada",
+    "data_envio": null,
+    "numero_recibo": null,
+    "lote_restituicao": null,
+    "retificacoes": []
+  }
+}

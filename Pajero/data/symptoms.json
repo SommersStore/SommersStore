@@ -1,0 +1,47 @@
+[
+  {
+    "id": "marcha-lenta-instavel",
+    "sintoma": "Marcha lenta instavel",
+    "prioridade": "Critico",
+    "sistemas": ["Motor", "Admissao", "Ignicao", "Injecao", "Sensores"],
+    "evidencias_necessarias": ["DTC ECU", "dados ao vivo", "STFT", "LTFT", "temperatura do motor", "fotos da admissao"],
+    "hipoteses": ["entrada falsa de ar", "TBI sujo", "falha de ignicao", "sensor fora de faixa", "compressao irregular"],
+    "status": "pendente"
+  },
+  {
+    "id": "consumo-elevado-4km-l",
+    "sintoma": "Consumo elevado, aproximadamente 4 km/l",
+    "prioridade": "Critico",
+    "sistemas": ["Motor", "Combustivel", "Sondas lambda", "Escapamento"],
+    "evidencias_necessarias": ["STFT", "LTFT", "sinais das sondas", "pressao de combustivel", "fotos do escapamento"],
+    "hipoteses": ["mistura rica", "sonda lambda comprometida", "vazamento antes da sonda", "catalisador ausente alterando leitura", "bico injetor com vazao incorreta"],
+    "status": "pendente"
+  },
+  {
+    "id": "trancos-cambio-v5a51",
+    "sintoma": "Trancos nas trocas de marcha",
+    "prioridade": "Critico",
+    "sistemas": ["Cambio V5A51", "Motor", "Coxins", "Cardans", "Diferenciais", "TCU"],
+    "evidencias_necessarias": ["DTC TCU", "estado do ATF", "nivel do ATF", "fotos do carter", "teste frio/quente", "inspecao de coxins e folgas"],
+    "hipoteses": ["ATF degradado", "nivel incorreto", "coxim ruim", "folga em cardan", "motor irregular", "solenoide ou corpo de valvulas"],
+    "status": "pendente"
+  },
+  {
+    "id": "direcao-hidraulica-dura",
+    "sintoma": "Direcao hidraulica um pouco dura",
+    "prioridade": "Alto",
+    "sistemas": ["Direcao hidraulica", "Suspensao", "Pneus", "Geometria"],
+    "evidencias_necessarias": ["nivel do fluido", "estado do fluido", "fotos da bomba", "fotos das mangueiras", "calibragem dos pneus", "alinhamento"],
+    "hipoteses": ["fluido degradado", "bomba cansada", "mangueira restrita", "caixa de direcao", "pneus/geometria"],
+    "status": "pendente"
+  },
+  {
+    "id": "catalisador-ausente",
+    "sintoma": "Catalisador ausente",
+    "prioridade": "Critico",
+    "sistemas": ["Escapamento", "Sondas lambda", "Gerenciamento do motor"],
+    "evidencias_necessarias": ["fotos do escapamento", "fotos das sondas", "leitura das sondas", "inspecao de emulador", "vazamentos antes das sondas"],
+    "hipoteses": ["leitura de sonda alterada", "mistura fora de controle", "emulador instalado", "vazamento de escapamento"],
+    "status": "pendente"
+  }
+]

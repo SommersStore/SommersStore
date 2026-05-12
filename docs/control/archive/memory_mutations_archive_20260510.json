@@ -1,0 +1,75 @@
+{
+  "mutations": [
+    {
+      "timestamp": "2026-04-28T22:49:58-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260428-0034",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-04-28T22:49:58-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-04-28T22:56:05-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260428-0034: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-04-28T22:56:08-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260428-0035",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-04-28T22:56:08-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-04-28T23:00:40-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260428-0035: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-04-28T23:00:42-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260428-0036",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-04-28T23:00:42-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-04-28T23:04:03-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260428-0036: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-04-28T23:04:05-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260428-0037",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    }
+  ],
+  "rotated_at": "2026-05-10T23:18:18-03:00"
+}

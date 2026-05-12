@@ -1,7 +1,7 @@
 # Workspace Livros - Russell Brunson
 
 - persona_id: prs-russell-brunson
-- updated_at: 2026-05-08T14:25:05-03:00
+- updated_at: 2026-05-12T11:34:55-03:00
 
 ## Objetivo
 - Usar os PDFs como acervo e trabalhar com notas/estruturas em Markdown para acelerar leitura da IA.
