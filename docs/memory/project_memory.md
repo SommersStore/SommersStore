@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-05-18T23:52:21-03:00
+- updated_at: 2026-05-19T02:13:23-03:00
 
 ## Handoff Atual - Dashboard Stability & UX
 - timestamp: 2026-04-27
@@ -106,6 +106,51 @@
 - checkpoint: CHK-MEM-0250
 
 ## Ultimo fechamento automatico
+- timestamp: 2026-05-19T02:13:23-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0584
+- timestamp: 2026-05-19T02:12:35-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0583
+- timestamp: 2026-05-19T02:04:56-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0582
+- timestamp: 2026-05-19T00:41:59-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0581
+- timestamp: 2026-05-19T00:26:41-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0580
+- timestamp: 2026-05-19T00:24:25-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0579
+- timestamp: 2026-05-19T00:20:49-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0578
+- timestamp: 2026-05-19T00:15:29-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0577
+- timestamp: 2026-05-19T00:13:36-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0576
 - timestamp: 2026-05-18T23:52:21-03:00
 - tipo: automatico
 - resumo: Encerramento automatico (fechamento de aba/janela).
@@ -1731,3 +1776,19 @@
 - resumo: A integracao de Financas foi refeita a partir da aba `SsS Ltda 2025`. O periodo atual passou a ser maio/2026, com receita R$ 11.257, despesas R$ 2.792, parcelas/dividas R$ 11.654, saldo mensal -R$ 3.189, acumulado -R$ 14.261 e forecast mensal de novembro/2025 a dezembro/2026 na subaba `Planilha`.
 - proxima_acao: Validar saldos reais de contrato para substituir as estimativas por fator da coluna A, separar Uber bruto/liquido e priorizar renegociacoes de Horto, Mamud, M.C. Nu PJ, Bradesco e EAGLE.
 - checkpoint: CHK-FIN-02018
+
+## Registro Manual - 2026-05-19T01:14:47-03:00
+- tipo: marco
+- resumo: Story 2.27 concluida. Painel AIOX auditado em 21 panes sem erros de console/rede; corrigidos estado global defensivo do dashboard, assets quebrados da aba Saude, favicon ausente e faixa `ir-det-summary` da subaba IR. Area de membros restaurada da base de 11/05/2026 (`3722728`) e refinada com visual premium colorido, catalogo limpo, PDFs/viewers configurados e validacao responsiva desktop/mobile.
+- proxima_acao: Coletar os detalhes do usuario para a proxima rodada de refinamento fino da area de membros, especialmente entregaveis que ainda devem sair de `soon` para arquivos reais.
+- checkpoint: CHK-HUB-0227
+- timestamp: 2026-05-19T01:46:45-03:00
+- tipo: deploy
+- resumo: Build estatico da loja digital regenerado com `npm run build` e publicado via `firebase deploy --only hosting --non-interactive`. O `/hub` publico foi validado em Puppeteer com a nova area de membros (`Seu acervo Essencia Ativa`, label `Membro Elite`, 12 cards, sem estrutura antiga).
+- proxima_acao: Se o navegador ainda mostrar a area antiga, fazer hard refresh/limpar cache; depois receber detalhes do usuario para a proxima rodada de refinamento.
+- checkpoint: CHK-HUB-0228
+- timestamp: 2026-05-19T02:16:21-03:00
+- tipo: manual-save-all
+- resumo: Por decisao do usuario, o botao `Salvar Tudo` fica fora do fluxo confiavel ate validacao posterior. O fluxo equivalente foi executado manualmente pelo Codex: Firebase Hosting ja publicado com a nova area de membros e preparacao de commit/push GitHub com story 2.27, painel, hub, catalogo, memoria e export estatico.
+- proxima_acao: Validar no GitHub o commit/push e, em rodada posterior, auditar o botao `Salvar Tudo` antes de voltar a confiar nele.
+- checkpoint: CHK-HUB-0229

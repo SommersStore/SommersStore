@@ -38,6 +38,15 @@
 - [x] Reformular visual da subaba Imp. de Renda para reduzir espacos vazios
 
 ## Done in this session
+- [x] Story 2.27 concluida: painel raiz auditado em 21 abas/panes e area de membros restaurada/refinada a partir da base de 11/05/2026.
+- [x] Corrigido erro de runtime `REGISTRY is not defined` no painel, assets quebrados da aba Saude, favicon ausente e faixa `ir-det-summary` da subaba IR.
+- [x] Catalogo do hub restaurado do checkpoint `3722728`, removendo placeholders `Novo Item` e corrigindo entregaveis com PDFs/viewers existentes.
+- [x] Area de membros ganhou visual premium colorido com hero, estatisticas, sidebar, prateleiras horizontais, cards responsivos e fallback de capas.
+- [x] Validacao concluida: `npm run lint`, `npm run typecheck`, `npm test`, Puppeteer no painel e hub, `npm run typecheck` do app, ESLint focado em `app/hub/HubClient.tsx` e JSON do catalogo.
+- [x] Observacao: `cd projects/loja-digital; npm run lint` completo excedeu 120s ao varrer o projeto inteiro; o arquivo alterado passou no lint focado.
+- [x] `out_deploy` regenerado com `npm run build` e publicado no Firebase Hosting; `/hub` publico validado com a nova area de membros.
+- [x] Fluxo `Salvar Tudo` executado manualmente pelo Codex enquanto o botao do painel fica em quarentena de confianca.
+
 - [x] Story 2.26 concluida: subaba `Imp. de Renda` reformulada visualmente para ocupar melhor o painel.
 - [x] Grid desktop do detalhe IR agora preenche a altura util, com colunas de arquivos, resultado e fichas mais proporcionais.
 - [x] Adicionados contadores de arquivos, trilha visual de progresso e bloco hero do resultado estimado com barras fiscais.

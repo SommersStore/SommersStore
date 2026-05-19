@@ -1,12 +1,12 @@
 {
   "id": "SES-20260518-0050",
-  "status": "active",
+  "status": "closed",
   "started_at": "2026-05-18T23:52:25-03:00",
   "started_by": "dashboard",
   "source": "dashboard_auto_boot",
   "model_hint": "dashboard",
   "project_id": null,
-  "last_seen_at": "2026-05-19T00:05:40-03:00",
+  "last_seen_at": "2026-05-19T00:13:28-03:00",
   "context_flash": {
     "project": "SommersStore Elite",
     "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
@@ -29,6 +29,12 @@
     "continuity_window_days": 7
   },
   "last_context_note": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-  "last_pulse_logged_at": "2026-05-19T00:05:28-03:00",
-  "last_pulse_note": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto."
+  "last_pulse_logged_at": "2026-05-19T00:12:28-03:00",
+  "last_pulse_note": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+  "ended_at": "2026-05-19T00:13:36-03:00",
+  "close_summary": "Encerramento automatico (fechamento de aba/janela).",
+  "next_action": null,
+  "completed_tasks": [],
+  "checkpoint_id": "CHK-MEM-0576",
+  "closed_by": "system"
 }

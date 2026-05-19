@@ -7,6 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Painel Anti-Gravity</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23070b11'/%3E%3Cpath d='M14 42 28 14h7L21 42zm18 0 14-28h7L39 42z' fill='%23f5b753'/%3E%3C/svg%3E">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -2609,17 +2610,17 @@
                         </div>
                         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px">
                             <div style="border-radius:9px;overflow:hidden;border:1px solid rgba(16,185,129,0.17);background:#0a0a14" onmouseover="this.style.borderColor='rgba(16,185,129,0.5)'" onmouseout="this.style.borderColor='rgba(16,185,129,0.17)'">
-                                <div style="height:70px;background:url('/Desktop/10 Blends.png') center/cover no-repeat,linear-gradient(135deg,rgba(16,185,129,0.12),rgba(6,95,70,0.25));display:flex;align-items:flex-end">
+                                <div style="height:70px;background:url('/img_light_botanical_sommers.png') center/cover no-repeat,linear-gradient(135deg,rgba(16,185,129,0.12),rgba(6,95,70,0.25));display:flex;align-items:flex-end">
                                     <div style="background:linear-gradient(transparent,rgba(0,0,0,0.88));width:100%;padding:5px 8px"><div style="font-size:8px;font-weight:800;color:#10b981">Blends</div><div style="font-size:6.5px;color:#9ca3af">Despertar · Foco</div></div>
                                 </div>
                             </div>
                             <div style="border-radius:9px;overflow:hidden;border:1px solid rgba(16,185,129,0.17);background:#0a0a14" onmouseover="this.style.borderColor='rgba(16,185,129,0.5)'" onmouseout="this.style.borderColor='rgba(16,185,129,0.17)'">
-                                <div style="height:70px;background:url('/Desktop/Conhecendo os Sais.png') center/cover no-repeat,linear-gradient(135deg,rgba(16,185,129,0.12),rgba(6,95,70,0.25));display:flex;align-items:flex-end">
+                                <div style="height:70px;background:url('/marketing/assets/v3_light_live.png') center/cover no-repeat,linear-gradient(135deg,rgba(16,185,129,0.12),rgba(6,95,70,0.25));display:flex;align-items:flex-end">
                                     <div style="background:linear-gradient(transparent,rgba(0,0,0,0.88));width:100%;padding:5px 8px"><div style="font-size:8px;font-weight:800;color:#10b981">Sais Minerais</div><div style="font-size:6.5px;color:#9ca3af">Marinho · Himalaia</div></div>
                                 </div>
                             </div>
                             <div style="border-radius:9px;overflow:hidden;border:1px solid rgba(16,185,129,0.17);background:#0a0a14" onmouseover="this.style.borderColor='rgba(16,185,129,0.5)'" onmouseout="this.style.borderColor='rgba(16,185,129,0.17)'">
-                                <div style="height:70px;background:url('/Desktop/Banho Spa.jpg') center/cover no-repeat,linear-gradient(135deg,rgba(16,185,129,0.12),rgba(6,95,70,0.25));display:flex;align-items:flex-end">
+                                <div style="height:70px;background:url('/img_botanical_luxury_candle_sommers.png') center/cover no-repeat,linear-gradient(135deg,rgba(16,185,129,0.12),rgba(6,95,70,0.25));display:flex;align-items:flex-end">
                                     <div style="background:linear-gradient(transparent,rgba(0,0,0,0.88));width:100%;padding:5px 8px"><div style="font-size:8px;font-weight:800;color:#10b981">Balneoterapia</div><div style="font-size:6.5px;color:#9ca3af">Protocolo Banho</div></div>
                                 </div>
                             </div>
@@ -2846,6 +2847,17 @@
 // ══════════════════════════════════════════
 // STATE (loaded from API)
 // ══════════════════════════════════════════
+var REGISTRY = window.REGISTRY || { squads: [], agents: [], skills: {}, personas: [], checkpoints: [], decisions: {}, alerts: [] };
+var BUILD_STATE = window.BUILD_STATE || { phases: [] };
+var OPS_STATE = window.OPS_STATE || { stages: [] };
+var APPROVALS = window.APPROVALS || { items: [] };
+var ALERTS = window.ALERTS || { items: [] };
+var INCIDENTS = window.INCIDENTS || { items: [] };
+var RERUNS = window.RERUNS || { items: [] };
+var LOGS = window.LOGS || { entries: [] };
+var COMMANDS = window.COMMANDS || { entries: [] };
+var MEMORY = window.MEMORY || { mutations: [] };
+
 const MEMORY_SCOPES = [
     { id: 'project_memory', name: 'Projeto', desc: 'Oferta vigente, persona, prioridades, políticas.', icon: 'globe', color: '#a855f7' },
     { id: 'phase_memory', name: 'Fase', desc: 'Contexto consolidado de cada fase BUILD.', icon: 'layers', color: '#0ea5e9' },
@@ -6379,6 +6391,32 @@ function renderMasterInspector(items) {
                     <button class="btn-primary text-[9px] py-1.5 px-3 w-full" onclick="openAddSquadModal()">
                         <i data-lucide="plus" class="w-3 h-3 inline mr-1"></i> Novo Squad
                     </button>
+                    <button class="btn-ghost text-[10px] py-1.5 w-full" onclick='openEditorModal("docs/control/registry.json", "registry.json")'>
+                        <i data-lucide="map" class="w-3 h-3 inline mr-1"></i> Mapa Global (JSON)
+                    </button>
+                    <button class="btn-ghost text-[10px] py-1.5 w-full" onclick="setMasterCatalogShowAll(!window.MASTER_CATALOG_SHOW_ALL);">
+                        <i data-lucide="layers" class="w-3 h-3 inline mr-1"></i> ${window.MASTER_CATALOG_SHOW_ALL ? 'Filtrar Projeto' : 'Mostrar Todos'}
+                    </button>
+                </div>
+            </div>
+            ` : ''}
+            ${window.MASTER_VIEW === 'agentes' ? `
+            <div class="master-sidebar-card mt-3">
+                <p class="text-[8px] text-muted uppercase tracking-widest mb-2">Ações Rápidas</p>
+                <div class="flex flex-col gap-2">
+                    <button class="btn-ghost text-[10px] py-1.5 w-full" onclick='openEditorModal("docs/control/registry.json", "registry.json")'>
+                        <i data-lucide="map" class="w-3 h-3 inline mr-1"></i> Mapa Global (JSON)
+                    </button>
+                    <button class="btn-ghost text-[10px] py-1.5 w-full" onclick="setMasterCatalogShowAll(!window.MASTER_CATALOG_SHOW_ALL);">
+                        <i data-lucide="layers" class="w-3 h-3 inline mr-1"></i> ${window.MASTER_CATALOG_SHOW_ALL ? 'Filtrar Projeto' : 'Mostrar Todos'}
+                    </button>
+                </div>
+            </div>
+            ` : ''}
+            ${window.MASTER_VIEW === 'skills' ? `
+            <div class="master-sidebar-card mt-3">
+                <p class="text-[8px] text-muted uppercase tracking-widest mb-2">Ações Rápidas</p>
+                <div class="flex flex-col gap-2">
                     <button class="btn-ghost text-[10px] py-1.5 w-full" onclick='openEditorModal("docs/control/registry.json", "registry.json")'>
                         <i data-lucide="map" class="w-3 h-3 inline mr-1"></i> Mapa Global (JSON)
                     </button>
@@ -12210,6 +12248,13 @@ window.vmUnlinkDeliverable = vmUnlinkDeliverable;
 .ir-det-cpf { font-size:11px;color:#4b5563;margin-right:8px; }
 .ir-det-tag { font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px; }
 
+.ir-area { display:flex;flex:1;min-height:0;overflow:hidden; }
+.ir-sidebar { width:280px;flex-shrink:0;display:flex;flex-direction:column;overflow-y:auto;border-right:1px solid #1e2540;background:#080c16; }
+.ir-sidebar-cards { display:flex;flex-direction:column;gap:6px;padding:10px 12px;border-bottom:1px solid #1e2540; }
+.ir-sidebar-files { display:flex;flex-direction:column;gap:8px;padding:10px 12px; }
+.ir-main-panel { flex:1;min-width:0;display:grid;grid-template-columns:minmax(280px,1fr) minmax(440px,2fr);gap:10px;padding:12px;overflow:auto;align-items:start; }
+.ir-sidebar-cards .ir-card { min-width:0;width:100%; }
+
 /* colunas do detalhe */
 .ir-det-cols {
   display:grid;grid-template-columns:minmax(260px,.78fr) minmax(300px,.72fr) minmax(560px,1.5fr);
@@ -12245,6 +12290,8 @@ window.vmUnlinkDeliverable = vmUnlinkDeliverable;
 .ir-flow-rail { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px; }
 .ir-flow-step { border:1px solid #1e2540;background:#0b0f1d;border-radius:6px;padding:6px 4px;text-align:center;font-size:8px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#3f486b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
 .ir-flow-step-active { color:#c9a84c;border-color:#c9a84c55;background:#c9a84c12; }
+.ir-det-summary { grid-column:1 / -1;display:grid;grid-template-columns:1.25fr repeat(3,minmax(0,1fr));gap:8px;padding:10px 12px;border:1px solid #1e2540;border-radius:8px;background:linear-gradient(135deg,#0d1120,#0a0f1f); }
+.ir-det-summary .ir-data-chip { background:#080c16;border-color:#253052; }
 
 /* resultado */
 .ir-result-hero { border:1px solid #1e2540;border-radius:8px;padding:12px;background:#0d1120;display:flex;flex-direction:column;gap:4px; }
@@ -12295,6 +12342,7 @@ window.vmUnlinkDeliverable = vmUnlinkDeliverable;
   .ir-cards-row { padding:8px 10px; }
   .ir-card { min-width:205px; }
   .ir-det-hdr { align-items:flex-start;gap:8px;flex-direction:column; }
+  .ir-det-summary { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .ir-data-summary,.ir-file-stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .ir-flow-rail { grid-template-columns:repeat(2,minmax(0,1fr)); }
 }
@@ -12661,24 +12709,11 @@ function irRenderArquivos(p) {
 }
 
 function irDetalhe(p, c, fmt) {
-  const STATUS_COLORS = {pendente:'#6b7280',em_revisao:'#f59e0b',pronto:'#34d399',transmitido:'#60a5fa',malha_fina:'#ef4444'};
-  const sc = STATUS_COLORS[p.status]||'#6b7280';
-  const resColor = c.resultado>=0?'#6fcf50':'#ef4444';
   const resLabel = c.resultado>=0?'▲ A RESTITUIR':'▼ A PAGAR';
-  const arqs = p.arquivos || [];
-  const fileTotal = arqs.length;
-  const fileEdit = arqs.filter(f => f.subdir === 'gravadas').length;
-  const fileSent = arqs.filter(f => f.subdir === 'transmitidas').length;
   const fichaTotal = ['rendimentos','isentos','deducoes','bens','pagamentos']
     .reduce((acc, key) => acc + ((FIN2_IR[key] || []).length), 0);
   const modeloLabel = c.modelo === 'completa' ? 'Completa' : 'Simplificada';
   const resultTone = c.resultado >= 0 ? 'positive' : 'negative';
-  const flowSteps = [
-    { key:'docs', label:'Docs', active:fileTotal > 0 },
-    { key:'calculo', label:'Calculo', active:true },
-    { key:'revisao', label:'Revisao', active:['em_revisao','pronto','transmitido'].includes(p.status) },
-    { key:'envio', label:'Envio', active:p.status === 'transmitido' },
-  ].map(step => `<div id="ir-flow-${step.key}-${p.id}" class="ir-flow-step${step.active?' ir-flow-step-active':''}">${step.label}</div>`).join('');
   const basePct = c.rendBruto ? Math.min(100, Math.round((c.base / c.rendBruto) * 100)) : 0;
   const pagoPct = c.imposto ? Math.min(100, Math.round((c.totalPago / c.imposto) * 100)) : 0;
   const tipoRend = ['salario','pro_labore','aluguel','aposentadoria','outros'];
@@ -12735,42 +12770,12 @@ function irDetalhe(p, c, fmt) {
 
   return `
   <div class="ir-det-summary">
-  <div class="ir-det-hdr">
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-      <span class="ir-det-nome">${p.nome}</span>
-      <span class="ir-det-cpf">${p.cpf}</span>
-      <span class="ir-det-tag" style="background:${sc}22;color:${sc};border:1px solid ${sc}44">● ${p.statusLabel||p.status}</span>
-    </div>
-    <span style="font-size:11px;color:#4b5563">Exercício ${p.exercicio} · Ano-cal ${p.anoCal}</span>
+    <div class="ir-data-chip"><span>Contribuinte</span><strong>${p.nome}</strong></div>
+    <div class="ir-data-chip"><span>Exercicio</span><strong>${p.exercicio}</strong></div>
+    <div class="ir-data-chip"><span>Modelo</span><strong>${modeloLabel}</strong></div>
+    <div class="ir-data-chip"><span>Status</span><strong>${p.statusLabel||p.status}</strong></div>
   </div>
-  </div>
-
-  <div class="ir-det-cols">
-    <div class="ir-col-left">
-      <div class="ir-panel-head">
-        <div class="ir-panel-title">📁 Arquivos da Declaração</div>
-        <div class="ir-panel-count">${fileTotal}</div>
-      </div>
-      <div class="ir-drop-zone"
-           ondragover="event.preventDefault();this.classList.add('ir-drop-over')"
-           ondragleave="this.classList.remove('ir-drop-over')"
-           ondrop="irHandleDrop(event,'${p.id}');this.classList.remove('ir-drop-over')"
-           onclick="document.getElementById('ir-inp-${p.id}').click()">
-        <div style="font-size:20px;opacity:.28;pointer-events:none">⬇</div>
-        <div style="font-size:11px;color:#4b5563;pointer-events:none;margin-top:4px">Arraste ou clique para adicionar</div>
-        <div style="font-size:9px;color:#374151;pointer-events:none;margin-top:2px">.DEC · Informe de Rendimentos · PDFs · Recibos · Extratos</div>
-        <input type="file" id="ir-inp-${p.id}" multiple accept=".dec,.pdf,.txt,.json,.xml" style="display:none" onchange="irHandleFileInput(event,'${p.id}')">
-      </div>
-      <div id="ir-files-${p.id}" class="ir-files-list">${irRenderArquivos(p)}</div>
-      <div class="ir-file-stats">
-        <div class="ir-file-stat"><span>Total</span><strong id="ir-file-stat-total-${p.id}">${fileTotal}</strong></div>
-        <div class="ir-file-stat"><span>Editaveis</span><strong id="ir-file-stat-edit-${p.id}">${fileEdit}</strong></div>
-        <div class="ir-file-stat"><span>Transmitidas</span><strong id="ir-file-stat-sent-${p.id}">${fileSent}</strong></div>
-      </div>
-      <div class="ir-flow-rail">${flowSteps}</div>
-    </div>
-
-    <div class="ir-col-right">
+  <div class="ir-col-right">
       <div class="ir-panel-head">
         <div class="ir-panel-title">📊 Resultado Estimado</div>
         <div class="ir-panel-count">${modeloLabel.slice(0,1)}</div>
@@ -12894,8 +12899,52 @@ function irDetalhe(p, c, fmt) {
   </div>
       <div class="fin2-ir-nota">Tabela IRPF 2025 - Ano-calendario 2024 - Valores estimativos; consulte seu contador.</div>
     </div>
-  </div>
   `;
+}
+
+function irSidebarFiles(p) {
+  const SC = {pendente:'#6b7280',em_revisao:'#f59e0b',pronto:'#34d399',transmitido:'#60a5fa',malha_fina:'#ef4444'};
+  const sc = SC[p.status]||'#6b7280';
+  const arqs = p.arquivos || [];
+  const fileTotal = arqs.length;
+  const fileEdit = arqs.filter(f => f.subdir === 'gravadas').length;
+  const fileSent = arqs.filter(f => f.subdir === 'transmitidas').length;
+  const flowSteps = [
+    { key:'docs', label:'Docs', active:fileTotal > 0 },
+    { key:'calculo', label:'Calculo', active:true },
+    { key:'revisao', label:'Revisao', active:['em_revisao','pronto','transmitido'].includes(p.status) },
+    { key:'envio', label:'Envio', active:p.status === 'transmitido' },
+  ].map(s => `<div id="ir-flow-${s.key}-${p.id}" class="ir-flow-step${s.active?' ir-flow-step-active':''}">${s.label}</div>`).join('');
+  return `<div class="ir-sidebar-files">
+    <div class="ir-panel-head" style="padding-bottom:4px">
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-width:0">
+        <span class="ir-det-nome" style="font-size:12px">${p.nome}</span>
+        <span class="ir-det-tag" style="background:${sc}22;color:${sc};border:1px solid ${sc}44">● ${p.statusLabel||p.status}</span>
+      </div>
+      <span style="font-size:9px;color:#4b5563;flex-shrink:0">Ex.${p.exercicio}</span>
+    </div>
+    <div class="ir-panel-head">
+      <div class="ir-panel-title">📁 Arquivos</div>
+      <div class="ir-panel-count">${fileTotal}</div>
+    </div>
+    <div class="ir-drop-zone"
+         ondragover="event.preventDefault();this.classList.add('ir-drop-over')"
+         ondragleave="this.classList.remove('ir-drop-over')"
+         ondrop="irHandleDrop(event,'${p.id}');this.classList.remove('ir-drop-over')"
+         onclick="document.getElementById('ir-inp-${p.id}').click()">
+      <div style="font-size:18px;opacity:.28;pointer-events:none">⬇</div>
+      <div style="font-size:10px;color:#4b5563;pointer-events:none;margin-top:3px">Arraste ou clique para adicionar</div>
+      <div style="font-size:9px;color:#374151;pointer-events:none;margin-top:2px">.DEC · PDFs · Recibos</div>
+      <input type="file" id="ir-inp-${p.id}" multiple accept=".dec,.pdf,.txt,.json,.xml" style="display:none" onchange="irHandleFileInput(event,'${p.id}')">
+    </div>
+    <div id="ir-files-${p.id}" class="ir-files-list">${irRenderArquivos(p)}</div>
+    <div class="ir-file-stats">
+      <div class="ir-file-stat"><span>Total</span><strong id="ir-file-stat-total-${p.id}">${fileTotal}</strong></div>
+      <div class="ir-file-stat"><span>Editáveis</span><strong id="ir-file-stat-edit-${p.id}">${fileEdit}</strong></div>
+      <div class="ir-file-stat"><span>Enviad.</span><strong id="ir-file-stat-sent-${p.id}">${fileSent}</strong></div>
+    </div>
+    <div class="ir-flow-rail">${flowSteps}</div>
+  </div>`;
 }
 
 // ── Render principal ─────────────────────────────────────────────────────────
@@ -12939,14 +12988,19 @@ window.fin2RenderIR = function() {
       </div>
       <button onclick="irNovaPessoa()" class="ir-btn-nova">+ Nova Declaração</button>
     </div>
-    <div class="ir-cards-row">
-      ${cards}
-      <div class="ir-card ir-card-new" onclick="irNovaPessoa()">
-        <div style="font-size:24px;opacity:.35;line-height:1">＋</div>
-        <div style="font-size:10px;color:#374151;margin-top:5px">Nova Pessoa</div>
+    <div class="ir-area">
+      <div class="ir-sidebar">
+        <div class="ir-sidebar-cards">
+          ${cards}
+          <div class="ir-card ir-card-new" onclick="irNovaPessoa()">
+            <div style="font-size:22px;opacity:.35;line-height:1">＋</div>
+            <div style="font-size:10px;color:#374151;margin-top:4px">Nova Pessoa</div>
+          </div>
+        </div>
+        ${p ? irSidebarFiles(p) : ''}
       </div>
+      <div class="ir-main-panel">${detalhe}</div>
     </div>
-    <div class="ir-detalhe">${detalhe}</div>
   </div>`;
 
   irFichaTab(fin2IrActiveFicha);

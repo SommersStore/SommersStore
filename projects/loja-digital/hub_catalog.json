@@ -1,5 +1,6 @@
 {
-  "updated_at": "2026-05-12",
+  "updated_at": "2026-05-19",
+  "restored_from": "3722728 / 2026-05-11",
   "rows": [
     {
       "id": "metodo",
@@ -13,13 +14,12 @@
       "anchor": {
         "id": "metodo",
         "title": "Método Essência Ativa BR",
-        "subtitle": "Ebook Principal · 144 pág.",
-        "cover": "/ebook/master_cover_v2.png",
-        "tag": "PRINCIPAL",
+        "subtitle": "Ebook principal · 144 pág.",
+        "cover": "/sais/assets/capa-curso-principal-01_1280x720.png",
+        "tag": "Principal",
         "tagVariant": "gold",
-        "action": {
-          "type": "soon"
-        }
+        "progress": 25,
+        "action": { "type": "soon" }
       },
       "groups": [
         {
@@ -30,46 +30,32 @@
             {
               "id": "bonus-blends",
               "title": "10 Receitas de Blends",
-              "subtitle": "Prontas para Vender",
+              "subtitle": "Prontas para vender",
               "cover": "/sais/assets/bonus-1-v2.png",
-              "tag": "BÔNUS",
+              "tag": "Bônus",
               "tagVariant": "green",
-              "action": {
-                "type": "soon"
-              }
+              "progress": 45,
+              "action": { "type": "soon" }
             },
             {
               "id": "bonus-fornecedores",
               "title": "Lista de Fornecedores BR",
-              "subtitle": "Preços e Contatos",
+              "subtitle": "Preços e contatos",
               "cover": "/sais/assets/bonus-2.png",
-              "tag": "BÔNUS",
+              "tag": "Bônus",
               "tagVariant": "green",
-              "action": {
-                "type": "soon"
-              }
+              "progress": 30,
+              "action": { "type": "soon" }
             },
             {
               "id": "bonus-posts",
               "title": "Kit de Posts + Scripts",
               "subtitle": "Instagram & WhatsApp",
               "cover": "/sais/assets/bonus-3.png",
-              "tag": "BÔNUS",
-              "tagVariant": "green",
-              "action": {
-                "type": "soon"
-              }
-            },
-            {
-              "id": "item-1778604798910",
-              "title": "Novo Item",
-              "subtitle": "",
-              "cover": "",
-              "tag": "BÔNUS",
-              "tagVariant": "green",
-              "action": {
-                "type": "soon"
-              }
+              "tag": "Bônus",
+              "tagVariant": "rose",
+              "progress": 20,
+              "action": { "type": "soon" }
             }
           ]
         },
@@ -85,11 +71,8 @@
               "cover": "/sais/assets/10-blends.png",
               "tag": "OB 01",
               "tagVariant": "blue",
-              "action": {
-                "type": "pdf",
-                "file": ""
-              },
-              "locked": false
+              "progress": 100,
+              "action": { "type": "pdf", "file": "30_Blends_OB1.pdf" }
             },
             {
               "id": "ob2",
@@ -97,10 +80,9 @@
               "subtitle": "Order Bump 02",
               "cover": "/ebook/capa_mistica_rosto.png",
               "tag": "OB 02",
-              "tagVariant": "blue",
-              "action": {
-                "type": "soon"
-              }
+              "tagVariant": "coral",
+              "progress": 100,
+              "action": { "type": "pdf", "file": "Mindset_OB2.pdf" }
             },
             {
               "id": "ob3",
@@ -110,42 +92,7 @@
               "tag": "OB 03",
               "tagVariant": "muted",
               "locked": true,
-              "action": {
-                "type": "soon"
-              }
-            },
-            {
-              "id": "item-1778475732569",
-              "title": "Novo Item",
-              "subtitle": "",
-              "cover": "",
-              "tag": "BÔNUS",
-              "tagVariant": "green",
-              "action": {
-                "type": "soon"
-              }
-            },
-            {
-              "id": "item-1778555148042",
-              "title": "Novo Item",
-              "subtitle": "",
-              "cover": "",
-              "tag": "BÔNUS",
-              "tagVariant": "green",
-              "action": {
-                "type": "soon"
-              }
-            },
-            {
-              "id": "item-1778557613449",
-              "title": "Novo Item",
-              "subtitle": "",
-              "cover": "",
-              "tag": "BÔNUS",
-              "tagVariant": "green",
-              "action": {
-                "type": "soon"
-              }
+              "action": { "type": "soon" }
             }
           ]
         }
@@ -163,14 +110,15 @@
       "anchor": {
         "id": "cofre",
         "title": "O Cofre das Botânicas Secretas",
-        "subtitle": "Upsell · Viewer HTML",
+        "subtitle": "Upsell · viewer + PDF",
         "cover": "/ebook/master_cover_v2.png",
-        "tag": "UPSELL",
+        "tag": "Upsell",
         "tagVariant": "purple",
-        "progress": 65,
+        "progress": 100,
         "action": {
-          "type": "viewer",
-          "path": "/ebook/viewer/cofre"
+          "type": "both",
+          "viewerPath": "/ebook/viewer/cofre",
+          "pdfFile": "O_Cofre_das_Botanicas_Secretas_OTO.pdf"
         }
       },
       "groups": [
@@ -182,51 +130,53 @@
             {
               "id": "cofre-elite",
               "title": "Edição Elite",
-              "subtitle": "Versão Premium Expandida",
+              "subtitle": "Versão premium expandida",
               "cover": "/ebook/capa_mistica_dourada.png",
-              "tag": "ELITE",
+              "tag": "Elite",
               "tagVariant": "gold",
-              "action": {
-                "type": "soon"
-              }
+              "progress": 100,
+              "action": { "type": "pdf", "file": "O_Cofre_das_Botanicas_Secretas_Elite.pdf" }
             },
             {
               "id": "sinergias",
               "title": "30 Sinergias de Sucesso",
-              "subtitle": "30 Fórmulas Exclusivas",
+              "subtitle": "30 fórmulas exclusivas",
               "cover": "/ebook/capa_mistica_esmeralda.png",
-              "tag": "BÔNUS",
+              "tag": "Bônus",
               "tagVariant": "green",
-              "progress": 40,
+              "progress": 100,
               "action": {
-                "type": "viewer",
-                "path": "/ebook/viewer/sinergias"
+                "type": "both",
+                "viewerPath": "/ebook/viewer/sinergias",
+                "pdfFile": "30_Sinergias_Sommers_Store.pdf"
               }
             },
             {
               "id": "fornecedores",
               "title": "Cofre de Fornecedores",
-              "subtitle": "15 Contatos Verificados",
+              "subtitle": "15 contatos verificados",
               "cover": "/ebook/capa_mistica_dourada.png",
-              "tag": "BÔNUS",
-              "tagVariant": "green",
+              "tag": "Bônus",
+              "tagVariant": "blue",
               "progress": 100,
               "action": {
-                "type": "viewer",
-                "path": "/ebook/viewer/fornecedores"
+                "type": "both",
+                "viewerPath": "/ebook/viewer/fornecedores",
+                "pdfFile": "Guia_Fornecedores_Master.pdf"
               }
             },
             {
               "id": "ritual-noite",
               "title": "Ritual da Meia-Noite",
-              "subtitle": "10 Rituais Premium",
+              "subtitle": "10 rituais premium",
               "cover": "/ebook/capa_mistica_rubi.png",
-              "tag": "BÔNUS",
-              "tagVariant": "green",
-              "progress": 15,
+              "tag": "Bônus",
+              "tagVariant": "coral",
+              "progress": 100,
               "action": {
-                "type": "viewer",
-                "path": "/ebook/viewer/ritual-noite"
+                "type": "both",
+                "viewerPath": "/ebook/viewer/ritual-noite",
+                "pdfFile": "Ritual_da_Meia_Noite.pdf"
               }
             }
           ]
