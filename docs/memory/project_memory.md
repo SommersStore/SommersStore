@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-05-19T02:13:23-03:00
+- updated_at: 2026-05-19T02:24:59-03:00
 
 ## Handoff Atual - Dashboard Stability & UX
 - timestamp: 2026-04-27
@@ -1792,3 +1792,9 @@
 - resumo: Por decisao do usuario, o botao `Salvar Tudo` fica fora do fluxo confiavel ate validacao posterior. O fluxo equivalente foi executado manualmente pelo Codex: Firebase Hosting ja publicado com a nova area de membros e preparacao de commit/push GitHub com story 2.27, painel, hub, catalogo, memoria e export estatico.
 - proxima_acao: Validar no GitHub o commit/push e, em rodada posterior, auditar o botao `Salvar Tudo` antes de voltar a confiar nele.
 - checkpoint: CHK-HUB-0229
+
+## Fechamento Manual - 2026-05-19T02:24:59-03:00
+- tipo: encerramento-manual
+- resumo: Usuario encerrou a sessao com "ate amanha". Sessao finalizada apos Story 2.27 concluida, Firebase Hosting publicado, GitHub push `fb31d1f` concluido e botao `Salvar Tudo` mantido em quarentena de confianca.
+- proxima_acao: Na proxima sessao, receber os detalhes adicionais do usuario para refinar a area de membros e, antes de voltar a usar o botao `Salvar Tudo`, auditar/testar sua rotina completa.
+- checkpoint: CHK-HUB-0230

@@ -46,6 +46,10 @@
 - [x] Observacao: `cd projects/loja-digital; npm run lint` completo excedeu 120s ao varrer o projeto inteiro; o arquivo alterado passou no lint focado.
 - [x] `out_deploy` regenerado com `npm run build` e publicado no Firebase Hosting; `/hub` publico validado com a nova area de membros.
 - [x] Fluxo `Salvar Tudo` executado manualmente pelo Codex enquanto o botao do painel fica em quarentena de confianca.
+- [x] Sessao encerrada pelo usuario em 2026-05-19T02:24:59-03:00.
+- [x] Resumo: Story 2.27 concluida, Firebase Hosting publicado e GitHub push `fb31d1f` concluido; botao `Salvar Tudo` permanece em quarentena.
+- [x] Proxima acao: Refinar area de membros com novos detalhes do usuario e auditar/testar o botao `Salvar Tudo` antes de voltar a usa-lo.
+- [x] Checkpoint: CHK-HUB-0230
 
 - [x] Story 2.26 concluida: subaba `Imp. de Renda` reformulada visualmente para ocupar melhor o painel.
 - [x] Grid desktop do detalhe IR agora preenche a altura util, com colunas de arquivos, resultado e fichas mais proporcionais.
@@ -168,4 +172,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-05-18T17:05:18-03:00
+- updated_at: 2026-05-19T02:24:59-03:00
