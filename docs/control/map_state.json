@@ -1,0 +1,936 @@
+{
+  "sais": {
+    "title": "Sais — Mapa do Projeto",
+    "subtitle": "Essência Ativa BR · E-book + OTO + Hub",
+    "pipeline": [
+      {
+        "id": "p01",
+        "type": "pipeline",
+        "x": 14,
+        "y": 20,
+        "label": "Estratégia",
+        "sub": "CZ-01 · SQD-CORE",
+        "status": "in_progress",
+        "metric": "Escopo aprovado",
+        "color": "#a855f7",
+        "desc": "Definição de oferta, promessa e escopo do produto.",
+        "squad": "SQD-CORE",
+        "entrega": "Direction package",
+        "catalogLinks": []
+      },
+      {
+        "id": "p02",
+        "type": "pipeline",
+        "x": 184,
+        "y": 20,
+        "label": "Estrutura PDF",
+        "sub": "CZ-02 · SQD-CNT",
+        "status": "pending",
+        "metric": "Índice aprovado",
+        "color": "#a855f7",
+        "desc": "Arquitetura editorial dos capítulos e blocos de conteúdo.",
+        "squad": "SQD-CNT",
+        "entrega": "Skeleton editorial",
+        "catalogLinks": []
+      },
+      {
+        "id": "p03",
+        "type": "pipeline",
+        "x": 354,
+        "y": 20,
+        "label": "Produção E-book",
+        "sub": "CZ-03 · SQD-CNT",
+        "status": "draft",
+        "metric": "Capítulos finalizados",
+        "color": "#6b7280",
+        "desc": "Redação longform, revisão editorial e consistência.",
+        "squad": "SQD-CNT",
+        "entrega": "E-book pronto",
+        "catalogLinks": [
+          {
+            "rowId": "metodo",
+            "type": "anchor",
+            "groupId": null
+          }
+        ]
+      },
+      {
+        "id": "p04",
+        "type": "pipeline",
+        "x": 524,
+        "y": 20,
+        "label": "Landing Page",
+        "sub": "CZ-04 · SQD-EXP",
+        "status": "draft",
+        "metric": "LCP/UX válidos",
+        "color": "#6b7280",
+        "desc": "Composição visual da landing e copy principal.",
+        "squad": "SQD-EXP",
+        "entrega": "Landing page",
+        "catalogLinks": [
+          {
+            "rowId": "metodo",
+            "type": "group",
+            "groupId": "bonus"
+          },
+          {
+            "rowId": "metodo",
+            "type": "group",
+            "groupId": "ob"
+          }
+        ]
+      },
+      {
+        "id": "p05",
+        "type": "pipeline",
+        "x": 694,
+        "y": 20,
+        "label": "QA e Publicação",
+        "sub": "CZ-05 · SQD-QRO",
+        "status": "draft",
+        "metric": "Checklist QA completo",
+        "color": "#6b7280",
+        "desc": "Validação final, checklist e liberação operacional.",
+        "squad": "SQD-QRO",
+        "entrega": "Release aprovado",
+        "catalogLinks": [
+          {
+            "rowId": "cofre",
+            "type": "anchor",
+            "groupId": null
+          },
+          {
+            "rowId": "cofre",
+            "type": "group",
+            "groupId": "included"
+          }
+        ]
+      }
+    ],
+    "nodes": [
+      {
+        "id": "vm-ig",
+        "type": "source",
+        "x": 18,
+        "y": 205,
+        "label": "Instagram Ads",
+        "sub": "Tráfego Pago · Meta",
+        "status": "active",
+        "color": "#ec4899",
+        "group": "traffic",
+        "desc": "Campanha de tráfego pago Instagram. Criativos de vídeo e carrossel apontando para a VSL ou landing.",
+        "bugs": [],
+        "metric": "CTR · CPM · ROAS"
+      },
+      {
+        "id": "vm-fb",
+        "type": "source",
+        "x": 18,
+        "y": 325,
+        "label": "Facebook Ads",
+        "sub": "Tráfego Pago · Meta",
+        "status": "draft",
+        "color": "#3b82f6",
+        "group": "traffic",
+        "desc": "Campanha de tráfego pago Facebook. Segmentação lookalike e interesse em cosméticos naturais.",
+        "bugs": [],
+        "metric": "CTR · CPC"
+      },
+      {
+        "id": "vm-tt",
+        "type": "source",
+        "x": 18,
+        "y": 445,
+        "label": "TikTok Ads",
+        "sub": "Orgânico + Pago",
+        "status": "draft",
+        "color": "#14b8a6",
+        "group": "traffic",
+        "desc": "Canal de tráfego TikTok — conteúdo orgânico da Elisa Clark + futura campanha paga.",
+        "bugs": [],
+        "metric": "Reach · Views"
+      },
+      {
+        "id": "vm-elisa",
+        "type": "persona",
+        "x": 170,
+        "y": 268,
+        "label": "Elisa Clark",
+        "sub": "Persona da Marca · Copywriter",
+        "status": "active",
+        "color": "#a855f7",
+        "group": "persona",
+        "desc": "Elisa Clark é a persona principal. Mulher, 28-45 anos, apaixonada por autocuidado, aromaterapia e produtos naturais premium. Voz da marca em todos os canais.",
+        "bugs": [],
+        "metric": "Engajamento da persona"
+      },
+      {
+        "id": "vm-vsl",
+        "type": "video",
+        "x": 355,
+        "y": 248,
+        "label": "VSL Principal",
+        "sub": "Vídeo de Vendas · 15-20 min",
+        "status": "blocked",
+        "color": "#ef4444",
+        "group": "vsl",
+        "desc": "Vídeo de vendas principal apresentado pela Elisa Clark. Conduz do problema à oferta com storytelling emocional.",
+        "bugs": [
+          "Sem vídeo gravado",
+          "Script não finalizado",
+          "Sem data prevista para gravação"
+        ],
+        "metric": "Play rate · Drop-off · CVR",
+        "files": [
+          {
+            "id": "f1778809748596",
+            "name": "vsl-upsell-1",
+            "type": "pdf",
+            "url": "https://essenciaativabr.shop/sais/vsl-upsell-1",
+            "addedAt": "2026-05-15T01:49:08.596Z",
+            "syncedToMembers": true
+          }
+        ]
+      },
+      {
+        "id": "vm-sales",
+        "type": "page",
+        "x": 555,
+        "y": 205,
+        "label": "Página de Vendas",
+        "sub": "essenciaativabr.shop/sais",
+        "status": "in_progress",
+        "color": "#f59e0b",
+        "group": "sales",
+        "preview": "https://essenciaativabr.shop/sais",
+        "desc": "Página de vendas principal do funil Sais. Apresenta oferta, prova social, garantia e CTAs para checkout. Bônus 1, 2 e 3 prometidos aqui.",
+        "bugs": [
+          "CTAs intermediários sem href",
+          "FAQ sem JS de accordion",
+          "Depoimentos sem fotos reais"
+        ],
+        "metric": "CR · Scroll depth · Sessões"
+      },
+      {
+        "id": "vm-bon1",
+        "type": "bonus",
+        "x": 555,
+        "y": 338,
+        "label": "🎁 Bônus 1 — 10 Receitas Secretas",
+        "sub": "Prometido na PV · entregue no Hub",
+        "status": "draft",
+        "color": "#6b7280",
+        "group": "bonus",
+        "desc": "E-book bônus com 10 receitas secretas de sais aromáticos para venda e autocuidado. Prometido na Página de Vendas e entregue na Área de Membros.",
+        "bugs": [
+          "Conteúdo não produzido"
+        ]
+      },
+      {
+        "id": "vm-bon2",
+        "type": "bonus",
+        "x": 555,
+        "y": 378,
+        "label": "🎁 Bônus 2 — Lista Fornecedores",
+        "sub": "Prometido na PV · entregue no Hub",
+        "status": "draft",
+        "color": "#6b7280",
+        "group": "bonus",
+        "desc": "Lista premium de fornecedores de insumos para sais e cosméticos artesanais. Prometido na PV e entregue no Hub.",
+        "bugs": [
+          "Conteúdo não produzido"
+        ]
+      },
+      {
+        "id": "vm-bon3",
+        "type": "bonus",
+        "x": 555,
+        "y": 418,
+        "label": "🎁 Bônus 3 — Kit Posts Prontos",
+        "sub": "Prometido na PV · entregue no Hub",
+        "status": "draft",
+        "color": "#6b7280",
+        "group": "bonus",
+        "desc": "Pack de artes e textos prontos para redes sociais. Prometido na PV e entregue no Hub.",
+        "bugs": [
+          "Artes não criadas"
+        ]
+      },
+      {
+        "id": "vm-ob",
+        "type": "bump",
+        "x": 558,
+        "y": 504,
+        "label": "➕ Order Bump — Sais+",
+        "sub": "Produto extra no checkout",
+        "status": "draft",
+        "color": "#14b8a6",
+        "group": "bump",
+        "desc": "Produto adicional oferecido dentro do checkout Kiwify. Complementar ao produto principal. Ainda não configurado.",
+        "bugs": [
+          "Não configurado na Kiwify"
+        ]
+      },
+      {
+        "id": "vm-ck",
+        "type": "checkout",
+        "x": 823,
+        "y": 134,
+        "label": "Checkout Kiwify",
+        "sub": "R$47,90 · Produto principal",
+        "status": "completed",
+        "color": "#10b981",
+        "group": "checkout",
+        "desc": "Checkout processado pela Kiwify. Produto principal ativo com preço R$47,90. Integração automática com Hub pendente.",
+        "bugs": [
+          "Usuário não liberado automaticamente no Hub após compra"
+        ],
+        "metric": "CVR · Receita · Abandono"
+      },
+      {
+        "id": "vm-ty",
+        "type": "page",
+        "x": 1196,
+        "y": 163,
+        "label": "Pág. de Obrigado",
+        "sub": "Thank You Page · pós-compra",
+        "status": "draft",
+        "color": "#6b7280",
+        "group": "post",
+        "desc": "Página exibida após confirmação de pagamento. Deve apresentar o OTO Cofre e fazer transição para a Área de Membros.",
+        "bugs": [
+          "Página não criada",
+          "OTO não apresentado corretamente"
+        ]
+      },
+      {
+        "id": "vm-oto",
+        "type": "upsell",
+        "x": 981,
+        "y": 251,
+        "label": "OTO — Cofre Botânicas",
+        "sub": "R$97 · Upsell 1 · 12 fórmulas",
+        "status": "blocked",
+        "color": "#ef4444",
+        "group": "upsell",
+        "desc": "One-Time-Offer apresentado após compra principal. O Cofre das Botânicas Secretas: 12 fórmulas premium de banho, escalda-pés e ambiência.",
+        "bugs": [
+          "CRÍTICO: Link Kiwify aponta para R$47,90 (produto errado)",
+          "Cliente que aceita OTO paga valor incorreto",
+          "ZERO receita de OTO hoje"
+        ],
+        "metric": "Taxa de aceite OTO · Receita OTO"
+      },
+      {
+        "id": "vm-dw",
+        "type": "page",
+        "x": 976,
+        "y": 449,
+        "label": "Downsell",
+        "sub": "OTO recusado · oferta menor",
+        "status": "draft",
+        "color": "#6b7280",
+        "group": "post",
+        "desc": "Oferta alternativa apresentada quando o cliente recusa o OTO Cofre. Preço menor, produto reduzido ou formato diferente.",
+        "bugs": [
+          "Conteúdo não definido",
+          "Página não criada"
+        ]
+      },
+      {
+        "id": "vm-hub",
+        "type": "hub",
+        "x": 1395,
+        "y": 169,
+        "label": "Hub — Área de Membros",
+        "sub": "Firebase · essenciaativabr.shop/hub",
+        "status": "in_progress",
+        "color": "#f59e0b",
+        "group": "members",
+        "preview": "https://essenciaativabr.shop/hub",
+        "desc": "Área de membros construída em Firebase. Central de entrega de todos os produtos adquiridos e bônus prometidos.",
+        "bugs": [
+          "Nenhum usuário cadastrado automaticamente",
+          "Integração Kiwify→Firebase não existe",
+          "Login manual necessário"
+        ],
+        "metric": "DAU · Conteúdo acessado · Churn"
+      },
+      {
+        "id": "vm-eb1",
+        "type": "ebook",
+        "x": 1387,
+        "y": 304,
+        "label": "Método Essência Ativa BR",
+        "sub": "144 págs · PDF principal · R$47,90",
+        "status": "completed",
+        "color": "#10b981",
+        "group": "ebook",
+        "desc": "E-book principal. Método completo de produção de sais aromáticos. 144 páginas. Entregue via Kiwify e disponível no Hub.",
+        "bugs": [],
+        "metric": "Taxa de conclusão de leitura"
+      },
+      {
+        "id": "vm-eb2",
+        "type": "ebook",
+        "x": 1391,
+        "y": 386,
+        "label": "Cofre das Botânicas",
+        "sub": "OTO 1 · 12 fórmulas premium · R$97",
+        "status": "completed",
+        "color": "#10b981",
+        "group": "ebook",
+        "preview": "https://essenciaativabr.shop/ebook/cofre-v2",
+        "desc": "E-book OTO. O Cofre das Botânicas Secretas: 12 fórmulas premium de banho, escalda-pés e ambiência. HTML ebook deployado no Firebase.",
+        "bugs": [
+          "Link OTO com preço errado no Kiwify"
+        ],
+        "metric": "Taxa de aceite OTO"
+      },
+      {
+        "id": "vm-eb3",
+        "type": "ebook",
+        "x": 1390,
+        "y": 467,
+        "label": "30 Sinergias de Sucesso",
+        "sub": "Bônus membros · área extra",
+        "status": "draft",
+        "color": "#6b7280",
+        "group": "ebook",
+        "desc": "Terceiro produto da área de membros. Sinergias de ingredientes para combinações avançadas de sais e blends.",
+        "bugs": [
+          "Conteúdo não iniciado"
+        ]
+      },
+      {
+        "id": "vm-hb1",
+        "type": "bonus",
+        "x": 1599,
+        "y": 385,
+        "label": "📥 Hub · Bônus 1",
+        "sub": "10 Receitas Secretas",
+        "status": "draft",
+        "color": "#6b7280",
+        "group": "bonus",
+        "desc": "Entrega do Bônus 1 na Área de Membros. Espelho da promessa feita na Página de Vendas.",
+        "bugs": [
+          "Conteúdo não produzido"
+        ]
+      },
+      {
+        "id": "vm-hb2",
+        "type": "bonus",
+        "x": 1599,
+        "y": 439,
+        "label": "📥 Hub · Bônus 2",
+        "sub": "Lista de Fornecedores",
+        "status": "draft",
+        "color": "#6b7280",
+        "group": "bonus",
+        "desc": "Entrega do Bônus 2 na Área de Membros.",
+        "bugs": [
+          "Conteúdo não produzido"
+        ]
+      },
+      {
+        "id": "vm-hb3",
+        "type": "bonus",
+        "x": 1599,
+        "y": 490,
+        "label": "📥 Hub · Bônus 3",
+        "sub": "Kit Posts Prontos",
+        "status": "draft",
+        "color": "#6b7280",
+        "group": "bonus",
+        "desc": "Entrega do Bônus 3 na Área de Membros.",
+        "bugs": [
+          "Artes não criadas"
+        ]
+      },
+      {
+        "id": "vm-viewer",
+        "type": "page",
+        "x": 1391,
+        "y": 609,
+        "label": "Leitor Digital",
+        "sub": "HTML Viewer · Firebase hosting",
+        "status": "completed",
+        "color": "#10b981",
+        "group": "members",
+        "desc": "Visualizador de e-books em HTML deployado no Firebase. Suporta leitura online de todos os produtos digitais.",
+        "bugs": [],
+        "metric": "Sessões de leitura"
+      },
+      {
+        "id": "vm-email",
+        "type": "email",
+        "x": 1635,
+        "y": 138,
+        "label": "Email Marketing",
+        "sub": "Sequências · Frank Kern style",
+        "status": "draft",
+        "color": "#6b7280",
+        "group": "retention",
+        "desc": "Sequências de email pós-compra para engajamento, upsell e retenção. Modelo baseado em story-based emails Frank Kern.",
+        "bugs": [
+          "Sequências não escritas",
+          "Plataforma de email não configurada"
+        ],
+        "metric": "Open rate · CTR · LTV"
+      },
+      {
+        "id": "vm-rmk",
+        "type": "retain",
+        "x": 1637,
+        "y": 249,
+        "label": "Remarketing",
+        "sub": "Retargeting Meta Ads",
+        "status": "draft",
+        "color": "#6b7280",
+        "group": "retention",
+        "desc": "Campanhas de retargeting para visitantes que não compraram. Pixel Meta ativo na landing page.",
+        "bugs": [
+          "Audiências não configuradas"
+        ],
+        "metric": "ROAS retargeting · CPR"
+      }
+    ],
+    "edges": [
+      {
+        "from": "p01",
+        "to": "p02",
+        "label": "Direction pkg"
+      },
+      {
+        "from": "p02",
+        "to": "p03",
+        "label": "Skeleton"
+      },
+      {
+        "from": "p03",
+        "to": "p04",
+        "label": "E-book pronto"
+      },
+      {
+        "from": "p04",
+        "to": "p05",
+        "label": "Landing page"
+      },
+      {
+        "from": "vm-ig",
+        "to": "vm-elisa"
+      },
+      {
+        "from": "vm-fb",
+        "to": "vm-elisa"
+      },
+      {
+        "from": "vm-tt",
+        "to": "vm-elisa"
+      },
+      {
+        "from": "vm-elisa",
+        "to": "vm-vsl"
+      },
+      {
+        "from": "vm-vsl",
+        "to": "vm-sales"
+      },
+      {
+        "from": "vm-sales",
+        "to": "vm-bon1",
+        "style": "child"
+      },
+      {
+        "from": "vm-sales",
+        "to": "vm-bon2",
+        "style": "child"
+      },
+      {
+        "from": "vm-sales",
+        "to": "vm-bon3",
+        "style": "child"
+      },
+      {
+        "from": "vm-sales",
+        "to": "vm-ck",
+        "label": "Compra"
+      },
+      {
+        "from": "vm-sales",
+        "to": "vm-ob",
+        "style": "bump",
+        "label": "Order Bump"
+      },
+      {
+        "from": "vm-oto",
+        "to": "vm-dw",
+        "label": "Recusado",
+        "style": "dashed"
+      },
+      {
+        "from": "vm-ty",
+        "to": "vm-hub",
+        "label": "Acesso"
+      },
+      {
+        "from": "vm-hub",
+        "to": "vm-eb1",
+        "style": "child"
+      },
+      {
+        "from": "vm-hub",
+        "to": "vm-eb2",
+        "style": "child"
+      },
+      {
+        "from": "vm-hub",
+        "to": "vm-eb3",
+        "style": "child"
+      },
+      {
+        "from": "vm-hub",
+        "to": "vm-hb1",
+        "style": "child"
+      },
+      {
+        "from": "vm-hub",
+        "to": "vm-hb2",
+        "style": "child"
+      },
+      {
+        "from": "vm-hub",
+        "to": "vm-hb3",
+        "style": "child"
+      },
+      {
+        "from": "vm-hub",
+        "to": "vm-viewer",
+        "style": "child"
+      },
+      {
+        "from": "vm-hub",
+        "to": "vm-email",
+        "label": "Retenção"
+      },
+      {
+        "from": "vm-email",
+        "to": "vm-rmk",
+        "label": "Retargeting"
+      },
+      {
+        "from": "vm-ck",
+        "to": "vm-oto",
+        "style": "dashed"
+      },
+      {
+        "from": "vm-oto",
+        "to": "vm-ty",
+        "style": "dashed"
+      },
+      {
+        "from": "vm-dw",
+        "to": "vm-ty",
+        "style": "dashed"
+      }
+    ],
+    "lanes": [
+      {
+        "label": "Tráfego",
+        "x": 0,
+        "w": 155
+      },
+      {
+        "label": "Persona",
+        "x": 155,
+        "w": 185
+      },
+      {
+        "label": "VSL",
+        "x": 340,
+        "w": 200
+      },
+      {
+        "label": "Conversão",
+        "x": 540,
+        "w": 290
+      },
+      {
+        "label": "Checkout",
+        "x": 830,
+        "w": 195
+      },
+      {
+        "label": "Pós-Compra",
+        "x": 1025,
+        "w": 235
+      },
+      {
+        "label": "Membros",
+        "x": 1260,
+        "w": 400
+      },
+      {
+        "label": "Retenção",
+        "x": 1660,
+        "w": 210
+      }
+    ]
+  },
+  "velas": {
+    "title": "Velas — Mapa do Projeto",
+    "subtitle": "Linha de Velas Aromáticas",
+    "pipeline": [
+      {
+        "id": "pv01",
+        "x": 14,
+        "y": 14,
+        "label": "Brief e Oferta",
+        "sub": "CV-01 · SQD-CORE",
+        "status": "pending",
+        "metric": "Brief aprovado",
+        "color": "#a855f7",
+        "desc": "Definição do recorte comercial da linha de velas.",
+        "squad": "SQD-CORE",
+        "entrega": "Brief aprovado"
+      },
+      {
+        "id": "pv02",
+        "x": 184,
+        "y": 14,
+        "label": "Conteúdo E-book",
+        "sub": "CV-02 · SQD-CNT",
+        "status": "draft",
+        "metric": "Capítulos ok",
+        "color": "#6b7280",
+        "desc": "Estrutura e texto do e-book de velas.",
+        "squad": "SQD-CNT",
+        "entrega": "E-book pronto"
+      },
+      {
+        "id": "pv03",
+        "x": 354,
+        "y": 14,
+        "label": "Página de Vendas",
+        "sub": "CV-03 · SQD-EXP",
+        "status": "draft",
+        "metric": "LCP válido",
+        "color": "#6b7280",
+        "desc": "Landing page da linha Velas.",
+        "squad": "SQD-EXP",
+        "entrega": "Landing page"
+      },
+      {
+        "id": "pv04",
+        "x": 524,
+        "y": 14,
+        "label": "QA e Publicação",
+        "sub": "CV-04 · SQD-QRO",
+        "status": "draft",
+        "metric": "QA completo",
+        "color": "#6b7280",
+        "desc": "Validação e publicação da linha Velas.",
+        "squad": "SQD-QRO",
+        "entrega": "Release"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "v-01",
+        "type": "source",
+        "x": 18,
+        "y": 220,
+        "label": "Instagram Ads",
+        "sub": "Tráfego · Meta",
+        "status": "draft",
+        "color": "#ec4899",
+        "group": "traffic",
+        "desc": "Campanha de tráfego para Velas. A criar.",
+        "bugs": []
+      },
+      {
+        "id": "v-02",
+        "type": "persona",
+        "x": 170,
+        "y": 275,
+        "label": "Persona Velas",
+        "sub": "A definir",
+        "status": "draft",
+        "color": "#a855f7",
+        "group": "persona",
+        "desc": "Persona da linha de velas. A ser definida com base no público-alvo.",
+        "bugs": [
+          "Persona não definida"
+        ]
+      },
+      {
+        "id": "v-03",
+        "type": "ebook",
+        "x": 370,
+        "y": 250,
+        "label": "E-book Velas",
+        "sub": "Em estruturação",
+        "status": "pending",
+        "color": "#a855f7",
+        "group": "ebook",
+        "desc": "E-book principal de velas aromáticas. Estrutura em elaboração.",
+        "bugs": [
+          "Conteúdo em estruturação"
+        ]
+      },
+      {
+        "id": "v-04",
+        "type": "page",
+        "x": 570,
+        "y": 220,
+        "label": "Pág. de Vendas",
+        "sub": "Não iniciada",
+        "status": "draft",
+        "color": "#6b7280",
+        "group": "sales",
+        "desc": "Página de vendas Velas. Aguardando e-book finalizado.",
+        "bugs": [
+          "Não iniciada"
+        ]
+      },
+      {
+        "id": "v-05",
+        "type": "checkout",
+        "x": 800,
+        "y": 220,
+        "label": "Checkout Kiwify",
+        "sub": "A configurar",
+        "status": "draft",
+        "color": "#6b7280",
+        "group": "checkout",
+        "desc": "Checkout Kiwify para linha Velas.",
+        "bugs": [
+          "Produto não criado na Kiwify"
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "from": "pv01",
+        "to": "pv02"
+      },
+      {
+        "from": "pv02",
+        "to": "pv03"
+      },
+      {
+        "from": "pv03",
+        "to": "pv04"
+      },
+      {
+        "from": "v-01",
+        "to": "v-02"
+      },
+      {
+        "from": "v-02",
+        "to": "v-03"
+      },
+      {
+        "from": "v-03",
+        "to": "v-04"
+      },
+      {
+        "from": "v-04",
+        "to": "v-05"
+      }
+    ],
+    "lanes": []
+  },
+  "electro": {
+    "title": "Electro — Mapa do Projeto",
+    "subtitle": "Loja de Produtos Físicos",
+    "pipeline": [
+      {
+        "id": "pe01",
+        "x": 14,
+        "y": 14,
+        "label": "Arquitetura Site",
+        "sub": "CE-01 · SQD-CORE",
+        "status": "pending",
+        "metric": "Mapa do site",
+        "color": "#a855f7",
+        "desc": "Mapa de categorias e proposta comercial do site Electro.",
+        "squad": "SQD-CORE",
+        "entrega": "Mapa do site"
+      },
+      {
+        "id": "pe02",
+        "x": 184,
+        "y": 14,
+        "label": "Catálogo Produtos",
+        "sub": "CE-02 · SQD-CNT",
+        "status": "draft",
+        "metric": "Produtos ok",
+        "color": "#6b7280",
+        "desc": "Descrição e assets por produto do catálogo Electro.",
+        "squad": "SQD-CNT",
+        "entrega": "Catálogo"
+      },
+      {
+        "id": "pe03",
+        "x": 354,
+        "y": 14,
+        "label": "Loja Online",
+        "sub": "CE-03 · SQD-ENG",
+        "status": "draft",
+        "metric": "Checkout ativo",
+        "color": "#6b7280",
+        "desc": "Implementação da loja online com checkout integrado.",
+        "squad": "SQD-ENG",
+        "entrega": "Loja online"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "e-01",
+        "type": "page",
+        "x": 18,
+        "y": 220,
+        "label": "Site Electro",
+        "sub": "Catálogo produtos físicos",
+        "status": "pending",
+        "color": "#a855f7",
+        "group": "sales",
+        "desc": "Site de produtos físicos Electro com catálogo e checkout integrado.",
+        "bugs": [
+          "Arquitetura em preparação"
+        ]
+      },
+      {
+        "id": "e-02",
+        "type": "checkout",
+        "x": 285,
+        "y": 220,
+        "label": "Checkout Físico",
+        "sub": "Integração loja virtual",
+        "status": "draft",
+        "color": "#6b7280",
+        "group": "checkout",
+        "desc": "Checkout integrado ao catálogo Electro.",
+        "bugs": [
+          "Produto não criado"
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "from": "pe01",
+        "to": "pe02"
+      },
+      {
+        "from": "pe02",
+        "to": "pe03"
+      },
+      {
+        "from": "e-01",
+        "to": "e-02"
+      }
+    ],
+    "lanes": []
+  }
+}

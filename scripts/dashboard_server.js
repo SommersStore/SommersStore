@@ -24,6 +24,11 @@ const MEMORY_DIR = path.join(DOCS_DIR, 'memory');
 const SESSIONS_DIR = path.join(CONTROL_DIR, 'sessions');
 const MEMORY_EXTRA_DIR = path.join(CONTROL_DIR, 'memory_extra');
 const TASK_PATH = path.join(ROOT_DIR, 'task.md');
+const IR_OPEN_ALLOWED_ROOTS = [
+    'C:\\Arquivos de Programas RFB',
+    'C:\\Program Files RFB',
+    'C:\\Users\\ADMIN\\Desktop\\ecac_output'
+].map(p => path.resolve(p));
 
 const FILES = {
     session: 'session_state.json',
@@ -1018,6 +1023,17 @@ function safeWorkspacePath(relativePath) {
         throw new Error('Path outside workspace is not allowed');
     }
     return absolute;
+}
+
+function isPathInside(candidatePath, rootPath) {
+    const candidate = path.resolve(candidatePath).toLowerCase();
+    const root = path.resolve(rootPath).toLowerCase();
+    const rootWithSep = root.endsWith(path.sep) ? root : `${root}${path.sep}`;
+    return candidate === root || candidate.startsWith(rootWithSep);
+}
+
+function isAllowedIrOpenPath(candidatePath) {
+    return IR_OPEN_ALLOWED_ROOTS.some(root => isPathInside(candidatePath, root));
 }
 
 function normalizePathForJson(inputPath) {
@@ -4052,6 +4068,64 @@ review_path: ${audit.review_path}
             return sendJson(res, { success: true, skill, file_path: relPath });
         }
 
+        // ── Persistência do estado do MAPA ─────────────────────────────
+        if (pathname === '/api/map/save' && req.method === 'POST') {
+            const body = await parseBody(req);
+            if (!body || typeof body !== 'object') return sendJson(res, { error: 'invalid payload' }, 400);
+            const mapStatePath = path.join(CONTROL_DIR, 'map_state.json');
+            writeJsonAtomic(mapStatePath, body, 2);
+            return sendJson(res, { ok: true, savedAt: new Date().toISOString() });
+        }
+
+        if (pathname === '/api/map/load' && req.method === 'GET') {
+            const mapStatePath = path.join(CONTROL_DIR, 'map_state.json');
+            if (!fs.existsSync(mapStatePath)) return sendJson(res, { ok: false, data: null });
+            try {
+                const data = JSON.parse(fs.readFileSync(mapStatePath, 'utf8'));
+                return sendJson(res, { ok: true, data });
+            } catch (e) {
+                return sendJson(res, { ok: false, data: null });
+            }
+        }
+
+        // ── Upload de arquivo para nó do MAPA ──────────────────────────
+        if (pathname === '/api/files/upload' && req.method === 'POST') {
+            const uploadsDir = path.join(DOCS_DIR, 'uploads');
+            if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+            const contentType = req.headers['content-type'] || '';
+            const boundary = contentType.match(/boundary=([^\s;]+)/);
+            if (!boundary) return sendJson(res, { error: 'multipart boundary missing' }, 400);
+            const chunks = [];
+            for await (const chunk of req) chunks.push(chunk);
+            const raw = Buffer.concat(chunks);
+            const boundaryBuf = Buffer.from('--' + boundary[1]);
+            const parts = [];
+            let start = 0;
+            while (true) {
+                const idx = raw.indexOf(boundaryBuf, start);
+                if (idx === -1) break;
+                if (start > 0) parts.push(raw.slice(start, idx - 2));
+                start = idx + boundaryBuf.length + 2;
+            }
+            let savedUrl = null;
+            for (const part of parts) {
+                const headerEnd = part.indexOf('\r\n\r\n');
+                if (headerEnd === -1) continue;
+                const headers = part.slice(0, headerEnd).toString();
+                const body = part.slice(headerEnd + 4);
+                const nameMatch = headers.match(/name="([^"]+)"/);
+                const fileMatch = headers.match(/filename="([^"]+)"/);
+                if (!nameMatch || nameMatch[1] !== 'file' || !fileMatch) continue;
+                const origName = fileMatch[1].replace(/[^a-zA-Z0-9._-]/g, '_');
+                const safeName = Date.now() + '_' + origName;
+                const destPath = path.join(uploadsDir, safeName);
+                writeFileAtomic(destPath, body);
+                savedUrl = `/docs/uploads/${safeName}`;
+            }
+            if (savedUrl) return sendJson(res, { url: savedUrl });
+            return sendJson(res, { error: 'no file in request' }, 400);
+        }
+
         if (pathname === '/api/registry/squads' && req.method === 'POST') {
             const body = await parseBody(req);
             const name = String(body.name || '').trim();
@@ -4455,6 +4529,145 @@ review_path: ${audit.review_path}
             };
             return sendText(res, fs.readFileSync(staticPath), mime[ext] || 'application/octet-stream');
         }
+
+        // ── ECAC Agent endpoints ──────────────────────────────────────
+        if (pathname === '/api/ecac/run-agent' && req.method === 'POST') {
+            const batPath = 'C:\\Users\\ADMIN\\Desktop\\ecac_pw\\RODAR_AGENTE.bat';
+            if (!fs.existsSync(batPath)) return sendJson(res, { error: 'RODAR_AGENTE.bat não encontrado' }, 404);
+            const child = spawn('cmd.exe', ['/c', 'start', '', batPath], {
+                detached: true, stdio: 'ignore', shell: false,
+                cwd: 'C:\\Users\\ADMIN\\Desktop\\ecac_pw'
+            });
+            child.unref();
+            return sendJson(res, { ok: true, message: 'Agente ECAC iniciado' });
+        }
+
+        if (pathname === '/api/ecac/reports' && req.method === 'GET') {
+            const OUTPUT = 'C:\\Users\\ADMIN\\Desktop\\ecac_output';
+            const files = {
+                relatorio: path.join(OUTPUT, 'RELATORIO_FISCAL.txt'),
+                instrucoes: path.join(OUTPUT, 'instrucoes_retificacao.txt'),
+                completo: path.join(OUTPUT, 'relatorio_fiscal_completo.json'),
+                log: path.join(OUTPUT, 'agent_log.txt'),
+            };
+            const result = {};
+            for (const [key, p] of Object.entries(files)) {
+                if (fs.existsSync(p)) {
+                    const stat = fs.statSync(p);
+                    const content = fs.readFileSync(p, 'utf8');
+                    result[key] = {
+                        exists: true,
+                        size: stat.size,
+                        mtime: stat.mtime,
+                        preview: content.substring(0, 4000),
+                        full: key === 'completo' ? JSON.parse(content) : content
+                    };
+                } else {
+                    result[key] = { exists: false };
+                }
+            }
+            return sendJson(res, result);
+        }
+
+        if (pathname === '/api/ir/open' && req.method === 'POST') {
+            const body = await parseBody(req);
+            const requestedPath = String(body.caminho || body.path || '').trim();
+            if (!requestedPath) return sendJson(res, { error: 'caminho obrigatorio' }, 400);
+
+            const targetPath = path.resolve(requestedPath);
+            if (!isAllowedIrOpenPath(targetPath)) {
+                return sendJson(res, { error: 'caminho fora das pastas permitidas do IR/e-CAC' }, 403);
+            }
+            if (!fs.existsSync(targetPath)) {
+                return sendJson(res, { error: 'arquivo nao encontrado', caminho: targetPath }, 404);
+            }
+            if (!fs.statSync(targetPath).isFile()) {
+                return sendJson(res, { error: 'caminho nao aponta para um arquivo', caminho: targetPath }, 400);
+            }
+
+            const child = spawn('cmd.exe', ['/c', 'start', '', targetPath], {
+                detached: true,
+                stdio: 'ignore',
+                shell: false
+            });
+            child.unref();
+            return sendJson(res, { ok: true, caminho: targetPath });
+        }
+
+        // ── Declarações IR — escaneia DEC/PDF de um exercício ───────────
+        if (pathname.match(/^\/api\/ir\/scan\/\d+$/) && req.method === 'GET') {
+            const exercicio = pathname.split('/').pop();
+            const base = `C:\\Arquivos de Programas RFB\\IRPF${exercicio}`;
+            const arquivos = [];
+            const dirs = ['gravadas', 'transmitidas', ''];
+            for (const dir of dirs) {
+                const p = path.join(base, dir);
+                if (!fs.existsSync(p) || !fs.statSync(p).isDirectory()) continue;
+                for (const f of fs.readdirSync(p)) {
+                    const lower = f.toLowerCase();
+                    if (!lower.endsWith('.dec') && !lower.endsWith('.pdf')) continue;
+                    const full = path.join(p, f);
+                    const stat = fs.statSync(full);
+                    arquivos.push({ nome: f, caminho: full, tipo: lower.endsWith('.dec') ? 'dec' : 'pdf', subdir: dir || '.', tamanho: stat.size, mtime: stat.mtime });
+                }
+            }
+            return sendJson(res, { exercicio, base, arquivos });
+        }
+
+        // POST /api/ir/upload — recebe arquivo em base64 e salva em disk
+        if (pathname === '/api/ir/upload' && req.method === 'POST') {
+            const body = await new Promise((resolve, reject) => {
+                let data = '';
+                req.on('data', chunk => data += chunk);
+                req.on('end', () => resolve(data));
+                req.on('error', reject);
+            });
+            const { filename, base64, cpf } = JSON.parse(body);
+            const destDir = path.join('C:\\Users\\ADMIN\\Desktop\\ecac_output\\declaracoes', (cpf||'geral').replace(/\D/g,''));
+            if (!fs.existsSync(destDir)) fs.mkdirSync(destDir, { recursive: true });
+            const destPath = path.join(destDir, filename);
+            writeFileAtomic(destPath, Buffer.from(base64, 'base64'));
+            const stat = fs.statSync(destPath);
+            return sendJson(res, { ok: true, caminho: destPath, tamanho: stat.size, mtime: stat.mtime });
+        }
+
+        // GET /api/ir/arquivos/:cpf — lista arquivos salvos para uma pessoa
+        if (pathname.match(/^\/api\/ir\/arquivos\//) && req.method === 'GET') {
+            const cpf = pathname.replace('/api/ir/arquivos/', '').replace(/\D/g,'');
+            const dir = path.join('C:\\Users\\ADMIN\\Desktop\\ecac_output\\declaracoes', cpf);
+            if (!fs.existsSync(dir)) return sendJson(res, { arquivos: [] });
+            const arquivos = fs.readdirSync(dir).map(f => {
+                const full = path.join(dir, f);
+                const stat = fs.statSync(full);
+                return { nome: f, caminho: full, tamanho: stat.size, mtime: stat.mtime };
+            });
+            return sendJson(res, { arquivos });
+        }
+
+        // POST /api/ecac/preencher-irpf — executa o automator do IRPF2025
+        if (pathname === '/api/ecac/preencher-irpf' && req.method === 'POST') {
+            const automatorPath = 'C:\\Users\\ADMIN\\Desktop\\ecac_pw\\irpf_automator.js';
+            if (!fs.existsSync(automatorPath)) return sendJson(res, { error: 'irpf_automator.js não encontrado' }, 404);
+            const child = spawn('node', [automatorPath], {
+                detached: true, stdio: 'ignore', shell: false,
+                cwd: 'C:\\Users\\ADMIN\\Desktop\\ecac_pw'
+            });
+            child.unref();
+            return sendJson(res, { ok: true, message: 'IRPF Automator iniciado — acompanhe a janela que se abrirá' });
+        }
+
+        // GET /api/ecac/irpf-status — retorna status da última automação IRPF
+        if (pathname === '/api/ecac/irpf-status' && req.method === 'GET') {
+            const statusPath = 'C:\\Users\\ADMIN\\Desktop\\ecac_output\\irpf_automator_status.json';
+            if (!fs.existsSync(statusPath)) return sendJson(res, { existe: false });
+            try {
+                const data = JSON.parse(fs.readFileSync(statusPath, 'utf8'));
+                return sendJson(res, { existe: true, ...data });
+            } catch {
+                return sendJson(res, { existe: false, erro: 'arquivo corrompido' });
+            }
+        }
+        // ─────────────────────────────────────────────────────────────
 
         res.writeHead(404);
         return res.end(`Not found: ${pathname}`);

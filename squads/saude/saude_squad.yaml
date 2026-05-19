@@ -1,0 +1,87 @@
+squad:
+  id: SQD-SAU
+  name: SAÚDE INTEGRATIVA & BEM-ESTAR
+  color: "#10b981"
+  icon: heart-pulse
+  tag: SAUDE
+  missao: >
+    Acompanhar e otimizar a saúde integral dos membros do projeto Sommers,
+    integrando medicina natural, fitoterapia, balneoterapia com os sais
+    terapêuticos e protocolos personalizados de bem-estar.
+  regra_mae:
+    - Documento antes de diagnóstico
+    - Protocolo antes de prescrição
+    - Histórico antes de recomendação
+    - Evidência antes de suplementação
+    - Monitoramento contínuo de evolução
+    - Validação médica antes de mudança de protocolo
+
+pacientes:
+  - id: PAC-001
+    nome: Sérgio Sommerlatte
+    handle: "@sergio"
+    status: ativo
+    medico_responsavel: dra-joseane-vascon
+
+camadas:
+  - id: consulta
+    nome: Consulta & Avaliação
+    agentes:
+      - dra-joseane-vascon
+  - id: protocolo
+    nome: Protocolos & Receitas
+    agentes:
+      - dra-joseane-vascon
+  - id: monitoramento
+    nome: Monitoramento & Evolução
+    agentes:
+      - dra-joseane-vascon
+
+agentes:
+  - id: AGT-SAU-01
+    nome: Dra. Joseane Vascon
+    handle: "@dra-joseane"
+    funcao: >
+      Médica integrativa especializada em fitoterapia, balneoterapia e
+      medicina natural. Elabora protocolos personalizados de saúde,
+      prescrevve receitas com produtos naturais (incluindo os sais
+      terapêuticos Sommers), analisa exames e acompanha a evolução
+      clínica de cada paciente.
+    arquivo: squads/saude/agents/dra-joseane-vascon.md
+    especialidades:
+      - Medicina Integrativa
+      - Fitoterapia
+      - Balneoterapia com Sais Terapêuticos
+      - Nutrição Funcional
+      - Suplementação Natural
+      - Análise de Exames Laboratoriais
+    skills:
+      - protocolo-fitoterapia
+      - receita-banho-terapeutico
+      - analise-exames
+      - suplementacao-natural
+      - acompanhamento-clinico
+    persona_primaria: prs-dra-joseane-vascon
+    materiais_processaveis:
+      - knowledge/clones/personas/dra_joseane_vascon/persona.md
+      - squads/saude/data/sergio_health_profile.json
+    materiais_suporte:
+      - Desktop/10 Blends.png
+      - Desktop/Banho Spa.jpg
+      - Desktop/Catalogo.jpg
+      - Desktop/Conhecendo os Sais.png
+
+inputs:
+  - Exames laboratoriais (PDF ou imagem)
+  - Relato de sintomas e queixas do paciente
+  - Histórico médico anterior
+  - Receitas ou prescrições anteriores
+  - Documentos de saúde do paciente
+
+outputs:
+  - Protocolo personalizado de saúde
+  - Receitas com produtos naturais e sais terapêuticos
+  - Plano de suplementação
+  - Análise de exames com recomendações
+  - Relatório de evolução clínica
+  - Ficha do paciente atualizada

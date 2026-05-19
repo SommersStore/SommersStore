@@ -714,9 +714,31 @@
   ],
   "ir": {
     "ano": 2025,
-    "rendimentos": [],
+    "rendimentos": [
+      {
+        "id": "r1",
+        "fonte": "SP Previdência (SPPREV)",
+        "cnpj": "49.669.856/0001-43",
+        "tipo": "aposentadoria",
+        "valorBruto": 91558.45,
+        "irrf": 2641.18
+      }
+    ],
     "isentos": [],
-    "deducoes": [],
+    "deducoes": [
+      {
+        "id": "d1",
+        "tipo": "inss",
+        "descricao": "Contribuição Previdenciária SPPREV",
+        "valor": 4197.6
+      },
+      {
+        "id": "d2",
+        "tipo": "outros",
+        "descricao": "Pensão Alimentícia — Isaura Suleide Vieira Meira (CPF 143.768.638-90)",
+        "valor": 12201.96
+      }
+    ],
     "bens": [],
     "pagamentos": []
   }

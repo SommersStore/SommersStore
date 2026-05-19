@@ -31,8 +31,47 @@
 - [x] Criar projeto Imposto de Renda inicial com brief, funil, estado e checklist
 - [ ] Alimentar projeto IR com informes de rendimento e documentos reais
 - [ ] Integrar aba IR no painel AIOX Dashboard
+- [x] Corrigir travamento das subabas de Financas (Planilha, Dividas, Imp. de Renda e Mapa)
+- [x] Refinar visual da subaba Imp. de Renda em duas/tres colunas
+- [x] Corrigir botoes da subaba Imp. de Renda preservando a ficha fiscal ativa
+- [x] Corrigir botoes externos e abertura de arquivos da subaba Imp. de Renda
+- [x] Reformular visual da subaba Imp. de Renda para reduzir espacos vazios
 
 ## Done in this session
+- [x] Story 2.26 concluida: subaba `Imp. de Renda` reformulada visualmente para ocupar melhor o painel.
+- [x] Grid desktop do detalhe IR agora preenche a altura util, com colunas de arquivos, resultado e fichas mais proporcionais.
+- [x] Adicionados contadores de arquivos, trilha visual de progresso e bloco hero do resultado estimado com barras fiscais.
+- [x] Breakpoints validados em 1440x900, 1000x800, 760x800 e 390x760.
+
+- [x] Story 2.25 concluida: botoes `RODAR ECAC AGENT`, `PREENCHER IRPF2025` e arquivos da declaracao respondem ao clique.
+- [x] Corrigido mismatch de IDs entre HTML e handlers `ecacRunAgent`/`ecacPreencherIRPF`.
+- [x] Linhas de arquivos do IR viraram botoes com `data-ir-path` e handler `irOpenArquivo`.
+- [x] Adicionado endpoint `/api/ir/open` com allowlist de pastas IR/e-CAC e validacao 403/404.
+- [x] Validacao concluida em Puppeteer com chamadas externas interceptadas, alem de `npm run lint`, `npm run typecheck` e `npm test`.
+
+- [x] Story 2.24 concluida: botoes `+ Adicionar` do IR preservam a ficha ativa apos re-render.
+- [x] Reproduzido em Puppeteer: `+ Adicionar Deducao` adicionava linha, mas voltava para `Rendimentos`, parecendo nao responder.
+- [x] Adicionado estado `fin2IrActiveFicha`, `data-ir-ficha` nos botoes e restauracao da ficha ativa apos `fin2RenderIR`.
+
+- [x] Story 2.23 concluida: subaba `Imp. de Renda` reorganizada em layout visual responsivo.
+- [x] IR agora separa arquivos, resultado/acoes e fichas fiscais em colunas, com resumo compacto.
+- [x] Assertions adicionadas para preservar layout IR em colunas.
+
+- [x] Story 2.22 concluida: navegacao interna de Financas destravada.
+- [x] Corrigido fechamento de `ecacOpenModal` em `docs/aiox_dashboard.html`, permitindo registrar `fin2Switch`.
+- [x] Teste de qualidade atualizado para validar parse dos scripts inline e wiring dos botoes `fin2-btn-*`.
+- [x] Validacao concluida: Puppeteer em `http://localhost:4000/`, `npm run lint`, `npm run typecheck` e `npm test`.
+
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Checkpoint: CHK-MEM-0526
+
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Checkpoint: CHK-MEM-0525
+
 - [x] Sessao encerrada pelo usuario.
 - [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
 - [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
@@ -120,4 +159,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-05-12T16:11:32-03:00
+- updated_at: 2026-05-18T17:05:18-03:00

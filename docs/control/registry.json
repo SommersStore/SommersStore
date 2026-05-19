@@ -394,7 +394,9 @@
         "Cálculo de multas e juros por atraso",
         "Comparativo modelo completo vs simplificado"
       ],
-      "agents": ["AGT-IR-01"]
+      "agents": [
+        "AGT-IR-01"
+      ]
     },
     {
       "id": "SQD-PAJERO",
@@ -430,6 +432,28 @@
         "AGT-PAJERO-10",
         "AGT-PAJERO-11",
         "AGT-PAJERO-12"
+      ]
+    },
+    {
+      "id": "SQD-SAU",
+      "name": "SAÚDE INTEGRATIVA & BEM-ESTAR",
+      "color": "#10b981",
+      "icon": "heart-pulse",
+      "mission": "Acompanha e otimiza a saúde integral de Sérgio Sommerlatte, integrando medicina natural, fitoterapia e balneoterapia com os sais terapêuticos Sommers Store.",
+      "tag": "saude",
+      "inputs": [
+        "Exames Laboratoriais",
+        "Documentos Médicos",
+        "Histórico do Paciente"
+      ],
+      "outputs": [
+        "Protocolo Terapêutico",
+        "Receita de Banho",
+        "Suplementação Personalizada",
+        "Evolução Clínica"
+      ],
+      "agents": [
+        "AGT-SAU-01"
       ]
     }
   ],
@@ -753,6 +777,14 @@
       "squad": "SQD-PAJERO",
       "role": "Gera OS, BOM, lista de insumos, riscos e validacao pos-servico.",
       "icon": "P12"
+    },
+    {
+      "id": "AGT-SAU-01",
+      "name": "Dra. Joseane Vascon",
+      "handle": "@dra-joseane",
+      "squad": "SQD-SAU",
+      "role": "Médica Integrativa especializada em fitoterapia, balneoterapia com sais terapêuticos e nutrição funcional sem lactose.",
+      "icon": "👩‍⚕️"
     }
   ],
   "skills": {
@@ -1884,6 +1916,53 @@
         "activation_enabled": true,
         "activation_trigger": "fase+manual"
       }
+    ],
+    "SAUDE": [
+      {
+        "id": "SKL-SAU-01",
+        "name": "protocolo-fitoterapia",
+        "desc": "Elabora receitas com ervas, botânicos e fitoterápicos integrativos personalizados ao perfil do paciente.",
+        "agents": [
+          "AGT-SAU-01"
+        ],
+        "playbook_status": "draft"
+      },
+      {
+        "id": "SKL-SAU-02",
+        "name": "receita-banho-terapeutico",
+        "desc": "Prescrição de banhos terapêuticos com Sais Sommers — temperatura, tempo, concentração e minerais.",
+        "agents": [
+          "AGT-SAU-01"
+        ],
+        "playbook_status": "draft"
+      },
+      {
+        "id": "SKL-SAU-03",
+        "name": "analise-exames",
+        "desc": "Interpreta resultados laboratoriais com visão integrativa e funcional, considerando restrições do paciente.",
+        "agents": [
+          "AGT-SAU-01"
+        ],
+        "playbook_status": "draft"
+      },
+      {
+        "id": "SKL-SAU-04",
+        "name": "suplementacao-natural",
+        "desc": "Plano de suplementação 100% sem lactose — Whey Isolado, Vitaminas D/B12, Probióticos, Ômega-3.",
+        "agents": [
+          "AGT-SAU-01"
+        ],
+        "playbook_status": "draft"
+      },
+      {
+        "id": "SKL-SAU-05",
+        "name": "acompanhamento-clinico",
+        "desc": "Evolução clínica contínua, ajuste de protocolos e monitoramento de indicadores de saúde do paciente.",
+        "agents": [
+          "AGT-SAU-01"
+        ],
+        "playbook_status": "draft"
+      }
     ]
   },
   "checkpoints": [
@@ -2571,6 +2650,22 @@
       "bio": "Especialista operacional do projeto Pajero V77W. Atua com foco em gera os, bom, lista de insumos, riscos e validacao pos-servico..",
       "agents": [
         "@work-order-parts-planner"
+      ]
+    },
+    {
+      "id": "prs-dra-joseane-vascon",
+      "icon": "👩‍⚕️",
+      "name": "Dra. Joseane Vascon",
+      "role": "Médica Integrativa — Fitoterapia · Balneoterapia · Nutrição Funcional",
+      "traits": [
+        "Integrativa",
+        "Holística",
+        "Funcional",
+        "Empática"
+      ],
+      "bio": "Clone clínico da Dra. Joseane Vascon, especialista em medicina integrativa. Integra os sais terapêuticos Sommers Store nos protocolos clínicos do paciente Sérgio Sommerlatte (PAC-001).",
+      "agents": [
+        "@dra-joseane"
       ]
     }
   ]

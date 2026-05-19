@@ -1,6 +1,7 @@
 const assert = require('node:assert/strict');
 const fs = require('fs');
 const path = require('path');
+const vm = require('node:vm');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 
@@ -80,6 +81,27 @@ function testIntegrationPoints() {
   assert.match(dashboardHtml, /function renderFinanceMap\(/, 'Financas should render the operational map');
   assert.match(dashboardHtml, /function openFinanceMapDetail\(/, 'Financas map should expose node details');
   assert.match(dashboardHtml, /filterFinanceMap\('pressure'\)/, 'Financas map should support pressure filtering');
+  assert.match(dashboardHtml, /window\.fin2Switch\s*=\s*function\(tab\)/, 'Financas top nav should expose the fin2Switch tab handler');
+  for (const tab of ['planilha', 'dividas', 'ir', 'mapa']) {
+    assert.match(dashboardHtml, new RegExp(`id="fin2-btn-${tab}"[\\s\\S]*?fin2Switch\\('${tab}'\\)`), `Financas top nav should wire ${tab} button to fin2Switch`);
+    assert.match(dashboardHtml, new RegExp(`id="fin2-pane-${tab}"`), `Financas should render ${tab} pane`);
+  }
+  assert.match(dashboardHtml, /grid-template-columns:minmax\(260px,\.78fr\) minmax\(300px,\.72fr\) minmax\(560px,1\.5fr\)/, 'IR tab should use a dense three-column desktop layout');
+  assert.match(dashboardHtml, /class="ir-col-data"/, 'IR tab should place fiscal worksheets in a dedicated visual column');
+  assert.match(dashboardHtml, /class="ir-data-summary"/, 'IR tab should show a compact fiscal summary strip');
+  assert.match(dashboardHtml, /class="ir-result-hero ir-result-\$\{resultTone\}"/, 'IR tab should expose the estimated result as a visual hero block');
+  assert.match(dashboardHtml, /class="ir-file-stats"/, 'IR tab should use compact file stats to reduce empty space');
+  assert.match(dashboardHtml, /class="ir-flow-rail"/, 'IR tab should show compact IR process progress');
+  assert.match(dashboardHtml, /class="ir-det-summary"/, 'IR tab should keep a visible summary strip above the detail grid');
+  assert.match(dashboardHtml, /Abrir Dívidas\/Acordos/, 'IR tab should link directly to debts and agreements');
+  assert.match(dashboardHtml, /Dívidas\/Acordos/, 'Financas nav should make debts and agreements discoverable');
+  assert.match(dashboardHtml, /let fin2IrActiveFicha = 'rendimentos'/, 'IR worksheets should track the active fiscal tab');
+  assert.match(dashboardHtml, /data-ir-ficha="deducoes"/, 'IR worksheet buttons should expose stable ficha identifiers');
+  assert.match(dashboardHtml, /irFichaTab\(fin2IrActiveFicha\)/, 'IR rerenders should preserve the active fiscal tab');
+  assert.match(dashboardHtml, /id="ecac-run-btn"/, 'IR e-CAC action should expose the run button id used by its handler');
+  assert.match(dashboardHtml, /id="ecac-irpf-btn"/, 'IRPF action should expose the IRPF button id used by its handler');
+  assert.match(dashboardHtml, /data-ir-path=/, 'IR file rows should carry the target file path for opening');
+  assert.match(dashboardHtml, /window\.irOpenArquivo\s*=/, 'IR file rows should have an open-file handler');
   assert.doesNotMatch(dashboardHtml, /loadFunnel\('financas'/, 'Financas should not be nested under the Funnel tab');
   assert.match(dashboardHtml, /fetch\('\/api\/personas\/assets'\)/, 'dashboard should fetch enriched persona assets for clones');
   assert.match(serverJs, /\/api\/project-flows/, 'server should expose /api/project-flows');
@@ -87,6 +109,8 @@ function testIntegrationPoints() {
   assert.match(serverJs, /function writeJsonAtomic\(/, 'server should centralize validated JSON writes');
   assert.match(serverJs, /JSON\.parse\(text \|\| '\{\}'\)/, 'server should validate JSON editor saves before persisting');
   assert.doesNotMatch(serverJs, /fs\.writeFileSync\((?!fd,)/, 'server writes should go through atomic write helpers');
+  assert.match(serverJs, /\/api\/ir\/open/, 'server should expose a local IR file open endpoint');
+  assert.match(serverJs, /function isAllowedIrOpenPath\(/, 'IR file open endpoint should restrict allowed paths');
   assert.match(serverJs, /\/api\/registry\/agents/, 'server should expose agent creation endpoint');
   assert.match(serverJs, /\/api\/registry\/skills/, 'server should expose skill creation endpoint');
   assert.match(dashboardHtml, /openAddCloneModal\(/, 'dashboard should expose add clone action in Master clones view');
@@ -126,7 +150,7 @@ function testIntegrationPoints() {
   assert.match(dashboardHtml, /Agentes Disponíveis/, 'Master squads layout should keep the available agents side panel visible');
   assert.match(dashboardHtml, /w-full min-w-0 max-w-full overflow-hidden/, 'available agents panel and cards should not expand the side panel width');
   const sidebarTabs = [...dashboardHtml.matchAll(/class="sb-icon[^"]*" data-tab="([^"]+)"/g)].map(match => match[1]);
-  assert.deepEqual(sidebarTabs, ['master', 'memory', 'funnel', 'projeto', 'mapa', 'financas'], 'sidebar should keep Mapa before Financas in the project cluster');
+  assert.deepEqual(sidebarTabs, ['master', 'memory', 'funnel', 'projeto', 'mapa', 'financas', 'saude'], 'sidebar should keep Mapa before Financas, Saude at the end');
   assert.match(dashboardHtml, /id="control-hub-icon"/, 'dashboard should expose Ops Desk control hub');
   assert.match(dashboardHtml, /CONTROL_GROUP_TABS = \['alerts', 'logs', 'reruns', 'incidents', 'commands', 'why'\]/, 'dashboard should route control sub-tabs');
   assert.match(dashboardHtml, /function loadControlTab\(/, 'dashboard should load control hub sub-tabs');
@@ -202,10 +226,25 @@ function testIntegrationPoints() {
   assert.match(backfillScript, /inferProjectIdFromSession\(/, 'backfill script should infer project id from session archives');
 }
 
+function testDashboardInlineScriptsParse() {
+  const dashboardHtml = fs.readFileSync(path.join(ROOT, 'docs/aiox_dashboard.html'), 'utf8');
+  const scripts = [...dashboardHtml.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/gi)]
+    .map(match => match[1])
+    .filter(code => code.trim());
+
+  scripts.forEach((code, index) => {
+    assert.doesNotThrow(
+      () => new vm.Script(code, { filename: `docs/aiox_dashboard.html#inline-script-${index + 1}` }),
+      `dashboard inline script ${index + 1} should parse`
+    );
+  });
+}
+
 function run() {
   testProjectFlows();
   testPersonaMaterials();
   testIntegrationPoints();
+  testDashboardInlineScriptsParse();
   console.log('Tests passed: Master Hub quality checks succeeded.');
 }
 

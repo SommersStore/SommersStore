@@ -788,6 +788,134 @@
           "metric_main": "Processamento confirmado"
         }
       ]
+    },
+    "saude": {
+      "label": "Saúde",
+      "description": "Projeto de saúde integrativa pessoal — PAC-001 Sérgio Sommerlatte. Squad SQD-SAU com Dra. Joseane Vascon.",
+      "construcao": [
+        {
+          "id": "SAU-01",
+          "nome": "Anamnese & Histórico",
+          "squad": "SQD-SAU",
+          "status": "em_preparacao",
+          "resumo": "Coleta do histórico médico de Sérgio: condições atuais, medicamentos, alergias (intolerância à lactose confirmada), queixas e objetivos de saúde.",
+          "entrega": "Ficha completa PAC-001",
+          "entrega_para": "SAU-02",
+          "depends_on": [],
+          "metric_main": "Ficha PAC-001 preenchida",
+          "edit_path": "squads/saude/data/sergio_health_profile.json"
+        },
+        {
+          "id": "SAU-02",
+          "nome": "Exames Laboratoriais",
+          "squad": "SQD-SAU",
+          "status": "nao_iniciado",
+          "resumo": "Solicitar: IgG4 Food Panel (90+ alimentos), Teste H2 Expirado (lactose), Hemograma, Vitamina D/B12/Ferro, TSH/T3/T4, Glicemia, Cortisol e Microbioma.",
+          "entrega": "Laudos para análise",
+          "entrega_para": "SAU-03",
+          "depends_on": ["SAU-01"],
+          "metric_main": "Painel de exames completo",
+          "edit_path": "squads/saude/data/sergio_health_profile.json"
+        },
+        {
+          "id": "SAU-03",
+          "nome": "Análise Dra. Joseane",
+          "squad": "SQD-SAU",
+          "status": "nao_iniciado",
+          "resumo": "Dra. Joseane analisa exames e histórico. Identifica deficiências, intolerâncias e padrões. Configura clone prs-dra-joseane-vascon com documentos do paciente.",
+          "entrega": "Relatório clínico completo",
+          "entrega_para": "SAU-04",
+          "depends_on": ["SAU-02"],
+          "metric_main": "Relatório clínico emitido",
+          "edit_path": "knowledge/clones/personas/dra_joseane_vascon/persona.md"
+        },
+        {
+          "id": "SAU-04",
+          "nome": "Protocolo Personalizado",
+          "squad": "SQD-SAU",
+          "status": "nao_iniciado",
+          "resumo": "Protocolo integrado: alimentação sem lactose, suplementação (Whey Isolado, D3+K2, Ômega-3, Magnésio, Probiótico, Lactase), fitoterapia e banhos Sais Sommers.",
+          "entrega": "Protocolo prescrito",
+          "entrega_para": "SAU-05",
+          "depends_on": ["SAU-03"],
+          "metric_main": "Protocolo aprovado e ativo",
+          "edit_path": "squads/saude/data/sergio_health_profile.json"
+        },
+        {
+          "id": "SAU-05",
+          "nome": "Rotina & Exercícios",
+          "squad": "SQD-SAU",
+          "status": "nao_iniciado",
+          "resumo": "Rotina semanal: caminhada 30-45min/dia, musculação 3x/sem, alongamento diário. Banhos terapêuticos: Despertar Vibrante (manhã), Afiado (pré-trabalho), Explosão Cítrica (detox).",
+          "entrega": "Plano de rotina ativo",
+          "entrega_para": "SAU-06",
+          "depends_on": ["SAU-04"],
+          "metric_main": "Rotina semanal definida",
+          "edit_path": "squads/saude/data/sergio_health_profile.json"
+        },
+        {
+          "id": "SAU-06",
+          "nome": "Squad & Clone Ativos",
+          "squad": "SQD-SAU",
+          "status": "nao_iniciado",
+          "resumo": "Ativar 5 skills da Dra. Joseane: protocolo-fitoterapia, receita-banho-terapeutico, analise-exames, suplementacao-natural, acompanhamento-clinico. Clone operacional.",
+          "entrega": "SQD-SAU 100% ativo",
+          "entrega_para": "Acompanhamento contínuo",
+          "depends_on": ["SAU-05"],
+          "metric_main": "5/5 skills ativas",
+          "edit_path": "squads/saude/saude_squad.yaml"
+        }
+      ],
+      "vendas": [
+        {
+          "id": "MON-01",
+          "nome": "Revisão Mensal",
+          "squad": "SQD-SAU",
+          "status": "nao_iniciado",
+          "resumo": "Dra. Joseane revisa evolução clínica: sintomas, energia, peso, adesão ao protocolo. Ajusta prescrições e suplementação conforme resposta clínica.",
+          "entrega": "Relatório de evolução",
+          "entrega_para": "MON-02",
+          "depends_on": ["SAU-06"],
+          "metric_main": "Revisão mensal realizada",
+          "edit_path": "squads/saude/data/sergio_health_profile.json"
+        },
+        {
+          "id": "MON-02",
+          "nome": "Reexames (90 dias)",
+          "squad": "SQD-SAU",
+          "status": "nao_iniciado",
+          "resumo": "Repetir exames-chave a cada 90 dias: Vitamina D, B12, Ferro, Glicemia e marcadores de inflamação. Comparar com baseline inicial.",
+          "entrega": "Comparativo laboratorial",
+          "entrega_para": "MON-03",
+          "depends_on": ["MON-01"],
+          "metric_main": "Exames comparativos",
+          "edit_path": "squads/saude/data/sergio_health_profile.json"
+        },
+        {
+          "id": "MON-03",
+          "nome": "Ajuste de Suplementação",
+          "squad": "SQD-SAU",
+          "status": "nao_iniciado",
+          "resumo": "Com base nos reexames, ajustar doses. Verificar sempre rótulos quanto à lactose. Priorizar formas sem lactose: Whey Isolado, cápsulas vegetais.",
+          "entrega": "Suplementação otimizada",
+          "entrega_para": "MON-04",
+          "depends_on": ["MON-02"],
+          "metric_main": "Protocolo ajustado",
+          "edit_path": "squads/saude/data/sergio_health_profile.json"
+        },
+        {
+          "id": "MON-04",
+          "nome": "Expansão — Novos Pacientes",
+          "squad": "SQD-SAU",
+          "status": "nao_iniciado",
+          "resumo": "Expandir o squad para novos pacientes. Criar perfis individuais na aba Saúde. Cada paciente recebe ficha PAC-00X, protocolo e acompanhamento próprios.",
+          "entrega": "Squad escalado",
+          "entrega_para": "Operação contínua",
+          "depends_on": ["MON-01"],
+          "metric_main": "Novos pacientes ativos",
+          "edit_path": "squads/saude/saude_squad.yaml"
+        }
+      ]
     }
   }
 }
