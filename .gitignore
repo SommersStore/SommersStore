@@ -39,6 +39,23 @@ yarn-error.log*
 .cache/
 *.cache
 
+# Backups locais de dados financeiros sensiveis
+projects/financas/data/recovery/
+
+# Dados pessoais, anexos e estado local do painel
+.claude/settings.local.json
+*.lnk
+docs/uploads/
+projects/financas/contracts/
+projects/financas/data/
+projects/imposto-de-renda/data/
+docs/control/sessions/
+docs/control/archive/
+
+# Caches reconstruiveis de pesquisa
+projects/forex/research/rimantas-channel/player-cache/
+projects/forex/research/rimantas-channel/transcript-analysis-cache/
+
 # Sistemas operacionais
 .DS_Store
 ._*
