@@ -12,6 +12,13 @@
 - Historico de manutencao: inexistente/desconhecido
 - Catalisador: ausente
 
+## Reconfirmacao 2026-05-22
+
+- Chassi/VIN reconfirmado pelo usuario: JMYLYV77W5JA00169.
+- Numero do motor reconfirmado pelo usuario: 6G75RN6738.
+- Consulta NHTSA/vPIC: retorno com `ErrorCode` 1,7,400 e `VehicleDescriptor` JMYLYV77*5J.
+- Interpretacao: NHTSA e apenas uma limitacao de base EUA neste caso; a validacao real deve vir de documento, plaquetas, gravacoes e EPC/OEM.
+
 ## Conferencias pendentes
 
 | Item | Status | Evidencia | Observacoes |

@@ -132,5 +132,87 @@
       "prs-pajero-oem-technical-librarian",
       "prs-pajero-pajero-chief-diagnostician"
     ]
+  },
+  {
+    "id": "pajero-vin-motor-user-confirmation-20260522",
+    "nome": "Confirmacao do usuario - chassi/VIN e motor",
+    "tipo": "evidencia primaria informada pelo usuario",
+    "uso_no_squad": "Ancorar o projeto no VIN JMYLYV77W5JA00169 e no motor 6G75RN6738 enquanto a conferencia fisica/EPC/OEM ainda esta pendente.",
+    "fonte": "Pajero/data/vehicle-profile.json",
+    "status": "informado_reconfirmado_pendente_conferencia_fisica",
+    "ficha": "Pajero/docs/pesquisa-internet-fontes-2026-05-22.md",
+    "clones_consumidores": [
+      "prs-pajero-pajero-chief-diagnostician",
+      "prs-pajero-oem-technical-librarian",
+      "prs-pajero-evidence-anti-hallucination-auditor"
+    ]
+  },
+  {
+    "id": "pajero4x4-v77w-group00-pdf-mirror",
+    "nome": "Mitsubishi Montero/Pajero V77W Group 00 PDF mirror",
+    "tipo": "espelho publico de PDF tecnico",
+    "uso_no_squad": "Triagem de identificacao V77W, motor 6G75, transmissao V5A51, localizacao de plaquetas e especificacoes gerais.",
+    "fonte": "https://pajero4x4.ru/piii/GR00001000-00.pdf",
+    "status": "pendente_validacao_oficial",
+    "ficha": "Pajero/docs/pesquisa-internet-fontes-2026-05-22.md",
+    "clones_consumidores": [
+      "prs-pajero-oem-technical-librarian",
+      "prs-pajero-evidence-anti-hallucination-auditor",
+      "prs-pajero-pajero-chief-diagnostician"
+    ]
+  },
+  {
+    "id": "epc-data-pajero-v77w-catalog",
+    "nome": "EPC Data - Mitsubishi Pajero parts catalog",
+    "tipo": "catalogo publico de pecas",
+    "uso_no_squad": "Buscar por frame/modelo e conferir a arvore V77W antes de montar BOM.",
+    "fonte": "https://mitsubishi.epc-data.com/pajero/",
+    "status": "candidato_pendente_busca_frame_vin",
+    "ficha": "Pajero/docs/pesquisa-internet-fontes-2026-05-22.md",
+    "clones_consumidores": [
+      "prs-pajero-oem-technical-librarian",
+      "prs-pajero-parts-and-sourcing-controller",
+      "prs-pajero-evidence-anti-hallucination-auditor"
+    ]
+  },
+  {
+    "id": "nengun-pajero-v77w-oem-catalog",
+    "nome": "Nengun - Pajero V77W OEM part catalogs",
+    "tipo": "catalogo comercial OEM",
+    "uso_no_squad": "Apoiar triagem de categorias OEM V77W/6G75 e termos de busca por grade.",
+    "fonte": "https://www.nengun.com/oem/mitsubishi/pajero-v77w",
+    "status": "candidato_nao_substitui_epc_oficial",
+    "ficha": "Pajero/docs/pesquisa-internet-fontes-2026-05-22.md",
+    "clones_consumidores": [
+      "prs-pajero-oem-technical-librarian",
+      "prs-pajero-parts-and-sourcing-controller"
+    ]
+  },
+  {
+    "id": "tinkr-lyv77w-v77w-fitment",
+    "nome": "TINKR fitment LYV77W/V77W 3.8 6G75 5AT",
+    "tipo": "fonte aftermarket / fitment",
+    "uso_no_squad": "Usar somente como evidencia auxiliar de termos LYV77W/V77W, 3.8L 6G75, 5sp Auto e 4WD.",
+    "fonte": "https://tinkr.co.nz/products/pajero-v75w-rear-hub-ab6484",
+    "status": "aftermarket_auxiliar_nao_oem",
+    "ficha": "Pajero/docs/pesquisa-internet-fontes-2026-05-22.md",
+    "clones_consumidores": [
+      "prs-pajero-oem-technical-librarian",
+      "prs-pajero-parts-and-sourcing-controller",
+      "prs-pajero-evidence-anti-hallucination-auditor"
+    ]
+  },
+  {
+    "id": "wikimedia-pajero-np-public-domain-image",
+    "nome": "Wikimedia Commons - 2006 Mitsubishi Pajero NP VR-X wagon",
+    "tipo": "imagem publica / referencia visual",
+    "uso_no_squad": "Referencia visual generica da Pajero terceira geracao para dashboard; nao substitui fotos reais do veiculo.",
+    "fonte": "https://commons.wikimedia.org/wiki/File:2006_Mitsubishi_Pajero_(NP)_VR-X_wagon_01.jpg",
+    "status": "public_domain_referencia_visual",
+    "ficha": "Pajero/docs/pesquisa-internet-fontes-2026-05-22.md",
+    "clones_consumidores": [
+      "prs-pajero-visual-evidence-and-photo-mapper",
+      "prs-pajero-evidence-anti-hallucination-auditor"
+    ]
   }
 ]

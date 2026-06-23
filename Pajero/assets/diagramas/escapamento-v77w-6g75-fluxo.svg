@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">Mapa visual inicial do escapamento Pajero V77W 6G75</title>
+  <desc id="desc">Diagrama original para triagem visual do sistema de escapamento desde os coletores ate a ponteira final.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f7fafc"/>
+      <stop offset="1" stop-color="#edf2f7"/>
+    </linearGradient>
+    <linearGradient id="hot" x1="0" x2="1">
+      <stop offset="0" stop-color="#e53e3e"/>
+      <stop offset="1" stop-color="#f6ad55"/>
+    </linearGradient>
+    <linearGradient id="pipe" x1="0" x2="1">
+      <stop offset="0" stop-color="#4a5568"/>
+      <stop offset="1" stop-color="#718096"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#1a202c" flood-opacity="0.16"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2d3748"/>
+    </marker>
+  </defs>
+
+  <rect width="1280" height="760" fill="url(#bg)"/>
+  <rect x="38" y="36" width="1204" height="688" rx="18" fill="#ffffff" filter="url(#shadow)"/>
+
+  <text x="72" y="86" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="28" font-weight="800" fill="#1a202c">Pajero V77W 6G75 - Escapamento: teste visual inicial</text>
+  <text x="72" y="118" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" fill="#4a5568">Fluxo ilustrativo para organizar fotos reais e fontes. Confirmar rota, catalisador e sondas no veiculo antes de comprar pecas.</text>
+
+  <g transform="translate(64 172)">
+    <rect x="0" y="0" width="160" height="110" rx="12" fill="#2d3748"/>
+    <text x="80" y="38" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="800" fill="#fff">6G75 V6</text>
+    <text x="80" y="66" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="#e2e8f0">cofre dianteiro</text>
+    <text x="80" y="88" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#cbd5e0">bancos LH/RH</text>
+  </g>
+
+  <g transform="translate(266 132)">
+    <rect x="0" y="0" width="168" height="78" rx="12" fill="#fff5f5" stroke="#feb2b2" stroke-width="2"/>
+    <text x="84" y="30" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="800" fill="#9b2c2c">Coletor LH</text>
+    <text x="84" y="54" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#742a2a">trinca / junta / prisioneiro</text>
+  </g>
+  <g transform="translate(266 262)">
+    <rect x="0" y="0" width="168" height="78" rx="12" fill="#fff5f5" stroke="#feb2b2" stroke-width="2"/>
+    <text x="84" y="30" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="800" fill="#9b2c2c">Coletor RH</text>
+    <text x="84" y="54" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#742a2a">junta / calor / vazamento</text>
+  </g>
+
+  <path d="M224 210 C244 168 246 171 266 171" fill="none" stroke="url(#hot)" stroke-width="12" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M224 236 C244 302 246 301 266 301" fill="none" stroke="url(#hot)" stroke-width="12" stroke-linecap="round" marker-end="url(#arrow)"/>
+
+  <g transform="translate(482 197)">
+    <rect x="0" y="0" width="184" height="90" rx="12" fill="#ebf8ff" stroke="#90cdf4" stroke-width="2"/>
+    <text x="92" y="30" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="800" fill="#2a4365">Tubos dianteiros</text>
+    <text x="92" y="54" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#2c5282">front pipes LH/RH</text>
+    <text x="92" y="74" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#2c5282">flexiveis e flanges</text>
+  </g>
+
+  <path d="M434 171 C454 205 462 222 482 228" fill="none" stroke="url(#pipe)" stroke-width="10" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M434 301 C454 267 462 248 482 242" fill="none" stroke="url(#pipe)" stroke-width="10" stroke-linecap="round" marker-end="url(#arrow)"/>
+
+  <g transform="translate(720 176)">
+    <rect x="0" y="0" width="202" height="132" rx="14" fill="#fffaf0" stroke="#fbd38d" stroke-width="2"/>
+    <text x="101" y="28" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="800" fill="#744210">Catalisadores / sondas</text>
+    <text x="101" y="54" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#7b341e">status atual: catalisador ausente</text>
+    <circle cx="56" cy="82" r="14" fill="#f6ad55"/>
+    <circle cx="146" cy="82" r="14" fill="#f6ad55"/>
+    <text x="56" y="87" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="800" fill="#fff">O2</text>
+    <text x="146" y="87" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="800" fill="#fff">O2</text>
+    <text x="101" y="116" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#7b341e">mapear emulador / chicotes</text>
+  </g>
+
+  <path d="M666 242 C688 242 698 242 720 242" fill="none" stroke="url(#pipe)" stroke-width="12" stroke-linecap="round" marker-end="url(#arrow)"/>
+
+  <g transform="translate(966 197)">
+    <rect x="0" y="0" width="180" height="90" rx="12" fill="#f0fff4" stroke="#9ae6b4" stroke-width="2"/>
+    <text x="90" y="28" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="800" fill="#22543d">Linha central</text>
+    <text x="90" y="53" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#276749">tubo intermediario</text>
+    <text x="90" y="73" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#276749">suportes e calor</text>
+  </g>
+  <path d="M922 242 C944 242 946 242 966 242" fill="none" stroke="url(#pipe)" stroke-width="12" stroke-linecap="round" marker-end="url(#arrow)"/>
+
+  <g transform="translate(170 456)">
+    <rect x="0" y="0" width="208" height="92" rx="12" fill="#f7fafc" stroke="#cbd5e0" stroke-width="2"/>
+    <text x="104" y="32" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="800" fill="#2d3748">Silencioso principal</text>
+    <text x="104" y="58" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#4a5568">muffler / abafador traseiro</text>
+    <text x="104" y="76" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#4a5568">corrosao / soldas / suportes</text>
+  </g>
+
+  <path d="M1056 287 C1056 393 306 393 278 456" fill="none" stroke="url(#pipe)" stroke-width="12" stroke-linecap="round" marker-end="url(#arrow)"/>
+
+  <g transform="translate(436 456)">
+    <rect x="0" y="0" width="188" height="92" rx="12" fill="#f7fafc" stroke="#cbd5e0" stroke-width="2"/>
+    <text x="94" y="32" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="800" fill="#2d3748">Tubo final</text>
+    <text x="94" y="58" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#4a5568">tail pipe</text>
+    <text x="94" y="76" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#4a5568">fixacao e alinhamento</text>
+  </g>
+  <path d="M378 502 C400 502 414 502 436 502" fill="none" stroke="url(#pipe)" stroke-width="12" stroke-linecap="round" marker-end="url(#arrow)"/>
+
+  <g transform="translate(684 456)">
+    <rect x="0" y="0" width="176" height="92" rx="12" fill="#edf2f7" stroke="#a0aec0" stroke-width="2"/>
+    <text x="88" y="32" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="800" fill="#2d3748">Ponteira</text>
+    <text x="88" y="58" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#4a5568">saida final dos gases</text>
+    <text x="88" y="76" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#4a5568">fumaca / cheiro / ruido</text>
+  </g>
+  <path d="M624 502 C646 502 662 502 684 502" fill="none" stroke="url(#pipe)" stroke-width="12" stroke-linecap="round" marker-end="url(#arrow)"/>
+
+  <g transform="translate(940 430)">
+    <rect x="0" y="0" width="220" height="144" rx="14" fill="#fff5f7" stroke="#fbb6ce" stroke-width="2"/>
+    <text x="110" y="30" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="800" fill="#702459">Pontos de teste</text>
+    <text x="22" y="60" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#702459">1. Vazamento antes das sondas</text>
+    <text x="22" y="82" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#702459">2. Sondas e chicotes cortados</text>
+    <text x="22" y="104" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#702459">3. Catalisador ausente/emulado</text>
+    <text x="22" y="126" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#702459">4. Suportes, batidas e soldas</text>
+  </g>
+
+  <rect x="72" y="638" width="1136" height="46" rx="12" fill="#1a202c"/>
+  <text x="92" y="666" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" fill="#e2e8f0">Regra AIOX: esta imagem organiza a investigacao. Pecas, torques e procedimentos seguem bloqueados ate fonte OEM/EPC + fotos reais + scanner.</text>
+</svg>

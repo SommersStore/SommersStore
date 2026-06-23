@@ -12,7 +12,23 @@
     "historico_manutencao": "inexistente/desconhecido",
     "catalisador": "ausente",
     "codigo_pintura_informado": "A19",
-    "status_identificacao": "pendente de conferencia fisica"
+    "status_identificacao": "informado e reconfirmado pelo usuario; pendente de conferencia fisica, plaqueta e EPC/OEM",
+    "confirmacoes": {
+      "usuario_2026-05-22": {
+        "data": "2026-05-22",
+        "chassi_vin": "JMYLYV77W5JA00169",
+        "motor": "6G75RN6738",
+        "observacao": "Chassi/VIN e numero do motor reconfirmados pelo usuario para conferencia e complementacao do projeto."
+      },
+      "nhtsa_vpic_2026-05-22": {
+        "data": "2026-05-22",
+        "status": "nao_decodificado_para_mercado_eua",
+        "vehicle_descriptor": "JMYLYV77*5J",
+        "error_code": "1,7,400",
+        "additional_error_text": "Invalid character(s): 9:W.",
+        "observacao": "A base NHTSA/vPIC retornou erro de check digit e indicou fabricante nao registrado para venda/importacao nos EUA; isto registra uma limitacao de base externa e nao invalida o veiculo informado."
+      }
+    }
   },
   "sintomas_atuais": [
     "marcha lenta instavel",
@@ -33,7 +49,8 @@
     "Trancos no cambio devem ser avaliados junto com motor, coxins, ATF, scanner TCU e dados ao vivo."
   ],
   "fontes": {
-    "dados_do_veiculo": "informado pelo usuario",
-    "especificacoes_tecnicas": "pendente de validacao por manual/fonte tecnica"
+    "dados_do_veiculo": "informado pelo usuario e reconfirmado em 2026-05-22",
+    "especificacoes_tecnicas": "pendente de validacao por manual/fonte tecnica",
+    "decodificacao_vin": "NHTSA/vPIC consultado em 2026-05-22; sem decodificacao limpa para mercado EUA; pendente EPC/OEM por frame/VIN"
   }
 }

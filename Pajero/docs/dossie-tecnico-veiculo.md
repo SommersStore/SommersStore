@@ -13,6 +13,14 @@
 - Historico de manutencao: inexistente/desconhecido
 - Catalisador: ausente
 
+## Conferencia 2026-05-22
+
+- Chassi/VIN reconfirmado pelo usuario: JMYLYV77W5JA00169.
+- Numero do motor reconfirmado pelo usuario: 6G75RN6738.
+- Consulta NHTSA/vPIC executada em 2026-05-22: sem decodificacao limpa para mercado EUA, com `ErrorCode` 1,7,400 e `VehicleDescriptor` JMYLYV77*5J.
+- Interpretacao: usar NHTSA apenas como registro de limitacao externa, porque a resposta informa check digit incompativel para a posicao 9 e fabricante nao registrado para venda/importacao nos EUA. Nao usar esse retorno para invalidar o veiculo.
+- Proxima conferencia fisica: fotografar plaqueta VIN, etiqueta de cofre/coluna, numeracao do motor, plaqueta do cambio/transferencia e codigo de cor A19.
+
 ## Sintomas conhecidos
 
 - Marcha lenta instavel.
@@ -29,7 +37,7 @@ Nao usar dados de Pajero Sport, Pajero Dakar, TR4, versoes diesel, motor 4M41, V
 
 ## Estado de confianca
 
-- Identificacao do veiculo: confirmado pelo briefing do usuario.
+- Identificacao do veiculo: informado e reconfirmado pelo usuario; pendente de conferencia fisica por plaquetas/gravacoes e EPC/OEM.
 - Aplicabilidade de torques, fluidos e capacidades: pendente de fonte tecnica.
 - Pecas e codigos OEM: pendente de fonte tecnica.
 - Diagnostico de causa-raiz: pendente de scanner, fotos e testes.
@@ -40,4 +48,5 @@ Nao usar dados de Pajero Sport, Pajero Dakar, TR4, versoes diesel, motor 4M41, V
 - [Sintomas atuais](diagnostico-sintomas-atuais.md)
 - [Regras anti-alucinacao](regras-antialucinacao.md)
 - [Fontes tecnicas pendentes](fontes-tecnicas-pendentes.md)
+- [Pesquisa internet 2026-05-22](pesquisa-internet-fontes-2026-05-22.md)
 - [Manifesto de imagens](../data/image-manifest.json)

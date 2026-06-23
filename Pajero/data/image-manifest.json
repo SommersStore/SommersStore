@@ -52,6 +52,84 @@
     "observacoes": "Registrar posicao das sondas, chicotes, emendas, vazamentos e possivel emulador."
   },
   {
+    "id": "escapamento-coletor-lh-001",
+    "modulo": "Admissao, Ignicao e Injecao",
+    "sistema": "Escapamento",
+    "peca": "Coletor de escapamento esquerdo",
+    "localizacao": "Banco esquerdo do motor 6G75",
+    "lado_veiculo": "esquerdo",
+    "tipo": "foto_real_pendente",
+    "arquivo": "",
+    "origem": "a produzir",
+    "status": "pendente",
+    "observacoes": "Fotografar coletor, junta, prisioneiros, escudo termico e marcas de fuligem ou trinca."
+  },
+  {
+    "id": "escapamento-coletor-rh-001",
+    "modulo": "Admissao, Ignicao e Injecao",
+    "sistema": "Escapamento",
+    "peca": "Coletor de escapamento direito",
+    "localizacao": "Banco direito do motor 6G75",
+    "lado_veiculo": "direito",
+    "tipo": "foto_real_pendente",
+    "arquivo": "",
+    "origem": "a produzir",
+    "status": "pendente",
+    "observacoes": "Fotografar coletor, junta, prisioneiros, escudo termico e marcas de fuligem ou trinca."
+  },
+  {
+    "id": "escapamento-front-pipes-001",
+    "modulo": "Admissao, Ignicao e Injecao",
+    "sistema": "Escapamento",
+    "peca": "Tubos dianteiros e flanges",
+    "localizacao": "Entre coletores, catalisadores/trecho ausente e linha central",
+    "lado_veiculo": "inferior dianteiro",
+    "tipo": "foto_real_pendente",
+    "arquivo": "",
+    "origem": "a produzir",
+    "status": "pendente",
+    "observacoes": "Registrar front pipes, flexiveis, flanges, soldas, suportes, vazamentos e batidas no chassi."
+  },
+  {
+    "id": "escapamento-catalisador-ausente-001",
+    "modulo": "Admissao, Ignicao e Injecao",
+    "sistema": "Escapamento",
+    "peca": "Trecho dos catalisadores ausentes",
+    "localizacao": "Regiao dos catalisadores e sondas lambda",
+    "lado_veiculo": "inferior central",
+    "tipo": "foto_real_pendente",
+    "arquivo": "",
+    "origem": "a produzir",
+    "status": "pendente",
+    "observacoes": "Fotografar adaptacoes, emendas, soldas, posicao das sondas antes/depois e possivel emulador."
+  },
+  {
+    "id": "escapamento-linha-intermediaria-001",
+    "modulo": "Admissao, Ignicao e Injecao",
+    "sistema": "Escapamento",
+    "peca": "Linha intermediaria",
+    "localizacao": "Centro inferior do veiculo",
+    "lado_veiculo": "inferior central",
+    "tipo": "foto_real_pendente",
+    "arquivo": "",
+    "origem": "a produzir",
+    "status": "pendente",
+    "observacoes": "Registrar tubo central, protetores de calor, borrachas, suportes, corrosao e vazamentos."
+  },
+  {
+    "id": "escapamento-silencioso-ponteira-001",
+    "modulo": "Admissao, Ignicao e Injecao",
+    "sistema": "Escapamento",
+    "peca": "Silencioso principal, tubo final e ponteira",
+    "localizacao": "Parte traseira inferior do veiculo",
+    "lado_veiculo": "traseiro",
+    "tipo": "foto_real_pendente",
+    "arquivo": "",
+    "origem": "a produzir",
+    "status": "pendente",
+    "observacoes": "Fotografar abafador, soldas, suportes, corrosao, alinhamento da ponteira, fuligem e condensacao."
+  },
+  {
     "id": "admissao-tbi-001",
     "modulo": "Admissao, Ignicao e Injecao",
     "sistema": "Admissao",
@@ -219,5 +297,33 @@
     "origem": "Imagem fornecida pelo usuario em C:/Users/ADMIN/Downloads/mermaid-diagram.png",
     "status": "validacao_visual_pendente",
     "observacoes": "Diagrama base anexado ao prompt para orientar o fluxo macro de diagnostico."
+  },
+  {
+    "id": "referencia-externa-pajero-np-001",
+    "modulo": "Referencias visuais",
+    "sistema": "Carroceria",
+    "peca": "Pajero/Montero terceira geracao",
+    "localizacao": "Imagem externa",
+    "lado_veiculo": "nao aplicavel",
+    "tipo": "imagem_publica_referencia",
+    "arquivo": "",
+    "origem": "Wikimedia Commons - File:2006 Mitsubishi Pajero (NP) VR-X wagon 01.jpg",
+    "url": "https://commons.wikimedia.org/wiki/File:2006_Mitsubishi_Pajero_(NP)_VR-X_wagon_01.jpg",
+    "licenca": "public domain conforme pagina da fonte",
+    "status": "candidata_referencia_visual",
+    "observacoes": "Usar apenas como referencia visual generica da Pajero 3a geracao. Nao substitui fotos reais do veiculo do usuario."
+  },
+  {
+    "id": "escapamento-v77w-6g75-fluxo-001",
+    "modulo": "Admissao, Ignicao e Injecao",
+    "sistema": "Escapamento",
+    "peca": "Fluxo visual do escapamento",
+    "localizacao": "Documento tecnico",
+    "lado_veiculo": "nao aplicavel",
+    "tipo": "diagrama_original",
+    "arquivo": "assets/diagramas/escapamento-v77w-6g75-fluxo.svg",
+    "origem": "Diagrama original criado no projeto em 2026-05-22 a partir do escopo V77W/6G75 e fontes candidatas",
+    "status": "referencia_visual_inicial",
+    "observacoes": "Mostra a sequencia de investigacao dos gases: coletores, tubos dianteiros, sondas/catalisador, linha central, silencioso e ponteira. Nao substitui manual OEM nem fotos reais."
   }
 ]

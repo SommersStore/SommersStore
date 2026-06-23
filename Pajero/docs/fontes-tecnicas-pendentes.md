@@ -63,3 +63,21 @@ As fichas abaixo foram anexadas aos clones corretos em `docs/control/persona_mat
 - Confirmar se o Montero 2004/2005 EUA e equivalente ao Pajero HPE brasileiro em cada sistema antes de aplicar valores.
 - Validar submodelo exato do V5A51 por plaqueta/documentacao antes de usar torques ou procedimentos internos.
 - Trazer EPC/catalogo de pecas confiavel por VIN antes de liberar BOM.
+
+## Pesquisa internet 2026-05-22
+
+Resultado da rodada feita apos o usuario reconfirmar o chassi/VIN `JMYLYV77W5JA00169` e o numero do motor `6G75RN6738`.
+
+| Fonte | Nivel | Uso permitido agora | Status |
+| --- | --- | --- | --- |
+| Mitsubishi Techinfo / MMNA | Oficial por assinatura | Prioridade maxima para manual, TSB, OBD-II, MUT-II e documentos tecnicos de modelos vendidos nos EUA | Acesso por assinatura; ainda nao libera valores aplicaveis ao mercado brasileiro |
+| Mitsubishi Cars Newsroom - 2004 Montero Technical Highlights | Oficial publica auxiliar | Referencia de arquitetura Montero/V77W: 3.8 V6, 5AT, ActiveTrac/Super Select, suspensao e freios | Aplicabilidade por mercado ainda pendente |
+| NHTSA/vPIC | Governamental EUA | Registrar limitacao de decodificacao do VIN em base norte-americana | Consulta retornou `ErrorCode` 1,7,400; nao usar para invalidar o veiculo |
+| Manualzz - Montero V77W service manual mirror | Espelho publico | Triagem de secoes V77W/6G75/V5A51 e localizacao de topicos | Pendente de validacao de origem e mercado |
+| Pajero4x4.ru - PDF Group 00 V77W | Espelho publico de PDF tecnico | Conferencia auxiliar de identificacao V77W/6G75/V5A51 e localizacao de plaquetas | Pendente de validacao contra fonte oficial |
+| EPC Data - Mitsubishi Pajero catalog | Catalogo publico de pecas | Busca por frame/modelo e navegacao V77W antes de BOM | Pendente de validacao por VIN/frame completo |
+| Nengun - Pajero V77W OEM parts catalog | Catalogo comercial OEM | Apoio de categorias OEM e coerencia V77W/6G75 | Candidato, nao substitui EPC oficial |
+| TINKR fitment LYV77W/V77W | Aftermarket | Evidencia auxiliar de fitment LYV77W/V77W 3.8 6G75 5AT 4WD | Candidato, nao usar como fonte OEM |
+| Wikimedia Commons - Pajero 3rd generation | Imagem publica | Referencia visual generica/licenciada para dashboard | Nao substitui fotos reais do veiculo |
+
+Detalhamento registrado em [`pesquisa-internet-fontes-2026-05-22.md`](pesquisa-internet-fontes-2026-05-22.md).

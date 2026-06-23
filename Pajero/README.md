@@ -34,11 +34,16 @@ Abra:
 
 O painel e estatico e funciona com dados iniciais embutidos. Quando aberto por um servidor HTTP local, ele tambem tenta ler os arquivos JSON em `Pajero/data/`.
 
+Para o teste inicial do escapamento, abra:
+
+`Pajero/ui/escapamento-visual.html`
+
 ## Fotos reais
 
 Adicione fotos em:
 
 - `Pajero/assets/imagens_reais/`
+- `Pajero/assets/imagens_reais/escapamento/`
 - `Pajero/assets/ilustracoes/`
 - `Pajero/assets/diagramas/`
 - `Pajero/assets/pecas/`
@@ -48,3 +53,9 @@ Depois registre cada imagem em `Pajero/data/image-manifest.json` com origem, sta
 ## Fontes e validacao
 
 Todo torque, capacidade de fluido, especificacao de oleo, codigo de peca e procedimento mecanico deve receber fonte antes de ser tratado como confirmado. Enquanto nao houver fonte, classifique como `pendente de validacao`.
+
+## Atualizacao 2026-05-22
+
+- VIN `JMYLYV77W5JA00169` e motor `6G75RN6738` reconfirmados pelo usuario.
+- Pesquisa internet registrada em `Pajero/docs/pesquisa-internet-fontes-2026-05-22.md`.
+- Consulta NHTSA/vPIC registrada como limitacao de base EUA, nao como invalidacao do veiculo.

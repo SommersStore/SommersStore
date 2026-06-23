@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pajero V77W 6G75 - Escapamento Visual</title>
+    <style>
+      :root {
+        --bg: #f3f5f2;
+        --surface: #ffffff;
+        --ink: #172026;
+        --muted: #5f6970;
+        --line: #d8ded5;
+        --accent: #b8322a;
+        --accent-2: #245a78;
+        --ok: #2f855a;
+        --warn: #b7791f;
+        --shadow: 0 18px 48px rgba(23, 32, 38, 0.1);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-width: 320px;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        letter-spacing: 0;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(180deg, #fbfcfa 0, var(--bg) 62%);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .page {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        align-items: end;
+        padding: 18px 0 20px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .eyebrow {
+        margin: 0 0 7px;
+        color: var(--muted);
+        font-size: 0.74rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 860px;
+        margin-bottom: 8px;
+        font-size: clamp(1.6rem, 3.2vw, 2.8rem);
+        line-height: 1.05;
+      }
+
+      .lead {
+        max-width: 860px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.48;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40px;
+        padding: 9px 12px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--surface);
+        color: var(--ink);
+        font-weight: 800;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .btn.primary {
+        border-color: #8e261f;
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 360px;
+        gap: 18px;
+        margin-top: 18px;
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: var(--shadow);
+      }
+
+      .diagram-panel {
+        overflow: hidden;
+      }
+
+      .diagram-head,
+      .side-head {
+        padding: 16px 18px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .diagram-head h2,
+      .side-head h2 {
+        margin: 0;
+        font-size: 1.05rem;
+      }
+
+      .diagram-frame {
+        padding: 14px;
+        background:
+          linear-gradient(90deg, rgba(36, 90, 120, 0.06), transparent),
+          #f8faf7;
+      }
+
+      .diagram-frame img {
+        display: block;
+        width: 100%;
+        height: auto;
+        min-height: 360px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .sequence {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(170px, 1fr));
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .step {
+        min-height: 138px;
+        padding: 13px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+      }
+
+      .step strong {
+        display: inline-grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        margin-bottom: 10px;
+        border-radius: 50%;
+        background: #172026;
+        color: #fff;
+        font-size: 0.82rem;
+      }
+
+      .step h3 {
+        margin-bottom: 7px;
+        font-size: 0.96rem;
+      }
+
+      .step p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.84rem;
+        line-height: 1.42;
+      }
+
+      .side {
+        align-self: start;
+        position: sticky;
+        top: 18px;
+      }
+
+      .status-list,
+      .source-list {
+        display: grid;
+        gap: 10px;
+        padding: 14px;
+      }
+
+      .status-card,
+      .source-card {
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfcfa;
+      }
+
+      .status-card h3,
+      .source-card h3 {
+        margin-bottom: 6px;
+        font-size: 0.92rem;
+      }
+
+      .status-card p,
+      .source-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.82rem;
+        line-height: 1.42;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
+        margin-bottom: 8px;
+        padding: 3px 8px;
+        border-radius: 999px;
+        background: #edf2f7;
+        color: #2d3748;
+        font-size: 0.72rem;
+        font-weight: 800;
+      }
+
+      .badge.warn {
+        background: #fffaf0;
+        color: var(--warn);
+      }
+
+      .badge.ok {
+        background: #f0fff4;
+        color: var(--ok);
+      }
+
+      .notes {
+        margin-top: 18px;
+        padding: 16px 18px;
+        border: 1px solid #e9d8fd;
+        border-radius: 8px;
+        background: #faf5ff;
+      }
+
+      .notes p {
+        margin: 0;
+        color: #44337a;
+        line-height: 1.46;
+      }
+
+      @media (max-width: 1100px) {
+        .layout,
+        .topbar {
+          grid-template-columns: 1fr;
+        }
+
+        .topbar {
+          display: grid;
+          align-items: start;
+        }
+
+        .actions {
+          justify-content: flex-start;
+        }
+
+        .side {
+          position: static;
+        }
+
+        .sequence {
+          grid-template-columns: repeat(2, minmax(170px, 1fr));
+        }
+      }
+
+      @media (max-width: 620px) {
+        .page {
+          padding: 14px;
+        }
+
+        .sequence {
+          grid-template-columns: 1fr;
+        }
+
+        .actions,
+        .btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Pajero Full / Escapamento</p>
+          <h1>Fluxo dos gases: coletores, sondas, catalisador, linha central e ponteira</h1>
+          <p class="lead">Teste visual inicial para orientar as fotos reais e a investigacao do consumo alto. A Pajero esta registrada como V77W 6G75 V5A51, com catalisador ausente informado.</p>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="../assets/diagramas/escapamento-v77w-6g75-fluxo.svg">Abrir imagem</a>
+          <a class="btn" href="../docs/escapamento-mapa-visual.md">Ver documento</a>
+          <a class="btn" href="index.html">Painel Pajero</a>
+        </div>
+      </header>
+
+      <section class="layout">
+        <div>
+          <article class="panel diagram-panel">
+            <div class="diagram-head">
+              <p class="eyebrow">Diagrama original do projeto</p>
+              <h2>Mapa do escapamento, da frente para tras</h2>
+            </div>
+            <div class="diagram-frame">
+              <img src="../assets/diagramas/escapamento-v77w-6g75-fluxo.svg" alt="Mapa visual inicial do escapamento Pajero V77W 6G75">
+            </div>
+          </article>
+
+          <section class="sequence" aria-label="Sequencia de fotos">
+            <article class="step">
+              <strong>1</strong>
+              <h3>Coletores</h3>
+              <p>Fotografar os dois bancos, juntas, prisioneiros, escudos termicos e qualquer marca de fuligem.</p>
+            </article>
+            <article class="step">
+              <strong>2</strong>
+              <h3>Tubos dianteiros</h3>
+              <p>Registrar flexiveis, flanges, suportes, soldas e pontos onde pode haver vazamento antes das sondas.</p>
+            </article>
+            <article class="step">
+              <strong>3</strong>
+              <h3>Sondas / catalisador</h3>
+              <p>Mapear sondas, chicotes, conectores, emendas, ponto do catalisador ausente e possivel emulador.</p>
+            </article>
+            <article class="step">
+              <strong>4</strong>
+              <h3>Linha final</h3>
+              <p>Fotografar linha intermediaria, abafador, suportes, corrosao, tubo final e ponteira.</p>
+            </article>
+          </section>
+
+          <aside class="notes">
+            <p><strong>Regra do projeto:</strong> a imagem serve para organizar a investigacao. Pecas, torques, soldas e diagnostico final continuam bloqueados ate fonte OEM/EPC, fotos reais e scanner ECU/TCU.</p>
+          </aside>
+        </div>
+
+        <aside class="panel side">
+          <div class="side-head">
+            <p class="eyebrow">Estado inicial</p>
+            <h2>O que ja sabemos</h2>
+          </div>
+          <div class="status-list">
+            <article class="status-card">
+              <span class="badge ok">Confirmado no projeto</span>
+              <h3>Veiculo base</h3>
+              <p>Pajero V77W, motor 6G75, cambio V5A51. VIN e motor foram reconfirmados pelo usuario em 2026-05-22.</p>
+            </article>
+            <article class="status-card">
+              <span class="badge warn">Alerta</span>
+              <h3>Catalisador ausente</h3>
+              <p>A ausencia pode afetar mistura, sonda, consumo, cheiro e conformidade. Ainda precisa de fotos e scanner.</p>
+            </article>
+            <article class="status-card">
+              <span class="badge warn">Pendente</span>
+              <h3>Fotos reais</h3>
+              <p>Prioridade: coletores, sondas, catalisador/trecho ausente, flanges, abafador e ponteira.</p>
+            </article>
+          </div>
+
+          <div class="side-head">
+            <p class="eyebrow">Fontes externas</p>
+            <h2>Referencia, nao veredito</h2>
+          </div>
+          <div class="source-list">
+            <article class="source-card">
+              <h3><a href="https://partsouq.com/en/catalog/genuine/unit?c=Mitsubishi&cid=1&q=&ssd=%24%2AKwF7T15BEwN8FAcJFwkjaSM3FxAOf3B9fG5Bcjo8DwEMBTESYG10CQUde3l7fHgiYGEJM206a3JtFzIyICpqdX80NjoNazx2a3JtFGtkbS5-PDhrCnd-egB7fSdfIGVqLCdrcn5hMmsgc2p-e2R9fn4NeH9_ICdWazUxOCwgDzYydyBzJjoiJWRtLjIkIAtwf30BfH96UTwuayVtdGseeHpHPC5rKyNscyY6IXxjAAAAAB6McS4%3D%24&uid=70662&vid=0">PartSouq V77W</a></h3>
+              <p>Diagrama candidato de escapamento V77W General Export. Requer conferencia por VIN/frame.</p>
+            </article>
+            <article class="source-card">
+              <h3><a href="https://www.nengun.com/oem/mitsubishi/pajero-v77w/exhaust">Nengun V77W</a></h3>
+              <p>Catalogo comercial OEM para triagem de categorias e nomenclatura. Nao substitui EPC oficial.</p>
+            </article>
+            <article class="source-card">
+              <h3><a href="https://faq.out-club.ru/download/pajero_iv/maintenance/Service_Manual_2008_2013/2008_ge/15/html/M215000300107600ENG.HTM">Out-Club 6G75</a></h3>
+              <p>Referencia auxiliar de arquitetura 6G75/Pajero posterior. Nao aplicar valores sem validacao.</p>
+            </article>
+          </div>
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>
