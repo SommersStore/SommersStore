@@ -1,0 +1,54 @@
+{
+  "project_id": "velas-aromaticas",
+  "name": "Velas Aromaticas",
+  "created_at": "2026-05-24T17:20:00-03:00",
+  "brief": {
+    "audience": "iniciante total",
+    "promise": "aprender a fazer velas, vender velas e montar uma marca",
+    "style_reference": "O Cofre das Botanicas Secretas",
+    "main_format": ["html_area_de_membros", "pdf_print_from_html"]
+  },
+  "deliverables": [
+    {
+      "id": "main-html",
+      "type": "principal",
+      "title": "Guia Velas Aromaticas do Zero",
+      "path": "projects/velas-aromaticas/deliverables/main/velas-aromaticas-master.html",
+      "squad": "SQD-CNT"
+    },
+    {
+      "id": "free-checklist",
+      "type": "free",
+      "title": "Checklist de Materiais e Fornecedores",
+      "path": "projects/velas-aromaticas/deliverables/free/checklist-materiais-fornecedores.html",
+      "squad": "SQD-CNT"
+    },
+    {
+      "id": "free-aromas",
+      "type": "free",
+      "title": "Mini Guia de Aromas e Combinacoes",
+      "path": "projects/velas-aromaticas/deliverables/free/mini-guia-aromas-combinacoes.html",
+      "squad": "SQD-CNT"
+    },
+    {
+      "id": "bump-calculadora",
+      "type": "order_bump",
+      "title": "Calculadora de Preco e Lucro",
+      "path": "projects/velas-aromaticas/deliverables/bumps/calculadora-preco-lucro.html",
+      "squad": "SQD-ENG"
+    },
+    {
+      "id": "bump-pack",
+      "type": "order_bump",
+      "title": "Pack de Etiquetas e Cartoes",
+      "path": "projects/velas-aromaticas/deliverables/bumps/pack-etiquetas-cartoes.html",
+      "squad": "SQD-ENG"
+    }
+  ],
+  "next_steps": [
+    "Adicionar upsell",
+    "Adicionar downsell",
+    "Integrar com area de membros",
+    "Definir precos e checkout"
+  ]
+}

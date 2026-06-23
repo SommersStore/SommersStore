@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Velas Aromaticas do Zero - Master Edition</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;500;700;900&display=swap');
+    :root{--bg:#050508;--paper:#08090d;--gold:#c5a059;--cream:#f5f0dc;--red:#8b1111;--muted:#8d8778;--line:rgba(197,160,89,.18)}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:rgba(245,240,220,.78);font-family:'Libre Baskerville',serif}
+    .ebook-wrapper{min-height:100vh;padding:40px 0;background:radial-gradient(circle at 50% 0,rgba(197,160,89,.08),transparent 32%),#050508}
+    .page-a4{width:210mm;min-height:297mm;margin:0 auto 48px;background:var(--paper);border:1px solid var(--line);box-shadow:0 24px 80px rgba(0,0,0,.75);position:relative;overflow:hidden;padding:22mm 24mm 19mm;page-break-after:always}
+    .cover{display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:space-between}
+    .kicker,.folio,.label{font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:.48em;color:var(--gold);font-size:10px;font-weight:700}
+    h1,h2,h3{font-weight:400;margin:0}.title{font-size:54px;line-height:.96;color:var(--gold);font-style:italic}.subtitle{font-size:25px;color:var(--cream);font-style:italic;opacity:.72}.rule{width:52px;height:1px;background:var(--red);margin:22px auto}
+    .hero-img{width:100%;height:102mm;object-fit:cover;border:1px solid var(--line);filter:grayscale(.16) contrast(1.08) brightness(.82);box-shadow:0 0 44px rgba(197,160,89,.1)}
+    .quote{font-size:22px;line-height:1.65;color:rgba(245,240,220,.72);font-style:italic;max-width:620px}.folio{position:absolute;bottom:13mm;left:24mm;right:24mm;border-top:1px solid rgba(197,160,89,.12);padding-top:12px;color:#5f594c;text-align:center}.page-no{position:absolute;right:0;color:var(--red)}
+    .shade{position:absolute;inset:0;background:linear-gradient(110deg,#050508 0%,rgba(5,5,8,.94) 45%,rgba(5,5,8,.76));z-index:0}.watermark{position:absolute;inset:auto -30mm -20mm auto;width:120mm;height:120mm;border:1px solid rgba(197,160,89,.08);border-radius:999px}
+    .content{position:relative;z-index:1}.chapter-title{text-align:center;margin:10mm 0 14mm}.chapter-title h2{font-size:46px;color:var(--gold);font-style:italic}.chapter-title p{font-family:'Montserrat',sans-serif;letter-spacing:.35em;text-transform:uppercase;font-size:10px;color:var(--gold)}
+    p{font-size:15px;line-height:1.78;text-align:justify}.lead{font-size:21px;line-height:1.7;text-align:center;font-style:italic;color:rgba(245,240,220,.82)}.box{border:1px solid rgba(197,160,89,.16);background:rgba(197,160,89,.045);padding:22px;margin:18px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{border-left:2px solid var(--red);background:rgba(255,255,255,.025);padding:16px}.card strong{display:block;color:var(--gold);font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:.16em;font-size:11px;margin-bottom:8px}.card p{font-size:13px;margin:0}.steps{counter-reset:item;display:grid;gap:12px}.step{counter-increment:item;border-bottom:1px solid rgba(197,160,89,.12);padding:0 0 12px 34px;position:relative}.step:before{content:counter(item,decimal-leading-zero);position:absolute;left:0;top:2px;color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:900;font-size:12px}.step b{color:var(--cream)} table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}td,th{border:1px solid rgba(197,160,89,.14);padding:9px;text-align:left}th{font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);font-size:9px}.formula{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:start}.formula h3{color:var(--gold);font-size:24px;font-style:italic}.small{font-size:12px;color:var(--muted);font-family:'Montserrat',sans-serif;letter-spacing:.04em;text-transform:uppercase}.print-note{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#7f7767;text-align:center}
+    @media print{@page{size:A4;margin:0}body{background:#050508}.ebook-wrapper{padding:0}.page-a4{margin:0;box-shadow:none;border:0;width:210mm;height:297mm;min-height:297mm;overflow:hidden}.no-print{display:none}}
+  </style>
+</head>
+<body>
+<main class="ebook-wrapper">
+  <section class="page-a4 cover">
+    <div>
+      <p class="kicker">Essencia Ativa BR apresenta</p>
+      <div class="rule"></div>
+      <h1 class="title">Velas Aromaticas<br>do Zero</h1>
+      <p class="subtitle">The Candle Atelier Protocol</p>
+    </div>
+    <img class="hero-img" src="../../../../docs/img_botanical_luxury_candle_sommers.png" alt="Vela botanica premium">
+    <div>
+      <p class="quote">"A chama nao vende apenas luz. Ela vende atmosfera, memoria e o instante exato em que uma casa comeca a parecer uma marca."</p>
+      <div class="rule"></div>
+      <p class="label">Deluxe Starter Edition</p>
+    </div>
+  </section>
+
+  <section class="page-a4">
+    <div class="watermark"></div><div class="content">
+      <div class="chapter-title"><p>Abertura</p><h2>Manifesto da Primeira Chama</h2></div>
+      <p class="lead">Este guia foi criado para quem comeca sem estoque, sem laboratorio e sem vocabulario tecnico, mas deseja entrar no universo das velas com a postura de quem pretende construir algo vendavel desde o primeiro lote.</p>
+      <div class="box">
+        <p>Uma vela artesanal nao deve ser tratada como uma mistura improvisada de cera, pavio e aroma. Ela e um pequeno objeto de atmosfera. Quando bem construida, ela organiza o ambiente, comunica gosto, cria memoria olfativa e permite que uma marca nascente pareca mais madura do que realmente e.</p>
+        <p>O objetivo deste material e conduzir voce por uma esteira simples: entender os materiais, produzir com seguranca, testar a queima, criar combinacoes aromaticas, precificar com margem e apresentar uma primeira colecao com beleza suficiente para ser vendida.</p>
+      </div>
+      <div class="grid">
+        <div class="card"><strong>O que voce vai construir</strong><p>Uma primeira linha de velas aromaticas com base tecnica, identidade sensorial, ficha de custo e narrativa de venda.</p></div>
+        <div class="card"><strong>O que voce deve evitar</strong><p>Comecar comprando demais, misturar fragrancias sem criterio, vender sem teste de queima e precificar apenas olhando concorrentes.</p></div>
+      </div>
+    </div>
+    <div class="folio">THE CANDLE ATELIER PROTOCOL <span class="page-no">PAG. 01</span></div>
+  </section>
+
+  <section class="page-a4">
+    <div class="content">
+      <div class="chapter-title"><p>Fundacao</p><h2>Os Materiais Essenciais</h2></div>
+      <p class="lead">O iniciante total precisa de poucos itens, mas esses itens precisam ser escolhidos com disciplina.</p>
+      <div class="steps">
+        <div class="step"><b>Cera.</b> Comece com cera vegetal de soja ou blend vegetal proprio para velas em recipiente. Ela e mais facil de operar, aceita bem fragrancia e comunica melhor o universo artesanal premium.</div>
+        <div class="step"><b>Pavio.</b> O pavio define a qualidade da queima. Compre pelo menos dois tamanhos proximos para testar no mesmo recipiente.</div>
+        <div class="step"><b>Fragrancia.</b> Use essencia propria para vela, com ponto de fulgor informado pelo fornecedor. Perfume comum, oleo corporal ou essencia sem especificacao nao entram no protocolo.</div>
+        <div class="step"><b>Recipiente.</b> Vidro grosso, ceramica ou lata de qualidade. O recipiente deve resistir ao calor e parecer vendavel mesmo vazio.</div>
+        <div class="step"><b>Balanca e termometro.</b> Sem medida, nao ha repeticao. Sem repeticao, nao ha marca.</div>
+        <div class="step"><b>Etiquetas.</b> Mesmo uma primeira vela deve ter nome, familia olfativa, peso, cuidados e identidade visual minima.</div>
+      </div>
+      <table>
+        <tr><th>Item</th><th>Compra inicial sugerida</th><th>Observacao</th></tr>
+        <tr><td>Cera vegetal</td><td>1 kg</td><td>Suficiente para testes e primeiros lotes pequenos.</td></tr>
+        <tr><td>Essencias</td><td>3 aromas</td><td>Um fresco, um floral e um amadeirado.</td></tr>
+        <tr><td>Recipientes</td><td>6 a 12 unidades</td><td>Mesmo modelo para facilitar teste de pavio.</td></tr>
+        <tr><td>Pavios</td><td>2 tamanhos</td><td>Teste sempre antes de vender.</td></tr>
+      </table>
+    </div>
+    <div class="folio">THE CANDLE ATELIER PROTOCOL <span class="page-no">PAG. 02</span></div>
+  </section>
+
+  <section class="page-a4">
+    <div class="content">
+      <div class="chapter-title"><p>Seguranca</p><h2>O Protocolo de Queima Limpa</h2></div>
+      <p>Antes de pensar em marca, caixa ou foto, voce precisa garantir que a vela queima de forma estavel. O luxo mais silencioso de uma vela e ela nao dar trabalho ao cliente.</p>
+      <div class="grid">
+        <div class="card"><strong>Teste de pavio</strong><p>Acenda por 2 horas. Observe se a piscina de cera chega perto da borda sem superaquecer o vidro. Chama alta, fumaca preta ou vidro muito quente indicam ajuste.</p></div>
+        <div class="card"><strong>Cura</strong><p>Depois de pronta, deixe a vela descansar por 48 horas antes do primeiro teste. Algumas ceras e fragrancias performam melhor apos 7 dias.</p></div>
+        <div class="card"><strong>Carga aromatica</strong><p>Comece entre 6% e 8% de fragrancia sobre o peso da cera, respeitando sempre o limite informado pelo fornecedor.</p></div>
+        <div class="card"><strong>Etiqueta de cuidado</strong><p>Inclua instrucoes: aparar pavio, queimar sobre superficie estavel, nao deixar sem supervisao e manter longe de criancas, pets e cortinas.</p></div>
+      </div>
+      <div class="box">
+        <p><b>Regra de ouro:</b> voce nao vende uma vela apenas porque ela ficou bonita. Voce vende depois que ela foi testada, fotografada, nomeada, precificada e acompanhada de instrucoes claras.</p>
+      </div>
+    </div>
+    <div class="folio">THE CANDLE ATELIER PROTOCOL <span class="page-no">PAG. 03</span></div>
+  </section>
+
+  <section class="page-a4">
+    <div class="content">
+      <div class="chapter-title"><p>Metodo</p><h2>A Primeira Formula Base</h2></div>
+      <div class="formula">
+        <div>
+          <h3>Vela Piloto 180g</h3>
+          <p class="small">Para recipiente de vidro ou ceramica</p>
+          <table>
+            <tr><th>Insumo</th><th>Quantidade</th></tr>
+            <tr><td>Cera vegetal</td><td>180g</td></tr>
+            <tr><td>Essencia para vela</td><td>12g a 14g</td></tr>
+            <tr><td>Pavio</td><td>1 unidade centralizada</td></tr>
+            <tr><td>Recipiente</td><td>1 unidade limpa e seca</td></tr>
+          </table>
+        </div>
+        <div class="box">
+          <p><b>Sequencia:</b> derreta a cera em banho-maria, controle a temperatura, retire do calor, adicione a essencia na faixa recomendada pelo fornecedor, misture com calma, fixe o pavio e verta no recipiente. Depois, deixe repousar sem mover.</p>
+          <p>O objetivo da primeira formula nao e ser perfeita. E criar um padrao que voce consiga repetir.</p>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step">Fotografe cada teste e anote cera, pavio, aroma, temperatura, peso e resultado.</div>
+        <div class="step">Nao troque todos os elementos ao mesmo tempo. Ajuste um item por rodada.</div>
+        <div class="step">Crie a ficha tecnica da vela antes de criar o post de venda.</div>
+      </div>
+    </div>
+    <div class="folio">THE CANDLE ATELIER PROTOCOL <span class="page-no">PAG. 04</span></div>
+  </section>
+
+  <section class="page-a4">
+    <div class="content">
+      <div class="chapter-title"><p>Aromas</p><h2>A Arquitetura Olfativa</h2></div>
+      <p class="lead">Para vender, o aroma precisa ter nome, intencao e ocasiao de uso. Sem isso, ele vira apenas "cheirinho".</p>
+      <div class="grid">
+        <div class="card"><strong>Luz da Manha</strong><p>Citrico, cha branco, capim-limao, verbena. Promessa: energia limpa, casa desperta, inicio de rotina.</p></div>
+        <div class="card"><strong>Atelier Floral</strong><p>Lavanda, geranio, rosa, algodao. Promessa: banho tomado, lençol limpo, atelie em ordem.</p></div>
+        <div class="card"><strong>Biblioteca Escura</strong><p>Cedro, ambar, baunilha seca, tabaco suave. Promessa: noite, leitura, presenca e silencio.</p></div>
+        <div class="card"><strong>Casa de Presente</strong><p>Figo, pera, musk, madeira clara. Promessa: receber alguem, presentear, deixar memoria.</p></div>
+      </div>
+      <div class="box">
+        <p><b>Primeira colecao sugerida:</b> crie tres velas com funcoes distintas: uma para acordar a casa, uma para acolher o fim do dia e uma para presentear. Tres escolhas sao suficientes para parecer colecao, sem confundir quem compra.</p>
+      </div>
+    </div>
+    <div class="folio">THE CANDLE ATELIER PROTOCOL <span class="page-no">PAG. 05</span></div>
+  </section>
+
+  <section class="page-a4">
+    <div class="content">
+      <div class="chapter-title"><p>Marca</p><h2>Como Fazer Parecer Vendavel</h2></div>
+      <p>O erro do iniciante e tentar parecer grande demais ou caseiro demais. O ponto certo e parecer cuidadoso. Uma marca pequena pode ser premium quando cada detalhe parece intencional.</p>
+      <div class="steps">
+        <div class="step"><b>Nomeie a vela por atmosfera.</b> Evite apenas "Lavanda". Prefira "Janela Aberta", "Silencio de Linho", "Madeira de Domingo".</div>
+        <div class="step"><b>Escolha uma paleta.</b> Preto, creme, dourado envelhecido e um tom de apoio por colecao.</div>
+        <div class="step"><b>Escreva um ritual de uso.</b> Diga quando acender, por quanto tempo e que sensacao buscar.</div>
+        <div class="step"><b>Monte o kit de entrega.</b> Vela, etiqueta, cartao de cuidado, papel de seda, tag e mensagem curta.</div>
+      </div>
+      <div class="box">
+        <p class="lead">A embalagem nao deve explicar que voce e iniciante. Ela deve provar que voce presta atencao.</p>
+      </div>
+    </div>
+    <div class="folio">THE CANDLE ATELIER PROTOCOL <span class="page-no">PAG. 06</span></div>
+  </section>
+
+  <section class="page-a4">
+    <div class="content">
+      <div class="chapter-title"><p>Venda</p><h2>Preco, Margem e Primeiras Clientes</h2></div>
+      <p>Preco nao nasce do palpite. Ele nasce do custo real, da margem, da embalagem e da historia que a vela consegue sustentar.</p>
+      <table>
+        <tr><th>Componente</th><th>Exemplo</th><th>Por que entra</th></tr>
+        <tr><td>Cera + essencia + pavio</td><td>R$ 12,40</td><td>Custo tecnico da vela.</td></tr>
+        <tr><td>Recipiente</td><td>R$ 8,00</td><td>Objeto percebido pelo cliente.</td></tr>
+        <tr><td>Etiqueta + cartao</td><td>R$ 2,60</td><td>Marca e experiencia.</td></tr>
+        <tr><td>Embalagem</td><td>R$ 5,00</td><td>Protecao e presenteabilidade.</td></tr>
+        <tr><td>Total de custo</td><td>R$ 28,00</td><td>Base minima para calcular preco.</td></tr>
+      </table>
+      <div class="grid">
+        <div class="card"><strong>Venda inicial</strong><p>Comece com uma lista de 10 pessoas, mostre a colecao em fotos limpas e ofereca unidades limitadas de teste.</p></div>
+        <div class="card"><strong>Oferta</strong><p>Venda por ocasiao: presente, casa nova, autocuidado, mesa posta, banho premium ou kit corporativo.</p></div>
+      </div>
+    </div>
+    <div class="folio">THE CANDLE ATELIER PROTOCOL <span class="page-no">PAG. 07</span></div>
+  </section>
+
+  <section class="page-a4">
+    <div class="content">
+      <div class="chapter-title"><p>Fechamento</p><h2>A Primeira Colecao</h2></div>
+      <p class="lead">Seu primeiro objetivo nao e ter uma marca perfeita. E ter uma primeira colecao coerente, testada, fotografada e vendavel.</p>
+      <div class="box">
+        <p><b>Colecao inicial recomendada:</b></p>
+        <p><b>01 - Luz de Atelier:</b> citrico limpo e cha branco para inicio do dia.</p>
+        <p><b>02 - Linho Botanico:</b> lavanda macia, geranio e algodao para casa arrumada.</p>
+        <p><b>03 - Biblioteca de Cedro:</b> madeira, ambar e baunilha seca para noite.</p>
+      </div>
+      <p>Quando essas tres velas estiverem testadas, fotografadas e precificadas, voce deixa de ter apenas uma habilidade manual. Voce passa a ter uma pequena prateleira de marca.</p>
+      <div class="rule"></div>
+      <p class="print-note">Este HTML foi preparado para area de membros e impressao em PDF pelo navegador.</p>
+    </div>
+    <div class="folio">THE CANDLE ATELIER PROTOCOL <span class="page-no">PAG. 08</span></div>
+  </section>
+</main>
+</body>
+</html>
