@@ -1,0 +1,56 @@
+{
+  "project_id": "forex",
+  "updated_at": "2026-06-22T00:00:00-03:00",
+  "strategy": "IBKR Manual Desk: campanha 3x1 e protective put estudadas separadamente",
+  "risk_ladder": [
+    { "level": 1, "risk_pct": 1, "target_r": 1.5, "min_score": 7 },
+    { "level": 2, "risk_pct": 2, "target_r": 1.5, "min_score": 8 },
+    { "level": 3, "risk_pct": 4, "target_r": 1.5, "min_score": 9 }
+  ],
+  "platforms": ["IBKR Desktop", "TWS", "IBKR Mobile", "Client Portal", "Dukascopy (laboratório)"],
+  "execution_mode": "manual_paper_first",
+  "broker_priority": "Interactive Brokers",
+  "options_policy": "protective_put_isolated_until_cost_expiry_liquidity_are_understood",
+  "primary_sequence": [
+    "H4 Elliott",
+    "H1 Elliott",
+    "H1 Figuras",
+    "M15 Figuras",
+    "M5 Entrada",
+    "Risco",
+    "Templates",
+    "MQL5 EA",
+    "EA Coder Corpus",
+    "ProfitPro",
+    "Visual MT4 Peak",
+    "MyFXBook",
+    "Agentes"
+  ],
+  "technical_order": {
+    "trend_first": ["H4 Elliott", "H1 Elliott"],
+    "figures_after": ["H1 Dow/graficas", "M15 continuacao", "M5 microfigura"],
+    "visibility_layers": {
+      "elliott": "H4/H1 only",
+      "dow_h1": "H1/M15/M5",
+      "dow_m15": "M15/M5",
+      "dow_m5": "M5 only"
+    },
+    "peak": "Filtro de exaustao/reversao avaliado por buffer, nao gatilho autonomo",
+    "risk_after_signal": "Risco 1-2-4 so avanca apos setup A+ e vitoria anterior"
+  },
+  "source_documents": [
+    "Forex docs/Eu tenho uma estrategia 2.md",
+    "Forex docs/Forex 1.md",
+    "Forex docs/Genspark.md"
+  ],
+  "research_files": [
+    "projects/forex/research/myfxbook-metatrader-verification.md",
+    "projects/forex/research/mt4-final-completo-3-template-analysis.md",
+    "projects/forex/research/peak-indicator-study.md",
+    "projects/forex/research/trader-on-chart-reference.md",
+    "projects/forex/research/rimantas-channel/channel-video-content-map.md",
+    "projects/forex/research/rimantas-channel/channel-transcript-context-summary.md",
+    "projects/forex/research/rimantas-channel/ea-coder-operational-context.md",
+    "projects/forex/templates/timeframe-visibility-map.md"
+  ]
+}

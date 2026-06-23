@@ -1,0 +1,174 @@
+{
+  "project_id": "forex",
+  "updated_at": "2026-06-19T08:31:03-03:00",
+  "mission": "Evoluir a Campanha 3 por 1 com agentes, skills e personas editaveis para Elliott H4/H1, figuras H1/M15/M5, risco, camada visual MT4/MT5, MQL5, JForex, ProfitPro, Peak, plataformas, MyFXBook, corpus Rimantas/EA Coder e auditoria.",
+  "technical_order": [
+    "H4 Elliott",
+    "H1 Elliott",
+    "H1 Figuras",
+    "M15 Figuras",
+    "M5 Entrada"
+  ],
+  "agents": [
+    {
+      "id": "forex-strategist",
+      "label": "Forex Strategist",
+      "role": "Valida Elliott H4/H1, figuras H1/M15/M5 e contexto multi-timeframe.",
+      "skills": ["setup-dow-elliott-continuation"],
+      "persona_file": "projects/forex/personas/forex-strategist.md"
+    },
+    {
+      "id": "forex-risk-manager",
+      "label": "Campaign Risk Manager",
+      "role": "Controla risco 1-2-4, reset, validade da campanha e limites de conta.",
+      "skills": ["campaign-risk-124"],
+      "persona_file": "projects/forex/personas/forex-risk-manager.md"
+    },
+    {
+      "id": "forex-platform-engineer",
+      "label": "Platform Template Engineer",
+      "role": "Transforma o playbook em templates MT4, MT5, JForex e ProfitPro.",
+      "skills": ["platform-template-build", "mt4-visual-layering-and-peak", "cross-platform-template-porting"],
+      "persona_file": "projects/forex/personas/forex-platform-engineer.md"
+    },
+    {
+      "id": "forex-mql5-expert-engineer",
+      "label": "MQL5 Expert Engineer",
+      "role": "Constroi e audita EAs MQL5 com execucao confiavel, filling mode correto, retcodes e diagnostico por broker.",
+      "skills": ["mql5-expert-advisor-engineering"],
+      "persona_file": "projects/forex/personas/forex-mql5-expert-engineer.md"
+    },
+    {
+      "id": "forex-ea-coder-ops-mentor",
+      "label": "EA Coder Ops Mentor",
+      "role": "Transforma o corpus publico Rimantas/EA Coder em playbooks de instalacao, copia, diagnostico e melhoria de templates MetaTrader.",
+      "skills": ["metatrader-ea-coder-operations", "metatrader-trade-copier-ops", "mql5-expert-advisor-engineering", "platform-template-build"],
+      "persona_file": "projects/forex/personas/forex-ea-coder-operations-mentor.md"
+    },
+    {
+      "id": "forex-cross-platform-template-engineer",
+      "label": "Cross Platform Template Engineer",
+      "role": "Porta o visual MT4 canonico para MT5, JForex e ProfitPro por equivalencia funcional.",
+      "skills": ["platform-template-build", "cross-platform-template-porting", "mql5-expert-advisor-engineering"],
+      "persona_file": "projects/forex/personas/forex-cross-platform-template-engineer.md"
+    },
+    {
+      "id": "forex-visual-template-analyst",
+      "label": "Visual Template Analyst",
+      "role": "Padroniza objetos Elliott/Dow por timeframe, usa o visual MT4 real e avalia o Peak por buffers.",
+      "skills": ["mt4-visual-layering-and-peak"],
+      "persona_file": "projects/forex/personas/forex-visual-template-analyst.md"
+    },
+    {
+      "id": "forex-myfxbook-tracker",
+      "label": "MyFXBook Tracker",
+      "role": "Guia conexao MT4/MT5, verificacao Track Record/Trading Privileges e permissoes publicas.",
+      "skills": ["myfxbook-account-verification"],
+      "persona_file": "projects/forex/personas/forex-myfxbook-tracker.md"
+    },
+    {
+      "id": "forex-journal-auditor",
+      "label": "Campaign Journal Auditor",
+      "role": "Audita backtests, estatisticas por nivel, vies emocional e consistencia entre diario e MyFXBook.",
+      "skills": ["campaign-risk-124", "setup-dow-elliott-continuation", "myfxbook-account-verification", "mt4-visual-layering-and-peak"],
+      "persona_file": "projects/forex/personas/forex-risk-manager.md"
+    }
+  ],
+  "skills": [
+    {
+      "id": "setup-dow-elliott-continuation",
+      "file": "projects/forex/skills/setup-dow-elliott-continuation.md",
+      "status": "enriched"
+    },
+    {
+      "id": "campaign-risk-124",
+      "file": "projects/forex/skills/campaign-risk-124.md",
+      "status": "seed"
+    },
+    {
+      "id": "platform-template-build",
+      "file": "projects/forex/skills/platform-template-build.md",
+      "status": "enriched"
+    },
+    {
+      "id": "mql5-expert-advisor-engineering",
+      "file": "projects/forex/skills/mql5-expert-advisor-engineering.md",
+      "status": "seed"
+    },
+    {
+      "id": "metatrader-ea-coder-operations",
+      "file": "projects/forex/skills/metatrader-ea-coder-operations.md",
+      "status": "seed"
+    },
+    {
+      "id": "metatrader-trade-copier-ops",
+      "file": "projects/forex/skills/metatrader-trade-copier-ops.md",
+      "status": "seed"
+    },
+    {
+      "id": "cross-platform-template-porting",
+      "file": "projects/forex/skills/cross-platform-template-porting.md",
+      "status": "seed"
+    },
+    {
+      "id": "mt4-visual-layering-and-peak",
+      "file": "projects/forex/skills/mt4-visual-layering-and-peak.md",
+      "status": "seed"
+    },
+    {
+      "id": "myfxbook-account-verification",
+      "file": "projects/forex/skills/myfxbook-account-verification.md",
+      "status": "enriched"
+    }
+  ],
+  "clone_slots": [
+    {
+      "id": "clone-forex-strategy-chief",
+      "label": "Clone Forex Strategy Chief",
+      "source": "projects/forex/personas/forex-strategist.md",
+      "status": "draft"
+    },
+    {
+      "id": "clone-forex-risk-auditor",
+      "label": "Clone Forex Risk Auditor",
+      "source": "projects/forex/personas/forex-risk-manager.md",
+      "status": "draft"
+    },
+    {
+      "id": "clone-forex-platform-builder",
+      "label": "Clone Forex Platform Builder",
+      "source": "projects/forex/personas/forex-platform-engineer.md",
+      "status": "draft"
+    },
+    {
+      "id": "clone-forex-mql5-expert-engineer",
+      "label": "Clone Forex MQL5 Expert Engineer",
+      "source": "projects/forex/personas/forex-mql5-expert-engineer.md",
+      "status": "draft"
+    },
+    {
+      "id": "clone-forex-ea-coder-ops-mentor",
+      "label": "Clone Forex EA Coder Ops Mentor",
+      "source": "projects/forex/personas/forex-ea-coder-operations-mentor.md",
+      "status": "draft"
+    },
+    {
+      "id": "clone-forex-cross-platform-template-engineer",
+      "label": "Clone Forex Cross Platform Template Engineer",
+      "source": "projects/forex/personas/forex-cross-platform-template-engineer.md",
+      "status": "draft"
+    },
+    {
+      "id": "clone-forex-visual-template-analyst",
+      "label": "Clone Forex Visual Template Analyst",
+      "source": "projects/forex/personas/forex-visual-template-analyst.md",
+      "status": "draft"
+    },
+    {
+      "id": "clone-forex-myfxbook-tracker",
+      "label": "Clone Forex MyFXBook Tracker",
+      "source": "projects/forex/personas/forex-myfxbook-tracker.md",
+      "status": "draft"
+    }
+  ]
+}

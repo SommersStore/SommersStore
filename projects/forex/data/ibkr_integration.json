@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "updated_at": "2026-06-22T00:00:00-03:00",
+  "mode": "paper_only",
+  "bridge": {
+    "enabled": false,
+    "base_url": "http://127.0.0.1:8765",
+    "health_path": "/health",
+    "intelligence_path": "/v1/intelligence",
+    "timeout_ms": 2500
+  },
+  "safeguards": {
+    "allow_live_orders": false,
+    "requires_explicit_paper_acknowledgement": true,
+    "credentials_storage": "never",
+    "account_scope": "paper_only"
+  },
+  "ranking_policy": {
+    "right": "P",
+    "min_dte": 30,
+    "max_dte": 120,
+    "max_spread_pct": 15,
+    "max_premium_pct": 8,
+    "prefer_open_interest": true
+  },
+  "watchlist": ["SPY", "AAPL"]
+}
