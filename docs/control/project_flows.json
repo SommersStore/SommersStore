@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-09T00:00:00-03:00",
+  "updated_at": "2026-06-15T00:00:00-03:00",
   "projects": {
     "sais": {
       "label": "Sais",
@@ -503,7 +503,7 @@
       ]
     },
     "pajero": {
-      "label": "Pajero",
+      "label": "Pajero AI",
       "description": "Diagnostico e revisao completa da Pajero HPE 3.8 V77W 6G75 V5A51.",
       "construcao": [
         {
@@ -679,6 +679,135 @@
           ],
           "metric_main": "Pendencias e validacoes fechadas",
           "edit_path": "Pajero/relatorios/relatorio-inicial.md"
+        }
+      ]
+    },
+    "forex": {
+      "label": "Forex AI",
+      "description": "Campanha 3 por 1 para Forex, MT4/MT5 Dukascopy, JForex/Dukascopy e ProfitPro.",
+      "construcao": [
+        {
+          "id": "FX-00",
+          "nome": "Painel Forex 3 por 1",
+          "squad": "SQD-FOREX",
+          "status": "em_execucao",
+          "resumo": "Dashboard operacional da campanha 1-2-4 com Elliott H4/H1, figuras H1/M15/M5, visual MT4/Peak, risco, templates, MyFXBook, MQL5, ProfitPro, corpus EA Coder e agentes.",
+          "entrega": "Painel operacional",
+          "entrega_para": "FX-01",
+          "depends_on": [],
+          "metric_main": "10 blocos | 6 plataformas/fontes | 9 agentes",
+          "panel_path": "../projects/forex/README.md",
+          "edit_path": "projects/forex/README.md"
+        },
+        {
+          "id": "FX-01",
+          "nome": "Tendencia H4 por Elliott",
+          "squad": "Forex Strategist",
+          "status": "em_preparacao",
+          "resumo": "Contagem Elliott macro, fase impulsiva/corretiva, Fibonacci e bloqueio de lateralidade antes de qualquer campanha.",
+          "entrega": "Tendencia macro",
+          "entrega_para": "FX-02",
+          "depends_on": ["FX-00"],
+          "metric_main": "Elliott H4 aprovado ou bloqueado",
+          "edit_path": "projects/forex/strategy/campanha-3por1-playbook.md"
+        },
+        {
+          "id": "FX-02",
+          "nome": "Tendencia H1 por Elliott",
+          "squad": "Forex Strategist",
+          "status": "nao_iniciado",
+          "resumo": "Fim de onda 2 ou 4, Fibo, pullback em EMA/zona tecnica e validacao de continuidade antes das figuras.",
+          "entrega": "Zona Elliott H1",
+          "entrega_para": "FX-03",
+          "depends_on": ["FX-01"],
+          "metric_main": "Elliott H1 classificado",
+          "edit_path": "projects/forex/strategy/campanha-3por1-playbook.md"
+        },
+        {
+          "id": "FX-03",
+          "nome": "Figuras H1/M15",
+          "squad": "Forex Strategist",
+          "status": "nao_iniciado",
+          "resumo": "Figuras de Dow/graficas em H1 e figura de continuacao M15 depois da contagem Elliott.",
+          "entrega": "Figura aprovada",
+          "entrega_para": "FX-04",
+          "depends_on": ["FX-02"],
+          "metric_main": "H1/M15 alinhados",
+          "edit_path": "projects/forex/skills/setup-dow-elliott-continuation.md"
+        },
+        {
+          "id": "FX-04",
+          "nome": "Entrada M5 por microfigura",
+          "squad": "Execution Journal Auditor",
+          "status": "nao_iniciado",
+          "resumo": "Microfigura, pullback curto, candle de forca, RSI 14, ATR e stop tecnico antes da ordem.",
+          "entrega": "Regra de entrada",
+          "entrega_para": "FX-05",
+          "depends_on": ["FX-03"],
+          "metric_main": "Entrada validada",
+          "edit_path": "projects/forex/strategy/campanha-3por1-playbook.md"
+        },
+        {
+          "id": "FX-05",
+          "nome": "Risco 1-2-4",
+          "squad": "Campaign Risk Manager",
+          "status": "nao_iniciado",
+          "resumo": "Nivel 1/2/3, scores 7/8/9, reset por perda, custo e drawdown por campanha.",
+          "entrega": "Motor de risco",
+          "entrega_para": "FO-01",
+          "depends_on": ["FX-04"],
+          "metric_main": "Estado da campanha controlado",
+          "edit_path": "projects/forex/skills/campaign-risk-124.md"
+        }
+      ],
+      "vendas": [
+        {
+          "id": "FO-01",
+          "nome": "Backtest de campanhas",
+          "squad": "Campaign Journal Auditor",
+          "status": "em_preparacao",
+          "resumo": "Registrar 30 a 100 campanhas com resultado por nivel, ativo, horario, custo e vies emocional.",
+          "entrega": "Estatistica inicial",
+          "entrega_para": "FO-02",
+          "depends_on": ["FX-05"],
+          "metric_main": "Campanhas registradas",
+          "edit_path": "projects/forex/data/forex_control.json"
+        },
+        {
+          "id": "FO-02",
+          "nome": "Templates MT4/MT5/JForex/ProfitPro",
+          "squad": "Platform Template Engineer",
+          "status": "em_execucao",
+          "resumo": "Parametros visuais limpos para MT4/MT5 Dukascopy, workspace JForex, layout ProfitPro/NTSL, heranca Elliott/Dow, estudo Peak, EA v1.32 e corpus EA Coder para operacao.",
+          "entrega": "Templates/workspaces instalaveis manualmente",
+          "entrega_para": "FO-03",
+          "depends_on": ["FO-01"],
+          "metric_main": "MT4/MT5/JForex/ProfitPro + scripts visuais",
+          "edit_path": "projects/forex/templates/timeframe-visibility-map.md"
+        },
+        {
+          "id": "FO-03",
+          "nome": "MyFXBook e diario",
+          "squad": "Campaign Journal Auditor",
+          "status": "nao_iniciado",
+          "resumo": "Roteiro oficial para conectar MT4/MT5 e validar Track Record e Trading Privileges sem compartilhar senha master.",
+          "entrega": "Rotina de acompanhamento",
+          "entrega_para": "FO-04",
+          "depends_on": ["FO-02"],
+          "metric_main": "Track Record + Privileges",
+          "edit_path": "projects/forex/research/myfxbook-metatrader-verification.md"
+        },
+        {
+          "id": "FO-04",
+          "nome": "Agentes, skills e clones",
+          "squad": "SQD-FOREX",
+          "status": "em_execucao",
+          "resumo": "Enriquecer agentes, skills e personas/clones especificos do projeto Forex, incluindo MyFXBook, Visual Template Analyst, EA Coder Ops Mentor, MQL5 Expert Engineer e Cross Platform Template Engineer.",
+          "entrega": "Mapa de IA Forex",
+          "entrega_para": "Usuario",
+          "depends_on": ["FO-03"],
+          "metric_main": "9 agentes configurados",
+          "edit_path": "projects/forex/config/agent_skill_persona_map.json"
         }
       ]
     },

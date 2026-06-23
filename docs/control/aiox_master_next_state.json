@@ -1,0 +1,2999 @@
+{
+  "version": 1,
+  "activeProjectId": "sais-next",
+  "activeStage": "all",
+  "projects": [
+    {
+      "id": "sais-next",
+      "name": "SAIS Next",
+      "description": "Essência Ativa BR · E-book + OTO + Hub",
+      "nodes": [
+        {
+          "id": "p01",
+          "label": "Estratégia",
+          "type": "strategy",
+          "stage": "strategy",
+          "status": "in_progress",
+          "squad": "SQD-CORE",
+          "x": 14,
+          "y": 140,
+          "summary": "Definição de oferta, promessa e escopo do produto.",
+          "notes": "",
+          "agents": [
+            "AGT-CORE-01",
+            "AGT-CORE-02",
+            "AGT-CORE-03"
+          ],
+          "skills": [
+            "SKL-CORE-01",
+            "SKL-CORE-02",
+            "SKL-CORE-03"
+          ],
+          "personas": [
+            "prs-russell-brunson",
+            "prs-alan-nicolas"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul5x-tiy56",
+              "label": "Promessa definida",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5x-e8k6s",
+              "label": "Publico e dor claros",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5x-40yh7",
+              "label": "Oferta revisada",
+              "done": false
+            }
+          ],
+          "output": "Direction package"
+        },
+        {
+          "id": "p02",
+          "label": "Estrutura PDF",
+          "type": "ebook",
+          "stage": "ebook",
+          "status": "pending",
+          "squad": "SQD-CNT",
+          "x": 184,
+          "y": 140,
+          "summary": "Arquitetura editorial dos capítulos e blocos de conteúdo.",
+          "notes": "",
+          "agents": [
+            "AGT-CNT-01",
+            "AGT-CNT-02",
+            "AGT-CNT-03"
+          ],
+          "skills": [
+            "SKL-CNT-01",
+            "SKL-CNT-02",
+            "SKL-CNT-03"
+          ],
+          "personas": [
+            "prs-elisa-clark",
+            "prs-pedro-valerio"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul5x-hlyw1",
+              "label": "Indice aprovado",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5x-l89jp",
+              "label": "Capitulos rascunhados",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5x-q0eel",
+              "label": "Revisao editorial feita",
+              "done": false
+            }
+          ],
+          "output": "Skeleton editorial"
+        },
+        {
+          "id": "p03",
+          "label": "Produção E-book",
+          "type": "strategy",
+          "stage": "strategy",
+          "status": "draft",
+          "squad": "SQD-CNT",
+          "x": 354,
+          "y": 140,
+          "summary": "Redação longform, revisão editorial e consistência.",
+          "notes": "",
+          "agents": [
+            "AGT-CNT-01",
+            "AGT-CNT-02",
+            "AGT-CNT-03"
+          ],
+          "skills": [
+            "SKL-MKF-05",
+            "SKL-CNT-01",
+            "SKL-CNT-02"
+          ],
+          "personas": [
+            "prs-russell-brunson",
+            "prs-alan-nicolas"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul5x-dem8i",
+              "label": "Promessa definida",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5x-m2sar",
+              "label": "Publico e dor claros",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5x-hwgvh",
+              "label": "Oferta revisada",
+              "done": false
+            }
+          ],
+          "output": "E-book pronto"
+        },
+        {
+          "id": "p04",
+          "label": "Landing Page",
+          "type": "page",
+          "stage": "sales",
+          "status": "draft",
+          "squad": "SQD-EXP",
+          "x": 524,
+          "y": 140,
+          "summary": "Composição visual da landing e copy principal.",
+          "notes": "",
+          "agents": [
+            "AGT-EXP-01",
+            "AGT-EXP-02",
+            "AGT-EXP-03"
+          ],
+          "skills": [
+            "SKL-CNT-03",
+            "SKL-EXP-01",
+            "SKL-EXP-02"
+          ],
+          "personas": [
+            "prs-tiago-finch",
+            "prs-pedro-valerio"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul5x-7cpnn",
+              "label": "Secoes montadas",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5x-m6utj",
+              "label": "FAQ inserido",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5x-e4ctv",
+              "label": "Performance verificada",
+              "done": false
+            }
+          ],
+          "output": "Landing page"
+        },
+        {
+          "id": "p05",
+          "label": "QA e Publicação",
+          "type": "qa",
+          "stage": "ops",
+          "status": "draft",
+          "squad": "SQD-QRO",
+          "x": 694,
+          "y": 140,
+          "summary": "Validação final, checklist e liberação operacional.",
+          "notes": "",
+          "agents": [
+            "AGT-QRO-01",
+            "AGT-QRO-02",
+            "AGT-QRO-03"
+          ],
+          "skills": [
+            "SKL-QRO-01",
+            "SKL-QRO-02",
+            "SKL-QRO-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul5y-ho9tp",
+              "label": "Links testados",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5y-16f3u",
+              "label": "Tracking validado",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5y-afo6s",
+              "label": "Publicacao aprovada",
+              "done": false
+            }
+          ],
+          "output": "Release aprovado"
+        },
+        {
+          "id": "vm-ig",
+          "label": "Instagram Ads",
+          "type": "automation",
+          "stage": "ops",
+          "status": "in_progress",
+          "squad": "SQD-ENG",
+          "x": 18,
+          "y": 325,
+          "summary": "Campanha de tráfego pago Instagram. Criativos de vídeo e carrossel apontando para a VSL ou landing.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul5y-vbprv",
+              "label": "Brief completo",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5y-y9gcn",
+              "label": "Saida revisada",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5y-lt4vr",
+              "label": "Pronto para proxima etapa",
+              "done": false
+            }
+          ],
+          "output": "CTR · CPM · ROAS"
+        },
+        {
+          "id": "vm-fb",
+          "label": "Facebook Ads",
+          "type": "ebook",
+          "stage": "ebook",
+          "status": "draft",
+          "squad": "SQD-CNT",
+          "x": 18,
+          "y": 445,
+          "summary": "Campanha de tráfego pago Facebook. Segmentação lookalike e interesse em cosméticos naturais.",
+          "notes": "",
+          "agents": [
+            "AGT-CNT-01",
+            "AGT-CNT-02",
+            "AGT-CNT-03"
+          ],
+          "skills": [
+            "SKL-CNT-01",
+            "SKL-CNT-02",
+            "SKL-CNT-03"
+          ],
+          "personas": [
+            "prs-elisa-clark",
+            "prs-pedro-valerio"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul5y-1jx1e",
+              "label": "Indice aprovado",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5y-rvp3u",
+              "label": "Capitulos rascunhados",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5y-r4zxi",
+              "label": "Revisao editorial feita",
+              "done": false
+            }
+          ],
+          "output": "CTR · CPC"
+        },
+        {
+          "id": "vm-tt",
+          "label": "TikTok Ads",
+          "type": "automation",
+          "stage": "ops",
+          "status": "draft",
+          "squad": "SQD-ENG",
+          "x": 18,
+          "y": 565,
+          "summary": "Canal de tráfego TikTok — conteúdo orgânico da Elisa Clark + futura campanha paga.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul5y-tabqg",
+              "label": "Brief completo",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5y-64dyd",
+              "label": "Saida revisada",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5y-tke6k",
+              "label": "Pronto para proxima etapa",
+              "done": false
+            }
+          ],
+          "output": "Reach · Views"
+        },
+        {
+          "id": "vm-elisa",
+          "label": "Elisa Clark",
+          "type": "automation",
+          "stage": "ops",
+          "status": "in_progress",
+          "squad": "SQD-ENG",
+          "x": 170,
+          "y": 388,
+          "summary": "Elisa Clark é a persona principal. Mulher, 28-45 anos, apaixonada por autocuidado, aromaterapia e produtos naturais premium. Voz da marca em todos os canais.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul5z-84p16",
+              "label": "Brief completo",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5z-uomls",
+              "label": "Saida revisada",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5z-00wym",
+              "label": "Pronto para proxima etapa",
+              "done": false
+            }
+          ],
+          "output": "Engajamento da persona"
+        },
+        {
+          "id": "vm-vsl",
+          "label": "VSL Principal",
+          "type": "copy",
+          "stage": "sales",
+          "status": "blocked",
+          "squad": "SQD-CNT",
+          "x": 355,
+          "y": 368,
+          "summary": "Vídeo de vendas principal apresentado pela Elisa Clark. Conduz do problema à oferta com storytelling emocional.",
+          "notes": "",
+          "agents": [
+            "AGT-CNT-01",
+            "AGT-CNT-02",
+            "AGT-CNT-03"
+          ],
+          "skills": [
+            "SKL-CNT-01",
+            "SKL-CNT-02",
+            "SKL-CNT-03"
+          ],
+          "personas": [
+            "prs-alan-nicolas",
+            "prs-joao-vturb"
+          ],
+          "files": [
+            {
+              "id": "f1778809748596",
+              "name": "vsl-upsell-1",
+              "type": "pdf",
+              "url": "https://essenciaativabr.shop/sais/vsl-upsell-1",
+              "addedAt": "2026-05-15T01:49:08.596Z",
+              "syncedToMembers": true
+            }
+          ],
+          "checks": [
+            {
+              "id": "check-mpjzul5z-kw2nn",
+              "label": "Headline pronta",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5z-s4pam",
+              "label": "Bullets e prova escritos",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5z-9til5",
+              "label": "CTA validado",
+              "done": false
+            }
+          ],
+          "output": "Play rate · Drop-off · CVR"
+        },
+        {
+          "id": "vm-sales",
+          "label": "Página de Vendas",
+          "type": "page",
+          "stage": "sales",
+          "status": "in_progress",
+          "squad": "SQD-EXP",
+          "x": 555,
+          "y": 325,
+          "summary": "Página de vendas principal do funil Sais. Apresenta oferta, prova social, garantia e CTAs para checkout. Bônus 1, 2 e 3 prometidos aqui.",
+          "notes": "",
+          "agents": [
+            "AGT-EXP-01",
+            "AGT-EXP-02",
+            "AGT-EXP-03"
+          ],
+          "skills": [
+            "SKL-CNT-03",
+            "SKL-EXP-01",
+            "SKL-EXP-02"
+          ],
+          "personas": [
+            "prs-tiago-finch",
+            "prs-pedro-valerio"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul5z-5f2t8",
+              "label": "Secoes montadas",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5z-j7rw7",
+              "label": "FAQ inserido",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5z-0d0m3",
+              "label": "Performance verificada",
+              "done": false
+            }
+          ],
+          "output": "CR · Scroll depth · Sessões"
+        },
+        {
+          "id": "vm-bon1",
+          "label": "🎁 Bônus 1 — 10 Receitas Secretas",
+          "type": "automation",
+          "stage": "ops",
+          "status": "draft",
+          "squad": "SQD-ENG",
+          "x": 555,
+          "y": 458,
+          "summary": "E-book bônus com 10 receitas secretas de sais aromáticos para venda e autocuidado. Prometido na Página de Vendas e entregue na Área de Membros.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [],
+          "files": [
+            {
+              "id": "f1779167542164",
+              "name": "10-Receitas-Site-free",
+              "type": "ebook",
+              "url": "/docs/uploads/1779167527118_10-Receitas-Site-free.pdf",
+              "addedAt": "2026-05-19T05:12:22.164Z",
+              "syncedToMembers": false
+            }
+          ],
+          "checks": [
+            {
+              "id": "check-mpjzul5z-7x480",
+              "label": "Brief completo",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5z-4jlod",
+              "label": "Saida revisada",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul5z-uqpki",
+              "label": "Pronto para proxima etapa",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "vm-bon2",
+          "label": "🎁 Bônus 2 — Lista Fornecedores",
+          "type": "automation",
+          "stage": "ops",
+          "status": "draft",
+          "squad": "SQD-ENG",
+          "x": 555,
+          "y": 498,
+          "summary": "Lista premium de fornecedores de insumos para sais e cosméticos artesanais. Prometido na PV e entregue no Hub.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul60-ghkuw",
+              "label": "Brief completo",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul60-ku706",
+              "label": "Saida revisada",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul60-fl736",
+              "label": "Pronto para proxima etapa",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "vm-bon3",
+          "label": "🎁 Bônus 3 — Kit Posts Prontos",
+          "type": "automation",
+          "stage": "ops",
+          "status": "draft",
+          "squad": "SQD-ENG",
+          "x": 555,
+          "y": 538,
+          "summary": "Pack de artes e textos prontos para redes sociais. Prometido na PV e entregue no Hub.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul60-a99pg",
+              "label": "Brief completo",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul60-0no3j",
+              "label": "Saida revisada",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul60-dwgzo",
+              "label": "Pronto para proxima etapa",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "vm-ob",
+          "label": "➕ Order Bump — Sais+",
+          "type": "automation",
+          "stage": "ops",
+          "status": "draft",
+          "squad": "SQD-ENG",
+          "x": 558,
+          "y": 624,
+          "summary": "Produto adicional oferecido dentro do checkout Kiwify. Complementar ao produto principal. Ainda não configurado.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul60-0pp3z",
+              "label": "Brief completo",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul60-b3btc",
+              "label": "Saida revisada",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul60-ajpun",
+              "label": "Pronto para proxima etapa",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "vm-ck",
+          "label": "Checkout Kiwify",
+          "type": "checkout",
+          "stage": "sales",
+          "status": "completed",
+          "squad": "SQD-ENG",
+          "x": 823,
+          "y": 254,
+          "summary": "Checkout processado pela Kiwify. Produto principal ativo com preço R$47,90. Integração automática com Hub pendente.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [
+            "prs-russell-brunson"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul60-pqg1k",
+              "label": "Produto cadastrado",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul60-ifpbk",
+              "label": "Bump/upsell configurados",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul60-nt372",
+              "label": "Webhook testado",
+              "done": false
+            }
+          ],
+          "output": "CVR · Receita · Abandono"
+        },
+        {
+          "id": "vm-ty",
+          "label": "Pág. de Obrigado",
+          "type": "page",
+          "stage": "sales",
+          "status": "draft",
+          "squad": "SQD-EXP",
+          "x": 1196,
+          "y": 283,
+          "summary": "Página exibida após confirmação de pagamento. Deve apresentar o OTO Cofre e fazer transição para a Área de Membros.",
+          "notes": "",
+          "agents": [
+            "AGT-EXP-01",
+            "AGT-EXP-02",
+            "AGT-EXP-03"
+          ],
+          "skills": [
+            "SKL-CNT-03",
+            "SKL-EXP-01",
+            "SKL-EXP-02"
+          ],
+          "personas": [
+            "prs-tiago-finch",
+            "prs-pedro-valerio"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul61-axl4u",
+              "label": "Secoes montadas",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul61-7w16o",
+              "label": "FAQ inserido",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul61-d25oo",
+              "label": "Performance verificada",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "vm-oto",
+          "label": "OTO — Cofre Botânicas",
+          "type": "automation",
+          "stage": "ops",
+          "status": "blocked",
+          "squad": "SQD-ENG",
+          "x": 981,
+          "y": 371,
+          "summary": "One-Time-Offer apresentado após compra principal. O Cofre das Botânicas Secretas: 12 fórmulas premium de banho, escalda-pés e ambiência.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul61-xohjg",
+              "label": "Brief completo",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul61-tfu5n",
+              "label": "Saida revisada",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul61-36bmy",
+              "label": "Pronto para proxima etapa",
+              "done": false
+            }
+          ],
+          "output": "Taxa de aceite OTO · Receita OTO"
+        },
+        {
+          "id": "vm-dw",
+          "label": "Downsell",
+          "type": "page",
+          "stage": "sales",
+          "status": "draft",
+          "squad": "SQD-EXP",
+          "x": 976,
+          "y": 569,
+          "summary": "Oferta alternativa apresentada quando o cliente recusa o OTO Cofre. Preço menor, produto reduzido ou formato diferente.",
+          "notes": "",
+          "agents": [
+            "AGT-EXP-01",
+            "AGT-EXP-02",
+            "AGT-EXP-03"
+          ],
+          "skills": [
+            "SKL-CNT-03",
+            "SKL-EXP-01",
+            "SKL-EXP-02"
+          ],
+          "personas": [
+            "prs-tiago-finch",
+            "prs-pedro-valerio"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul61-bmudf",
+              "label": "Secoes montadas",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul61-zs50d",
+              "label": "FAQ inserido",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul61-d7pat",
+              "label": "Performance verificada",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "vm-hub",
+          "label": "Hub — Área de Membros",
+          "type": "automation",
+          "stage": "ops",
+          "status": "in_progress",
+          "squad": "SQD-ENG",
+          "x": 1395,
+          "y": 289,
+          "summary": "Área de membros construída em Firebase. Central de entrega de todos os produtos adquiridos e bônus prometidos.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul61-hii2g",
+              "label": "Brief completo",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul61-6epkm",
+              "label": "Saida revisada",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul61-noell",
+              "label": "Pronto para proxima etapa",
+              "done": false
+            }
+          ],
+          "output": "DAU · Conteúdo acessado · Churn"
+        },
+        {
+          "id": "vm-eb1",
+          "label": "Método Essência Ativa BR",
+          "type": "ebook",
+          "stage": "ebook",
+          "status": "completed",
+          "squad": "SQD-CNT",
+          "x": 1387,
+          "y": 424,
+          "summary": "E-book principal. Método completo de produção de sais aromáticos. 144 páginas. Entregue via Kiwify e disponível no Hub.",
+          "notes": "",
+          "agents": [
+            "AGT-CNT-01",
+            "AGT-CNT-02",
+            "AGT-CNT-03"
+          ],
+          "skills": [
+            "SKL-CNT-01",
+            "SKL-CNT-02",
+            "SKL-CNT-03"
+          ],
+          "personas": [
+            "prs-elisa-clark",
+            "prs-pedro-valerio"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul62-d6v65",
+              "label": "Indice aprovado",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul62-bnzdf",
+              "label": "Capitulos rascunhados",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul62-rt31b",
+              "label": "Revisao editorial feita",
+              "done": false
+            }
+          ],
+          "output": "Taxa de conclusão de leitura"
+        },
+        {
+          "id": "vm-eb2",
+          "label": "Cofre das Botânicas",
+          "type": "ebook",
+          "stage": "ebook",
+          "status": "completed",
+          "squad": "SQD-CNT",
+          "x": 1391,
+          "y": 506,
+          "summary": "E-book OTO. O Cofre das Botânicas Secretas: 12 fórmulas premium de banho, escalda-pés e ambiência. HTML ebook deployado no Firebase.",
+          "notes": "",
+          "agents": [
+            "AGT-CNT-01",
+            "AGT-CNT-02",
+            "AGT-CNT-03"
+          ],
+          "skills": [
+            "SKL-CNT-01",
+            "SKL-CNT-02",
+            "SKL-CNT-03"
+          ],
+          "personas": [
+            "prs-elisa-clark",
+            "prs-pedro-valerio"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul62-xa0iv",
+              "label": "Indice aprovado",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul62-8rzrf",
+              "label": "Capitulos rascunhados",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul62-ct0tq",
+              "label": "Revisao editorial feita",
+              "done": false
+            }
+          ],
+          "output": "Taxa de aceite OTO"
+        },
+        {
+          "id": "vm-eb3",
+          "label": "30 Sinergias de Sucesso",
+          "type": "ebook",
+          "stage": "ebook",
+          "status": "draft",
+          "squad": "SQD-CNT",
+          "x": 1390,
+          "y": 587,
+          "summary": "Terceiro produto da área de membros. Sinergias de ingredientes para combinações avançadas de sais e blends.",
+          "notes": "",
+          "agents": [
+            "AGT-CNT-01",
+            "AGT-CNT-02",
+            "AGT-CNT-03"
+          ],
+          "skills": [
+            "SKL-CNT-01",
+            "SKL-CNT-02",
+            "SKL-CNT-03"
+          ],
+          "personas": [
+            "prs-elisa-clark",
+            "prs-pedro-valerio"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul62-2nbnj",
+              "label": "Indice aprovado",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul62-ytz5f",
+              "label": "Capitulos rascunhados",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul62-783sx",
+              "label": "Revisao editorial feita",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "vm-hb1",
+          "label": "📥 Hub · Bônus 1",
+          "type": "automation",
+          "stage": "ops",
+          "status": "draft",
+          "squad": "SQD-ENG",
+          "x": 1599,
+          "y": 505,
+          "summary": "Entrega do Bônus 1 na Área de Membros. Espelho da promessa feita na Página de Vendas.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul62-uafxw",
+              "label": "Brief completo",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul62-ux1y4",
+              "label": "Saida revisada",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul62-y0yfy",
+              "label": "Pronto para proxima etapa",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "vm-hb2",
+          "label": "📥 Hub · Bônus 2",
+          "type": "automation",
+          "stage": "ops",
+          "status": "draft",
+          "squad": "SQD-ENG",
+          "x": 1599,
+          "y": 559,
+          "summary": "Entrega do Bônus 2 na Área de Membros.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul63-zjhdv",
+              "label": "Brief completo",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul63-wj2tf",
+              "label": "Saida revisada",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul63-575z4",
+              "label": "Pronto para proxima etapa",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "vm-hb3",
+          "label": "📥 Hub · Bônus 3",
+          "type": "automation",
+          "stage": "ops",
+          "status": "draft",
+          "squad": "SQD-ENG",
+          "x": 1599,
+          "y": 610,
+          "summary": "Entrega do Bônus 3 na Área de Membros.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul63-1t2en",
+              "label": "Brief completo",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul63-4hx1e",
+              "label": "Saida revisada",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul63-q3ban",
+              "label": "Pronto para proxima etapa",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "vm-viewer",
+          "label": "Leitor Digital",
+          "type": "page",
+          "stage": "sales",
+          "status": "completed",
+          "squad": "SQD-EXP",
+          "x": 1391,
+          "y": 729,
+          "summary": "Visualizador de e-books em HTML deployado no Firebase. Suporta leitura online de todos os produtos digitais.",
+          "notes": "",
+          "agents": [
+            "AGT-EXP-01",
+            "AGT-EXP-02",
+            "AGT-EXP-03"
+          ],
+          "skills": [
+            "SKL-CNT-03",
+            "SKL-EXP-01",
+            "SKL-EXP-02"
+          ],
+          "personas": [
+            "prs-tiago-finch",
+            "prs-pedro-valerio"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul63-lcsyz",
+              "label": "Secoes montadas",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul63-ygju6",
+              "label": "FAQ inserido",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul63-fyk57",
+              "label": "Performance verificada",
+              "done": false
+            }
+          ],
+          "output": "Sessões de leitura"
+        },
+        {
+          "id": "vm-email",
+          "label": "Email Marketing",
+          "type": "automation",
+          "stage": "ops",
+          "status": "draft",
+          "squad": "SQD-ENG",
+          "x": 1635,
+          "y": 258,
+          "summary": "Sequências de email pós-compra para engajamento, upsell e retenção. Modelo baseado em story-based emails Frank Kern.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul63-crnsx",
+              "label": "Brief completo",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul63-fsjsk",
+              "label": "Saida revisada",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul63-gm7wb",
+              "label": "Pronto para proxima etapa",
+              "done": false
+            }
+          ],
+          "output": "Open rate · CTR · LTV"
+        },
+        {
+          "id": "vm-rmk",
+          "label": "Remarketing",
+          "type": "automation",
+          "stage": "ops",
+          "status": "draft",
+          "squad": "SQD-ENG",
+          "x": 1637,
+          "y": 369,
+          "summary": "Campanhas de retargeting para visitantes que não compraram. Pixel Meta ativo na landing page.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpjzul64-dtwto",
+              "label": "Brief completo",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul64-bgcyf",
+              "label": "Saida revisada",
+              "done": false
+            },
+            {
+              "id": "check-mpjzul64-0ujj2",
+              "label": "Pronto para proxima etapa",
+              "done": false
+            }
+          ],
+          "output": "ROAS retargeting · CPR"
+        },
+        {
+          "id": "strategy-mpk1f2e0-z22o2",
+          "label": "Brief de Produto Digital",
+          "type": "strategy",
+          "stage": "strategy",
+          "status": "draft",
+          "squad": "SQD-CORE",
+          "x": 1887,
+          "y": 447,
+          "summary": "Define avatar, promessa, transformacao, escopo e criterio de sucesso do produto.",
+          "notes": "",
+          "agents": [
+            "AGT-CORE-01",
+            "AGT-CORE-02",
+            "AGT-CORE-03",
+            "AGT-CORE-05",
+            "AGT-CORE-04"
+          ],
+          "skills": [
+            "SKL-CORE-01",
+            "SKL-CORE-02",
+            "SKL-CORE-03",
+            "SKL-CORE-04"
+          ],
+          "personas": [
+            "prs-russell-brunson",
+            "prs-alan-nicolas"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk1f2e0-ftoqs",
+              "label": "Avatar principal definido",
+              "done": false
+            },
+            {
+              "id": "check-mpk1f2e0-y7rx0",
+              "label": "Promessa mensuravel escrita",
+              "done": false
+            },
+            {
+              "id": "check-mpk1f2e0-23z2r",
+              "label": "Escopo e limites aprovados",
+              "done": false
+            }
+          ],
+          "output": ""
+        }
+      ],
+      "edges": [
+        {
+          "id": "edge-mpjzul64-bor5i",
+          "from": "p01",
+          "to": "p02",
+          "label": "Direction pkg"
+        },
+        {
+          "id": "edge-mpjzul64-sxicw",
+          "from": "p02",
+          "to": "p03",
+          "label": "Skeleton"
+        },
+        {
+          "id": "edge-mpjzul64-75gd7",
+          "from": "p03",
+          "to": "p04",
+          "label": "E-book pronto"
+        },
+        {
+          "id": "edge-mpjzul64-sssne",
+          "from": "p04",
+          "to": "p05",
+          "label": "Landing page"
+        },
+        {
+          "id": "edge-mpjzul64-7g7cb",
+          "from": "vm-ig",
+          "to": "vm-elisa",
+          "label": ""
+        },
+        {
+          "id": "edge-mpjzul64-w3t7d",
+          "from": "vm-fb",
+          "to": "vm-elisa",
+          "label": ""
+        },
+        {
+          "id": "edge-mpjzul64-8urb9",
+          "from": "vm-tt",
+          "to": "vm-elisa",
+          "label": ""
+        },
+        {
+          "id": "edge-mpjzul64-q5cmt",
+          "from": "vm-elisa",
+          "to": "vm-vsl",
+          "label": ""
+        },
+        {
+          "id": "edge-mpjzul64-56brs",
+          "from": "vm-vsl",
+          "to": "vm-sales",
+          "label": ""
+        },
+        {
+          "id": "edge-mpjzul64-9rj83",
+          "from": "vm-sales",
+          "to": "vm-bon1",
+          "label": ""
+        },
+        {
+          "id": "edge-mpjzul64-7595f",
+          "from": "vm-sales",
+          "to": "vm-bon2",
+          "label": ""
+        },
+        {
+          "id": "edge-mpjzul64-6tfw0",
+          "from": "vm-sales",
+          "to": "vm-bon3",
+          "label": ""
+        },
+        {
+          "id": "edge-mpjzul64-sijco",
+          "from": "vm-sales",
+          "to": "vm-ck",
+          "label": "Compra"
+        },
+        {
+          "id": "edge-mpjzul64-zof3e",
+          "from": "vm-sales",
+          "to": "vm-ob",
+          "label": "Order Bump"
+        },
+        {
+          "id": "edge-mpjzul64-qc4st",
+          "from": "vm-oto",
+          "to": "vm-dw",
+          "label": "Recusado"
+        },
+        {
+          "id": "edge-mpjzul64-urbld",
+          "from": "vm-ty",
+          "to": "vm-hub",
+          "label": "Acesso"
+        },
+        {
+          "id": "edge-mpjzul64-lruwh",
+          "from": "vm-hub",
+          "to": "vm-eb1",
+          "label": ""
+        },
+        {
+          "id": "edge-mpjzul64-nks6y",
+          "from": "vm-hub",
+          "to": "vm-eb2",
+          "label": ""
+        },
+        {
+          "id": "edge-mpjzul64-0hgwy",
+          "from": "vm-hub",
+          "to": "vm-eb3",
+          "label": ""
+        },
+        {
+          "id": "edge-mpjzul64-1lcph",
+          "from": "vm-hub",
+          "to": "vm-hb1",
+          "label": ""
+        },
+        {
+          "id": "edge-mpjzul64-sdxqq",
+          "from": "vm-hub",
+          "to": "vm-hb2",
+          "label": ""
+        },
+        {
+          "id": "edge-mpjzul64-7je0r",
+          "from": "vm-hub",
+          "to": "vm-hb3",
+          "label": ""
+        },
+        {
+          "id": "edge-mpjzul64-t4gjn",
+          "from": "vm-hub",
+          "to": "vm-viewer",
+          "label": ""
+        },
+        {
+          "id": "edge-mpjzul64-xzi7p",
+          "from": "vm-hub",
+          "to": "vm-email",
+          "label": "Retenção"
+        },
+        {
+          "id": "edge-mpjzul64-vb48m",
+          "from": "vm-email",
+          "to": "vm-rmk",
+          "label": "Retargeting"
+        },
+        {
+          "id": "edge-mpjzul64-3se4x",
+          "from": "vm-ck",
+          "to": "vm-oto",
+          "label": ""
+        },
+        {
+          "id": "edge-mpjzul64-7v7j6",
+          "from": "vm-oto",
+          "to": "vm-ty",
+          "label": ""
+        },
+        {
+          "id": "edge-mpjzul64-2nv2i",
+          "from": "vm-dw",
+          "to": "vm-ty",
+          "label": ""
+        },
+        {
+          "id": "edge-mpo2acd4-ettid",
+          "from": "vm-ob",
+          "to": "vm-oto",
+          "label": ""
+        }
+      ],
+      "runs": [],
+      "created_at": "2026-05-24T16:30:39.532Z"
+    },
+    {
+      "id": "project-mpk4h5cp-ickxc",
+      "name": "Velas",
+      "description": "Produto digital sobre criação, precificação e venda de velas aromáticas artesanais.",
+      "nodes": [
+        {
+          "id": "strategy-mpk4h5co-8v8zr",
+          "label": "Estrategia",
+          "type": "strategy",
+          "stage": "strategy",
+          "status": "in_progress",
+          "squad": "SQD-CORE",
+          "x": 80,
+          "y": 170,
+          "summary": "Oferta, promessa, publico e escopo.",
+          "notes": "",
+          "agents": [
+            "AGT-CORE-01",
+            "AGT-CORE-02",
+            "AGT-CORE-03"
+          ],
+          "skills": [
+            "SKL-CORE-01",
+            "SKL-CORE-02",
+            "SKL-CORE-03"
+          ],
+          "personas": [
+            "prs-russell-brunson",
+            "prs-alan-nicolas"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4h5co-oatf4",
+              "label": "Promessa definida",
+              "done": false
+            },
+            {
+              "id": "check-mpk4h5co-9axmq",
+              "label": "Publico e dor claros",
+              "done": false
+            },
+            {
+              "id": "check-mpk4h5co-myq21",
+              "label": "Oferta revisada",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "market-mpk4h5co-4soac",
+          "label": "Pesquisa e mecanismo",
+          "type": "market",
+          "stage": "strategy",
+          "status": "draft",
+          "squad": "SQD-MKF",
+          "x": 340,
+          "y": 120,
+          "summary": "Benchmark, dores, mecanismo unico e angulos.",
+          "notes": "",
+          "agents": [
+            "AGT-MKF-01",
+            "AGT-MKF-02",
+            "AGT-MKF-03"
+          ],
+          "skills": [
+            "SKL-MKF-01",
+            "SKL-MKF-02",
+            "SKL-MKF-03"
+          ],
+          "personas": [
+            "prs-russell-brunson",
+            "prs-tiago-finch"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4h5co-7ihfc",
+              "label": "Benchmark mapeado",
+              "done": false
+            },
+            {
+              "id": "check-mpk4h5co-mtb28",
+              "label": "Mecanismo unico escrito",
+              "done": false
+            },
+            {
+              "id": "check-mpk4h5co-rr3hh",
+              "label": "Objeccoes listadas",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "ebook-mpk4h5co-oqzl2",
+          "label": "Arquitetura do e-book",
+          "type": "ebook",
+          "stage": "ebook",
+          "status": "draft",
+          "squad": "SQD-CNT",
+          "x": 600,
+          "y": 170,
+          "summary": "Indice, capitulos, tom e bibliografia.",
+          "notes": "",
+          "agents": [
+            "AGT-CNT-01",
+            "AGT-CNT-02",
+            "AGT-CNT-03"
+          ],
+          "skills": [
+            "SKL-CNT-01",
+            "SKL-CNT-02",
+            "SKL-CNT-03"
+          ],
+          "personas": [
+            "prs-elisa-clark",
+            "prs-pedro-valerio"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4h5co-d0b7s",
+              "label": "Indice aprovado",
+              "done": false
+            },
+            {
+              "id": "check-mpk4h5co-81uyl",
+              "label": "Capitulos rascunhados",
+              "done": false
+            },
+            {
+              "id": "check-mpk4h5co-vgqfc",
+              "label": "Revisao editorial feita",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "copy-mpk4h5co-l3vqp",
+          "label": "Copy de vendas",
+          "type": "copy",
+          "stage": "sales",
+          "status": "draft",
+          "squad": "SQD-CNT",
+          "x": 860,
+          "y": 120,
+          "summary": "Headline, bullets, prova, oferta e CTA.",
+          "notes": "",
+          "agents": [
+            "AGT-CNT-01",
+            "AGT-CNT-02",
+            "AGT-CNT-03"
+          ],
+          "skills": [
+            "SKL-CNT-01",
+            "SKL-CNT-02",
+            "SKL-CNT-03"
+          ],
+          "personas": [
+            "prs-alan-nicolas",
+            "prs-joao-vturb"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4h5co-khnlh",
+              "label": "Headline pronta",
+              "done": false
+            },
+            {
+              "id": "check-mpk4h5co-tvrfp",
+              "label": "Bullets e prova escritos",
+              "done": false
+            },
+            {
+              "id": "check-mpk4h5co-f5uph",
+              "label": "CTA validado",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "design-mpk4h5co-o4ibj",
+          "label": "Design system",
+          "type": "design",
+          "stage": "ebook",
+          "status": "draft",
+          "squad": "SQD-EXP",
+          "x": 1120,
+          "y": 170,
+          "summary": "Layout, imagens, capa e componentes.",
+          "notes": "",
+          "agents": [
+            "AGT-EXP-01",
+            "AGT-EXP-02",
+            "AGT-EXP-03"
+          ],
+          "skills": [
+            "SKL-EXP-01",
+            "SKL-EXP-02",
+            "SKL-EXP-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4h5co-lxp0w",
+              "label": "Capa ou hero definido",
+              "done": false
+            },
+            {
+              "id": "check-mpk4h5co-mb1fx",
+              "label": "Mobile verificado",
+              "done": false
+            },
+            {
+              "id": "check-mpk4h5co-sw8z7",
+              "label": "Assets anexados",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "page-mpk4h5co-ygwtz",
+          "label": "Pagina de vendas",
+          "type": "page",
+          "stage": "sales",
+          "status": "draft",
+          "squad": "SQD-EXP",
+          "x": 1380,
+          "y": 120,
+          "summary": "Landing page, secao de oferta, FAQ e mobile.",
+          "notes": "",
+          "agents": [
+            "AGT-EXP-01",
+            "AGT-EXP-02",
+            "AGT-EXP-03"
+          ],
+          "skills": [
+            "SKL-CNT-03",
+            "SKL-EXP-01",
+            "SKL-EXP-02"
+          ],
+          "personas": [
+            "prs-tiago-finch",
+            "prs-pedro-valerio"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4h5cp-1xdd8",
+              "label": "Secoes montadas",
+              "done": false
+            },
+            {
+              "id": "check-mpk4h5cp-0fneo",
+              "label": "FAQ inserido",
+              "done": false
+            },
+            {
+              "id": "check-mpk4h5cp-7dmt1",
+              "label": "Performance verificada",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "checkout-mpk4h5cp-mo16w",
+          "label": "Checkout",
+          "type": "checkout",
+          "stage": "sales",
+          "status": "draft",
+          "squad": "SQD-ENG",
+          "x": 1640,
+          "y": 170,
+          "summary": "Pagamento, order bump, upsell e webhooks.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [
+            "prs-russell-brunson"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4h5cp-lbkkl",
+              "label": "Produto cadastrado",
+              "done": false
+            },
+            {
+              "id": "check-mpk4h5cp-lov8c",
+              "label": "Bump/upsell configurados",
+              "done": false
+            },
+            {
+              "id": "check-mpk4h5cp-rg63s",
+              "label": "Webhook testado",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "delivery-mpk4h5cp-j6ugj",
+          "label": "Area de membros",
+          "type": "delivery",
+          "stage": "delivery",
+          "status": "draft",
+          "squad": "SQD-ENG",
+          "x": 1900,
+          "y": 120,
+          "summary": "Hub, acesso, arquivos e automacoes.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4h5cp-o18ar",
+              "label": "Arquivo anexado",
+              "done": false
+            },
+            {
+              "id": "check-mpk4h5cp-i7gek",
+              "label": "Acesso testado",
+              "done": false
+            },
+            {
+              "id": "check-mpk4h5cp-ltrot",
+              "label": "Email de entrega pronto",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "qa-mpk4h5cp-04ehe",
+          "label": "QA e lancamento",
+          "type": "qa",
+          "stage": "ops",
+          "status": "draft",
+          "squad": "SQD-QRO",
+          "x": 2160,
+          "y": 170,
+          "summary": "Testes, tracking, deploy e checklist final.",
+          "notes": "",
+          "agents": [
+            "AGT-QRO-01",
+            "AGT-QRO-02",
+            "AGT-QRO-03"
+          ],
+          "skills": [
+            "SKL-QRO-01",
+            "SKL-QRO-02",
+            "SKL-QRO-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4h5cp-0nm4z",
+              "label": "Links testados",
+              "done": false
+            },
+            {
+              "id": "check-mpk4h5cp-4oodq",
+              "label": "Tracking validado",
+              "done": false
+            },
+            {
+              "id": "check-mpk4h5cp-g3e90",
+              "label": "Publicacao aprovada",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "strategy-mpk4hh55-7mh50",
+          "label": "Estratégia - Velas Aromáticas",
+          "type": "strategy",
+          "stage": "strategy",
+          "status": "draft",
+          "squad": "SQD-CORE",
+          "x": 2410,
+          "y": 248,
+          "summary": "Define avatar, promessa, transformacao, escopo e criterio de sucesso do produto.",
+          "notes": "",
+          "agents": [
+            "AGT-CORE-01",
+            "AGT-CORE-02",
+            "AGT-CORE-03"
+          ],
+          "skills": [
+            "SKL-CORE-01",
+            "SKL-CORE-02",
+            "SKL-CORE-03"
+          ],
+          "personas": [
+            "prs-russell-brunson",
+            "prs-alan-nicolas"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4hh55-68cto",
+              "label": "Avatar principal definido",
+              "done": false
+            },
+            {
+              "id": "check-mpk4hh55-pbebc",
+              "label": "Promessa mensuravel escrita",
+              "done": false
+            },
+            {
+              "id": "check-mpk4hh55-wocv8",
+              "label": "Escopo e limites aprovados",
+              "done": false
+            }
+          ],
+          "output": ""
+        }
+      ],
+      "edges": [
+        {
+          "id": "edge-mpk4h5cp-qunkq",
+          "from": "strategy-mpk4h5co-8v8zr",
+          "to": "market-mpk4h5co-4soac",
+          "label": ""
+        },
+        {
+          "id": "edge-mpk4h5cp-59olz",
+          "from": "market-mpk4h5co-4soac",
+          "to": "ebook-mpk4h5co-oqzl2",
+          "label": ""
+        },
+        {
+          "id": "edge-mpk4h5cp-g76k2",
+          "from": "ebook-mpk4h5co-oqzl2",
+          "to": "copy-mpk4h5co-l3vqp",
+          "label": ""
+        },
+        {
+          "id": "edge-mpk4h5cp-6onzk",
+          "from": "copy-mpk4h5co-l3vqp",
+          "to": "design-mpk4h5co-o4ibj",
+          "label": ""
+        },
+        {
+          "id": "edge-mpk4h5cp-fuwem",
+          "from": "design-mpk4h5co-o4ibj",
+          "to": "page-mpk4h5co-ygwtz",
+          "label": ""
+        },
+        {
+          "id": "edge-mpk4h5cp-jowi9",
+          "from": "page-mpk4h5co-ygwtz",
+          "to": "checkout-mpk4h5cp-mo16w",
+          "label": ""
+        },
+        {
+          "id": "edge-mpk4h5cp-j1i9j",
+          "from": "checkout-mpk4h5cp-mo16w",
+          "to": "delivery-mpk4h5cp-j6ugj",
+          "label": ""
+        },
+        {
+          "id": "edge-mpk4h5cp-ae920",
+          "from": "delivery-mpk4h5cp-j6ugj",
+          "to": "qa-mpk4h5cp-04ehe",
+          "label": ""
+        }
+      ],
+      "runs": [],
+      "created_at": "2026-05-24T18:40:10.585Z"
+    },
+    {
+      "id": "project-mpk4rq12-unn34",
+      "name": "VELAS AROMÁTICAS",
+      "description": "Produto digital sobre criação, precificação e venda de velas aromáticas artesanais.",
+      "nodes": [
+        {
+          "id": "strategy-mpk4rq11-u3ugx",
+          "label": "Estrategia",
+          "type": "strategy",
+          "stage": "strategy",
+          "status": "in_progress",
+          "squad": "SQD-CORE",
+          "x": 80,
+          "y": 170,
+          "summary": "Oferta, promessa, publico e escopo.",
+          "notes": "",
+          "agents": [
+            "AGT-CORE-01",
+            "AGT-CORE-02",
+            "AGT-CORE-03"
+          ],
+          "skills": [
+            "SKL-CORE-01",
+            "SKL-CORE-02",
+            "SKL-CORE-03"
+          ],
+          "personas": [
+            "prs-russell-brunson",
+            "prs-alan-nicolas"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4rq11-dmn0m",
+              "label": "Promessa definida",
+              "done": false
+            },
+            {
+              "id": "check-mpk4rq11-ogbkw",
+              "label": "Publico e dor claros",
+              "done": false
+            },
+            {
+              "id": "check-mpk4rq11-ie9eo",
+              "label": "Oferta revisada",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "market-mpk4rq11-w9s4l",
+          "label": "Pesquisa e mecanismo",
+          "type": "market",
+          "stage": "strategy",
+          "status": "draft",
+          "squad": "SQD-MKF",
+          "x": 340,
+          "y": 120,
+          "summary": "Benchmark, dores, mecanismo unico e angulos.",
+          "notes": "",
+          "agents": [
+            "AGT-MKF-01",
+            "AGT-MKF-02",
+            "AGT-MKF-03"
+          ],
+          "skills": [
+            "SKL-MKF-01",
+            "SKL-MKF-02",
+            "SKL-MKF-03"
+          ],
+          "personas": [
+            "prs-russell-brunson",
+            "prs-tiago-finch"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4rq12-t7iuw",
+              "label": "Benchmark mapeado",
+              "done": false
+            },
+            {
+              "id": "check-mpk4rq12-71eh8",
+              "label": "Mecanismo unico escrito",
+              "done": false
+            },
+            {
+              "id": "check-mpk4rq12-f67j7",
+              "label": "Objeccoes listadas",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "ebook-mpk4rq12-ntx6q",
+          "label": "Arquitetura do e-book",
+          "type": "ebook",
+          "stage": "ebook",
+          "status": "draft",
+          "squad": "SQD-CNT",
+          "x": 600,
+          "y": 170,
+          "summary": "Indice, capitulos, tom e bibliografia.",
+          "notes": "",
+          "agents": [
+            "AGT-CNT-01",
+            "AGT-CNT-02",
+            "AGT-CNT-03"
+          ],
+          "skills": [
+            "SKL-CNT-01",
+            "SKL-CNT-02",
+            "SKL-CNT-03"
+          ],
+          "personas": [
+            "prs-elisa-clark",
+            "prs-pedro-valerio"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4rq12-zdogb",
+              "label": "Indice aprovado",
+              "done": false
+            },
+            {
+              "id": "check-mpk4rq12-uxzc7",
+              "label": "Capitulos rascunhados",
+              "done": false
+            },
+            {
+              "id": "check-mpk4rq12-xve47",
+              "label": "Revisao editorial feita",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "copy-mpk4rq12-3vzo1",
+          "label": "Copy de vendas",
+          "type": "copy",
+          "stage": "sales",
+          "status": "draft",
+          "squad": "SQD-CNT",
+          "x": 860,
+          "y": 120,
+          "summary": "Headline, bullets, prova, oferta e CTA.",
+          "notes": "",
+          "agents": [
+            "AGT-CNT-01",
+            "AGT-CNT-02",
+            "AGT-CNT-03"
+          ],
+          "skills": [
+            "SKL-CNT-01",
+            "SKL-CNT-02",
+            "SKL-CNT-03"
+          ],
+          "personas": [
+            "prs-alan-nicolas",
+            "prs-joao-vturb"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4rq12-oqsd6",
+              "label": "Headline pronta",
+              "done": false
+            },
+            {
+              "id": "check-mpk4rq12-8ktia",
+              "label": "Bullets e prova escritos",
+              "done": false
+            },
+            {
+              "id": "check-mpk4rq12-9f3c7",
+              "label": "CTA validado",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "design-mpk4rq12-cek8h",
+          "label": "Design system",
+          "type": "design",
+          "stage": "ebook",
+          "status": "draft",
+          "squad": "SQD-EXP",
+          "x": 1120,
+          "y": 170,
+          "summary": "Layout, imagens, capa e componentes.",
+          "notes": "",
+          "agents": [
+            "AGT-EXP-01",
+            "AGT-EXP-02",
+            "AGT-EXP-03"
+          ],
+          "skills": [
+            "SKL-EXP-01",
+            "SKL-EXP-02",
+            "SKL-EXP-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4rq12-jj91o",
+              "label": "Capa ou hero definido",
+              "done": false
+            },
+            {
+              "id": "check-mpk4rq12-3erlf",
+              "label": "Mobile verificado",
+              "done": false
+            },
+            {
+              "id": "check-mpk4rq12-srzol",
+              "label": "Assets anexados",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "page-mpk4rq12-97en7",
+          "label": "Pagina de vendas",
+          "type": "page",
+          "stage": "sales",
+          "status": "draft",
+          "squad": "SQD-EXP",
+          "x": 1380,
+          "y": 120,
+          "summary": "Landing page, secao de oferta, FAQ e mobile.",
+          "notes": "",
+          "agents": [
+            "AGT-EXP-01",
+            "AGT-EXP-02",
+            "AGT-EXP-03"
+          ],
+          "skills": [
+            "SKL-CNT-03",
+            "SKL-EXP-01",
+            "SKL-EXP-02"
+          ],
+          "personas": [
+            "prs-tiago-finch",
+            "prs-pedro-valerio"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4rq12-iljmv",
+              "label": "Secoes montadas",
+              "done": false
+            },
+            {
+              "id": "check-mpk4rq12-gj8dm",
+              "label": "FAQ inserido",
+              "done": false
+            },
+            {
+              "id": "check-mpk4rq12-xvuno",
+              "label": "Performance verificada",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "checkout-mpk4rq12-kvgru",
+          "label": "Checkout",
+          "type": "checkout",
+          "stage": "sales",
+          "status": "draft",
+          "squad": "SQD-ENG",
+          "x": 1640,
+          "y": 170,
+          "summary": "Pagamento, order bump, upsell e webhooks.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [
+            "prs-russell-brunson"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4rq12-80lld",
+              "label": "Produto cadastrado",
+              "done": false
+            },
+            {
+              "id": "check-mpk4rq12-ycwva",
+              "label": "Bump/upsell configurados",
+              "done": false
+            },
+            {
+              "id": "check-mpk4rq12-r9qp8",
+              "label": "Webhook testado",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "delivery-mpk4rq12-6rho8",
+          "label": "Area de membros",
+          "type": "delivery",
+          "stage": "delivery",
+          "status": "draft",
+          "squad": "SQD-ENG",
+          "x": 1900,
+          "y": 120,
+          "summary": "Hub, acesso, arquivos e automacoes.",
+          "notes": "",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-02",
+            "SKL-ENG-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4rq12-n7pi9",
+              "label": "Arquivo anexado",
+              "done": false
+            },
+            {
+              "id": "check-mpk4rq12-km53m",
+              "label": "Acesso testado",
+              "done": false
+            },
+            {
+              "id": "check-mpk4rq12-fmale",
+              "label": "Email de entrega pronto",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "qa-mpk4rq12-mgw1q",
+          "label": "QA e lancamento",
+          "type": "qa",
+          "stage": "ops",
+          "status": "draft",
+          "squad": "SQD-QRO",
+          "x": 2160,
+          "y": 170,
+          "summary": "Testes, tracking, deploy e checklist final.",
+          "notes": "",
+          "agents": [
+            "AGT-QRO-01",
+            "AGT-QRO-02",
+            "AGT-QRO-03"
+          ],
+          "skills": [
+            "SKL-QRO-01",
+            "SKL-QRO-02",
+            "SKL-QRO-03"
+          ],
+          "personas": [],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4rq12-qjnve",
+              "label": "Links testados",
+              "done": false
+            },
+            {
+              "id": "check-mpk4rq12-a14un",
+              "label": "Tracking validado",
+              "done": false
+            },
+            {
+              "id": "check-mpk4rq12-csjix",
+              "label": "Publicacao aprovada",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "strategy-mpk4t74o-ozgqg",
+          "label": "Brief de Produto Digital",
+          "type": "strategy",
+          "stage": "strategy",
+          "status": "draft",
+          "squad": "SQD-CORE",
+          "x": 2410,
+          "y": 248,
+          "summary": "Define avatar, promessa, transformacao, escopo e criterio de sucesso do produto.",
+          "notes": "",
+          "agents": [
+            "AGT-CORE-01",
+            "AGT-CORE-02",
+            "AGT-CORE-03"
+          ],
+          "skills": [
+            "SKL-CORE-01",
+            "SKL-CORE-02",
+            "SKL-CORE-03"
+          ],
+          "personas": [
+            "prs-russell-brunson",
+            "prs-alan-nicolas"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4t74o-jr3rz",
+              "label": "Avatar principal definido",
+              "done": false
+            },
+            {
+              "id": "check-mpk4t74o-cxy76",
+              "label": "Promessa mensuravel escrita",
+              "done": false
+            },
+            {
+              "id": "check-mpk4t74o-igpnj",
+              "label": "Escopo e limites aprovados",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "strategy-mpk4vezk-zwjwk",
+          "label": "Estratégia - Velas Aromáticas",
+          "type": "strategy",
+          "stage": "strategy",
+          "status": "draft",
+          "squad": "SQD-CORE",
+          "x": 2660,
+          "y": 326,
+          "summary": "Definir público, promessa, transformação, entregável principal, gratuitos, order bumps e futura escada de upsell/downsell.\n",
+          "notes": "",
+          "agents": [
+            "AGT-CORE-01",
+            "AGT-CORE-02",
+            "AGT-CORE-03"
+          ],
+          "skills": [
+            "SKL-CORE-01",
+            "SKL-CORE-02",
+            "SKL-CORE-03"
+          ],
+          "personas": [
+            "prs-russell-brunson",
+            "prs-alan-nicolas"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk4vezk-7i5ry",
+              "label": "Avatar principal definido",
+              "done": false
+            },
+            {
+              "id": "check-mpk4vezk-j5rkh",
+              "label": "Promessa mensuravel escrita",
+              "done": false
+            },
+            {
+              "id": "check-mpk4vezk-5cg1p",
+              "label": "Escopo e limites aprovados",
+              "done": false
+            }
+          ],
+          "output": ""
+        },
+        {
+          "id": "ebook-mpk5180f-exrma",
+          "label": "Entregável Principal - Guia Velas Aromáticas do Zero",
+          "type": "ebook",
+          "stage": "ebook",
+          "status": "draft",
+          "squad": "SQD-CNT",
+          "x": 2910,
+          "y": 360,
+          "summary": "E-book principal ensinando materiais, segurança, fragrâncias, processo de produção, acabamento, precificação e primeiros canais de venda.\n",
+          "notes": "",
+          "agents": [
+            "AGT-CNT-01",
+            "AGT-CNT-02",
+            "AGT-CNT-03"
+          ],
+          "skills": [
+            "SKL-CNT-01",
+            "SKL-CNT-02",
+            "SKL-CNT-03"
+          ],
+          "personas": [
+            "prs-elisa-clark",
+            "prs-pedro-valerio"
+          ],
+          "files": [],
+          "checks": [
+            {
+              "id": "check-mpk5180g-59h9j",
+              "label": "Jornada didatica definida",
+              "done": false
+            },
+            {
+              "id": "check-mpk5180g-n6gqf",
+              "label": "Capitulos listados",
+              "done": false
+            },
+            {
+              "id": "check-mpk5180g-yef6e",
+              "label": "Entrega final descrita",
+              "done": false
+            }
+          ],
+          "output": ""
+        }
+      ],
+      "edges": [
+        {
+          "id": "edge-mpk4rq12-3lo5c",
+          "from": "strategy-mpk4rq11-u3ugx",
+          "to": "market-mpk4rq11-w9s4l",
+          "label": ""
+        },
+        {
+          "id": "edge-mpk4rq12-qsj6o",
+          "from": "market-mpk4rq11-w9s4l",
+          "to": "ebook-mpk4rq12-ntx6q",
+          "label": ""
+        },
+        {
+          "id": "edge-mpk4rq12-i7a6k",
+          "from": "ebook-mpk4rq12-ntx6q",
+          "to": "copy-mpk4rq12-3vzo1",
+          "label": ""
+        },
+        {
+          "id": "edge-mpk4rq12-7ua84",
+          "from": "copy-mpk4rq12-3vzo1",
+          "to": "design-mpk4rq12-cek8h",
+          "label": ""
+        },
+        {
+          "id": "edge-mpk4rq12-r6g01",
+          "from": "design-mpk4rq12-cek8h",
+          "to": "page-mpk4rq12-97en7",
+          "label": ""
+        },
+        {
+          "id": "edge-mpk4rq12-wpjra",
+          "from": "page-mpk4rq12-97en7",
+          "to": "checkout-mpk4rq12-kvgru",
+          "label": ""
+        },
+        {
+          "id": "edge-mpk4rq12-f9g7l",
+          "from": "checkout-mpk4rq12-kvgru",
+          "to": "delivery-mpk4rq12-6rho8",
+          "label": ""
+        },
+        {
+          "id": "edge-mpk4rq12-qrp23",
+          "from": "delivery-mpk4rq12-6rho8",
+          "to": "qa-mpk4rq12-mgw1q",
+          "label": ""
+        },
+        {
+          "id": "edge-mpk5180g-8hd3c",
+          "from": "strategy-mpk4vezk-zwjwk",
+          "to": "ebook-mpk5180f-exrma",
+          "label": "template"
+        }
+      ],
+      "runs": [],
+      "created_at": "2026-05-24T18:48:23.942Z"
+    },
+    {
+      "id": "velas-aromaticas",
+      "name": "Velas Aromaticas",
+      "description": "Produto guiado com e-book principal, 2 frees e 2 order bumps produzidos em HTML.",
+      "mode": "sequential-product",
+      "nodes": [
+        {
+          "id": "velas-01-estrategia",
+          "label": "Estrategia - Velas Aromaticas",
+          "type": "strategy",
+          "stage": "strategy",
+          "status": "completed",
+          "squad": "SQD-CORE",
+          "x": 80,
+          "y": 190,
+          "sequenceIndex": 1,
+          "offerType": "setup",
+          "summary": "Brief validado: iniciante total; promessa completa de fazer, vender e montar marca; referencia visual O Cofre das Botanicas Secretas.",
+          "notes": "Usuario confirmou briefing em 2026-05-24.",
+          "agents": [
+            "AGT-CORE-01",
+            "AGT-CORE-02",
+            "AGT-CORE-03",
+            "AGT-CORE-04"
+          ],
+          "skills": [
+            "SKL-CORE-01",
+            "SKL-CORE-02",
+            "SKL-CORE-03",
+            "SKL-CORE-04",
+            "SKL-CORE-05"
+          ],
+          "personas": [
+            "prs-russell-brunson",
+            "prs-alan-nicolas",
+            "prs-alex-hormozi"
+          ],
+          "files": [
+            {
+              "id": "file-velas-brief",
+              "name": "Brief Produto - Velas Aromaticas",
+              "url": "projects/velas-aromaticas/docs/brief-produto.md",
+              "type": "text/markdown"
+            }
+          ],
+          "checks": [
+            {
+              "id": "check-velas-1-publico-definido",
+              "label": "Publico definido",
+              "done": true
+            },
+            {
+              "id": "check-velas-2-promessa-aprovada",
+              "label": "Promessa aprovada",
+              "done": true
+            },
+            {
+              "id": "check-velas-3-formato-principal-",
+              "label": "Formato principal definido",
+              "done": true
+            }
+          ],
+          "output": "Brief e direcao aprovados"
+        },
+        {
+          "id": "velas-02-principal",
+          "label": "Principal - Guia Velas Aromaticas do Zero",
+          "type": "ebook",
+          "stage": "ebook",
+          "status": "completed",
+          "squad": "SQD-CNT",
+          "x": 340,
+          "y": 190,
+          "sequenceIndex": 2,
+          "offerType": "principal",
+          "summary": "HTML principal premium, imprimivel para PDF pelo cliente, com metodo, seguranca, aromas, primeira colecao e venda.",
+          "notes": "V1 gerada pelo Codex em HTML A4.",
+          "agents": [
+            "AGT-CNT-01",
+            "AGT-CNT-02",
+            "AGT-CNT-03"
+          ],
+          "skills": [
+            "SKL-CNT-01",
+            "SKL-CNT-02",
+            "SKL-CNT-04",
+            "SKL-CNT-06",
+            "SKL-CNT-05"
+          ],
+          "personas": [
+            "prs-elisa-clark",
+            "prs-david-ogilvy",
+            "prs-pedro-valerio"
+          ],
+          "files": [
+            {
+              "id": "file-velas-main-html",
+              "name": "Guia Velas Aromaticas do Zero - HTML",
+              "url": "projects/velas-aromaticas/deliverables/main/velas-aromaticas-master.html",
+              "type": "text/html"
+            }
+          ],
+          "checks": [
+            {
+              "id": "check-velas-1-estrutura-editoria",
+              "label": "Estrutura editorial criada",
+              "done": true
+            },
+            {
+              "id": "check-velas-2-html-principal-pro",
+              "label": "HTML principal produzido",
+              "done": true
+            },
+            {
+              "id": "check-velas-3-formato-imprimivel",
+              "label": "Formato imprimivel preparado",
+              "done": true
+            }
+          ],
+          "output": "HTML principal V1"
+        },
+        {
+          "id": "velas-03-free-checklist",
+          "label": "Free 1 - Checklist de Materiais e Fornecedores",
+          "type": "delivery",
+          "stage": "delivery",
+          "status": "completed",
+          "squad": "SQD-CNT",
+          "x": 600,
+          "y": 190,
+          "sequenceIndex": 3,
+          "offerType": "free",
+          "summary": "Checklist para compra segura de materiais, perguntas para fornecedores e teste antes da venda.",
+          "notes": "V1 gerada em HTML.",
+          "agents": [
+            "AGT-CNT-01",
+            "AGT-CNT-02",
+            "AGT-CNT-03"
+          ],
+          "skills": [
+            "SKL-CNT-01",
+            "SKL-CNT-02",
+            "SKL-CNT-06"
+          ],
+          "personas": [
+            "prs-elisa-clark",
+            "prs-david-ogilvy"
+          ],
+          "files": [
+            {
+              "id": "file-velas-free-checklist",
+              "name": "Checklist de Materiais e Fornecedores - HTML",
+              "url": "projects/velas-aromaticas/deliverables/free/checklist-materiais-fornecedores.html",
+              "type": "text/html"
+            }
+          ],
+          "checks": [
+            {
+              "id": "check-velas-1-checklist-criado",
+              "label": "Checklist criado",
+              "done": true
+            },
+            {
+              "id": "check-velas-2-bloco-de-fornecedo",
+              "label": "Bloco de fornecedores criado",
+              "done": true
+            },
+            {
+              "id": "check-velas-3-aviso-de-seguranca",
+              "label": "Aviso de seguranca incluido",
+              "done": true
+            }
+          ],
+          "output": "Free 1 HTML V1"
+        },
+        {
+          "id": "velas-04-free-aromas",
+          "label": "Free 2 - Mini Guia de Aromas e Combinacoes",
+          "type": "delivery",
+          "stage": "delivery",
+          "status": "completed",
+          "squad": "SQD-CNT",
+          "x": 860,
+          "y": 190,
+          "sequenceIndex": 4,
+          "offerType": "free",
+          "summary": "Mini guia com familias olfativas, cenas de uso e combinacoes nomeadas para uma primeira colecao.",
+          "notes": "V1 gerada em HTML.",
+          "agents": [
+            "AGT-CNT-01",
+            "AGT-CNT-02",
+            "AGT-CNT-03"
+          ],
+          "skills": [
+            "SKL-CNT-01",
+            "SKL-CNT-02",
+            "SKL-CNT-04"
+          ],
+          "personas": [
+            "prs-elisa-clark",
+            "prs-david-ogilvy",
+            "prs-pedro-valerio"
+          ],
+          "files": [
+            {
+              "id": "file-velas-free-aromas",
+              "name": "Mini Guia de Aromas e Combinacoes - HTML",
+              "url": "projects/velas-aromaticas/deliverables/free/mini-guia-aromas-combinacoes.html",
+              "type": "text/html"
+            }
+          ],
+          "checks": [
+            {
+              "id": "check-velas-1-familias-olfativas",
+              "label": "Familias olfativas criadas",
+              "done": true
+            },
+            {
+              "id": "check-velas-2-combinacoes-nomead",
+              "label": "Combinacoes nomeadas",
+              "done": true
+            },
+            {
+              "id": "check-velas-3-regra-de-naming-in",
+              "label": "Regra de naming incluida",
+              "done": true
+            }
+          ],
+          "output": "Free 2 HTML V1"
+        },
+        {
+          "id": "velas-05-bump-calculadora",
+          "label": "Order Bump 1 - Calculadora de Preco e Lucro",
+          "type": "checkout",
+          "stage": "sales",
+          "status": "completed",
+          "squad": "SQD-ENG",
+          "x": 1120,
+          "y": 190,
+          "sequenceIndex": 5,
+          "offerType": "order_bump",
+          "summary": "Calculadora HTML interativa para custo unitario, preco sugerido e lucro estimado.",
+          "notes": "V1 gerada com JavaScript local.",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-ENG-03"
+          ],
+          "skills": [
+            "SKL-ENG-01",
+            "SKL-ENG-03",
+            "SKL-ENG-04",
+            "SKL-ENG-06"
+          ],
+          "personas": [
+            "prs-enzo-barbatto",
+            "prs-russell-brunson",
+            "prs-alex-hormozi"
+          ],
+          "files": [
+            {
+              "id": "file-velas-bump-calculadora",
+              "name": "Calculadora de Preco e Lucro - HTML",
+              "url": "projects/velas-aromaticas/deliverables/bumps/calculadora-preco-lucro.html",
+              "type": "text/html"
+            }
+          ],
+          "checks": [
+            {
+              "id": "check-velas-1-campos-de-custo-cr",
+              "label": "Campos de custo criados",
+              "done": true
+            },
+            {
+              "id": "check-velas-2-formula-de-margem-",
+              "label": "Formula de margem criada",
+              "done": true
+            },
+            {
+              "id": "check-velas-3-resultado-em-brl-f",
+              "label": "Resultado em BRL funcionando",
+              "done": true
+            }
+          ],
+          "output": "Order Bump 1 HTML V1"
+        },
+        {
+          "id": "velas-06-bump-pack",
+          "label": "Order Bump 2 - Pack de Etiquetas e Cartoes",
+          "type": "checkout",
+          "stage": "sales",
+          "status": "completed",
+          "squad": "SQD-ENG",
+          "x": 1380,
+          "y": 190,
+          "sequenceIndex": 6,
+          "offerType": "order_bump",
+          "summary": "Pack imprimivel de etiquetas frontais, cartao de cuidado e cartao de presente.",
+          "notes": "V1 gerada em HTML imprimivel.",
+          "agents": [
+            "AGT-ENG-01",
+            "AGT-ENG-02",
+            "AGT-CNT-03"
+          ],
+          "skills": [
+            "SKL-CNT-04",
+            "SKL-ENG-04",
+            "SKL-EXP-05"
+          ],
+          "personas": [
+            "prs-elisa-clark",
+            "prs-david-ogilvy",
+            "prs-pedro-valerio"
+          ],
+          "files": [
+            {
+              "id": "file-velas-bump-pack",
+              "name": "Pack de Etiquetas e Cartoes - HTML",
+              "url": "projects/velas-aromaticas/deliverables/bumps/pack-etiquetas-cartoes.html",
+              "type": "text/html"
+            }
+          ],
+          "checks": [
+            {
+              "id": "check-velas-1-etiquetas-criadas",
+              "label": "Etiquetas criadas",
+              "done": true
+            },
+            {
+              "id": "check-velas-2-cartao-de-cuidado-",
+              "label": "Cartao de cuidado criado",
+              "done": true
+            },
+            {
+              "id": "check-velas-3-cartao-de-presente",
+              "label": "Cartao de presente criado",
+              "done": true
+            }
+          ],
+          "output": "Order Bump 2 HTML V1"
+        }
+      ],
+      "edges": [
+        {
+          "id": "edge-velas-1",
+          "from": "velas-01-estrategia",
+          "to": "velas-02-principal",
+          "label": "proximo"
+        },
+        {
+          "id": "edge-velas-2",
+          "from": "velas-02-principal",
+          "to": "velas-03-free-checklist",
+          "label": "proximo"
+        },
+        {
+          "id": "edge-velas-3",
+          "from": "velas-03-free-checklist",
+          "to": "velas-04-free-aromas",
+          "label": "proximo"
+        },
+        {
+          "id": "edge-velas-4",
+          "from": "velas-04-free-aromas",
+          "to": "velas-05-bump-calculadora",
+          "label": "proximo"
+        },
+        {
+          "id": "edge-velas-5",
+          "from": "velas-05-bump-calculadora",
+          "to": "velas-06-bump-pack",
+          "label": "proximo"
+        }
+      ],
+      "runs": [
+        {
+          "id": "run-velas-v1",
+          "nodeId": "velas-06-bump-pack",
+          "label": "Producao inicial V1 concluida",
+          "status": "completed",
+          "action": "generated_deliverables",
+          "at": "2026-05-24T20:15:46.849Z"
+        }
+      ],
+      "created_at": "2026-05-24T20:15:46.849Z",
+      "updated_at": "2026-05-24T20:15:46.849Z"
+    }
+  ],
+  "updated_at": "2026-05-27T12:50:23.180Z"
+}

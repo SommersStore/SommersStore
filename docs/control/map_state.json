@@ -460,8 +460,8 @@
       {
         "id": "vm-viewer",
         "type": "page",
-        "x": 1391,
-        "y": 609,
+        "x": 1798,
+        "y": 312,
         "label": "Leitor Digital",
         "sub": "HTML Viewer · Firebase hosting",
         "status": "completed",
@@ -939,6 +939,170 @@
       {
         "from": "e-01",
         "to": "e-02"
+      }
+    ],
+    "lanes": []
+  },
+  "saude": {
+    "title": "Saúde — Mapa do Projeto",
+    "subtitle": "SQD-SAU · Medicina Integrativa · Dra. Joseane",
+    "pipeline": [
+      {
+        "id": "sau-p01",
+        "type": "pipeline",
+        "x": 14,
+        "y": 20,
+        "label": "Onboarding",
+        "sub": "SAU-01 · Anamnese",
+        "status": "in_progress",
+        "metric": "EM PREPARO"
+      },
+      {
+        "id": "sau-p02",
+        "type": "pipeline",
+        "x": 184,
+        "y": 20,
+        "label": "Mapa de Exames",
+        "sub": "SAU-02 · Diagnóstico",
+        "status": "pending",
+        "metric": "AGUARDANDO"
+      },
+      {
+        "id": "sau-p03",
+        "type": "pipeline",
+        "x": 354,
+        "y": 20,
+        "label": "Diagnóstico",
+        "sub": "SAU-03 · Integrativo",
+        "status": "draft",
+        "metric": "AGUARDANDO"
+      },
+      {
+        "id": "sau-p04",
+        "type": "pipeline",
+        "x": 524,
+        "y": 20,
+        "label": "Protocolo",
+        "sub": "SAU-04 · Fitoterápicos",
+        "status": "draft",
+        "metric": "AGUARDANDO"
+      },
+      {
+        "id": "sau-p05",
+        "type": "pipeline",
+        "x": 694,
+        "y": 20,
+        "label": "Receitas",
+        "sub": "SAU-05 · Balneoterapia",
+        "status": "draft",
+        "metric": "AGUARDANDO"
+      },
+      {
+        "id": "sau-p06",
+        "type": "pipeline",
+        "x": 864,
+        "y": 20,
+        "label": "Monitoramento",
+        "sub": "SAU-06 · Contínuo",
+        "status": "draft",
+        "metric": "AGUARDANDO"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "sau-sergio",
+        "type": "persona",
+        "x": 18,
+        "y": 220,
+        "label": "Sérgio Sommerlatte",
+        "sub": "Paciente PAC-001 · @sergio",
+        "color": "#f59e0b",
+        "icon": "👤"
+      },
+      {
+        "id": "sau-joseane",
+        "type": "persona",
+        "x": 220,
+        "y": 220,
+        "label": "Dra. Joseane Vascon",
+        "sub": "AGT-SAU-01 · @dra-joseane",
+        "color": "#10b981",
+        "icon": "👩‍⚕️"
+      },
+      {
+        "id": "sau-exames",
+        "type": "page",
+        "x": 420,
+        "y": 170,
+        "label": "Exames Prioritários",
+        "sub": "IgG4 · Hemograma · Tireoide",
+        "color": "#f59e0b"
+      },
+      {
+        "id": "sau-proto",
+        "type": "page",
+        "x": 420,
+        "y": 290,
+        "label": "Protocolo Ativo",
+        "sub": "Fitoterápicos · Suplementação",
+        "color": "#10b981"
+      },
+      {
+        "id": "sau-blends",
+        "type": "ebook",
+        "x": 620,
+        "y": 170,
+        "label": "Blends Terapêuticos",
+        "sub": "Despertar · Foco · Detox",
+        "color": "#10b981"
+      },
+      {
+        "id": "sau-banho",
+        "type": "ebook",
+        "x": 620,
+        "y": 290,
+        "label": "Banho Terapêutico",
+        "sub": "Protocolo Balneoterapia · Sais",
+        "color": "#3b82f6"
+      },
+      {
+        "id": "sau-evolucao",
+        "type": "page",
+        "x": 820,
+        "y": 230,
+        "label": "Evolução Clínica",
+        "sub": "Monitoramento · Reavaliação",
+        "color": "#a855f7"
+      }
+    ],
+    "edges": [
+      {
+        "from": "sau-sergio",
+        "to": "sau-joseane"
+      },
+      {
+        "from": "sau-joseane",
+        "to": "sau-exames"
+      },
+      {
+        "from": "sau-joseane",
+        "to": "sau-proto"
+      },
+      {
+        "from": "sau-exames",
+        "to": "sau-blends"
+      },
+      {
+        "from": "sau-proto",
+        "to": "sau-banho"
+      },
+      {
+        "from": "sau-blends",
+        "to": "sau-evolucao"
+      },
+      {
+        "from": "sau-banho",
+        "to": "sau-evolucao"
       }
     ],
     "lanes": []

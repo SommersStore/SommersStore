@@ -5,11 +5,24 @@ const pdfParse = require('pdf-parse');
 const { createWorker } = require('tesseract.js');
 const { spawn } = require('child_process');
 const https = require('https');
+const { randomUUID } = require('crypto');
 const { JSDOM } = require('jsdom');
 const DOMPurify = require('dompurify');
 const TurndownService = require('turndown');
 const ytdl = require('@distube/ytdl-core');
 const YtDlpWrap = require('yt-dlp-wrap').default;
+const {
+    DEFAULT_CONFIG: IBKR_DEFAULT_CONFIG,
+    normalizeConfig: normalizeIbkrConfig,
+    publicConfig: publicIbkrConfig,
+    normalizeSymbol: normalizeIbkrSymbol,
+    normalizeIntelligence: normalizeIbkrIntelligence,
+    createPaperTicket: createIbkrPaperTicket
+} = require('./ibkr_local_bridge');
+const {
+    evaluateGitSyncPreflight,
+    cloudSyncSucceeded
+} = require('./cloud_sync_guardrails');
 require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 let YoutubeTranscript = null;
 let youtubeTranscriptLoadTried = false;
@@ -24,6 +37,9 @@ const MEMORY_DIR = path.join(DOCS_DIR, 'memory');
 const SESSIONS_DIR = path.join(CONTROL_DIR, 'sessions');
 const MEMORY_EXTRA_DIR = path.join(CONTROL_DIR, 'memory_extra');
 const TASK_PATH = path.join(ROOT_DIR, 'task.md');
+const FOREX_DATA_DIR = path.join(ROOT_DIR, 'projects', 'forex', 'data');
+const IBKR_INTEGRATION_CONFIG_PATH = path.join(FOREX_DATA_DIR, 'ibkr_integration.json');
+const IBKR_PAPER_TICKETS_PATH = path.join(FOREX_DATA_DIR, 'ibkr_paper_tickets.json');
 const IR_OPEN_ALLOWED_ROOTS = [
     'C:\\Arquivos de Programas RFB',
     'C:\\Program Files RFB',
@@ -563,6 +579,107 @@ async function transcribeYouTubeAudioWithGemini(urlLike, videoId) {
     }
 }
 
+function inferMediaMimeType(fileName, fallback = '') {
+    const existing = String(fallback || '').trim().toLowerCase();
+    if (existing && /^(audio|video)\//.test(existing)) return existing;
+    const ext = path.extname(String(fileName || '')).toLowerCase();
+    const map = {
+        '.mp3': 'audio/mpeg',
+        '.m4a': 'audio/mp4',
+        '.aac': 'audio/aac',
+        '.wav': 'audio/wav',
+        '.ogg': 'audio/ogg',
+        '.oga': 'audio/ogg',
+        '.flac': 'audio/flac',
+        '.mp4': 'video/mp4',
+        '.m4v': 'video/mp4',
+        '.mov': 'video/quicktime',
+        '.webm': 'video/webm',
+        '.mkv': 'video/x-matroska'
+    };
+    return map[ext] || existing || 'application/octet-stream';
+}
+
+function isTextAssetUpload(fileName, mimeType = '') {
+    const name = String(fileName || '');
+    const mime = String(mimeType || '').toLowerCase();
+    return /\.(md|markdown|txt)$/i.test(name) || mime.startsWith('text/');
+}
+
+function isTranscribableMediaUpload(fileName, mimeType = '') {
+    const mime = inferMediaMimeType(fileName, mimeType);
+    if (/^(audio|video)\//i.test(mime)) return true;
+    return /\.(mp3|m4a|aac|wav|ogg|oga|flac|mp4|m4v|mov|webm|mkv)$/i.test(String(fileName || ''));
+}
+
+async function transcribeLocalMediaWithGemini({ filePath, mimeType, displayName }) {
+    const config = resolveGeminiApiConfig({ required: true, model: GEMINI_TRANSCRIBE_MODEL });
+    const stat = fs.statSync(filePath);
+    let uploaded = null;
+    try {
+        uploaded = await uploadGeminiFile({
+            apiKey: config.apiKey,
+            filePath,
+            mimeType: inferMediaMimeType(displayName || filePath, mimeType),
+            displayName: displayName || path.basename(filePath)
+        });
+
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(config.model)}:generateContent?key=${config.apiKey}`;
+        const prompt = [
+            'Transcreva TODO o audio do arquivo enviado com fidelidade.',
+            'Regras obrigatorias:',
+            '- Nao resuma, nao explique, nao analise.',
+            '- Retorne apenas a transcricao linear, em texto puro.',
+            '- Preserve a ordem cronologica das falas.'
+        ].join('\n');
+
+        const geminiRes = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [
+                        { text: prompt },
+                        {
+                            file_data: {
+                                mime_type: uploaded.mimeType,
+                                file_uri: uploaded.uri
+                            }
+                        }
+                    ]
+                }],
+                generationConfig: { temperature: 0 }
+            })
+        });
+
+        const geminiData = await geminiRes.json().catch(() => ({}));
+        if (!geminiRes.ok) {
+            throw new Error(geminiData.error?.message || `Falha na transcricao de midia via Gemini (${geminiRes.status}).`);
+        }
+
+        let transcriptText = extractGeminiText(geminiData);
+        transcriptText = stripMarkdownCodeFence(transcriptText);
+        transcriptText = maybeFixUtf8Mojibake(transcriptText);
+        transcriptText = transcriptText.replace(/\r\n/g, '\n').trim();
+        if (!transcriptText) throw new Error('A API Gemini retornou midia sem transcricao utilizavel.');
+
+        const lines = transcriptText
+            .split(/\n+/)
+            .map(normalizeYouTubeTranscriptLine)
+            .filter(Boolean);
+        if (!lines.length) throw new Error('A transcricao de midia retornou sem linhas validas.');
+
+        return {
+            lines,
+            model: config.model,
+            api_key_source: config.apiKeySource,
+            audio_bytes: stat.size
+        };
+    } finally {
+        await deleteGeminiFile({ apiKey: config.apiKey, fileName: uploaded && uploaded.name });
+    }
+}
+
 function buildYouTubeTranscriptMarkdown({ urlLike, videoId, lines, mode, model = null }) {
     const body = asArray(lines).join('\n').replace(/\n{3,}/g, '\n\n').trim();
     if (!body) throw new Error('Transcricao retornou sem conteudo util.');
@@ -575,6 +692,27 @@ function buildYouTubeTranscriptMarkdown({ urlLike, videoId, lines, mode, model =
     if (model) metadataRows.push(`- model: ${model}`);
     return [
         '# Transcricao YouTube',
+        '',
+        ...metadataRows,
+        '',
+        '## Conteudo',
+        body,
+        ''
+    ].join('\n');
+}
+
+function buildUploadedMediaTranscriptMarkdown({ sourceName, sourcePath, lines, mode, model = null }) {
+    const body = asArray(lines).join('\n').replace(/\n{3,}/g, '\n\n').trim();
+    if (!body) throw new Error('Transcricao retornou sem conteudo util.');
+    const metadataRows = [
+        `- source_name: ${String(sourceName || '').trim()}`,
+        `- source_path: ${normalizePathForJson(sourcePath || '')}`,
+        `- extracted_at: ${nowIso()}`,
+        `- mode: ${mode || 'media_upload_transcript'}`
+    ];
+    if (model) metadataRows.push(`- model: ${model}`);
+    return [
+        '# Transcricao de Midia',
         '',
         ...metadataRows,
         '',
@@ -733,6 +871,32 @@ function writeFileAtomic(fullPath, content) {
     }
 }
 
+function writeBinaryFileAtomic(fullPath, content) {
+    ensureDir(path.dirname(fullPath));
+    const tempPath = path.join(
+        path.dirname(fullPath),
+        `.${path.basename(fullPath)}.${process.pid}.${Date.now()}.tmp`
+    );
+    const buffer = Buffer.isBuffer(content) ? content : Buffer.from(content || '');
+    let fd = null;
+    try {
+        fd = fs.openSync(tempPath, 'w');
+        fs.writeFileSync(fd, buffer);
+        fs.fsyncSync(fd);
+        fs.closeSync(fd);
+        fd = null;
+        fs.renameSync(tempPath, fullPath);
+    } catch (error) {
+        if (fd !== null) {
+            try { fs.closeSync(fd); } catch (_) { /* ignore */ }
+        }
+        try {
+            if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath);
+        } catch (_) { /* ignore */ }
+        throw error;
+    }
+}
+
 function writeJsonAtomic(fullPath, data, spaces = 2) {
     const content = `${JSON.stringify(data, null, spaces)}\n`;
     JSON.parse(content);
@@ -797,6 +961,105 @@ function writeText(fullPath, content) {
         JSON.parse(text || '{}');
     }
     writeFileAtomic(fullPath, text);
+}
+
+function readJsonFile(fullPath, fallback) {
+    try {
+        if (!fs.existsSync(fullPath)) return fallback;
+        const content = fs.readFileSync(fullPath, 'utf8');
+        return content.trim() ? JSON.parse(content) : fallback;
+    } catch (_) {
+        return fallback;
+    }
+}
+
+function loadIbkrIntegrationConfig() {
+    const raw = readJsonFile(IBKR_INTEGRATION_CONFIG_PATH, IBKR_DEFAULT_CONFIG);
+    return normalizeIbkrConfig(raw);
+}
+
+function loadIbkrPaperTickets() {
+    const fallback = { version: 1, items: [] };
+    const raw = readJsonFile(IBKR_PAPER_TICKETS_PATH, fallback);
+    return {
+        version: 1,
+        items: asArray(raw && raw.items).filter(item => item && typeof item === 'object').slice(0, 200)
+    };
+}
+
+function hasAllowedIbkrOrigin(req) {
+    const remoteAddress = asTrimmedText(req && req.socket && req.socket.remoteAddress).toLowerCase();
+    const isLoopbackClient = ['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(remoteAddress);
+    if (!isLoopbackClient) return false;
+    const origin = asTrimmedText(req && req.headers && req.headers.origin);
+    if (!origin) return true;
+    try {
+        const parsed = new URL(origin);
+        return ['127.0.0.1', 'localhost', '::1', '[::1]'].includes(parsed.hostname.toLowerCase());
+    } catch (_) {
+        return false;
+    }
+}
+
+function assertAllowedIbkrOrigin(req, res) {
+    if (hasAllowedIbkrOrigin(req)) return true;
+    sendJson(res, { ok: false, error: 'A API IBKR local aceita somente chamadas de loopback.' }, 403);
+    return false;
+}
+
+async function fetchIbkrLocalBridge(config, kind, query = {}) {
+    const endpointPath = kind === 'health' ? config.bridge.health_path : config.bridge.intelligence_path;
+    const endpoint = new URL(endpointPath, `${config.bridge.base_url}/`);
+    Object.entries(query).forEach(([key, value]) => endpoint.searchParams.set(key, String(value)));
+    let response;
+    try {
+        response = await fetch(endpoint, {
+            method: 'GET',
+            headers: { Accept: 'application/json' },
+            signal: AbortSignal.timeout(config.bridge.timeout_ms)
+        });
+    } catch (error) {
+        throw new Error(`Ponte local indisponível: ${error.name === 'TimeoutError' ? 'tempo esgotado' : 'não foi possível conectar'}.`);
+    }
+    if (!response.ok) throw new Error(`Ponte local respondeu HTTP ${response.status}.`);
+    try {
+        return await response.json();
+    } catch (_) {
+        throw new Error('Ponte local retornou uma resposta inválida.');
+    }
+}
+
+async function ibkrStatusPayload() {
+    const config = loadIbkrIntegrationConfig();
+    const payload = {
+        ok: true,
+        mode: 'paper_only',
+        live_orders_enabled: false,
+        config: publicIbkrConfig(config),
+        connector: {
+            status: config.bridge.enabled ? 'checking' : 'disabled',
+            authenticated: false,
+            source: '',
+            bridge_mode: '',
+            message: config.configuration_error || (config.bridge.enabled ? 'Verificando ponte local.' : 'Ponte local desligada. Nenhum dado é inventado.')
+        }
+    };
+    if (!config.bridge.enabled) return payload;
+    try {
+        const health = await fetchIbkrLocalBridge(config, 'health');
+        const authenticated = health && health.authenticated === true;
+        payload.connector = {
+            status: health && health.ok !== false && authenticated ? 'connected' : 'attention',
+            authenticated,
+            source: asTrimmedText(health && health.source).slice(0, 80),
+            bridge_mode: asTrimmedText(health && health.mode).slice(0, 24),
+            message: authenticated ? 'Ponte local respondeu. Confirme dados e permissões na IBKR antes de qualquer decisão.' : 'Ponte respondeu, mas não informou autenticação paper válida.'
+        };
+    } catch (error) {
+        payload.connector.status = 'unavailable';
+        payload.connector.message = error.message;
+    }
+    return payload;
 }
 
 function workspaceRelativePath(fullPath) {
@@ -998,6 +1261,102 @@ function parseBody(req) {
     });
 }
 
+function parseMultipartBoundary(contentType) {
+    const match = String(contentType || '').match(/boundary=(?:"([^"]+)"|([^;]+))/i);
+    return match ? String(match[1] || match[2] || '').trim() : '';
+}
+
+function parseMultipartDisposition(value) {
+    const result = {};
+    String(value || '').replace(/;\s*([^=]+)="([^"]*)"/g, (_, key, val) => {
+        result[String(key || '').trim().toLowerCase()] = val;
+        return _;
+    });
+    return result;
+}
+
+async function readRequestBuffer(req, maxBytes = 512 * 1024 * 1024) {
+    const chunks = [];
+    let total = 0;
+    for await (const chunk of req) {
+        const buf = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
+        total += buf.length;
+        if (total > maxBytes) throw new Error('Arquivo excede o limite de upload deste painel.');
+        chunks.push(buf);
+    }
+    return Buffer.concat(chunks);
+}
+
+async function parseMultipartForm(req) {
+    const boundary = parseMultipartBoundary(req.headers['content-type'] || '');
+    if (!boundary) throw new Error('multipart boundary missing');
+
+    const raw = await readRequestBuffer(req);
+    const boundaryBuf = Buffer.from(`--${boundary}`);
+    const headerSeparator = Buffer.from('\r\n\r\n');
+    const altHeaderSeparator = Buffer.from('\n\n');
+    const fields = {};
+    const files = [];
+    let cursor = raw.indexOf(boundaryBuf);
+
+    while (cursor !== -1) {
+        let partStart = cursor + boundaryBuf.length;
+        if (raw[partStart] === 45 && raw[partStart + 1] === 45) break;
+        if (raw[partStart] === 13 && raw[partStart + 1] === 10) partStart += 2;
+        else if (raw[partStart] === 10) partStart += 1;
+
+        const next = raw.indexOf(boundaryBuf, partStart);
+        if (next === -1) break;
+        let part = raw.slice(partStart, next);
+        if (part.length >= 2 && part[part.length - 2] === 13 && part[part.length - 1] === 10) {
+            part = part.slice(0, -2);
+        } else if (part.length >= 1 && part[part.length - 1] === 10) {
+            part = part.slice(0, -1);
+        }
+
+        let headerEnd = part.indexOf(headerSeparator);
+        let separatorLength = headerSeparator.length;
+        if (headerEnd === -1) {
+            headerEnd = part.indexOf(altHeaderSeparator);
+            separatorLength = altHeaderSeparator.length;
+        }
+        if (headerEnd === -1) {
+            cursor = next;
+            continue;
+        }
+
+        const headerText = part.slice(0, headerEnd).toString('utf8');
+        const body = part.slice(headerEnd + separatorLength);
+        const headers = {};
+        headerText.split(/\r?\n/).forEach(line => {
+            const idx = line.indexOf(':');
+            if (idx === -1) return;
+            headers[line.slice(0, idx).trim().toLowerCase()] = line.slice(idx + 1).trim();
+        });
+
+        const disposition = parseMultipartDisposition(headers['content-disposition'] || '');
+        if (!disposition.name) {
+            cursor = next;
+            continue;
+        }
+
+        if (Object.prototype.hasOwnProperty.call(disposition, 'filename')) {
+            files.push({
+                field: disposition.name,
+                filename: disposition.filename || 'upload.bin',
+                contentType: headers['content-type'] || '',
+                data: body
+            });
+        } else {
+            fields[disposition.name] = body.toString('utf8');
+        }
+
+        cursor = next;
+    }
+
+    return { fields, files };
+}
+
 function sendJson(res, data, code = 200) {
     res.writeHead(code, {
         'Content-Type': 'application/json',
@@ -1180,6 +1539,40 @@ async function runGitHubSync(scope, commitMessage) {
         result.status = 'error';
         result.note = 'Repositorio Git nao encontrado.';
         result.error = inside.stderr || inside.stdout || 'git rev-parse falhou';
+        return result;
+    }
+
+    const identityName = await runCommand('git', ['config', '--get', 'user.name']);
+    const identityEmail = await runCommand('git', ['config', '--get', 'user.email']);
+    const stagedBefore = await runCommand('git', ['diff', '--cached', '--quiet']);
+    let stagedFileCount = 0;
+    if (stagedBefore.code === 1) {
+        const stagedFiles = await runCommand('git', ['diff', '--cached', '--name-only']);
+        if (!stagedFiles.ok) {
+            result.status = 'error';
+            result.note = 'Nao foi possivel inspecionar arquivos ja preparados em stage.';
+            result.error = stagedFiles.stderr || stagedFiles.stdout || 'git diff --cached --name-only falhou';
+            return result;
+        }
+        stagedFileCount = (stagedFiles.stdout || '').split(/\r?\n/).filter(Boolean).length;
+    } else if (stagedBefore.code !== 0) {
+        result.status = 'error';
+        result.note = 'Nao foi possivel verificar o stage atual do Git.';
+        result.error = stagedBefore.stderr || stagedBefore.stdout || 'git diff --cached --quiet falhou';
+        return result;
+    }
+
+    const preflight = evaluateGitSyncPreflight({
+        userName: identityName.ok ? identityName.stdout : '',
+        userEmail: identityEmail.ok ? identityEmail.stdout : '',
+        stagedFileCount
+    });
+    if (!preflight.ok) {
+        result.status = 'error';
+        result.note = preflight.note;
+        result.error = preflight.error;
+        result.blocked_reason = preflight.code;
+        result.staged_files = stagedFileCount;
         return result;
     }
 
@@ -1709,6 +2102,59 @@ function slugifySegment(value) {
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, '_')
         .replace(/^_+|_+$/g, '');
+}
+
+function slugifyIdSegment(value) {
+    return String(value || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+}
+
+function safeUploadFileName(value) {
+    const cleaned = String(value || 'upload.bin')
+        .replace(/^[/\\]+/, '')
+        .replace(/[/\\]+/g, '_')
+        .replace(/[^a-zA-Z0-9._-]+/g, '_')
+        .replace(/^_+|_+$/g, '');
+    return (cleaned || 'upload.bin').slice(0, 160);
+}
+
+function personaCloneDirForProject(projectId) {
+    const normalizedProject = normalizeProjectId(projectId) || String(projectId || '').trim().toLowerCase();
+    if (normalizedProject === 'pajero') return 'knowledge/clones/pajero';
+    if (normalizedProject === 'financas') return 'knowledge/clones/financas';
+    if (normalizedProject === 'imposto-de-renda') return 'knowledge/clones/ir';
+    if (normalizedProject === 'saude') return 'knowledge/clones/saude';
+    return 'knowledge/clones/personas';
+}
+
+function buildPersonaCloneStarterMarkdown({ persona, projectId, cloneRelPath }) {
+    const ownerAgents = asArray(persona && persona.agents).filter(Boolean).join(', ') || '-';
+    const projectLabel = normalizeProjectId(projectId) || projectId || 'global';
+    return [
+        `# Clone ${persona.name}`,
+        '',
+        '## Metadata',
+        `- persona_id: ${persona.id}`,
+        `- project_id: ${projectLabel}`,
+        `- owner_agents: ${ownerAgents}`,
+        `- clone_file: ${cloneRelPath}`,
+        `- created_at: ${nowIso()}`,
+        '',
+        '## Papel',
+        persona.role || 'Clone operacional.',
+        '',
+        '## Base Viva',
+        'Use este arquivo como memoria base do clone. Acrescente fatos, estilo, preferencias, contexto do projeto e decisoes confirmadas.',
+        '',
+        '## Fontes Vinculadas',
+        '- O mapa de arquivos fica em docs/control/persona_materials.json.',
+        '- Transcricoes e anexos podem ser adicionados pelo painel Master > Clones.',
+        ''
+    ].join('\n');
 }
 
 function personaBooksWorkspacePath(personaId) {
@@ -2571,8 +3017,292 @@ function nextSerial(prefix, usedIds) {
 function normalizeProjectId(raw) {
     const value = String(raw || '').trim().toLowerCase();
     if (!value) return null;
+    if (!/^[a-z0-9][a-z0-9_-]{0,63}$/.test(value)) return null;
+
+    try {
+        const flows = ensureControlJson(FILES.projectFlows, { projects: {} });
+        const projects = flows.projects || {};
+        if (Object.prototype.hasOwnProperty.call(projects, value)) return value;
+    } catch (_) {
+        // Keep legacy projects available if the project flow file cannot be read.
+    }
+
     if (value === 'sais' || value === 'velas' || value === 'electro') return value;
     return null;
+}
+
+function parseBrazilianCurrency(value) {
+    const raw = String(value || '').trim();
+    if (!raw) return 0;
+    const normalized = raw
+        .replace(/[^\d,.-]/g, '')
+        .replace(/\./g, '')
+        .replace(',', '.');
+    const parsed = Number(normalized);
+    return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function parseFinanceContractLines(rawText) {
+    return cleanPdfExtractedText(rawText)
+        .split(/\r?\n/)
+        .map(line => line.trim())
+        .filter(Boolean);
+}
+
+function parseFinanceContractMoneyLine(value) {
+    const match = String(value || '').match(/(?:R\$\s*)?(-?\d{1,3}(?:\.\d{3})*,\d{2})/);
+    return match ? parseBrazilianCurrency(match[1]) : 0;
+}
+
+function pickFinanceMoneyNearLabel(lines, labelPattern, lookAhead = 5) {
+    const labelRegex = new RegExp(labelPattern, 'i');
+    for (let i = 0; i < lines.length; i += 1) {
+        if (!labelRegex.test(lines[i])) continue;
+        for (let j = i; j <= Math.min(lines.length - 1, i + lookAhead); j += 1) {
+            const value = parseFinanceContractMoneyLine(lines[j]);
+            if (value > 0) return value;
+        }
+    }
+    return 0;
+}
+
+function pickFinanceIntegerNearLabel(lines, labelPattern, lookAhead = 5) {
+    const labelRegex = new RegExp(labelPattern, 'i');
+    for (let i = 0; i < lines.length; i += 1) {
+        if (!labelRegex.test(lines[i])) continue;
+        for (let j = i; j <= Math.min(lines.length - 1, i + lookAhead); j += 1) {
+            let compact = String(lines[j] || '').replace(/\d{2}\/\d{2}\/\d{4}/g, ' ');
+            if (j === i) compact = compact.replace(/^\s*\d{1,3}\s*[-.)]\s*/g, ' ');
+            const matches = compact.match(/\b\d{1,3}\b/g) || [];
+            for (const item of matches) {
+                const value = Number(item);
+                if (Number.isInteger(value) && value > 0 && value <= 360) return value;
+            }
+        }
+    }
+    return 0;
+}
+
+function parseFinanceInstallmentSchedule(lines) {
+    const rows = [];
+    const money = '(\\d{1,3}(?:\\.\\d{3})*,\\d{2})';
+    const balanceRowRegex = new RegExp(`^(\\d{1,3})(\\d{2}\\/\\d{2}\\/\\d{4})R\\$${money}R\\$${money}R\\$${money}\\s*\\/\\s*R\\$${money}(.*)$`, 'i');
+    const descriptiveRowRegex = new RegExp(`^(\\d{1,3})(\\d{2}\\/\\d{2}\\/\\d{4})R\\$${money}R\\$${money}R\\$${money}R\\$${money}(.*)$`, 'i');
+    lines.forEach(line => {
+        const compact = String(line || '').replace(/\s+/g, '');
+        let match = compact.match(balanceRowRegex);
+        let row;
+        if (match) {
+            row = {
+                number: Number(match[1]),
+                dueDate: match[2],
+                principal: parseBrazilianCurrency(match[3]),
+                interest: parseBrazilianCurrency(match[4]),
+                payment: parseBrazilianCurrency(match[5]),
+                anticipation: parseBrazilianCurrency(match[6]),
+                tail: match[7] || ''
+            };
+        } else {
+            match = compact.match(descriptiveRowRegex);
+            if (!match) return;
+            row = {
+                number: Number(match[1]),
+                dueDate: match[2],
+                payment: parseBrazilianCurrency(match[3]),
+                principal: parseBrazilianCurrency(match[4]),
+                interest: parseBrazilianCurrency(match[5]),
+                anticipation: parseBrazilianCurrency(match[6]),
+                tail: match[7] || ''
+            };
+        }
+        rows.push({
+            number: row.number,
+            dueDate: row.dueDate,
+            principal: row.principal,
+            interest: row.interest,
+            payment: row.payment,
+            anticipation: row.anticipation,
+            status: /PAGA/i.test(row.tail) || row.anticipation === 0 ? 'paga' : (/VENCER/i.test(row.tail) ? 'a vencer' : '')
+        });
+    });
+    return rows.filter(row => row.number > 0).sort((a, b) => a.number - b.number);
+}
+
+function mostCommonFinancePayment(schedule) {
+    const counts = new Map();
+    schedule.forEach(row => {
+        const value = Number(row.payment || 0);
+        if (value <= 0) return;
+        const key = value.toFixed(2);
+        counts.set(key, (counts.get(key) || 0) + 1);
+    });
+    let best = 0;
+    let bestCount = 0;
+    counts.forEach((count, key) => {
+        if (count > bestCount) {
+            best = Number(key);
+            bestCount = count;
+        }
+    });
+    return best;
+}
+
+function parseFinancePayslipItems(rawText) {
+    const lines = cleanPdfExtractedText(rawText)
+        .split(/\r?\n/)
+        .map(line => line.trim())
+        .filter(Boolean);
+    const items = [];
+
+    for (let i = 0; i < lines.length - 2; i += 1) {
+        const label = lines[i];
+        const codeLine = lines[i + 1] || '';
+        const periodLine = lines[i + 2] || '';
+        const valueLine = lines[i + 3] || '';
+        const codeMatch = codeLine.match(/^(\d{6})[A-Z]/i);
+        if (!codeMatch) continue;
+        if (!/\d{2}\/\d{2}\/\d{4}/.test(periodLine)) continue;
+        if (!/^-?\d{1,3}(?:\.\d{3})*,\d{2}$/.test(valueLine)) continue;
+
+        const code = codeMatch[1];
+        const item = {
+            id: `pm-${code}-${items.length + 1}`,
+            code,
+            label: label.replace(/\s+/g, ' ').trim(),
+            value: parseBrazilianCurrency(valueLine)
+        };
+        item.type = Number(code) >= 70000 ? 'discount' : 'credit';
+        items.push(item);
+    }
+
+    const credits = items.filter(item => item.type === 'credit').map(({ type, ...item }) => item);
+    const discounts = items.filter(item => item.type === 'discount').map(({ type, ...item }) => item);
+    const totals = {
+        credits: Number(credits.reduce((sum, item) => sum + item.value, 0).toFixed(2)),
+        discounts: Number(discounts.reduce((sum, item) => sum + item.value, 0).toFixed(2))
+    };
+
+    return { credits, discounts, totals };
+}
+
+function parseFinanceContractValuesLegacy(rawText) {
+    const text = cleanPdfExtractedText(rawText).replace(/\s+/g, ' ');
+    const moneyPattern = '(-?\\d{1,3}(?:\\.\\d{3})*,\\d{2})';
+    const pickMoney = (labelPattern) => {
+        const match = text.match(new RegExp(`(?:${labelPattern})[^\\d]{0,90}(?:R\\$\\s*)?${moneyPattern}`, 'i'));
+        return match ? parseBrazilianCurrency(match[1]) : 0;
+    };
+    const monthly = pickMoney('valor\\s+da\\s+parcela|valor\\s+parcela|parcela|prestacao|prestação|pagamento\\s+mensal|mensalidade');
+    const saldo = pickMoney('saldo\\s+devedor|saldo|valor\\s+atualizado|valor\\s+total|total\\s+da\\s+divida|total\\s+da\\s+dívida|debito|d[eé]bito');
+    const installmentsMatch = text.match(/(?:quantidade\s+de\s+parcelas|numero\s+de\s+parcelas|n[ºo]\s+de\s+parcelas|parcelas|presta[cç][oõ]es)[^\d]{0,40}(\d{1,3})/i)
+        || text.match(/(\d{1,3})\s*(?:parcelas|presta[cç][oõ]es|meses)/i);
+    const installments = installmentsMatch ? Number(installmentsMatch[1]) : 0;
+    const extracted = {};
+    if (monthly > 0) extracted.monthly = monthly;
+    if (saldo > 0) extracted.saldo = saldo;
+    if (installments > 0) extracted.installments = installments;
+    return Object.keys(extracted).length ? extracted : null;
+}
+
+function parseFinanceContractValues(rawText) {
+    const lines = parseFinanceContractLines(rawText);
+    const schedule = parseFinanceInstallmentSchedule(lines);
+    const monthly = mostCommonFinancePayment(schedule)
+        || pickFinanceMoneyNearLabel(lines, 'valor\\s+da\\(s\\)\\s+parcela\\(s\\)|valor\\s+da\\s+parcela')
+        || pickFinanceMoneyNearLabel(lines, 'valor\\s+parcela|valor\\s+prestacao|valor\\s+presta[cç][aã]o');
+    const saldo = pickFinanceMoneyNearLabel(lines, 'valor\\s+do\\s+saldo\\s+devedor|saldo\\s+devedor\\s+atualizado|valor\\s+total\\s+do\\(s\\)\\s+saldo\\(s\\)\\s+devedor\\(es\\)|saldo\\s+devedor|valor\\s+atualizado');
+    const totalInstallments = Math.max(
+        schedule.reduce((max, row) => Math.max(max, row.number || 0), 0),
+        pickFinanceIntegerNearLabel(lines, 'prazo\\s+total\\s+(?:da\\s+opera[cç][aã]o|em\\s+meses)|quantidade\\s+parcela|quantidade\\s+de\\s+parcelas')
+    );
+    const remainingInstallments = pickFinanceIntegerNearLabel(lines, 'prazo\\s+remanescente(?:\\s+em\\s+meses)?|parcelas\\s+a\\s+vencer');
+    const paidInstallments = schedule
+        .filter(row => row.status === 'paga' || Number(row.anticipation || 0) === 0)
+        .map(row => row.number)
+        .filter(number => Number.isInteger(number) && number > 0);
+    const paidCount = paidInstallments.length || (totalInstallments && remainingInstallments ? Math.max(0, totalInstallments - remainingInstallments) : 0);
+    const nextOpen = schedule.find(row => !paidInstallments.includes(row.number) && Number(row.anticipation || 0) > 0);
+    const lastOpen = [...schedule].reverse().find(row => !paidInstallments.includes(row.number) && Number(row.anticipation || 0) > 0);
+    const extracted = {};
+    if (monthly > 0) extracted.monthly = monthly;
+    if (saldo > 0) extracted.saldo = saldo;
+    if (totalInstallments > 0) extracted.installments = totalInstallments;
+    if (remainingInstallments > 0) extracted.remainingInstallments = remainingInstallments;
+    if (paidCount > 0) extracted.paid = paidCount;
+    if (paidInstallments.length) extracted.paidInstallments = paidInstallments;
+    if (nextOpen && nextOpen.anticipation > 0) {
+        extracted.anticipation = nextOpen.anticipation;
+        extracted.nextAnticipation = nextOpen.anticipation;
+    }
+    if (lastOpen && lastOpen.anticipation > 0) extracted.lastAnticipation = lastOpen.anticipation;
+    if (schedule.length) extracted.installmentSchedule = schedule;
+    return Object.keys(extracted).length ? extracted : parseFinanceContractValuesLegacy(rawText);
+}
+
+async function extractFinanceContractValues(sourceAbsolutePath, fileName) {
+    if (!/\.pdf$/i.test(String(fileName || sourceAbsolutePath))) return null;
+    const parsed = await pdfParse(fs.readFileSync(sourceAbsolutePath));
+    const values = parseFinanceContractValues(parsed.text || '');
+    return values ? {
+        engine: 'pdf-parse',
+        parser_version: 2,
+        extracted_at: nowIso(),
+        pages: Number(parsed.numpages || 0),
+        ...values
+    } : null;
+}
+
+function financeContractExtractionNeedsRefresh(contract) {
+    const extracted = contract && (contract.extracted || contract.extraction);
+    return Boolean(!extracted || extracted.parser_version !== 2);
+}
+
+async function refreshFinanceContractsState(state) {
+    if (!state || !Array.isArray(state.contracts)) return false;
+    let changed = false;
+    for (const contract of state.contracts) {
+        if (!financeContractExtractionNeedsRefresh(contract)) continue;
+        const relativePath = String(contract.path || '').replace(/^[/\\]+/, '');
+        if (!relativePath || !/\.pdf$/i.test(relativePath)) continue;
+        const absolutePath = path.join(ROOT_DIR, relativePath);
+        if (!fs.existsSync(absolutePath)) continue;
+        try {
+            const extracted = await extractFinanceContractValues(absolutePath, contract.fileName || absolutePath);
+            if (extracted) {
+                contract.extracted = extracted;
+                changed = true;
+            }
+        } catch (error) {
+            console.warn('[financas] contract refresh skipped:', error.message || error);
+        }
+    }
+    return changed;
+}
+
+async function extractFinancePayslip(sourceAbsolutePath) {
+    const parsed = await pdfParse(fs.readFileSync(sourceAbsolutePath));
+    const text = cleanPdfExtractedText(parsed.text || '');
+    const extraction = parseFinancePayslipItems(text);
+    return {
+        ok: true,
+        engine: 'pdf-parse',
+        extracted_at: nowIso(),
+        pages: Number(parsed.numpages || 0),
+        ...extraction
+    };
+}
+
+function resolveFinancePayslipPath(source) {
+    const raw = String(source || '').trim();
+    if (!raw) throw new Error('source required');
+    let relativePath = raw;
+    if (relativePath.startsWith('/docs/')) relativePath = relativePath.slice(1);
+    if (relativePath.startsWith('docs/')) {
+        const absolute = safeWorkspacePath(relativePath);
+        if (!fs.existsSync(absolute)) throw new Error(`Arquivo nao encontrado: ${relativePath}`);
+        return absolute;
+    }
+    throw new Error('Somente arquivos em docs/uploads podem ser extraidos por este endpoint.');
 }
 
 function inferProjectIdFromText(text) {
@@ -2585,7 +3315,12 @@ function inferProjectIdFromText(text) {
     if (haystack.includes('SAIS') || haystack.includes('SIZ')) return 'sais';
     if (haystack.includes('VELAS')) return 'velas';
     if (haystack.includes('ELECTRO')) return 'electro';
+    if (haystack.includes('FOREX') || haystack.includes('METATRADER') || haystack.includes('JFOREX') || haystack.includes('DUKASCOPY')) return normalizeProjectId('forex');
     if (haystack.includes('FINANCAS') || haystack.includes('FINANÇAS') || haystack.includes('DIVIDAS')) return 'financas';
+
+    if (haystack.includes('PAJERO') || haystack.includes('V77W') || haystack.includes('V5A51')) return normalizeProjectId('pajero');
+    if (haystack.includes('IMPOSTO DE RENDA') || haystack.includes('IRPF')) return normalizeProjectId('imposto-de-renda');
+    if (haystack.includes('SAUDE') || haystack.includes('SAÃšDE')) return normalizeProjectId('saude');
 
     for (const [projectId, project] of Object.entries(projects)) {
         const normalizedProject = normalizeProjectId(projectId);
@@ -3343,6 +4078,93 @@ const server = http.createServer(async (req, res) => {
             return;
         }
 
+        if (pathname === '/api/runtime/info' && req.method === 'GET') {
+            const rootLower = ROOT_DIR.toLowerCase();
+            return sendJson(res, {
+                ok: true,
+                port: PORT,
+                root_dir: ROOT_DIR,
+                docs_dir: DOCS_DIR,
+                dashboard_path: path.join(DOCS_DIR, 'aiox_dashboard.html'),
+                cwd: process.cwd(),
+                node_pid: process.pid,
+                workspace_hint: `${path.basename(path.dirname(ROOT_DIR))}/${path.basename(ROOT_DIR)}`,
+                is_antigravity_ide_workspace: rootLower.includes(`${path.sep}.gemini${path.sep}antigravity-ide${path.sep}`)
+            });
+        }
+
+        if (pathname === '/api/ibkr/status' && req.method === 'GET') {
+            if (!assertAllowedIbkrOrigin(req, res)) return;
+            return sendJson(res, await ibkrStatusPayload());
+        }
+
+        if (pathname === '/api/ibkr/intelligence' && req.method === 'GET') {
+            if (!assertAllowedIbkrOrigin(req, res)) return;
+            let symbol;
+            try {
+                symbol = normalizeIbkrSymbol(url.searchParams.get('symbol') || '');
+            } catch (error) {
+                return sendJson(res, { ok: false, error: error.message }, 400);
+            }
+            const config = loadIbkrIntegrationConfig();
+            if (!config.bridge.enabled) {
+                return sendJson(res, {
+                    ok: false,
+                    code: 'connector_disabled',
+                    error: config.configuration_error || 'Ponte local desligada. Não há cotação, notícia ou contrato a exibir.'
+                });
+            }
+            try {
+                const raw = await fetchIbkrLocalBridge(config, 'intelligence', { symbol });
+                return sendJson(res, {
+                    ok: true,
+                    symbol,
+                    mode: 'paper_only',
+                    data: normalizeIbkrIntelligence(raw, symbol, config.ranking_policy)
+                });
+            } catch (error) {
+                return sendJson(res, { ok: false, code: 'connector_unavailable', error: error.message }, 503);
+            }
+        }
+
+        if (pathname === '/api/ibkr/paper-tickets' && req.method === 'GET') {
+            if (!assertAllowedIbkrOrigin(req, res)) return;
+            return sendJson(res, { ok: true, mode: 'paper_only', ...loadIbkrPaperTickets() });
+        }
+
+        if (pathname === '/api/ibkr/paper-tickets' && req.method === 'POST') {
+            if (!assertAllowedIbkrOrigin(req, res)) return;
+            let body;
+            try {
+                body = await parseBody(req);
+            } catch (_) {
+                return sendJson(res, { ok: false, error: 'JSON inválido.' }, 400);
+            }
+            try {
+                const config = loadIbkrIntegrationConfig();
+                if (config.mode !== 'paper_only' || config.safeguards.allow_live_orders) throw new Error('O servidor está travado em paper_only.');
+                const ticket = createIbkrPaperTicket(body, randomUUID(), nowIso());
+                const tickets = loadIbkrPaperTickets();
+                tickets.items.unshift(ticket);
+                writeJsonAtomic(IBKR_PAPER_TICKETS_PATH, tickets);
+                return sendJson(res, { ok: true, mode: 'paper_only', ticket }, 201);
+            } catch (error) {
+                return sendJson(res, { ok: false, error: error.message || 'Rascunho paper inválido.' }, 400);
+            }
+        }
+
+        if (pathname.startsWith('/api/ibkr/paper-tickets/') && req.method === 'DELETE') {
+            if (!assertAllowedIbkrOrigin(req, res)) return;
+            const ticketId = decodeURIComponent(pathname.slice('/api/ibkr/paper-tickets/'.length)).trim();
+            if (!/^[a-z0-9-]{8,80}$/i.test(ticketId)) return sendJson(res, { ok: false, error: 'Identificador de rascunho inválido.' }, 400);
+            const tickets = loadIbkrPaperTickets();
+            const before = tickets.items.length;
+            tickets.items = tickets.items.filter(item => item.id !== ticketId);
+            if (before === tickets.items.length) return sendJson(res, { ok: false, error: 'Rascunho não encontrado.' }, 404);
+            writeJsonAtomic(IBKR_PAPER_TICKETS_PATH, tickets);
+            return sendJson(res, { ok: true, deleted_id: ticketId, mode: 'paper_only' });
+        }
+
         if (pathname === '/api/registry' && req.method === 'GET') return sendJson(res, ensureControlJson('registry.json', {}));
         if (pathname === '/api/build' && req.method === 'GET') return sendJson(res, ensureControlJson('build_state.json', { phases: [] }));
         if (pathname === '/api/ops' && req.method === 'GET') return sendJson(res, ensureControlJson('ops_state.json', { stages: [] }));
@@ -3902,6 +4724,94 @@ review_path: ${audit.review_path}
             }
         }
         // ── Finanças AI: upload de contrato ──
+        if (pathname === '/api/personas/assets/upload' && req.method === 'POST') {
+            try {
+                const form = await parseMultipartForm(req);
+                const personaId = String(form.fields.persona_id || form.fields.personaId || '').trim();
+                const normalizedKind = String(form.fields.kind || 'full_transcript').trim().toLowerCase();
+                const initiatedBy = String(form.fields.initiated_by || 'dashboard_asset_upload').trim();
+                const allowedKinds = new Set(['clone', 'transcript', 'full_transcript', 'support']);
+                if (!personaId) return sendJson(res, { error: 'persona_id requerido' }, 400);
+                if (!allowedKinds.has(normalizedKind)) return sendJson(res, { error: 'kind must be one of: clone, transcript, full_transcript, support' }, 400);
+
+                const file = form.files.find(item => item.field === 'file') || form.files[0];
+                if (!file || !file.data || !file.data.length) return sendJson(res, { error: 'arquivo requerido' }, 400);
+
+                const originalName = safeUploadFileName(file.filename || 'upload.bin');
+                const uploadsDir = path.join(DOCS_DIR, 'uploads', 'persona-assets');
+                ensureDir(uploadsDir);
+                const uploadName = `${Date.now()}_${originalName}`;
+                const uploadPath = uniqueDestinationPath(path.join(uploadsDir, uploadName));
+                writeBinaryFileAtomic(uploadPath, file.data);
+                const uploadRelPath = workspaceRelativePath(uploadPath);
+                const mimeType = inferMediaMimeType(originalName, file.contentType || '');
+
+                if (isTranscribableMediaUpload(originalName, mimeType)) {
+                    if (normalizedKind === 'clone') {
+                        throw new Error('Midia de audio/video deve ser anexada como transcript, full_transcript ou support, nao como clone_file.');
+                    }
+                    const transcriptResult = await transcribeLocalMediaWithGemini({
+                        filePath: uploadPath,
+                        mimeType,
+                        displayName: originalName
+                    });
+                    const transcriptSlug = slugifySegment(`${personaId}_${path.basename(originalName, path.extname(originalName))}`) || 'media_upload';
+                    const transcriptDir = path.join(ROOT_DIR, 'knowledge', 'clones', 'transcripts');
+                    ensureDir(transcriptDir);
+                    const transcriptName = `upload_${transcriptSlug}_${Date.now()}.md`;
+                    const transcriptPath = uniqueDestinationPath(path.join(transcriptDir, transcriptName));
+                    const markdown = buildUploadedMediaTranscriptMarkdown({
+                        sourceName: originalName,
+                        sourcePath: uploadRelPath,
+                        lines: transcriptResult.lines,
+                        mode: 'media_upload_transcript',
+                        model: transcriptResult.model
+                    });
+                    writeText(transcriptPath, `${markdown.trim()}\n`);
+                    const transcriptRelPath = workspaceRelativePath(transcriptPath);
+                    const linkResult = await attachPersonaAsset({
+                        personaId,
+                        kind: normalizedKind,
+                        sourcePath: transcriptRelPath,
+                        copyToLibrary: false,
+                        initiatedBy
+                    });
+                    return sendJson(res, {
+                        success: true,
+                        mode: 'media_upload_transcript',
+                        upload_file: uploadRelPath,
+                        file: transcriptRelPath,
+                        bytes: file.data.length,
+                        model: transcriptResult.model,
+                        api_key_source: transcriptResult.api_key_source,
+                        link: linkResult
+                    });
+                }
+
+                if (!isTextAssetUpload(originalName, file.contentType || '')) {
+                    throw new Error('Envie audio/video (.mp3, .mp4, .m4a, .wav, .webm, .mov) ou markdown/texto (.md, .txt).');
+                }
+
+                const linkResult = await attachPersonaAsset({
+                    personaId,
+                    kind: normalizedKind,
+                    sourcePath: uploadRelPath,
+                    copyToLibrary: true,
+                    initiatedBy
+                });
+                return sendJson(res, {
+                    success: true,
+                    mode: 'text_upload',
+                    upload_file: uploadRelPath,
+                    file: linkResult.path,
+                    bytes: file.data.length,
+                    link: linkResult
+                });
+            } catch (err) {
+                console.error('[ASSET UPLOAD] Ocorreu um erro:', err.message);
+                return sendJson(res, { error: 'Upload falhou: ' + err.message }, 500);
+            }
+        }
         if (pathname === '/api/fin/contract/upload' && req.method === 'POST') {
             const body = await parseBody(req);
             const creditorId = String(body.creditorId || '').trim();
@@ -3912,22 +4822,29 @@ review_path: ${audit.review_path}
             fs.mkdirSync(contractsDir, { recursive: true });
             const filePath = path.join(contractsDir, fileName);
             const base64Data = fileData.includes(',') ? fileData.split(',')[1] : fileData;
-            writeFileAtomic(filePath, Buffer.from(base64Data, 'base64'));
+            writeBinaryFileAtomic(filePath, Buffer.from(base64Data, 'base64'));
             const relPath = `projects/financas/contracts/${creditorId}/${fileName}`;
+            let extracted = null;
+            try {
+                extracted = await extractFinanceContractValues(filePath, fileName);
+            } catch (error) {
+                console.warn('[financas] contract extraction skipped:', error.message || error);
+            }
             // Atualiza finance_state.json
             const fsPath = path.join(ROOT_DIR, 'projects', 'financas', 'data', 'finance_state.json');
             let state = {};
             try { state = JSON.parse(fs.readFileSync(fsPath, 'utf8')); } catch(e) {}
             if (!state.contracts) state.contracts = [];
             state.contracts = state.contracts.filter(c => !(c.creditorId === creditorId && c.fileName === fileName));
-            state.contracts.push({ creditorId, fileName, path: relPath, uploadedAt: new Date().toISOString() });
+            state.contracts.push({ creditorId, fileName, path: relPath, uploadedAt: new Date().toISOString(), extracted });
             writeJsonAtomic(fsPath, state);
-            return sendJson(res, { ok: true, path: relPath, fileName, creditorId });
+            return sendJson(res, { ok: true, path: relPath, fileName, creditorId, extracted });
         }
         if (pathname === '/api/fin/contracts' && req.method === 'GET') {
             const fsPath = path.join(ROOT_DIR, 'projects', 'financas', 'data', 'finance_state.json');
             let state = {};
             try { state = JSON.parse(fs.readFileSync(fsPath, 'utf8')); } catch(e) {}
+            if (await refreshFinanceContractsState(state)) writeJsonAtomic(fsPath, state);
             return sendJson(res, { contracts: state.contracts || [] });
         }
         if (pathname === '/api/fin/contract/delete' && req.method === 'POST') {
@@ -3948,23 +4865,66 @@ review_path: ${audit.review_path}
         if (pathname === '/api/cloud-sync/status' && req.method === 'GET') return sendJson(res, loadCloudSyncState());
         if (pathname === '/api/snapshots' && req.method === 'GET') return sendJson(res, ensureControlJson(FILES.snapshots, { snapshots: [] }));
 
+        if (pathname.startsWith('/api/registry/personas/') && req.method === 'DELETE') {
+            const personaId = decodeURIComponent(pathname.slice('/api/registry/personas/'.length)).replace(/^\/+|\/+$/g, '');
+            if (!personaId) return sendJson(res, { error: 'persona id required' }, 400);
+
+            const registry = ensureControlJson('registry.json', {});
+            registry.personas = asArray(registry.personas);
+            const persona = registry.personas.find(item => item && item.id === personaId);
+            const beforeCount = registry.personas.length;
+            registry.personas = registry.personas.filter(item => item && item.id !== personaId);
+
+            const materials = loadPersonaMaterials();
+            const beforeMaterials = asArray(materials.items).length;
+            materials.items = asArray(materials.items).filter(item => item && item.persona_id !== personaId);
+            const removedMaterials = beforeMaterials - materials.items.length;
+
+            if (beforeCount === registry.personas.length && !removedMaterials) {
+                return sendJson(res, { error: 'persona not found', id: personaId }, 404);
+            }
+
+            writeControlJson('registry.json', registry);
+            writeControlJson(FILES.personaMaterials, materials);
+            appendExecutionLog('registry_delete', personaId, `Clone/persona removido do registro: ${(persona && persona.name) || personaId}`, 'master_clone_delete', null, (persona && persona.project_id) || null);
+            appendMemoryMutation('registry', `Clone/persona removido do registro: ${(persona && persona.name) || personaId}. Arquivos fisicos preservados.`, 'master_clone_delete', (persona && persona.project_id) || null);
+            return sendJson(res, {
+                success: true,
+                persona_id: personaId,
+                removed_persona: beforeCount !== registry.personas.length,
+                removed_materials: removedMaterials,
+                files_preserved: true
+            });
+        }
+
         if (pathname === '/api/registry/personas' && req.method === 'POST') {
             const body = await parseBody(req);
             if (!body.name) return sendJson(res, { error: 'name required' }, 400);
             const registry = ensureControlJson('registry.json', {});
             registry.personas = asArray(registry.personas);
-            const id = `prs-${body.name.toLowerCase().replace(/\s+/g, '-')}`;
-            if (registry.personas.some(item => item && item.id === id)) {
-                return sendJson(res, { error: 'persona already exists', id }, 409);
+            const projectId = normalizeProjectId(body.project_id || null) || null;
+            const baseId = slugifyIdSegment(body.id || body.name) || `persona-${Date.now()}`;
+            let id = baseId.startsWith('prs-') ? baseId : `prs-${baseId}`;
+            const existingIds = new Set(registry.personas.map(item => item && item.id).filter(Boolean));
+            const originalId = id;
+            let suffix = 2;
+            while (existingIds.has(id)) {
+                id = `${originalId}-${suffix}`;
+                suffix += 1;
             }
+            const ownerAgents = uniquePaths([
+                ...asArray(body.agents).map(item => String(item || '').trim()).filter(Boolean),
+                String(body.agent_handle || '').trim()
+            ].filter(Boolean));
             const persona = {
                 id,
                 icon: body.icon || 'ðŸ‘¤',
-                name: body.name,
+                name: String(body.name || '').trim(),
                 role: body.role || 'Nova Persona',
                 traits: body.traits || [],
                 bio: body.bio || '',
-                agents: body.agents || []
+                agents: ownerAgents,
+                project_id: projectId
             };
             registry.personas.push(persona);
             writeControlJson('registry.json', registry);
@@ -3972,9 +4932,25 @@ review_path: ${audit.review_path}
             ensureDir(personaDir);
             const personaFile = path.join(personaDir, `${id}.md`);
             if (!fs.existsSync(personaFile)) writeText(personaFile, `# Persona ${body.name}\n\nGuia da persona.\n`);
+            const cloneDir = safeWorkspacePath(personaCloneDirForProject(projectId));
+            ensureDir(cloneDir);
+            const cloneBaseName = slugifySegment(persona.name) || id.replace(/^prs-/, '') || 'clone';
+            const cloneFullPath = uniqueDestinationPath(path.join(cloneDir, `${cloneBaseName}_clone.md`));
+            const cloneRelPath = workspaceRelativePath(cloneFullPath);
+            if (!fs.existsSync(cloneFullPath)) {
+                writeText(cloneFullPath, buildPersonaCloneStarterMarkdown({ persona, projectId, cloneRelPath }));
+            }
             const synced = findPersonaMaterialEntry(id, true);
+            if (synced.entry) {
+                synced.entry.clone_file = cloneRelPath;
+                synced.entry.transcript_files = uniquePaths(asArray(synced.entry.transcript_files));
+                synced.entry.full_transcript_files = uniquePaths(asArray(synced.entry.full_transcript_files));
+                synced.entry.support_files = uniquePaths(asArray(synced.entry.support_files));
+            }
             writeControlJson(FILES.personaMaterials, synced.materials);
-            return sendJson(res, { success: true, persona });
+            appendExecutionLog('registry_create', id, `Clone/persona criado: ${persona.name}`, body.initiated_by || 'human', null, projectId);
+            appendMemoryMutation('registry', `Novo clone/persona registrado: ${persona.name}`, body.initiated_by || 'human', projectId);
+            return sendJson(res, { success: true, persona, clone_file: cloneRelPath, file_path: `.codex/personas/${id}.md` });
         }
 
         if (pathname === '/api/registry/agents' && req.method === 'POST') {
@@ -4089,41 +5065,50 @@ review_path: ${audit.review_path}
         }
 
         // ── Upload de arquivo para nó do MAPA ──────────────────────────
+        if (pathname === '/api/aiox-master-next/save' && req.method === 'POST') {
+            const body = await parseBody(req);
+            if (!body || typeof body !== 'object') return sendJson(res, { error: 'invalid payload' }, 400);
+            const nextStatePath = path.join(CONTROL_DIR, 'aiox_master_next_state.json');
+            writeJsonAtomic(nextStatePath, body, 2);
+            return sendJson(res, { ok: true, savedAt: new Date().toISOString(), path: 'docs/control/aiox_master_next_state.json' });
+        }
+
+        if (pathname === '/api/aiox-master-next/load' && req.method === 'GET') {
+            const nextStatePath = path.join(CONTROL_DIR, 'aiox_master_next_state.json');
+            if (!fs.existsSync(nextStatePath)) return sendJson(res, { ok: false, data: null });
+            try {
+                const data = JSON.parse(fs.readFileSync(nextStatePath, 'utf8'));
+                return sendJson(res, { ok: true, data });
+            } catch (e) {
+                return sendJson(res, { ok: false, data: null });
+            }
+        }
+
         if (pathname === '/api/files/upload' && req.method === 'POST') {
             const uploadsDir = path.join(DOCS_DIR, 'uploads');
-            if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
-            const contentType = req.headers['content-type'] || '';
-            const boundary = contentType.match(/boundary=([^\s;]+)/);
-            if (!boundary) return sendJson(res, { error: 'multipart boundary missing' }, 400);
-            const chunks = [];
-            for await (const chunk of req) chunks.push(chunk);
-            const raw = Buffer.concat(chunks);
-            const boundaryBuf = Buffer.from('--' + boundary[1]);
-            const parts = [];
-            let start = 0;
-            while (true) {
-                const idx = raw.indexOf(boundaryBuf, start);
-                if (idx === -1) break;
-                if (start > 0) parts.push(raw.slice(start, idx - 2));
-                start = idx + boundaryBuf.length + 2;
+            ensureDir(uploadsDir);
+            try {
+                const form = await parseMultipartForm(req);
+                const file = form.files.find(item => item.field === 'file') || form.files[0];
+                if (!file || !file.data || !file.data.length) return sendJson(res, { error: 'no file in request' }, 400);
+                const safeName = `${Date.now()}_${safeUploadFileName(file.filename || 'upload.bin')}`;
+                const destPath = uniqueDestinationPath(path.join(uploadsDir, safeName));
+                writeBinaryFileAtomic(destPath, file.data);
+                return sendJson(res, { url: `/docs/uploads/${path.basename(destPath)}` });
+            } catch (error) {
+                return sendJson(res, { error: error.message || 'upload failed' }, 400);
             }
-            let savedUrl = null;
-            for (const part of parts) {
-                const headerEnd = part.indexOf('\r\n\r\n');
-                if (headerEnd === -1) continue;
-                const headers = part.slice(0, headerEnd).toString();
-                const body = part.slice(headerEnd + 4);
-                const nameMatch = headers.match(/name="([^"]+)"/);
-                const fileMatch = headers.match(/filename="([^"]+)"/);
-                if (!nameMatch || nameMatch[1] !== 'file' || !fileMatch) continue;
-                const origName = fileMatch[1].replace(/[^a-zA-Z0-9._-]/g, '_');
-                const safeName = Date.now() + '_' + origName;
-                const destPath = path.join(uploadsDir, safeName);
-                writeFileAtomic(destPath, body);
-                savedUrl = `/docs/uploads/${safeName}`;
+        }
+
+        if (pathname === '/api/financas/payslip/extract' && req.method === 'POST') {
+            try {
+                const body = await parseBody(req);
+                const sourceAbsolute = resolveFinancePayslipPath(body.url || body.path);
+                const extraction = await extractFinancePayslip(sourceAbsolute);
+                return sendJson(res, extraction);
+            } catch (error) {
+                return sendJson(res, { ok: false, error: error.message || 'Falha ao extrair holerite.' }, 400);
             }
-            if (savedUrl) return sendJson(res, { url: savedUrl });
-            return sendJson(res, { error: 'no file in request' }, 400);
         }
 
         if (pathname === '/api/registry/squads' && req.method === 'POST') {
@@ -4465,6 +5450,8 @@ review_path: ${audit.review_path}
             });
             return sendJson(res, {
                 success: true,
+                local_saved: true,
+                cloud_succeeded: cloudSyncSucceeded(cloudResult.status),
                 checkpoint_id: closeResult.checkpoint_id || null,
                 session: closeResult.session || null,
                 cloud: cloudResult

@@ -1,0 +1,1282 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AIOX Master Next</title>
+  <link rel="icon" href="data:,">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --bg:#071014;
+      --panel:#0c151b;
+      --panel2:#111b23;
+      --line:rgba(255,255,255,.10);
+      --muted:#82919e;
+      --text:#eef6f8;
+      --green:#16b981;
+      --blue:#38bdf8;
+      --gold:#d7a84f;
+      --rose:#fb7185;
+      --violet:#a78bfa;
+    }
+    * { box-sizing:border-box; }
+    html, body { height:100%; margin:0; background:var(--bg); color:var(--text); font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif; overflow:hidden; }
+    button, input, select, textarea { font:inherit; }
+    button { cursor:pointer; }
+    .app { height:100vh; display:grid; grid-template-columns:72px 1fr; grid-template-rows:56px 1fr; }
+    .rail { grid-row:1 / span 2; border-right:1px solid var(--line); background:#091216; display:flex; flex-direction:column; align-items:center; gap:8px; padding:10px 8px; }
+    .brand-dot { width:38px; height:38px; border-radius:12px; display:grid; place-items:center; background:linear-gradient(135deg,var(--green),var(--blue)); color:#061114; font-weight:950; letter-spacing:-.08em; }
+    .rail-btn { width:46px; height:46px; border:1px solid transparent; border-radius:10px; background:transparent; color:#6f7f8b; display:grid; place-items:center; transition:.16s; }
+    .rail-btn.active, .rail-btn:hover { color:var(--text); border-color:rgba(56,189,248,.28); background:rgba(56,189,248,.08); }
+    .topbar { grid-column:2; border-bottom:1px solid var(--line); background:rgba(9,18,22,.94); display:flex; align-items:center; gap:10px; padding:8px 14px; min-width:0; }
+    .top-title { min-width:154px; }
+    .top-title strong { display:block; font-size:12px; letter-spacing:.18em; text-transform:uppercase; }
+    .top-title span { display:block; color:var(--muted); font-size:9px; margin-top:2px; text-transform:uppercase; letter-spacing:.12em; white-space:nowrap; }
+    .top-select, .top-input { height:34px; border:1px solid var(--line); background:#0e181f; color:var(--text); border-radius:8px; padding:0 10px; min-width:160px; outline:none; }
+    .top-spacer { flex:1; min-width:12px; }
+    .btn { height:34px; border:1px solid var(--line); color:#dbeafe; background:#101c24; border-radius:8px; padding:0 10px; display:inline-flex; align-items:center; gap:7px; font-weight:850; font-size:10px; text-transform:uppercase; letter-spacing:.08em; white-space:nowrap; transition:.16s; }
+    .btn:hover { border-color:rgba(56,189,248,.38); background:#13242e; }
+    .btn.primary { background:rgba(22,185,129,.12); border-color:rgba(22,185,129,.34); color:#bbf7d0; }
+    .btn.gold { background:rgba(215,168,79,.12); border-color:rgba(215,168,79,.34); color:#fde68a; }
+    .btn.active { border-color:rgba(251,191,36,.55); background:rgba(251,191,36,.12); color:#fde68a; }
+    .btn.icon { width:34px; justify-content:center; padding:0; }
+    .btn:disabled { opacity:.42; cursor:not-allowed; border-color:rgba(255,255,255,.07); background:#0b151b; }
+    .stage-tabs { display:flex; gap:6px; }
+    .stage-tab { height:30px; border:1px solid var(--line); border-radius:999px; background:rgba(255,255,255,.03); color:var(--muted); padding:0 10px; font-size:9px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; }
+    .stage-tab.active { color:var(--text); border-color:rgba(167,139,250,.4); background:rgba(167,139,250,.12); }
+    .workspace { grid-column:2; position:relative; overflow:hidden; background:#071014; }
+    .canvas-viewport { position:absolute; inset:0; overflow:hidden; background-image:radial-gradient(rgba(148,163,184,.17) 1px, transparent 1px); background-size:28px 28px; }
+    .world { position:absolute; left:0; top:0; width:3200px; height:1600px; transform-origin:0 0; }
+    .edge-layer { position:absolute; inset:0; width:3200px; height:1600px; overflow:visible; pointer-events:none; }
+    .node-layer { position:absolute; inset:0; }
+    .node { position:absolute; width:188px; min-height:98px; border:1px solid rgba(148,163,184,.22); background:rgba(12,21,27,.96); border-radius:12px; box-shadow:0 18px 42px rgba(0,0,0,.32); padding:10px 10px 9px; transition:border-color .15s, box-shadow .15s, transform .15s; user-select:none; }
+    .node:hover { border-color:rgba(56,189,248,.45); }
+    .node.selected { border-color:rgba(56,189,248,.82); box-shadow:0 0 0 2px rgba(56,189,248,.16), 0 22px 48px rgba(0,0,0,.38); }
+    .node.connect-source { border-color:rgba(215,168,79,.9); box-shadow:0 0 0 2px rgba(215,168,79,.18); }
+    .node.next-action { border-color:rgba(215,168,79,.72); box-shadow:0 0 0 2px rgba(215,168,79,.12), 0 18px 42px rgba(0,0,0,.32); }
+    .seq-pill { position:absolute; left:-9px; top:-9px; width:24px; height:24px; border:2px solid #071014; border-radius:999px; background:#d7a84f; color:#071014; display:grid; place-items:center; font-size:10px; font-weight:950; }
+    .node-header { display:flex; align-items:flex-start; gap:8px; }
+    .node-kind { width:28px; height:28px; border-radius:8px; flex:0 0 auto; display:grid; place-items:center; color:#061114; background:var(--blue); }
+    .node-title { min-width:0; flex:1; }
+    .node-title strong { display:block; font-size:11px; line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .node-title span { display:block; color:var(--muted); font-size:8px; margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-transform:uppercase; letter-spacing:.08em; }
+    .status-dot { width:8px; height:8px; border-radius:999px; margin-top:3px; flex:0 0 auto; box-shadow:0 0 12px currentColor; }
+    .node-summary { margin:9px 0 8px; color:#b9c6cf; font-size:9px; line-height:1.35; min-height:24px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .node-foot { display:flex; align-items:center; justify-content:space-between; gap:6px; color:var(--muted); font-size:8px; font-weight:850; text-transform:uppercase; letter-spacing:.07em; }
+    .node-progress { height:4px; border-radius:999px; background:rgba(255,255,255,.06); overflow:hidden; margin-top:8px; }
+    .node-progress span { display:block; height:100%; background:linear-gradient(90deg,var(--green),var(--blue)); }
+    .handle { position:absolute; right:-8px; top:50%; width:16px; height:16px; border-radius:999px; transform:translateY(-50%); border:2px solid #071014; background:var(--blue); padding:0; cursor:crosshair; }
+    .handle:hover { transform:translateY(-50%) scale(1.18); box-shadow:0 0 0 5px rgba(56,189,248,.16); }
+    .connect-guide { position:absolute; left:18px; top:16px; z-index:8; border:1px solid rgba(215,168,79,.34); background:rgba(16,24,30,.94); color:#fde68a; border-radius:10px; padding:9px 12px; font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; transform:translateY(-130%); opacity:0; transition:.16s; pointer-events:none; }
+    .connect-guide.active { opacity:1; transform:translateY(0); }
+    .hint { position:absolute; left:18px; bottom:16px; border:1px solid var(--line); background:rgba(9,18,22,.88); border-radius:10px; color:var(--muted); padding:9px 12px; font-size:10px; display:flex; gap:14px; align-items:center; }
+    .zoom-pill { position:absolute; right:18px; bottom:16px; border:1px solid var(--line); background:rgba(9,18,22,.88); border-radius:999px; padding:8px 12px; color:#cbd5e1; font-size:10px; font-weight:900; }
+    .drawer { position:absolute; right:14px; top:14px; bottom:14px; width:430px; border:1px solid rgba(255,255,255,.12); background:rgba(10,17,22,.98); box-shadow:0 28px 80px rgba(0,0,0,.46); border-radius:14px; transform:translateX(calc(100% + 24px)); transition:.18s; display:flex; flex-direction:column; z-index:10; overflow:hidden; }
+    .drawer.open { transform:translateX(0); }
+    .drawer-head { padding:14px; border-bottom:1px solid var(--line); display:flex; align-items:flex-start; gap:10px; }
+    .drawer-title { flex:1; min-width:0; }
+    .drawer-title strong { display:block; font-size:14px; }
+    .drawer-title span { display:block; color:var(--muted); font-size:9px; margin-top:3px; text-transform:uppercase; letter-spacing:.10em; }
+    .drawer-body { padding:14px; overflow:auto; display:flex; flex-direction:column; gap:12px; }
+    .section { border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.025); border-radius:10px; padding:10px; }
+    .section-title { color:#dbeafe; font-size:9px; font-weight:950; text-transform:uppercase; letter-spacing:.12em; margin-bottom:8px; display:flex; justify-content:space-between; gap:8px; }
+    .field { display:flex; flex-direction:column; gap:5px; margin-bottom:9px; }
+    .field label { color:var(--muted); font-size:8px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; }
+    .field input, .field select, .field textarea { border:1px solid rgba(255,255,255,.10); background:#0d171e; color:var(--text); border-radius:8px; padding:8px; outline:none; font-size:11px; }
+    .field textarea { resize:vertical; min-height:72px; }
+    .chips { display:flex; flex-wrap:wrap; gap:6px; }
+    .chip { border:1px solid rgba(255,255,255,.10); border-radius:999px; background:rgba(255,255,255,.035); color:#d1d5db; padding:5px 8px; font-size:8px; font-weight:850; }
+    .chip button { border:0; background:transparent; color:#94a3b8; margin-left:5px; padding:0; }
+    .pick-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; max-height:150px; overflow:auto; }
+    .pick { border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.03); color:#dbeafe; border-radius:8px; padding:7px; text-align:left; font-size:9px; line-height:1.25; }
+    .pick small { display:block; color:var(--muted); margin-top:3px; }
+    .pick.recommended { border-color:rgba(215,168,79,.26); background:rgba(215,168,79,.055); }
+    .pick em { display:inline-block; margin-top:5px; border:1px solid rgba(255,255,255,.08); border-radius:999px; padding:2px 5px; color:#fde68a; font-size:7px; font-style:normal; text-transform:uppercase; letter-spacing:.06em; }
+    .file-row, .run-row { display:flex; align-items:center; justify-content:space-between; gap:8px; border-bottom:1px solid rgba(255,255,255,.06); padding:7px 0; font-size:10px; color:#cbd5e1; }
+    .file-row:last-child, .run-row:last-child { border-bottom:0; }
+    .check-row { display:flex; gap:8px; align-items:center; padding:5px 0; color:#cbd5e1; font-size:10px; }
+    .check-row input { width:14px; height:14px; }
+    .modal { position:absolute; inset:0; background:rgba(2,6,9,.62); display:none; place-items:center; z-index:30; }
+    .modal.open { display:grid; }
+    .modal-card { width:min(560px, calc(100vw - 36px)); border:1px solid rgba(255,255,255,.14); background:#0c151b; border-radius:14px; box-shadow:0 30px 90px rgba(0,0,0,.5); padding:16px; }
+    .modal-card.wide { width:min(820px, calc(100vw - 36px)); }
+    .modal-card h2 { margin:0 0 12px; font-size:16px; }
+    .modal-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:14px; }
+    .template-grid { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:9px; max-height:470px; overflow:auto; padding-right:3px; }
+    .template-card { border:1px solid rgba(255,255,255,.09); background:rgba(255,255,255,.035); color:#dbeafe; border-radius:10px; padding:10px; text-align:left; min-height:118px; display:flex; flex-direction:column; gap:6px; }
+    .template-card:hover { border-color:rgba(56,189,248,.35); background:rgba(56,189,248,.07); }
+    .template-card strong { font-size:12px; line-height:1.2; }
+    .template-card span { color:var(--muted); font-size:8px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; }
+    .template-card small { color:#b9c6cf; font-size:10px; line-height:1.35; }
+    .template-meta { margin-top:auto; display:flex; gap:6px; flex-wrap:wrap; }
+    .template-meta em { border:1px solid rgba(255,255,255,.09); border-radius:999px; padding:4px 7px; color:#cbd5e1; font-size:8px; font-style:normal; text-transform:uppercase; letter-spacing:.06em; }
+    .team-board { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; }
+    .team-card { border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.025); border-radius:8px; padding:8px; min-width:0; }
+    .team-card strong { display:block; font-size:15px; line-height:1; color:#e0f2fe; }
+    .team-card span { display:block; color:var(--muted); font-size:8px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; margin-top:4px; }
+    .production-list { margin:0; padding-left:16px; color:#cbd5e1; font-size:10px; line-height:1.55; }
+    .production-list li { margin:3px 0; }
+    @media (max-width: 920px) {
+      .app { grid-template-columns:56px 1fr; grid-template-rows:104px 1fr; }
+      .rail { padding:8px 5px; }
+      .topbar { flex-wrap:wrap; align-content:center; }
+      .stage-tabs { order:3; width:100%; overflow:auto; }
+      .drawer { left:70px; right:10px; width:auto; }
+      .template-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside class="rail" aria-label="AIOX Next">
+    <div class="brand-dot">AX</div>
+    <button class="rail-btn active" title="Canvas" data-view="canvas"><i data-lucide="git-branch" width="20"></i></button>
+    <button class="rail-btn" title="Agentes" onclick="openLibrary('agents')"><i data-lucide="bot" width="20"></i></button>
+    <button class="rail-btn" title="Skills" onclick="openLibrary('skills')"><i data-lucide="sparkles" width="20"></i></button>
+    <button class="rail-btn" title="Clones" onclick="openLibrary('personas')"><i data-lucide="users" width="20"></i></button>
+  </aside>
+
+  <header class="topbar">
+    <div class="top-title"><strong>AIOX Master Next</strong><span id="runtimeLabel">workspace isolado</span></div>
+    <select id="projectSelect" class="top-select" onchange="selectProject(this.value)"></select>
+    <div class="stage-tabs" id="stageTabs"></div>
+    <div class="top-spacer"></div>
+    <button class="btn" onclick="openTemplateLibrary()"><i data-lucide="blocks" width="15"></i>Templates</button>
+    <button id="undoBtn" class="btn icon" onclick="undoNext()" title="Desfazer"><i data-lucide="undo-2" width="15"></i></button>
+    <button id="redoBtn" class="btn icon" onclick="redoNext()" title="Refazer"><i data-lucide="redo-2" width="15"></i></button>
+    <button class="btn" onclick="openGuidedProductModal()"><i data-lucide="route" width="15"></i>Produto guiado</button>
+    <button class="btn" onclick="openProjectModal()"><i data-lucide="plus" width="15"></i>Novo projeto</button>
+    <button class="btn" onclick="openNodeModal()"><i data-lucide="circle-plus" width="15"></i>Novo no</button>
+    <button id="connectBtn" class="btn" onclick="toggleConnectMode()"><i data-lucide="link-2" width="15"></i>Conectar</button>
+    <button class="btn gold" onclick="runSelectedOrProject()"><i data-lucide="play" width="15"></i>Start/Avancar</button>
+    <button class="btn primary" onclick="saveNow()"><i data-lucide="save" width="15"></i>Salvar tudo</button>
+  </header>
+
+  <main class="workspace">
+    <div id="connectGuide" class="connect-guide">Escolha o no de origem</div>
+    <div id="viewport" class="canvas-viewport">
+      <div id="world" class="world">
+        <svg id="edges" class="edge-layer"></svg>
+        <div id="nodes" class="node-layer"></div>
+      </div>
+    </div>
+    <div class="hint"><span>Arraste o fundo para navegar</span><span>Scroll ajusta zoom</span><span>Clique no no para configurar</span></div>
+    <div id="zoomPill" class="zoom-pill">100%</div>
+
+    <aside id="drawer" class="drawer" aria-label="Node editor">
+      <div class="drawer-head">
+        <div class="drawer-title"><strong id="drawerTitle">No selecionado</strong><span id="drawerSub">Configurar workflow</span></div>
+        <button class="btn" onclick="closeDrawer()"><i data-lucide="x" width="14"></i></button>
+      </div>
+      <div id="drawerBody" class="drawer-body"></div>
+    </aside>
+
+    <div id="projectModal" class="modal">
+      <div class="modal-card">
+        <h2>Novo projeto operacional</h2>
+        <div class="field"><label>Nome</label><input id="newProjectName" value="Novo Produto Digital"></div>
+        <div class="field"><label>Descricao</label><textarea id="newProjectDesc">Fluxo completo para construir e vender um produto digital com squads, agentes, clones e QA.</textarea></div>
+        <div class="modal-actions">
+          <button class="btn" onclick="closeProjectModal()">Cancelar</button>
+          <button class="btn primary" onclick="createProjectFromModal()">Criar agora</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="guidedProductModal" class="modal">
+      <div class="modal-card wide">
+        <h2>Produto guiado sequencial</h2>
+        <div class="field"><label>Produto</label><input id="guidedProductName" value="Velas Aromaticas"></div>
+        <div class="field"><label>Entregavel principal</label><input id="guidedMainDeliverable" value="Guia Velas Aromaticas do Zero"></div>
+        <div class="field"><label>Free 1</label><input id="guidedFreeOne" value="Checklist de Materiais e Fornecedores"></div>
+        <div class="field"><label>Free 2</label><input id="guidedFreeTwo" value="Mini Guia de Aromas e Combinacoes"></div>
+        <div class="field"><label>Order Bump 1</label><input id="guidedBumpOne" value="Calculadora de Preco e Lucro"></div>
+        <div class="field"><label>Order Bump 2</label><input id="guidedBumpTwo" value="Pack de Etiquetas e Cartoes"></div>
+        <div class="modal-actions">
+          <button class="btn" onclick="closeGuidedProductModal()">Cancelar</button>
+          <button class="btn primary" onclick="createGuidedProductFromModal()">Criar esteira</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="nodeModal" class="modal">
+      <div class="modal-card">
+        <h2>Novo no no canvas</h2>
+        <div class="field"><label>Nome</label><input id="newNodeLabel" value="Novo passo"></div>
+        <div class="field"><label>Tipo</label><select id="newNodeType"></select></div>
+        <div class="field"><label>Squad</label><select id="newNodeSquad"></select></div>
+        <div class="modal-actions">
+          <button class="btn" onclick="closeNodeModal()">Cancelar</button>
+          <button class="btn primary" onclick="createNodeFromModal()">Adicionar</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="libraryModal" class="modal">
+      <div class="modal-card">
+        <h2 id="libraryTitle">Biblioteca</h2>
+        <div id="libraryBody" class="pick-grid"></div>
+        <div class="modal-actions"><button class="btn primary" onclick="closeLibrary()">Fechar</button></div>
+      </div>
+    </div>
+
+    <div id="templateModal" class="modal">
+      <div class="modal-card wide">
+        <h2>Templates de workflow</h2>
+        <div id="templateBody" class="template-grid"></div>
+        <div class="modal-actions">
+          <button class="btn" onclick="closeTemplateLibrary()">Fechar</button>
+          <button class="btn primary" onclick="closeTemplateLibrary(); openNodeModal()">No em branco</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+const NEXT_STATE_KEY = 'aiox.master.next.state.v1';
+const NODE_TYPES = [
+  ['strategy','Estrategia'], ['market','Mercado'], ['ebook','E-book'], ['copy','Copy'],
+  ['design','Design'], ['page','Pagina'], ['checkout','Checkout'], ['delivery','Entrega'],
+  ['qa','QA'], ['automation','Automacao']
+];
+const STAGES = [
+  ['all','Tudo'], ['strategy','Estrategia'], ['ebook','E-book'], ['sales','Vendas'], ['delivery','Entrega'], ['ops','Operacao']
+];
+const STATUS = {
+  draft:{label:'Rascunho', color:'#64748b'},
+  pending:{label:'Preparando', color:'#a78bfa'},
+  in_progress:{label:'Em curso', color:'#d7a84f'},
+  blocked:{label:'Bloqueado', color:'#fb7185'},
+  completed:{label:'Concluido', color:'#16b981'}
+};
+const TYPE_COLOR = {
+  strategy:'#a78bfa', market:'#38bdf8', ebook:'#16b981', copy:'#d7a84f', design:'#f472b6',
+  page:'#60a5fa', checkout:'#34d399', delivery:'#14b8a6', qa:'#fb7185', automation:'#f59e0b'
+};
+const NODE_TEMPLATES = [
+  {
+    id:'brief-produto',
+    label:'Brief de Produto Digital',
+    type:'strategy',
+    squad:'SQD-CORE',
+    group:'Estrategia',
+    summary:'Define avatar, promessa, transformacao, escopo e criterio de sucesso do produto.',
+    checks:['Avatar principal definido','Promessa mensuravel escrita','Escopo e limites aprovados']
+  },
+  {
+    id:'mecanismo-unico',
+    label:'Pesquisa e Mecanismo Unico',
+    type:'market',
+    squad:'SQD-MKF',
+    group:'Estrategia',
+    summary:'Organiza dores, desejos, concorrentes e o mecanismo que sustenta a oferta.',
+    checks:['Concorrentes mapeados','Dores e objeccoes agrupadas','Mecanismo unico validado']
+  },
+  {
+    id:'sumario-ebook',
+    label:'Indice Mestre do E-book',
+    type:'ebook',
+    squad:'SQD-CNT',
+    group:'E-book',
+    summary:'Converte a promessa em sumario, capitulos, ordem didatica e entregaveis.',
+    checks:['Jornada didatica definida','Capitulos listados','Entrega final descrita']
+  },
+  {
+    id:'capitulo-ebook',
+    label:'Capitulo do E-book',
+    type:'ebook',
+    squad:'SQD-CNT',
+    group:'E-book',
+    summary:'Bloco reutilizavel para escrever, revisar e anexar um capitulo do material.',
+    checks:['Objetivo do capitulo escrito','Rascunho revisado','Arquivo anexado']
+  },
+  {
+    id:'copy-pagina',
+    label:'Copy da Pagina de Vendas',
+    type:'copy',
+    squad:'SQD-CNT',
+    group:'Vendas',
+    summary:'Estrutura headline, lead, bullets, prova, oferta, garantias e chamadas para acao.',
+    checks:['Headline criada','Provas e bullets escritos','Oferta revisada']
+  },
+  {
+    id:'landing-page',
+    label:'Landing Page Completa',
+    type:'page',
+    squad:'SQD-EXP',
+    group:'Vendas',
+    summary:'Monta hero, narrativa, oferta, FAQ, mobile e pontos de conversao.',
+    checks:['Hero publicado','Secoes essenciais montadas','Mobile e velocidade verificados']
+  },
+  {
+    id:'checkout-bump',
+    label:'Checkout com Bump/Upsell',
+    type:'checkout',
+    squad:'SQD-ENG',
+    group:'Vendas',
+    summary:'Configura pagamento, bump, upsell, webhooks e teste de compra.',
+    checks:['Produto cadastrado','Bump/upsell configurados','Compra teste concluida']
+  },
+  {
+    id:'area-membros',
+    label:'Area de Membros e Entrega',
+    type:'delivery',
+    squad:'SQD-ENG',
+    group:'Entrega',
+    summary:'Prepara acesso, arquivos, e-mails, automacoes e experiencia pos-compra.',
+    checks:['Arquivos anexados','Acesso testado','Email de entrega pronto']
+  },
+  {
+    id:'automacao-agente',
+    label:'Execucao por Agente',
+    type:'automation',
+    squad:'SQD-ENG',
+    group:'Operacao',
+    summary:'Cria uma etapa de automacao com agente, skill, entrada, saida e auditoria.',
+    checks:['Entrada definida','Agente e skill atribuidos','Saida auditada']
+  },
+  {
+    id:'qa-lancamento',
+    label:'QA de Lancamento',
+    type:'qa',
+    squad:'SQD-QRO',
+    group:'Operacao',
+    summary:'Checklist final de links, checkout, tracking, arquivos, responsivo e memoria.',
+    checks:['Links e formularios testados','Tracking validado','Go/no-go registrado']
+  }
+];
+
+let app = {
+  state:{ version:1, activeProjectId:'', activeStage:'all', projects:[], updated_at:null },
+  registry:{ agents:[], squads:[], skills:[], personas:[] },
+  selectedNodeId:null,
+  connectMode:false,
+  connectFrom:null,
+  zoom:.92,
+  pan:{x:104,y:108},
+  dragging:null,
+  panning:null,
+  history:[],
+  future:[],
+  maxHistory:60,
+  saveTimer:null
+};
+
+const $ = sel => document.querySelector(sel);
+const $$ = sel => [...document.querySelectorAll(sel)];
+const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = prefix => `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,7)}`;
+
+async function init() {
+  populateNodeModalOptions();
+  await loadReferenceData();
+  populateSquadSelect();
+  await loadState();
+  renderAll();
+  fitProject(false);
+  bindCanvas();
+  bindShortcuts();
+  try {
+    const rt = await fetch('/api/runtime/info').then(r => r.json());
+    $('#runtimeLabel').textContent = rt.is_antigravity_ide_workspace ? 'IDE:4000 isolado' : `porta ${rt.port}`;
+  } catch (_) {}
+  if (window.lucide) window.lucide.createIcons();
+}
+
+async function loadReferenceData() {
+  try {
+    const registry = await fetch('/api/registry').then(r => r.json());
+    app.registry.squads = registry.squads || [];
+    app.registry.agents = registry.agents || [];
+    app.registry.personas = registry.personas || [];
+    app.registry.skills = Object.values(registry.skills || {}).flat();
+  } catch (_) {}
+}
+
+async function loadState() {
+  let saved = null;
+  try {
+    const payload = await fetch('/api/aiox-master-next/load').then(r => r.json());
+    if (payload.ok && payload.data) saved = payload.data;
+  } catch (_) {}
+  if (!saved) {
+    try { saved = JSON.parse(localStorage.getItem(NEXT_STATE_KEY) || 'null'); } catch (_) {}
+  }
+  if (saved && Array.isArray(saved.projects)) {
+    app.state = saved;
+    app.state.activeStage ||= 'all';
+    app.state.activeProjectId ||= saved.projects[0]?.id || '';
+    return;
+  }
+  app.state = await buildInitialState();
+}
+
+async function buildInitialState() {
+  let map = null;
+  try {
+    const payload = await fetch('/api/map/load').then(r => r.json());
+    map = payload.ok ? payload.data?.sais : null;
+  } catch (_) {}
+  const project = map ? projectFromMap('sais-next', 'SAIS Next', map) : projectTemplate('SAIS Next', 'Fluxo completo de e-book, vendas e entrega.');
+  return { version:1, activeProjectId:project.id, activeStage:'all', projects:[project], updated_at:new Date().toISOString() };
+}
+
+function projectFromMap(id, name, map) {
+  const nodes = [...(map.pipeline || []), ...(map.nodes || [])].map(node => normalizeMapNode(node));
+  const edges = (map.edges || []).filter(edge => nodes.some(n => n.id === edge.from) && nodes.some(n => n.id === edge.to))
+    .map(edge => ({ id:uid('edge'), from:edge.from, to:edge.to, label:edge.label || '' }));
+  ensureCoreNodes(nodes, edges);
+  return { id, name, description:map.subtitle || 'Projeto digital completo', nodes, edges, runs:[], created_at:new Date().toISOString() };
+}
+
+function normalizeMapNode(node) {
+  const type = inferType(node);
+  const squad = node.squad || inferSquad(type);
+  return assignTeamForNode({
+    id:node.id || uid('node'),
+    label:cleanText(node.label || node.id || 'No'),
+    type,
+    stage:inferStage(type, node),
+    status:normalizeStatus(node.status),
+    squad,
+    x:Number(node.x || 80),
+    y:Number(node.y || 120) + 120,
+    summary:cleanText(node.desc || node.sub || node.metric || ''),
+    notes:'',
+    agents:[],
+    skills:[],
+    personas:[],
+    files:node.files || [],
+    checks:defaultChecks(type).map(label => ({ id:uid('check'), label, done:false })),
+    output:node.entrega || node.metric || ''
+  });
+}
+
+function projectTemplate(name, description) {
+  const nodes = [
+    ['strategy','Estrategia','SQD-CORE',80,170,'Oferta, promessa, publico e escopo.'],
+    ['market','Pesquisa e mecanismo','SQD-MKF',340,120,'Benchmark, dores, mecanismo unico e angulos.'],
+    ['ebook','Arquitetura do e-book','SQD-CNT',600,170,'Indice, capitulos, tom e bibliografia.'],
+    ['copy','Copy de vendas','SQD-CNT',860,120,'Headline, bullets, prova, oferta e CTA.'],
+    ['design','Design system','SQD-EXP',1120,170,'Layout, imagens, capa e componentes.'],
+    ['page','Pagina de vendas','SQD-EXP',1380,120,'Landing page, secao de oferta, FAQ e mobile.'],
+    ['checkout','Checkout','SQD-ENG',1640,170,'Pagamento, order bump, upsell e webhooks.'],
+    ['delivery','Area de membros','SQD-ENG',1900,120,'Hub, acesso, arquivos e automacoes.'],
+    ['qa','QA e lancamento','SQD-QRO',2160,170,'Testes, tracking, deploy e checklist final.']
+  ].map(([type,label,squad,x,y,summary]) => assignTeamForNode({
+    id:uid(type), label, type, stage:inferStage(type), status:type === 'strategy' ? 'in_progress' : 'draft',
+    squad, x, y, summary, notes:'', agents:[], skills:[],
+    personas:[], files:[], checks:defaultChecks(type).map(label => ({ id:uid('check'), label, done:false })), output:''
+  }));
+  const edges = nodes.slice(0,-1).map((node, idx) => ({ id:uid('edge'), from:node.id, to:nodes[idx+1].id, label:'' }));
+  return { id:uid('project'), name, description, nodes, edges, runs:[], created_at:new Date().toISOString() };
+}
+function guidedProductTemplate(config) {
+  const product = cleanText(config.product || 'Novo Produto');
+  const main = cleanText(config.main || `Guia ${product} do Zero`);
+  const freeOne = cleanText(config.freeOne || 'Checklist de Materiais');
+  const freeTwo = cleanText(config.freeTwo || 'Mini Guia Rapido');
+  const bumpOne = cleanText(config.bumpOne || 'Calculadora de Preco');
+  const bumpTwo = cleanText(config.bumpTwo || 'Pack de Templates');
+  const specs = [
+    {
+      type:'strategy', squad:'SQD-CORE', offerType:'setup', label:`Estrategia - ${product}`,
+      summary:`Primeira etapa: configurar publico, promessa, entregavel principal, frees e bumps de ${product}.`,
+      checks:['Publico definido','Promessa escrita','Escopo comercial aprovado']
+    },
+    {
+      type:'ebook', squad:'SQD-CNT', offerType:'principal', label:`Principal - ${main}`,
+      summary:`Entregavel pago principal do produto ${product}. Deve concentrar a transformacao central da oferta.`,
+      checks:['Indice aprovado','Conteudo produzido','Arquivo final anexado']
+    },
+    {
+      type:'delivery', squad:'SQD-CNT', offerType:'free', label:`Free 1 - ${freeOne}`,
+      summary:`Entregavel gratuito para gerar valor rapido, capturar lead ou aumentar percepcao da oferta.`,
+      checks:['Formato definido','Conteudo produzido','Arquivo final anexado']
+    },
+    {
+      type:'delivery', squad:'SQD-CNT', offerType:'free', label:`Free 2 - ${freeTwo}`,
+      summary:`Segundo entregavel gratuito para reforcar desejo, educar o publico e preparar a compra.`,
+      checks:['Formato definido','Conteudo produzido','Arquivo final anexado']
+    },
+    {
+      type:'checkout', squad:'SQD-ENG', offerType:'order_bump', label:`Order Bump 1 - ${bumpOne}`,
+      summary:`Oferta complementar de baixo atrito exibida no checkout do produto principal.`,
+      checks:['Promessa do bump definida','Arquivo/produto preparado','Preco e checkout configurados']
+    },
+    {
+      type:'checkout', squad:'SQD-ENG', offerType:'order_bump', label:`Order Bump 2 - ${bumpTwo}`,
+      summary:`Segunda oferta complementar para aumentar ticket medio sem interromper a compra principal.`,
+      checks:['Promessa do bump definida','Arquivo/produto preparado','Preco e checkout configurados']
+    }
+  ];
+  const nodes = specs.map((spec, index) => assignTeamForNode({
+    id:uid(spec.type), label:spec.label, type:spec.type, stage:inferStage(spec.type), status:index === 0 ? 'pending' : 'draft',
+    squad:spec.squad, x:80 + index * 260, y:190, sequenceIndex:index + 1, offerType:spec.offerType,
+    summary:spec.summary, notes:'', agents:[], skills:[],
+    personas:[], files:[], checks:spec.checks.map(label => ({ id:uid('check'), label, done:false })), output:''
+  }));
+  const edges = nodes.slice(0,-1).map((node, idx) => ({ id:uid('edge'), from:node.id, to:nodes[idx+1].id, label:'proximo' }));
+  return {
+    id:uid('product'),
+    name:product,
+    description:`Esteira sequencial para ${product}: principal, 2 frees e 2 order bumps.`,
+    mode:'sequential-product',
+    nodes,
+    edges,
+    runs:[],
+    created_at:new Date().toISOString()
+  };
+}
+
+function ensureCoreNodes(nodes, edges) {
+  const hasCheckout = nodes.some(n => n.type === 'checkout');
+  if (!hasCheckout) {
+    const last = nodes[nodes.length - 1] || { x:80, y:120, id:'' };
+    const checkout = normalizeMapNode({ id:'next-checkout', label:'Checkout e entrega', type:'checkout', x:last.x + 240, y:last.y, status:'draft', squad:'SQD-ENG', desc:'Checkout, area de membros e webhooks.' });
+    nodes.push(checkout);
+    if (last.id) edges.push({ id:uid('edge'), from:last.id, to:checkout.id, label:'publicar' });
+  }
+}
+
+function cleanText(text) {
+  return String(text || '').replace(/Ã§/g,'c').replace(/Ã©/g,'e').replace(/Ã£/g,'a').replace(/Â·/g,'-');
+}
+function normalizeStatus(status) {
+  if (status === 'active') return 'in_progress';
+  if (STATUS[status]) return status;
+  return status === 'pending' ? 'pending' : 'draft';
+}
+function inferType(node) {
+  const t = String(node.type || '').toLowerCase();
+  const label = String(node.label || '').toLowerCase();
+  if (t.includes('checkout') || label.includes('checkout')) return 'checkout';
+  if (label.includes('landing') || label.includes('pagina') || t === 'page') return 'page';
+  if (label.includes('ebook') || label.includes('pdf') || t === 'ebook') return 'ebook';
+  if (label.includes('copy') || label.includes('vsl')) return 'copy';
+  if (label.includes('design') || label.includes('layout')) return 'design';
+  if (label.includes('qa') || label.includes('teste')) return 'qa';
+  if (label.includes('trafego') || label.includes('mercado') || label.includes('persona')) return 'market';
+  if (t === 'pipeline') return 'strategy';
+  return t && TYPE_COLOR[t] ? t : 'automation';
+}
+function inferStage(type) {
+  if (['strategy','market'].includes(type)) return 'strategy';
+  if (['ebook','design'].includes(type)) return 'ebook';
+  if (['copy','page','checkout'].includes(type)) return 'sales';
+  if (['delivery'].includes(type)) return 'delivery';
+  return 'ops';
+}
+function inferSquad(type) {
+  return ({strategy:'SQD-CORE', market:'SQD-MKF', ebook:'SQD-CNT', copy:'SQD-CNT', design:'SQD-EXP', page:'SQD-EXP', checkout:'SQD-ENG', delivery:'SQD-ENG', qa:'SQD-QRO', automation:'SQD-ENG'})[type] || 'SQD-CORE';
+}
+function currentSquadMeta(squadId) {
+  return app.registry.squads.find(squad => squad.id === squadId) || { id:squadId, name:squadId, mission:'Squad nao encontrado no registry.', outputs:[] };
+}
+function agentById(id) {
+  return app.registry.agents.find(agent => agent.id === id);
+}
+function nodeAgentHandles(node) {
+  return (node.agents || []).map(id => agentById(id)).filter(Boolean).map(agent => agent.handle || agent.id);
+}
+function defaultAgentsForSquad(squad) {
+  const direct = app.registry.agents.filter(a => a.squad === squad).map(a => a.id);
+  const listed = currentSquadMeta(squad).agents || [];
+  return [...new Set(direct.concat(listed))].filter(id => app.registry.agents.some(agent => agent.id === id)).slice(0, 4);
+}
+function defaultSkillsForNode(type, squad, agentIds = defaultAgentsForSquad(squad)) {
+  return rankedSkillsForNode({ type, squad, agentIds }).slice(0, 5).map(item => item.skill.id);
+}
+function nodeSearchText(node = {}) {
+  return `${node.type || ''} ${node.offerType || ''} ${node.label || ''} ${node.summary || ''} ${node.output || ''}`.toLowerCase();
+}
+function typeTokensForNode(type, offerType) {
+  const tokensByType = {
+    strategy:['brief','product','offer','position','roadmap'],
+    market:['market','competitor','hook','funnel','traffic','cro'],
+    ebook:['editorial','longform','pdf','assembly','brand'],
+    delivery:['delivery','pdf','assembly','orchestration','brand'],
+    copy:['copy','sales','longform','offer'],
+    page:['landing','layout','ux','copy'],
+    checkout:['checkout','webhook','delivery','price','offer'],
+    qa:['qa','audit','scan','quality'],
+    automation:['automation','webhook','sync','execution']
+  };
+  const tokensByOffer = {
+    setup:['brief','position','offer','roadmap'],
+    principal:['editorial','longform','ebook','pdf','html','assembly'],
+    free:['lead','checklist','delivery','pdf','assembly'],
+    order_bump:['checkout','offer','price','template','pack','delivery'],
+    upsell:['upsell','offer','ltv','funnel','checkout'],
+    downsell:['downsell','offer','retention','checkout']
+  };
+  return [type, offerType, ...(tokensByType[type] || []), ...(tokensByOffer[offerType] || [])]
+    .map(s => String(s || '').toLowerCase())
+    .filter(Boolean);
+}
+function rankedSkillsForNode({ type, squad, agentIds = [], offerType = '', node = null }) {
+  const group = String(squad || '').replace('SQD-','').toLowerCase();
+  const tokens = [group, ...typeTokensForNode(type, offerType), ...nodeSearchText(node).split(/\W+/).filter(token => token.length > 4)];
+  const scored = app.registry.skills.map(skill => {
+    const skillAgents = Array.isArray(skill.agents) ? skill.agents : [];
+    const agentScore = skillAgents.some(id => agentIds.includes(id)) ? 3 : 0;
+    const squadScore = skillAgents.some(id => agentById(id)?.squad === squad) ? 2 : 0;
+    const text = `${skill.id} ${skill.name} ${skill.desc || ''}`.toLowerCase();
+    const tokenScore = tokens.reduce((score, token) => score + (text.includes(token) ? 1 : 0), 0);
+    const criticalityScore = skill.activation_criticality === 'alta' ? 1 : 0;
+    return { skill, score:agentScore + squadScore + tokenScore + criticalityScore, reason:agentScore ? 'agente vinculado' : squadScore ? 'squad' : tokenScore ? 'contexto' : 'apoio' };
+  }).filter(item => item.score > 0);
+  return scored.sort((a,b) => b.score - a.score || a.skill.name.localeCompare(b.skill.name));
+}
+function recommendedSkillsForNode(node) {
+  return rankedSkillsForNode({ type:node.type, squad:node.squad, agentIds:node.agents || [], offerType:node.offerType, node })
+    .filter(item => !(node.skills || []).includes(item.skill.id))
+    .slice(0, 6);
+}
+function defaultPersonasForType(type, agentIds = []) {
+  return rankedPersonasForNode({ type, agentIds }).slice(0, 5).map(item => item.persona.id);
+}
+function rankedPersonasForNode({ type, agentIds = [], offerType = '', node = null }) {
+  const byType = {
+    strategy:['prs-russell-brunson','prs-alan-nicolas','prs-alex-hormozi'],
+    market:['prs-russell-brunson','prs-eugene-schwartz','prs-joanna-wiebe'],
+    ebook:['prs-elisa-clark','prs-david-ogilvy','prs-pedro-valerio'],
+    delivery:['prs-elisa-clark','prs-david-ogilvy','prs-pedro-valerio'],
+    copy:['prs-alan-nicolas','prs-gary-halbert','prs-eugene-schwartz'],
+    page:['prs-tiago-finch','prs-pedro-valerio','prs-joanna-wiebe'],
+    checkout:['prs-russell-brunson','prs-alex-hormozi','prs-alan-nicolas']
+  };
+  const handles = agentIds.map(id => agentById(id)).filter(Boolean).flatMap(agent => [agent.handle, agent.id]);
+  const preferred = new Set(byType[type] || []);
+  const tokens = typeTokensForNode(type, offerType).concat(nodeSearchText(node).split(/\W+/).filter(token => token.length > 4));
+  return app.registry.personas.map(persona => {
+    const linkedScore = (persona.agents || []).some(agent => handles.includes(agent)) ? 3 : 0;
+    const preferredScore = preferred.has(persona.id) ? 3 : 0;
+    const text = `${persona.id} ${persona.name} ${persona.role || ''} ${(persona.traits || []).join(' ')} ${persona.bio || ''}`.toLowerCase();
+    const tokenScore = tokens.reduce((score, token) => score + (text.includes(token) ? 1 : 0), 0);
+    return { persona, score:linkedScore + preferredScore + tokenScore, reason:linkedScore ? 'agente vinculado' : preferredScore ? 'padrao do tipo' : tokenScore ? 'contexto' : 'apoio' };
+  }).filter(item => item.score > 0).sort((a,b) => b.score - a.score || a.persona.name.localeCompare(b.persona.name));
+}
+function recommendedPersonasForNode(node) {
+  return rankedPersonasForNode({ type:node.type, agentIds:node.agents || [], offerType:node.offerType, node })
+    .filter(item => !(node.personas || []).includes(item.persona.id))
+    .slice(0, 6);
+}
+function recommendedAgentsForNode(node) {
+  const current = new Set(node.agents || []);
+  return app.registry.agents
+    .filter(agent => agent.squad === node.squad && !current.has(agent.id))
+    .slice(0, 6)
+    .map(agent => ({ agent, reason:'mesmo squad' }));
+}
+function squadCoverage(squadId) {
+  const agents = app.registry.agents.filter(agent => agent.squad === squadId);
+  const skills = app.registry.skills.filter(skill => (skill.agents || []).some(id => agentById(id)?.squad === squadId));
+  const personas = app.registry.personas.filter(persona => (persona.agents || []).some(handle => agents.some(agent => agent.handle === handle)));
+  return { agents:agents.length, skills:skills.length, personas:personas.length };
+}
+function rankedSquadsForNode(node) {
+  const tokens = typeTokensForNode(node.type, node.offerType).concat(nodeSearchText(node).split(/\W+/).filter(token => token.length > 4));
+  return app.registry.squads.map(squad => {
+    const coverage = squadCoverage(squad.id);
+    const text = `${squad.id} ${squad.name || ''} ${squad.mission || ''}`.toLowerCase();
+    const tokenScore = tokens.reduce((score, token) => score + (text.includes(token) ? 1 : 0), 0);
+    const currentScore = squad.id === node.squad ? 100 : 0;
+    return { squad, coverage, score:currentScore + coverage.agents * 3 + coverage.skills + coverage.personas + tokenScore };
+  }).sort((a,b) => b.score - a.score || a.squad.name.localeCompare(b.squad.name));
+}
+function squadOptionsForNode(node) {
+  return rankedSquadsForNode(node).map(item => {
+    const label = `${item.squad.name} (${item.coverage.agents}a/${item.coverage.skills}s/${item.coverage.personas}c)`;
+    return `<option value="${esc(item.squad.id)}" ${node.squad === item.squad.id ? 'selected' : ''}>${esc(label)}</option>`;
+  }).join('');
+}
+function assignTeamForNode(node) {
+  node.agents = defaultAgentsForSquad(node.squad);
+  node.skills = rankedSkillsForNode({ type:node.type, squad:node.squad, agentIds:node.agents, offerType:node.offerType, node }).slice(0, 5).map(item => item.skill.id);
+  node.personas = rankedPersonasForNode({ type:node.type, agentIds:node.agents, offerType:node.offerType, node }).slice(0, 5).map(item => item.persona.id);
+  return node;
+}
+function productionQuestionsForNode(node) {
+  const offer = node.offerType || node.type;
+  const base = {
+    setup:['Qual e a promessa central?','Para quem exatamente estamos vendendo?','Qual nivel do comprador: iniciante, intermediario ou profissional?'],
+    principal:['Formato desejado: PDF, HTML da area de membros ou ambos?','Qual profundidade: guia rapido, e-book completo ou masterclass escrita?','Existe estilo visual de referencia alem do Cofre das Botanicas Secretas?'],
+    free:['Esse free sera isca de captura, bonus de compra ou material de aquecimento?','Qual resultado rapido ele deve entregar?','Formato: checklist, mini-guia, planilha ou pagina HTML?'],
+    order_bump:['Qual problema complementar esse bump resolve?','Qual preco/faixa de preco desejada?','Formato: planilha, pack editavel, mini-curso, templates ou PDF?'],
+    checkout:['Qual oferta principal, preco e garantia?','Quais bumps entram no checkout?','Qual plataforma de checkout sera usada?']
+  };
+  return base[offer] || base[node.type] || ['Qual entrada eu devo usar?','Qual saida final voce espera?','Ha referencias obrigatorias?'];
+}
+function defaultChecks(type) {
+  return ({
+    strategy:['Promessa definida','Publico e dor claros','Oferta revisada'],
+    market:['Benchmark mapeado','Mecanismo unico escrito','Objeccoes listadas'],
+    ebook:['Indice aprovado','Capitulos rascunhados','Revisao editorial feita'],
+    copy:['Headline pronta','Bullets e prova escritos','CTA validado'],
+    design:['Capa ou hero definido','Mobile verificado','Assets anexados'],
+    page:['Secoes montadas','FAQ inserido','Performance verificada'],
+    checkout:['Produto cadastrado','Bump/upsell configurados','Webhook testado'],
+    delivery:['Arquivo anexado','Acesso testado','Email de entrega pronto'],
+    qa:['Links testados','Tracking validado','Publicacao aprovada']
+  })[type] || ['Brief completo','Saida revisada','Pronto para proxima etapa'];
+}
+
+function currentProject() {
+  return app.state.projects.find(p => p.id === app.state.activeProjectId) || app.state.projects[0];
+}
+function currentNode() {
+  const p = currentProject();
+  return p?.nodes.find(n => n.id === app.selectedNodeId);
+}
+function orderedNodes(project = currentProject()) {
+  return [...(project?.nodes || [])].sort((a,b) =>
+    Number(a.sequenceIndex || 9999) - Number(b.sequenceIndex || 9999) || a.x - b.x || a.y - b.y
+  );
+}
+function nextActionableNode(project = currentProject()) {
+  return orderedNodes(project).find(node => node.status !== 'completed');
+}
+function nextNodeAfter(project, node) {
+  const nodes = orderedNodes(project);
+  const index = nodes.findIndex(item => item.id === node?.id);
+  return nodes.slice(index + 1).find(item => item.status !== 'completed') || null;
+}
+function actionLabelForNode(node) {
+  if (!node) return 'Iniciar etapa';
+  if (node.status === 'in_progress') return 'Concluir e abrir proximo';
+  if (node.status === 'completed') return 'Abrir proxima etapa';
+  return 'Iniciar etapa';
+}
+function cloneStateForHistory() {
+  return JSON.parse(JSON.stringify(app.state));
+}
+function pushHistory(snapshot = cloneStateForHistory()) {
+  app.history.push(snapshot);
+  if (app.history.length > app.maxHistory) app.history.shift();
+  app.future = [];
+  renderHistoryButtons();
+}
+function undoNext() {
+  if (!app.history.length) return;
+  app.future.push(cloneStateForHistory());
+  app.state = app.history.pop();
+  app.selectedNodeId = null;
+  app.connectMode = false;
+  app.connectFrom = null;
+  renderAll();
+  scheduleSave();
+}
+function redoNext() {
+  if (!app.future.length) return;
+  app.history.push(cloneStateForHistory());
+  app.state = app.future.pop();
+  app.selectedNodeId = null;
+  app.connectMode = false;
+  app.connectFrom = null;
+  renderAll();
+  scheduleSave();
+}
+function renderHistoryButtons() {
+  const undo = $('#undoBtn'), redo = $('#redoBtn');
+  if (undo) undo.disabled = !app.history.length;
+  if (redo) redo.disabled = !app.future.length;
+}
+
+function renderAll() {
+  renderProjectSelect();
+  renderStageTabs();
+  renderCanvas();
+  renderDrawer();
+  renderTopState();
+  if (window.lucide) window.lucide.createIcons();
+}
+function renderTopState() {
+  $('#connectBtn').classList.toggle('active', app.connectMode);
+  renderHistoryButtons();
+  const guide = $('#connectGuide');
+  if (!guide) return;
+  const source = currentProject()?.nodes.find(n => n.id === app.connectFrom);
+  guide.classList.toggle('active', app.connectMode);
+  guide.textContent = app.connectMode
+    ? (source ? `Origem: ${source.label}. Escolha o destino` : 'Escolha o no de origem')
+    : '';
+}
+function renderProjectSelect() {
+  const select = $('#projectSelect');
+  select.innerHTML = app.state.projects.map(p => `<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('');
+  select.value = currentProject()?.id || '';
+}
+function renderStageTabs() {
+  $('#stageTabs').innerHTML = STAGES.map(([id,label]) =>
+    `<button class="stage-tab ${app.state.activeStage === id ? 'active' : ''}" onclick="setStage('${id}')">${esc(label)}</button>`
+  ).join('');
+}
+function filteredNodes(project) {
+  if (app.state.activeStage === 'all') return project.nodes;
+  return project.nodes.filter(n => n.stage === app.state.activeStage);
+}
+function visibleEdges(project, nodes) {
+  const ids = new Set(nodes.map(n => n.id));
+  return project.edges.filter(e => ids.has(e.from) && ids.has(e.to));
+}
+function renderCanvas() {
+  const project = currentProject();
+  if (!project) return;
+  const nodes = filteredNodes(project);
+  const edges = visibleEdges(project, nodes);
+  const nodeMap = Object.fromEntries(project.nodes.map(n => [n.id, n]));
+  $('#nodes').innerHTML = nodes.map(nodeTemplate).join('');
+  $('#edges').innerHTML = edgeTemplate(edges, nodeMap);
+  applyWorldTransform();
+}
+function nodeTemplate(node) {
+  const color = TYPE_COLOR[node.type] || '#38bdf8';
+  const status = STATUS[node.status] || STATUS.draft;
+  const done = node.checks?.length ? Math.round(node.checks.filter(c => c.done).length / node.checks.length * 100) : 0;
+  const selected = node.id === app.selectedNodeId ? 'selected' : '';
+  const connect = node.id === app.connectFrom ? 'connect-source' : '';
+  const next = node.id === nextActionableNode()?.id ? 'next-action' : '';
+  const seq = node.sequenceIndex ? `<div class="seq-pill">${esc(node.sequenceIndex)}</div>` : '';
+  return `<div class="node ${selected} ${connect} ${next}" data-node-id="${esc(node.id)}" style="left:${node.x}px;top:${node.y}px">
+    ${seq}
+    <button type="button" class="handle" title="Conectar a partir deste no" onclick="startConnectFromHandle('${esc(node.id)}')" onpointerdown="event.stopPropagation()"></button>
+    <div class="node-header">
+      <div class="node-kind" style="background:${color}"><i data-lucide="${iconForType(node.type)}" width="16"></i></div>
+      <div class="node-title"><strong>${esc(node.label)}</strong><span>${esc(node.squad || node.type)} - ${esc(node.stage)}</span></div>
+      <div class="status-dot" style="color:${status.color};background:${status.color}"></div>
+    </div>
+    <div class="node-summary">${esc(node.summary || 'Configure este passo no inspector.')}</div>
+    <div class="node-foot"><span>${esc(status.label)}</span><span>${esc(node.offerType || `${node.files?.length || 0} arquivos`)}</span></div>
+    <div class="node-progress"><span style="width:${done}%"></span></div>
+  </div>`;
+}
+function iconForType(type) {
+  return ({strategy:'compass', market:'radar', ebook:'book-open', copy:'pen-line', design:'palette', page:'panel-top', checkout:'credit-card', delivery:'package-check', qa:'shield-check', automation:'workflow'})[type] || 'circle';
+}
+function edgeTemplate(edges, nodeMap) {
+  const defs = `<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="rgba(56,189,248,.76)"/></marker></defs>`;
+  return defs + edges.map(edge => {
+    const a = nodeMap[edge.from], b = nodeMap[edge.to];
+    if (!a || !b) return '';
+    const sx = a.x + 188, sy = a.y + 49, tx = b.x, ty = b.y + 49, cx = (sx + tx) / 2;
+    return `<path d="M ${sx} ${sy} C ${cx} ${sy}, ${cx} ${ty}, ${tx} ${ty}" fill="none" stroke="rgba(56,189,248,.42)" stroke-width="2" marker-end="url(#arrow)"></path>
+      ${edge.label ? `<text x="${(sx+tx)/2 - 12}" y="${(sy+ty)/2 - 8}" fill="#8aa4b5" font-size="11">${esc(edge.label)}</text>` : ''}`;
+  }).join('');
+}
+
+function renderDrawer() {
+  const drawer = $('#drawer');
+  const node = currentNode();
+  if (!node) { drawer.classList.remove('open'); return; }
+  drawer.classList.add('open');
+  $('#drawerTitle').textContent = node.label;
+  $('#drawerSub').textContent = `${node.type} - ${node.squad || '-'}`;
+  $('#drawerBody').innerHTML = drawerTemplate(node);
+  if (window.lucide) window.lucide.createIcons();
+}
+function drawerTemplate(node) {
+  const agents = app.registry.agents.filter(a => (node.agents || []).includes(a.id));
+  const skills = app.registry.skills.filter(s => (node.skills || []).includes(s.id));
+  const personas = app.registry.personas.filter(p => (node.personas || []).includes(p.id));
+  const actionLabel = actionLabelForNode(node);
+  const squad = currentSquadMeta(node.squad);
+  const questions = productionQuestionsForNode(node);
+  const agentPicks = recommendedAgentsForNode(node);
+  const skillPicks = recommendedSkillsForNode(node);
+  const personaPicks = recommendedPersonasForNode(node);
+  return `
+    <div class="section">
+      <div class="section-title"><span>Squad executor</span><span>${esc(squad.id || node.squad || '-')}</span></div>
+      <div class="field" style="margin-bottom:8px">
+        <label>${esc(squad.name || node.squad || 'Squad')}</label>
+        <textarea readonly>${esc(squad.mission || 'Sem missao registrada.')}</textarea>
+      </div>
+      <div class="team-board">
+        <div class="team-card"><strong>${agents.length}</strong><span>Agentes</span></div>
+        <div class="team-card"><strong>${skills.length}</strong><span>Skills</span></div>
+        <div class="team-card"><strong>${personas.length}</strong><span>Clones</span></div>
+      </div>
+      <div class="production-list" style="margin-top:8px">Cobertura do registry: ${(squad.agents || []).length || agents.length} agentes declarados, ${skillPicks.length} skills sugeridas e ${personaPicks.length} clones sugeridos para este no.</div>
+    </div>
+    <div class="section">
+      <div class="section-title"><span>Brief necessario para eu produzir</span><span>${esc(node.offerType || node.type)}</span></div>
+      <ol class="production-list">${questions.map(item => `<li>${esc(item)}</li>`).join('')}</ol>
+    </div>
+    <div class="section">
+      <div class="section-title"><span>Configuracao do no</span><span>${node.sequenceIndex ? `Etapa ${esc(node.sequenceIndex)} - ` : ''}${esc(STATUS[node.status]?.label || node.status)}</span></div>
+      <div class="field"><label>Nome</label><input value="${esc(node.label)}" oninput="updateSelected('label', this.value)"></div>
+      <div class="field"><label>Status</label><select onchange="updateSelected('status', this.value)">${Object.entries(STATUS).map(([id,s]) => `<option value="${id}" ${node.status === id ? 'selected' : ''}>${s.label}</option>`).join('')}</select></div>
+      <div class="field"><label>Squad</label><select onchange="updateSelected('squad', this.value); autoAssignSelected()">${squadOptionsForNode(node)}</select></div>
+      <div class="field"><label>Resumo</label><textarea oninput="updateSelected('summary', this.value)">${esc(node.summary)}</textarea></div>
+      <div class="field"><label>Notas de execucao</label><textarea oninput="updateSelected('notes', this.value)">${esc(node.notes)}</textarea></div>
+    </div>
+    <div class="section">
+      <div class="section-title"><span>Checklist</span><button class="btn" style="height:24px" onclick="addCheck()">Add</button></div>
+      ${(node.checks || []).map(c => `<label class="check-row"><input type="checkbox" ${c.done ? 'checked' : ''} onchange="toggleCheck('${c.id}', this.checked)"><span>${esc(c.label)}</span></label>`).join('')}
+    </div>
+    <div class="section">
+      <div class="section-title"><span>Agentes</span><span>${agents.length}</span></div>
+      <div class="chips">${agents.map(a => `<span class="chip">${esc(a.name)} ${esc(a.handle || '')}<button onclick="removeAssign('agents','${a.id}')">x</button></span>`).join('') || '<span class="chip">sem agente</span>'}</div>
+      <div class="pick-grid" style="margin-top:8px">${agentPicks.map(item => `<button class="pick recommended" onclick="addAssign('agents','${item.agent.id}')">${esc(item.agent.name)}<small>${esc(item.agent.handle || item.agent.role || '')}</small><em>${esc(item.reason)}</em></button>`).join('') || '<div class="file-row">Squad ja esta completo neste no</div>'}</div>
+    </div>
+    <div class="section">
+      <div class="section-title"><span>Skills</span><span>${skills.length}</span></div>
+      <div class="chips">${skills.map(s => `<span class="chip">${esc(s.name)}<button onclick="removeAssign('skills','${s.id}')">x</button></span>`).join('') || '<span class="chip">sem skill</span>'}</div>
+      <div class="pick-grid" style="margin-top:8px">${skillPicks.map(item => `<button class="pick recommended" onclick="addAssign('skills','${item.skill.id}')">${esc(item.skill.name)}<small>${esc(item.skill.id)} - score ${esc(item.score)}</small><em>${esc(item.reason)}</em></button>`).join('') || '<div class="file-row">Sem skill adicional recomendada</div>'}</div>
+    </div>
+    <div class="section">
+      <div class="section-title"><span>Clones de referencia</span><span>${personas.length}</span></div>
+      <div class="chips">${personas.map(p => `<span class="chip">${esc(p.name)}<button onclick="removeAssign('personas','${p.id}')">x</button></span>`).join('') || '<span class="chip">sem clone</span>'}</div>
+      <div class="pick-grid" style="margin-top:8px">${personaPicks.map(item => `<button class="pick recommended" onclick="addAssign('personas','${item.persona.id}')">${esc(item.persona.name)}<small>${esc(item.persona.role || '')}</small><em>${esc(item.reason)}</em></button>`).join('') || '<div class="file-row">Sem clone adicional recomendado</div>'}</div>
+    </div>
+    <div class="section">
+      <div class="section-title"><span>Arquivos e evidencias</span><span>${node.files?.length || 0}</span></div>
+      <input type="file" onchange="uploadFileToSelected(this.files[0])">
+      <div style="margin-top:8px">${(node.files || []).map(file => `<div class="file-row"><a href="${esc(file.url)}" target="_blank">${esc(file.name)}</a><button class="btn" style="height:24px" onclick="removeFile('${file.id}')">Remover</button></div>`).join('') || '<div class="file-row">Nenhum arquivo anexado</div>'}</div>
+    </div>
+    <div class="section">
+      <div class="section-title"><span>Acoes</span><span>Workflow</span></div>
+      <div class="chips">
+        <button class="btn gold" onclick="runSelectedOrProject()">${esc(actionLabel)}</button>
+        <button class="btn" onclick="duplicateSelectedNode()">Duplicar</button>
+        <button class="btn" onclick="deleteSelectedNode()">Excluir</button>
+      </div>
+    </div>`;
+}
+
+function applyWorldTransform() {
+  $('#world').style.transform = `translate(${app.pan.x}px, ${app.pan.y}px) scale(${app.zoom})`;
+  $('#zoomPill').textContent = `${Math.round(app.zoom * 100)}%`;
+}
+function bindCanvas() {
+  const viewport = $('#viewport');
+  viewport.addEventListener('wheel', event => {
+    event.preventDefault();
+    const delta = event.deltaY < 0 ? .08 : -.08;
+    app.zoom = Math.max(.28, Math.min(1.8, app.zoom + delta));
+    applyWorldTransform();
+  }, { passive:false });
+  viewport.addEventListener('pointerdown', event => {
+    if (event.target.closest('.handle')) return;
+    const nodeEl = event.target.closest('.node');
+    if (nodeEl) return startNodePointer(event, nodeEl.dataset.nodeId);
+    app.panning = { x:event.clientX, y:event.clientY, ox:app.pan.x, oy:app.pan.y };
+  });
+  window.addEventListener('pointermove', event => {
+    if (app.dragging) {
+      const node = currentProject().nodes.find(n => n.id === app.dragging.id);
+      if (!node) return;
+      node.x = Math.round(app.dragging.ox + (event.clientX - app.dragging.x) / app.zoom);
+      node.y = Math.round(app.dragging.oy + (event.clientY - app.dragging.y) / app.zoom);
+      app.dragging.moved = true;
+      renderCanvas();
+      scheduleSave();
+    } else if (app.panning) {
+      app.pan.x = Math.round(app.panning.ox + event.clientX - app.panning.x);
+      app.pan.y = Math.round(app.panning.oy + event.clientY - app.panning.y);
+      applyWorldTransform();
+    }
+  });
+  window.addEventListener('pointerup', () => {
+    if (app.dragging?.moved && app.dragging.snapshot) pushHistory(app.dragging.snapshot);
+    app.dragging = null; app.panning = null;
+  });
+}
+function startNodePointer(event, nodeId) {
+  const node = currentProject().nodes.find(n => n.id === nodeId);
+  if (!node) return;
+  selectNode(nodeId);
+  if (app.connectMode) return handleConnectClick(nodeId);
+  app.dragging = { id:nodeId, x:event.clientX, y:event.clientY, ox:node.x, oy:node.y, moved:false, snapshot:cloneStateForHistory() };
+}
+function bindShortcuts() {
+  window.addEventListener('keydown', event => {
+    const key = event.key.toLowerCase();
+    const typing = ['INPUT','TEXTAREA','SELECT'].includes(event.target?.tagName);
+    if (event.ctrlKey && key === 's') { event.preventDefault(); saveNow(); return; }
+    if (!typing && event.ctrlKey && (key === 'y' || (event.shiftKey && key === 'z'))) { event.preventDefault(); redoNext(); return; }
+    if (!typing && event.ctrlKey && key === 'z') { event.preventDefault(); undoNext(); return; }
+    if (event.key === 'Escape') { cancelConnectMode(); closeDrawer(); renderAll(); return; }
+    if (!typing && event.key === 'Delete' && currentNode()) deleteSelectedNode();
+  });
+}
+function selectNode(nodeId) { app.selectedNodeId = nodeId; renderAll(); }
+function closeDrawer() { app.selectedNodeId = null; renderDrawer(); }
+function selectProject(id) { app.state.activeProjectId = id; app.selectedNodeId = null; app.state.activeStage = 'all'; renderAll(); fitProject(false); scheduleSave(); }
+function setStage(id) { app.state.activeStage = id; app.selectedNodeId = null; renderAll(); }
+function toggleConnectMode() { app.connectMode = !app.connectMode; app.connectFrom = null; renderAll(); }
+function startConnectFromHandle(nodeId) {
+  app.connectMode = true;
+  app.connectFrom = nodeId;
+  app.selectedNodeId = nodeId;
+  renderAll();
+}
+function cancelConnectMode() {
+  app.connectMode = false;
+  app.connectFrom = null;
+}
+function handleConnectClick(nodeId) {
+  if (!app.connectFrom) { app.connectFrom = nodeId; renderAll(); return; }
+  if (app.connectFrom !== nodeId) {
+    const project = currentProject();
+    if (!project.edges.some(edge => edge.from === app.connectFrom && edge.to === nodeId)) {
+      pushHistory();
+      project.edges.push({ id:uid('edge'), from:app.connectFrom, to:nodeId, label:'' });
+    }
+  }
+  app.connectMode = false; app.connectFrom = null; renderAll(); scheduleSave();
+}
+function updateSelected(key, value) { const node = currentNode(); if (!node) return; node[key] = value; renderCanvas(); scheduleSave(); }
+function autoAssignSelected() { const node = currentNode(); if (!node) return; pushHistory(); assignTeamForNode(node); renderDrawer(); scheduleSave(); }
+function addAssign(key, id) { const node = currentNode(); if (!node) return; node[key] ||= []; if (!node[key].includes(id)) { pushHistory(); node[key].push(id); } renderDrawer(); scheduleSave(); }
+function removeAssign(key, id) { const node = currentNode(); if (!node) return; pushHistory(); node[key] = (node[key] || []).filter(item => item !== id); renderDrawer(); scheduleSave(); }
+function toggleCheck(id, done) { const node = currentNode(); const check = node?.checks.find(c => c.id === id); if (check) { pushHistory(); check.done = done; } renderCanvas(); scheduleSave(); }
+function addCheck() { const label = prompt('Novo item do checklist'); const node = currentNode(); if (label && node) { pushHistory(); node.checks.push({ id:uid('check'), label, done:false }); renderDrawer(); scheduleSave(); } }
+async function uploadFileToSelected(file) {
+  const node = currentNode(); if (!file || !node) return;
+  const form = new FormData(); form.append('file', file);
+  try {
+    const data = await fetch('/api/files/upload', { method:'POST', body:form }).then(r => r.json());
+    if (!data.url) throw new Error(data.error || 'upload failed');
+    pushHistory();
+    node.files ||= [];
+    node.files.push({ id:uid('file'), name:file.name, url:data.url, type:file.type || 'file', size:file.size });
+    renderAll(); scheduleSave();
+  } catch (error) { alert(`Upload falhou: ${error.message}`); }
+}
+function removeFile(id) { const node = currentNode(); if (!node) return; pushHistory(); node.files = (node.files || []).filter(f => f.id !== id); renderAll(); scheduleSave(); }
+
+function openNodeModal() {
+  $('#newNodeLabel').value = 'Novo passo';
+  $('#nodeModal').classList.add('open');
+}
+function closeNodeModal() { $('#nodeModal').classList.remove('open'); }
+function populateNodeModalOptions() {
+  $('#newNodeType').innerHTML = NODE_TYPES.map(([id,label]) => `<option value="${id}">${label}</option>`).join('');
+}
+function populateSquadSelect() {
+  $('#newNodeSquad').innerHTML = app.registry.squads.map(s => `<option value="${s.id}">${esc(s.name)}</option>`).join('');
+}
+function createNodeFromModal() {
+  const type = $('#newNodeType').value;
+  const squad = $('#newNodeSquad').value || inferSquad(type);
+  const project = currentProject();
+  const near = currentNode() || project.nodes[project.nodes.length - 1] || { x:120, y:160 };
+  pushHistory();
+  const node = assignTeamForNode({
+    id:uid(type), label:$('#newNodeLabel').value.trim() || 'Novo passo', type, stage:inferStage(type), status:'draft', squad,
+    x:near.x + 250, y:near.y + 70, summary:'Novo passo criado no AIOX Master Next.', notes:'',
+    agents:[], skills:[], personas:[],
+    files:[], checks:defaultChecks(type).map(label => ({ id:uid('check'), label, done:false })), output:''
+  });
+  project.nodes.push(node);
+  if (app.selectedNodeId) project.edges.push({ id:uid('edge'), from:app.selectedNodeId, to:node.id, label:'' });
+  app.selectedNodeId = node.id;
+  closeNodeModal(); renderAll(); scheduleSave();
+}
+function duplicateSelectedNode() {
+  const project = currentProject(), node = currentNode(); if (!node) return;
+  pushHistory();
+  const clone = JSON.parse(JSON.stringify(node));
+  clone.id = uid(node.type); clone.label = `${node.label} copia`; clone.x += 42; clone.y += 60; clone.status = 'draft';
+  project.nodes.push(clone); app.selectedNodeId = clone.id; renderAll(); scheduleSave();
+}
+function deleteSelectedNode() {
+  const project = currentProject(), node = currentNode(); if (!node) return;
+  if (!confirm(`Excluir "${node.label}"?`)) return;
+  pushHistory();
+  project.nodes = project.nodes.filter(n => n.id !== node.id);
+  project.edges = project.edges.filter(e => e.from !== node.id && e.to !== node.id);
+  app.selectedNodeId = null; renderAll(); scheduleSave();
+}
+function openProjectModal() { $('#projectModal').classList.add('open'); }
+function closeProjectModal() { $('#projectModal').classList.remove('open'); }
+function createProjectFromModal() {
+  const project = projectTemplate($('#newProjectName').value.trim() || 'Novo Produto Digital', $('#newProjectDesc').value.trim());
+  pushHistory();
+  app.state.projects.push(project); app.state.activeProjectId = project.id; app.selectedNodeId = null;
+  closeProjectModal(); renderAll(); fitProject(false); scheduleSave();
+}
+function openGuidedProductModal() { $('#guidedProductModal').classList.add('open'); }
+function closeGuidedProductModal() { $('#guidedProductModal').classList.remove('open'); }
+function createGuidedProductFromModal() {
+  const project = guidedProductTemplate({
+    product:$('#guidedProductName').value.trim(),
+    main:$('#guidedMainDeliverable').value.trim(),
+    freeOne:$('#guidedFreeOne').value.trim(),
+    freeTwo:$('#guidedFreeTwo').value.trim(),
+    bumpOne:$('#guidedBumpOne').value.trim(),
+    bumpTwo:$('#guidedBumpTwo').value.trim()
+  });
+  pushHistory();
+  app.state.projects.push(project);
+  app.state.activeProjectId = project.id;
+  app.state.activeStage = 'all';
+  app.selectedNodeId = project.nodes[0]?.id || null;
+  closeGuidedProductModal();
+  renderAll();
+  fitProject(false);
+  scheduleSave();
+}
+function templateById(id) {
+  return NODE_TEMPLATES.find(template => template.id === id);
+}
+function openTemplateLibrary() {
+  const groups = [...new Set(NODE_TEMPLATES.map(template => template.group))];
+  $('#templateBody').innerHTML = groups.map(group => NODE_TEMPLATES
+    .filter(template => template.group === group)
+    .map(template => `<button class="template-card" onclick="createNodeFromTemplate('${esc(template.id)}')">
+      <span>${esc(group)} - ${esc(template.squad)}</span>
+      <strong>${esc(template.label)}</strong>
+      <small>${esc(template.summary)}</small>
+      <div class="template-meta"><em>${esc(template.type)}</em><em>${template.checks.length} checks</em></div>
+    </button>`).join('')).join('');
+  $('#templateModal').classList.add('open');
+}
+function closeTemplateLibrary() { $('#templateModal').classList.remove('open'); }
+function createNodeFromTemplate(templateId) {
+  const template = templateById(templateId);
+  const project = currentProject();
+  if (!template || !project) return;
+  const sourceId = app.selectedNodeId;
+  const near = currentNode() || project.nodes[project.nodes.length - 1] || { x:120, y:160 };
+  const squad = template.squad || inferSquad(template.type);
+  pushHistory();
+  const node = assignTeamForNode({
+    id:uid(template.type),
+    label:template.label,
+    type:template.type,
+    stage:inferStage(template.type),
+    status:'draft',
+    squad,
+    x:near.x + 250,
+    y:near.y + (sourceId ? 34 : 78),
+    summary:template.summary,
+    notes:'',
+    agents:[],
+    skills:[],
+    personas:[],
+    files:[],
+    checks:template.checks.map(label => ({ id:uid('check'), label, done:false })),
+    output:''
+  });
+  project.nodes.push(node);
+  if (sourceId && project.nodes.some(item => item.id === sourceId)) {
+    project.edges.push({ id:uid('edge'), from:sourceId, to:node.id, label:'template' });
+  }
+  app.selectedNodeId = node.id;
+  closeTemplateLibrary();
+  renderAll();
+  scheduleSave();
+}
+function openLibrary(kind) {
+  const map = { agents:app.registry.agents, skills:app.registry.skills, personas:app.registry.personas };
+  $('#libraryTitle').textContent = kind === 'agents' ? 'Agentes AIOX' : kind === 'skills' ? 'Skills AIOX' : 'Clones e personas';
+  $('#libraryBody').innerHTML = (map[kind] || []).map(item => {
+    const meta = kind === 'agents'
+      ? `${item.squad || '-'} - ${item.handle || item.id}`
+      : kind === 'skills'
+        ? `${item.id} - ${(item.agents || []).length} agentes`
+        : `${item.role || item.id} - ${(item.agents || []).length} agentes`;
+    return `<button class="pick">${esc(item.name)}<small>${esc(meta)}</small></button>`;
+  }).join('');
+  $('#libraryModal').classList.add('open');
+}
+function closeLibrary() { $('#libraryModal').classList.remove('open'); }
+function runSelectedOrProject() {
+  const project = currentProject();
+  const node = currentNode() || nextActionableNode(project) || orderedNodes(project)[0];
+  if (!node) return;
+  pushHistory();
+  let action = 'started';
+  if (node.status === 'in_progress') {
+    node.status = 'completed';
+    action = 'completed';
+    const next = nextNodeAfter(project, node);
+    if (next) {
+      if (next.status === 'draft') next.status = 'pending';
+      app.selectedNodeId = next.id;
+    } else {
+      app.selectedNodeId = node.id;
+    }
+  } else if (node.status === 'completed') {
+    const next = nextActionableNode(project);
+    if (next) app.selectedNodeId = next.id;
+    action = 'opened_next';
+  } else {
+    node.status = 'in_progress';
+    app.selectedNodeId = node.id;
+  }
+  project.runs ||= [];
+  project.runs.unshift({ id:uid('run'), nodeId:node.id, label:node.label, status:node.status, action, at:new Date().toISOString() });
+  renderAll(); scheduleSave();
+}
+function fitProject(animate = true) {
+  const nodes = filteredNodes(currentProject());
+  if (!nodes.length) return;
+  const minX = Math.min(...nodes.map(n => n.x)), minY = Math.min(...nodes.map(n => n.y));
+  const maxX = Math.max(...nodes.map(n => n.x + 188)), maxY = Math.max(...nodes.map(n => n.y + 120));
+  const vw = $('#viewport').clientWidth, vh = $('#viewport').clientHeight;
+  app.zoom = Math.max(.36, Math.min(1.1, Math.min((vw - 170) / (maxX - minX + 260), (vh - 120) / (maxY - minY + 180))));
+  app.pan = { x:Math.round(82 - minX * app.zoom), y:Math.round(70 - minY * app.zoom) };
+  if (!animate) $('#world').style.transition = 'none';
+  applyWorldTransform();
+  requestAnimationFrame(() => $('#world').style.transition = '');
+}
+async function saveNow() {
+  app.state.updated_at = new Date().toISOString();
+  localStorage.setItem(NEXT_STATE_KEY, JSON.stringify(app.state));
+  const res = await fetch('/api/aiox-master-next/save', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(app.state) });
+  if (!res.ok) throw new Error('save failed');
+  const btn = document.querySelector('.btn.primary');
+  const old = btn.innerHTML; btn.innerHTML = '<i data-lucide="check" width="15"></i>Salvo';
+  if (window.lucide) window.lucide.createIcons();
+  setTimeout(() => { btn.innerHTML = old; if (window.lucide) window.lucide.createIcons(); }, 1400);
+}
+function scheduleSave() { clearTimeout(app.saveTimer); app.saveTimer = setTimeout(() => saveNow().catch(console.error), 800); }
+
+window.selectProject = selectProject;
+window.setStage = setStage;
+window.openProjectModal = openProjectModal;
+window.closeProjectModal = closeProjectModal;
+window.createProjectFromModal = createProjectFromModal;
+window.openGuidedProductModal = openGuidedProductModal;
+window.closeGuidedProductModal = closeGuidedProductModal;
+window.createGuidedProductFromModal = createGuidedProductFromModal;
+window.openNodeModal = openNodeModal;
+window.closeNodeModal = closeNodeModal;
+window.createNodeFromModal = createNodeFromModal;
+window.toggleConnectMode = toggleConnectMode;
+window.startConnectFromHandle = startConnectFromHandle;
+window.cancelConnectMode = cancelConnectMode;
+window.runSelectedOrProject = runSelectedOrProject;
+window.saveNow = saveNow;
+window.undoNext = undoNext;
+window.redoNext = redoNext;
+window.nextActionableNode = nextActionableNode;
+window.orderedNodes = orderedNodes;
+window.closeDrawer = closeDrawer;
+window.updateSelected = updateSelected;
+window.autoAssignSelected = autoAssignSelected;
+window.addAssign = addAssign;
+window.removeAssign = removeAssign;
+window.toggleCheck = toggleCheck;
+window.addCheck = addCheck;
+window.uploadFileToSelected = uploadFileToSelected;
+window.removeFile = removeFile;
+window.duplicateSelectedNode = duplicateSelectedNode;
+window.deleteSelectedNode = deleteSelectedNode;
+window.openTemplateLibrary = openTemplateLibrary;
+window.closeTemplateLibrary = closeTemplateLibrary;
+window.createNodeFromTemplate = createNodeFromTemplate;
+window.openLibrary = openLibrary;
+window.closeLibrary = closeLibrary;
+window.__AIOX_NEXT__ = app;
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
