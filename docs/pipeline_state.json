@@ -1,556 +1,556 @@
-{
-  "projects": [
-    {
-      "id": "arq",
-      "name": "🏗️ Arquitetura Synkra AIOX",
-      "nodes": [
-        {
-          "id": 1,
-          "x": 2800,
-          "y": 2100,
-          "icon": "🗂️",
-          "title": "Estrutura (Filesystem)",
-          "desc": "Organização de pastas do framework.",
-          "status": "done",
-          "tasks": [
-            {
-              "text": ".aiox-core/ (Core)",
-              "checked": true,
-              "desc": "Núcleo do sistema, agentes e inteligência base."
-            },
-            {
-              "text": "funnels/ (Marketing)",
-              "checked": true,
-              "desc": "Estruturas de funis de vendas e ativos de marketing."
-            },
-            {
-              "text": "projects/ (Lojas)",
-              "checked": true,
-              "desc": "Arquivos específicos de cada implementação/loja."
-            }
-          ]
-        },
-        {
-          "id": 2,
-          "x": 2200,
-          "y": 2100,
-          "icon": "🧠",
-          "title": "Knowledge Base",
-          "desc": "Cérebro que alimenta a inteligência.",
-          "status": "done",
-          "tasks": [
-            {
-              "text": "branding/ (Voz)",
-              "checked": true,
-              "desc": "Diretrizes de tom de voz e identidade visual."
-            },
-            {
-              "text": "technical/ (Infra)",
-              "checked": true,
-              "desc": "Documentação de infraestrutura e deploy."
-            },
-            {
-              "text": "marketing/ (Provas)",
-              "checked": true,
-              "desc": "Gatilhos mentais e banco de provas sociais."
-            }
-          ]
-        },
-        {
-          "id": 3,
-          "x": 2200,
-          "y": 2700,
-          "icon": "👥",
-          "title": "Squads (Equipes)",
-          "desc": "Unidades autônomas de agentes.",
-          "status": "active",
-          "tasks": [
-            {
-              "text": "Squad de Lançamento",
-              "checked": true,
-              "desc": "Focado em picos de vendas massivos (PLF/Meteórico)."
-            },
-            {
-              "text": "Squad de Performance",
-              "checked": false,
-              "desc": "Otimização de tráfego pago e ROI diário."
-            },
-            {
-              "text": "Squad de Produto",
-              "checked": false,
-              "desc": "Desenvolvimento e melhoria de infoprodutos."
-            },
-            {
-              "text": "Squad Design System",
-              "checked": false,
-              "desc": "Manutenção da estética premium e componentes."
-            }
-          ]
-        },
-        {
-          "id": 4,
-          "x": 2500,
-          "y": 2100,
-          "icon": "🤖",
-          "title": "Agentes Core (8)",
-          "desc": "Os pilares do sistema.",
-          "status": "done",
-          "tasks": [
-            {
-              "text": "@aiox-master (Orion)",
-              "checked": true,
-              "desc": "Orquestrador mestre e tomador de decisões estratégicas."
-            },
-            {
-              "text": "@architect (Aria)",
-              "checked": true,
-              "desc": "Projeta a arquitetura técnica e de dados."
-            },
-            {
-              "text": "@dev (Dex)",
-              "checked": true,
-              "desc": "Braço executor para código e integrações."
-            },
-            {
-              "text": "@qa (Quinn)",
-              "checked": true,
-              "desc": "Garante a qualidade e ausência de bugs."
-            },
-            {
-              "text": "@pm (Morgan)",
-              "checked": true,
-              "desc": "Gestor de projetos e timelines."
-            },
-            {
-              "text": "@sm (River)",
-              "checked": true,
-              "desc": "Scrum Master, facilita o fluxo de trabalho."
-            },
-            {
-              "text": "@copywriter (Sage)",
-              "checked": true,
-              "desc": "Especialista em escrita persuasiva e vendas."
-            },
-            {
-              "text": "@ux-design-expert (Uma)",
-              "checked": true,
-              "desc": "Designer de experiência e interfaces premium."
-            }
-          ]
-        },
-        {
-          "id": 5,
-          "x": 2800,
-          "y": 2400,
-          "icon": "🔍",
-          "title": "Especialistas & Analistas (6)",
-          "desc": "Agentes de nicho e dados.",
-          "status": "done",
-          "tasks": [
-            {
-              "text": "@analyst",
-              "checked": true,
-              "desc": "Análise fria de dados e comportamento do usuário."
-            },
-            {
-              "text": "@data-engineer",
-              "checked": true,
-              "desc": "Engenharia de dados e pipes de informação."
-            },
-            {
-              "text": "@devops",
-              "checked": true,
-              "desc": "Infra e automação de deploys."
-            },
-            {
-              "text": "@po",
-              "checked": true,
-              "desc": "Representante do produto e priorização."
-            },
-            {
-              "text": "@squad-creator",
-              "checked": true,
-              "desc": "Criação dinâmica de novos esquadrões de IA."
-            },
-            {
-              "text": "@marketing",
-              "checked": true,
-              "desc": "Estrategista de growth e aquisição."
-            }
-          ]
-        },
-        {
-          "id": 6,
-          "x": 2800,
-          "y": 2700,
-          "icon": "✍️",
-          "title": "Suporte de Conteúdo/UX (4)",
-          "desc": "Refinamento e conversão.",
-          "status": "done",
-          "tasks": [
-            {
-              "text": "Copy Specialist",
-              "checked": true,
-              "desc": "Apoio micro-copy e headlines."
-            },
-            {
-              "text": "Funnel Specialist",
-              "checked": true,
-              "desc": "Especialista em taxas de conversão por etapa."
-            },
-            {
-              "text": "Traffic Specialist",
-              "checked": true,
-              "desc": "Gestão técnica de pixels e rastreamento."
-            },
-            {
-              "text": "UX Optimizer",
-              "checked": true,
-              "desc": "Testes A/B e melhoria de usabilidade."
-            }
-          ]
-        },
-        {
-          "id": 7,
-          "x": 2500,
-          "y": 2800,
-          "icon": "⚡",
-          "title": "Skills Library (>200)",
-          "desc": "Clique no ícone lateral ⚡ para abrir.",
-          "status": "done",
-          "tasks": [
-            {
-              "text": "Explorar Habilidades",
-              "checked": true,
-              "desc": "Biblioteca completa de capacidades dos agentes."
-            }
-          ]
-        },
-        {
-          "id": 8,
-          "x": 2200,
-          "y": 2400,
-          "icon": "🧠",
-          "title": "Expert Squad & AIOX Core",
-          "desc": "Clones de Especialistas (Elite Layer).",
-          "status": "done",
-          "tasks": [
-            {
-              "text": "Russel Brunson Trilogy (Deep)",
-              "checked": true,
-              "desc": "Dotcom, Expert e Traffic Secrets integrados."
-            },
-            {
-              "text": "Finch / Alan / Pedro (AIOX)",
-              "checked": true,
-              "desc": "Branding Outlier e Orquestração de Elite."
-            },
-            {
-              "text": "Halbert / Kell (Global)",
-              "checked": true,
-              "desc": "Direct Response e VSLs de alta performance."
-            },
-            {
-              "text": "Erico / Maccedo (Brasil)",
-              "checked": true,
-              "desc": "Lançamentos e Autoridade no mercado nacional."
-            },
-            {
-              "text": "Persona: Elisa Clark",
-              "checked": true,
-              "desc": "Clone de influenciadora para cursos e vídeos."
-            }
-          ]
-        },
-        {
-          "id": 10,
-          "x": 2200,
-          "y": 1700,
-          "icon": "🧠",
-          "title": "Memória & Contexto (SQUAD MEMORY)",
-          "desc": "Governança de persistência e prevenção de alucinações.",
-          "status": "done",
-          "tasks": [
-            {
-              "text": "@oracle (Auditor)",
-              "checked": true,
-              "desc": "Fidelity check e Flash de Contexto inicial."
-            },
-            {
-              "text": "@scribe (Cronista)",
-              "checked": true,
-              "desc": "Snapshot automático e gestão de Hand-offs."
-            },
-            {
-              "text": "The Anchor Protocol",
-              "checked": true,
-              "desc": "Constituição e diretrizes de memória imutável."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "flow",
-      "name": "🏆 AIOX Pipeline",
-      "nodes": [
-        {
-          "id": 101,
-          "x": 2100,
-          "y": 2500,
-          "icon": "🔍",
-          "title": "Discovery",
-          "desc": "Análise de mercado e avatar.",
-          "status": "done",
-          "tasks": [
-            {
-              "text": "Análise de Avatar",
-              "desc": "@analyst mapeia desejos.",
-              "checked": true
-            },
-            {
-              "text": "Dream 100",
-              "desc": "Mapeamento de influenciadores.",
-              "checked": true
-            }
-          ]
-        },
-        {
-          "id": 102,
-          "x": 2450,
-          "y": 2400,
-          "icon": "📈",
-          "title": "Scale Strategy",
-          "desc": "Definição de canais e ROI.",
-          "status": "active",
-          "tasks": [
-            {
-              "text": "Funil de Vendas",
-              "desc": "@pm define a jornada.",
-              "checked": true
-            },
-            {
-              "text": "Escada de Valor",
-              "desc": "Estrutura de LTV.",
-              "checked": false
-            }
-          ]
-        },
-        {
-          "id": 103,
-          "x": 2450,
-          "y": 2700,
-          "icon": "✍️",
-          "title": "Copy Engine",
-          "desc": "Escrita persuasiva de elite.",
-          "status": "active",
-          "tasks": [
-            {
-              "text": "Script VSL",
-              "desc": "@copywriter (Sage) em ação.",
-              "checked": true
-            },
-            {
-              "text": "Headlines Shock",
-              "desc": "Foco em CTR alto.",
-              "checked": false
-            }
-          ]
-        },
-        {
-          "id": 104,
-          "x": 2800,
-          "y": 2550,
-          "icon": "🎨",
-          "title": "Visual Design",
-          "desc": "Estética Premium Outlier.",
-          "status": "todo",
-          "tasks": [
-            {
-              "text": "Landing Page V3",
-              "desc": "@ux-expert cria a luz.",
-              "checked": false
-            },
-            {
-              "text": "Ads Criativos",
-              "desc": "Impacto visual imediato.",
-              "checked": false
-            }
-          ]
-        },
-        {
-          "id": 105,
-          "x": 3150,
-          "y": 2550,
-          "icon": "⚙️",
-          "title": "Dev & QA",
-          "desc": "Implementação e testes.",
-          "status": "todo",
-          "tasks": [
-            {
-              "text": "Setup Firebase",
-              "desc": "@devops configura infra.",
-              "checked": false
-            },
-            {
-              "text": "Smoke Test",
-              "desc": "@qa valida a rota de compra.",
-              "checked": false
-            }
-          ]
-        },
-        {
-          "id": 106,
-          "x": 3500,
-          "y": 2550,
-          "icon": "🚀",
-          "title": "Main Event",
-          "desc": "Lançamento e otimização.",
-          "status": "todo",
-          "tasks": [
-            {
-              "text": "Live Deploy",
-              "checked": false,
-              "desc": "Abertura de carrinho."
-            },
-            {
-              "text": "ROI Tracking",
-              "checked": false,
-              "desc": "Acompanhamento em tempo real."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "sais",
-      "name": "🌿 Sais de Banho",
-      "nodes": [
-        {
-          "id": 10,
-          "x": 2100,
-          "y": 2300,
-          "icon": "🔍",
-          "title": "Pesquisa & Avatar",
-          "status": "done",
-          "tasks": [
-            {
-              "text": "Dores e Desejos",
-              "checked": true
-            },
-            {
-              "text": "Avatar Essência Ativa",
-              "checked": true
-            }
-          ]
-        },
-        {
-          "id": 11,
-          "x": 2100,
-          "y": 2700,
-          "icon": "📝",
-          "title": "Copywriting",
-          "status": "done",
-          "tasks": [
-            {
-              "text": "Script VSL 2m15s",
-              "checked": true
-            },
-            {
-              "text": "Framework PAS/AIDA",
-              "checked": true
-            }
-          ]
-        },
-        {
-          "id": 12,
-          "x": 2400,
-          "y": 2100,
-          "icon": "🎨",
-          "title": "Design Landing Page",
-          "status": "done",
-          "tasks": [
-            {
-              "text": "Hero Section Premium",
-              "checked": true
-            },
-            {
-              "text": "Prova Social",
-              "checked": true
-            },
-            {
-              "text": "Oferta Irresistível",
-              "checked": true
-            }
-          ]
-        },
-        {
-          "id": 13,
-          "x": 2800,
-          "y": 2300,
-          "icon": "💻",
-          "title": "Construção V3 Light",
-          "status": "done",
-          "tasks": [
-            {
-              "text": "Delay do botão VSL",
-              "checked": true
-            },
-            {
-              "text": "Responsividade Mobile",
-              "checked": true
-            },
-            {
-              "text": "Fanpage Bridge",
-              "checked": true
-            }
-          ]
-        },
-        {
-          "id": 14,
-          "x": 2800,
-          "y": 2700,
-          "icon": "🛒",
-          "title": "Integração Checkout",
-          "status": "done",
-          "tasks": [
-            {
-              "text": "Link Kiwify/Shopify",
-              "checked": false
-            },
-            {
-              "text": "Order Bump",
-              "checked": false
-            },
-            {
-              "text": "Upsell Flow (Ghost Writing)",
-              "checked": true
-            },
-            {
-              "text": "Webhooks Shopify",
-              "checked": false
-            }
-          ]
-        },
-        {
-          "id": 15,
-          "x": 2500,
-          "y": 3100,
-          "icon": "🚀",
-          "title": "Tráfego & Métricas",
-          "status": "todo",
-          "tasks": [
-            {
-              "text": "Lançamento Meta Ads",
-              "checked": false
-            },
-            {
-              "text": "Análise de ROI",
-              "checked": false
-            }
-          ]
-        }
-      ]
-    }
-  ]
+﻿{
+    "projects":  [
+                     {
+                         "id":  "arq",
+                         "name":  "ðŸ—ï¸ Arquitetura Synkra AIOX",
+                         "nodes":  [
+                                       {
+                                           "id":  1,
+                                           "x":  2800,
+                                           "y":  2100,
+                                           "icon":  "ðŸ—‚ï¸",
+                                           "title":  "Estrutura (Filesystem)",
+                                           "desc":  "OrganizaÃ§Ã£o de pastas do framework.",
+                                           "status":  "done",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  ".aiox-core/ (Core)",
+                                                             "checked":  true,
+                                                             "desc":  "NÃºcleo do sistema, agentes e inteligÃªncia base."
+                                                         },
+                                                         {
+                                                             "text":  "funnels/ (Marketing)",
+                                                             "checked":  true,
+                                                             "desc":  "Estruturas de funis de vendas e ativos de marketing."
+                                                         },
+                                                         {
+                                                             "text":  "projects/ (Lojas)",
+                                                             "checked":  true,
+                                                             "desc":  "Arquivos especÃ­ficos de cada implementaÃ§Ã£o/loja."
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "id":  2,
+                                           "x":  2200,
+                                           "y":  2100,
+                                           "icon":  "ðŸ§ ",
+                                           "title":  "Knowledge Base",
+                                           "desc":  "CÃ©rebro que alimenta a inteligÃªncia.",
+                                           "status":  "done",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "branding/ (Voz)",
+                                                             "checked":  true,
+                                                             "desc":  "Diretrizes de tom de voz e identidade visual."
+                                                         },
+                                                         {
+                                                             "text":  "technical/ (Infra)",
+                                                             "checked":  true,
+                                                             "desc":  "DocumentaÃ§Ã£o de infraestrutura e deploy."
+                                                         },
+                                                         {
+                                                             "text":  "marketing/ (Provas)",
+                                                             "checked":  true,
+                                                             "desc":  "Gatilhos mentais e banco de provas sociais."
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "id":  3,
+                                           "x":  2200,
+                                           "y":  2700,
+                                           "icon":  "ðŸ‘¥",
+                                           "title":  "Squads (Equipes)",
+                                           "desc":  "Unidades autÃ´nomas de agentes.",
+                                           "status":  "active",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "Squad de LanÃ§amento",
+                                                             "checked":  true,
+                                                             "desc":  "Focado em picos de vendas massivos (PLF/MeteÃ³rico)."
+                                                         },
+                                                         {
+                                                             "text":  "Squad de Performance",
+                                                             "checked":  false,
+                                                             "desc":  "OtimizaÃ§Ã£o de trÃ¡fego pago e ROI diÃ¡rio."
+                                                         },
+                                                         {
+                                                             "text":  "Squad de Produto",
+                                                             "checked":  false,
+                                                             "desc":  "Desenvolvimento e melhoria de infoprodutos."
+                                                         },
+                                                         {
+                                                             "text":  "Squad Design System",
+                                                             "checked":  false,
+                                                             "desc":  "ManutenÃ§Ã£o da estÃ©tica premium e componentes."
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "id":  4,
+                                           "x":  2500,
+                                           "y":  2100,
+                                           "icon":  "ðŸ¤–",
+                                           "title":  "Agentes Core (8)",
+                                           "desc":  "Os pilares do sistema.",
+                                           "status":  "done",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "@aiox-master (Orion)",
+                                                             "checked":  true,
+                                                             "desc":  "Orquestrador mestre e tomador de decisÃµes estratÃ©gicas."
+                                                         },
+                                                         {
+                                                             "text":  "@architect (Aria)",
+                                                             "checked":  true,
+                                                             "desc":  "Projeta a arquitetura tÃ©cnica e de dados."
+                                                         },
+                                                         {
+                                                             "text":  "@dev (Dex)",
+                                                             "checked":  true,
+                                                             "desc":  "BraÃ§o executor para cÃ³digo e integraÃ§Ãµes."
+                                                         },
+                                                         {
+                                                             "text":  "@qa (Quinn)",
+                                                             "checked":  true,
+                                                             "desc":  "Garante a qualidade e ausÃªncia de bugs."
+                                                         },
+                                                         {
+                                                             "text":  "@pm (Morgan)",
+                                                             "checked":  true,
+                                                             "desc":  "Gestor de projetos e timelines."
+                                                         },
+                                                         {
+                                                             "text":  "@sm (River)",
+                                                             "checked":  true,
+                                                             "desc":  "Scrum Master, facilita o fluxo de trabalho."
+                                                         },
+                                                         {
+                                                             "text":  "@copywriter (Sage)",
+                                                             "checked":  true,
+                                                             "desc":  "Especialista em escrita persuasiva e vendas."
+                                                         },
+                                                         {
+                                                             "text":  "@ux-design-expert (Uma)",
+                                                             "checked":  true,
+                                                             "desc":  "Designer de experiÃªncia e interfaces premium."
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "id":  5,
+                                           "x":  2800,
+                                           "y":  2400,
+                                           "icon":  "ðŸ”",
+                                           "title":  "Especialistas \u0026 Analistas (6)",
+                                           "desc":  "Agentes de nicho e dados.",
+                                           "status":  "done",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "@analyst",
+                                                             "checked":  true,
+                                                             "desc":  "AnÃ¡lise fria de dados e comportamento do usuÃ¡rio."
+                                                         },
+                                                         {
+                                                             "text":  "@data-engineer",
+                                                             "checked":  true,
+                                                             "desc":  "Engenharia de dados e pipes de informaÃ§Ã£o."
+                                                         },
+                                                         {
+                                                             "text":  "@devops",
+                                                             "checked":  true,
+                                                             "desc":  "Infra e automaÃ§Ã£o de deploys."
+                                                         },
+                                                         {
+                                                             "text":  "@po",
+                                                             "checked":  true,
+                                                             "desc":  "Representante do produto e priorizaÃ§Ã£o."
+                                                         },
+                                                         {
+                                                             "text":  "@squad-creator",
+                                                             "checked":  true,
+                                                             "desc":  "CriaÃ§Ã£o dinÃ¢mica de novos esquadrÃµes de IA."
+                                                         },
+                                                         {
+                                                             "text":  "@marketing",
+                                                             "checked":  true,
+                                                             "desc":  "Estrategista de growth e aquisiÃ§Ã£o."
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "id":  6,
+                                           "x":  2800,
+                                           "y":  2700,
+                                           "icon":  "âœï¸",
+                                           "title":  "Suporte de ConteÃºdo/UX (4)",
+                                           "desc":  "Refinamento e conversÃ£o.",
+                                           "status":  "done",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "Copy Specialist",
+                                                             "checked":  true,
+                                                             "desc":  "Apoio micro-copy e headlines."
+                                                         },
+                                                         {
+                                                             "text":  "Funnel Specialist",
+                                                             "checked":  true,
+                                                             "desc":  "Especialista em taxas de conversÃ£o por etapa."
+                                                         },
+                                                         {
+                                                             "text":  "Traffic Specialist",
+                                                             "checked":  true,
+                                                             "desc":  "GestÃ£o tÃ©cnica de pixels e rastreamento."
+                                                         },
+                                                         {
+                                                             "text":  "UX Optimizer",
+                                                             "checked":  true,
+                                                             "desc":  "Testes A/B e melhoria de usabilidade."
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "id":  7,
+                                           "x":  2500,
+                                           "y":  2800,
+                                           "icon":  "âš¡",
+                                           "title":  "Skills Library (\u003e200)",
+                                           "desc":  "Clique no Ã­cone lateral âš¡ para abrir.",
+                                           "status":  "done",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "Explorar Habilidades",
+                                                             "checked":  true,
+                                                             "desc":  "Biblioteca completa de capacidades dos agentes."
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "id":  8,
+                                           "x":  2200,
+                                           "y":  2400,
+                                           "icon":  "ðŸ§ ",
+                                           "title":  "Expert Squad \u0026 AIOX Core",
+                                           "desc":  "Clones de Especialistas (Elite Layer).",
+                                           "status":  "done",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "Russel Brunson Trilogy (Deep)",
+                                                             "checked":  true,
+                                                             "desc":  "Dotcom, Expert e Traffic Secrets integrados."
+                                                         },
+                                                         {
+                                                             "text":  "Finch / Alan / Pedro (AIOX)",
+                                                             "checked":  true,
+                                                             "desc":  "Branding Outlier e OrquestraÃ§Ã£o de Elite."
+                                                         },
+                                                         {
+                                                             "text":  "Halbert / Kell (Global)",
+                                                             "checked":  true,
+                                                             "desc":  "Direct Response e VSLs de alta performance."
+                                                         },
+                                                         {
+                                                             "text":  "Erico / Maccedo (Brasil)",
+                                                             "checked":  true,
+                                                             "desc":  "LanÃ§amentos e Autoridade no mercado nacional."
+                                                         },
+                                                         {
+                                                             "text":  "Persona: Elisa Clark",
+                                                             "checked":  true,
+                                                             "desc":  "Clone de influenciadora para cursos e vÃ­deos."
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "id":  10,
+                                           "x":  2200,
+                                           "y":  1700,
+                                           "icon":  "ðŸ§ ",
+                                           "title":  "MemÃ³ria \u0026 Contexto (SQUAD MEMORY)",
+                                           "desc":  "GovernanÃ§a de persistÃªncia e prevenÃ§Ã£o de alucinaÃ§Ãµes.",
+                                           "status":  "done",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "@oracle (Auditor)",
+                                                             "checked":  true,
+                                                             "desc":  "Fidelity check e Flash de Contexto inicial."
+                                                         },
+                                                         {
+                                                             "text":  "@scribe (Cronista)",
+                                                             "checked":  true,
+                                                             "desc":  "Snapshot automÃ¡tico e gestÃ£o de Hand-offs."
+                                                         },
+                                                         {
+                                                             "text":  "The Anchor Protocol",
+                                                             "checked":  true,
+                                                             "desc":  "ConstituiÃ§Ã£o e diretrizes de memÃ³ria imutÃ¡vel."
+                                                         }
+                                                     ]
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "flow",
+                         "name":  "ðŸ† AIOX Pipeline",
+                         "nodes":  [
+                                       {
+                                           "id":  101,
+                                           "x":  2100,
+                                           "y":  2500,
+                                           "icon":  "ðŸ”",
+                                           "title":  "Discovery",
+                                           "desc":  "AnÃ¡lise de mercado e avatar.",
+                                           "status":  "done",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "AnÃ¡lise de Avatar",
+                                                             "desc":  "@analyst mapeia desejos.",
+                                                             "checked":  true
+                                                         },
+                                                         {
+                                                             "text":  "Dream 100",
+                                                             "desc":  "Mapeamento de influenciadores.",
+                                                             "checked":  true
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "id":  102,
+                                           "x":  2450,
+                                           "y":  2400,
+                                           "icon":  "ðŸ“ˆ",
+                                           "title":  "Scale Strategy",
+                                           "desc":  "DefiniÃ§Ã£o de canais e ROI.",
+                                           "status":  "active",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "Funil de Vendas",
+                                                             "desc":  "@pm define a jornada.",
+                                                             "checked":  true
+                                                         },
+                                                         {
+                                                             "text":  "Escada de Valor",
+                                                             "desc":  "Estrutura de LTV.",
+                                                             "checked":  false
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "id":  103,
+                                           "x":  2450,
+                                           "y":  2700,
+                                           "icon":  "âœï¸",
+                                           "title":  "Copy Engine",
+                                           "desc":  "Escrita persuasiva de elite.",
+                                           "status":  "active",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "Script VSL",
+                                                             "desc":  "@copywriter (Sage) em aÃ§Ã£o.",
+                                                             "checked":  true
+                                                         },
+                                                         {
+                                                             "text":  "Headlines Shock",
+                                                             "desc":  "Foco em CTR alto.",
+                                                             "checked":  false
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "id":  104,
+                                           "x":  2800,
+                                           "y":  2550,
+                                           "icon":  "ðŸŽ¨",
+                                           "title":  "Visual Design",
+                                           "desc":  "EstÃ©tica Premium Outlier.",
+                                           "status":  "todo",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "Landing Page V3",
+                                                             "desc":  "@ux-expert cria a luz.",
+                                                             "checked":  false
+                                                         },
+                                                         {
+                                                             "text":  "Ads Criativos",
+                                                             "desc":  "Impacto visual imediato.",
+                                                             "checked":  false
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "id":  105,
+                                           "x":  3150,
+                                           "y":  2550,
+                                           "icon":  "âš™ï¸",
+                                           "title":  "Dev \u0026 QA",
+                                           "desc":  "ImplementaÃ§Ã£o e testes.",
+                                           "status":  "todo",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "Setup Firebase",
+                                                             "desc":  "@devops configura infra.",
+                                                             "checked":  false
+                                                         },
+                                                         {
+                                                             "text":  "Smoke Test",
+                                                             "desc":  "@qa valida a rota de compra.",
+                                                             "checked":  false
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "id":  106,
+                                           "x":  3500,
+                                           "y":  2550,
+                                           "icon":  "ðŸš€",
+                                           "title":  "Main Event",
+                                           "desc":  "LanÃ§amento e otimizaÃ§Ã£o.",
+                                           "status":  "todo",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "Live Deploy",
+                                                             "checked":  false,
+                                                             "desc":  "Abertura de carrinho."
+                                                         },
+                                                         {
+                                                             "text":  "ROI Tracking",
+                                                             "checked":  false,
+                                                             "desc":  "Acompanhamento em tempo real."
+                                                         }
+                                                     ]
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "sais",
+                         "name":  "ðŸŒ¿ Sais de Banho",
+                         "nodes":  [
+                                       {
+                                           "id":  10,
+                                           "x":  2100,
+                                           "y":  2300,
+                                           "icon":  "ðŸ”",
+                                           "title":  "Pesquisa \u0026 Avatar",
+                                           "status":  "done",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "Dores e Desejos",
+                                                             "checked":  true
+                                                         },
+                                                         {
+                                                             "text":  "Avatar EssÃªncia Ativa",
+                                                             "checked":  true
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "id":  11,
+                                           "x":  2100,
+                                           "y":  2700,
+                                           "icon":  "ðŸ“",
+                                           "title":  "Copywriting",
+                                           "status":  "done",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "Script VSL 2m15s",
+                                                             "checked":  true
+                                                         },
+                                                         {
+                                                             "text":  "Framework PAS/AIDA",
+                                                             "checked":  true
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "id":  12,
+                                           "x":  2400,
+                                           "y":  2100,
+                                           "icon":  "ðŸŽ¨",
+                                           "title":  "Design Landing Page",
+                                           "status":  "done",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "Hero Section Premium",
+                                                             "checked":  true
+                                                         },
+                                                         {
+                                                             "text":  "Prova Social",
+                                                             "checked":  true
+                                                         },
+                                                         {
+                                                             "text":  "Oferta IrresistÃ­vel",
+                                                             "checked":  true
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "id":  13,
+                                           "x":  2800,
+                                           "y":  2300,
+                                           "icon":  "ðŸ’»",
+                                           "title":  "ConstruÃ§Ã£o V3 Light",
+                                           "status":  "done",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "Delay do botÃ£o VSL",
+                                                             "checked":  true
+                                                         },
+                                                         {
+                                                             "text":  "Responsividade Mobile",
+                                                             "checked":  true
+                                                         },
+                                                         {
+                                                             "text":  "Fanpage Bridge",
+                                                             "checked":  true
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "id":  14,
+                                           "x":  2800,
+                                           "y":  2700,
+                                           "icon":  "ðŸ›’",
+                                           "title":  "IntegraÃ§Ã£o Checkout",
+                                           "status":  "done",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "Link Kiwify/Shopify",
+                                                             "checked":  false
+                                                         },
+                                                         {
+                                                             "text":  "Order Bump",
+                                                             "checked":  false
+                                                         },
+                                                         {
+                                                             "text":  "Upsell Flow (Ghost Writing)",
+                                                             "checked":  true
+                                                         },
+                                                         {
+                                                             "text":  "Webhooks Shopify",
+                                                             "checked":  false
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "id":  15,
+                                           "x":  2500,
+                                           "y":  3100,
+                                           "icon":  "ðŸš€",
+                                           "title":  "TrÃ¡fego \u0026 MÃ©tricas",
+                                           "status":  "todo",
+                                           "tasks":  [
+                                                         {
+                                                             "text":  "LanÃ§amento Meta Ads",
+                                                             "checked":  false
+                                                         },
+                                                         {
+                                                             "text":  "AnÃ¡lise de ROI",
+                                                             "checked":  false
+                                                         }
+                                                     ]
+                                       }
+                                   ]
+                     }
+                 ]
 }

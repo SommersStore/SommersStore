@@ -23,7 +23,18 @@
       "Bash(unzip -p \"Financeiro 2026.xlsx\" xl/worksheets/sheet6.xml)",
       "Read(//c/Users/ADMIN/.gemini/antigravity/**)",
       "Read(//c/Users/ADMIN/.codex/**)",
-      "Bash(node ecac_final.js)"
+      "Bash(node ecac_final.js)",
+      "Bash(findstr /i \"start\\\\|dev\\\\|serve\\\\|port\\\\|4000\")",
+      "Bash(Get-Content package.json)",
+      "Bash(Select-String -Pattern \"start|dev|serve|port|4000\")",
+      "Bash(netstat -ano)",
+      "Bash(curl -s \"http://localhost:4000/\")",
+      "Bash(Get-Process -Id 14800)",
+      "Bash(Select-Object Id, Path, MainWindowTitle)",
+      "Bash(wmic process *)",
+      "Bash(taskkill //PID 14800 //F)",
+      "Bash(node scripts/dashboard_server.js)",
+      "Bash(curl -s -X POST \"http://localhost:4000/api/fin2/parse-slip\")"
     ],
     "additionalDirectories": [
       "C:\\Users\\ADMIN\\AppData\\Local\\Google\\Chrome\\User Data"

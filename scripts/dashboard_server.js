@@ -23,6 +23,7 @@ const {
     evaluateGitSyncPreflight,
     cloudSyncSucceeded
 } = require('./cloud_sync_guardrails');
+const { syncProjectMirror, readProjectMirrorState } = require('./project_mirror_sync');
 require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 let YoutubeTranscript = null;
 let youtubeTranscriptLoadTried = false;
@@ -1426,7 +1427,8 @@ function cloudSyncDefaultState() {
         last_started_at: null,
         last_completed_at: null,
         github: {},
-        firebase: {}
+        firebase: {},
+        mirror: {}
     };
 }
 
@@ -1439,6 +1441,19 @@ function loadCloudSyncState() {
     if (typeof merged.in_progress !== 'boolean') merged.in_progress = false;
     if (!merged.github || typeof merged.github !== 'object') merged.github = {};
     if (!merged.firebase || typeof merged.firebase !== 'object') merged.firebase = {};
+    if (!merged.mirror || typeof merged.mirror !== 'object') merged.mirror = {};
+    const diskMirror = readProjectMirrorState();
+    if (diskMirror && diskMirror.status) {
+        merged.mirror = {
+            status: diskMirror.status,
+            note: diskMirror.status === 'success'
+                ? `Espelho local confirmado em ${diskMirror.mirror_workspace}.`
+                : 'O último espelhamento local terminou com erro.',
+            destination: diskMirror.mirror_workspace || null,
+            completed_at: diskMirror.completed_at || null,
+            state_file: 'D:\\Antigravity-SommersStore\\sync-state.json'
+        };
+    }
     return merged;
 }
 
@@ -1716,6 +1731,7 @@ async function runCloudSyncJob(payload = {}) {
 
     let github = { status: 'skipped', note: 'Nao solicitado.' };
     let firebase = { status: 'skipped', note: 'Nao solicitado.' };
+    let mirror = { status: 'skipped', note: 'Nenhum destino em nuvem foi atualizado; espelho local nao necessario.' };
 
     try {
         if (request.target === 'all' || request.target === 'github') {
@@ -1735,17 +1751,28 @@ async function runCloudSyncJob(payload = {}) {
             }
         }
 
+        const shouldRefreshMirror = [github, firebase].some(item => item.status === 'success');
+        if (shouldRefreshMirror) {
+            mirror = await syncProjectMirror({
+                trigger: `cloud-sync:${request.trigger}`,
+                githubStatus: github.status,
+                firebaseStatus: firebase.status,
+                syncId
+            });
+        }
+
         const outcome = [github, firebase]
             .filter(item => item.status !== 'skipped')
             .map(item => item.status);
 
         const hasError = outcome.includes('error');
         const hasPartial = outcome.includes('partial');
-        const status = hasError ? 'error' : (hasPartial ? 'partial' : 'success');
+        const status = hasError ? 'error' : (hasPartial || mirror.status === 'error' ? 'partial' : 'success');
         const summary = [
             `Cloud sync ${syncId}: ${status.toUpperCase()}.`,
             `GitHub: ${github.status || 'skipped'} (${github.note || '-'})`,
-            `Firebase: ${firebase.status || 'skipped'} (${firebase.note || '-'})`
+            `Firebase: ${firebase.status || 'skipped'} (${firebase.note || '-'})`,
+            `Copia D: ${mirror.status || 'skipped'} (${mirror.note || '-'})`
         ].join(' ');
 
         const doneState = loadCloudSyncState();
@@ -1756,6 +1783,7 @@ async function runCloudSyncJob(payload = {}) {
         doneState.last_completed_at = nowIso();
         doneState.github = github;
         doneState.firebase = firebase;
+        doneState.mirror = mirror;
         writeCloudSyncState(doneState);
 
         appendExecutionLog(
@@ -1775,7 +1803,8 @@ async function runCloudSyncJob(payload = {}) {
             status,
             summary,
             github,
-            firebase
+            firebase,
+            mirror
         };
     } finally {
         cloudSyncBusy = false;

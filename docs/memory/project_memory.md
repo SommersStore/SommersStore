@@ -20,7 +20,495 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-05-19T02:24:59-03:00
+- updated_at: 2026-06-24T01:02:05-03:00
+
+## Handoff Atual - Espelho Local Antigravity no Disco D
+- timestamp: 2026-06-23T19:05:30-03:00
+- objetivo: manter uma cópia completa e recuperável do workspace no disco D, atualizada após sincronizações com GitHub/Firebase sem ampliar o que é publicado na nuvem.
+- destino: `D:\Antigravity-SommersStore\workspace`; o estado da última cópia fica em `D:\Antigravity-SommersStore\sync-state.json`.
+- comportamento: o painel atualiza o espelho após sucesso de GitHub ou Firebase; um hook pós-push no caminho ativo do Husky cobre pushes manuais e a tarefa `SommersStore Project Mirror Sync` executa a cada 15 minutos como salvaguarda.
+- validacao: cópia inicial completa concluída em 99.148 ms; hash do sincronizador conferido entre origem e espelho; hook executado com `trigger=git-post-push`; tarefa agendada executada com `trigger=scheduled-watchdog` e último resultado `0`; `npm run lint`, `npm run typecheck` e `npm test` passaram.
+- limites: GitHub contém apenas commits e Firebase Hosting publica somente `projects/loja-digital/out_deploy`; dados financeiros/fiscais e estado operacional continuam locais, mas entram no backup do D. Não há `git add`, commit, push, deploy ou pull automático.
+- seguranca: o espelho é completo e local; manter o disco D protegido e usar criptografia de unidade se disponível. Não salvar arquivos manuais dentro de `D:\Antigravity-SommersStore\workspace`, pois é um diretório gerenciado por `robocopy /MIR`.
+- story: `docs/stories/2.106.story.md`; gate: `docs/qa/gates/2.106-espelho-local-no-disco-d-e-rastreio-de-sincronizacao.yml`
+- checkpoint: CHK-MIRROR-02106
+
+## Handoff Atual - Salvar Tudo e Higienização do Repositório
+- timestamp: 2026-06-23T18:13:33-03:00
+- objetivo: corrigir a confirmação enganosa do botão `Salvar Tudo`, proteger o stage e organizar o histórico local antes de qualquer publicação no GitHub.
+- causa_confirmada: o sync `SYNC-20260622-1782178811894` falhava no commit por ausência de `user.name` e `user.email`, embora o Firebase Hosting tivesse publicado. O front-end chamava o resultado de “Tudo salvo” mesmo quando a nuvem retornava erro.
+- correcao: `scripts/cloud_sync_guardrails.js` e `scripts/dashboard_server.js` agora verificam identidade Git e stage antes de qualquer `git add`. O painel separa checkpoint local de sucesso cloud completo; o alerta do usuário confirmou `GitHub: ERROR` com causa acionável e `Firebase: SUCCESS`.
+- identidade: configurada somente neste repositório, com autorização do usuário, como `SommersStore <sommersstoreltda@gmail.com>`. Nenhuma senha foi usada ou persistida.
+- auditoria_git: o stage legado de 721 arquivos foi removido apenas do index, sem perda no diretório de trabalho. Dados financeiros/fiscais, anexos, sessões, archives e caches foram mantidos locais e protegidos via `.gitignore`.
+- commits_locais: `6476da4 chore(git): exclude local and sensitive artifacts`; `5c5067d feat(pajero): add command room and technical evidence`; `083d67e feat(forex): add IBKR desk and research toolkit`; `ab0e379 feat(velas): add guided product deliverables`; `0809910 feat(control-hub): consolidate dashboard and cloud safeguards`; `0d4df42 docs(governance): record cloud safeguard and stage audit`.
+- validacao: index vazio; varredura dos commits não encontrou os caminhos sensíveis excluídos; `npm run lint`, `npm run typecheck` e `npm test` passaram. Há warnings de whitespace em documentos legados, não alterados mecanicamente para preservar conteúdo do usuário.
+- estado_remoto: Firebase Hosting respondeu HTTP 200 após o deploy. Com autorização explícita do usuário, os seis commits foram publicados em `origin/master`: `c9b32bf..0d4df42`. A verificação posterior confirmou que `origin/master` aponta para `0d4df42d30e436a0fdf476dad865df325dc8d30e`.
+- validacao_push: `npm run lint`, `npm run typecheck` e `npm test` passaram; o índice estava vazio e o branch estava exatamente seis commits à frente. Não há script `build` na raiz e CodeRabbit não está disponível neste ambiente.
+- proxima_acao: continuar a evolução do painel conforme a prioridade do usuário. O conteúdo financeiro/fiscal e o estado operacional continuam fora do Git; nenhum sétimo commit foi criado.
+- stories: `docs/stories/2.104.story.md`, `docs/stories/2.105.story.md`
+- checkpoint: CHK-GIT-02105
+
+## Handoff Atual - Ponte Local IBKR e Rascunhos Paper
+- timestamp: 2026-06-22T23:10:29-03:00
+- objetivo: evoluir o IBKR Manual Desk sem pular para automação ou conta real, permitindo dados locais opcionais e preparação disciplinada de boletas paper.
+- acao: criada a aba `Inteligência & paper`, o módulo `scripts/ibkr_local_bridge.js`, endpoints locais de status/inteligência/rascunhos e o contrato `projects/forex/integrations/ibkr-local-bridge-contract.md`.
+- seguranca: a configuração `projects/forex/data/ibkr_integration.json` nasce desligada e em `paper_only`; aceita somente HTTP em loopback, exige cliente loopback, nunca armazena credenciais e não existe rota de ordem real. Rascunhos são locais, exigem reconhecimento explícito e registram `broker_transmission: false`.
+- comportamento: se a ponte não estiver configurada, não há preço, notícia ou contrato sintético. Quando um adaptador local responder, a tela mostra origem/horário, notícias e uma triagem de puts com score explicável de prazo, spread e prêmio relativo, sem promessa de “melhor opção”.
+- validacao: endpoints confirmaram `paper_only`, consulta desligada e bloqueio sem reconhecimento; criação/exclusão de rascunho de teste confirmou `draft_local_only` sem transmissão. Puppeteer confirmou a aba, mensagens seguras e zero erros de console. `npm run lint`, `npm run typecheck` e `npm test` passaram.
+- proxima_acao: instalar e autenticar fora do painel um adaptador local compatível com TWS API ou Client Portal Gateway, mantendo a conta paper; então habilitar manualmente a ponte e validar o contrato com dados reais antes de qualquer rotina de conta real.
+- story: `docs/stories/2.103.story.md`
+- checkpoint: CHK-FX-02103
+
+## Handoff Atual - IBKR Manual Desk, 3x1 e Protective Put
+- timestamp: 2026-06-22T21:58:18-03:00
+- objetivo: substituir a orientacao principal da aba Forex (Elliott/MetaTrader/Dukascopy) por uma rotina manual de investimentos internacionais com foco na Interactive Brokers, mantendo Dukascopy como laboratorio secundario.
+- acao: `docs/aiox_dashboard.html` ganhou o `IBKR Manual Desk` visivel, com abas para campanha 3x1, protecao por opcoes e processo/plataformas. A tela calcula tamanho teorico por entrada/stop, alvo 1,5R e os quatro desfechos do ciclo; tambem compara acao sem hedge com acao + put em um cenario didatico editavel.
+- matematica_confirmada: com risco 1% / 2% / 4% e alvo 1,5R, os desfechos antes de custos sao -1,0%, -0,5%, +0,5% e +10,5%. A campanha encerra na primeira perda; portanto, 7% nao e perda realizavel de um ciclo, embora a terceira ordem tenha risco de 4%.
+- limite_opcoes: o exemplo didatico de 100 acoes a US$ 6 e put strike US$ 5 com premio US$ 0,25 exige aproximadamente US$ 625. O painel deixa explicito que contratos de acoes dos EUA costumam usar multiplicador de 100 acoes e que uma conta inicial de US$ 500 pode nao comportar a estrutura.
+- documentacao: `projects/forex/README.md`, `projects/forex/brief.md` e `projects/forex/strategy/campanha-3por1-playbook.md` foram atualizados para separar 3x1 de protective put, sem prometer que opcoes substituem stop-loss.
+- validacao: Puppeteer em `http://localhost:4000/` confirmou 3 niveis, 4 desfechos, recalculo ao mudar capital, comparacao -US$ 200 / -US$ 125 e zero erros de console. `npm run lint`, `npm run typecheck` e `npm test` passaram.
+- story: `docs/stories/2.102.story.md`
+- checkpoint: CHK-FX-02102
+
+## Handoff Atual - Financas Abatimento Sem Zerar Subtotais
+- timestamp: 2026-06-20T01:38:12-03:00
+- objetivo: corrigir o botao inferior esquerdo das celulas gerenciaveis para abater do saldo geral/Receitas sem zerar a celula local nem o subtotal da subaba.
+- acao: `docs/aiox_dashboard.html` agora trata o modo `receitas` apenas como abatimento de `Receitas`; somente o modo `exclude` tira a celula/subaba da propria somatoria local.
+- comportamento: ao clicar no botao inferior esquerdo em subtotal de subaba ou em celula abaixo dele, o valor continua visivel e colorido/marcado, enquanto o `Fluxo de Caixa`/saldo geral e reduzido pelo abatimento. O botao superior esquerdo continua sendo o controle que zera/reinclui na coluna local.
+- validacao: Puppeteer em `http://localhost:4000/` criou dados temporarios com autosave desligado; `Mercado` manteve subtotal `100` e `Dividas atua` manteve subtotal `200` apos clicar no botao inferior, enquanto `Fluxo de Caixa` diminuiu. `npm run lint`, `npm run typecheck` e `npm test` passaram.
+- story: `docs/stories/2.101.story.md`
+- checkpoint: CHK-FIN-02101
+
+## Handoff Atual - Financas Controles nos Subtotais das Subabas
+- timestamp: 2026-06-19T19:15:58-03:00
+- objetivo: levar os dois botoes sutis das celulas totalizadoras mensais para as subabas de `Despesas` e para os grupos compactos de `Dividas`.
+- acao: `docs/aiox_dashboard.html` agora usa helpers de coluna por conjunto de linhas para renderizar controles em `expense:gasolina`, `expense:extras`, `expense:mercado`, `debt:payslip`, `debt:old` e `debt:current`.
+- comportamento: em cada subtotal mensal, o botao superior esquerdo exclui/reinclui todas as linhas daquela subaba naquele mes; o botao inferior esquerdo abate de `Receitas` sem zerar o subtotal local. A acao fica restrita ao grupo/subaba da celula clicada, sem afetar toda a secao.
+- validacao: `npm run lint`, `npm run typecheck` e `npm test` passaram; Puppeteer em `http://localhost:4000/` confirmou 12 celulas mensais gerenciaveis em cada um dos seis scopes e simulou exclusao mensal em `Mercado` e abatimento mensal em `Dividas atua` com autosave desligado.
+- story: `docs/stories/2.100.story.md`
+- checkpoint: CHK-FIN-02100
+
+## Handoff Atual - Financas Arraste das Subabas de Despesas
+- timestamp: 2026-06-19T19:01:15-03:00
+- objetivo: igualar o visual de `Despesas PM` as subabas compactas de despesas e permitir reorganizar `Gasolina`, `Despesas X` e `Mercado` por arrastar e soltar.
+- acao: `docs/aiox_dashboard.html` reforcou a cor/fonte verde compacta de `Despesas PM` mesmo sob controles de totalizacao, adicionou alcas discretas nas linhas compactas `Gasolina`, `Despesas X` e `Mercado`, e passou a persistir a ordem em `sheet.expenseGroupOrder`.
+- comportamento: a ordem padrao segue `Gasolina` > `Despesas X` > `Mercado`, mas quando o usuario arrasta uma subaba a nova sequencia e salva e usada tanto na renderizacao das linhas compactas quanto na ordem das linhas internas agrupadas.
+- validacao: `npm run lint`, `npm run typecheck` e `npm test` passaram; Puppeteer em `http://localhost:4000/` confirmou `Despesas PM` em verde `rgb(134, 239, 172)` com fonte `10px/900`, botoes de arraste/mais nas tres subabas e reordenacao simulada de `Mercado` antes de `Gasolina` sem autosalvar o teste.
+- story: `docs/stories/2.99.story.md`
+- checkpoint: CHK-FIN-02099
+
+## Handoff Atual - Financas Subabas de Despesas e Controles em Lote
+- timestamp: 2026-06-19T18:38:11-03:00
+- objetivo: reorganizar o topo da secao `Despesas` e permitir acoes em lote nas celulas totalizadoras mensais das categorias.
+- acao: `docs/aiox_dashboard.html` agora renderiza `Despesas PM` com destaque de subaba, seguido por `Gasolina`, `Despesas X` e `Mercado`; `projects/financas/data/fin2_data.json` marcou `Mercado 1` com `expenseGroup: "mercado"`.
+- comportamento: a ordem visual em `Financas > Planilha > Despesas` e `Despesas PM` > `Gasolina` > `Despesas X` > `Mercado` > demais despesas comuns; os botoes `+` de `Gasolina`, `Despesas X` e `Mercado` criam linhas dentro do grupo correto.
+- controles: as celulas mensais dos totalizadores de `Receitas`, `Despesas` e `Dividas` ganharam os mesmos dois botoes sutis das celulas individuais, aplicando `exclude` ou `receitas` em lote a todas as linhas daquela categoria/coluna.
+- validacao: `npm run lint`, `npm run typecheck` e `npm test` passaram; Puppeteer em `http://localhost:4000/` confirmou a ordem visual, `Mercado 1` dentro de `Mercado`, despesas comuns abaixo e efeito em lote nos totalizadores mensais sem autosalvar o teste.
+- story: `docs/stories/2.98.story.md`
+- checkpoint: CHK-FIN-02098
+
+## Handoff Atual - Financas Despesas EX e Gasolina
+- timestamp: 2026-06-19T17:52:37-03:00
+- objetivo: corrigir a tentativa anterior de subgrupo `Despesas`, evitando confusao com a secao principal e mantendo as despesas comuns fora de subgrupos.
+- acao: `docs/aiox_dashboard.html` agora define `FIN2_EXPENSE_GROUPS` com `Despesas EX` e `Gasolina`, renderiza ambas como linhas compactas vazias em `Financas > Planilha > Despesas`, e cria novas linhas de cada uma via `fin2AddExpenseGroupRow(...)` com `expenseGroup` especifico.
+- comportamento: Mercado, Celular, Luz, Net, ChatGPT e demais despesas comuns continuam diretamente na secao principal `Despesas`; `Despesas EX` e `Gasolina` iniciam com 0 linhas, preservam seta de expandir/retrair e botao `+`, e so recolhem linhas futuras do proprio grupo.
+- validacao: `npm run lint`, `npm run typecheck` e `npm test` passaram; Puppeteer em `http://localhost:4000/` confirmou 2 subgrupos (`Despesas EX`, `Gasolina`), 9 despesas comuns fora deles, 0 linhas internas e botoes `+` roteados para `fin2AddExpenseGroupRow(...)`.
+- story: `docs/stories/2.97.story.md`
+- checkpoint: CHK-FIN-02097
+
+## Handoff Atual - Financas Subgrupo Despesas
+- timestamp: 2026-06-19T15:34:15-03:00
+- objetivo: criar uma subaba/linha compacta similar a `Despesas PM` dentro da secao `Despesas`, com expandir/retrair e botao `+` para novas despesas.
+- acao: `docs/aiox_dashboard.html` agora renderiza uma linha compacta `Despesas` abaixo de `Despesas PM`, agrupando apenas as despesas comuns, com subtotais mensais e total anual.
+- comportamento: `Despesas PM` continua separada e acima do grupo comum; o botao `+` chama `fin2AddRow('despesas')`; a seta e o clique na linha alternam recolher/expandir as despesas comuns.
+- validacao: Puppeteer confirmou `Despesas PM` acima, grupo `Despesas` com `+`, 9 despesas comuns agrupadas, recolhimento/expansao funcionando e zero erros de console; `npm run lint`, `npm run typecheck` e `npm test` passaram.
+- story: `docs/stories/2.96.story.md`
+- checkpoint: CHK-FIN-02096
+
+## Handoff Atual - Financas Reclassificacao de Dividas Antigas
+- timestamp: 2026-06-19T14:57:22-03:00
+- objetivo: atender correcao do usuario para mover o intervalo de `M.C. Nu PJ` ate `Cabos e Soldados` de `Dividas atua` para `Dividas anti`.
+- acao: em `projects/financas/data/fin2_data.json`, as 10 linhas do intervalo foram marcadas com `oldDebt: true`: `M.C. Nu PJ`, `NU PF 2X`, `Patricia*`, `Horto`, `Mamud`, `Lion`, `Rose`, `Colonia CSd`, `Mecanico Pajero Wil` e `Cabos e Soldados At`.
+- preservado: as 9 dividas originadas do holerite continuam no bloco do holerite; `Dividas atua` ficou com 8 linhas restantes, iniciando em `ChatGPT`.
+- backup: criado backup local pre-correcao em `projects/financas/data/recovery/fin2_data_20260619_145611_before_old_debt_transfer.json`.
+- validacao: Puppeteer em `http://localhost:4000/` confirmou 9 linhas em holerite, 10 em antigas e 8 em atuais; `npm run lint`, `npm run typecheck` e `npm test` passaram.
+- story: `docs/stories/2.95.story.md`
+- checkpoint: CHK-FIN-02095
+
+## Handoff Atual - Financas Dividas do Holerite e Pasta Local
+- timestamp: 2026-06-19T14:20:46-03:00
+- objetivo: corrigir relato do usuario de que a linha compacta de dividas antes de `Dividas Antigas` nao expandia e que `Conectar Pasta` estava abrindo seletor manual em vez de conectar automaticamente.
+- diagnostico_dividas: as 9 dividas do holerite continuam presentes em `projects/financas/data/fin2_data.json` e tambem estavam no backup pre-auditoria `projects/financas/data/recovery/fin2_data_20260619_124719_pre_audit.json`; nao houve exclusao nem transferencia para outro bloco.
+- correcao_dividas: as linhas compactas de dividas do holerite, `Dividas Antigas` e `Dividas Atuais` passaram a alternar recolher/expandir pelo clique no corpo/texto da linha, preservando tambem as setas pequenas.
+- diagnostico_pasta: o navegador so consegue reconectar silenciosamente uma pasta quando ainda existe um handle salvo e autorizado. Quando esse handle some, o File System Access API forca o seletor; para recuperar o comportamento automatico, foi usado o workspace ja servido pelo servidor local.
+- correcao_pasta: `Conectar Pasta` agora tenta handle salvo, depois conecta automaticamente ao servidor local via `/api/runtime/info` e so usa `showDirectoryPicker` como ultimo fallback. Em validacao headless, abriu como `Pasta Conectada` / `Servidor Local`, sem dialogo.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` passaram; Puppeteer confirmou 9 linhas de holerite, recolher/expandir por clique na linha, conexao automatica ao workspace `SommersStore` e ausencia de dialogos/erros.
+- story: `docs/stories/2.94.story.md`
+- checkpoint: CHK-FIN-02094
+
+## Handoff Atual - Financas Persistencia e Autosave
+- timestamp: 2026-06-19T12:59:51-03:00
+- objetivo: investigar relato do usuario de que configuracoes da aba `Financas` pareciam ter sumido, com erro visual de salvamento e duvida sobre `Flash`, `Salvar Tudo` e `Conectar Pasta`.
+- diagnostico: a regra de heranca mensal da `Planilha` nao estava apagada; Puppeteer confirmou 387 celulas herdadas seguindo `null = copia o mes anterior`. O risco real estava na persistencia: o arquivo fisico `projects/financas/data/fin2_data.json` estava com gravacao antiga de 2026-06-14 antes do teste controlado.
+- recuperacao: foram buscadas copias externas mais novas de `fin2_data.json` e `finance_state.json` em areas locais relevantes, mas nenhuma copia mais recente foi encontrada. Backups pre-auditoria foram salvos em `projects/financas/data/recovery/` e ignorados pelo git por conterem dados financeiros sensiveis.
+- correcao: `fin2SaveData()` agora grava backup imediato em `localStorage`, valida resposta do servidor e mostra estado de erro mais preciso; `fin2LoadData()` consegue recuperar backup local mais novo; `fin2TriggerAutoSave()` passou a salvar backup local imediatamente e a gravar servidor com debounce curto.
+- botoes: `Conectar Pasta` foi esclarecido como File System Access API para pasta local direta, nao nuvem; se falhar, desconecta e cai para o servidor local. `Salvar Tudo` agora salva Financas primeiro e bloqueia GitHub/Firebase se essa etapa falhar. `Flash` foi verificado por fluxo de navegador.
+- validacao: `/api/save` respondeu 200, Financas renderizou 50 linhas, autosave retornou `salvo`, fallback de pasta conectada retornou sucesso via servidor, e `npm run lint`, `npm run typecheck` e `npm test` passaram.
+- proxima_acao: abrir `http://localhost:4000/` em Chrome/Edge, fazer uma alteracao pequena na Planilha e confirmar que o status muda para salvo; usar `Salvar Tudo` somente quando quiser enviar o estado atual para GitHub/Firebase.
+- story: `docs/stories/2.93.story.md`
+- checkpoint: CHK-FIN-02093
+
+## Handoff Atual - AIOX Trader On Chart v1.32 Spread BTC e Painel Amplo
+- timestamp: 2026-06-19T07:37:17-03:00
+- objetivo: corrigir alerta confuso de spread em BTCUSD e reduzir informacoes amontoadas no EA AIOX Trader On Chart.
+- causa: a v1.31 usava regra classica de pip para qualquer ativo; em BTCUSD com `Point=0.01`, um spread real de 5.00 aparecia como `500.0` e bloqueava Buy/Sell contra `MaxSpreadPips=5`.
+- ea_v132: `projects/forex/tools/mt4/AIOX_Trader_On_Chart.mq4` e `projects/forex/tools/mt5/AIOX_Trader_On_Chart.mq5` foram atualizados para `#property version "1.32"` com `PipSizeOverride`, deteccao de Forex classico e auto-pip para BTC/CFDs de preco alto.
+- layout: painel base ampliado de `208x344` para `240x396`, `PanelScalePercent` passou de `130` para `135`, e campos/botoes foram redistribuidos para melhorar leitura horizontal e vertical.
+- spread: label agora mostra `Spr: atual / Max limite`; alerta explica spread atual, `MaxSpreadPips` e que `MaxSpreadPips=0` desativa o filtro.
+- instalacao_validacao: fontes copiados para os data folders Dukascopy MT4/MT5 e binarios `.ex4/.ex5` gerados; logs `mt4_dukascopy_trader_on_chart_v132.log` e `mt5_dukascopy_trader_on_chart_v132.log` retornaram 0 errors/0 warnings.
+- story: criada/concluida `docs/stories/2.91.story.md`; `tests/quality/master_hub.test.cjs`, `projects/forex/README.md`, `docs/aiox_dashboard.html`, `docs/control/project_flows.json` e `task.md` sincronizados para v1.32.
+- proxima_acao: testar visualmente em demo Dukascopy com BTCUSD; se ainda bloquear por spread, conferir o valor exibido em `Spr` e, se o usuario quiser operar mesmo assim, ajustar `MaxSpreadPips` ou definir `MaxSpreadPips=0`.
+
+## Handoff Atual - AIOX Trader On Chart v1.31 Layout Compacto TOC
+- timestamp: 2026-06-18T06:14:18-03:00
+- objetivo: atender o pedido do usuario para deixar o EA mais parecido com o Trader On Chart original licenciado e um pouco maior/mais legivel, usando os screenshots enviados e a referencia publica.
+- limite_legal: foi feita aproximacao visual/funcional com codigo proprio; nao houve decompilacao nem copia de codigo, marca ou assets proprietarios. O rodape foi mantido como `Powered by AIOX`, nao como marca externa.
+- pesquisa: pagina publica `https://www.traderonchart.com/` revisada; PDF local `Manual-de-Acesso-ao-Sistema-Forex-Facil.pdf` extraido com `pdf-parse` e identificado como manual de acesso/licenca ao curso, sem parametros tecnicos de UI/EA.
+- ea_v131: `projects/forex/tools/mt4/AIOX_Trader_On_Chart.mq4` e `projects/forex/tools/mt5/AIOX_Trader_On_Chart.mq5` foram atualizados para `#property version "1.31"` com layout compacto estilo TOC, fundo branco/cinza claro, fonte Arial, simbolo azul no topo, versao no canto direito, linha `Close orders`, seletor compacto `Risk % / Risk $ / Lots`, campos tabulares, `Allow hedge`, OCO, pendente/distancia, Buy verde e Sell vermelho.
+- preservado: continuam disponiveis modos de risco, Buy/Sell, quatro modos de pendente, Straddle, BE, trailing, OCO, Two Way/Allow hedge, fechamento por mercado/lucro/prejuizo/pendentes e guardrails de lote/spread/stop level.
+- instalacao_validacao: fontes copiados para os data folders Dukascopy MT4/MT5 e binarios `.ex4/.ex5` gerados; logs `mt4_dukascopy_trader_on_chart_v131.log` e `mt5_dukascopy_trader_on_chart_v131.log` retornaram 0 errors/0 warnings.
+- story: criada `docs/stories/2.90.story.md`; `tests/quality/master_hub.test.cjs`, `projects/forex/research/trader-on-chart-reference.md`, `projects/forex/skills/mql5-expert-advisor-engineering.md`, `projects/forex/README.md`, `docs/aiox_dashboard.html`, `docs/control/project_flows.json` e `task.md` sincronizados para v1.31.
+- proxima_acao: testar visualmente em demo Dukascopy MT4/MT5 anexando o EA ao grafico; se algum texto cortar, enviar print da tela do MetaTrader com resolucao/zoom para ajustar posicoes e escala fina.
+
+## Handoff Atual - AIOX Trader On Chart v1.30 Paridade Trader On Chart
+- timestamp: 2026-06-18T01:00:08-03:00
+- objetivo: atender o pedido do usuario para analisar recursos publicos do Trader On Chart original e aproximar o EA AIOX sem deixar faltar funcoes visiveis no novo arquivo, mantendo o foco operacional em MT4/MT5 Dukascopy.
+- limite_legal: nao foi feita copia exata de codigo, marca, binario ou assets proprietarios; a comparacao foi baseada em pagina/screenshot publicos e em funcionalidades observaveis. Nenhum binario original foi decompilado.
+- escopo_ativo: novas instalacoes/compilacoes miraram somente os terminais Dukascopy MT4/MT5; instalacoes anteriores em ActivTrades, FTMO e Genial ficaram preservadas.
+- ea_v130: `projects/forex/tools/mt4/AIOX_Trader_On_Chart.mq4` e `projects/forex/tools/mt5/AIOX_Trader_On_Chart.mq5` foram atualizados para `#property version "1.30"` com `PanelScalePercent = 130`, fundo claro/bege, barra `Market/Profit/Loss/Pending`, campos Risk/Lot, SL Pips, TP Pips, BE, TS, Two Way, OCO, seletor de pendente e distancia em pips.
+- funcionalidades: Buy/Sell exibem preco atual, pendentes suportam `BUY STOP`, `SELL STOP`, `BUY LIMIT`, `SELL LIMIT`, straddle respeita Two Way, OCO remove pendentes apos abertura de posicao, Smart BE tenta cobrir comissao/swap quando disponivel e ha fechamento por mercado, lucro, prejuizo e pendentes.
+- instalacao_validacao: fontes copiados para os data folders Dukascopy e binarios `.ex4/.ex5` gerados; logs `mt4_dukascopy_trader_on_chart_v130.log` e `mt5_dukascopy_trader_on_chart_v130.log` retornaram 0 errors/0 warnings.
+- story: criada `docs/stories/2.89.story.md`; `projects/forex/research/trader-on-chart-reference.md`, `projects/forex/skills/mql5-expert-advisor-engineering.md`, `projects/forex/README.md`, `tests/quality/master_hub.test.cjs` e `task.md` foram sincronizados para v1.30.
+- proxima_acao: testar o EA v1.30 em demo nos terminais Dukascopy com Algo Trading/AutoTrading ativo, validar clique Buy/Sell, Place nos quatro modos de pendente, Straddle Two Way, OCO, BE/TS e enviar print das abas `Experts`/`Journal` caso algum retcode/falha apareca.
+
+## Handoff Atual - AIOX Trader On Chart v1.20 e Trilha MQL5/JForex/ProfitPro
+- timestamp: 2026-06-17T12:43:01-03:00
+- objetivo: atender o pedido do usuario para deixar o EA AIOX Trader On Chart mais legivel sobre template escuro, 15% maior, com MT5 abrindo ordens de forma mais confiavel e com agentes/skills enriquecidos para MQL5, JForex e ProfitPro.
+- escopo_ativo: seguindo a decisao operacional vigente, as novas instalacoes/compilacoes MT4/MT5 miraram apenas os terminais Dukascopy; instalacoes anteriores em outros terminais ficam preservadas.
+- ea_v120: `projects/forex/tools/mt4/AIOX_Trader_On_Chart.mq4` e `projects/forex/tools/mt5/AIOX_Trader_On_Chart.mq5` foram atualizados para v1.20 com fundo claro/bege (`C'255,252,238'`), texto escuro, botoes coloridos, `PanelScalePercent = 115`, `PanelRefreshSeconds` e atualizacao do painel por timer.
+- mt4_execucao: o EA MT4 passou a evitar redesenho pesado no `OnTick`, usa `RefreshRates()`, bloqueia lote zero e tenta novamente em erros transientes como requote/off quotes/trade context busy/price changed.
+- mt5_execucao: o EA MT5 passou a usar `trade.SetTypeFillingBySymbol(Symbol())`, `trade.SetAsyncMode(false)`, preco `0.0` em `CTrade.Buy/Sell`, bloqueio de lote zero e mensagens com `ResultRetcodeDescription()`.
+- instalacao_validacao: fontes e binarios foram atualizados nos data folders Dukascopy; logs `mt4_dukascopy_trader_on_chart_v120.log` e `mt5_dukascopy_trader_on_chart_v120.log` retornaram 0 errors/0 warnings.
+- conhecimento: criada story `docs/stories/2.88.story.md`, pesquisa `projects/forex/research/mql5-jforex-profitpro-engineering-sources.md`, skills `mql5-expert-advisor-engineering` e `cross-platform-template-porting`, personas `forex-mql5-expert-engineer` e `forex-cross-platform-template-engineer`, e template inicial `projects/forex/templates/profitpro-campanha-3por1.md`.
+- painel: `docs/aiox_dashboard.html`, `docs/control/project_flows.json`, `projects/forex/config/agent_skill_persona_map.json`, `projects/forex/data/forex_control.json` e README Forex foram sincronizados para expor ProfitPro, MQL5 e portabilidade cross-platform.
+- validacao_repo: `npm run lint`, `npm run typecheck` e `npm test` passaram em 2026-06-17 usando PATH temporario com `C:\Program Files\nodejs`; `git` nao estava disponivel no PATH do terminal para diff/status.
+- proxima_acao: o usuario deve testar o EA v1.20 em conta demo Dukascopy MT5 com Algo Trading ativo e, se falhar, enviar print das abas `Experts`/`Journal` com o retcode; em paralelo, enviar prints do template MT4 canonico H4/H1/M15/M5 e parametros dos indicadores para portar visualmente para MT5, JForex e ProfitPro.
+
+## Decisao Operacional - Forex Plataformas Ativas
+- timestamp: 2026-06-17T11:55:43-03:00
+- decisao: daqui em diante, operar e evoluir temporariamente apenas com os terminais MT4/MT5 da Dukascopy.
+- escopo_ativo_mt4: `C:\Program Files (x86)\Dukascopy MetaTrader 4` com data folder `C:\Users\ADMIN\AppData\Roaming\MetaQuotes\Terminal\ADB94438A57B9692806EA638441107AB`.
+- escopo_ativo_mt5: `C:\Program Files\Dukascopy MetaTrader 5` com data folder `C:\Users\ADMIN\AppData\Roaming\MetaQuotes\Terminal\3CA1B4AB7DFED5C81B1C7F1007926D06`.
+- preservado: instalacoes ja feitas em ActivTrades, FTMO e Genial devem ficar como estao, sem limpeza ou reversao.
+- regra_pratica: novas compilacoes, testes, templates, EAs e verificacoes Forex devem mirar Dukascopy MT4/MT5 por padrao, salvo ordem explicita em contrario.
+
+## Handoff Atual - EA AIOX Trader On Chart MT4/MT5
+- timestamp: 2026-06-17T04:47:25-03:00
+- objetivo: atender o pedido do usuario por um Expert Advisor/painel para MT4 e MT5 proximo ao Trader On Chart, reproduzindo funcionalidades publicas sem copiar codigo, marca ou assets proprietarios.
+- code_truth: ja existiam esbocos `projects/forex/tools/mt4/AIOX_Trader_On_Chart.mq4` e `projects/forex/tools/mt5/AIOX_Trader_On_Chart.mq5`, mas nao estavam instalados/compilados nos relatorios anteriores.
+- acao: Story 2.87 concluida; EAs MT4/MT5 atualizados para versao 1.10 com painel AIOX, modos risco %, risco dinheiro e lote fixo, linhas Entry/SL/TP, Buy/Sell, Pending, Straddle, BE, Trail, Close, Delete Pending e Close All.
+- guardrails: filtro de spread, stop level do broker, normalizacao por lot step/min/max, magic number e `ManageOnlyMagic`; EA nao gera sinais e deve ser testado em demo/Strategy Tester.
+- artefatos: criados `projects/forex/research/trader-on-chart-reference.md`, `docs/stories/2.87.story.md`, `projects/forex/tools/install-report-20260617-trader-on-chart.md`, logs `mt4_trader_on_chart.log` e `mt5_trader_on_chart.log`.
+- instalacao: fontes copiados para `MQL4\Experts\AIOX_Trader_On_Chart.mq4` e `MQL5\Experts\AIOX_Trader_On_Chart.mq5`; binarios `.ex4`/`.ex5` gerados nos terminais Dukascopy.
+- validacao: MetaEditor MT4 e MT5 retornaram 0 errors/0 warnings; `npm run lint`, `npm run typecheck` e `npm test` passaram.
+- correcao_2026_06_17_1134: apos o usuario informar que nao aparecia no MT4/MT5, a instalacao foi ampliada para todos os data folders detectados: Dukascopy MT4, ActivTrades MT4, Dukascopy MT5, FTMO MT5, Genial MT5, ActivTrades_Teste TPL MT5 e ActivTrades MT5. Todos geraram `.ex4`/`.ex5` e logs com 0 errors/0 warnings. Copia para `Program Files` falhou por permissao do Windows, mas nao e o data folder usado pelo MetaTrader em modo normal.
+- proxima_acao: abrir em demo/Strategy Tester, anexar o EA no grafico, testar lote/risco, pendentes, straddle, BE e trailing com volumes pequenos antes de qualquer uso real.
+
+## Handoff Atual - Forex Visual MT4 e Peak
+- timestamp: 2026-06-15T18:01:31-03:00
+- objetivo: adaptar o painel Forex ao visual real do MetaTrader 4 mostrado pelo usuario, aplicar hierarquia correta de visibilidade Elliott/Dow por timeframe e estudar o indicador Peak.
+- template_mt4: analisado `C:\Users\ADMIN\AppData\Roaming\MetaQuotes\Terminal\ADB94438A57B9692806EA638441107AB\templates\Final_Completo_3.tpl`; cockpit inclui grafico escuro, candles RSI, sessoes, `Peak`, `Sonic_6 PVA Volumes`, `Fisher_Yur4ik` e `smFisherTransform3`.
+- regra_visual: `AIOX_ELLIOTT_` aparece apenas em H4/H1; `AIOX_DOW_H1_` aparece em H1/M15/M5; `AIOX_DOW_M15_` aparece em M15/M5; `AIOX_DOW_M5_` aparece somente em M5.
+- peak: encontrado apenas `Peak.ex4` em `MQL4\Indicators\Nova pasta\ForexWOT.Com-PriceChannelStop\Indicators\Peak.ex4`; nenhum `.mq4` foi localizado, portanto o indicador deve ser tratado como caixa-preta ate teste por buffer/candle fechado.
+- artefatos: criados `projects/forex/research/mt4-final-completo-3-template-analysis.md`, `projects/forex/templates/timeframe-visibility-map.md`, `projects/forex/research/peak-indicator-study.md`, skill/persona Visual Template Analyst, scripts `AIOX_Forex_Apply_Object_Visibility.mq4/.mq5` e EA `AIOX_Peak_Buffer_Probe.mq4`.
+- painel: aba Forex agora tem aba interna `Visual MT4`, bloco `Visual MT4 + Peak`, 10 blocos totais e 15 cards de arquivos; mapa de agentes/skills/personas atualizado para 6 agentes e 5 clones.
+- validacao: JSON parse, `npm run lint`, `npm run typecheck` e `npm test` passaram; Browser interno continuou sem instancia (`agent.browsers.list()` retornou `[]`); Puppeteer em `http://localhost:4000/` confirmou desktop 1440x900 sem overflow horizontal, aba Visual MT4 com 4 guias, 15 cards e 10 blocos; mobile 390x760 sem overflow horizontal com rolagem vertical normal.
+- proxima_acao: copiar/compilar os scripts no MetaEditor, aplicar no MT4/MT5 real, rodar o probe do Peak em demo/Strategy Tester e alimentar o painel com logs CSV, prints e backtests por ativo/timeframe.
+
+## Handoff Atual - Forex Elliott First e MyFXBook
+- timestamp: 2026-06-15T17:07:18-03:00
+- objetivo: corrigir a inversao tecnica do painel Forex e tornar o layout utilizavel no PC sem zoom reduzido.
+- correcao_estrategica: Elliott agora vem primeiro e define tendencia em H4/H1; figuras de Dow/graficas passam a ser buscadas depois em H1, M15 e M5; risco 1-2-4 continua apenas apos setup A+.
+- acao_ui: aba Forex reformulada com abas internas `Sequencia`, `Fluxo`, `Arquivos` e `MyFXBook`; o fluxo visual e os templates nao ficam mais empilhados no fundo da tela.
+- myfxbook: criada pesquisa oficial em `projects/forex/research/myfxbook-metatrader-verification.md` com rotas MT4/MT5, Track Record, Trading Privileges, publicacao e guardrails de credenciais.
+- agentes: criado MyFXBook Tracker, skill `myfxbook-account-verification` e clone slot proprio; mapa de agentes/skills/personas atualizado para 5 agentes e 4 clones.
+- validacao: `npm run lint`, `npm run typecheck` e `npm test` passaram; Puppeteer em `http://localhost:4000/` confirmou desktop 1440x900 com tabs enquadradas, 9 blocos, 8 cards de arquivos, 4 accordions MyFXBook, zero erros de console e sem overflow horizontal; mobile sem overflow horizontal com rolagem interna.
+- observacao: Browser plugin interno continuou sem instancia (`agent.browsers.list()` retornou `[]`), portanto a validacao visual foi feita por Puppeteer local.
+- proxima_acao: alimentar Forex com prints reais de setups, backtests por campanha, metricas do MyFXBook/diario e configuracoes finais salvas nas plataformas.
+
+## Handoff Atual - Forex Campanha 3 por 1
+- timestamp: 2026-06-15T16:30:28-03:00
+- objetivo: analisar `Eu tenho uma estrategia 2.md`, `Forex 1.md` e `Genspark.md`, usando o GenSpark como consolidacao final, e criar a primeira aba/painel operacional Forex.
+- acao: story 2.84 concluida; criada aba lateral `Forex`, projeto `forex` no Master/project flows, painel interativo com blocos H4 Dow, H1 Elliott, M15 Figura, M5 Entrada, Risco 1-2-4, MT4/MT5/JForex e Agentes/Skills.
+- artefatos: criada pasta `projects/forex` com brief, playbook da Campanha 3 por 1, templates documentados para MT4, MT5 e JForex, seed de controle, mapa de agentes/skills/personas, tres personas e tres skills seed.
+- comportamento: o painel mostra KPIs da campanha (+11.2%, 1-2-4, scores 7/8/9 e plataformas), escada de risco, regras inviolaveis, cards interativos, overlay expandido, fluxo visual e cards de configuracao editaveis.
+- validacao: `npm run lint`, `npm run typecheck` e `npm test` passaram com PATH temporario incluindo `C:\Program Files\nodejs`; Puppeteer em `http://localhost:4000/` confirmou desktop/mobile sem overflow e sem erros de console.
+- observacao: Browser plugin interno retornou `iab unavailable`; isso nao comprova falta de creditos. Validacao visual foi feita por Puppeteer local.
+- proxima_acao: enriquecer agentes, skills e clones/personas Forex com exemplos reais de setups, backtests por campanha, configuracoes MT4/MT5/JForex e regras seguras de tracking/MyFXBook sem compartilhar credenciais.
+
+## Handoff Atual - Master Clones Filtro Projeto
+- timestamp: 2026-06-15T11:17:23-03:00
+- objetivo: corrigir o botao `Filtrar Projeto` / `Mostrar Todos` em `Master > Clones`, relatado pelo usuario como nao funcional ao trabalhar com clones.
+- diagnostico: a filtragem por dados estava correta; Pajero retornava 12 clones e o catalogo global 30. Havia duas falhas de UX/estado: ao selecionar um clone enquanto a visao global estava ativa, o inspector do clone substituia as acoes rapidas e removia o botao `Filtrar Projeto`; alem disso, a tela podia renderizar antes de `registry/persona assets` carregarem e mostrar falso `Catalogo antes dos filtros: 0`.
+- acao: story 2.83 concluida; criado `masterCatalogToggleButton`, reutilizado nas acoes rapidas e tambem no inspector do clone selecionado. O modo global/projeto passou a persistir em `aiox.master.ui.v2` como `catalogShowAll`.
+- comportamento: em Pajero > Clones, `Mostrar Todos` exibe 30 clones; apos selecionar um clone, `Filtrar Projeto` continua visivel e volta para os 12 clones Pajero, limpando a selecao. Ao abrir diretamente `Master > Pajero AI > Clones`, o canvas mostra `Carregando clones...` ate os dados hidratarem, em vez de exibir vazio falso.
+- validacao: Puppeteer em `http://localhost:4000/` confirmou loading inicial -> 12 clones, alternancia 12 -> 30 -> clone selecionado -> 12; `npm run lint`, `npm run typecheck` e `npm test` passaram.
+
+## Handoff Atual - Financas Abre em Planilha
+- timestamp: 2026-06-14T00:03:37-03:00
+- objetivo: verificar regressao relatada pelo usuario na aba `Financas`, apos uma volta atras que deixou a tela aparentando estar desconfigurada.
+- causa: a configuracao recente de `Dividas/Acordos` havia deixado `Dívidas/Acordos` como subaba ativa padrao e `renderFinancas()` forcava `fin2Switch('dividas')`.
+- acao: story 2.80 concluida; `Planilha` voltou a ser o botao ativo inicial, `fin2-pane-planilha` voltou a ser o pane visivel inicial e `renderFinancas()` agora retorna para `fin2Switch('planilha')`.
+- preservado: `Dívidas/Acordos` continua abrindo por clique e por `fin2SwitchToDebtDrawer()`; regras de contratos, holerite, grupos de dividas, `Dívidas Antigas` vazia e ausencia da copia 2017 foram mantidas.
+- validacao: Puppeteer em `http://localhost:4000/` confirmou abertura em `Planilha`, atalho para `Dívidas/Acordos` com 27 cards e zero erros de console; `npm run lint`, `npm run typecheck` e `npm test` passaram.
+
+## Handoff Atual - Workspace Antigravity Canonico
+- timestamp: 2026-06-13T22:14:21-03:00
+- objetivo: eliminar a duplicidade entre duas copias locais do `SommersStore` que causava conflito de `.env`, Gemini e contexto operacional.
+- diagnostico: o painel `localhost:4000` roda `C:\Users\ADMIN\.gemini\antigravity-ide\scratch\SommersStore`, mas as chaves reais estavam na copia antiga `C:\Users\ADMIN\.gemini\antigravity\scratch\SommersStore`.
+- acao: sincronizadas para o `.env` atual as configuracoes nao vazias da copia antiga, incluindo Anthropic, OpenAI, Gemini Credits e Vertex, sem expor valores.
+- limpeza: removida a entrada antiga de `C:\Users\ADMIN\.codex\config.toml`; excluida a pasta duplicada `C:\Users\ADMIN\.gemini\antigravity\scratch\SommersStore` e removidos os pais vazios `scratch` e `antigravity`.
+- validacao: `localhost:4000/api/runtime/info` confirmou `root_dir` em `antigravity-ide`; a API Gemini respondeu status 200; `npm run lint`, `npm run typecheck` e `npm test` passaram.
+- regra: daqui em diante, a workspace canonica para este projeto e `C:\Users\ADMIN\.gemini\antigravity-ide\scratch\SommersStore`.
+
+## Handoff Atual - Contratos em Dividas/Acordos
+- timestamp: 2026-06-10T00:43:36-03:00
+- objetivo: corrigir a leitura dos contratos anexados em `Financas > Dividas/Acordos`, usando o caso Bradesco `469,15` como referencia real.
+- acao: story 2.79 concluida; o parser de contratos agora diferencia total de parcelas de parcelas a vencer, prioriza `Valor da(s) Parcela(s)`, le cronogramas Bradesco com e sem barra e versiona a extracao com `parser_version: 2`.
+- comportamento: o Bradesco `469,15` ficou com parcela `469,15`, saldo `23.063,12`, `96` parcelas, `20` pagas, antecipacao atual `463,66`, ultima antecipacao `177,35`, 96 linhas de amortizacao e 3 documentos anexados.
+- edicao_manual: os campos de parcela, antecipacao, saldo, oferta, total de parcelas e pagas continuam editaveis; edicoes manuais ficam protegidas contra recarregamento automatico de contratos antigos, enquanto upload novo reaplica a extracao.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test`, validacao direta nos PDFs reais e Puppeteer em `http://localhost:4000/` sem erros de console.
+
+## Handoff Atual - Subtotais e Ordem das Dividas
+- timestamp: 2026-06-09T17:59:43-03:00
+- objetivo: colorir/alinhar os subtotais das linhas compactas de `Dividas` e manter `Dividas/Acordos` na mesma ordem visual da `Planilha`.
+- acao: story 2.78 complementada; os subtotais dos grupos `payslip`, `old` e `current` usam a cor do grupo, totalizadores usam alinhamento numerico tabular e os cards de `Dividas/Acordos` sao ordenados pela ordem renderizada em `Planilha > Dividas`.
+- comportamento: a ordenacao usa `fin2RowsForRender`, portanto respeita a sequencia visual dos grupos de holerite, antigas e atuais; novas dividas vindas de contratos continuam sendo acrescentadas ao fim da Planilha e aparecem nessa mesma posicao em `Dividas/Acordos`.
+- complemento: a linha `Fluxo de Caixa` agora centraliza os valores em cada celula, mantendo os demais totalizadores a direita.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/`; Puppeteer confirmou 27 cards de `Dividas/Acordos` na mesma sequencia das 27 linhas visiveis da Planilha, cores dos tres subtotais, alinhamento a direita dos demais subtotais/totais e `Fluxo de Caixa` centralizado.
+
+## Handoff Atual - Botoes de Grupo nas Dividas
+- timestamp: 2026-06-09T17:14:23-03:00
+- objetivo: acrescentar os dois botoes sutis tambem nas linhas compactas `Dividas do Holerite`, `Dividas Antigas` e `Dividas Atuais`.
+- acao: story 2.78 concluida e complementada; as tres linhas de grupo da secao `Dividas` renderizam os controles de excluir da somatoria local e de abater de `Receitas`.
+- comportamento: o controle do grupo afeta todas as linhas pertencentes ao grupo sem esconder nem apagar valores; o agrupador homonimo dentro de `Despesas PM` continua apenas com recolher/expandir para nao misturar regras de despesas.
+- rotulos: os textos visiveis foram encurtados para `Dividas holê`, `Dividas anti` e `Dividas atua` para evitar que os simbolos fiquem embolados.
+- subtotais: as tres linhas compactas exibem subtotais de Jan-Dez e total anual alinhados com as colunas da Planilha.
+- persistencia: o estado dos grupos e salvo em `debtGroupTotalModes` junto com os dados de Financas.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/`; Puppeteer confirmou dois botoes em cada um dos tres grupos, rotulos compactos, subtotais mensais, total anual, reducao do total de `Dividas` e abatimento em `Receitas` no mes de junho.
+
+## Handoff Atual - Botoes do Cabecalho
+- timestamp: 2026-06-07T22:36:00-03:00
+- objetivo: verificar `Flash`, `Salvar Tudo`, `Conectar Pasta` e `IDE:4000`.
+- acao: story 2.67 concluida; o problema encontrado foi que `Flash` copiava `docs/control/session_flash.txt` antes de gerar o contexto atual, o que podia retornar um Flash antigo.
+- solucao_final: `copySessionFlash` agora sempre usa `buildSessionFlash()`; `persistSessionFlash` salva o Flash atual em `docs/control/session_flash.txt` em modo best-effort; `Salvar Tudo` reutiliza o mesmo helper.
+- validacao: Puppeteer em `http://localhost:4000/` confirmou clipboard/alerta do `Flash`, payload de `Salvar Tudo`, persistencia em `/api/save`, feedback de `Conectar Pasta` quando a File System Access API nao esta disponivel e alerta do selo `IDE:4000`; tambem passaram `npm run lint`, `npm run typecheck` e `npm test`.
+
+## Handoff Atual - Recolher Dividas do Holerite
+- timestamp: 2026-06-05T17:15:48-03:00
+- objetivo: organizar a visualizacao das dividas do holerite sem esconder despesas comuns.
+- acao: story 2.66 concluida e reavaliada; a regra de recolhimento geral de `Despesas PM` foi desconsiderada, e a seta da linha voltou a controlar somente as sublinhas do holerite PM.
+- solucao_final: `Despesas PM` e `Dividas` usam a linha compacta `Dividas do Holerite` com seta discreta para controlar as dividas vindas do holerite.
+- comportamento: recolher a seta da linha `Despesas PM` oculta apenas as sublinhas do holerite; Mercado, Celular PJ/PF, Luz + Gas e demais despesas continuam visiveis. Recolher a linha compacta interna oculta apenas os 9 descontos bancarios vermelhos; recolher `dividas` oculta apenas as 9 linhas vindas do holerite.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/`; Puppeteer confirmou que Mercado/Celular/Luz permanecem visiveis ao recolher `Despesas PM`, e que `Dividas do Holerite` continua ocultando apenas os 9 bancos.
+
+## Handoff Atual - Fundo Padrao em Dividas do Holerite
+- timestamp: 2026-06-04T16:52:24-03:00
+- objetivo: manter a identificacao vermelha das dividas vindas do holerite PM sem colorir o fundo das celulas.
+- acao: story 2.65 concluida; `.fin2-payslip-debt-row td` voltou ao fundo transparente/padrao e os inputs voltaram ao fundo cinza `#141829`.
+- acordos: cards `payslip-debt` em `Dividas/Acordos` voltaram ao fundo padrao `#111525`, mantendo borda/texto vermelhos e etiqueta `Holerite`.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/`; Puppeteer confirmou celula com fundo padrao, input cinza, texto vermelho e card com fundo padrao.
+
+## Handoff Atual - Dividas do Holerite Destacadas
+- timestamp: 2026-06-04T15:22:48-03:00
+- objetivo: identificar visualmente, na secao `Dividas` e em `Dividas/Acordos`, quais dividas vieram dos descontos bancarios do holerite PM.
+- acao: story 2.64 concluida; linhas de `Planilha > Dividas` com origem `payslipDebt`/`payslipDebtKey` recebem `fin2-payslip-debt-row`, `data-fin2-payslip-debt="true"` e ficam vermelhas como as sublinhas bancarias de `Despesas PM`.
+- acordos: cards de `Dividas/Acordos` com origem de holerite recebem `payslip-debt`, borda lateral vermelha e etiqueta `Holerite`.
+- comportamento: a marcacao usa origem estruturada, nao uma lista manual de bancos; novos bancos extraidos do holerite herdam o destaque automaticamente.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/`; Puppeteer confirmou 9 linhas vermelhas em `Dividas`, incluindo BMG `74,97`, e 9 cards destacados em `Dividas/Acordos`.
+
+## Handoff Atual - Holerite PM Exclusao Mensal
+- timestamp: 2026-06-04T14:58:27-03:00
+- objetivo: permitir corrigir um anexo de holerite PM removendo somente o mes aberto no modal, sem afetar outros meses.
+- acao: story 2.63 concluida; o modal de holerite PM ganhou `Excluir holerite deste mes`, habilitado quando o mes tem arquivo, creditos, descontos ou extracao.
+- comportamento: `fin2DeletePayslipMonth` limpa `file`, `credits`, `discounts` e `extraction` apenas do mes alvo; `Pagamento PM`, `Despesas PM` e as dividas bancarias automaticas geradas pelo holerite recalculam em seguida.
+- dividas: `fin2ClearPayslipDebtMonthValues` limpa o valor daquele mes nas dividas bancarias vindas do holerite e remove linhas automaticas sem valores restantes, preservando valores/linhas com contrato extraido.
+- visual: o botao mensal de holerite na linha `Despesas PM` agora usa verde; `Pagamento PM` permanece azul.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/`; Puppeteer simulou exclusao de maio com autosave desligado, zerando `Pagamento PM` e `Despesas PM` no DOM sem alterar `projects/financas/data/fin2_data.json`.
+
+## Handoff Atual - Planilha Financas Cabecalho Fixo
+- timestamp: 2026-06-04T14:08:35-03:00
+- objetivo: melhorar a leitura da `Financas > Planilha` mantendo a linha dos meses fixa na rolagem vertical e removendo a necessidade de rolagem horizontal em tela de PC.
+- acao: story 2.62 concluida; o cabecalho da tabela usa `position: sticky; top: 0`, a tabela passou a usar `table-layout: fixed`, o wrapper perdeu largura minima forçada e os inputs/colunas foram compactados de forma sutil.
+- layout: `#fin2-pane-planilha` agora usa `overflow-y:auto; overflow-x:hidden`; a tabela mantem os 12 meses mais a coluna `Total` dentro da area visivel.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/`; viewports 1440x900 e 1366x768 ficaram sem overflow horizontal no documento, painel e pane, e o cabecalho sticky ficou com distancia `0` apos rolagem vertical.
+
+## Handoff Atual - Holerite PM Alimenta Dividas
+- timestamp: 2026-06-03T16:59:20-03:00
+- objetivo: copiar automaticamente para `Planilha > Dividas` os emprestimos bancarios que aparecem como descontos no holerite PM.
+- acao: story 2.61 concluida; `fin2SyncPayslipDebtsToSheet` le as series bancarias de `Despesas PM` e cria/atualiza linhas em `FIN2_SHEET.dividas` e credores em `FIN2_CREDITORS` com origem `payslipDebt`.
+- sincronismo: a copia do holerite roda antes de `fin2SyncDebtSheetFromCreditors`, entao `Dividas/Acordos` passa a refletir automaticamente as novas dividas bancarias vindas do holerite.
+- preservacao: valores extraidos de contrato em `Dividas/Acordos` continuam com prioridade (`valuesSource: contract`); o holerite so comanda valores quando nao ha contrato autoritativo.
+- continuidade: as regras da story 2.60 seguem ativas; bancos continuam visiveis/vermelhos em `Despesas PM`, mas nao entram na soma de despesas.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/`; Puppeteer confirmou 9 linhas bancarias em `Dividas`, incluindo BMG `74,97`, e `Despesas PM` de maio em `2.661`.
+
+## Handoff Atual - Holerite PM Descontos Bancarios Sem Duplicidade
+- timestamp: 2026-06-03T16:19:36-03:00
+- objetivo: evitar duplicidade entre descontos bancarios do holerite PM e a secao `Dividas`.
+- acao: story 2.60 concluida; sublinhas bancarias de `Despesas PM` continuam visiveis e editaveis, mas ficam vermelhas e nao entram no total de `Despesas PM`, no grupo `Despesas` nem no `Fluxo de Caixa`.
+- classificacao: Bradesco, Santander, Daycoval, BMG, Safra e Eagle sao tratados como descontos bancarios/dividas; Eagle permanece junto com os bancos conforme correcao do usuario.
+- comportamento: o total exibido na linha-mae `Despesas PM` soma apenas descontos nao bancarios do holerite; Puppeteer validou maio/2026 como `2.661` e 9 sublinhas bancarias vermelhas incluindo Eagle.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/`.
+- proxima_acao: ao extrair holerites futuros, conferir se novos bancos entram pela label `Banco`, pelo codigo conhecido ou pela label `Eagle`; se surgir outro nome de financeira sem `Banco`, adicionar ao classificador.
+
+## Handoff Atual - Painel Sem Simbolo de Moeda
+- timestamp: 2026-06-03T14:41:45-03:00
+- objetivo: remover o simbolo `$`/`R$` da exibicao do painel mantendo os calculos e a formatacao pt-BR.
+- acao: story 2.59 concluida; `fin2MoneyCell` agora exibe apenas numeros como `9.260,17`, `financeMoney` deixou de usar `style: currency`, e os cards/drawer de `Dividas/Acordos` exibem saldo, parcela, amortizacao e oferta sem prefixo monetario.
+- limpeza: textos fixos do painel com referencias de preco tiveram `R$` removido, preservando os valores numericos.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/` confirmaram `Financas > Planilha` sem `R$` e sem `$ ` visiveis.
+- proxima_acao: manter novos valores monetarios do painel sem simbolo; caso precise indicar moeda, usar texto contextual separado em vez de prefixo dentro da celula.
+
+## Handoff Atual - Financas Heranca PM e Sincronismo de Dividas
+- timestamp: 2026-06-03T01:12:21-03:00
+- objetivo: ajustar a `Planilha` para que itens expandidos do holerite PM herdem o mes anterior e alinhar `Planilha > Dividas` com `Dividas/Acordos`.
+- acao: story 2.58 concluida; sublinhas de `Pagamento PM` e `Despesas PM` agora sao series mensais com 12 inputs, usando copia do mes anterior quando o mes nao tem valor proprio; as linhas-mae PM seguem bloqueadas e apenas totalizam os valores efetivos das sublinhas.
+- dividas: criado sincronismo entre `FIN2_SHEET.dividas` e `FIN2_CREDITORS`; alteracoes de nome e parcela em `Planilha > Dividas` atualizam os cards em `Dividas/Acordos`; remover uma linha remove o credor correspondente.
+- contratos: valores extraidos em upload/extracao de contrato ficam com `valuesSource: contract` e prevalecem sobre edicoes posteriores da Planilha, reaplicando a parcela extraida na linha de `Dividas`; o servidor agora tenta extrair parcela, saldo e quantidade de parcelas de PDFs por heuristica textual simples.
+- limpeza: removido o texto `Edite os valores diretamente. Os totais sao recalculados automaticamente.` do header da Planilha.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/` confirmaram 12 inputs nas sublinhas PM, heranca ativa, sincronismo de nome/parcela, contrato prevalecendo e sem overflow horizontal.
+- proxima_acao: quando houver PDFs reais de contratos bancarios, validar a heuristica de extracao e ajustar os rotulos reconhecidos conforme cada banco.
+
+## Handoff Atual - Financas Totalizadores Compactos
+- timestamp: 2026-06-03T00:34:23-03:00
+- objetivo: compactar a leitura da aba `Financas > Planilha`, removendo linhas totalizadoras separadas e padronizando moeda.
+- acao: story 2.57 concluida; `TOTAL RECEITAS`, `TOTAL DESPESAS` e `TOTAL DIVIDAS` foram absorvidos pelos cabecalhos `RECEITAS`, `DESPESAS` e `DIVIDAS`; os botoes `+ Adicionar ...` viraram bolinhas `+` antes do nome de cada grupo; receitas usa azul vivo.
+- moeda: celulas monetarias e inputs numericos editaveis da Planilha exibem `$ ` em vez de `R$`, mantendo parser pt-BR e ponto de milhar.
+- holerite_pm: `Pagamento PM` e `Despesas PM` nao herdam mes anterior; cada mes totaliza apenas os itens anexados no holerite daquele mes. Maio/2026 segue anexado em `docs/uploads/Holerite_maio_2026.pdf`, com creditos `$ 9.260,17` e descontos `$ 6.080,63`; demais meses ficam `$ 0` ate novo holerite.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/` confirmaram ausencia de `R$`, ausencia de `TOTAL ...`, 3 botoes circulares, PM apenas em maio e sem overflow horizontal em 1440px.
+- proxima_acao: ao anexar holerites futuros, conferir se os itens extraidos aparecem no mes correto e nao reintroduzir heranca nas linhas-mae PM.
+
+## Handoff Atual - Financas Cores dos Totalizadores
+- timestamp: 2026-06-02T23:44:12-03:00
+- objetivo: ajustar a leitura visual da aba `Financas > Planilha` nos totalizadores.
+- acao: story 2.56 concluida; valores de `TOTAL RECEITAS`, `TOTAL DESPESAS` e `TOTAL DIVIDAS` passaram a usar a mesma cor do titulo da respectiva linha; a linha separadora vazia de `FLUXO DE CAIXA` foi removida; a linha final foi renomeada para `FLUXO DE CAIXA`.
+- comportamento: fluxo de caixa positivo/zero fica lilas; saldos negativos continuam vermelhos.
+- validacao: Puppeteer em `http://localhost:4000/` confirmou cores computadas dos totalizadores e ausencia da linha separadora; `npm run lint`, `npm run typecheck` e `npm test` passaram.
+- proxima_acao: manter totalizadores como linhas calculadas; nao inserir inputs/formulas manuais nas linhas de totais.
+
+## Handoff Atual - Financas Formula Mensal Direta
+- timestamp: 2026-06-02T22:20:39-03:00
+- objetivo: aplicar literalmente a regra da Planilha: janeiro e a base e fevereiro-dezembro sao formulas de copiar a celula imediatamente anterior.
+- acao: story 2.55 concluida; removida a camada de inferencia de zeros legados; regra final no codigo: `null = formula/copiar anterior` e `numero = valor digitado que substitui a formula`.
+- dados: `projects/financas/data/fin2_data.json` foi migrado para manter janeiro como valor-base nas linhas numericas e `null` em fevereiro-dezembro; meses com holerite PM extraido, como maio/2026, permanecem explicitamente calculados e os meses seguintes copiam esse holerite.
+- comportamento: exemplo validado em `Rodoanel 1`: fevereiro copia janeiro; marco copia fevereiro; apos digitar `7.000` em marco, abril-dezembro passam a copiar marco. Limpar uma celula volta a formula; digitar `0` zera de verdade.
+- validacao: Puppeteer em `http://localhost:4000/` confirmou copias e substituicao; totalizadores de linha, grupo e fluxo de caixa fecharam sem divergencias; `npm run lint`, `npm run typecheck` e `npm test` passaram.
+- proxima_acao: manter essa regra simples e nao reintroduzir tratamento especial de zeros legados; totalizadores continuam calculados, nao editaveis.
+
+## Handoff Historico - Financas Zeros Legados na Heranca
+- timestamp: 2026-06-02T21:25:37-03:00
+- observacao: supersedido pela story 2.55; a regra final e `null = formula/copiar anterior` e `numero = substituicao`.
+- objetivo: corrigir a falha relatada na aba `Financas > Planilha`, onde a copia do mes anterior nao funcionava em linhas antigas.
+- causa: a regra anterior herdava apenas celulas `null`, mas varias celulas antigas de receitas estavam gravadas como `0`; esses zeros eram tratados como valor real e bloqueavam a copia.
+- acao: story 2.54 concluida; adicionado controle `explicitZeroMonths`, normalizacao de zeros legados em receitas/despesas editaveis, limpeza automatica de zeros legados seguintes quando o usuario digita novo valor, e preservacao dos zeros historicos de `dividas`.
+- dados: `projects/financas/data/fin2_data.json` foi normalizado para `Rodoanel 2` herdar marco/abril de fevereiro e agosto-dezembro de julho; `Outros / Bonus` herdar junho-dezembro de maio.
+- comportamento: para zerar de verdade uma celula, digitar `0`; para voltar a copiar o mes anterior, limpar a celula.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/` confirmaram heranca, zero real e totais de linha/grupo/fluxo de caixa; as diferencas PM restantes seguem sendo apenas centavos ocultos nas linhas PM por requisito.
+- proxima_acao: se o usuario apontar novo caso em `dividas`, verificar antes se o zero e historico real ou placeholder, pois dividas foram preservadas para evitar transformar parcelas zeradas em recorrentes.
+
+## Handoff Atual - Financas Auditoria de Formulas
+- timestamp: 2026-06-01T10:35:51-03:00
+- objetivo: verificar problemas relatados na aba Financas/Planilha sobre copia de celulas, totalizacao de colunas e formulas.
+- acao: story 2.53 concluida; auditoria com Puppeteer comparou linhas, grupos e fluxo de caixa; `fin2SheetNumber` passou a normalizar strings monetarias pt-BR e espacos vazios; celulas herdadas ganharam `data-fin2-inherited="true"` e classe `fin2-input-inherited`.
+- comportamento: celulas vazias continuam herdando o valor efetivo do mes anterior; `0` continua valor explicito; strings como `1.234,56` entram corretamente nos calculos; celulas herdadas aparecem discretamente diferentes das digitadas.
+- observacao: diferencas visuais em `Pagamento PM` e `Despesas PM` sao esperadas porque essas linhas ocultam centavos por requisito, mas os totais gerais preservam os centavos reais do holerite.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/`; linha temporaria confirmou heranca `1.000`, substituicao em maio para `1.234,56`, copia de junho-dezembro e total `R$13.876,48`.
+- proxima_acao: se uma celula estiver mostrando `0`, tratar como valor digitado real; para voltar a copiar o mes anterior, limpar a celula.
+
+## Handoff Atual - Financas Heranca de Celulas Vazias
+- timestamp: 2026-05-30T11:41:35-03:00
+- objetivo: fazer celulas numericas vazias de fevereiro a dezembro copiarem o valor efetivo da celula anterior, sem afetar totais e labels.
+- acao: story 2.52 concluida; criado `fin2IsBlankSheetCell` e `fin2SheetOwnCellValue`, `fin2SheetCellValue` passou a caminhar de janeiro ate o mes atual herdando ultimo valor explicito, e novas linhas nascem com janeiro `0` e fevereiro-dezembro `null`.
+- comportamento: `null` representa celula vazia e herda; `0` continua sendo valor numerico real. Valores digitados substituem a copia; limpar uma celula volta a herdar o mes anterior. Holerites anexados substituem a copia nas linhas PM.
+- dados: junho-dezembro de `Pagamento PM` e `Despesas PM` foram deixados `null` para copiarem maio (`9.260` e `6.080`) ate a entrada de novos holerites.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/` confirmaram nova linha herdando `1.000` de janeiro, marco substituindo para `2.000`, abril vazio herdando marco, PM junho herdando maio, linha temporaria removida e sem overflow.
+- proxima_acao: quando houver valor diferente ou holerite de novo mes, digitar/anexar no mes correspondente para substituir a copia herdada.
+
+## Handoff Atual - Financas Milhar e Drag Drop
+- timestamp: 2026-05-30T02:01:42-03:00
+- objetivo: aplicar ponto de milhar nos campos editaveis de toda a `Planilha` e permitir reordenacao manual das linhas.
+- acao: story 2.51 concluida; criado `fin2ParseMoneyInput`, inputs numericos da planilha viraram texto com `inputmode="decimal"` e valores formatados pt-BR; linhas principais ganharam alca `fin2-drag-handle` com drag-and-drop dentro do mesmo grupo.
+- comportamento: campos exibem exemplos como `5.000`, `1.138`, `2.500` e itens expandidos como `2.772,19`; parser aceita entradas como `1.000` e `1.000,50`; dividas reordenadas mantem credores alinhados.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/` confirmaram 0 inputs numericos `fin2`, 26 alcas de arrastar, reordenacao temporaria `pm -> uber` revertida para ordem original, ordem persistida original no JSON e sem overflow horizontal.
+- proxima_acao: usar a alca discreta para organizar linhas dentro de Receitas, Despesas Fixas ou Dividas sem mover itens entre grupos.
+
+## Handoff Atual - Financas Escrita PM Padronizada
+- timestamp: 2026-05-30T01:43:07-03:00
+- objetivo: aplicar escrita tipo `Despesas` nos itens expandidos de `Pagamento PM` e `Despesas PM`, sem caixa alta.
+- acao: story 2.50 concluida; criado `fin2PayslipLabelCase`, aplicado na renderizacao, em novas extracoes, em edicoes manuais e nos dados ja gravados de maio/2026.
+- resultado: exemplos de maio agora aparecem como `Salario base (padrao)` e `Imposto de renda`, mantendo somente a primeira letra maiuscula e o restante minusculo.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/` confirmaram 21 itens expandidos, nenhum label em caixa alta, sem erros e sem overflow horizontal.
+- proxima_acao: manter esse padrao visual para novas extracoes de holerite PM.
+
+## Handoff Atual - Financas Sublinas PM Limpas
+- timestamp: 2026-05-30T01:30:19-03:00
+- objetivo: reduzir ruido visual nas sublinhas expandidas de `Pagamento PM` e `Despesas PM`.
+- acao: story 2.49 concluida; removido o prefixo visual `Credito PM · Mes` / `Desconto PM · Mes`, deixando somente o input editavel do item do holerite.
+- preservacao: edicao e exclusao dos itens expandidos continuam funcionando; o mes segue indicado pela coluna onde o valor aparece.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/` confirmaram 21 sublinhas expandidas, 21 inputs editaveis, nenhum prefixo visivel e sem overflow horizontal.
+- proxima_acao: seguir refinando a leitura visual da `Planilha` se surgirem novos ruidos na revisao manual.
+
+## Handoff Atual - Financas Totais PM Bloqueados
+- timestamp: 2026-05-30T01:25:13-03:00
+- objetivo: impedir edicao manual dos totais de `Pagamento PM` e `Despesas PM` na subaba `Planilha`, mantendo esses valores como reflexo dos itens expandidos do holerite.
+- acao: story 2.48 concluida; celulas mensais PM passaram de inputs para exibicao bloqueada, `fin2UpdateCell` bloqueia linhas com `payslipRole`, e os totais PM usam os itens extraidos quando existem.
+- formato: celulas PM calculadas escondem centavos visualmente (`9.260`, `6.080`), mas os valores internos seguem com centavos para calculos gerais; totais de grupo/linha/fluxo usam formatacao pt-BR com ponto de milhar.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/` confirmaram 24 celulas PM bloqueadas, 0 inputs PM, 24 botoes mensais de anexo, maio `9.260`/`6.080`, total de receitas `R$14.260,17` e sem overflow horizontal.
+- proxima_acao: manter os ajustes de holerite concentrados nos itens expandidos e usar anexos mensais para alterar os totais PM.
+
+## Handoff Atual - Financas Holerite PM Automatico
+- timestamp: 2026-05-30T01:11:22-03:00
+- objetivo: automatizar a leitura mensal do holerite da Policia Militar na subaba `Planilha`, sem lancamento manual item a item.
+- acao: story 2.47 concluida; removido o botao global antes de `Planilha`, compactados os controles mensais de anexo em `Pagamento PM` e `Despesas PM`, criado endpoint `/api/financas/payslip/extract` e ligada a extracao automatica apos upload.
+- referencia: `C:\Users\ADMIN\Downloads\Holerite maio 2026.pdf` foi usado como amostra; arquivo copiado para `docs/uploads/Holerite_maio_2026.pdf` e vinculado a maio/2026 em `projects/financas/data/fin2_data.json`.
+- dados_extraidos: maio/2026 possui 7 creditos em `Pagamento PM` totalizando R$9.260,17 e 14 descontos em `Despesas PM` totalizando R$6.080,63.
+- validacao: `/api/financas/payslip/extract` retornou 7/14 itens e totais corretos; `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/` confirmaram 12 meses sem overflow horizontal, controle de 72px, 24 botoes mensais, anexo em maio e linhas expandidas com os itens extraidos.
+- proxima_acao: ao anexar cada novo holerite mensal, conferir visualmente os itens extraidos e ajustar manualmente apenas se o PDF vier em formato diferente.
+
+## Handoff Atual - Financas Holerite PM
+- timestamp: 2026-05-30T00:00:00-03:00
+- objetivo: permitir lancamento mensal auditavel do holerite da Policia Militar na subaba `Planilha`.
+- acao: story 2.46 concluida; criado botao pequeno de holerite antes de `Planilha`, modelo mensal `FIN2_PAYSLIPS`, linha-mae `Pagamento PM` para creditos e linha-mae `Despesas PM` como primeira despesa fixa para descontos.
+- persistencia: `projects/financas/data/fin2_data.json` agora guarda holerites por mes com arquivo, creditos e descontos; os totais das linhas-mae sao sincronizados com os itens lancados.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/` confirmando botao, modal mensal, 12 meses, duas setas expansivas, `Pagamento PM` e `Despesas PM`.
+- proxima_acao: usar o botao de holerite a cada mes para anexar o arquivo PM e lancar creditos/descontos reais do demonstrativo.
+
+## Handoff Atual - Financas Planilha Focus
+- timestamp: 2026-05-30T00:00:00-03:00
+- objetivo: preparar a aba Financas para refinamento focado da subaba `Planilha`.
+- acao: story 2.45 concluida; removidas as subabas internas `Imp. de Renda` e `Mapa` da navegacao e dos panes de Financas em `docs/aiox_dashboard.html`.
+- preservacao: `Planilha` e `Dividas/Acordos` seguem acessiveis; `fin2Switch` agora aceita apenas essas duas abas e faz fallback para `Planilha`.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/` confirmando labels `Planilha` e `Dividas/Acordos`, sem botoes/panes de IR ou Mapa.
+- proxima_acao: refinar a subaba `Planilha` de Financas conforme direcao do usuario.
+
+## Handoff Atual - AIOX Master Next Recomendacoes
+- timestamp: 2026-05-25T00:00:00-03:00
+- objetivo: melhorar a selecao de squads, skills e clones no `AIOX Master Next` antes de continuar a esteira comercial.
+- auditoria: registry possui 21 squads, 41 agentes, 72 skills, 30 clones, 109 links skill-agente e 53 links clone-agente.
+- acao: story 2.44 concluida; inspector passou a recomendar agentes, skills e clones por contexto do no, usando squad, agentes vinculados, tipo, offerType, texto do no e criticidade.
+- ux: biblioteca lateral agora mostra metadados uteis de squad/handle, quantidade de agentes por skill e quantidade de agentes por clone.
+- validacao: `npm run lint`, `npm run typecheck` e `npm test`.
+- proxima_acao: revisar visualmente o inspector no navegador e seguir para Upsell/Downsell ou transformar `Start/Avancar` em gerador semi-automatizado por etapa.
 
 ## Handoff Atual - Dashboard Stability & UX
 - timestamp: 2026-04-27
@@ -48,7 +536,151 @@
 - validacao: `npm run lint`, `npm run typecheck` e `npm test`.
 - proxima_acao: obter/confirmar manual oficial do mercado correto, submodelo exato do V5A51, EPC por VIN e fontes OEM antes de liberar torque, fluido, capacidade, peca ou procedimento.
 
+## Handoff Atual - Pajero Retomada AIOX Master
+- timestamp: 2026-05-22T15:37:41-03:00
+- objetivo: retomar o projeto Pajero pelo painel AIOX Master com `project_id` persistido na memoria.
+- acao: story 2.28 concluida; `scripts/dashboard_server.js` passou a aceitar IDs declarados em `docs/control/project_flows.json`, incluindo `pajero`, e a inferir aliases `PAJERO`, `V77W` e `V5A51`.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e chamada real em `http://localhost:4100/api/session/start` criando `SES-20260522-0001` com `project_id: "pajero"`.
+- proxima_acao: executar `PJ-01 Diagnostico inicial`: scanner ECU/TCU/ABS, DTCs, freeze frame, dados ao vivo e fotos base antes de qualquer compra, torque, fluido ou procedimento.
+
+## Handoff Atual - Pajero Full UI
+- timestamp: 2026-05-22T16:20:00-03:00
+- objetivo: dar ao projeto Pajero uma aba lateral dedicada no AIOX Master, separada da coluna Projetos, com controle visual e espaco para evidencias reais.
+- acao: story 2.29 concluida; `docs/aiox_dashboard.html` ganhou a aba `Pajero Full` abaixo de `Saude`, com KPIs, perfil do veiculo, bloqueios, canvas PJ/PO tipo workflow e slots de imagens baseados em `Pajero/data/image-manifest.json`.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/` confirmando aba ativa, 12 nos, 6 slots de imagem e ausencia de erros de console.
+- proxima_acao: alimentar PJ-01 com scanner ECU/TCU/ABS e fotos reais para transformar os slots da aba em evidencias validadas.
+
+## Handoff Atual - Pajero VIN/Motor e Fontes Web
+- timestamp: 2026-05-22T17:06:43-03:00
+- objetivo: complementar o projeto Pajero com os dados reconfirmados de identificacao e uma trilha auditavel de fontes web para manuais, catalogos e imagens.
+- acao: story 2.30 concluida; VIN `JMYLYV77W5JA00169` e motor `6G75RN6738` foram registrados como reconfirmados pelo usuario em `Pajero/data/vehicle-profile.json`; a consulta NHTSA/vPIC retornou `ErrorCode` 1,7,400 e ficou marcada como limitacao de base EUA, nao invalidacao do veiculo.
+- fontes: pesquisa registrada em `Pajero/docs/pesquisa-internet-fontes-2026-05-22.md`, com Mitsubishi Techinfo, Mitsubishi Newsroom, Manualzz, Pajero4x4.ru, EPC Data, Nengun, TINKR e Wikimedia Commons.
+- proxima_acao: conferir fisicamente plaquetas/gravacoes do VIN, motor, cambio/transferencia e codigo A19; depois buscar EPC/OEM por frame/VIN e executar scanner ECU/TCU/ABS antes de liberar pecas, torques, fluidos ou diagnostico final.
+
+## Handoff Atual - Pajero Escapamento Visual
+- timestamp: 2026-05-22T20:42:01-03:00
+- objetivo: criar um teste visual inicial do sistema de escapamento, desde os coletores ate a saida final dos gases.
+- acao: story 2.31 concluida; criado diagrama original `Pajero/assets/diagramas/escapamento-v77w-6g75-fluxo.svg`, pagina estatica `Pajero/ui/escapamento-visual.html` e documento `Pajero/docs/escapamento-mapa-visual.md`.
+- evidencias: `Pajero/data/image-manifest.json` ganhou slots de fotos reais para coletor esquerdo/direito, tubos dianteiros, catalisador ausente/sondas, linha intermediaria e silencioso/ponteira.
+- validacao: JSONs, `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer desktop/mobile da pagina visual.
+- proxima_acao: abrir a pagina visual e preencher `Pajero/assets/imagens_reais/escapamento/` com fotos reais antes de qualquer conclusao sobre catalisador, sondas, vazamento, peca OEM ou solda.
+
+## Handoff Atual - Control Hub Governance Audit
+- timestamp: 2026-05-22T22:16:19-03:00
+- objetivo: responder aos documentos enviados pelo usuario com uma fundacao conservadora para reconstruir o Control Hub sem GenSpark e sem refatoracao cega.
+- acao: story 2.32 concluida; criados `docs/00_governance/`, `docs/01_audit/` e `docs/02_architecture/control_hub_migration_strategy.md`.
+- decisao: Codex fica como executor tecnico, Antigravity como ambiente; GenSpark fora; Gemini/Claude Code apenas consulta; `git add .` bloqueado ate triagem do worktree sujo.
+- classificacao: Produtos Digitais, Electro Commerce e Finance & Tax formam o hub comercial; Pajero e Saude ficam como projetos adjacentes, preservados fora da primeira tela comercial.
+- proxima_acao: implementar uma primeira visao "Control Hub Comercial" reaproveitando `docs/control/project_flows.json`, sem mover legado nem apagar abas existentes.
+
+## Handoff Atual - Control Hub Navigation Consolidation
+- timestamp: 2026-05-22T22:40:58-03:00
+- objetivo: incorporar a sugestao do usuario de simplificar a navegacao abaixo de Master.
+- acao: story 2.33 concluida; criada `docs/02_architecture/navigation_consolidation_proposal.md` recomendando sidebar primaria `Master`, `E-books`, `Site / Produtos` e `Financas`.
+- decisao: `Mapa` deve ser absorvido por `Construcao` como canvas tipo N8N; `Financas` e `Imposto de Renda` devem virar uma unica experiencia Finance & Tax; `Pajero Full` e `Saude` devem permanecer como projetos adjacentes no Master.
+- cautela: Memory, Salvar Tudo, Pasta Conectada, Squads e Clones devem ser preservados, mas reagrupados em area tecnica/sistema com validacao, nao removidos.
+- proxima_acao: aplicar a consolidacao visual em story propria, mantendo testes e sem apagar abas antigas antes de validar equivalencia.
+
+## Handoff Atual - Control Hub Sidebar Consolidada
+- timestamp: 2026-05-23T00:20:00-03:00
+- objetivo: aplicar a primeira consolidacao visual da sidebar sem apagar a infraestrutura existente.
+- acao: story 2.34 concluida; `docs/aiox_dashboard.html` agora mostra sidebar primaria `Master`, `E-books`, `Site` e `Financas`. `E-books` roteia para `Sais > Construcao`; `Site` roteia para `Electro > Construcao`.
+- preservacao: Memory, Funil, Projeto, Mapa, Pajero Full, Saude e Ops Desk seguem acessiveis via atalhos do Master/compatibilidade. `Salvar Tudo` e `Conectar Pasta` seguem no header e foram cobertos por teste.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4001/` confirmaram sidebar desktop/mobile, rotas E-books/Site, Pajero Full, Mapa e Financas sem erros de console.
+- observacao: `http://localhost:4000/` esta servindo outra copia antiga em `.gemini/antigravity/scratch`; a workspace atual fica em `.gemini/antigravity-ide/scratch`.
+- proxima_acao: transformar o Mapa em canvas embutido real dentro de `Construcao`, sem depender do pane legado.
+
+## Handoff Atual - Control Hub Mapa em Construcao
+- timestamp: 2026-05-23T00:55:00-03:00
+- objetivo: substituir o conteudo de `Construcao` por um fluxograma visual reaproveitando a fonte do pane `Mapa`.
+- acao: story 2.35 concluida; `Construcao` renderiza `MAP_DATA` dentro do Master para projetos com mapa existente, incluindo Sais, Velas, Electro e Saude.
+- interacao: clique em no `map-node:*` abre detalhe no inspector compacto; botao `Editor` abre o pane `Mapa` legado no projeto correto para edicao completa.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4001/` confirmaram Sais, Electro, inspector, editor legado e ausencia de erros de console.
+- proxima_acao: migrar gradualmente controles de edicao do Mapa legado para dentro do Master, ou criar um modo de edicao protegido no canvas embutido.
+
+## Handoff Atual - Instancia Local Canonica
+- timestamp: 2026-05-23T20:10:00-03:00
+- objetivo: eliminar a ambiguidade entre a copia antiga em `localhost:4000` e a workspace atual em `localhost:4001`.
+- acao: story 2.36 concluida; `/api/runtime/info` foi adicionado ao servidor e o header do dashboard passou a mostrar um selo de instancia (`IDE:4000` quando a workspace atual esta ativa).
+- operacao: processos antigos nas portas `4000` e `4001` foram encerrados; a workspace atual `.gemini/antigravity-ide/scratch/SommersStore` ficou rodando em `http://localhost:4000/`.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test`, chamada a `/api/runtime/info` e Puppeteer em `http://localhost:4000/` confirmaram raiz correta, mapa embutido, sidebar consolidada e ausencia de erros de console.
+- proxima_acao: seguir refinando o Master a partir de `http://localhost:4000/`; se aparecer outra porta, conferir primeiro o selo de instancia antes de mexer no codigo.
+
+## Handoff Atual - Controles do Mapa em Construcao
+- timestamp: 2026-05-23T20:23:00-03:00
+- objetivo: reduzir a dependencia do pane `Mapa` para operacoes simples dentro do Master.
+- acao: story 2.37 concluida; `Construcao` ganhou filtros nativos do canvas embutido, botao `Salvar` e troca protegida de status pelo inspector.
+- detalhes: `MASTER_MAP_FILTER` agora persiste no estado do Master; `saveMasterEmbeddedMap` grava no mesmo `/api/map/save`; salvamento legado do Mapa passou a incluir todos os projetos de `MAP_DATA`, inclusive `saude`.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/` confirmaram Sais com 29 nos, filtro `Bloqueios` com 2 nos, status actions e ausencia de erros de console.
+- proxima_acao: migrar edicao avancada de forma protegida somente se necessario: adicionar no, conectar aresta, duplicar e excluir devem continuar no pane `Mapa` ate haver validacao de risco.
+
+## Handoff Atual - Modo Edicao Protegido do Mapa
+- timestamp: 2026-05-24T12:50:00-03:00
+- objetivo: permitir ajustes pequenos no mapa embutido de `Construcao` sem expor edicao pesada por acidente.
+- acao: story 2.38 concluida; adicionado `MASTER_MAP_EDIT_MODE`, toggle `Modo edicao`, botao `Novo no` e acoes `Duplicar`/`Excluir` no inspector.
+- protecao: exclusao rapida exige confirmacao e bloqueia nos de pipeline, que continuam dependentes do editor legado. Conexoes/arestas nao foram migradas nesta etapa.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/` criaram/removeram `master-u-01`, retornando para 29 nos, com `IDE:4000` e sem erros de console.
+- proxima_acao: se o usuario quiser, criar modo dedicado de conexao de arestas com cancelamento/undo visual; alternativa mais segura e partir para refinamento de squads/clones ou projetos comerciais.
+
+## Handoff Atual - AIOX Master Next
+- timestamp: 2026-05-24T13:36:00-03:00
+- objetivo: responder ao desafio do usuario criando um novo painel do zero, em paralelo, com mapa full-screen estilo workflow/node editor.
+- acao: story 2.39 concluida; criado `docs/aiox_master_next.html` com rail lateral, topbar compacta, canvas com pan/zoom/drag/conexao, inspector de no, checklist, agentes, skills, clones, arquivos e execucao.
+- persistencia: adicionados `/api/aiox-master-next/load` e `/api/aiox-master-next/save`, gravando estado isolado em `docs/control/aiox_master_next_state.json` sem substituir `docs/aiox_dashboard.html`.
+- seed: primeira carga usa o mapa SAIS existente de `docs/control/map_state.json` e enriquece os nos com contexto do registry, agentes, skills e personas/clones.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/aiox_master_next.html` confirmaram 29 nos, drawer funcional, no temporario criado/removido, save e ausencia de erros/404.
+- proxima_acao: testar manualmente a experiencia com o usuario; depois priorizar refinamento visual fino, modo de conexao mais sofisticado, historico/undo e execucao real por agentes.
+
+## Handoff Atual - AIOX Master Next Templates
+- timestamp: 2026-05-24T13:58:35-03:00
+- objetivo: prosseguir nas sugestoes aprovadas pelo usuario, tornando o painel novo mais pratico para iniciar fluxos e mais seguro para editar.
+- acao: story 2.40 concluida; `docs/aiox_master_next.html` ganhou biblioteca de 10 templates operacionais, botoes `Templates`, `Desfazer` e `Refazer`, atalhos `Ctrl+Z`/`Ctrl+Y`, historico de estado e handles com conexao guiada.
+- preservacao: `docs/aiox_dashboard.html` nao foi alterado nesta etapa; o Next continua com estado isolado em `docs/control/aiox_master_next_state.json`.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/aiox_master_next.html` confirmaram 29 nos e 28 arestas no estado inicial/final, modal com 10 templates, criacao por template, undo/redo, conexao guiada e ausencia de erros/404.
+- proxima_acao: adicionar execucao real por agentes/squads nos nos selecionados, com log de run persistente e snapshots por projeto antes de qualquer migracao para o dashboard principal.
+
+## Handoff Atual - AIOX Master Next Sequencial
+- timestamp: 2026-05-24T16:21:16-03:00
+- objetivo: corrigir a dinamica rejeitada pelo usuario, trocando a criacao solta de nos por uma esteira objetiva da esquerda para a direita.
+- acao: story 2.41 concluida; `docs/aiox_master_next.html` ganhou `Produto guiado`, criando estrategia, entregavel principal, 2 entregaveis free e 2 order bumps com `sequenceIndex`, `offerType`, arestas lineares e primeiro no selecionado.
+- comportamento: `Start/Avancar` inicia a etapa pendente/rascunho; se a etapa esta em curso, marca como concluida e seleciona automaticamente o proximo no sequencial.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/aiox_master_next.html` criaram `Velas Aromaticas Teste`, confirmaram 6 nos, 5 arestas, ordem crescente no eixo X, start no primeiro, avanco para o segundo e restauracao do estado.
+- proxima_acao: adicionar os proximos blocos da escada comercial, `Upsell` e `Downsell`, seguindo a mesma esteira sequencial e mantendo execucao por agente/squad como proxima camada.
+
+## Handoff Atual - AIOX Master Next Squads
+- timestamp: 2026-05-24T16:52:12-03:00
+- objetivo: responder ao feedback do usuario de que o painel precisava mostrar os squads e servir a producao real dos materiais pelo Codex, nao apenas orientar o usuario a anexar arquivos.
+- auditoria: `docs/control/registry.json` possui 21 squads, 41 agentes, 30 personas, 11 grupos de skills e 72 skills. O Next ja carregava `/api/registry`, mas a atribuicao era rasa: primeiros agentes do squad, skills por token e personas por tipo.
+- acao: story 2.42 concluida; `assignTeamForNode` agora usa agentes do squad, links skill-agente e links persona-agente. O inspector mostra `Squad executor`, missao, contadores de agentes/skills/clones e perguntas de briefing por tipo de entregavel.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/aiox_master_next.html` criaram produto de teste, abriram o primeiro no com SQD-CORE, 4 agentes, 5 skills, 5 clones, perguntas de briefing e restauraram o estado.
+- proxima_acao: transformar `Start/Avancar` em producao real de artefatos locais, iniciando por Velas Aromaticas: brief do produto, e-book principal, HTML da area de membros/PDF, 2 frees e 2 order bumps.
+
+## Handoff Atual - Velas Aromaticas Produzidas no Next
+- timestamp: 2026-05-24T17:18:48-03:00
+- objetivo: validar o novo modelo operacional em que o usuario informa o briefing e o Codex/squads produzem os materiais reais do produto.
+- briefing: publico iniciante total; promessa de aprender a fazer velas, vender e montar marca; direcao inspirada em `O Cofre das Botanicas Secretas`; formato principal HTML de area de membros com possibilidade de PDF pelo cliente.
+- acao: story 2.43 concluida; criado `projects/velas-aromaticas/` com brief, manifest, e-book principal em HTML, 2 entregaveis free e 2 order bumps.
+- entregaveis: `velas-aromaticas-master.html`, `checklist-materiais-fornecedores.html`, `mini-guia-aromas-combinacoes.html`, `calculadora-preco-lucro.html` e `pack-etiquetas-cartoes.html`.
+- integracao: `docs/control/aiox_master_next_state.json` agora usa `velas-aromaticas` como projeto ativo, com 6 nos sequenciais, 5 arestas e arquivos anexados aos nos de estrategia, principal, free 1, free 2, bump 1 e bump 2.
+- validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer/file URL dos 5 HTMLs gerados, incluindo calculadora interativa.
+- proxima_acao: revisar refinamento editorial/visual dos entregaveis com o usuario e, em seguida, acrescentar a esteira de Upsell e Downsell mantendo o mesmo modelo de producao real.
+
 ## Ultimo fechamento
+- timestamp: 2026-06-24T01:02:05-03:00
+- tipo: usuario
+- resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- proxima_acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- checkpoint: CHK-MEM-0729
+- timestamp: 2026-06-23T13:26:42-03:00
+- tipo: usuario
+- resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- proxima_acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- checkpoint: CHK-MEM-0725
+- timestamp: 2026-06-22T22:40:11-03:00
+- tipo: usuario
+- resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- proxima_acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- checkpoint: CHK-MEM-0722
 - timestamp: 2026-05-16T10:55:19-03:00
 - tipo: usuario
 - resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
@@ -106,6 +738,716 @@
 - checkpoint: CHK-MEM-0250
 
 ## Ultimo fechamento automatico
+- timestamp: 2026-06-24T01:01:42-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0728
+- timestamp: 2026-06-23T19:51:30-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0727
+- timestamp: 2026-06-23T19:24:01-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0726
+- timestamp: 2026-06-23T13:25:34-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0724
+- timestamp: 2026-06-23T02:41:36-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0723
+- timestamp: 2026-06-22T22:20:08-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0721
+- timestamp: 2026-06-20T10:24:27-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0720
+- timestamp: 2026-06-20T09:13:54-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0719
+- timestamp: 2026-06-19T20:09:22-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0718
+- timestamp: 2026-06-19T19:38:21-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0717
+- timestamp: 2026-06-19T19:23:31-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0716
+- timestamp: 2026-06-19T19:06:11-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0715
+- timestamp: 2026-06-19T18:45:53-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0714
+- timestamp: 2026-06-19T18:03:03-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0713
+- timestamp: 2026-06-19T17:43:08-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0712
+- timestamp: 2026-06-19T16:38:25-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0711
+- timestamp: 2026-06-19T16:35:53-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0710
+- timestamp: 2026-06-19T15:54:00-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0709
+- timestamp: 2026-06-19T15:23:58-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0708
+- timestamp: 2026-06-19T15:04:46-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0707
+- timestamp: 2026-06-19T14:44:41-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0706
+- timestamp: 2026-06-19T14:05:07-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0705
+- timestamp: 2026-06-16T13:09:13-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0704
+- timestamp: 2026-06-15T22:59:44-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0703
+- timestamp: 2026-06-15T22:09:07-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0702
+- timestamp: 2026-06-15T21:01:53-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0701
+- timestamp: 2026-06-15T17:17:45-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0700
+- timestamp: 2026-06-15T17:06:52-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0699
+- timestamp: 2026-06-15T16:43:54-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0698
+- timestamp: 2026-06-15T16:27:22-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0697
+- timestamp: 2026-06-15T15:30:51-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0696
+- timestamp: 2026-06-15T13:39:41-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0695
+- timestamp: 2026-06-15T11:24:13-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0694
+- timestamp: 2026-06-14T00:48:22-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0693
+- timestamp: 2026-06-14T00:48:20-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0692
+- timestamp: 2026-06-14T00:10:49-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0691
+- timestamp: 2026-06-13T23:10:10-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0690
+- timestamp: 2026-06-13T23:09:13-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0689
+- timestamp: 2026-06-13T22:41:52-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0688
+- timestamp: 2026-06-13T22:07:42-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0687
+- timestamp: 2026-06-13T21:35:09-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0686
+- timestamp: 2026-06-13T20:29:14-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0685
+- timestamp: 2026-06-13T20:17:24-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0684
+- timestamp: 2026-06-13T18:50:15-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0683
+- timestamp: 2026-06-13T14:20:19-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0682
+- timestamp: 2026-06-12T23:18:23-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0681
+- timestamp: 2026-06-11T22:31:57-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0680
+- timestamp: 2026-06-10T01:29:34-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0679
+- timestamp: 2026-06-10T00:12:43-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0678
+- timestamp: 2026-06-09T19:19:46-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0677
+- timestamp: 2026-06-09T18:36:15-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0676
+- timestamp: 2026-06-09T18:12:11-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0675
+- timestamp: 2026-06-09T17:44:13-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0674
+- timestamp: 2026-06-09T17:06:46-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0673
+- timestamp: 2026-06-09T16:45:06-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0672
+- timestamp: 2026-06-09T16:32:18-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0671
+- timestamp: 2026-06-09T16:27:46-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0670
+- timestamp: 2026-06-09T02:25:26-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0669
+- timestamp: 2026-06-09T01:35:31-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0668
+- timestamp: 2026-06-09T00:29:02-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0667
+- timestamp: 2026-06-09T00:25:36-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0666
+- timestamp: 2026-06-09T00:07:31-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0665
+- timestamp: 2026-06-08T23:41:13-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0664
+- timestamp: 2026-06-08T23:08:13-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0663
+- timestamp: 2026-06-08T22:58:54-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0662
+- timestamp: 2026-06-08T22:42:29-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0661
+- timestamp: 2026-06-08T22:41:39-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0660
+- timestamp: 2026-06-08T22:07:21-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0659
+- timestamp: 2026-06-08T20:05:18-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0658
+- timestamp: 2026-06-08T19:42:24-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0657
+- timestamp: 2026-06-08T19:02:00-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0656
+- timestamp: 2026-06-08T19:00:33-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0655
+- timestamp: 2026-06-08T18:59:01-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0654
+- timestamp: 2026-06-08T18:02:31-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0653
+- timestamp: 2026-06-08T01:59:28-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0652
+- timestamp: 2026-06-08T01:14:56-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0651
+- timestamp: 2026-06-08T01:14:31-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0650
+- timestamp: 2026-06-08T00:33:26-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0649
+- timestamp: 2026-06-08T00:12:45-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0648
+- timestamp: 2026-06-07T23:48:48-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0647
+- timestamp: 2026-06-07T23:31:17-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0646
+- timestamp: 2026-06-07T23:09:58-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0645
+- timestamp: 2026-06-07T22:57:04-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0644
+- timestamp: 2026-06-05T21:29:43-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0643
+- timestamp: 2026-06-05T17:30:26-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0642
+- timestamp: 2026-06-05T17:18:31-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0641
+- timestamp: 2026-06-05T16:59:53-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0640
+- timestamp: 2026-06-05T16:45:06-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0639
+- timestamp: 2026-06-05T13:20:30-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0638
+- timestamp: 2026-06-05T13:19:13-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0637
+- timestamp: 2026-06-05T13:15:12-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0636
+- timestamp: 2026-06-04T16:46:26-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0635
+- timestamp: 2026-06-04T15:12:30-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0634
+- timestamp: 2026-06-04T14:47:32-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0633
+- timestamp: 2026-06-03T17:30:24-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0632
+- timestamp: 2026-06-03T16:24:42-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0631
+- timestamp: 2026-06-03T15:01:36-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0630
+- timestamp: 2026-06-03T01:33:28-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0629
+- timestamp: 2026-06-03T01:20:31-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0628
+- timestamp: 2026-06-03T00:38:52-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0627
+- timestamp: 2026-06-03T00:17:43-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0626
+- timestamp: 2026-06-02T23:49:12-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0625
+- timestamp: 2026-06-02T22:22:52-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0624
+- timestamp: 2026-06-02T22:05:10-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0623
+- timestamp: 2026-06-01T17:11:50-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0622
+- timestamp: 2026-06-01T14:34:09-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0621
+- timestamp: 2026-06-01T10:44:10-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0620
+- timestamp: 2026-06-01T10:42:47-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0619
+- timestamp: 2026-06-01T10:20:37-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0618
+- timestamp: 2026-06-01T10:18:53-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0617
+- timestamp: 2026-05-31T00:26:22-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0616
+- timestamp: 2026-05-30T02:13:49-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0615
+- timestamp: 2026-05-30T02:04:05-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0614
+- timestamp: 2026-05-30T01:51:55-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0613
+- timestamp: 2026-05-30T01:48:40-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0612
+- timestamp: 2026-05-30T01:31:08-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0611
+- timestamp: 2026-05-30T01:26:14-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0610
+- timestamp: 2026-05-30T01:12:49-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0609
+- timestamp: 2026-05-30T00:48:41-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0608
+- timestamp: 2026-05-30T00:28:00-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0607
+- timestamp: 2026-05-29T19:47:39-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0606
+- timestamp: 2026-05-28T21:40:05-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0605
+- timestamp: 2026-05-24T22:51:22-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0604
+- timestamp: 2026-05-24T16:00:39-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0603
+- timestamp: 2026-05-24T13:37:06-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0602
+- timestamp: 2026-05-24T13:14:23-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0601
+- timestamp: 2026-05-24T11:30:11-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0600
+- timestamp: 2026-05-24T11:29:12-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0599
+- timestamp: 2026-05-23T19:53:48-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0598
+- timestamp: 2026-05-23T19:52:33-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0597
+- timestamp: 2026-05-23T00:46:18-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0596
+- timestamp: 2026-05-23T00:16:01-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0595
+- timestamp: 2026-05-23T00:15:30-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0594
+- timestamp: 2026-05-22T18:10:20-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0593
+- timestamp: 2026-05-22T17:33:06-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0592
+- timestamp: 2026-05-22T17:30:34-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0591
+- timestamp: 2026-05-22T17:25:51-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0590
+- timestamp: 2026-05-22T17:12:08-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0589
+- timestamp: 2026-05-22T16:51:12-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0588
+- timestamp: 2026-05-22T15:43:24-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0587
+- timestamp: 2026-05-20T18:59:18-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0586
+- timestamp: 2026-05-20T18:58:52-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0585
 - timestamp: 2026-05-19T02:13:23-03:00
 - tipo: automatico
 - resumo: Encerramento automatico (fechamento de aba/janela).
@@ -1798,3 +3140,98 @@
 - resumo: Usuario encerrou a sessao com "ate amanha". Sessao finalizada apos Story 2.27 concluida, Firebase Hosting publicado, GitHub push `fb31d1f` concluido e botao `Salvar Tudo` mantido em quarentena de confianca.
 - proxima_acao: Na proxima sessao, receber os detalhes adicionais do usuario para refinar a area de membros e, antes de voltar a usar o botao `Salvar Tudo`, auditar/testar sua rotina completa.
 - checkpoint: CHK-HUB-0230
+
+## Registro Operacional - IRPF 2026 - 2026-05-29T18:21:58-03:00
+- tipo: procedimento-operacional
+- resumo: Na janela `Abrir declaracao` do IRPF 2026, o procedimento correto e comum e clicar diretamente na linha do contribuinte/nome `SERGIO SOMMERLATTE SOUZA` na grade e, depois que a linha estiver selecionada, clicar no botao `Ok` a direita. Evitar clicar no campo `Pesquisar nome` ou usar coordenadas aproximadas da janela reduzida/virtual.
+- proxima_acao: Em retomadas do IRPF, abrir a declaracao por `Declaracao > Abrir`, selecionar a linha pelo nome do contribuinte e so entao acionar `Ok`; depois rodar `F5` para verificar avisos/erros.
+- checkpoint: CHK-IRPF-20260529-UI-OPEN
+
+## Registro Manual - 2026-06-07T23:35:00-03:00
+- tipo: marco
+- resumo: Story 2.68 concluida. Na aba Financas > Planilha, a secao `Dividas` agora renderiza `Dividas do Holerite` como primeiro bloco fixo: as 9 linhas importadas do holerite aparecem agrupadas no topo, e as dividas comuns continuam abaixo. O recolhimento do bloco oculta apenas as dividas do holerite.
+- proxima_acao: Prosseguir com refinamentos pontuais de Financas solicitados pelo usuario, mantendo a ordem visual do bloco `Dividas do Holerite` como regra protegida por teste.
+- checkpoint: CHK-FIN-02068
+
+## Registro Manual - 2026-06-07T23:58:00-03:00
+- tipo: marco
+- resumo: Story 2.69 concluida. Na aba Financas > Planilha, a secao `Dividas` ganhou o grupo compacto `Dividas Antigas`, renderizado apos `Dividas do Holerite`. Cada divida antiga tem um botao sutil para alternar `excludeFromDebtTotals`, mantendo valores visiveis mas removendo/reincluindo a linha dos totais de `Dividas` e `Fluxo de Caixa`.
+- proxima_acao: Em novos refinamentos de Financas, preservar a separacao: `Dividas do Holerite` para linhas `source:payslipDebt` e `Dividas Antigas` para linhas manuais/antigas com controle de somatoria.
+- checkpoint: CHK-FIN-02069
+
+## Registro Manual - 2026-06-08T00:12:00-03:00
+- tipo: correcao
+- resumo: Story 2.70 concluida. `Dividas Antigas` foi corrigida para iniciar vazia (`0 linhas`) e receber somente dividas marcadas explicitamente com `oldDebt:true`. As 18 dividas normais existentes voltaram a ficar fora da subaba, sem botao de somatoria, e o usuario pode adicionar uma divida antiga pelo `+` do grupo ou arrastar uma divida normal para dentro dele.
+- proxima_acao: Em refinamentos futuros, nunca classificar automaticamente todas as dividas nao-holerite como antigas; `Dividas Antigas` depende de escolha manual do usuario.
+- checkpoint: CHK-FIN-02070
+
+## Registro Manual - 2026-06-08T00:26:00-03:00
+- tipo: ajuste-visual
+- resumo: Story 2.71 concluida. Na aba Financas > Planilha > Dividas, `Dividas Antigas` fica logo abaixo do bloco `Dividas do Holerite`: primeiro a linha compacta do holerite, depois as 9 linhas do holerite, depois `Dividas Antigas` com `0 linhas` quando vazia, e entao as dividas normais.
+- proxima_acao: Manter `Dividas Antigas` como grupo manual/vazio por padrao, sempre posicionado abaixo do bloco do holerite e antes das dividas normais.
+- checkpoint: CHK-FIN-02071
+
+## Registro Manual - 2026-06-08T01:08:00-03:00
+- tipo: ajuste-financas
+- resumo: Story 2.72 concluida. Linhas principais de `Despesas` e `Dividas` ganharam dois botoes sutis: o canto superior esquerdo tira/restaura a linha da somatoria do proprio grupo, e o canto superior direito tira a linha do grupo e abate o mesmo valor de `Receitas`.
+- comportamento: `Fluxo de Caixa` usa os totais centralizados; no modo de abatimento em Receitas, a despesa/divida sai do grupo e o mesmo valor reduz Receitas, preservando o efeito liquido. O botao antigo de `Dividas Antigas` foi roteado para a nova regra e continua compativel com `excludeFromDebtTotals`.
+- validacao: Puppeteer em `http://localhost:4000/` confirmou `Mercado` em `Despesas` e `M.C. Nu PJ` em `Dividas`; tambem passaram `npm run lint`, `npm run typecheck` e `npm test`.
+- proxima_acao: Se o usuario quiser aplicar a mesma granularidade aos itens expandidos do holerite PM, criar regra especifica para sublinhas, pois a Story 2.72 cobre linhas principais da Planilha.
+- checkpoint: CHK-FIN-02072
+
+## Registro Manual - 2026-06-08T22:44:36-03:00
+- tipo: ajuste-financas
+- resumo: Story 2.75 concluida. A aba Financas > Planilha recebeu controles sutis por celula mensal em `Despesas`, `Dividas` e sublinhas expandidas de `Despesas PM`: um botao remove a celula da somatoria do proprio grupo e outro remove a celula do grupo e abate o mesmo valor de `Receitas`.
+- comportamento: `Dividas do Holerite` e eventuais linhas de `Dividas Antigas` tambem herdam os controles por celula. `Dividas Antigas` usa destaque amarelo mantendo o fundo cinza dos inputs. Abaixo de `Fluxo de Caixa` foi adicionada uma copia calculada/read-only da planilha para `2017`.
+- validacao: Puppeteer em `http://localhost:4000/` confirmou `Mercado` em `Despesas`, `M.C. Nu PJ` em `Dividas`, uma sublinha de `Despesas PM`, ausencia de overflow horizontal, `Dividas Antigas` amarela e `COPIA DA PLANILHA 2017`. Tambem passaram `npm run lint`, `npm run typecheck` e `npm test`.
+- proxima_acao: Em refinamentos futuros, preservar a carga estabilizada de `fin2LoadData()` antes de validar totais no navegador e manter a copia `2017` como espelho calculado ate nova instrucao do usuario.
+- checkpoint: CHK-FIN-02075
+
+## Registro Manual - 2026-06-08T23:04:45-03:00
+- tipo: correcao-financas
+- resumo: Por ajuste do usuario, a copia calculada `2017` adicionada abaixo de `Fluxo de Caixa` foi removida da aba Financas > Planilha.
+- comportamento: Foram preservados os controles sutis por celula em `Despesas`, `Dividas` e sublinhas de `Despesas PM`, bem como o destaque amarelo de `Dividas Antigas`.
+- validacao: Testes estaticos atualizados para impedir retorno da secao `COPIA DA PLANILHA`; quality gates executados apos a remocao.
+- proxima_acao: Manter `Fluxo de Caixa` como encerramento da planilha principal, sem bloco espelhado 2017 abaixo.
+- checkpoint: CHK-FIN-02076
+
+## Registro Manual - 2026-06-09T00:04:09-03:00
+- tipo: ajuste-financas
+- resumo: Story 2.76 concluida. Na aba Financas > Planilha, o botao sutil de abatimento por celula foi movido do canto superior direito para o canto inferior esquerdo, o botao superior esquerdo ficou mais suave, e `Receitas` passou a receber os mesmos controles sutis por linha/celula.
+- comportamento: A secao `Dividas` agora tem o grupo compacto `Dividas Atuais` para dividas sem classificacao, depois de `Dividas do Holerite` e `Dividas Antigas`. As celulas da Planilha exibem valores sem centavos por arredondamento visual, mas os calculos preservam centavos internos.
+- validacao: Puppeteer em `http://localhost:4000/` confirmou `Dividas Atuais` com 18 linhas, controles em `Receitas`, ausencia de centavos visiveis, linha `Despesas + Dividas` imediatamente acima de `Fluxo de Caixa` e sem overflow horizontal. Tambem passaram `npm run lint`, `npm run typecheck` e `npm test`.
+- proxima_acao: Preservar a ordem visual `Dividas do Holerite` > `Dividas Antigas` > `Dividas Atuais` e manter `Despesas + Dividas` como total de compromissos antes do fluxo.
+- checkpoint: CHK-FIN-02077
+
+## Registro Manual - 2026-06-09T00:16:50-03:00
+- tipo: correcao-financas
+- resumo: A linha compacta `Dividas Atuais` ganhou botao `+`, no mesmo padrao das demais categorias.
+- comportamento: O botao chama `fin2AddRow('dividas')`, criando uma divida comum que aparece dentro do proprio grupo `Dividas Atuais`.
+- validacao: Puppeteer em `http://localhost:4000/` confirmou que o botao existe e que cria uma nova linha `data-fin2-current-debt="true"`; tambem passaram os quality gates.
+- proxima_acao: Manter o botao `+` de `Dividas Atuais` apontando para dividas comuns, sem marcar `oldDebt` nem `source:payslipDebt`.
+- checkpoint: CHK-FIN-02078
+
+## Registro Manual - 2026-06-09T01:32:44-03:00
+- tipo: ajuste-financas
+- resumo: Story 2.77 concluida. A aba `Financas > Dividas/Acordos` foi simplificada: status restrito a `Ativo`, `Negociado` e `Suspenso`; removidos prazos e `Marcar Pendurada`; `Plano de Quitacao` virou `Observacoes`; anexos passam a aceitar multiplos documentos por credor.
+- comportamento: Marcacao de parcelas agora e individual e nao marca automaticamente as anteriores. Contratos continuam extraindo valores, mas em dividas vindas do holerite o valor mensal do holerite prevalece sobre divergencias do contrato.
+- validacao: Puppeteer local confirmou status restrito, input multiplo, ausencia dos controles removidos, parcela 10 marcada isoladamente e sem erros de console; tambem passaram `npm run lint`, `npm run typecheck` e `npm test`.
+- proxima_acao: Refinar os campos editaveis de `Dividas/Acordos` se o usuario quiser expor edicao manual direta de saldo/oferta/parcela no drawer.
+- checkpoint: CHK-FIN-02079
+
+## Registro Manual - 2026-06-13T23:16:41-03:00
+- tipo: correcao-pajero-clones
+- resumo: Story 2.82 concluida. A auditoria confirmou que os arquivos de Pajero nao tinham sumido: a API local mostrou 21 squads, 41 agentes, 30 personas, 12 agentes Pajero e 12 assets/clones Pajero. O problema estava nos fluxos do painel Master > Clones.
+- comportamento: `Novo Clone` agora cria persona contextualizada no projeto ativo, owner/agente e `clone_file` markdown inicial; o inspector do clone ganhou Upload em Suporte, Transcricoes Base e Transcricoes Completas; uploads de audio/video sao transcritos via Gemini para markdown e anexados ao clone; exclusao remove apenas registro/vinculos e preserva arquivos fisicos.
+- validacao: Servidor reiniciado em `localhost:4000` no workspace `antigravity-ide`; Puppeteer confirmou 12 clone cards Pajero visiveis e 3 botoes Upload no inspector; passaram `node --check scripts/dashboard_server.js`, `node scripts/quality/lint.cjs`, `node scripts/quality/typecheck.cjs` e `node tests/quality/master_hub.test.cjs`.
+- observacao: `npm run lint`, `npm run typecheck` e `npm test` falharam nesta sessao porque o comando `node` nao esta no PATH do ambiente npm; os mesmos alvos passaram usando `C:\Program Files\nodejs\node.exe`.
+- proxima_acao: Testar com um arquivo real de YouTube/audio/video pelo painel quando o usuario fornecer o material, validando tempo de transcricao e qualidade do markdown gerado.
+- checkpoint: CHK-PAJERO-02082
+
+## Registro Manual - 2026-06-19T08:31:03-03:00
+- tipo: enriquecimento-forex
+- resumo: Story 2.92 concluida. O canal publico Rimantas Petrauskas / EA Coder foi mapeado em 138 videos, com 131 descricoes publicas acessiveis e 127 transcricoes acessiveis via configuracao do painel/youtube-transcript. O corpus analisou 248090 palavras de transcricao em sintese derivada, sem salvar transcricoes brutas integrais no mapa final.
+- comportamento: Forex agora tem a persona `forex-ea-coder-operations-mentor`, as skills `metatrader-ea-coder-operations` e `metatrader-trade-copier-ops`, contexto operacional sintetico, resumo combinado de transcricoes e links no painel/configuracoes para aprimorar instalacao, copiadores, painel manual, spread e troubleshooting MetaTrader.
+- validacao: `npm run lint`, `npm run typecheck` e `npm test` passaram, incluindo assercoes novas para corpus, persona, skills e agente `forex-ea-coder-ops-mentor`.
+- proxima_acao: Usar o EA Coder Ops Mentor nos proximos ajustes do AIOX Trader On Chart, principalmente em presets, logs, trade copier, alertas de spread e checklists MT4/MT5.
+- checkpoint: CHK-FOREX-02092

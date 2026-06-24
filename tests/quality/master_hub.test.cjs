@@ -4,6 +4,7 @@ const path = require('path');
 const vm = require('node:vm');
 const ibkrBridge = require('../../scripts/ibkr_local_bridge.js');
 const cloudSyncGuardrails = require('../../scripts/cloud_sync_guardrails.js');
+const projectMirror = require('../../scripts/project_mirror_sync.js');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 
@@ -813,8 +814,28 @@ function testCloudSyncGuardrails() {
   assert.ok(firstAddIndex > preflightIndex, 'Git preflight must occur before any git add');
   assert.match(serverJs, /local_saved: true/, 'save-all response should distinguish the local checkpoint');
   assert.match(serverJs, /cloud_succeeded: cloudSyncSucceeded\(cloudResult\.status\)/, 'save-all response should expose whether cloud sync fully succeeded');
+  assert.match(serverJs, /syncProjectMirror\(/, 'cloud sync should update the local D mirror after a successful cloud destination');
+  assert.match(serverJs, /readProjectMirrorState\(/, 'cloud status should expose the current D mirror state after dashboard restart');
+  assert.match(serverJs, /Copia D:/, 'cloud-sync state should report the D mirror result');
   assert.match(dashboardHtml, /Checkpoint salvo localmente:/, 'dashboard should explain a locally saved checkpoint when cloud sync fails');
   assert.match(dashboardHtml, /Tudo salvo e sincronizado/, 'dashboard should reserve full-success wording for full cloud success');
+  assert.match(dashboardHtml, /cloud-mirror-status/, 'dashboard should expose the local D mirror status');
+  assert.match(dashboardHtml, /cloud-mirror-header/, 'dashboard should show the D mirror status in the global header');
+}
+
+function testProjectMirrorConfiguration() {
+  const packageJson = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+  assert.equal(projectMirror.DEFAULT_MIRROR_ROOT, 'D:\\Antigravity-SommersStore', 'mirror should use the requested D drive by default');
+  assert.equal(projectMirror.workspacePathFor(), 'D:\\Antigravity-SommersStore\\workspace', 'mirror workspace should be isolated below the D drive root');
+  assert.equal(projectMirror.isRobocopySuccess(0), true, 'robocopy exit code zero should be successful');
+  assert.equal(projectMirror.isRobocopySuccess(7), true, 'robocopy informational exit codes should be successful');
+  assert.equal(projectMirror.isRobocopySuccess(8), false, 'robocopy error exit codes should fail the mirror');
+  assert.equal(projectMirror.readProjectMirrorState().status, 'success', 'mirror state should be readable from the configured D drive');
+  assert.throws(() => projectMirror.assertSafeMirrorRoot(path.join(ROOT, 'mirror')), /não pode ficar dentro/i, 'mirror destination must not recurse into the source project');
+  assert.equal(projectMirror.readCliOptions(['sync', '--trigger', 'test', '--github-status', 'success']).trigger, 'test', 'mirror CLI should parse its trigger');
+  assert.equal(packageJson.scripts['sync:mirror'], 'node scripts/project_mirror_sync.js sync --trigger npm_manual', 'package should expose a manual mirror command');
+  assert.equal(packageJson.scripts['deploy:hosting'], 'node scripts/deploy_hosting_with_mirror.js', 'manual Firebase deploy should run through the mirror-aware command');
+  assert.ok(fs.existsSync(path.join(ROOT, '.githooks', 'post-push')), 'repository should version the post-push mirror hook template');
 }
 
 function testAioxMasterNext() {
@@ -913,6 +934,7 @@ function run() {
   testIntegrationPoints();
   testIbkrPaperOnlyBridge();
   testCloudSyncGuardrails();
+  testProjectMirrorConfiguration();
   testDashboardInlineScriptsParse();
   testAioxMasterNext();
   testVelasAromaticasDeliverables();

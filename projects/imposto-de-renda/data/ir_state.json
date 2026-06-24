@@ -2,34 +2,90 @@
   "projeto": "Imposto de Renda PF",
   "ano_calendario": 2025,
   "exercicio": 2026,
-  "status": "intake",
+  "status": "informe_spprev_importado",
   "regime_escolhido": null,
-  "prazo_final": null,
+  "prazo_final": "2026-05-29",
   "updated_at": "2026-05-12T11:06:00-03:00",
   "declarante": {
-    "nome": null,
-    "cpf": null,
-    "data_nascimento": null,
+    "nome": "SERGIO SOMMERLATTE SOUZA",
+    "cpf": "091.937.868-40",
+    "data_nascimento": "1972-09-01",
     "titulo_eleitor": null,
-    "endereco": null,
-    "ocupacao_principal": null,
-    "natureza_ocupacao": null,
-    "dependentes": []
+    "endereco": {
+      "logradouro": "RUA SANTO AMARO",
+      "numero": "766",
+      "complemento": "APTO 24 B",
+      "bairro": "BELA VISTA",
+      "cep": "01315-000",
+      "uf": "SP",
+      "municipio_codigo": "7107",
+      "fonte": "Declaracao IRPF 2025 anterior"
+    },
+    "ocupacao_principal": "040",
+    "natureza_ocupacao": "51",
+    "dependentes": [
+      {
+        "nome": "GABRIEL VIEIRA SOMMERLATTE",
+        "cpf": "549.147.358-81",
+        "data_nascimento": "2008-07-14",
+        "codigo": "21",
+        "fonte": "Declaracao IRPF 2025 anterior",
+        "status": "validar_manutencao_em_2025"
+      }
+    ]
   },
   "rendimentos": {
-    "tributaveis": [],
+    "tributaveis": [
+      {
+        "fonte": "SAO PAULO PREVIDENCIA - SPPREV",
+        "cnpj": "09.041.213/0001-36",
+        "status": "informe_anual_oficial",
+        "documento": "projects/imposto-de-renda/data/informe_ir_2026_spprev.json",
+        "natureza": "Aposentadoria, Reserva, Reforma ou Pensao Pagos por Previdencia Publica",
+        "valorBruto": 99810.92,
+        "previdenciaOficial": 252.29,
+        "pensaoAlimenticia": 12404,
+        "irrf": 11458.03,
+        "observacao": "Valores oficiais do comprovante de rendimentos IRPF 2026, ano-calendario 2025."
+      }
+    ],
     "isentos_nao_tributaveis": [],
-    "exclusivos_na_fonte": [],
+    "exclusivos_na_fonte": [
+      {
+        "tipo": "13_salario",
+        "fonte": "SAO PAULO PREVIDENCIA",
+        "cnpj": "09.041.213/0001-36",
+        "valorLiquido": 6147.7,
+        "irrf13": 1078.46,
+        "documento": "projects/imposto-de-renda/data/informe_ir_2026_spprev.json"
+      }
+    ],
     "recebidos_acumuladamente": [],
     "exterior": []
   },
   "deducoes": {
-    "previdencia_oficial": 0,
+    "previdencia_oficial": 252.29,
     "previdencia_privada_pgbl": 0,
     "dependentes_valor": 0,
-    "saude": [],
+    "saude": [
+      {
+        "tipo": "despesa_medica",
+        "beneficiario": "titular/dependente conforme ficha do informe",
+        "prestador": "CBPM",
+        "cnpj": "61.000.923/0001-38",
+        "valor": 2846.58,
+        "documento": "projects/imposto-de-renda/data/informe_ir_2026_spprev.json"
+      }
+    ],
     "educacao": [],
-    "pensao_alimenticia": [],
+    "pensao_alimenticia": [
+      {
+        "alimentanda": "ISAURA SULEIDE VIEIRA MEIRA SOMMERLATTE SOUZA",
+        "cpf": "143.768.638-90",
+        "valor": 12404,
+        "documento": "projects/imposto-de-renda/data/informe_ir_2026_spprev.json"
+      }
+    ],
     "livro_caixa": [],
     "outras": []
   },
@@ -56,14 +112,14 @@
     "simplificado": {
       "base_calculo": 0,
       "imposto_devido": 0,
-      "retido_na_fonte": 0,
+      "retido_na_fonte": 11458.03,
       "restituicao_ou_pagar": 0
     },
     "completo": {
       "base_calculo": 0,
-      "deducoes_totais": 0,
+      "deducoes_totais": 15502.87,
       "imposto_devido": 0,
-      "retido_na_fonte": 0,
+      "retido_na_fonte": 11458.03,
       "restituicao_ou_pagar": 0
     },
     "regime_recomendado": null,

@@ -1479,6 +1479,7 @@
         <button id="btn-save-all-master" class="flex items-center gap-2 px-6 py-2 rounded-full bg-secondary/10 border border-secondary/20 text-secondary hover:bg-secondary/20 hover:scale-105 transition-all text-[11px] font-black uppercase tracking-widest shadow-lg shadow-secondary/5" onclick="saveAllNow()">
             <i data-lucide="cloud-upload" class="w-4 h-4"></i> Salvar Tudo
         </button>
+        <span id="cloud-mirror-header" title="Estado do espelho local completo em D:\Antigravity-SommersStore\workspace" class="px-3 py-2 rounded-full bg-white/5 border border-white/10 text-[9px] font-black uppercase tracking-widest text-muted">Cópia D: —</span>
         <button id="fs-connect-btn" onclick="connectProjectFolder()" title="Conecta a pasta local do projeto para leitura/escrita direta. A nuvem continua no botão Salvar Tudo." class="flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-muted hover:text-white hover:bg-white/10 hover:scale-105 transition-all text-[10px] font-black uppercase tracking-widest">
             <i data-lucide="folder-open" class="w-3.5 h-3.5"></i> Conectar Pasta
         </button>
@@ -12162,6 +12163,7 @@ function ensureMemoryLifecycleUI() {
                     <div class="memory-metric"><p class="text-[8px] text-muted uppercase tracking-widest mb-1">Ultimo Cloud Save</p><p id="cloud-last-save" class="text-sm font-bold text-white">-</p></div>
                     <div class="memory-metric"><p class="text-[8px] text-muted uppercase tracking-widest mb-1">GitHub</p><p id="cloud-github-status" class="text-sm font-bold text-white">-</p></div>
                     <div class="memory-metric"><p class="text-[8px] text-muted uppercase tracking-widest mb-1">Firebase</p><p id="cloud-firebase-status" class="text-sm font-bold text-white">-</p></div>
+                    <div class="memory-metric"><p class="text-[8px] text-muted uppercase tracking-widest mb-1">Cópia D:</p><p id="cloud-mirror-status" class="text-sm font-bold text-white">-</p></div>
                 </div>
                 <div id="cloud-summary" class="text-[10px] text-muted border border-white/10 rounded-lg px-3 py-2 bg-black/20">Sem execucao.</div>
                 <p class="text-[10px] text-muted">Fluxo simples: clique em <strong>Salvar Tudo na Nuvem</strong> quando quiser fechar o dia.</p>
@@ -12568,6 +12570,14 @@ function renderCloudSyncStatus() {
     setTxt('cloud-last-save', formatDatePt(state.last_completed_at || state.last_started_at));
     setTxt('cloud-github-status', normalize((state.github && state.github.status) || 'idle'));
     setTxt('cloud-firebase-status', normalize((state.firebase && state.firebase.status) || 'idle'));
+    setTxt('cloud-mirror-status', normalize((state.mirror && state.mirror.status) || 'idle'));
+    const mirrorHeader = document.getElementById('cloud-mirror-header');
+    if (mirrorHeader) {
+        const mirrorStatus = String((state.mirror && state.mirror.status) || 'idle').toLowerCase();
+        const mirrorLabel = mirrorStatus === 'success' ? 'Pronta' : (mirrorStatus === 'running' ? 'Atualizando' : (mirrorStatus === 'error' ? 'Falha' : '—'));
+        mirrorHeader.textContent = `Cópia D: ${mirrorLabel}`;
+        mirrorHeader.style.color = mirrorStatus === 'success' ? '#2dd4bf' : (mirrorStatus === 'error' ? '#fb7185' : '#9ca3af');
+    }
     setTxt('cloud-summary', state.last_summary || 'Sem execucao.');
 
     const banner = document.getElementById('cloud-sync-banner');
@@ -12742,12 +12752,14 @@ window.saveAllNow = async function() {
         const cloudStatus = cloud.status ? String(cloud.status).toUpperCase() : 'UNKNOWN';
         const githubStatus = cloud.github && cloud.github.status ? String(cloud.github.status).toUpperCase() : 'NÃO EXECUTADO';
         const firebaseStatus = cloud.firebase && cloud.firebase.status ? String(cloud.firebase.status).toUpperCase() : 'NÃO EXECUTADO';
+        const mirrorStatus = cloud.mirror && cloud.mirror.status ? String(cloud.mirror.status).toUpperCase() : 'NÃO EXECUTADO';
         if (data.cloud_succeeded === true) {
-            alert(`Tudo salvo e sincronizado. Checkpoint: ${cp}.\n\nGitHub: ${githubStatus} · Firebase: ${firebaseStatus}.\nFlash de Contexto atualizado — pronto para retomada.`);
+            alert(`Tudo salvo e sincronizado. Checkpoint: ${cp}.\n\nGitHub: ${githubStatus} · Firebase: ${firebaseStatus} · Cópia D: ${mirrorStatus}.\nFlash de Contexto atualizado — pronto para retomada.`);
         } else {
             const githubNote = cloud.github && cloud.github.note ? `\nGitHub: ${githubStatus} — ${cloud.github.note}` : `\nGitHub: ${githubStatus}`;
             const firebaseNote = cloud.firebase && cloud.firebase.note ? `\nFirebase: ${firebaseStatus} — ${cloud.firebase.note}` : `\nFirebase: ${firebaseStatus}`;
-            alert(`Checkpoint salvo localmente: ${cp}.\nA sincronização em nuvem terminou com status ${cloudStatus}.${githubNote}${firebaseNote}\n\nNada foi apagado. Corrija o destino bloqueado e tente sincronizar novamente.`);
+            const mirrorNote = cloud.mirror && cloud.mirror.note ? `\nCópia D: ${mirrorStatus} — ${cloud.mirror.note}` : `\nCópia D: ${mirrorStatus}`;
+            alert(`Checkpoint salvo localmente: ${cp}.\nA sincronização em nuvem terminou com status ${cloudStatus}.${githubNote}${firebaseNote}${mirrorNote}\n\nNada foi apagado. Corrija o destino bloqueado e tente sincronizar novamente.`);
         }
     } catch (e) {
         window.CLOUD_SYNC_STATE = Object.assign({}, window.CLOUD_SYNC_STATE || {}, {

@@ -1,0 +1,9 @@
+#!/bin/sh
+# >>> SommersStore project mirror hook >>>
+# SommersStore: mantém a cópia completa local no disco D depois de um git push.
+# Falhas do backup não alteram o resultado de um push que já foi concluído.
+
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
+node "$ROOT/scripts/project_mirror_sync.js" sync --trigger git-post-push --github-status success >/dev/null 2>&1 || true
+exit 0
+# <<< SommersStore project mirror hook <<<

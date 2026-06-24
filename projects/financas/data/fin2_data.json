@@ -1,41 +1,61 @@
 {
+  "updated_at": "2026-06-24T04:02:05.182Z",
   "sheet": {
     "year": 2026,
     "receitas": [
       {
         "id": "pm",
         "label": "Pagamento PM",
+        "payslipRole": "credits",
         "values": [
-          6257,
-          6257,
-          6257,
-          6257,
-          6257,
-          6257,
-          6257,
-          6257,
-          6257,
-          6257,
-          6257,
-          6257
+          0,
+          0,
+          0,
+          0,
+          0,
+          9260.17,
+          9260.17,
+          9260.17,
+          9260.17,
+          9260.17,
+          9260.17,
+          9260.17
         ]
       },
       {
         "id": "uber",
-        "label": "UBER",
+        "label": "Rodoanel 1",
         "values": [
-          5000,
-          5000,
-          5000,
-          5000,
-          5000,
-          5000,
-          5000,
-          5000,
-          5000,
-          5000,
-          5000,
-          5000
+          null,
+          null,
+          null,
+          null,
+          null,
+          7070,
+          4410,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "id": "r1780117855502",
+        "label": "Rodoanel 2",
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          6174,
+          4410,
+          null,
+          null,
+          null,
+          null,
+          null
         ]
       },
       {
@@ -43,497 +63,4837 @@
         "label": "Outros / Bônus",
         "values": [
           0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
         ]
       }
     ],
     "despesas": [
       {
-        "id": "mercado",
-        "label": "Mercado",
+        "id": "pm_despesas",
+        "label": "Despesas PM",
+        "payslipRole": "discounts",
         "values": [
-          1800,
-          1800,
-          1800,
-          1800,
-          1800,
-          1800,
-          1800,
-          1800,
-          1800,
-          1800,
-          1800,
-          1800
+          0,
+          0,
+          0,
+          0,
+          0,
+          2661.1099999999997,
+          2661.1099999999997,
+          2661.1099999999997,
+          2661.1099999999997,
+          2661.1099999999997,
+          2661.1099999999997,
+          2661.1099999999997
+        ]
+      },
+      {
+        "id": "mercado",
+        "label": "Mercado 1",
+        "expenseGroup": "mercado",
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          956.44,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null
         ]
       },
       {
         "id": "celularpj",
         "label": "Celular PJ",
         "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
           112,
-          112,
-          112,
-          112,
-          112,
-          112,
-          112,
-          112,
-          112,
-          112,
-          112,
-          112
-        ]
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "5": "exclude"
+        }
       },
       {
         "id": "celularpf",
         "label": "Celular PF",
         "values": [
-          45,
-          45,
-          45,
-          45,
-          45,
-          45,
-          45,
-          45,
-          45,
-          45,
-          45,
-          45
-        ]
+          null,
+          null,
+          null,
+          null,
+          null,
+          67,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "5": "exclude"
+        }
       },
       {
         "id": "luzgas",
         "label": "Luz + Gás",
         "values": [
-          470,
-          470,
-          350,
-          350,
-          350,
-          350,
-          350,
-          350,
-          350,
-          350,
-          350,
-          350
-        ]
+          null,
+          null,
+          null,
+          null,
+          null,
+          800,
+          400,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "5": "exclude"
+        }
       },
       {
         "id": "net",
         "label": "Net",
         "values": [
-          100,
-          100,
-          100,
-          100,
-          100,
-          100,
-          100,
-          100,
-          100,
-          100,
-          100,
-          100
+          null,
+          null,
+          null,
+          null,
+          null,
+          90,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
         ]
       },
       {
         "id": "semparar",
-        "label": "SemParar PJ",
+        "label": "C6 TAG PJ (Pajero)",
         "values": [
-          50,
-          50,
-          50,
-          50,
-          50,
-          50,
-          50,
-          50,
-          50,
-          50,
-          50,
-          50
+          null,
+          null,
+          null,
+          null,
+          null,
+          8,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "d1780602862229",
+        "label": "Cabos e Soldados",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          100,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
         ]
+      },
+      {
+        "id": "d1780673923398",
+        "label": "Pontos C6 PF",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          8,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "d1780882453760",
+        "label": "ChatGPT",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          100,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "eg1781903060101",
+        "label": "18-06-2026",
+        "expenseGroup": "gasolina",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          523,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "ee1781903183817",
+        "label": "Rose 17-06-2026",
+        "expenseGroup": "extras",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          3500,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "5": "receitas"
+        }
+      },
+      {
+        "id": "ee1781903228766",
+        "label": "Rose 19-06-2026",
+        "expenseGroup": "extras",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          1000,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "eg1781903662921",
+        "label": "18-06-2026",
+        "expenseGroup": "gasolina",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          61.6,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "ee1781904084173",
+        "label": "Rose presente",
+        "expenseGroup": "extras",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          121.8,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "em1781906897736",
+        "label": "Mercado 2",
+        "expenseGroup": "mercado",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "id": "eg1782254456057",
+        "label": "22-06-2026",
+        "expenseGroup": "gasolina",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          522,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "5": "exclude"
+        }
       }
     ],
     "dividas": [
-      {
-        "id": "brad1",
-        "label": "Bradesco",
-        "cid": "d-brad1",
-        "values": [
-          1138,
-          1138,
-          1138,
-          1138,
-          1138,
-          1138,
-          1138,
-          1138,
-          1138,
-          1138,
-          1138,
-          1138
-        ]
-      },
-      {
-        "id": "brad2",
-        "label": "Bradesco",
-        "cid": "d-brad2",
-        "values": [
-          469,
-          469,
-          469,
-          469,
-          469,
-          469,
-          469,
-          469,
-          469,
-          469,
-          469,
-          469
-        ]
-      },
-      {
-        "id": "brad3",
-        "label": "Bradesco",
-        "cid": "d-brad3",
-        "values": [
-          53,
-          53,
-          53,
-          53,
-          53,
-          53,
-          53,
-          53,
-          53,
-          53,
-          53,
-          53
-        ]
-      },
-      {
-        "id": "eagle",
-        "label": "EAGLE",
-        "cid": "d-eagle",
-        "values": [
-          950,
-          950,
-          950,
-          950,
-          950,
-          950,
-          950,
-          950,
-          950,
-          950,
-          950,
-          950
-        ]
-      },
       {
         "id": "nucnpj",
         "label": "M.C. Nu PJ",
         "cid": "d-nucnpj",
         "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          122.35,
+          null,
+          null,
           2500,
-          2500,
-          2500,
-          2500,
-          2500,
-          2500,
-          2500,
-          2500,
-          2500,
-          2500,
-          2500,
-          2500
-        ]
+          0,
+          null,
+          null
+        ],
+        "oldDebt": true,
+        "cellTotalModes": {
+          "1": "exclude"
+        }
       },
       {
-        "id": "bmg",
-        "label": "BMG",
-        "cid": "d-bmg",
+        "id": "d1780674435288",
+        "cid": "d1780674435288",
+        "label": "NU PF 2X",
         "values": [
-          303,
-          303,
-          303,
-          303,
-          303,
-          303,
-          303,
-          303,
-          303,
-          303,
-          303,
-          303
-        ]
-      },
-      {
-        "id": "safra",
-        "label": "Safra",
-        "cid": "d-safra",
-        "values": [
-          156,
-          156,
-          156,
-          156,
-          156,
-          156,
-          156,
-          156,
-          156,
-          156,
-          156,
-          156
-        ]
-      },
-      {
-        "id": "seguro",
-        "label": "Seguro",
-        "cid": "d-seguro",
-        "values": [
-          360,
-          360,
-          360,
-          360,
-          360,
-          360,
-          360,
-          360,
-          360,
-          360,
-          360,
-          360
-        ]
-      },
-      {
-        "id": "dayco1",
-        "label": "Daycoval",
-        "cid": "d-dayco1",
-        "values": [
-          208,
-          208,
-          208,
-          208,
-          208,
-          208,
-          208,
-          208,
-          208,
-          208,
-          208,
-          208
-        ]
-      },
-      {
-        "id": "dayco2",
-        "label": "Daycoval",
-        "cid": "d-dayco2",
-        "values": [
-          34,
-          34,
-          34,
-          34,
-          34,
-          34,
-          34,
-          34,
-          34,
-          34,
-          34,
-          34
-        ]
-      },
-      {
-        "id": "sant",
-        "label": "Santander",
-        "cid": "d-sant",
-        "values": [
-          83,
-          83,
-          83,
-          83,
-          83,
-          83,
-          83,
-          83,
-          83,
-          83,
-          83,
-          83
-        ]
-      },
-      {
-        "id": "horto",
-        "label": "Horto",
-        "cid": "d-horto",
-        "values": [
-          2800,
-          2800,
-          2800,
-          2800,
-          2800,
-          2800,
-          2800,
-          2800,
-          2800,
-          2800,
-          2800,
-          2800
-        ]
-      },
-      {
-        "id": "mamud",
-        "label": "Mamud",
-        "cid": "d-mamud",
-        "values": [
-          2600,
-          2600,
-          2600,
-          2600,
-          2600,
-          2600,
-          2600,
-          2600,
-          2600,
-          2600,
-          2600,
-          2600
-        ]
+          0,
+          null,
+          null,
+          null,
+          null,
+          159.02,
+          null,
+          0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "oldDebt": true,
+        "cellTotalModes": {
+          "1": "exclude"
+        }
       },
       {
         "id": "patric",
         "label": "Patrícia*",
         "cid": "d-patric",
         "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           4200,
           0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ]
+          null,
+          null
+        ],
+        "oldDebt": true,
+        "cellTotalModes": {
+          "1": "exclude"
+        }
       },
       {
-        "id": "rose",
-        "label": "Rose",
-        "cid": "d-rose",
+        "id": "horto",
+        "label": "Horto",
+        "cid": "d-horto",
         "values": [
-          1400,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          2800,
           0,
+          null,
+          null
+        ],
+        "oldDebt": true,
+        "cellTotalModes": {
+          "1": "exclude"
+        }
+      },
+      {
+        "id": "mamud",
+        "label": "Mamud",
+        "cid": "d-mamud",
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          2800,
           0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ]
+          null,
+          null
+        ],
+        "oldDebt": true,
+        "cellTotalModes": {
+          "1": "exclude"
+        }
       },
       {
         "id": "lion",
         "label": "Lion",
         "cid": "d-lion",
         "values": [
-          3800,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          2000,
           0,
+          null,
+          null
+        ],
+        "oldDebt": true,
+        "cellTotalModes": {
+          "1": "exclude"
+        }
+      },
+      {
+        "id": "rose",
+        "label": "Rose",
+        "cid": "d-rose",
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          2000,
           0,
+          null,
+          null
+        ],
+        "oldDebt": true,
+        "cellTotalModes": {
+          "1": "exclude"
+        }
+      },
+      {
+        "id": "d1780602770884",
+        "cid": "d1780602770884",
+        "label": "Colonia CSd",
+        "values": [
           0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          2800,
           0,
+          null,
+          null
+        ],
+        "oldDebt": true,
+        "cellTotalModes": {
+          "1": "exclude"
+        }
+      },
+      {
+        "id": "d1780674913950",
+        "cid": "d1780674913950",
+        "label": "Mecânico Pajero Wil",
+        "values": [
           0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1100,
           0,
+          null,
+          null
+        ],
+        "oldDebt": true,
+        "cellTotalModes": {
+          "1": "exclude"
+        }
+      },
+      {
+        "id": "d1780883009698",
+        "cid": "d1780883009698",
+        "label": "Seguro Loovi",
+        "values": [
           0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "oldDebt": true,
+        "cellTotalModes": {
+          "1": "exclude"
+        }
+      },
+      {
+        "id": "d1780883639834",
+        "cid": "d1780883639834",
+        "label": "Imp. Renda 2026",
+        "values": [
           0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "oldDebt": true,
+        "cellTotalModes": {
+          "1": "exclude"
+        }
+      },
+      {
+        "id": "d1780883308581",
+        "cid": "d1780883308581",
+        "label": "Imp. Renda 1",
+        "values": [
           0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "oldDebt": true,
+        "cellTotalModes": {
+          "1": "exclude"
+        }
+      },
+      {
+        "id": "d1780883323926",
+        "cid": "d1780883323926",
+        "label": "Imp. Renda 2",
+        "values": [
           0,
-          0
-        ]
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "oldDebt": true,
+        "cellTotalModes": {
+          "1": "exclude"
+        }
+      },
+      {
+        "id": "d1780883463331",
+        "cid": "d1780883463331",
+        "label": "Imp. Renda 3",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "oldDebt": true,
+        "cellTotalModes": {
+          "1": "exclude"
+        }
+      },
+      {
+        "id": "d1780602925764",
+        "cid": "d1780602925764",
+        "label": "Cabos e Soldados At",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          600,
+          0,
+          null,
+          null
+        ],
+        "oldDebt": true,
+        "cellTotalModes": {
+          "1": "exclude"
+        }
+      },
+      {
+        "id": "pmdebt-097292-banco-bradesco-s-a-1",
+        "cid": "pmdebt-097292-banco-bradesco-s-a-1",
+        "label": "Banco bradesco s/a",
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          469.15,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "source": "payslipDebt",
+        "payslipDebtKey": "097292-banco-bradesco-s-a-1",
+        "cellTotalModes": {
+          "1": "exclude",
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "pmdebt-097292-banco-bradesco-s-a-2",
+        "cid": "pmdebt-097292-banco-bradesco-s-a-2",
+        "label": "Banco bradesco s/a",
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          1138.71,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "source": "payslipDebt",
+        "payslipDebtKey": "097292-banco-bradesco-s-a-2",
+        "cellTotalModes": {
+          "1": "exclude",
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "pmdebt-097293-banco-santander-brasil-s-a-1",
+        "cid": "pmdebt-097293-banco-santander-brasil-s-a-1",
+        "label": "Banco santander brasil s/a",
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          82.47,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "source": "payslipDebt",
+        "payslipDebtKey": "097293-banco-santander-brasil-s-a-1",
+        "cellTotalModes": {
+          "1": "exclude",
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "pmdebt-097294-banco-daycoval-s-a-1",
+        "cid": "pmdebt-097294-banco-daycoval-s-a-1",
+        "label": "Banco daycoval s/a",
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          208.44,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "source": "payslipDebt",
+        "payslipDebtKey": "097294-banco-daycoval-s-a-1",
+        "cellTotalModes": {
+          "1": "exclude",
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "pmdebt-097294-banco-daycoval-s-a-2",
+        "cid": "pmdebt-097294-banco-daycoval-s-a-2",
+        "label": "Banco daycoval s/a",
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          34.11,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "source": "payslipDebt",
+        "payslipDebtKey": "097294-banco-daycoval-s-a-2",
+        "cellTotalModes": {
+          "1": "exclude",
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "pmdebt-097296-banco-bmg-s-a-1",
+        "cid": "pmdebt-097296-banco-bmg-s-a-1",
+        "label": "Banco bmg s/a",
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          313.92,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "source": "payslipDebt",
+        "payslipDebtKey": "097296-banco-bmg-s-a-1",
+        "cellTotalModes": {
+          "1": "exclude",
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "pmdebt-097296-banco-bmg-s-a-2",
+        "cid": "pmdebt-097296-banco-bmg-s-a-2",
+        "label": "Banco bmg s/a",
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          74.97,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "source": "payslipDebt",
+        "payslipDebtKey": "097296-banco-bmg-s-a-2",
+        "cellTotalModes": {
+          "1": "exclude",
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "pmdebt-097302-banco-safra-s-a-1",
+        "cid": "pmdebt-097302-banco-safra-s-a-1",
+        "label": "Banco safra s/a",
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          156,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "source": "payslipDebt",
+        "payslipDebtKey": "097302-banco-safra-s-a-1",
+        "cellTotalModes": {
+          "1": "exclude",
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "pmdebt-097352-eagle-sociedade-de-credito-direto-s-a-1",
+        "cid": "pmdebt-097352-eagle-sociedade-de-credito-direto-s-a-1",
+        "label": "Eagle sociedade de credito direto s.a",
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          941.75,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "source": "payslipDebt",
+        "payslipDebtKey": "097352-eagle-sociedade-de-credito-direto-s-a-1",
+        "cellTotalModes": {
+          "1": "exclude",
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "d1780882408823",
+        "cid": "d1780882408823",
+        "label": "ChatGPT",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "1": "exclude"
+        }
+      },
+      {
+        "id": "d1780883535829",
+        "cid": "d1780883535829",
+        "label": "VivoPF",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "1": "exclude"
+        }
+      },
+      {
+        "id": "d1780883555087",
+        "cid": "d1780883555087",
+        "label": "Vivo PJ",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "1": "exclude"
+        }
+      },
+      {
+        "id": "d1781903475923",
+        "cid": "d1781903475923",
+        "label": "Multas Pedágio",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          125.45,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "1": "exclude"
+        }
       }
     ]
   },
   "creditors": [
     {
-      "id": "d-brad1",
-      "name": "Bradesco",
-      "monthly": 1138,
-      "installments": 58,
-      "paid": 0,
-      "saldo": 66004,
-      "oferta": 19801,
+      "id": "pmdebt-097292-banco-bradesco-s-a-1",
+      "name": "Banco bradesco s/a",
+      "monthly": 469.15,
+      "installments": 96,
+      "paid": 20,
+      "saldo": 23063.12,
+      "oferta": 0,
       "prazo": "",
-      "priority": "alta",
-      "status": "mapear",
-      "notes": "",
-      "pendurada": false,
       "prazoInicial": "",
-      "contrato": null
-    },
-    {
-      "id": "d-brad2",
-      "name": "Bradesco",
-      "monthly": 469,
-      "installments": 26,
-      "paid": 0,
-      "saldo": 12194,
-      "oferta": 3658,
-      "prazo": "",
       "priority": "media",
-      "status": "mapear",
-      "notes": "",
+      "status": "ativo",
+      "notes": "Criada automaticamente a partir do desconto bancario no holerite PM.",
       "pendurada": false,
-      "prazoInicial": "",
-      "contrato": null
+      "contrato": "Bradesco Contrato 469_15.pdf",
+      "valuesSource": "payslipDebt",
+      "source": "payslipDebt",
+      "payslipDebtKey": "097292-banco-bradesco-s-a-1",
+      "contratos": [
+        {
+          "fileName": "Bradesco Contrato 469_15.pdf",
+          "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Bradesco Contrato 469_15.pdf",
+          "uploadedAt": "2026-06-24T04:01:50.516Z",
+          "extracted": {
+            "engine": "pdf-parse",
+            "parser_version": 2,
+            "extracted_at": "2026-06-10T00:40:56-03:00",
+            "pages": 7,
+            "monthly": 469.15,
+            "saldo": 21399.1,
+            "installments": 96
+          }
+        },
+        {
+          "fileName": "Descritivo de Crédito 469_15.pdf",
+          "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Descritivo de Crédito 469_15.pdf",
+          "uploadedAt": "2026-06-24T04:01:50.518Z",
+          "extracted": {
+            "engine": "pdf-parse",
+            "parser_version": 2,
+            "extracted_at": "2026-06-10T00:40:56-03:00",
+            "pages": 9,
+            "monthly": 469.15,
+            "saldo": 23063.12,
+            "installments": 96,
+            "remainingInstallments": 76,
+            "paid": 20,
+            "paidInstallments": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20
+            ],
+            "anticipation": 463.66,
+            "nextAnticipation": 463.66,
+            "lastAnticipation": 177.35,
+            "installmentSchedule": [
+              {
+                "number": 1,
+                "dueDate": "07/11/2024",
+                "principal": 98.49,
+                "interest": 370.66,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 2,
+                "dueDate": "06/12/2024",
+                "principal": 154.54,
+                "interest": 314.61,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 3,
+                "dueDate": "08/01/2025",
+                "principal": 113.01,
+                "interest": 356.14,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 4,
+                "dueDate": "07/02/2025",
+                "principal": 147.02,
+                "interest": 322.13,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 5,
+                "dueDate": "11/03/2025",
+                "principal": 127.4,
+                "interest": 341.75,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 6,
+                "dueDate": "07/04/2025",
+                "principal": 182.55,
+                "interest": 286.6,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 7,
+                "dueDate": "08/05/2025",
+                "principal": 142.21,
+                "interest": 326.94,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 8,
+                "dueDate": "06/06/2025",
+                "principal": 165.18,
+                "interest": 303.97,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 9,
+                "dueDate": "07/07/2025",
+                "principal": 146.25,
+                "interest": 322.9,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 10,
+                "dueDate": "07/08/2025",
+                "principal": 148.17,
+                "interest": 320.98,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 11,
+                "dueDate": "05/09/2025",
+                "principal": 170.82,
+                "interest": 298.33,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 12,
+                "dueDate": "07/10/2025",
+                "principal": 142.07,
+                "interest": 327.08,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 13,
+                "dueDate": "07/11/2025",
+                "principal": 154.22,
+                "interest": 314.93,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 14,
+                "dueDate": "05/12/2025",
+                "principal": 186.71,
+                "interest": 282.44,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 15,
+                "dueDate": "08/01/2026",
+                "principal": 128.44,
+                "interest": 340.71,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 16,
+                "dueDate": "06/02/2026",
+                "principal": 180.43,
+                "interest": 288.72,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 17,
+                "dueDate": "06/03/2026",
+                "principal": 192.58,
+                "interest": 276.57,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 18,
+                "dueDate": "08/04/2026",
+                "principal": 145.54,
+                "interest": 323.61,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 19,
+                "dueDate": "08/05/2026",
+                "principal": 177,
+                "interest": 292.15,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 20,
+                "dueDate": "08/06/2026",
+                "principal": 169.52,
+                "interest": 299.63,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 21,
+                "dueDate": "07/07/2026",
+                "principal": 191.05,
+                "interest": 278.1,
+                "payment": 469.15,
+                "anticipation": 463.66,
+                "status": "a vencer"
+              },
+              {
+                "number": 22,
+                "dueDate": "07/08/2026",
+                "principal": 174.25,
+                "interest": 294.9,
+                "payment": 469.15,
+                "anticipation": 457.65,
+                "status": "a vencer"
+              },
+              {
+                "number": 23,
+                "dueDate": "08/09/2026",
+                "principal": 167.04,
+                "interest": 302.11,
+                "payment": 469.15,
+                "anticipation": 451.53,
+                "status": "a vencer"
+              },
+              {
+                "number": 24,
+                "dueDate": "07/10/2026",
+                "principal": 197.58,
+                "interest": 271.57,
+                "payment": 469.15,
+                "anticipation": 446.05,
+                "status": "a vencer"
+              },
+              {
+                "number": 25,
+                "dueDate": "09/11/2026",
+                "principal": 162.63,
+                "interest": 306.52,
+                "payment": 469.15,
+                "anticipation": 439.9,
+                "status": "a vencer"
+              },
+              {
+                "number": 26,
+                "dueDate": "07/12/2026",
+                "principal": 211.27,
+                "interest": 257.88,
+                "payment": 469.15,
+                "anticipation": 434.75,
+                "status": "a vencer"
+              },
+              {
+                "number": 27,
+                "dueDate": "08/01/2027",
+                "principal": 177.05,
+                "interest": 292.1,
+                "payment": 469.15,
+                "anticipation": 428.93,
+                "status": "a vencer"
+              },
+              {
+                "number": 28,
+                "dueDate": "05/02/2027",
+                "principal": 215.87,
+                "interest": 253.28,
+                "payment": 469.15,
+                "anticipation": 423.91,
+                "status": "a vencer"
+              },
+              {
+                "number": 29,
+                "dueDate": "05/03/2027",
+                "principal": 218.43,
+                "interest": 250.72,
+                "payment": 469.15,
+                "anticipation": 418.94,
+                "status": "a vencer"
+              },
+              {
+                "number": 30,
+                "dueDate": "07/04/2027",
+                "principal": 176.4,
+                "interest": 292.75,
+                "payment": 469.15,
+                "anticipation": 413.17,
+                "status": "a vencer"
+              },
+              {
+                "number": 31,
+                "dueDate": "07/05/2027",
+                "principal": 205.43,
+                "interest": 263.72,
+                "payment": 469.15,
+                "anticipation": 407.98,
+                "status": "a vencer"
+              },
+              {
+                "number": 32,
+                "dueDate": "07/06/2027",
+                "principal": 199.28,
+                "interest": 269.87,
+                "payment": 469.15,
+                "anticipation": 402.7,
+                "status": "a vencer"
+              },
+              {
+                "number": 33,
+                "dueDate": "07/07/2027",
+                "principal": 210.57,
+                "interest": 258.58,
+                "payment": 469.15,
+                "anticipation": 397.65,
+                "status": "a vencer"
+              },
+              {
+                "number": 34,
+                "dueDate": "06/08/2027",
+                "principal": 213.24,
+                "interest": 255.91,
+                "payment": 469.15,
+                "anticipation": 392.66,
+                "status": "a vencer"
+              },
+              {
+                "number": 35,
+                "dueDate": "08/09/2027",
+                "principal": 190.46,
+                "interest": 278.69,
+                "payment": 469.15,
+                "anticipation": 387.24,
+                "status": "a vencer"
+              },
+              {
+                "number": 36,
+                "dueDate": "07/10/2027",
+                "principal": 226.78,
+                "interest": 242.37,
+                "payment": 469.15,
+                "anticipation": 382.55,
+                "status": "a vencer"
+              },
+              {
+                "number": 37,
+                "dueDate": "08/11/2027",
+                "principal": 204.61,
+                "interest": 264.54,
+                "payment": 469.15,
+                "anticipation": 377.43,
+                "status": "a vencer"
+              },
+              {
+                "number": 38,
+                "dueDate": "07/12/2027",
+                "principal": 232.08,
+                "interest": 237.07,
+                "payment": 469.15,
+                "anticipation": 372.85,
+                "status": "a vencer"
+              },
+              {
+                "number": 39,
+                "dueDate": "07/01/2028",
+                "principal": 218.67,
+                "interest": 250.48,
+                "payment": 469.15,
+                "anticipation": 368.02,
+                "status": "a vencer"
+              },
+              {
+                "number": 40,
+                "dueDate": "07/02/2028",
+                "principal": 221.54,
+                "interest": 247.61,
+                "payment": 469.15,
+                "anticipation": 363.25,
+                "status": "a vencer"
+              },
+              {
+                "number": 41,
+                "dueDate": "07/03/2028",
+                "principal": 240.33,
+                "interest": 228.82,
+                "payment": 469.15,
+                "anticipation": 358.85,
+                "status": "a vencer"
+              },
+              {
+                "number": 42,
+                "dueDate": "07/04/2028",
+                "principal": 227.6,
+                "interest": 241.55,
+                "payment": 469.15,
+                "anticipation": 354.2,
+                "status": "a vencer"
+              },
+              {
+                "number": 43,
+                "dueDate": "08/05/2028",
+                "principal": 230.59,
+                "interest": 238.56,
+                "payment": 469.15,
+                "anticipation": 349.61,
+                "status": "a vencer"
+              },
+              {
+                "number": 44,
+                "dueDate": "07/06/2028",
+                "principal": 241.26,
+                "interest": 227.89,
+                "payment": 469.15,
+                "anticipation": 345.22,
+                "status": "a vencer"
+              },
+              {
+                "number": 45,
+                "dueDate": "07/07/2028",
+                "principal": 244.33,
+                "interest": 224.82,
+                "payment": 469.15,
+                "anticipation": 340.89,
+                "status": "a vencer"
+              },
+              {
+                "number": 46,
+                "dueDate": "07/08/2028",
+                "principal": 239.99,
+                "interest": 229.16,
+                "payment": 469.15,
+                "anticipation": 336.47,
+                "status": "a vencer"
+              },
+              {
+                "number": 47,
+                "dueDate": "08/09/2028",
+                "principal": 235.81,
+                "interest": 233.34,
+                "payment": 469.15,
+                "anticipation": 331.97,
+                "status": "a vencer"
+              },
+              {
+                "number": 48,
+                "dueDate": "06/10/2028",
+                "principal": 267.94,
+                "interest": 201.21,
+                "payment": 469.15,
+                "anticipation": 328.08,
+                "status": "a vencer"
+              },
+              {
+                "number": 49,
+                "dueDate": "08/11/2028",
+                "principal": 235.51,
+                "interest": 233.64,
+                "payment": 469.15,
+                "anticipation": 323.56,
+                "status": "a vencer"
+              },
+              {
+                "number": 50,
+                "dueDate": "07/12/2028",
+                "principal": 266.89,
+                "interest": 202.26,
+                "payment": 469.15,
+                "anticipation": 319.64,
+                "status": "a vencer"
+              },
+              {
+                "number": 51,
+                "dueDate": "08/01/2029",
+                "principal": 249.44,
+                "interest": 219.71,
+                "payment": 469.15,
+                "anticipation": 315.36,
+                "status": "a vencer"
+              },
+              {
+                "number": 52,
+                "dueDate": "07/02/2029",
+                "principal": 266.43,
+                "interest": 202.72,
+                "payment": 469.15,
+                "anticipation": 311.41,
+                "status": "a vencer"
+              },
+              {
+                "number": 53,
+                "dueDate": "07/03/2029",
+                "principal": 283.18,
+                "interest": 185.97,
+                "payment": 469.15,
+                "anticipation": 307.76,
+                "status": "a vencer"
+              },
+              {
+                "number": 54,
+                "dueDate": "06/04/2029",
+                "principal": 273.41,
+                "interest": 195.74,
+                "payment": 469.15,
+                "anticipation": 303.9,
+                "status": "a vencer"
+              },
+              {
+                "number": 55,
+                "dueDate": "08/05/2029",
+                "principal": 263.98,
+                "interest": 205.17,
+                "payment": 469.15,
+                "anticipation": 299.83,
+                "status": "a vencer"
+              },
+              {
+                "number": 56,
+                "dueDate": "07/06/2029",
+                "principal": 280.24,
+                "interest": 188.91,
+                "payment": 469.15,
+                "anticipation": 296.07,
+                "status": "a vencer"
+              },
+              {
+                "number": 57,
+                "dueDate": "06/07/2029",
+                "principal": 290.02,
+                "interest": 179.13,
+                "payment": 469.15,
+                "anticipation": 292.48,
+                "status": "a vencer"
+              },
+              {
+                "number": 58,
+                "dueDate": "07/08/2029",
+                "principal": 275.29,
+                "interest": 193.86,
+                "payment": 469.15,
+                "anticipation": 288.57,
+                "status": "a vencer"
+              },
+              {
+                "number": 59,
+                "dueDate": "10/09/2029",
+                "principal": 267.05,
+                "interest": 202.1,
+                "payment": 469.15,
+                "anticipation": 284.47,
+                "status": "a vencer"
+              },
+              {
+                "number": 60,
+                "dueDate": "05/10/2029",
+                "principal": 323.66,
+                "interest": 145.49,
+                "payment": 469.15,
+                "anticipation": 281.49,
+                "status": "a vencer"
+              },
+              {
+                "number": 61,
+                "dueDate": "08/11/2029",
+                "principal": 275.57,
+                "interest": 193.58,
+                "payment": 469.15,
+                "anticipation": 277.5,
+                "status": "a vencer"
+              },
+              {
+                "number": 62,
+                "dueDate": "07/12/2029",
+                "principal": 307.59,
+                "interest": 161.56,
+                "payment": 469.15,
+                "anticipation": 274.13,
+                "status": "a vencer"
+              },
+              {
+                "number": 63,
+                "dueDate": "08/01/2030",
+                "principal": 294.93,
+                "interest": 174.22,
+                "payment": 469.15,
+                "anticipation": 270.46,
+                "status": "a vencer"
+              },
+              {
+                "number": 64,
+                "dueDate": "07/02/2030",
+                "principal": 309.64,
+                "interest": 159.51,
+                "payment": 469.15,
+                "anticipation": 267.07,
+                "status": "a vencer"
+              },
+              {
+                "number": 65,
+                "dueDate": "11/03/2030",
+                "principal": 303.13,
+                "interest": 166.02,
+                "payment": 469.15,
+                "anticipation": 263.5,
+                "status": "a vencer"
+              },
+              {
+                "number": 66,
+                "dueDate": "05/04/2030",
+                "principal": 342.84,
+                "interest": 126.31,
+                "payment": 469.15,
+                "anticipation": 260.74,
+                "status": "a vencer"
+              },
+              {
+                "number": 67,
+                "dueDate": "08/05/2030",
+                "principal": 306.94,
+                "interest": 162.21,
+                "payment": 469.15,
+                "anticipation": 257.15,
+                "status": "a vencer"
+              },
+              {
+                "number": 68,
+                "dueDate": "07/06/2030",
+                "principal": 325.68,
+                "interest": 143.47,
+                "payment": 469.15,
+                "anticipation": 253.92,
+                "status": "a vencer"
+              },
+              {
+                "number": 69,
+                "dueDate": "05/07/2030",
+                "principal": 339.16,
+                "interest": 129.99,
+                "payment": 469.15,
+                "anticipation": 250.95,
+                "status": "a vencer"
+              },
+              {
+                "number": 70,
+                "dueDate": "07/08/2030",
+                "principal": 320.53,
+                "interest": 148.62,
+                "payment": 469.15,
+                "anticipation": 247.49,
+                "status": "a vencer"
+              },
+              {
+                "number": 71,
+                "dueDate": "06/09/2030",
+                "principal": 338.19,
+                "interest": 130.96,
+                "payment": 469.15,
+                "anticipation": 244.38,
+                "status": "a vencer"
+              },
+              {
+                "number": 72,
+                "dueDate": "07/10/2030",
+                "principal": 338.24,
+                "interest": 130.91,
+                "payment": 469.15,
+                "anticipation": 241.22,
+                "status": "a vencer"
+              },
+              {
+                "number": 73,
+                "dueDate": "07/11/2030",
+                "principal": 342.68,
+                "interest": 126.47,
+                "payment": 469.15,
+                "anticipation": 238.09,
+                "status": "a vencer"
+              },
+              {
+                "number": 74,
+                "dueDate": "06/12/2030",
+                "principal": 355.1,
+                "interest": 114.05,
+                "payment": 469.15,
+                "anticipation": 235.2,
+                "status": "a vencer"
+              },
+              {
+                "number": 75,
+                "dueDate": "08/01/2031",
+                "principal": 344.22,
+                "interest": 124.93,
+                "payment": 469.15,
+                "anticipation": 231.96,
+                "status": "a vencer"
+              },
+              {
+                "number": 76,
+                "dueDate": "07/02/2031",
+                "principal": 360.02,
+                "interest": 109.13,
+                "payment": 469.15,
+                "anticipation": 229.05,
+                "status": "a vencer"
+              },
+              {
+                "number": 77,
+                "dueDate": "07/03/2031",
+                "principal": 371.61,
+                "interest": 97.54,
+                "payment": 469.15,
+                "anticipation": 226.37,
+                "status": "a vencer"
+              },
+              {
+                "number": 78,
+                "dueDate": "07/04/2031",
+                "principal": 365.97,
+                "interest": 103.18,
+                "payment": 469.15,
+                "anticipation": 223.43,
+                "status": "a vencer"
+              },
+              {
+                "number": 79,
+                "dueDate": "08/05/2031",
+                "principal": 370.77,
+                "interest": 98.38,
+                "payment": 469.15,
+                "anticipation": 220.54,
+                "status": "a vencer"
+              },
+              {
+                "number": 80,
+                "dueDate": "06/06/2031",
+                "principal": 381.71,
+                "interest": 87.44,
+                "payment": 469.15,
+                "anticipation": 217.86,
+                "status": "a vencer"
+              },
+              {
+                "number": 81,
+                "dueDate": "07/07/2031",
+                "principal": 380.65,
+                "interest": 88.5,
+                "payment": 469.15,
+                "anticipation": 215.04,
+                "status": "a vencer"
+              },
+              {
+                "number": 82,
+                "dueDate": "07/08/2031",
+                "principal": 385.65,
+                "interest": 83.5,
+                "payment": 469.15,
+                "anticipation": 212.25,
+                "status": "a vencer"
+              },
+              {
+                "number": 83,
+                "dueDate": "05/09/2031",
+                "principal": 395.8,
+                "interest": 73.35,
+                "payment": 469.15,
+                "anticipation": 209.68,
+                "status": "a vencer"
+              },
+              {
+                "number": 84,
+                "dueDate": "07/10/2031",
+                "principal": 393.53,
+                "interest": 75.62,
+                "payment": 469.15,
+                "anticipation": 206.87,
+                "status": "a vencer"
+              },
+              {
+                "number": 85,
+                "dueDate": "07/11/2031",
+                "principal": 401.08,
+                "interest": 68.07,
+                "payment": 469.15,
+                "anticipation": 204.19,
+                "status": "a vencer"
+              },
+              {
+                "number": 86,
+                "dueDate": "05/12/2031",
+                "principal": 412.46,
+                "interest": 56.69,
+                "payment": 469.15,
+                "anticipation": 201.8,
+                "status": "a vencer"
+              },
+              {
+                "number": 87,
+                "dueDate": "08/01/2032",
+                "principal": 406.16,
+                "interest": 62.99,
+                "payment": 469.15,
+                "anticipation": 198.94,
+                "status": "a vencer"
+              },
+              {
+                "number": 88,
+                "dueDate": "06/02/2032",
+                "principal": 420.47,
+                "interest": 48.68,
+                "payment": 469.15,
+                "anticipation": 196.52,
+                "status": "a vencer"
+              },
+              {
+                "number": 89,
+                "dueDate": "05/03/2032",
+                "principal": 427.14,
+                "interest": 42.01,
+                "payment": 469.15,
+                "anticipation": 194.22,
+                "status": "a vencer"
+              },
+              {
+                "number": 90,
+                "dueDate": "07/04/2032",
+                "principal": 425.56,
+                "interest": 43.59,
+                "payment": 469.15,
+                "anticipation": 191.54,
+                "status": "a vencer"
+              },
+              {
+                "number": 91,
+                "dueDate": "07/05/2032",
+                "principal": 434.95,
+                "interest": 34.2,
+                "payment": 469.15,
+                "anticipation": 189.14,
+                "status": "a vencer"
+              },
+              {
+                "number": 92,
+                "dueDate": "07/06/2032",
+                "principal": 439.52,
+                "interest": 29.63,
+                "payment": 469.15,
+                "anticipation": 186.69,
+                "status": "a vencer"
+              },
+              {
+                "number": 93,
+                "dueDate": "07/07/2032",
+                "principal": 446.06,
+                "interest": 23.09,
+                "payment": 469.15,
+                "anticipation": 184.35,
+                "status": "a vencer"
+              },
+              {
+                "number": 94,
+                "dueDate": "06/08/2032",
+                "principal": 451.73,
+                "interest": 17.42,
+                "payment": 469.15,
+                "anticipation": 182.03,
+                "status": "a vencer"
+              },
+              {
+                "number": 95,
+                "dueDate": "08/09/2032",
+                "principal": 456.29,
+                "interest": 12.86,
+                "payment": 469.15,
+                "anticipation": 179.52,
+                "status": "a vencer"
+              },
+              {
+                "number": 96,
+                "dueDate": "07/10/2032",
+                "principal": 463.52,
+                "interest": 5.63,
+                "payment": 469.15,
+                "anticipation": 177.35,
+                "status": "a vencer"
+              }
+            ]
+          }
+        },
+        {
+          "fileName": "Saldo Devedor 469_15.pdf",
+          "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Saldo Devedor 469_15.pdf",
+          "uploadedAt": "2026-06-24T04:01:50.518Z",
+          "extracted": {
+            "engine": "pdf-parse",
+            "parser_version": 2,
+            "extracted_at": "2026-06-10T00:40:56-03:00",
+            "pages": 5,
+            "monthly": 469.15,
+            "saldo": 23063.12,
+            "installments": 96,
+            "remainingInstallments": 76,
+            "paid": 20,
+            "paidInstallments": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20
+            ],
+            "anticipation": 463.66,
+            "nextAnticipation": 463.66,
+            "lastAnticipation": 177.35,
+            "installmentSchedule": [
+              {
+                "number": 1,
+                "dueDate": "07/11/2024",
+                "principal": 98.49,
+                "interest": 370.66,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 2,
+                "dueDate": "06/12/2024",
+                "principal": 154.54,
+                "interest": 314.61,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 3,
+                "dueDate": "08/01/2025",
+                "principal": 113.01,
+                "interest": 356.14,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 4,
+                "dueDate": "07/02/2025",
+                "principal": 147.02,
+                "interest": 322.13,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 5,
+                "dueDate": "11/03/2025",
+                "principal": 127.4,
+                "interest": 341.75,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 6,
+                "dueDate": "07/04/2025",
+                "principal": 182.55,
+                "interest": 286.6,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 7,
+                "dueDate": "08/05/2025",
+                "principal": 142.21,
+                "interest": 326.94,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 8,
+                "dueDate": "06/06/2025",
+                "principal": 165.18,
+                "interest": 303.97,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 9,
+                "dueDate": "07/07/2025",
+                "principal": 146.25,
+                "interest": 322.9,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 10,
+                "dueDate": "07/08/2025",
+                "principal": 148.17,
+                "interest": 320.98,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 11,
+                "dueDate": "05/09/2025",
+                "principal": 170.82,
+                "interest": 298.33,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 12,
+                "dueDate": "07/10/2025",
+                "principal": 142.07,
+                "interest": 327.08,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 13,
+                "dueDate": "07/11/2025",
+                "principal": 154.22,
+                "interest": 314.93,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 14,
+                "dueDate": "05/12/2025",
+                "principal": 186.71,
+                "interest": 282.44,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 15,
+                "dueDate": "08/01/2026",
+                "principal": 128.44,
+                "interest": 340.71,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 16,
+                "dueDate": "06/02/2026",
+                "principal": 180.43,
+                "interest": 288.72,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 17,
+                "dueDate": "06/03/2026",
+                "principal": 192.58,
+                "interest": 276.57,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 18,
+                "dueDate": "08/04/2026",
+                "principal": 145.54,
+                "interest": 323.61,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 19,
+                "dueDate": "08/05/2026",
+                "principal": 177,
+                "interest": 292.15,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 20,
+                "dueDate": "08/06/2026",
+                "principal": 169.52,
+                "interest": 299.63,
+                "payment": 469.15,
+                "anticipation": 0,
+                "status": "paga"
+              },
+              {
+                "number": 21,
+                "dueDate": "07/07/2026",
+                "principal": 191.05,
+                "interest": 278.1,
+                "payment": 469.15,
+                "anticipation": 463.66,
+                "status": ""
+              },
+              {
+                "number": 22,
+                "dueDate": "07/08/2026",
+                "principal": 174.25,
+                "interest": 294.9,
+                "payment": 469.15,
+                "anticipation": 457.65,
+                "status": ""
+              },
+              {
+                "number": 23,
+                "dueDate": "08/09/2026",
+                "principal": 167.04,
+                "interest": 302.11,
+                "payment": 469.15,
+                "anticipation": 451.53,
+                "status": ""
+              },
+              {
+                "number": 24,
+                "dueDate": "07/10/2026",
+                "principal": 197.58,
+                "interest": 271.57,
+                "payment": 469.15,
+                "anticipation": 446.05,
+                "status": ""
+              },
+              {
+                "number": 25,
+                "dueDate": "09/11/2026",
+                "principal": 162.63,
+                "interest": 306.52,
+                "payment": 469.15,
+                "anticipation": 439.9,
+                "status": ""
+              },
+              {
+                "number": 26,
+                "dueDate": "07/12/2026",
+                "principal": 211.27,
+                "interest": 257.88,
+                "payment": 469.15,
+                "anticipation": 434.75,
+                "status": ""
+              },
+              {
+                "number": 27,
+                "dueDate": "08/01/2027",
+                "principal": 177.05,
+                "interest": 292.1,
+                "payment": 469.15,
+                "anticipation": 428.93,
+                "status": ""
+              },
+              {
+                "number": 28,
+                "dueDate": "05/02/2027",
+                "principal": 215.87,
+                "interest": 253.28,
+                "payment": 469.15,
+                "anticipation": 423.91,
+                "status": ""
+              },
+              {
+                "number": 29,
+                "dueDate": "05/03/2027",
+                "principal": 218.43,
+                "interest": 250.72,
+                "payment": 469.15,
+                "anticipation": 418.94,
+                "status": ""
+              },
+              {
+                "number": 30,
+                "dueDate": "07/04/2027",
+                "principal": 176.4,
+                "interest": 292.75,
+                "payment": 469.15,
+                "anticipation": 413.17,
+                "status": ""
+              },
+              {
+                "number": 31,
+                "dueDate": "07/05/2027",
+                "principal": 205.43,
+                "interest": 263.72,
+                "payment": 469.15,
+                "anticipation": 407.98,
+                "status": ""
+              },
+              {
+                "number": 32,
+                "dueDate": "07/06/2027",
+                "principal": 199.28,
+                "interest": 269.87,
+                "payment": 469.15,
+                "anticipation": 402.7,
+                "status": ""
+              },
+              {
+                "number": 33,
+                "dueDate": "07/07/2027",
+                "principal": 210.57,
+                "interest": 258.58,
+                "payment": 469.15,
+                "anticipation": 397.65,
+                "status": ""
+              },
+              {
+                "number": 34,
+                "dueDate": "06/08/2027",
+                "principal": 213.24,
+                "interest": 255.91,
+                "payment": 469.15,
+                "anticipation": 392.66,
+                "status": ""
+              },
+              {
+                "number": 35,
+                "dueDate": "08/09/2027",
+                "principal": 190.46,
+                "interest": 278.69,
+                "payment": 469.15,
+                "anticipation": 387.24,
+                "status": ""
+              },
+              {
+                "number": 36,
+                "dueDate": "07/10/2027",
+                "principal": 226.78,
+                "interest": 242.37,
+                "payment": 469.15,
+                "anticipation": 382.55,
+                "status": ""
+              },
+              {
+                "number": 37,
+                "dueDate": "08/11/2027",
+                "principal": 204.61,
+                "interest": 264.54,
+                "payment": 469.15,
+                "anticipation": 377.43,
+                "status": ""
+              },
+              {
+                "number": 38,
+                "dueDate": "07/12/2027",
+                "principal": 232.08,
+                "interest": 237.07,
+                "payment": 469.15,
+                "anticipation": 372.85,
+                "status": ""
+              },
+              {
+                "number": 39,
+                "dueDate": "07/01/2028",
+                "principal": 218.67,
+                "interest": 250.48,
+                "payment": 469.15,
+                "anticipation": 368.02,
+                "status": ""
+              },
+              {
+                "number": 40,
+                "dueDate": "07/02/2028",
+                "principal": 221.54,
+                "interest": 247.61,
+                "payment": 469.15,
+                "anticipation": 363.25,
+                "status": ""
+              },
+              {
+                "number": 41,
+                "dueDate": "07/03/2028",
+                "principal": 240.33,
+                "interest": 228.82,
+                "payment": 469.15,
+                "anticipation": 358.85,
+                "status": ""
+              },
+              {
+                "number": 42,
+                "dueDate": "07/04/2028",
+                "principal": 227.6,
+                "interest": 241.55,
+                "payment": 469.15,
+                "anticipation": 354.2,
+                "status": ""
+              },
+              {
+                "number": 43,
+                "dueDate": "08/05/2028",
+                "principal": 230.59,
+                "interest": 238.56,
+                "payment": 469.15,
+                "anticipation": 349.61,
+                "status": ""
+              },
+              {
+                "number": 44,
+                "dueDate": "07/06/2028",
+                "principal": 241.26,
+                "interest": 227.89,
+                "payment": 469.15,
+                "anticipation": 345.22,
+                "status": ""
+              },
+              {
+                "number": 45,
+                "dueDate": "07/07/2028",
+                "principal": 244.33,
+                "interest": 224.82,
+                "payment": 469.15,
+                "anticipation": 340.89,
+                "status": ""
+              },
+              {
+                "number": 46,
+                "dueDate": "07/08/2028",
+                "principal": 239.99,
+                "interest": 229.16,
+                "payment": 469.15,
+                "anticipation": 336.47,
+                "status": ""
+              },
+              {
+                "number": 47,
+                "dueDate": "08/09/2028",
+                "principal": 235.81,
+                "interest": 233.34,
+                "payment": 469.15,
+                "anticipation": 331.97,
+                "status": ""
+              },
+              {
+                "number": 48,
+                "dueDate": "06/10/2028",
+                "principal": 267.94,
+                "interest": 201.21,
+                "payment": 469.15,
+                "anticipation": 328.08,
+                "status": ""
+              },
+              {
+                "number": 49,
+                "dueDate": "08/11/2028",
+                "principal": 235.51,
+                "interest": 233.64,
+                "payment": 469.15,
+                "anticipation": 323.56,
+                "status": ""
+              },
+              {
+                "number": 50,
+                "dueDate": "07/12/2028",
+                "principal": 266.89,
+                "interest": 202.26,
+                "payment": 469.15,
+                "anticipation": 319.64,
+                "status": ""
+              },
+              {
+                "number": 51,
+                "dueDate": "08/01/2029",
+                "principal": 249.44,
+                "interest": 219.71,
+                "payment": 469.15,
+                "anticipation": 315.36,
+                "status": ""
+              },
+              {
+                "number": 52,
+                "dueDate": "07/02/2029",
+                "principal": 266.43,
+                "interest": 202.72,
+                "payment": 469.15,
+                "anticipation": 311.41,
+                "status": ""
+              },
+              {
+                "number": 53,
+                "dueDate": "07/03/2029",
+                "principal": 283.18,
+                "interest": 185.97,
+                "payment": 469.15,
+                "anticipation": 307.76,
+                "status": ""
+              },
+              {
+                "number": 54,
+                "dueDate": "06/04/2029",
+                "principal": 273.41,
+                "interest": 195.74,
+                "payment": 469.15,
+                "anticipation": 303.9,
+                "status": ""
+              },
+              {
+                "number": 55,
+                "dueDate": "08/05/2029",
+                "principal": 263.98,
+                "interest": 205.17,
+                "payment": 469.15,
+                "anticipation": 299.83,
+                "status": ""
+              },
+              {
+                "number": 56,
+                "dueDate": "07/06/2029",
+                "principal": 280.24,
+                "interest": 188.91,
+                "payment": 469.15,
+                "anticipation": 296.07,
+                "status": ""
+              },
+              {
+                "number": 57,
+                "dueDate": "06/07/2029",
+                "principal": 290.02,
+                "interest": 179.13,
+                "payment": 469.15,
+                "anticipation": 292.48,
+                "status": ""
+              },
+              {
+                "number": 58,
+                "dueDate": "07/08/2029",
+                "principal": 275.29,
+                "interest": 193.86,
+                "payment": 469.15,
+                "anticipation": 288.57,
+                "status": ""
+              },
+              {
+                "number": 59,
+                "dueDate": "10/09/2029",
+                "principal": 267.05,
+                "interest": 202.1,
+                "payment": 469.15,
+                "anticipation": 284.47,
+                "status": ""
+              },
+              {
+                "number": 60,
+                "dueDate": "05/10/2029",
+                "principal": 323.66,
+                "interest": 145.49,
+                "payment": 469.15,
+                "anticipation": 281.49,
+                "status": ""
+              },
+              {
+                "number": 61,
+                "dueDate": "08/11/2029",
+                "principal": 275.57,
+                "interest": 193.58,
+                "payment": 469.15,
+                "anticipation": 277.5,
+                "status": ""
+              },
+              {
+                "number": 62,
+                "dueDate": "07/12/2029",
+                "principal": 307.59,
+                "interest": 161.56,
+                "payment": 469.15,
+                "anticipation": 274.13,
+                "status": ""
+              },
+              {
+                "number": 63,
+                "dueDate": "08/01/2030",
+                "principal": 294.93,
+                "interest": 174.22,
+                "payment": 469.15,
+                "anticipation": 270.46,
+                "status": ""
+              },
+              {
+                "number": 64,
+                "dueDate": "07/02/2030",
+                "principal": 309.64,
+                "interest": 159.51,
+                "payment": 469.15,
+                "anticipation": 267.07,
+                "status": ""
+              },
+              {
+                "number": 65,
+                "dueDate": "11/03/2030",
+                "principal": 303.13,
+                "interest": 166.02,
+                "payment": 469.15,
+                "anticipation": 263.5,
+                "status": ""
+              },
+              {
+                "number": 66,
+                "dueDate": "05/04/2030",
+                "principal": 342.84,
+                "interest": 126.31,
+                "payment": 469.15,
+                "anticipation": 260.74,
+                "status": ""
+              },
+              {
+                "number": 67,
+                "dueDate": "08/05/2030",
+                "principal": 306.94,
+                "interest": 162.21,
+                "payment": 469.15,
+                "anticipation": 257.15,
+                "status": ""
+              },
+              {
+                "number": 68,
+                "dueDate": "07/06/2030",
+                "principal": 325.68,
+                "interest": 143.47,
+                "payment": 469.15,
+                "anticipation": 253.92,
+                "status": ""
+              },
+              {
+                "number": 69,
+                "dueDate": "05/07/2030",
+                "principal": 339.16,
+                "interest": 129.99,
+                "payment": 469.15,
+                "anticipation": 250.95,
+                "status": ""
+              },
+              {
+                "number": 70,
+                "dueDate": "07/08/2030",
+                "principal": 320.53,
+                "interest": 148.62,
+                "payment": 469.15,
+                "anticipation": 247.49,
+                "status": ""
+              },
+              {
+                "number": 71,
+                "dueDate": "06/09/2030",
+                "principal": 338.19,
+                "interest": 130.96,
+                "payment": 469.15,
+                "anticipation": 244.38,
+                "status": ""
+              },
+              {
+                "number": 72,
+                "dueDate": "07/10/2030",
+                "principal": 338.24,
+                "interest": 130.91,
+                "payment": 469.15,
+                "anticipation": 241.22,
+                "status": ""
+              },
+              {
+                "number": 73,
+                "dueDate": "07/11/2030",
+                "principal": 342.68,
+                "interest": 126.47,
+                "payment": 469.15,
+                "anticipation": 238.09,
+                "status": ""
+              },
+              {
+                "number": 74,
+                "dueDate": "06/12/2030",
+                "principal": 355.1,
+                "interest": 114.05,
+                "payment": 469.15,
+                "anticipation": 235.2,
+                "status": ""
+              },
+              {
+                "number": 75,
+                "dueDate": "08/01/2031",
+                "principal": 344.22,
+                "interest": 124.93,
+                "payment": 469.15,
+                "anticipation": 231.96,
+                "status": ""
+              },
+              {
+                "number": 76,
+                "dueDate": "07/02/2031",
+                "principal": 360.02,
+                "interest": 109.13,
+                "payment": 469.15,
+                "anticipation": 229.05,
+                "status": ""
+              },
+              {
+                "number": 77,
+                "dueDate": "07/03/2031",
+                "principal": 371.61,
+                "interest": 97.54,
+                "payment": 469.15,
+                "anticipation": 226.37,
+                "status": ""
+              },
+              {
+                "number": 78,
+                "dueDate": "07/04/2031",
+                "principal": 365.97,
+                "interest": 103.18,
+                "payment": 469.15,
+                "anticipation": 223.43,
+                "status": ""
+              },
+              {
+                "number": 79,
+                "dueDate": "08/05/2031",
+                "principal": 370.77,
+                "interest": 98.38,
+                "payment": 469.15,
+                "anticipation": 220.54,
+                "status": ""
+              },
+              {
+                "number": 80,
+                "dueDate": "06/06/2031",
+                "principal": 381.71,
+                "interest": 87.44,
+                "payment": 469.15,
+                "anticipation": 217.86,
+                "status": ""
+              },
+              {
+                "number": 81,
+                "dueDate": "07/07/2031",
+                "principal": 380.65,
+                "interest": 88.5,
+                "payment": 469.15,
+                "anticipation": 215.04,
+                "status": ""
+              },
+              {
+                "number": 82,
+                "dueDate": "07/08/2031",
+                "principal": 385.65,
+                "interest": 83.5,
+                "payment": 469.15,
+                "anticipation": 212.25,
+                "status": ""
+              },
+              {
+                "number": 83,
+                "dueDate": "05/09/2031",
+                "principal": 395.8,
+                "interest": 73.35,
+                "payment": 469.15,
+                "anticipation": 209.68,
+                "status": ""
+              },
+              {
+                "number": 84,
+                "dueDate": "07/10/2031",
+                "principal": 393.53,
+                "interest": 75.62,
+                "payment": 469.15,
+                "anticipation": 206.87,
+                "status": ""
+              },
+              {
+                "number": 85,
+                "dueDate": "07/11/2031",
+                "principal": 401.08,
+                "interest": 68.07,
+                "payment": 469.15,
+                "anticipation": 204.19,
+                "status": ""
+              },
+              {
+                "number": 86,
+                "dueDate": "05/12/2031",
+                "principal": 412.46,
+                "interest": 56.69,
+                "payment": 469.15,
+                "anticipation": 201.8,
+                "status": ""
+              },
+              {
+                "number": 87,
+                "dueDate": "08/01/2032",
+                "principal": 406.16,
+                "interest": 62.99,
+                "payment": 469.15,
+                "anticipation": 198.94,
+                "status": ""
+              },
+              {
+                "number": 88,
+                "dueDate": "06/02/2032",
+                "principal": 420.47,
+                "interest": 48.68,
+                "payment": 469.15,
+                "anticipation": 196.52,
+                "status": ""
+              },
+              {
+                "number": 89,
+                "dueDate": "05/03/2032",
+                "principal": 427.14,
+                "interest": 42.01,
+                "payment": 469.15,
+                "anticipation": 194.22,
+                "status": ""
+              },
+              {
+                "number": 90,
+                "dueDate": "07/04/2032",
+                "principal": 425.56,
+                "interest": 43.59,
+                "payment": 469.15,
+                "anticipation": 191.54,
+                "status": ""
+              },
+              {
+                "number": 91,
+                "dueDate": "07/05/2032",
+                "principal": 434.95,
+                "interest": 34.2,
+                "payment": 469.15,
+                "anticipation": 189.14,
+                "status": ""
+              },
+              {
+                "number": 92,
+                "dueDate": "07/06/2032",
+                "principal": 439.52,
+                "interest": 29.63,
+                "payment": 469.15,
+                "anticipation": 186.69,
+                "status": ""
+              },
+              {
+                "number": 93,
+                "dueDate": "07/07/2032",
+                "principal": 446.06,
+                "interest": 23.09,
+                "payment": 469.15,
+                "anticipation": 184.35,
+                "status": ""
+              },
+              {
+                "number": 94,
+                "dueDate": "06/08/2032",
+                "principal": 451.73,
+                "interest": 17.42,
+                "payment": 469.15,
+                "anticipation": 182.03,
+                "status": ""
+              },
+              {
+                "number": 95,
+                "dueDate": "08/09/2032",
+                "principal": 456.29,
+                "interest": 12.86,
+                "payment": 469.15,
+                "anticipation": 179.52,
+                "status": ""
+              },
+              {
+                "number": 96,
+                "dueDate": "07/10/2032",
+                "principal": 463.52,
+                "interest": 5.63,
+                "payment": 469.15,
+                "anticipation": 177.35,
+                "status": ""
+              }
+            ]
+          }
+        }
+      ],
+      "contractValuesLocked": true,
+      "contractExtraction": {
+        "engine": "pdf-parse",
+        "parser_version": 2,
+        "extracted_at": "2026-06-10T00:40:56-03:00",
+        "pages": 5,
+        "monthly": 469.15,
+        "saldo": 23063.12,
+        "installments": 96,
+        "remainingInstallments": 76,
+        "paid": 20,
+        "paidInstallments": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20
+        ],
+        "anticipation": 463.66,
+        "nextAnticipation": 463.66,
+        "lastAnticipation": 177.35,
+        "installmentSchedule": [
+          {
+            "number": 1,
+            "dueDate": "07/11/2024",
+            "principal": 98.49,
+            "interest": 370.66,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 2,
+            "dueDate": "06/12/2024",
+            "principal": 154.54,
+            "interest": 314.61,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 3,
+            "dueDate": "08/01/2025",
+            "principal": 113.01,
+            "interest": 356.14,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 4,
+            "dueDate": "07/02/2025",
+            "principal": 147.02,
+            "interest": 322.13,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 5,
+            "dueDate": "11/03/2025",
+            "principal": 127.4,
+            "interest": 341.75,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 6,
+            "dueDate": "07/04/2025",
+            "principal": 182.55,
+            "interest": 286.6,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 7,
+            "dueDate": "08/05/2025",
+            "principal": 142.21,
+            "interest": 326.94,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 8,
+            "dueDate": "06/06/2025",
+            "principal": 165.18,
+            "interest": 303.97,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 9,
+            "dueDate": "07/07/2025",
+            "principal": 146.25,
+            "interest": 322.9,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 10,
+            "dueDate": "07/08/2025",
+            "principal": 148.17,
+            "interest": 320.98,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 11,
+            "dueDate": "05/09/2025",
+            "principal": 170.82,
+            "interest": 298.33,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 12,
+            "dueDate": "07/10/2025",
+            "principal": 142.07,
+            "interest": 327.08,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 13,
+            "dueDate": "07/11/2025",
+            "principal": 154.22,
+            "interest": 314.93,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 14,
+            "dueDate": "05/12/2025",
+            "principal": 186.71,
+            "interest": 282.44,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 15,
+            "dueDate": "08/01/2026",
+            "principal": 128.44,
+            "interest": 340.71,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 16,
+            "dueDate": "06/02/2026",
+            "principal": 180.43,
+            "interest": 288.72,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 17,
+            "dueDate": "06/03/2026",
+            "principal": 192.58,
+            "interest": 276.57,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 18,
+            "dueDate": "08/04/2026",
+            "principal": 145.54,
+            "interest": 323.61,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 19,
+            "dueDate": "08/05/2026",
+            "principal": 177,
+            "interest": 292.15,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 20,
+            "dueDate": "08/06/2026",
+            "principal": 169.52,
+            "interest": 299.63,
+            "payment": 469.15,
+            "anticipation": 0,
+            "status": "paga"
+          },
+          {
+            "number": 21,
+            "dueDate": "07/07/2026",
+            "principal": 191.05,
+            "interest": 278.1,
+            "payment": 469.15,
+            "anticipation": 463.66,
+            "status": ""
+          },
+          {
+            "number": 22,
+            "dueDate": "07/08/2026",
+            "principal": 174.25,
+            "interest": 294.9,
+            "payment": 469.15,
+            "anticipation": 457.65,
+            "status": ""
+          },
+          {
+            "number": 23,
+            "dueDate": "08/09/2026",
+            "principal": 167.04,
+            "interest": 302.11,
+            "payment": 469.15,
+            "anticipation": 451.53,
+            "status": ""
+          },
+          {
+            "number": 24,
+            "dueDate": "07/10/2026",
+            "principal": 197.58,
+            "interest": 271.57,
+            "payment": 469.15,
+            "anticipation": 446.05,
+            "status": ""
+          },
+          {
+            "number": 25,
+            "dueDate": "09/11/2026",
+            "principal": 162.63,
+            "interest": 306.52,
+            "payment": 469.15,
+            "anticipation": 439.9,
+            "status": ""
+          },
+          {
+            "number": 26,
+            "dueDate": "07/12/2026",
+            "principal": 211.27,
+            "interest": 257.88,
+            "payment": 469.15,
+            "anticipation": 434.75,
+            "status": ""
+          },
+          {
+            "number": 27,
+            "dueDate": "08/01/2027",
+            "principal": 177.05,
+            "interest": 292.1,
+            "payment": 469.15,
+            "anticipation": 428.93,
+            "status": ""
+          },
+          {
+            "number": 28,
+            "dueDate": "05/02/2027",
+            "principal": 215.87,
+            "interest": 253.28,
+            "payment": 469.15,
+            "anticipation": 423.91,
+            "status": ""
+          },
+          {
+            "number": 29,
+            "dueDate": "05/03/2027",
+            "principal": 218.43,
+            "interest": 250.72,
+            "payment": 469.15,
+            "anticipation": 418.94,
+            "status": ""
+          },
+          {
+            "number": 30,
+            "dueDate": "07/04/2027",
+            "principal": 176.4,
+            "interest": 292.75,
+            "payment": 469.15,
+            "anticipation": 413.17,
+            "status": ""
+          },
+          {
+            "number": 31,
+            "dueDate": "07/05/2027",
+            "principal": 205.43,
+            "interest": 263.72,
+            "payment": 469.15,
+            "anticipation": 407.98,
+            "status": ""
+          },
+          {
+            "number": 32,
+            "dueDate": "07/06/2027",
+            "principal": 199.28,
+            "interest": 269.87,
+            "payment": 469.15,
+            "anticipation": 402.7,
+            "status": ""
+          },
+          {
+            "number": 33,
+            "dueDate": "07/07/2027",
+            "principal": 210.57,
+            "interest": 258.58,
+            "payment": 469.15,
+            "anticipation": 397.65,
+            "status": ""
+          },
+          {
+            "number": 34,
+            "dueDate": "06/08/2027",
+            "principal": 213.24,
+            "interest": 255.91,
+            "payment": 469.15,
+            "anticipation": 392.66,
+            "status": ""
+          },
+          {
+            "number": 35,
+            "dueDate": "08/09/2027",
+            "principal": 190.46,
+            "interest": 278.69,
+            "payment": 469.15,
+            "anticipation": 387.24,
+            "status": ""
+          },
+          {
+            "number": 36,
+            "dueDate": "07/10/2027",
+            "principal": 226.78,
+            "interest": 242.37,
+            "payment": 469.15,
+            "anticipation": 382.55,
+            "status": ""
+          },
+          {
+            "number": 37,
+            "dueDate": "08/11/2027",
+            "principal": 204.61,
+            "interest": 264.54,
+            "payment": 469.15,
+            "anticipation": 377.43,
+            "status": ""
+          },
+          {
+            "number": 38,
+            "dueDate": "07/12/2027",
+            "principal": 232.08,
+            "interest": 237.07,
+            "payment": 469.15,
+            "anticipation": 372.85,
+            "status": ""
+          },
+          {
+            "number": 39,
+            "dueDate": "07/01/2028",
+            "principal": 218.67,
+            "interest": 250.48,
+            "payment": 469.15,
+            "anticipation": 368.02,
+            "status": ""
+          },
+          {
+            "number": 40,
+            "dueDate": "07/02/2028",
+            "principal": 221.54,
+            "interest": 247.61,
+            "payment": 469.15,
+            "anticipation": 363.25,
+            "status": ""
+          },
+          {
+            "number": 41,
+            "dueDate": "07/03/2028",
+            "principal": 240.33,
+            "interest": 228.82,
+            "payment": 469.15,
+            "anticipation": 358.85,
+            "status": ""
+          },
+          {
+            "number": 42,
+            "dueDate": "07/04/2028",
+            "principal": 227.6,
+            "interest": 241.55,
+            "payment": 469.15,
+            "anticipation": 354.2,
+            "status": ""
+          },
+          {
+            "number": 43,
+            "dueDate": "08/05/2028",
+            "principal": 230.59,
+            "interest": 238.56,
+            "payment": 469.15,
+            "anticipation": 349.61,
+            "status": ""
+          },
+          {
+            "number": 44,
+            "dueDate": "07/06/2028",
+            "principal": 241.26,
+            "interest": 227.89,
+            "payment": 469.15,
+            "anticipation": 345.22,
+            "status": ""
+          },
+          {
+            "number": 45,
+            "dueDate": "07/07/2028",
+            "principal": 244.33,
+            "interest": 224.82,
+            "payment": 469.15,
+            "anticipation": 340.89,
+            "status": ""
+          },
+          {
+            "number": 46,
+            "dueDate": "07/08/2028",
+            "principal": 239.99,
+            "interest": 229.16,
+            "payment": 469.15,
+            "anticipation": 336.47,
+            "status": ""
+          },
+          {
+            "number": 47,
+            "dueDate": "08/09/2028",
+            "principal": 235.81,
+            "interest": 233.34,
+            "payment": 469.15,
+            "anticipation": 331.97,
+            "status": ""
+          },
+          {
+            "number": 48,
+            "dueDate": "06/10/2028",
+            "principal": 267.94,
+            "interest": 201.21,
+            "payment": 469.15,
+            "anticipation": 328.08,
+            "status": ""
+          },
+          {
+            "number": 49,
+            "dueDate": "08/11/2028",
+            "principal": 235.51,
+            "interest": 233.64,
+            "payment": 469.15,
+            "anticipation": 323.56,
+            "status": ""
+          },
+          {
+            "number": 50,
+            "dueDate": "07/12/2028",
+            "principal": 266.89,
+            "interest": 202.26,
+            "payment": 469.15,
+            "anticipation": 319.64,
+            "status": ""
+          },
+          {
+            "number": 51,
+            "dueDate": "08/01/2029",
+            "principal": 249.44,
+            "interest": 219.71,
+            "payment": 469.15,
+            "anticipation": 315.36,
+            "status": ""
+          },
+          {
+            "number": 52,
+            "dueDate": "07/02/2029",
+            "principal": 266.43,
+            "interest": 202.72,
+            "payment": 469.15,
+            "anticipation": 311.41,
+            "status": ""
+          },
+          {
+            "number": 53,
+            "dueDate": "07/03/2029",
+            "principal": 283.18,
+            "interest": 185.97,
+            "payment": 469.15,
+            "anticipation": 307.76,
+            "status": ""
+          },
+          {
+            "number": 54,
+            "dueDate": "06/04/2029",
+            "principal": 273.41,
+            "interest": 195.74,
+            "payment": 469.15,
+            "anticipation": 303.9,
+            "status": ""
+          },
+          {
+            "number": 55,
+            "dueDate": "08/05/2029",
+            "principal": 263.98,
+            "interest": 205.17,
+            "payment": 469.15,
+            "anticipation": 299.83,
+            "status": ""
+          },
+          {
+            "number": 56,
+            "dueDate": "07/06/2029",
+            "principal": 280.24,
+            "interest": 188.91,
+            "payment": 469.15,
+            "anticipation": 296.07,
+            "status": ""
+          },
+          {
+            "number": 57,
+            "dueDate": "06/07/2029",
+            "principal": 290.02,
+            "interest": 179.13,
+            "payment": 469.15,
+            "anticipation": 292.48,
+            "status": ""
+          },
+          {
+            "number": 58,
+            "dueDate": "07/08/2029",
+            "principal": 275.29,
+            "interest": 193.86,
+            "payment": 469.15,
+            "anticipation": 288.57,
+            "status": ""
+          },
+          {
+            "number": 59,
+            "dueDate": "10/09/2029",
+            "principal": 267.05,
+            "interest": 202.1,
+            "payment": 469.15,
+            "anticipation": 284.47,
+            "status": ""
+          },
+          {
+            "number": 60,
+            "dueDate": "05/10/2029",
+            "principal": 323.66,
+            "interest": 145.49,
+            "payment": 469.15,
+            "anticipation": 281.49,
+            "status": ""
+          },
+          {
+            "number": 61,
+            "dueDate": "08/11/2029",
+            "principal": 275.57,
+            "interest": 193.58,
+            "payment": 469.15,
+            "anticipation": 277.5,
+            "status": ""
+          },
+          {
+            "number": 62,
+            "dueDate": "07/12/2029",
+            "principal": 307.59,
+            "interest": 161.56,
+            "payment": 469.15,
+            "anticipation": 274.13,
+            "status": ""
+          },
+          {
+            "number": 63,
+            "dueDate": "08/01/2030",
+            "principal": 294.93,
+            "interest": 174.22,
+            "payment": 469.15,
+            "anticipation": 270.46,
+            "status": ""
+          },
+          {
+            "number": 64,
+            "dueDate": "07/02/2030",
+            "principal": 309.64,
+            "interest": 159.51,
+            "payment": 469.15,
+            "anticipation": 267.07,
+            "status": ""
+          },
+          {
+            "number": 65,
+            "dueDate": "11/03/2030",
+            "principal": 303.13,
+            "interest": 166.02,
+            "payment": 469.15,
+            "anticipation": 263.5,
+            "status": ""
+          },
+          {
+            "number": 66,
+            "dueDate": "05/04/2030",
+            "principal": 342.84,
+            "interest": 126.31,
+            "payment": 469.15,
+            "anticipation": 260.74,
+            "status": ""
+          },
+          {
+            "number": 67,
+            "dueDate": "08/05/2030",
+            "principal": 306.94,
+            "interest": 162.21,
+            "payment": 469.15,
+            "anticipation": 257.15,
+            "status": ""
+          },
+          {
+            "number": 68,
+            "dueDate": "07/06/2030",
+            "principal": 325.68,
+            "interest": 143.47,
+            "payment": 469.15,
+            "anticipation": 253.92,
+            "status": ""
+          },
+          {
+            "number": 69,
+            "dueDate": "05/07/2030",
+            "principal": 339.16,
+            "interest": 129.99,
+            "payment": 469.15,
+            "anticipation": 250.95,
+            "status": ""
+          },
+          {
+            "number": 70,
+            "dueDate": "07/08/2030",
+            "principal": 320.53,
+            "interest": 148.62,
+            "payment": 469.15,
+            "anticipation": 247.49,
+            "status": ""
+          },
+          {
+            "number": 71,
+            "dueDate": "06/09/2030",
+            "principal": 338.19,
+            "interest": 130.96,
+            "payment": 469.15,
+            "anticipation": 244.38,
+            "status": ""
+          },
+          {
+            "number": 72,
+            "dueDate": "07/10/2030",
+            "principal": 338.24,
+            "interest": 130.91,
+            "payment": 469.15,
+            "anticipation": 241.22,
+            "status": ""
+          },
+          {
+            "number": 73,
+            "dueDate": "07/11/2030",
+            "principal": 342.68,
+            "interest": 126.47,
+            "payment": 469.15,
+            "anticipation": 238.09,
+            "status": ""
+          },
+          {
+            "number": 74,
+            "dueDate": "06/12/2030",
+            "principal": 355.1,
+            "interest": 114.05,
+            "payment": 469.15,
+            "anticipation": 235.2,
+            "status": ""
+          },
+          {
+            "number": 75,
+            "dueDate": "08/01/2031",
+            "principal": 344.22,
+            "interest": 124.93,
+            "payment": 469.15,
+            "anticipation": 231.96,
+            "status": ""
+          },
+          {
+            "number": 76,
+            "dueDate": "07/02/2031",
+            "principal": 360.02,
+            "interest": 109.13,
+            "payment": 469.15,
+            "anticipation": 229.05,
+            "status": ""
+          },
+          {
+            "number": 77,
+            "dueDate": "07/03/2031",
+            "principal": 371.61,
+            "interest": 97.54,
+            "payment": 469.15,
+            "anticipation": 226.37,
+            "status": ""
+          },
+          {
+            "number": 78,
+            "dueDate": "07/04/2031",
+            "principal": 365.97,
+            "interest": 103.18,
+            "payment": 469.15,
+            "anticipation": 223.43,
+            "status": ""
+          },
+          {
+            "number": 79,
+            "dueDate": "08/05/2031",
+            "principal": 370.77,
+            "interest": 98.38,
+            "payment": 469.15,
+            "anticipation": 220.54,
+            "status": ""
+          },
+          {
+            "number": 80,
+            "dueDate": "06/06/2031",
+            "principal": 381.71,
+            "interest": 87.44,
+            "payment": 469.15,
+            "anticipation": 217.86,
+            "status": ""
+          },
+          {
+            "number": 81,
+            "dueDate": "07/07/2031",
+            "principal": 380.65,
+            "interest": 88.5,
+            "payment": 469.15,
+            "anticipation": 215.04,
+            "status": ""
+          },
+          {
+            "number": 82,
+            "dueDate": "07/08/2031",
+            "principal": 385.65,
+            "interest": 83.5,
+            "payment": 469.15,
+            "anticipation": 212.25,
+            "status": ""
+          },
+          {
+            "number": 83,
+            "dueDate": "05/09/2031",
+            "principal": 395.8,
+            "interest": 73.35,
+            "payment": 469.15,
+            "anticipation": 209.68,
+            "status": ""
+          },
+          {
+            "number": 84,
+            "dueDate": "07/10/2031",
+            "principal": 393.53,
+            "interest": 75.62,
+            "payment": 469.15,
+            "anticipation": 206.87,
+            "status": ""
+          },
+          {
+            "number": 85,
+            "dueDate": "07/11/2031",
+            "principal": 401.08,
+            "interest": 68.07,
+            "payment": 469.15,
+            "anticipation": 204.19,
+            "status": ""
+          },
+          {
+            "number": 86,
+            "dueDate": "05/12/2031",
+            "principal": 412.46,
+            "interest": 56.69,
+            "payment": 469.15,
+            "anticipation": 201.8,
+            "status": ""
+          },
+          {
+            "number": 87,
+            "dueDate": "08/01/2032",
+            "principal": 406.16,
+            "interest": 62.99,
+            "payment": 469.15,
+            "anticipation": 198.94,
+            "status": ""
+          },
+          {
+            "number": 88,
+            "dueDate": "06/02/2032",
+            "principal": 420.47,
+            "interest": 48.68,
+            "payment": 469.15,
+            "anticipation": 196.52,
+            "status": ""
+          },
+          {
+            "number": 89,
+            "dueDate": "05/03/2032",
+            "principal": 427.14,
+            "interest": 42.01,
+            "payment": 469.15,
+            "anticipation": 194.22,
+            "status": ""
+          },
+          {
+            "number": 90,
+            "dueDate": "07/04/2032",
+            "principal": 425.56,
+            "interest": 43.59,
+            "payment": 469.15,
+            "anticipation": 191.54,
+            "status": ""
+          },
+          {
+            "number": 91,
+            "dueDate": "07/05/2032",
+            "principal": 434.95,
+            "interest": 34.2,
+            "payment": 469.15,
+            "anticipation": 189.14,
+            "status": ""
+          },
+          {
+            "number": 92,
+            "dueDate": "07/06/2032",
+            "principal": 439.52,
+            "interest": 29.63,
+            "payment": 469.15,
+            "anticipation": 186.69,
+            "status": ""
+          },
+          {
+            "number": 93,
+            "dueDate": "07/07/2032",
+            "principal": 446.06,
+            "interest": 23.09,
+            "payment": 469.15,
+            "anticipation": 184.35,
+            "status": ""
+          },
+          {
+            "number": 94,
+            "dueDate": "06/08/2032",
+            "principal": 451.73,
+            "interest": 17.42,
+            "payment": 469.15,
+            "anticipation": 182.03,
+            "status": ""
+          },
+          {
+            "number": 95,
+            "dueDate": "08/09/2032",
+            "principal": 456.29,
+            "interest": 12.86,
+            "payment": 469.15,
+            "anticipation": 179.52,
+            "status": ""
+          },
+          {
+            "number": 96,
+            "dueDate": "07/10/2032",
+            "principal": 463.52,
+            "interest": 5.63,
+            "payment": 469.15,
+            "anticipation": 177.35,
+            "status": ""
+          }
+        ]
+      },
+      "installmentSchedule": [
+        {
+          "number": 1,
+          "dueDate": "07/11/2024",
+          "principal": 98.49,
+          "interest": 370.66,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 2,
+          "dueDate": "06/12/2024",
+          "principal": 154.54,
+          "interest": 314.61,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 3,
+          "dueDate": "08/01/2025",
+          "principal": 113.01,
+          "interest": 356.14,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 4,
+          "dueDate": "07/02/2025",
+          "principal": 147.02,
+          "interest": 322.13,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 5,
+          "dueDate": "11/03/2025",
+          "principal": 127.4,
+          "interest": 341.75,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 6,
+          "dueDate": "07/04/2025",
+          "principal": 182.55,
+          "interest": 286.6,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 7,
+          "dueDate": "08/05/2025",
+          "principal": 142.21,
+          "interest": 326.94,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 8,
+          "dueDate": "06/06/2025",
+          "principal": 165.18,
+          "interest": 303.97,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 9,
+          "dueDate": "07/07/2025",
+          "principal": 146.25,
+          "interest": 322.9,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 10,
+          "dueDate": "07/08/2025",
+          "principal": 148.17,
+          "interest": 320.98,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 11,
+          "dueDate": "05/09/2025",
+          "principal": 170.82,
+          "interest": 298.33,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 12,
+          "dueDate": "07/10/2025",
+          "principal": 142.07,
+          "interest": 327.08,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 13,
+          "dueDate": "07/11/2025",
+          "principal": 154.22,
+          "interest": 314.93,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 14,
+          "dueDate": "05/12/2025",
+          "principal": 186.71,
+          "interest": 282.44,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 15,
+          "dueDate": "08/01/2026",
+          "principal": 128.44,
+          "interest": 340.71,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 16,
+          "dueDate": "06/02/2026",
+          "principal": 180.43,
+          "interest": 288.72,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 17,
+          "dueDate": "06/03/2026",
+          "principal": 192.58,
+          "interest": 276.57,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 18,
+          "dueDate": "08/04/2026",
+          "principal": 145.54,
+          "interest": 323.61,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 19,
+          "dueDate": "08/05/2026",
+          "principal": 177,
+          "interest": 292.15,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 20,
+          "dueDate": "08/06/2026",
+          "principal": 169.52,
+          "interest": 299.63,
+          "payment": 469.15,
+          "anticipation": 0,
+          "status": "paga"
+        },
+        {
+          "number": 21,
+          "dueDate": "07/07/2026",
+          "principal": 191.05,
+          "interest": 278.1,
+          "payment": 469.15,
+          "anticipation": 463.66,
+          "status": ""
+        },
+        {
+          "number": 22,
+          "dueDate": "07/08/2026",
+          "principal": 174.25,
+          "interest": 294.9,
+          "payment": 469.15,
+          "anticipation": 457.65,
+          "status": ""
+        },
+        {
+          "number": 23,
+          "dueDate": "08/09/2026",
+          "principal": 167.04,
+          "interest": 302.11,
+          "payment": 469.15,
+          "anticipation": 451.53,
+          "status": ""
+        },
+        {
+          "number": 24,
+          "dueDate": "07/10/2026",
+          "principal": 197.58,
+          "interest": 271.57,
+          "payment": 469.15,
+          "anticipation": 446.05,
+          "status": ""
+        },
+        {
+          "number": 25,
+          "dueDate": "09/11/2026",
+          "principal": 162.63,
+          "interest": 306.52,
+          "payment": 469.15,
+          "anticipation": 439.9,
+          "status": ""
+        },
+        {
+          "number": 26,
+          "dueDate": "07/12/2026",
+          "principal": 211.27,
+          "interest": 257.88,
+          "payment": 469.15,
+          "anticipation": 434.75,
+          "status": ""
+        },
+        {
+          "number": 27,
+          "dueDate": "08/01/2027",
+          "principal": 177.05,
+          "interest": 292.1,
+          "payment": 469.15,
+          "anticipation": 428.93,
+          "status": ""
+        },
+        {
+          "number": 28,
+          "dueDate": "05/02/2027",
+          "principal": 215.87,
+          "interest": 253.28,
+          "payment": 469.15,
+          "anticipation": 423.91,
+          "status": ""
+        },
+        {
+          "number": 29,
+          "dueDate": "05/03/2027",
+          "principal": 218.43,
+          "interest": 250.72,
+          "payment": 469.15,
+          "anticipation": 418.94,
+          "status": ""
+        },
+        {
+          "number": 30,
+          "dueDate": "07/04/2027",
+          "principal": 176.4,
+          "interest": 292.75,
+          "payment": 469.15,
+          "anticipation": 413.17,
+          "status": ""
+        },
+        {
+          "number": 31,
+          "dueDate": "07/05/2027",
+          "principal": 205.43,
+          "interest": 263.72,
+          "payment": 469.15,
+          "anticipation": 407.98,
+          "status": ""
+        },
+        {
+          "number": 32,
+          "dueDate": "07/06/2027",
+          "principal": 199.28,
+          "interest": 269.87,
+          "payment": 469.15,
+          "anticipation": 402.7,
+          "status": ""
+        },
+        {
+          "number": 33,
+          "dueDate": "07/07/2027",
+          "principal": 210.57,
+          "interest": 258.58,
+          "payment": 469.15,
+          "anticipation": 397.65,
+          "status": ""
+        },
+        {
+          "number": 34,
+          "dueDate": "06/08/2027",
+          "principal": 213.24,
+          "interest": 255.91,
+          "payment": 469.15,
+          "anticipation": 392.66,
+          "status": ""
+        },
+        {
+          "number": 35,
+          "dueDate": "08/09/2027",
+          "principal": 190.46,
+          "interest": 278.69,
+          "payment": 469.15,
+          "anticipation": 387.24,
+          "status": ""
+        },
+        {
+          "number": 36,
+          "dueDate": "07/10/2027",
+          "principal": 226.78,
+          "interest": 242.37,
+          "payment": 469.15,
+          "anticipation": 382.55,
+          "status": ""
+        },
+        {
+          "number": 37,
+          "dueDate": "08/11/2027",
+          "principal": 204.61,
+          "interest": 264.54,
+          "payment": 469.15,
+          "anticipation": 377.43,
+          "status": ""
+        },
+        {
+          "number": 38,
+          "dueDate": "07/12/2027",
+          "principal": 232.08,
+          "interest": 237.07,
+          "payment": 469.15,
+          "anticipation": 372.85,
+          "status": ""
+        },
+        {
+          "number": 39,
+          "dueDate": "07/01/2028",
+          "principal": 218.67,
+          "interest": 250.48,
+          "payment": 469.15,
+          "anticipation": 368.02,
+          "status": ""
+        },
+        {
+          "number": 40,
+          "dueDate": "07/02/2028",
+          "principal": 221.54,
+          "interest": 247.61,
+          "payment": 469.15,
+          "anticipation": 363.25,
+          "status": ""
+        },
+        {
+          "number": 41,
+          "dueDate": "07/03/2028",
+          "principal": 240.33,
+          "interest": 228.82,
+          "payment": 469.15,
+          "anticipation": 358.85,
+          "status": ""
+        },
+        {
+          "number": 42,
+          "dueDate": "07/04/2028",
+          "principal": 227.6,
+          "interest": 241.55,
+          "payment": 469.15,
+          "anticipation": 354.2,
+          "status": ""
+        },
+        {
+          "number": 43,
+          "dueDate": "08/05/2028",
+          "principal": 230.59,
+          "interest": 238.56,
+          "payment": 469.15,
+          "anticipation": 349.61,
+          "status": ""
+        },
+        {
+          "number": 44,
+          "dueDate": "07/06/2028",
+          "principal": 241.26,
+          "interest": 227.89,
+          "payment": 469.15,
+          "anticipation": 345.22,
+          "status": ""
+        },
+        {
+          "number": 45,
+          "dueDate": "07/07/2028",
+          "principal": 244.33,
+          "interest": 224.82,
+          "payment": 469.15,
+          "anticipation": 340.89,
+          "status": ""
+        },
+        {
+          "number": 46,
+          "dueDate": "07/08/2028",
+          "principal": 239.99,
+          "interest": 229.16,
+          "payment": 469.15,
+          "anticipation": 336.47,
+          "status": ""
+        },
+        {
+          "number": 47,
+          "dueDate": "08/09/2028",
+          "principal": 235.81,
+          "interest": 233.34,
+          "payment": 469.15,
+          "anticipation": 331.97,
+          "status": ""
+        },
+        {
+          "number": 48,
+          "dueDate": "06/10/2028",
+          "principal": 267.94,
+          "interest": 201.21,
+          "payment": 469.15,
+          "anticipation": 328.08,
+          "status": ""
+        },
+        {
+          "number": 49,
+          "dueDate": "08/11/2028",
+          "principal": 235.51,
+          "interest": 233.64,
+          "payment": 469.15,
+          "anticipation": 323.56,
+          "status": ""
+        },
+        {
+          "number": 50,
+          "dueDate": "07/12/2028",
+          "principal": 266.89,
+          "interest": 202.26,
+          "payment": 469.15,
+          "anticipation": 319.64,
+          "status": ""
+        },
+        {
+          "number": 51,
+          "dueDate": "08/01/2029",
+          "principal": 249.44,
+          "interest": 219.71,
+          "payment": 469.15,
+          "anticipation": 315.36,
+          "status": ""
+        },
+        {
+          "number": 52,
+          "dueDate": "07/02/2029",
+          "principal": 266.43,
+          "interest": 202.72,
+          "payment": 469.15,
+          "anticipation": 311.41,
+          "status": ""
+        },
+        {
+          "number": 53,
+          "dueDate": "07/03/2029",
+          "principal": 283.18,
+          "interest": 185.97,
+          "payment": 469.15,
+          "anticipation": 307.76,
+          "status": ""
+        },
+        {
+          "number": 54,
+          "dueDate": "06/04/2029",
+          "principal": 273.41,
+          "interest": 195.74,
+          "payment": 469.15,
+          "anticipation": 303.9,
+          "status": ""
+        },
+        {
+          "number": 55,
+          "dueDate": "08/05/2029",
+          "principal": 263.98,
+          "interest": 205.17,
+          "payment": 469.15,
+          "anticipation": 299.83,
+          "status": ""
+        },
+        {
+          "number": 56,
+          "dueDate": "07/06/2029",
+          "principal": 280.24,
+          "interest": 188.91,
+          "payment": 469.15,
+          "anticipation": 296.07,
+          "status": ""
+        },
+        {
+          "number": 57,
+          "dueDate": "06/07/2029",
+          "principal": 290.02,
+          "interest": 179.13,
+          "payment": 469.15,
+          "anticipation": 292.48,
+          "status": ""
+        },
+        {
+          "number": 58,
+          "dueDate": "07/08/2029",
+          "principal": 275.29,
+          "interest": 193.86,
+          "payment": 469.15,
+          "anticipation": 288.57,
+          "status": ""
+        },
+        {
+          "number": 59,
+          "dueDate": "10/09/2029",
+          "principal": 267.05,
+          "interest": 202.1,
+          "payment": 469.15,
+          "anticipation": 284.47,
+          "status": ""
+        },
+        {
+          "number": 60,
+          "dueDate": "05/10/2029",
+          "principal": 323.66,
+          "interest": 145.49,
+          "payment": 469.15,
+          "anticipation": 281.49,
+          "status": ""
+        },
+        {
+          "number": 61,
+          "dueDate": "08/11/2029",
+          "principal": 275.57,
+          "interest": 193.58,
+          "payment": 469.15,
+          "anticipation": 277.5,
+          "status": ""
+        },
+        {
+          "number": 62,
+          "dueDate": "07/12/2029",
+          "principal": 307.59,
+          "interest": 161.56,
+          "payment": 469.15,
+          "anticipation": 274.13,
+          "status": ""
+        },
+        {
+          "number": 63,
+          "dueDate": "08/01/2030",
+          "principal": 294.93,
+          "interest": 174.22,
+          "payment": 469.15,
+          "anticipation": 270.46,
+          "status": ""
+        },
+        {
+          "number": 64,
+          "dueDate": "07/02/2030",
+          "principal": 309.64,
+          "interest": 159.51,
+          "payment": 469.15,
+          "anticipation": 267.07,
+          "status": ""
+        },
+        {
+          "number": 65,
+          "dueDate": "11/03/2030",
+          "principal": 303.13,
+          "interest": 166.02,
+          "payment": 469.15,
+          "anticipation": 263.5,
+          "status": ""
+        },
+        {
+          "number": 66,
+          "dueDate": "05/04/2030",
+          "principal": 342.84,
+          "interest": 126.31,
+          "payment": 469.15,
+          "anticipation": 260.74,
+          "status": ""
+        },
+        {
+          "number": 67,
+          "dueDate": "08/05/2030",
+          "principal": 306.94,
+          "interest": 162.21,
+          "payment": 469.15,
+          "anticipation": 257.15,
+          "status": ""
+        },
+        {
+          "number": 68,
+          "dueDate": "07/06/2030",
+          "principal": 325.68,
+          "interest": 143.47,
+          "payment": 469.15,
+          "anticipation": 253.92,
+          "status": ""
+        },
+        {
+          "number": 69,
+          "dueDate": "05/07/2030",
+          "principal": 339.16,
+          "interest": 129.99,
+          "payment": 469.15,
+          "anticipation": 250.95,
+          "status": ""
+        },
+        {
+          "number": 70,
+          "dueDate": "07/08/2030",
+          "principal": 320.53,
+          "interest": 148.62,
+          "payment": 469.15,
+          "anticipation": 247.49,
+          "status": ""
+        },
+        {
+          "number": 71,
+          "dueDate": "06/09/2030",
+          "principal": 338.19,
+          "interest": 130.96,
+          "payment": 469.15,
+          "anticipation": 244.38,
+          "status": ""
+        },
+        {
+          "number": 72,
+          "dueDate": "07/10/2030",
+          "principal": 338.24,
+          "interest": 130.91,
+          "payment": 469.15,
+          "anticipation": 241.22,
+          "status": ""
+        },
+        {
+          "number": 73,
+          "dueDate": "07/11/2030",
+          "principal": 342.68,
+          "interest": 126.47,
+          "payment": 469.15,
+          "anticipation": 238.09,
+          "status": ""
+        },
+        {
+          "number": 74,
+          "dueDate": "06/12/2030",
+          "principal": 355.1,
+          "interest": 114.05,
+          "payment": 469.15,
+          "anticipation": 235.2,
+          "status": ""
+        },
+        {
+          "number": 75,
+          "dueDate": "08/01/2031",
+          "principal": 344.22,
+          "interest": 124.93,
+          "payment": 469.15,
+          "anticipation": 231.96,
+          "status": ""
+        },
+        {
+          "number": 76,
+          "dueDate": "07/02/2031",
+          "principal": 360.02,
+          "interest": 109.13,
+          "payment": 469.15,
+          "anticipation": 229.05,
+          "status": ""
+        },
+        {
+          "number": 77,
+          "dueDate": "07/03/2031",
+          "principal": 371.61,
+          "interest": 97.54,
+          "payment": 469.15,
+          "anticipation": 226.37,
+          "status": ""
+        },
+        {
+          "number": 78,
+          "dueDate": "07/04/2031",
+          "principal": 365.97,
+          "interest": 103.18,
+          "payment": 469.15,
+          "anticipation": 223.43,
+          "status": ""
+        },
+        {
+          "number": 79,
+          "dueDate": "08/05/2031",
+          "principal": 370.77,
+          "interest": 98.38,
+          "payment": 469.15,
+          "anticipation": 220.54,
+          "status": ""
+        },
+        {
+          "number": 80,
+          "dueDate": "06/06/2031",
+          "principal": 381.71,
+          "interest": 87.44,
+          "payment": 469.15,
+          "anticipation": 217.86,
+          "status": ""
+        },
+        {
+          "number": 81,
+          "dueDate": "07/07/2031",
+          "principal": 380.65,
+          "interest": 88.5,
+          "payment": 469.15,
+          "anticipation": 215.04,
+          "status": ""
+        },
+        {
+          "number": 82,
+          "dueDate": "07/08/2031",
+          "principal": 385.65,
+          "interest": 83.5,
+          "payment": 469.15,
+          "anticipation": 212.25,
+          "status": ""
+        },
+        {
+          "number": 83,
+          "dueDate": "05/09/2031",
+          "principal": 395.8,
+          "interest": 73.35,
+          "payment": 469.15,
+          "anticipation": 209.68,
+          "status": ""
+        },
+        {
+          "number": 84,
+          "dueDate": "07/10/2031",
+          "principal": 393.53,
+          "interest": 75.62,
+          "payment": 469.15,
+          "anticipation": 206.87,
+          "status": ""
+        },
+        {
+          "number": 85,
+          "dueDate": "07/11/2031",
+          "principal": 401.08,
+          "interest": 68.07,
+          "payment": 469.15,
+          "anticipation": 204.19,
+          "status": ""
+        },
+        {
+          "number": 86,
+          "dueDate": "05/12/2031",
+          "principal": 412.46,
+          "interest": 56.69,
+          "payment": 469.15,
+          "anticipation": 201.8,
+          "status": ""
+        },
+        {
+          "number": 87,
+          "dueDate": "08/01/2032",
+          "principal": 406.16,
+          "interest": 62.99,
+          "payment": 469.15,
+          "anticipation": 198.94,
+          "status": ""
+        },
+        {
+          "number": 88,
+          "dueDate": "06/02/2032",
+          "principal": 420.47,
+          "interest": 48.68,
+          "payment": 469.15,
+          "anticipation": 196.52,
+          "status": ""
+        },
+        {
+          "number": 89,
+          "dueDate": "05/03/2032",
+          "principal": 427.14,
+          "interest": 42.01,
+          "payment": 469.15,
+          "anticipation": 194.22,
+          "status": ""
+        },
+        {
+          "number": 90,
+          "dueDate": "07/04/2032",
+          "principal": 425.56,
+          "interest": 43.59,
+          "payment": 469.15,
+          "anticipation": 191.54,
+          "status": ""
+        },
+        {
+          "number": 91,
+          "dueDate": "07/05/2032",
+          "principal": 434.95,
+          "interest": 34.2,
+          "payment": 469.15,
+          "anticipation": 189.14,
+          "status": ""
+        },
+        {
+          "number": 92,
+          "dueDate": "07/06/2032",
+          "principal": 439.52,
+          "interest": 29.63,
+          "payment": 469.15,
+          "anticipation": 186.69,
+          "status": ""
+        },
+        {
+          "number": 93,
+          "dueDate": "07/07/2032",
+          "principal": 446.06,
+          "interest": 23.09,
+          "payment": 469.15,
+          "anticipation": 184.35,
+          "status": ""
+        },
+        {
+          "number": 94,
+          "dueDate": "06/08/2032",
+          "principal": 451.73,
+          "interest": 17.42,
+          "payment": 469.15,
+          "anticipation": 182.03,
+          "status": ""
+        },
+        {
+          "number": 95,
+          "dueDate": "08/09/2032",
+          "principal": 456.29,
+          "interest": 12.86,
+          "payment": 469.15,
+          "anticipation": 179.52,
+          "status": ""
+        },
+        {
+          "number": 96,
+          "dueDate": "07/10/2032",
+          "principal": 463.52,
+          "interest": 5.63,
+          "payment": 469.15,
+          "anticipation": 177.35,
+          "status": ""
+        }
+      ],
+      "paidInstallments": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "anticipation": 463.66,
+      "lastAnticipation": 177.35,
+      "remainingInstallments": 76
     },
     {
-      "id": "d-brad3",
-      "name": "Bradesco",
-      "monthly": 53,
+      "id": "pmdebt-097292-banco-bradesco-s-a-2",
+      "name": "Banco bradesco s/a",
+      "monthly": 1138.71,
       "installments": 12,
       "paid": 0,
-      "saldo": 636,
-      "oferta": 200,
+      "saldo": 13664.52,
+      "oferta": 0,
       "prazo": "",
-      "priority": "baixa",
-      "status": "mapear",
-      "notes": "",
-      "pendurada": false
+      "prazoInicial": "",
+      "priority": "media",
+      "status": "ativo",
+      "notes": "Criada automaticamente a partir do desconto bancario no holerite PM.",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "payslipDebt",
+      "source": "payslipDebt",
+      "payslipDebtKey": "097292-banco-bradesco-s-a-2",
+      "contratos": []
     },
     {
-      "id": "d-eagle",
-      "name": "EAGLE",
-      "monthly": 950,
-      "installments": 24,
+      "id": "pmdebt-097293-banco-santander-brasil-s-a-1",
+      "name": "Banco santander brasil s/a",
+      "monthly": 82.47,
+      "installments": 12,
       "paid": 0,
-      "saldo": 22800,
-      "oferta": 6840,
+      "saldo": 989.64,
+      "oferta": 0,
       "prazo": "",
-      "priority": "alta",
-      "status": "mapear",
-      "notes": "",
-      "pendurada": false
+      "prazoInicial": "",
+      "priority": "media",
+      "status": "ativo",
+      "notes": "Criada automaticamente a partir do desconto bancario no holerite PM.",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "payslipDebt",
+      "source": "payslipDebt",
+      "payslipDebtKey": "097293-banco-santander-brasil-s-a-1",
+      "contratos": []
+    },
+    {
+      "id": "pmdebt-097294-banco-daycoval-s-a-1",
+      "name": "Banco daycoval s/a",
+      "monthly": 208.44,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 2501.28,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "media",
+      "status": "ativo",
+      "notes": "Criada automaticamente a partir do desconto bancario no holerite PM.",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "payslipDebt",
+      "source": "payslipDebt",
+      "payslipDebtKey": "097294-banco-daycoval-s-a-1",
+      "contratos": []
+    },
+    {
+      "id": "pmdebt-097294-banco-daycoval-s-a-2",
+      "name": "Banco daycoval s/a",
+      "monthly": 34.11,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 409.32,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "media",
+      "status": "ativo",
+      "notes": "Criada automaticamente a partir do desconto bancario no holerite PM.",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "payslipDebt",
+      "source": "payslipDebt",
+      "payslipDebtKey": "097294-banco-daycoval-s-a-2",
+      "contratos": []
+    },
+    {
+      "id": "pmdebt-097296-banco-bmg-s-a-1",
+      "name": "Banco bmg s/a",
+      "monthly": 313.92,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 3767.04,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "media",
+      "status": "ativo",
+      "notes": "Criada automaticamente a partir do desconto bancario no holerite PM.",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "payslipDebt",
+      "source": "payslipDebt",
+      "payslipDebtKey": "097296-banco-bmg-s-a-1",
+      "contratos": []
+    },
+    {
+      "id": "pmdebt-097296-banco-bmg-s-a-2",
+      "name": "Banco bmg s/a",
+      "monthly": 74.97,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 899.64,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "media",
+      "status": "ativo",
+      "notes": "Criada automaticamente a partir do desconto bancario no holerite PM.",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "payslipDebt",
+      "source": "payslipDebt",
+      "payslipDebtKey": "097296-banco-bmg-s-a-2",
+      "contratos": []
+    },
+    {
+      "id": "pmdebt-097302-banco-safra-s-a-1",
+      "name": "Banco safra s/a",
+      "monthly": 156,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 1872,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "media",
+      "status": "ativo",
+      "notes": "Criada automaticamente a partir do desconto bancario no holerite PM.",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "payslipDebt",
+      "source": "payslipDebt",
+      "payslipDebtKey": "097302-banco-safra-s-a-1",
+      "contratos": []
+    },
+    {
+      "id": "pmdebt-097352-eagle-sociedade-de-credito-direto-s-a-1",
+      "name": "Eagle sociedade de credito direto s.a",
+      "monthly": 941.75,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 11301,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "media",
+      "status": "ativo",
+      "notes": "Criada automaticamente a partir do desconto bancario no holerite PM.",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "payslipDebt",
+      "source": "payslipDebt",
+      "payslipDebtKey": "097352-eagle-sociedade-de-credito-direto-s-a-1",
+      "contratos": []
     },
     {
       "id": "d-nucnpj",
@@ -545,123 +4905,30 @@
       "oferta": 9000,
       "prazo": "",
       "priority": "alta",
-      "status": "mapear",
-      "notes": "",
-      "pendurada": false
-    },
-    {
-      "id": "d-bmg",
-      "name": "BMG",
-      "monthly": 303,
-      "installments": 12,
-      "paid": 0,
-      "saldo": 3636,
-      "oferta": 1090,
-      "prazo": "",
-      "priority": "media",
-      "status": "mapear",
-      "notes": "",
-      "pendurada": false
-    },
-    {
-      "id": "d-safra",
-      "name": "Safra",
-      "monthly": 156,
-      "installments": 12,
-      "paid": 0,
-      "saldo": 1872,
-      "oferta": 562,
-      "prazo": "",
-      "priority": "baixa",
-      "status": "mapear",
-      "notes": "",
-      "pendurada": false
-    },
-    {
-      "id": "d-seguro",
-      "name": "Seguro",
-      "monthly": 360,
-      "installments": 12,
-      "paid": 0,
-      "saldo": 4320,
-      "oferta": 0,
-      "prazo": "",
-      "priority": "media",
       "status": "ativo",
-      "notes": "Seguro veículo",
-      "pendurada": false
-    },
-    {
-      "id": "d-dayco1",
-      "name": "Daycoval",
-      "monthly": 208,
-      "installments": 12,
-      "paid": 0,
-      "saldo": 2496,
-      "oferta": 748,
-      "prazo": "",
-      "priority": "media",
-      "status": "mapear",
-      "notes": "",
-      "pendurada": false
-    },
-    {
-      "id": "d-dayco2",
-      "name": "Daycoval",
-      "monthly": 34,
-      "installments": 12,
-      "paid": 0,
-      "saldo": 408,
-      "oferta": 122,
-      "prazo": "",
-      "priority": "baixa",
-      "status": "mapear",
-      "notes": "",
-      "pendurada": false
-    },
-    {
-      "id": "d-sant",
-      "name": "Santander",
-      "monthly": 83,
-      "installments": 12,
-      "paid": 0,
-      "saldo": 996,
-      "oferta": 299,
-      "prazo": "",
-      "priority": "baixa",
-      "status": "mapear",
-      "notes": "",
-      "pendurada": false
-    },
-    {
-      "id": "d-horto",
-      "name": "Horto",
-      "monthly": 2800,
-      "installments": 12,
-      "paid": 0,
-      "saldo": 33600,
-      "oferta": 10080,
-      "prazo": "",
-      "priority": "alta",
-      "status": "mapear",
-      "notes": "",
-      "pendurada": false
-    },
-    {
-      "id": "d-mamud",
-      "name": "Mamud",
-      "monthly": 2600,
-      "installments": 12,
-      "paid": 0,
-      "saldo": 31200,
-      "oferta": 9360,
-      "prazo": "",
-      "priority": "alta",
-      "status": "mapear",
       "notes": "",
       "pendurada": false,
-      "prazoInicial": "",
+      "valuesSource": "sheet",
+      "contratos": [],
       "contrato": null
+    },
+    {
+      "id": "d1780674435288",
+      "name": "NU PF 2X",
+      "monthly": 159.02,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
     },
     {
       "id": "d-patric",
@@ -673,43 +4940,301 @@
       "oferta": 3000,
       "prazo": "",
       "priority": "alta",
-      "status": "mapear",
+      "status": "ativo",
       "notes": "Jan/26 apenas",
       "pendurada": false,
       "prazoInicial": "",
-      "contrato": null
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
     },
     {
-      "id": "d-rose",
-      "name": "Rose",
-      "monthly": 1400,
-      "installments": 1,
+      "id": "d-horto",
+      "name": "Horto",
+      "monthly": 2800,
+      "installments": 12,
       "paid": 0,
-      "saldo": 1400,
-      "oferta": 1000,
+      "saldo": 33600,
+      "oferta": 10080,
+      "prazo": "2027-02-01",
+      "priority": "alta",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "prazoInicial": "2026-01-01",
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
+    },
+    {
+      "id": "d-mamud",
+      "name": "Mamud",
+      "monthly": 2800,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 31200,
+      "oferta": 9360,
       "prazo": "",
-      "priority": "media",
-      "status": "mapear",
-      "notes": "Jan/26 apenas",
+      "priority": "alta",
+      "status": "ativo",
+      "notes": "",
       "pendurada": false,
       "prazoInicial": "",
-      "contrato": null
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
     },
     {
       "id": "d-lion",
       "name": "Lion",
-      "monthly": 3800,
+      "monthly": 2000,
       "installments": 1,
       "paid": 0,
       "saldo": 3800,
       "oferta": 2500,
       "prazo": "",
       "priority": "alta",
-      "status": "mapear",
+      "status": "ativo",
       "notes": "Jan/26 apenas",
       "pendurada": false,
       "prazoInicial": "",
-      "contrato": null
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
+    },
+    {
+      "id": "d-rose",
+      "name": "Rose",
+      "monthly": 2000,
+      "installments": 1,
+      "paid": 0,
+      "saldo": 1400,
+      "oferta": 1000,
+      "prazo": "",
+      "priority": "media",
+      "status": "ativo",
+      "notes": "Jan/26 apenas",
+      "pendurada": false,
+      "prazoInicial": "",
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
+    },
+    {
+      "id": "d1780602770884",
+      "name": "Colonia CSd",
+      "monthly": 2800,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
+    },
+    {
+      "id": "d1780674913950",
+      "name": "Mecânico Pajero Wil",
+      "monthly": 1100,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
+    },
+    {
+      "id": "d1780883009698",
+      "name": "Seguro Loovi",
+      "monthly": 0,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
+    },
+    {
+      "id": "d1780883639834",
+      "name": "Imp. Renda 2026",
+      "monthly": 0,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
+    },
+    {
+      "id": "d1780883308581",
+      "name": "Imp. Renda 1",
+      "monthly": 0,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
+    },
+    {
+      "id": "d1780883323926",
+      "name": "Imp. Renda 2",
+      "monthly": 0,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
+    },
+    {
+      "id": "d1780883463331",
+      "name": "Imp. Renda 3",
+      "monthly": 0,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
+    },
+    {
+      "id": "d1780602925764",
+      "name": "Cabos e Soldados At",
+      "monthly": 600,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
+    },
+    {
+      "id": "d1780882408823",
+      "name": "ChatGPT",
+      "monthly": 0,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
+    },
+    {
+      "id": "d1780883535829",
+      "name": "VivoPF",
+      "monthly": 0,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
+    },
+    {
+      "id": "d1780883555087",
+      "name": "Vivo PJ",
+      "monthly": 0,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
+    },
+    {
+      "id": "d1781903475923",
+      "name": "Multas Pedágio",
+      "monthly": 125.45,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "contratos": [],
+      "valuesSource": "sheet"
     }
   ],
   "ir": {
@@ -741,5 +5266,220 @@
     ],
     "bens": [],
     "pagamentos": []
+  },
+  "payslips": {
+    "year": 2026,
+    "months": [
+      {
+        "file": null,
+        "credits": [],
+        "discounts": []
+      },
+      {
+        "file": null,
+        "credits": [],
+        "discounts": []
+      },
+      {
+        "file": null,
+        "credits": [],
+        "discounts": []
+      },
+      {
+        "file": null,
+        "credits": [],
+        "discounts": []
+      },
+      {
+        "file": null,
+        "credits": [],
+        "discounts": [],
+        "extraction": null
+      },
+      {
+        "file": {
+          "name": "Holerite Jun_2026.pdf",
+          "url": "/docs/uploads/1780596874154_Holerite_Jun_2026.pdf",
+          "uploaded_at": "2026-06-04T18:14:34.175Z"
+        },
+        "credits": [
+          {
+            "id": "pm-001001-1",
+            "code": "001001",
+            "label": "Salario base (padrao)",
+            "value": 2772.19
+          },
+          {
+            "id": "pm-003939-2",
+            "code": "003939",
+            "label": "Hora aula incorporação art 9º , lc 731",
+            "value": 19.78
+          },
+          {
+            "id": "pm-004001-3",
+            "code": "004001",
+            "label": "Retp-regime especial trab.poli",
+            "value": 2772.19
+          },
+          {
+            "id": "pm-008051-4",
+            "code": "008051",
+            "label": "Sexta-parte s/ venc integr",
+            "value": 1191.93
+          },
+          {
+            "id": "pm-008087-5",
+            "code": "008087",
+            "label": "Adic. tempo de servico - a. jud",
+            "value": 1587.46
+          },
+          {
+            "id": "pm-010009-6",
+            "code": "010009",
+            "label": "Sexta-parte s/adic. insalubridade",
+            "value": 130.95
+          },
+          {
+            "id": "pm-012005-7",
+            "code": "012005",
+            "label": "Adic.insalubridade inativo(40%)-efp",
+            "value": 785.67
+          }
+        ],
+        "discounts": [
+          {
+            "id": "pm-070012-8",
+            "code": "070012",
+            "label": "Imposto de renda",
+            "value": 1255.59
+          },
+          {
+            "id": "pm-070018-9",
+            "code": "070018",
+            "label": "Cbpm - contribuicao de assist.",
+            "value": 185.2
+          },
+          {
+            "id": "pm-070060-10",
+            "code": "070060",
+            "label": "Contrib. previd. 11% - l.c. 1013/2007",
+            "value": 86.31
+          },
+          {
+            "id": "pm-078006-11",
+            "code": "078006",
+            "label": "Desconto pensao alimenticia -a/",
+            "value": 1114.01
+          },
+          {
+            "id": "pm-097182-12",
+            "code": "097182",
+            "label": "Assoc. benef. pro saude pmesp-propm",
+            "value": 20
+          },
+          {
+            "id": "pm-097292-13",
+            "code": "097292",
+            "label": "Banco bradesco s/a",
+            "value": 469.15
+          },
+          {
+            "id": "pm-097292-14",
+            "code": "097292",
+            "label": "Banco bradesco s/a",
+            "value": 1138.71
+          },
+          {
+            "id": "pm-097293-15",
+            "code": "097293",
+            "label": "Banco santander brasil s/a",
+            "value": 82.47
+          },
+          {
+            "id": "pm-097294-16",
+            "code": "097294",
+            "label": "Banco daycoval s/a",
+            "value": 208.44
+          },
+          {
+            "id": "pm-097294-17",
+            "code": "097294",
+            "label": "Banco daycoval s/a",
+            "value": 34.11
+          },
+          {
+            "id": "pm-097296-18",
+            "code": "097296",
+            "label": "Banco bmg s/a",
+            "value": 313.92
+          },
+          {
+            "id": "pm-097296-19",
+            "code": "097296",
+            "label": "Banco bmg s/a",
+            "value": 74.97
+          },
+          {
+            "id": "pm-097302-20",
+            "code": "097302",
+            "label": "Banco safra s/a",
+            "value": 156
+          },
+          {
+            "id": "pm-097352-21",
+            "code": "097352",
+            "label": "Eagle sociedade de credito direto s.a",
+            "value": 941.75
+          }
+        ],
+        "extraction": {
+          "engine": "pdf-parse",
+          "extracted_at": "2026-06-04T15:14:34-03:00",
+          "credits_count": 7,
+          "discounts_count": 14,
+          "credits_total": 9260.17,
+          "discounts_total": 6080.629999999999
+        }
+      },
+      {
+        "file": null,
+        "credits": [],
+        "discounts": []
+      },
+      {
+        "file": null,
+        "credits": [],
+        "discounts": []
+      },
+      {
+        "file": null,
+        "credits": [],
+        "discounts": []
+      },
+      {
+        "file": null,
+        "credits": [],
+        "discounts": []
+      },
+      {
+        "file": null,
+        "credits": [],
+        "discounts": []
+      },
+      {
+        "file": null,
+        "credits": [],
+        "discounts": []
+      }
+    ],
+    "cellTotalModes": {
+      "credits": {},
+      "discounts": {}
+    }
+  },
+  "debtGroupTotalModes": {
+    "payslip": "",
+    "old": "",
+    "current": ""
   }
 }

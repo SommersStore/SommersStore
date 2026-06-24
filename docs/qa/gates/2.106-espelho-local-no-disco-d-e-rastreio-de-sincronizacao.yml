@@ -1,0 +1,49 @@
+schema: 1
+story: '2.106'
+story_title: 'Espelho local no disco D e rastreio de sincronização'
+gate: PASS
+status_reason: 'Os seis critérios foram atendidos e o espelho, hook e agendamento foram executados com sucesso no ambiente local.'
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-06-23T19:04:00-03:00'
+top_issues:
+  - id: 'SEC-LOCAL-001'
+    severity: low
+    finding: 'O espelho completo contém dados privados no disco D sem camada adicional de criptografia.'
+    suggested_action: 'Manter o disco sob acesso local protegido e habilitar BitLocker se o computador não já utilizar criptografia de unidade.'
+  - id: 'QA-TOOL-001'
+    severity: low
+    finding: 'CodeRabbit não estava disponível no WSL para revisão automatizada.'
+    suggested_action: 'Executar a revisão CodeRabbit quando a ferramenta voltar a ficar disponível.'
+waiver:
+  active: false
+quality_score: 100
+evidence:
+  tests_reviewed: 4
+  manual_validations:
+    - 'Cópia inicial para D:\\Antigravity-SommersStore\\workspace concluída com robocopy exit code 1 (sucesso informativo).'
+    - 'Hash SHA-256 de scripts/project_mirror_sync.js idêntico na origem e no espelho.'
+    - 'Hook pós-push executado e registrou trigger git-post-push.'
+    - 'Tarefa SommersStore Project Mirror Sync executada manualmente com último resultado 0 e trigger scheduled-watchdog.'
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6]
+    ac_gaps: []
+nfr_validation:
+  security:
+    status: PASS
+    notes: 'Nenhum segredo é enviado pelo novo mecanismo; a cópia completa permanece local no D. A observação de criptografia local está registrada como baixo risco operacional.'
+  performance:
+    status: PASS
+    notes: 'A primeira cópia levou cerca de 99 segundos. As cópias seguintes usam robocopy /MIR e só transferem diferenças.'
+  reliability:
+    status: PASS
+    notes: 'Há três caminhos de atualização: fluxo do painel, hook pós-push e tarefa de salvaguarda a cada 15 minutos.'
+  maintainability:
+    status: PASS
+    notes: 'O sincronizador é um script CLI testado; estado e destino ficam explícitos em sync-state.json.'
+recommendations:
+  immediate: []
+  future:
+    - action: 'Habilitar criptografia de unidade no disco D se ainda não estiver habilitada.'
+      refs: ['D:\\Antigravity-SommersStore']
+    - action: 'Restaurar CodeRabbit para adicionar revisão automatizada pré-commit.'
+      refs: ['docs/qa/gates/2.106-espelho-local-no-disco-d-e-rastreio-de-sincronizacao.yml']

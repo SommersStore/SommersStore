@@ -105,6 +105,31 @@
       ],
       "linked_runs": [],
       "linked_approvals": []
+    },
+    {
+      "id": "DEC-FOREX-0001",
+      "timestamp": "2026-06-17T11:55:43-03:00",
+      "category": "platform_scope",
+      "context": "Apos instalar o EA AIOX Trader On Chart em multiplos terminais, o usuario definiu o escopo operacional corrente.",
+      "decision": "Operar e evoluir temporariamente apenas com MT4/MT5 da Dukascopy.",
+      "rationale": "Reduzir ambiguidade de data folders e evitar trabalho/testes em terminais que nao serao usados agora.",
+      "alternatives_rejected": [
+        "Manter ActivTrades, FTMO e Genial como alvos ativos simultaneos"
+      ],
+      "expected_impact": "Instalacoes, compilacoes, templates e testes Forex mais previsiveis.",
+      "accepted_risks": [
+        "Outros terminais podem ficar desatualizados ate nova ordem"
+      ],
+      "reversible": true,
+      "rollback_plan": "Reativar terminais adicionais se o usuario pedir explicitamente.",
+      "review_trigger": "Quando o usuario decidir operar por outra corretora/plataforma.",
+      "owner": "forex-platform-engineer",
+      "status": "active",
+      "linked_artifacts": [
+        "projects/forex/tools/install-report-20260617-trader-on-chart.md"
+      ],
+      "linked_runs": [],
+      "linked_approvals": []
     }
   ]
 }
