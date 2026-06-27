@@ -15198,6 +15198,9 @@ window.vmUnlinkDeliverable = vmUnlinkDeliverable;
   border-collapse:collapse;width:100%;table-layout:fixed;
   font-size:10.5px;
 }
+.fin2-sheet-table .fin2-col-tools { width:34px; }
+.fin2-sheet-table .fin2-col-label { width:124px; }
+.fin2-sheet-table .fin2-col-total { width:62px; }
 .fin2-sheet-table th {
   position:sticky;top:0;z-index:8;
   padding:6px 5px;background:#0f1422;
@@ -15205,7 +15208,13 @@ window.vmUnlinkDeliverable = vmUnlinkDeliverable;
   border-bottom:1px solid #1e2540;text-align:center;white-space:nowrap;
   box-shadow:0 1px 0 #1e2540,0 7px 14px rgba(3,6,12,.18);
 }
-.fin2-sheet-table th:first-child { width:34px; }
+.fin2-sheet-table th:first-child,
+.fin2-sheet-table td:first-child {
+  width:34px;
+  min-width:34px;
+  max-width:34px;
+  box-sizing:border-box;
+}
 .fin2-sheet-table th.fin2-th-label { text-align:center;width:124px;min-width:0;color:#c9a84c; }
 .fin2-sheet-table th:last-child { width:62px; }
 .fin2-sheet-table td {
@@ -15709,16 +15718,33 @@ window.vmUnlinkDeliverable = vmUnlinkDeliverable;
 .fin2-current-debt-group-row:hover td {
   background-color:#ffffff05;
 }
-.fin2-row-tools { display:flex;align-items:center;gap:4px;justify-content:center; }
+.fin2-row-tools { display:flex;align-items:center;gap:2px;justify-content:center; }
+.fin2-sheet-table td.fin2-row-tools {
+  padding-left:1px;
+  padding-right:1px;
+  overflow:hidden;
+}
+.fin2-sheet-table .fin2-row-tools .fin2-drag-handle,
+.fin2-sheet-table .fin2-row-tools .fin2-collapse-btn,
+.fin2-sheet-table .fin2-row-tools .fin2-debt-filter-toggle,
+.fin2-sheet-table .fin2-row-tools .fin2-row-expand,
+.fin2-sheet-table .fin2-row-tools .fin2-del-btn {
+  width:15px;
+  min-width:15px;
+  height:17px;
+  margin:0;
+  padding:0;
+}
 .fin2-section-row .fin2-row-tools { gap:2px; }
 .fin2-section-row .fin2-row-tools .fin2-drag-handle,
 .fin2-section-row .fin2-row-tools .fin2-collapse-btn {
-  width:14px;height:16px;min-width:14px;padding:0;margin:0;font-size:8px;
+  width:15px;height:17px;min-width:15px;padding:0;margin:0;font-size:8px;
 }
 .fin2-drag-handle {
   width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;
   flex-shrink:0;border-radius:4px;border:1px solid #ffffff12;background:#ffffff05;
   color:#5c6688;font-size:10px;font-weight:900;cursor:grab;line-height:1;padding:0;
+  user-select:none;
 }
 .fin2-drag-handle:hover { border-color:#38bdf855;background:#38bdf812;color:#7dd3fc; }
 .fin2-drag-handle:active { cursor:grabbing; }
@@ -17306,6 +17332,7 @@ function fin2EnsureSheetMeta() {
   if (!FIN2_SHEET.debtGroupLabels || typeof FIN2_SHEET.debtGroupLabels !== 'object') FIN2_SHEET.debtGroupLabels = {};
   FIN2_SHEET.debtGroupOrder = fin2NormalizeOrderedKeys(FIN2_SHEET.debtGroupOrder, FIN2_DEBT_GROUP_KEYS);
   if (!FIN2_SHEET.customGroups || typeof FIN2_SHEET.customGroups !== 'object') FIN2_SHEET.customGroups = {};
+  if (!FIN2_SHEET.topLevelOrder || typeof FIN2_SHEET.topLevelOrder !== 'object') FIN2_SHEET.topLevelOrder = {};
   FIN2_SECTION_KEYS.forEach(groupKey => {
     const groups = Array.isArray(FIN2_SHEET.customGroups[groupKey]) ? FIN2_SHEET.customGroups[groupKey] : [];
     const seen = new Set();
@@ -17325,7 +17352,9 @@ function fin2EnsureSheetMeta() {
     if (!fin2CustomGroupsCollapsed[groupKey] || typeof fin2CustomGroupsCollapsed[groupKey] !== 'object') {
       fin2CustomGroupsCollapsed[groupKey] = {};
     }
+    if (!Array.isArray(FIN2_SHEET.topLevelOrder[groupKey])) FIN2_SHEET.topLevelOrder[groupKey] = [];
   });
+  fin2NormalizeReceiptAdjustedModes();
 }
 
 function fin2SectionOrder() {
@@ -17394,6 +17423,138 @@ function fin2CustomGroupGrossSubtotal(groupKey, customKey, monthIdx) {
 
 function fin2CustomGroupGrossGrandSubtotal(groupKey, customKey) {
   return MONTHS.reduce((sum, _month, monthIdx) => sum + fin2CustomGroupGrossSubtotal(groupKey, customKey, monthIdx), 0);
+}
+
+function fin2TopLevelRowToken(row) {
+  return row && row.id ? `row:${row.id}` : '';
+}
+
+function fin2TopLevelUnitTokenForRow(groupKey, row) {
+  if (!row) return '';
+  const customKey = fin2RowCustomGroupKey(groupKey, row);
+  if (customKey) return `custom:${customKey}`;
+  if (groupKey === 'despesas') {
+    const expenseKind = fin2ExpenseGroupKind(row);
+    if (expenseKind) return `expense:${expenseKind}`;
+  }
+  if (groupKey === 'dividas') return `debt:${fin2DebtGroupKindForRow(row)}`;
+  return fin2TopLevelRowToken(row);
+}
+
+function fin2TopLevelUnitDefinitions(group, groupKey) {
+  const rows = Array.isArray(group) ? group : [];
+  const customUnits = fin2CustomGroupConfigs(groupKey).map(config => ({
+    token: `custom:${config.key}`,
+    type: 'custom',
+    key: config.key,
+    rows: rows.filter(row => fin2RowCustomGroupKey(groupKey, row) === config.key)
+  }));
+  const rowUnit = row => ({
+    token: fin2TopLevelRowToken(row),
+    type: 'row',
+    key: row.id,
+    row,
+    rows: [row]
+  });
+  if (groupKey === 'receitas') {
+    const ungroupedRows = rows.filter(row => !fin2RowCustomGroupKey(groupKey, row)).map(rowUnit);
+    return customUnits.concat(ungroupedRows);
+  }
+  if (groupKey === 'despesas') {
+    const payslipRows = rows.filter(row => row.payslipRole).map(rowUnit);
+    const expenseUnits = fin2ExpenseGroupConfigs().map(config => ({
+      token: `expense:${config.key}`,
+      type: 'expense',
+      key: config.key,
+      rows: rows.filter(row => fin2ExpenseGroupKind(row) === config.key)
+    }));
+    const ungroupedRows = rows.filter(row => fin2IsExpenseItemRow(row)).map(rowUnit);
+    return payslipRows.concat(expenseUnits, customUnits, ungroupedRows);
+  }
+  const debtUnits = fin2DebtGroupOrder().map(kind => ({
+    token: `debt:${kind}`,
+    type: 'debt',
+    key: kind,
+    rows: rows.filter(row => fin2DebtGroupKindForRow(row) === kind && !fin2RowCustomGroupKey(groupKey, row))
+  }));
+  return debtUnits.concat(customUnits);
+}
+
+function fin2TopLevelUnitsForRender(group, groupKey) {
+  fin2EnsureSheetMeta();
+  const definitions = fin2TopLevelUnitDefinitions(group, groupKey);
+  const byToken = new Map(definitions.map(unit => [unit.token, unit]));
+  const saved = Array.isArray(FIN2_SHEET.topLevelOrder[groupKey]) ? FIN2_SHEET.topLevelOrder[groupKey] : [];
+  const order = saved
+    .map(token => String(token || ''))
+    .filter((token, index, tokens) => byToken.has(token) && tokens.indexOf(token) === index);
+  definitions.forEach(unit => {
+    if (!order.includes(unit.token)) order.push(unit.token);
+  });
+  FIN2_SHEET.topLevelOrder[groupKey] = order;
+  return order.map(token => byToken.get(token)).filter(Boolean);
+}
+
+function fin2TopLevelOrderTokens(groupKey) {
+  return fin2TopLevelUnitsForRender(FIN2_SHEET[groupKey] || [], groupKey).map(unit => unit.token);
+}
+
+function fin2SyncLegacyTopLevelOrders(groupKey, order) {
+  if (groupKey === 'despesas') {
+    const expenseKeys = order.filter(token => token.startsWith('expense:')).map(token => token.slice(8));
+    fin2SetExpenseGroupOrder(expenseKeys);
+  }
+  if (groupKey === 'dividas') {
+    const debtKeys = order.filter(token => token.startsWith('debt:')).map(token => token.slice(5));
+    fin2SetDebtGroupOrder(debtKeys);
+  }
+  const customKeys = order.filter(token => token.startsWith('custom:')).map(token => token.slice(7));
+  if (customKeys.length) {
+    const configs = fin2CustomGroupConfigs(groupKey);
+    const byKey = new Map(configs.map(config => [config.key, config]));
+    FIN2_SHEET.customGroups[groupKey] = customKeys.map(key => byKey.get(key)).filter(Boolean);
+  }
+}
+
+function fin2MoveTopLevelUnit(groupKey, sourceToken, targetToken) {
+  if (!sourceToken || !targetToken || sourceToken === targetToken) return false;
+  const order = fin2TopLevelOrderTokens(groupKey).slice();
+  const fromIndex = order.indexOf(sourceToken);
+  const toIndex = order.indexOf(targetToken);
+  if (fromIndex < 0 || toIndex < 0) return false;
+  const [movedToken] = order.splice(fromIndex, 1);
+  order.splice(toIndex, 0, movedToken);
+  FIN2_SHEET.topLevelOrder[groupKey] = order;
+  fin2SyncLegacyTopLevelOrders(groupKey, order);
+  return true;
+}
+
+function fin2ActiveTopLevelGroupToken(groupKey) {
+  if (groupKey === 'despesas' && fin2ExpenseGroupDragKey) return `expense:${fin2ExpenseGroupDragKey}`;
+  if (groupKey === 'dividas' && fin2DebtGroupDragKey) return `debt:${fin2DebtGroupDragKey}`;
+  if (fin2CustomGroupDrag && fin2CustomGroupDrag.groupKey === groupKey) {
+    return `custom:${fin2CustomGroupDrag.customKey}`;
+  }
+  return '';
+}
+
+function fin2TopLevelDragOver(event, groupKey, sourceToken, targetToken) {
+  const order = fin2TopLevelOrderTokens(groupKey);
+  if (!sourceToken || !targetToken || sourceToken === targetToken
+      || !order.includes(sourceToken) || !order.includes(targetToken)) return false;
+  event.preventDefault();
+  if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
+  if (event.currentTarget) event.currentTarget.classList.add('fin2-row-drop-target');
+  return true;
+}
+
+function fin2FinishTopLevelDrop(event, groupKey, sourceToken, targetToken) {
+  if (!fin2MoveTopLevelUnit(groupKey, sourceToken, targetToken)) return false;
+  event.preventDefault();
+  fin2DragEnd();
+  fin2RenderSheet();
+  fin2TriggerAutoSave();
+  return true;
 }
 
 function fin2MakeCustomGroupKey(groupKey, label) {
@@ -17836,6 +17997,16 @@ function fin2SheetCellValue(row, monthIdx) {
   return value;
 }
 
+function fin2SheetGrossCellValue(row, monthIdx) {
+  if (row && row.payslipRole) {
+    return fin2BuildPayslipSeries(row.payslipRole).reduce((sum, seriesRow) => {
+      if (row.payslipRole === 'discounts' && fin2PayslipSeriesIsDebtDeduction(seriesRow)) return sum;
+      return sum + fin2PayslipSeriesCellValue(seriesRow, monthIdx);
+    }, 0);
+  }
+  return fin2SheetCellValue(row, monthIdx);
+}
+
 function fin2SheetRowTotal(row) {
   return MONTHS.reduce((sum, _month, monthIdx) => sum + fin2SheetCellValue(row, monthIdx), 0);
 }
@@ -17906,11 +18077,12 @@ function fin2RowSupportsTotalControls(groupKey, row) {
 
 function fin2CellModeValue(mode) {
   const raw = Array.isArray(mode) ? mode.join('_') : String(mode || '').toLowerCase();
+  if (raw.includes('include')) return 'include';
   return raw.includes('exclude') ? 'exclude' : '';
 }
 
 function fin2CellModeHas(mode, flag) {
-  return flag === 'exclude' && fin2CellModeValue(mode) === 'exclude';
+  return (flag === 'exclude' || flag === 'include') && fin2CellModeValue(mode) === flag;
 }
 
 function fin2CellModeFromFlags(exclude, receitas) {
@@ -17918,13 +18090,13 @@ function fin2CellModeFromFlags(exclude, receitas) {
 }
 
 function fin2SetCellModeFlag(mode, flag, active) {
-  if (flag !== 'exclude') return fin2CellModeValue(mode);
-  return active ? 'exclude' : '';
+  if (flag !== 'exclude' && flag !== 'include') return fin2CellModeValue(mode);
+  return active ? flag : '';
 }
 
 function fin2ToggleCellModeFlag(mode, flag) {
-  if (flag !== 'exclude') return fin2CellModeValue(mode);
-  return fin2CellModeHas(mode, 'exclude') ? '' : 'exclude';
+  if (flag !== 'exclude' && flag !== 'include') return fin2CellModeValue(mode);
+  return fin2CellModeHas(mode, flag) ? '' : flag;
 }
 
 function fin2SheetCellTotalMode(row, monthIdx) {
@@ -17941,12 +18113,32 @@ function fin2SetSheetCellTotalMode(row, monthIdx, mode) {
   if (!Object.keys(row.cellTotalModes).length) delete row.cellTotalModes;
 }
 
+function fin2NormalizeReceiptAdjustedModes() {
+  if (!FIN2_SHEET || FIN2_SHEET.receiptAdjustedModeVersion === 1) return;
+  (FIN2_SHEET.receitas || []).forEach(row => {
+    delete row.cellTotalModes;
+    delete row.excludeFromGroupTotals;
+    delete row.excludeFromDebtTotals;
+    delete row.deductFromReceitasTotal;
+  });
+  FIN2_SHEET.receiptAdjustedModeVersion = 1;
+}
+
+function fin2ReceiptCellIncluded(row, monthIdx) {
+  return fin2CellModeHas(fin2SheetCellTotalMode(row, monthIdx), 'include');
+}
+
+function fin2ReceiptRowFullyIncluded(row) {
+  return Boolean(row && MONTHS.every((_month, monthIdx) => fin2ReceiptCellIncluded(row, monthIdx)));
+}
+
 function fin2RowDeductsFromReceitas(groupKey, row) {
   return false;
 }
 
 function fin2RowExcludedFromGroupTotals(groupKey, row) {
   if (!fin2RowSupportsTotalControls(groupKey, row)) return false;
+  if (groupKey === 'receitas') return false;
   return Boolean(
     row.excludeFromGroupTotals === true ||
     (groupKey === 'dividas' && fin2IsOldDebtRow(row) && fin2DebtRowExcludedFromTotals(row))
@@ -17955,6 +18147,7 @@ function fin2RowExcludedFromGroupTotals(groupKey, row) {
 
 function fin2CellExcludedFromGroupTotals(groupKey, row, monthIdx) {
   if (!fin2RowSupportsTotalControls(groupKey, row)) return false;
+  if (groupKey === 'receitas') return false;
   if (groupKey === 'dividas' && fin2DebtGroupExcludesRow(row)) return true;
   const mode = fin2SheetCellTotalMode(row, monthIdx);
   return fin2RowExcludedFromGroupTotals(groupKey, row) || fin2CellModeHas(mode, 'exclude');
@@ -17965,6 +18158,9 @@ function fin2CellDeductsFromReceitas(groupKey, row, monthIdx) {
 }
 
 function fin2SheetCellTotalValue(groupKey, row, monthIdx) {
+  if (groupKey === 'receitas') {
+    return fin2ReceiptCellIncluded(row, monthIdx) ? fin2SheetCellValue(row, monthIdx) : 0;
+  }
   if (fin2CellExcludedFromGroupTotals(groupKey, row, monthIdx)) return 0;
   return fin2SheetCellValue(row, monthIdx);
 }
@@ -17973,15 +18169,23 @@ function fin2SheetRowTotalForTotals(groupKey, row) {
   return MONTHS.reduce((sum, _month, monthIdx) => sum + fin2SheetCellTotalValue(groupKey, row, monthIdx), 0);
 }
 
+function fin2GroupMonthSourceTotal(groupKey, monthIdx) {
+  return (FIN2_SHEET[groupKey] || []).reduce((sum, row) => {
+    return sum + fin2SheetCellTotalValue(groupKey, row, monthIdx);
+  }, 0);
+}
+
 function fin2ReceitasOffsetValue(monthIdx) {
-  return 0;
+  return ['despesas', 'dividas'].reduce((sum, groupKey) => {
+    const gross = fin2GroupMonthGrossTotal(groupKey, monthIdx);
+    const adjusted = fin2GroupMonthSourceTotal(groupKey, monthIdx);
+    return sum + Math.max(0, gross - adjusted);
+  }, 0);
 }
 
 function fin2GroupMonthTotal(groupKey, monthIdx) {
-  const base = (FIN2_SHEET[groupKey] || []).reduce((sum, row) => {
-    return sum + fin2SheetCellTotalValue(groupKey, row, monthIdx);
-  }, 0);
-  return base;
+  const base = fin2GroupMonthSourceTotal(groupKey, monthIdx);
+  return groupKey === 'receitas' ? base - fin2ReceitasOffsetValue(monthIdx) : base;
 }
 
 function fin2GroupGrandTotal(groupKey) {
@@ -17990,7 +18194,7 @@ function fin2GroupGrandTotal(groupKey) {
 
 function fin2GroupMonthGrossTotal(groupKey, monthIdx) {
   return (FIN2_SHEET[groupKey] || []).reduce((sum, row) => {
-    return sum + fin2SheetCellValue(row, monthIdx);
+    return sum + fin2SheetGrossCellValue(row, monthIdx);
   }, 0);
 }
 
@@ -17998,12 +18202,33 @@ function fin2GroupGrandGrossTotal(groupKey) {
   return MONTHS.reduce((sum, _month, monthIdx) => sum + fin2GroupMonthGrossTotal(groupKey, monthIdx), 0);
 }
 
+function fin2AdjustedTotalDragAttributes(scope) {
+  const parts = String(scope || '').split(':');
+  if (parts[0] === 'section' && FIN2_SECTION_KEYS.includes(parts[1])) {
+    return ` ondragover='fin2SectionDragOver(event,${fin2Js(parts[1])})' ondragleave="fin2DragLeave(event)" ondrop='fin2DropSection(event,${fin2Js(parts[1])})'`;
+  }
+  if (parts[0] === 'expense' && parts[1]) {
+    return ` ondragover='fin2ExpenseGroupDragOver(event,${fin2Js(parts[1])})' ondragleave="fin2DragLeave(event)" ondrop='fin2DropExpenseGroup(event,${fin2Js(parts[1])})'`;
+  }
+  if (parts[0] === 'debt' && FIN2_DEBT_GROUP_KEYS.includes(parts[1])) {
+    return ` ondragover='fin2DebtGroupDragOver(event,${fin2Js(parts[1])})' ondragleave="fin2DragLeave(event)" ondrop='fin2DropDebtGroup(event,${fin2Js(parts[1])})'`;
+  }
+  if (parts[0] === 'custom' && FIN2_SECTION_KEYS.includes(parts[1]) && parts[2]) {
+    return ` ondragover='fin2CustomGroupDragOver(event,${fin2Js(parts[1])},${fin2Js(parts[2])})' ondragleave="fin2DragLeave(event)" ondrop='fin2DropCustomGroup(event,${fin2Js(parts[1])},${fin2Js(parts[2])})'`;
+  }
+  return '';
+}
+
 function fin2RenderAdjustedTotalRow(scope, groupKey, monthlyValues, grandTotal, hidden = false) {
-  let html = `<tr class="fin2-adjusted-total-row fin2-adjusted-${groupKey}" data-fin2-adjusted-total="${fin2Esc(scope)}"${hidden ? ' style="display:none"' : ''}><td></td><td class="fin2-td-label"></td>`;
+  const dragAttributes = fin2AdjustedTotalDragAttributes(scope);
+  const adjustedTitle = scope === 'section:receitas'
+    ? 'Receitas selecionadas menos despesas e dividas quitadas'
+    : 'Total ajustado apos quitacoes';
+  let html = `<tr class="fin2-adjusted-total-row fin2-adjusted-${groupKey}" data-fin2-adjusted-total="${fin2Esc(scope)}"${dragAttributes}${hidden ? ' style="display:none"' : ''}><td></td><td class="fin2-td-label"></td>`;
   monthlyValues.forEach((value, monthIdx) => {
-    html += `<td><span class="fin2-sh-tot" data-fin2-adjusted-month="${monthIdx}" title="Total ajustado após exclusões">${fin2MoneyCell(value, true)}</span></td>`;
+    html += `<td><span class="fin2-sh-tot" data-fin2-adjusted-month="${monthIdx}" title="${fin2Esc(adjustedTitle)}">${fin2MoneyCell(value, true)}</span></td>`;
   });
-  html += `<td><span class="fin2-sh-tot" data-fin2-adjusted-grand-total="true" title="Total anual ajustado após exclusões">${fin2MoneyCell(grandTotal, true)}</span></td></tr>`;
+  html += `<td><span class="fin2-sh-tot" data-fin2-adjusted-grand-total="true" title="${fin2Esc(adjustedTitle)}">${fin2MoneyCell(grandTotal, true)}</span></td></tr>`;
   return html;
 }
 
@@ -18240,7 +18465,9 @@ function fin2DebtGroupLabel(kind) {
 function fin2RenderDebtGroupTotalControls(kind) {
   const excluded = fin2DebtGroupExcludedFromTotals(kind);
   const label = fin2DebtGroupLabel(kind);
-  const groupTitle = excluded ? `Incluir ${label} na somatoria da coluna` : `Excluir ${label} da somatoria da coluna`;
+  const groupTitle = excluded
+    ? `Reincluir ${label} e recompor a Receita ajustada`
+    : `Quitar ${label} e abater da Receita ajustada`;
   return `<button class="fin2-row-total-toggle fin2-group-total-toggle ${excluded ? 'is-off' : 'is-on'}" onclick="event.stopPropagation();fin2ToggleDebtGroupTotal('${kind}')" title="${fin2Esc(groupTitle)}" aria-label="${fin2Esc(groupTitle)}"></button>`;
 }
 
@@ -18320,9 +18547,18 @@ function fin2GroupNoun(groupKey) {
 }
 
 function fin2RenderGroupTotalToggle(groupKey, row) {
+  if (groupKey === 'receitas') {
+    const included = fin2ReceiptRowFullyIncluded(row);
+    const title = included
+      ? 'Remover esta receita da linha ajustada'
+      : 'Acrescentar esta receita à linha ajustada';
+    return `<button class="fin2-row-total-toggle fin2-group-total-toggle ${included ? 'is-off' : 'is-on'}" onclick="event.stopPropagation();fin2ToggleRowGroupTotal('${groupKey}','${row.id}')" title="${fin2Esc(title)}" aria-label="${fin2Esc(title)}"></button>`;
+  }
   const excluded = fin2RowExcludedFromGroupTotals(groupKey, row);
   const noun = fin2GroupNoun(groupKey);
-  const title = excluded ? `Incluir esta ${noun} na somatoria da coluna` : `Excluir esta ${noun} da somatoria da coluna`;
+  const title = excluded
+    ? `Reincluir esta ${noun} e recompor a Receita ajustada`
+    : `Quitar esta ${noun} e abater da Receita ajustada`;
   return `<button class="fin2-row-total-toggle fin2-group-total-toggle ${excluded ? 'is-off' : 'is-on'}" onclick="event.stopPropagation();fin2ToggleRowGroupTotal('${groupKey}','${row.id}')" title="${fin2Esc(title)}" aria-label="${fin2Esc(title)}"></button>`;
 }
 
@@ -18338,9 +18574,18 @@ function fin2RenderRowTotalControls(groupKey, row) {
 function fin2RenderSheetCellTotalControls(groupKey, row, monthIdx) {
   if (!fin2RowSupportsTotalControls(groupKey, row)) return '';
   const mode = fin2SheetCellTotalMode(row, monthIdx);
+  if (groupKey === 'receitas') {
+    const included = fin2CellModeHas(mode, 'include');
+    const title = included
+      ? 'Remover esta receita da linha ajustada'
+      : 'Acrescentar esta receita à linha ajustada';
+    return `<button class="fin2-cell-total-toggle fin2-cell-group-toggle ${included ? 'is-off' : 'is-on'}" onclick='event.stopPropagation();fin2ToggleCellGroupTotal(${fin2Js(groupKey)},${fin2Js(row.id)},${monthIdx})' title="${fin2Esc(title)}" aria-label="${fin2Esc(title)}"></button>`;
+  }
   const groupExcluded = fin2CellModeHas(mode, 'exclude');
   const noun = fin2GroupNoun(groupKey);
-  const groupTitle = groupExcluded ? `Incluir esta celula de ${noun} na somatoria da coluna` : `Excluir esta celula de ${noun} da somatoria da coluna`;
+  const groupTitle = groupExcluded
+    ? `Reincluir esta celula de ${noun} e recompor a Receita ajustada`
+    : `Quitar esta celula de ${noun} e abater da Receita ajustada`;
   return `<button class="fin2-cell-total-toggle fin2-cell-group-toggle ${groupExcluded ? 'is-off' : 'is-on'}" onclick='event.stopPropagation();fin2ToggleCellGroupTotal(${fin2Js(groupKey)},${fin2Js(row.id)},${monthIdx})' title="${fin2Esc(groupTitle)}" aria-label="${fin2Esc(groupTitle)}"></button>`;
 }
 
@@ -18367,8 +18612,12 @@ function fin2RowsColumnExcludedByCellMode(rows, monthIdx) {
   return fin2RowsColumnAllMode(rows, monthIdx, mode => fin2CellModeHas(mode, 'exclude'));
 }
 
+function fin2RowsColumnIncludedByCellMode(rows, monthIdx) {
+  return fin2RowsColumnAllMode(rows, monthIdx, mode => fin2CellModeHas(mode, 'include'));
+}
+
 function fin2RowsColumnReceitasByCellMode(rows, monthIdx) {
-  return false;
+  return fin2RowsColumnIncludedByCellMode(rows, monthIdx);
 }
 
 function fin2GroupColumnAllMode(groupKey, monthIdx, predicate) {
@@ -18385,24 +18634,42 @@ function fin2GroupColumnReceitasByCellMode(groupKey, monthIdx) {
 
 function fin2RenderGroupColumnTotalControls(groupKey, monthIdx) {
   if (!fin2GroupColumnRows(groupKey).length) return '';
+  if (groupKey === 'receitas') {
+    const included = fin2GroupColumnReceitasByCellMode(groupKey, monthIdx);
+    const title = included
+      ? 'Remover todas as receitas desta coluna da linha ajustada'
+      : 'Acrescentar todas as receitas desta coluna à linha ajustada';
+    return `<button class="fin2-cell-total-toggle fin2-cell-group-toggle ${included ? 'is-off' : 'is-on'}" onclick='event.stopPropagation();fin2ToggleGroupColumnTotal(${fin2Js(groupKey)},${monthIdx})' title="${fin2Esc(title)}" aria-label="${fin2Esc(title)}"></button>`;
+  }
   const groupExcluded = fin2GroupColumnExcludedByCellMode(groupKey, monthIdx);
   const noun = fin2GroupNoun(groupKey);
-  const groupTitle = groupExcluded ? `Incluir todas as celulas de ${noun} nesta coluna` : `Excluir todas as celulas de ${noun} desta coluna`;
+  const groupTitle = groupExcluded
+    ? `Reincluir as celulas de ${noun} e recompor a Receita ajustada`
+    : `Quitar as celulas de ${noun} e abater da Receita ajustada`;
   return `<button class="fin2-cell-total-toggle fin2-cell-group-toggle ${groupExcluded ? 'is-off' : 'is-on'}" onclick='event.stopPropagation();fin2ToggleGroupColumnTotal(${fin2Js(groupKey)},${monthIdx})' title="${fin2Esc(groupTitle)}" aria-label="${fin2Esc(groupTitle)}"></button>`;
 }
 
 function fin2RenderManagedGroupTotalCell(groupKey, monthIdx, contentHtml) {
   const controls = fin2RenderGroupColumnTotalControls(groupKey, monthIdx);
   if (!controls) return contentHtml;
-  const excluded = fin2GroupColumnExcludedByCellMode(groupKey, monthIdx);
+  const excluded = groupKey === 'receitas' ? false : fin2GroupColumnExcludedByCellMode(groupKey, monthIdx);
   return `<div class="fin2-cell-total-managed fin2-group-column-total-managed${excluded ? ' fin2-cell-total-excluded' : ''}" data-fin2-group-column-total="${groupKey}" data-fin2-group-column-month="${monthIdx}" data-fin2-cell-excluded-from-group-total="${excluded ? 'true' : 'false'}">${controls}${contentHtml}</div>`;
 }
 
 function fin2RenderRowsColumnTotalControls(groupKey, rows, monthIdx, label, totalAction, receitasAction) {
   const managedRows = fin2ManagedColumnRows(groupKey, rows);
   if (!managedRows.length) return '';
+  if (groupKey === 'receitas') {
+    const included = fin2RowsColumnIncludedByCellMode(managedRows, monthIdx);
+    const title = included
+      ? `Remover ${label} da linha ajustada nesta coluna`
+      : `Acrescentar ${label} à linha ajustada nesta coluna`;
+    return `<button class="fin2-cell-total-toggle fin2-cell-group-toggle ${included ? 'is-off' : 'is-on'}" onclick='event.stopPropagation();${totalAction}' title="${fin2Esc(title)}" aria-label="${fin2Esc(title)}"></button>`;
+  }
   const groupExcluded = fin2RowsColumnExcludedByCellMode(managedRows, monthIdx);
-  const groupTitle = groupExcluded ? `Incluir ${label} nesta coluna` : `Excluir ${label} desta coluna`;
+  const groupTitle = groupExcluded
+    ? `Reincluir ${label} e recompor a Receita ajustada`
+    : `Quitar ${label} e abater da Receita ajustada`;
   return `<button class="fin2-cell-total-toggle fin2-cell-group-toggle ${groupExcluded ? 'is-off' : 'is-on'}" onclick='event.stopPropagation();${totalAction}' title="${fin2Esc(groupTitle)}" aria-label="${fin2Esc(groupTitle)}"></button>`;
 }
 
@@ -18410,7 +18677,7 @@ function fin2RenderManagedRowsColumnTotalCell(groupKey, rows, monthIdx, label, s
   const managedRows = fin2ManagedColumnRows(groupKey, rows);
   const controls = fin2RenderRowsColumnTotalControls(groupKey, managedRows, monthIdx, label, totalAction, receitasAction);
   if (!controls) return contentHtml;
-  const excluded = fin2RowsColumnExcludedByCellMode(managedRows, monthIdx);
+  const excluded = groupKey === 'receitas' ? false : fin2RowsColumnExcludedByCellMode(managedRows, monthIdx);
   return `<div class="fin2-cell-total-managed fin2-subgroup-column-total-managed${excluded ? ' fin2-cell-total-excluded' : ''}" data-fin2-subgroup-column-total="${fin2Esc(scopeAttr)}" data-fin2-subgroup-column-month="${monthIdx}" data-fin2-cell-excluded-from-group-total="${excluded ? 'true' : 'false'}">${controls}${contentHtml}</div>`;
 }
 
@@ -18446,7 +18713,9 @@ function fin2RenderPayslipCellTotalControls(seriesRow, monthIdx) {
   if (!seriesRow || seriesRow.role !== 'discounts') return '';
   const mode = fin2PayslipCellTotalMode(seriesRow.role, seriesRow.key, monthIdx);
   const groupExcluded = fin2CellModeHas(mode, 'exclude');
-  const groupTitle = groupExcluded ? 'Incluir esta celula de desconto na somatoria da coluna' : 'Excluir esta celula de desconto da somatoria da coluna';
+  const groupTitle = groupExcluded
+    ? 'Reincluir este desconto e recompor a Receita ajustada'
+    : 'Quitar este desconto e abater da Receita ajustada';
   return `<button class="fin2-cell-total-toggle fin2-cell-group-toggle ${groupExcluded ? 'is-off' : 'is-on'}" onclick='event.stopPropagation();fin2TogglePayslipCellGroupTotal(${fin2Js(seriesRow.role)},${fin2Js(seriesRow.key)},${monthIdx})' title="${fin2Esc(groupTitle)}" aria-label="${fin2Esc(groupTitle)}"></button>`;
 }
 
@@ -18462,23 +18731,13 @@ function fin2RenderOldDebtTotalToggle(row) {
 }
 
 function fin2RowsForRender(group, groupKey) {
-  const customRows = fin2CustomGroupConfigs(groupKey).flatMap(config => group.filter(row => fin2RowCustomGroupKey(groupKey, row) === config.key));
-  if (groupKey === 'despesas') {
-    const payslipRows = group.filter(row => row.payslipRole);
-    const expenseRows = group.filter(row => fin2IsExpenseItemRow(row));
-    const groupedExpenseRows = fin2ExpenseGroupConfigs().flatMap(config => group.filter(row => fin2ExpenseGroupKind(row) === config.key));
-    return payslipRows.concat(groupedExpenseRows, customRows, expenseRows);
-  }
-  if (groupKey !== 'dividas') {
-    const normalRows = group.filter(row => !fin2RowCustomGroupKey(groupKey, row));
-    return customRows.concat(normalRows);
-  }
-  const payslipDebtRows = group.filter(row => fin2IsPayslipDebtRow(row));
-  const regularDebtRows = group.filter(row => !fin2IsPayslipDebtRow(row) && !fin2IsOldDebtRow(row) && !fin2RowCustomGroupKey(groupKey, row));
-  const oldDebtRows = group.filter(row => fin2IsOldDebtRow(row));
-  const debtRowsByKind = { payslip: payslipDebtRows, old: oldDebtRows, current: regularDebtRows };
-  const orderedDebtRows = fin2DebtGroupOrder().flatMap(kind => debtRowsByKind[kind] || []);
-  return orderedDebtRows.concat(customRows);
+  return fin2TopLevelUnitsForRender(group, groupKey).flatMap(unit => {
+    if (unit.type === 'row') return unit.rows;
+    if (unit.type === 'custom') return [{ fin2CustomGroupPlaceholder: unit.key }].concat(unit.rows);
+    if (unit.type === 'expense') return [{ fin2ExpenseGroupPlaceholder: unit.key }].concat(unit.rows);
+    if (unit.type === 'debt') return [{ fin2DebtGroupPlaceholder: unit.key }].concat(unit.rows);
+    return [];
+  });
 }
 
 function fin2RenderPayslipSubRows(groupKey, role, collapsed) {
@@ -18525,7 +18784,7 @@ window.fin2RenderSheet = function() {
   const s = FIN2_SHEET;
   // col order: [ctrl] [label] [12 months] [total]
   const allCollapsed = Object.values(fin2Collapsed).every(v=>v);
-  let html = `<thead><tr><th style="width:34px;text-align:center;vertical-align:middle"><button class="fin2-toggle-all-icon" id="fin2-toggle-all-btn" onclick="fin2ToggleAll()" title="Recolher/Expandir tudo">${allCollapsed?'▸':'▾'}</button></th><th class="fin2-th-label fin2-th-month">Item</th>`;
+  let html = `<colgroup><col class="fin2-col-tools"><col class="fin2-col-label"><col span="${MONTHS.length}"><col class="fin2-col-total"></colgroup><thead><tr><th style="text-align:center;vertical-align:middle"><button class="fin2-toggle-all-icon" id="fin2-toggle-all-btn" onclick="fin2ToggleAll()" title="Recolher/Expandir tudo">${allCollapsed?'▸':'▾'}</button></th><th class="fin2-th-label fin2-th-month">Item</th>`;
   MONTHS.forEach(m => html += `<th class="fin2-th-month">${m}</th>`);
   html += '<th>Total</th></tr></thead><tbody>';
 
@@ -18568,15 +18827,12 @@ window.fin2RenderSheet = function() {
         despesasExpenseRowsCount[config.key] = group.filter(row => fin2ExpenseGroupKind(row) === config.key).length;
       });
     }
-    function renderExpenseGroupsThrough(targetKind) {
+    function renderExpenseGroupHeader(targetKind) {
       if (groupKey !== 'despesas') return;
-      for (const config of fin2ExpenseGroupConfigs()) {
-        if (!despesasExpenseGroupsRendered[config.key]) {
-          html += fin2RenderExpenseGroupRow(config.key, groupKey, despesasExpenseRowsCount[config.key] || 0, collapsed);
-          despesasExpenseGroupsRendered[config.key] = true;
-        }
-        if (config.key === targetKind) break;
-      }
+      const config = fin2ExpenseGroupConfigs().find(entry => entry.key === targetKind);
+      if (!config || despesasExpenseGroupsRendered[config.key]) return;
+      html += fin2RenderExpenseGroupRow(config.key, groupKey, despesasExpenseRowsCount[config.key] || 0, collapsed);
+      despesasExpenseGroupsRendered[config.key] = true;
     }
     function renderCustomGroupHeader(customKey) {
       if (!customGroupsRendered[customKey]) {
@@ -18600,6 +18856,18 @@ window.fin2RenderSheet = function() {
       dividasDebtGroupsRendered[kind] = true;
     }
     fin2RowsForRender(group, groupKey).forEach(row => {
+      if (row && row.fin2CustomGroupPlaceholder) {
+        renderCustomGroupHeader(row.fin2CustomGroupPlaceholder);
+        return;
+      }
+      if (row && row.fin2ExpenseGroupPlaceholder) {
+        renderExpenseGroupHeader(row.fin2ExpenseGroupPlaceholder);
+        return;
+      }
+      if (row && row.fin2DebtGroupPlaceholder) {
+        renderDebtGroupHeader(row.fin2DebtGroupPlaceholder);
+        return;
+      }
       const total = fin2SheetRowTotal(row);
       const customGroupKey = fin2RowCustomGroupKey(groupKey, row);
       const expenseGroupKind = groupKey === 'despesas' ? fin2ExpenseGroupKind(row) : '';
@@ -18626,13 +18894,8 @@ window.fin2RenderSheet = function() {
         ? ` data-fin2-total-managed="true" data-fin2-excluded-from-group-total="${fin2RowExcludedFromGroupTotals(groupKey, row) ? 'true' : 'false'}"`
         : '';
       if (expenseGroupKind) {
-        renderExpenseGroupsThrough(expenseGroupKind);
+        renderExpenseGroupHeader(expenseGroupKind);
         if (fin2ExpenseGroupsCollapsed[expenseGroupKind]) return;
-      }
-      if (expenseRowClass) {
-        const expenseGroupConfigs = fin2ExpenseGroupConfigs();
-        const lastExpenseGroup = expenseGroupConfigs[expenseGroupConfigs.length - 1];
-        if (lastExpenseGroup) renderExpenseGroupsThrough(lastExpenseGroup.key);
       }
       if (customGroupKey) {
         renderCustomGroupHeader(customGroupKey);
@@ -18662,11 +18925,9 @@ window.fin2RenderSheet = function() {
       html += `<td><span class="fin2-sh-tot${rowTotalLockClass}" id="fin2-tot-${groupKey}-${row.id}" title="Total calculado: ${fin2MoneyCell(total, true)}">${fin2MoneyCell(total, true)}</span></td></tr>`;
       if (row.payslipRole) html += fin2RenderPayslipSubRows(groupKey, row.payslipRole, collapsed);
     });
-    if (groupKey === 'despesas') {
-      const expenseGroupConfigs = fin2ExpenseGroupConfigs();
-      const lastExpenseGroup = expenseGroupConfigs[expenseGroupConfigs.length - 1];
-      if (lastExpenseGroup) renderExpenseGroupsThrough(lastExpenseGroup.key);
-    }
+    fin2ExpenseGroupConfigs().forEach(config => {
+      if (!despesasExpenseGroupsRendered[config.key]) renderExpenseGroupHeader(config.key);
+    });
     fin2CustomGroupConfigs(groupKey).forEach(config => {
       if (!customGroupsRendered[config.key]) renderCustomGroupHeader(config.key);
     });
@@ -19098,6 +19359,16 @@ function fin2FindSheetRow(groupKey, rowId) {
 window.fin2ToggleRowGroupTotal = function(groupKey, rowId) {
   const row = fin2FindSheetRow(groupKey, rowId);
   if (!fin2RowSupportsTotalControls(groupKey, row)) return;
+  if (groupKey === 'receitas') {
+    const shouldClear = fin2ReceiptRowFullyIncluded(row);
+    MONTHS.forEach((_month, monthIdx) => fin2SetSheetCellTotalMode(row, monthIdx, shouldClear ? '' : 'include'));
+    delete row.excludeFromGroupTotals;
+    delete row.excludeFromDebtTotals;
+    delete row.deductFromReceitasTotal;
+    fin2RenderSheet();
+    fin2TriggerAutoSave();
+    return;
+  }
   if (fin2RowExcludedFromGroupTotals(groupKey, row)) {
     delete row.excludeFromGroupTotals;
     delete row.excludeFromDebtTotals;
@@ -19122,7 +19393,10 @@ window.fin2ToggleCellGroupTotal = function(groupKey, rowId, monthIdx) {
   const row = fin2FindSheetRow(groupKey, rowId);
   if (!fin2RowSupportsTotalControls(groupKey, row)) return;
   const current = fin2SheetCellTotalMode(row, monthIdx);
-  fin2SetSheetCellTotalMode(row, monthIdx, fin2CellModeHas(current, 'exclude') ? '' : 'exclude');
+  const targetMode = groupKey === 'receitas'
+    ? (fin2CellModeHas(current, 'include') ? '' : 'include')
+    : (fin2CellModeHas(current, 'exclude') ? '' : 'exclude');
+  fin2SetSheetCellTotalMode(row, monthIdx, targetMode);
   fin2RenderSheet();
   fin2TriggerAutoSave();
 };
@@ -19139,8 +19413,11 @@ window.fin2ToggleCellReceitasOffset = function(groupKey, rowId, monthIdx) {
 window.fin2ToggleGroupColumnTotal = function(groupKey, monthIdx) {
   const rows = fin2GroupColumnRows(groupKey);
   if (!rows.length) return;
-  const shouldClear = fin2GroupColumnExcludedByCellMode(groupKey, monthIdx);
-  rows.forEach(row => fin2SetSheetCellTotalMode(row, monthIdx, shouldClear ? '' : 'exclude'));
+  const receiptMode = groupKey === 'receitas';
+  const shouldClear = receiptMode
+    ? fin2GroupColumnReceitasByCellMode(groupKey, monthIdx)
+    : fin2GroupColumnExcludedByCellMode(groupKey, monthIdx);
+  rows.forEach(row => fin2SetSheetCellTotalMode(row, monthIdx, shouldClear ? '' : (receiptMode ? 'include' : 'exclude')));
   fin2RenderSheet();
   fin2TriggerAutoSave();
 };
@@ -19156,9 +19433,9 @@ window.fin2ToggleGroupColumnReceitasOffset = function(groupKey, monthIdx) {
 function fin2ToggleRowsColumnMode(groupKey, rows, monthIdx, targetMode, activePredicate) {
   const managedRows = fin2ManagedColumnRows(groupKey, rows);
   if (!managedRows.length) return false;
-  if (targetMode !== 'exclude') return false;
+  if (targetMode !== 'exclude' && targetMode !== 'include') return false;
   const shouldClear = fin2RowsColumnAllMode(managedRows, monthIdx, activePredicate);
-  managedRows.forEach(row => fin2SetSheetCellTotalMode(row, monthIdx, shouldClear ? '' : 'exclude'));
+  managedRows.forEach(row => fin2SetSheetCellTotalMode(row, monthIdx, shouldClear ? '' : targetMode));
   return true;
 }
 
@@ -19176,7 +19453,8 @@ window.fin2ToggleExpenseGroupColumnReceitasOffset = function(kind, monthIdx) {
 
 window.fin2ToggleCustomGroupColumnTotal = function(groupKey, customKey, monthIdx) {
   const rows = fin2CustomGroupRows(groupKey, customKey);
-  const changed = fin2ToggleRowsColumnMode(groupKey, rows, monthIdx, 'exclude', mode => fin2CellModeHas(mode, 'exclude'));
+  const targetMode = groupKey === 'receitas' ? 'include' : 'exclude';
+  const changed = fin2ToggleRowsColumnMode(groupKey, rows, monthIdx, targetMode, mode => fin2CellModeHas(mode, targetMode));
   if (!changed) return;
   fin2RenderSheet();
   fin2TriggerAutoSave();
@@ -20025,17 +20303,24 @@ window.fin2ExpenseGroupDragStart = function(event, kind) {
 
 window.fin2ExpenseGroupDragOver = function(event, targetKind) {
   const targetConfig = fin2ExpenseGroupConfig(targetKind);
-  const movingGroup = fin2ExpenseGroupDragKey && fin2ExpenseGroupDragKey !== targetConfig.key;
+  const targetToken = `expense:${targetConfig.key}`;
+  const movingGroupToken = fin2ActiveTopLevelGroupToken('despesas');
+  if (movingGroupToken) {
+    fin2TopLevelDragOver(event, 'despesas', movingGroupToken, targetToken);
+    return;
+  }
   const movingRow = fin2DragRow && fin2DragRow.groupKey === 'despesas';
-  if (!movingGroup && !movingRow) return;
-  if (movingRow) {
-    const row = fin2FindSheetRow('despesas', fin2DragRow.rowId);
-    if (!row || row.payslipRole) return;
+  if (!movingRow) return;
+  const row = fin2FindSheetRow('despesas', fin2DragRow.rowId);
+  if (!row) return;
+  if (row.payslipRole) {
+    fin2TopLevelDragOver(event, 'despesas', fin2TopLevelRowToken(row), targetToken);
+    return;
   }
   event.preventDefault();
   if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
-  const row = event.currentTarget;
-  if (row) row.classList.add('fin2-row-drop-target');
+  const targetElement = event.currentTarget;
+  if (targetElement) targetElement.classList.add('fin2-row-drop-target');
 };
 
 window.fin2SectionDragStart = function(event, groupKey) {
@@ -20091,9 +20376,14 @@ window.fin2DebtGroupDragStart = function(event, kind) {
 };
 
 window.fin2DebtGroupDragOver = function(event, targetKind) {
-  const movingGroup = fin2DebtGroupDragKey && fin2DebtGroupDragKey !== targetKind;
+  const targetToken = `debt:${targetKind}`;
+  const movingGroupToken = fin2ActiveTopLevelGroupToken('dividas');
+  if (movingGroupToken) {
+    fin2TopLevelDragOver(event, 'dividas', movingGroupToken, targetToken);
+    return;
+  }
   const movingRow = targetKind !== 'payslip' && fin2DragRow && fin2DragRow.groupKey === 'dividas';
-  if (!movingGroup && !movingRow) return;
+  if (!movingRow) return;
   if (movingRow) {
     const row = fin2FindSheetRow('dividas', fin2DragRow.rowId);
     if (!row || fin2IsPayslipDebtRow(row)) return;
@@ -20104,7 +20394,7 @@ window.fin2DebtGroupDragOver = function(event, targetKind) {
 };
 
 window.fin2DragOverOldDebtGroup = function(event) {
-  if (fin2DebtGroupDragKey) {
+  if (fin2ActiveTopLevelGroupToken('dividas')) {
     fin2DebtGroupDragOver(event, 'old');
     return;
   }
@@ -20118,7 +20408,25 @@ window.fin2DragOverOldDebtGroup = function(event) {
 };
 
 window.fin2DragOver = function(event, groupKey, rowId) {
+  const targetRow = fin2FindSheetRow(groupKey, rowId);
+  if (fin2SectionDragKey) {
+    fin2SectionDragOver(event, groupKey);
+    return;
+  }
+  const movingGroupToken = fin2ActiveTopLevelGroupToken(groupKey);
+  if (movingGroupToken) {
+    fin2TopLevelDragOver(event, groupKey, movingGroupToken, fin2TopLevelUnitTokenForRow(groupKey, targetRow));
+    return;
+  }
   if (!fin2DragRow || fin2DragRow.groupKey !== groupKey || fin2DragRow.rowId === rowId) return;
+  const sourceRow = fin2FindSheetRow(groupKey, fin2DragRow.rowId);
+  const sourceToken = fin2TopLevelUnitTokenForRow(groupKey, sourceRow);
+  const targetToken = fin2TopLevelUnitTokenForRow(groupKey, targetRow);
+  if ((sourceRow && sourceRow.payslipRole && sourceToken !== targetToken)
+      || (sourceToken.startsWith('row:') && targetToken.startsWith('row:'))) {
+    fin2TopLevelDragOver(event, groupKey, sourceToken, targetToken);
+    return;
+  }
   event.preventDefault();
   if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
   const row = event.currentTarget;
@@ -20131,7 +20439,7 @@ window.fin2DragLeave = function(event) {
 };
 
 window.fin2DropIntoOldDebtGroup = function(event) {
-  if (fin2DebtGroupDragKey) {
+  if (fin2ActiveTopLevelGroupToken('dividas')) {
     fin2DropDebtGroup(event, 'old');
     return;
   }
@@ -20157,10 +20465,20 @@ window.fin2DropIntoOldDebtGroup = function(event) {
 
 window.fin2DropExpenseGroup = function(event, targetKind) {
   const targetConfig = fin2ExpenseGroupConfig(targetKind);
+  const targetToken = `expense:${targetConfig.key}`;
+  const movingGroupToken = fin2ActiveTopLevelGroupToken('despesas');
+  if (movingGroupToken) {
+    fin2FinishTopLevelDrop(event, 'despesas', movingGroupToken, targetToken);
+    return;
+  }
   if (fin2DragRow && fin2DragRow.groupKey === 'despesas') {
-    event.preventDefault();
     const row = fin2FindSheetRow('despesas', fin2DragRow.rowId);
-    if (!row || row.payslipRole) return;
+    if (!row) return;
+    if (row.payslipRole) {
+      fin2FinishTopLevelDrop(event, 'despesas', fin2TopLevelRowToken(row), targetToken);
+      return;
+    }
+    event.preventDefault();
     row.expenseGroup = targetConfig.key;
     delete row.customGroup;
     fin2DragEnd();
@@ -20168,22 +20486,15 @@ window.fin2DropExpenseGroup = function(event, targetKind) {
     fin2TriggerAutoSave();
     return;
   }
-  if (!fin2ExpenseGroupDragKey || fin2ExpenseGroupDragKey === targetConfig.key) return;
-  event.preventDefault();
-  const order = fin2ExpenseGroupConfigs().map(config => config.key);
-  const fromIndex = order.indexOf(fin2ExpenseGroupDragKey);
-  const toIndex = order.indexOf(targetConfig.key);
-  if (fromIndex < 0 || toIndex < 0) return;
-  const [movedKey] = order.splice(fromIndex, 1);
-  order.splice(toIndex, 0, movedKey);
-  fin2SetExpenseGroupOrder(order);
-  fin2ClearDragState();
-  fin2ExpenseGroupDragKey = null;
-  fin2RenderSheet();
-  fin2TriggerAutoSave();
 };
 
 window.fin2DropDebtGroup = function(event, targetKind) {
+  const targetToken = `debt:${targetKind}`;
+  const movingGroupToken = fin2ActiveTopLevelGroupToken('dividas');
+  if (movingGroupToken) {
+    fin2FinishTopLevelDrop(event, 'dividas', movingGroupToken, targetToken);
+    return;
+  }
   if (fin2DragRow && fin2DragRow.groupKey === 'dividas' && targetKind !== 'payslip') {
     event.preventDefault();
     const row = fin2FindSheetRow('dividas', fin2DragRow.rowId);
@@ -20198,18 +20509,6 @@ window.fin2DropDebtGroup = function(event, targetKind) {
     fin2TriggerAutoSave();
     return;
   }
-  if (!fin2DebtGroupDragKey || fin2DebtGroupDragKey === targetKind) return;
-  event.preventDefault();
-  const order = fin2DebtGroupOrder().slice();
-  const fromIndex = order.indexOf(fin2DebtGroupDragKey);
-  const toIndex = order.indexOf(targetKind);
-  if (fromIndex < 0 || toIndex < 0) return;
-  const [movedKey] = order.splice(fromIndex, 1);
-  order.splice(toIndex, 0, movedKey);
-  fin2SetDebtGroupOrder(order);
-  fin2DragEnd();
-  fin2RenderSheet();
-  fin2TriggerAutoSave();
 };
 
 window.fin2CustomGroupDragStart = function(event, groupKey, customKey) {
@@ -20228,14 +20527,19 @@ window.fin2CustomGroupDragStart = function(event, groupKey, customKey) {
 };
 
 window.fin2CustomGroupDragOver = function(event, groupKey, customKey) {
-  const movingGroup = fin2CustomGroupDrag
-    && fin2CustomGroupDrag.groupKey === groupKey
-    && fin2CustomGroupDrag.customKey !== customKey;
+  const targetToken = `custom:${customKey}`;
+  const movingGroupToken = fin2ActiveTopLevelGroupToken(groupKey);
+  if (movingGroupToken) {
+    fin2TopLevelDragOver(event, groupKey, movingGroupToken, targetToken);
+    return;
+  }
   const movingRow = fin2DragRow && fin2DragRow.groupKey === groupKey;
-  if (!movingGroup && !movingRow) return;
-  if (movingRow) {
-    const row = fin2FindSheetRow(groupKey, fin2DragRow.rowId);
-    if (!row || row.payslipRole || (groupKey === 'dividas' && fin2IsPayslipDebtRow(row))) return;
+  if (!movingRow) return;
+  const row = fin2FindSheetRow(groupKey, fin2DragRow.rowId);
+  if (!row || (groupKey === 'dividas' && fin2IsPayslipDebtRow(row))) return;
+  if (row.payslipRole) {
+    fin2TopLevelDragOver(event, groupKey, fin2TopLevelRowToken(row), targetToken);
+    return;
   }
   event.preventDefault();
   if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
@@ -20245,10 +20549,20 @@ window.fin2CustomGroupDragOver = function(event, groupKey, customKey) {
 window.fin2DropCustomGroup = function(event, groupKey, customKey) {
   const targetConfig = fin2CustomGroupConfig(groupKey, customKey);
   if (!targetConfig) return;
+  const targetToken = `custom:${customKey}`;
+  const movingGroupToken = fin2ActiveTopLevelGroupToken(groupKey);
+  if (movingGroupToken) {
+    fin2FinishTopLevelDrop(event, groupKey, movingGroupToken, targetToken);
+    return;
+  }
   if (fin2DragRow && fin2DragRow.groupKey === groupKey) {
-    event.preventDefault();
     const row = fin2FindSheetRow(groupKey, fin2DragRow.rowId);
-    if (!row || row.payslipRole || (groupKey === 'dividas' && fin2IsPayslipDebtRow(row))) return;
+    if (!row || (groupKey === 'dividas' && fin2IsPayslipDebtRow(row))) return;
+    if (row.payslipRole) {
+      fin2FinishTopLevelDrop(event, groupKey, fin2TopLevelRowToken(row), targetToken);
+      return;
+    }
+    event.preventDefault();
     row.customGroup = targetConfig.key;
     delete row.expenseGroup;
     if (groupKey === 'dividas') {
@@ -20261,48 +20575,57 @@ window.fin2DropCustomGroup = function(event, groupKey, customKey) {
     fin2TriggerAutoSave();
     return;
   }
-  if (!fin2CustomGroupDrag
-      || fin2CustomGroupDrag.groupKey !== groupKey
-      || fin2CustomGroupDrag.customKey === customKey) return;
-  event.preventDefault();
-  const configs = fin2CustomGroupConfigs(groupKey);
-  const fromIndex = configs.findIndex(entry => entry.key === fin2CustomGroupDrag.customKey);
-  const toIndex = configs.findIndex(entry => entry.key === customKey);
-  if (fromIndex < 0 || toIndex < 0) return;
-  const [moved] = configs.splice(fromIndex, 1);
-  configs.splice(toIndex, 0, moved);
-  fin2DragEnd();
-  fin2RenderSheet();
-  fin2TriggerAutoSave();
+  const dragPayload = event.dataTransfer ? String(event.dataTransfer.getData('text/plain') || '') : '';
+  const payloadPrefix = `custom-group:${groupKey}:`;
+  const draggedCustomKey = dragPayload.startsWith(payloadPrefix) ? dragPayload.slice(payloadPrefix.length) : '';
+  if (draggedCustomKey) fin2FinishTopLevelDrop(event, groupKey, `custom:${draggedCustomKey}`, targetToken);
 };
 
 window.fin2DropRow = function(event, groupKey, targetRowId) {
+  const targetRow = fin2FindSheetRow(groupKey, targetRowId);
+  if (fin2SectionDragKey) {
+    fin2DropSection(event, groupKey);
+    return;
+  }
+  const movingGroupToken = fin2ActiveTopLevelGroupToken(groupKey);
+  if (movingGroupToken) {
+    fin2FinishTopLevelDrop(event, groupKey, movingGroupToken, fin2TopLevelUnitTokenForRow(groupKey, targetRow));
+    return;
+  }
   if (!fin2DragRow || fin2DragRow.groupKey !== groupKey || fin2DragRow.rowId === targetRowId) return;
+  const sourceRow = fin2FindSheetRow(groupKey, fin2DragRow.rowId);
+  const sourceToken = fin2TopLevelUnitTokenForRow(groupKey, sourceRow);
+  const targetToken = fin2TopLevelUnitTokenForRow(groupKey, targetRow);
+  if ((sourceRow && sourceRow.payslipRole && sourceToken !== targetToken)
+      || (sourceToken.startsWith('row:') && targetToken.startsWith('row:'))) {
+    fin2FinishTopLevelDrop(event, groupKey, sourceToken, targetToken);
+    return;
+  }
   event.preventDefault();
   const group = FIN2_SHEET[groupKey];
   const fromIndex = group.findIndex(row => row.id === fin2DragRow.rowId);
   const toIndex = group.findIndex(row => row.id === targetRowId);
   if (fromIndex < 0 || toIndex < 0) return;
-  const targetRow = group[toIndex];
+  const targetSheetRow = group[toIndex];
   const [row] = group.splice(fromIndex, 1);
   group.splice(toIndex, 0, row);
   if (!row.payslipRole) {
-    const targetCustomGroup = fin2RowCustomGroupKey(groupKey, targetRow);
+    const targetCustomGroup = fin2RowCustomGroupKey(groupKey, targetSheetRow);
     if (targetCustomGroup) {
       row.customGroup = targetCustomGroup;
       delete row.expenseGroup;
     } else if (groupKey !== 'dividas' || !fin2IsPayslipDebtRow(row)) {
       delete row.customGroup;
       if (groupKey === 'despesas') {
-        const targetExpenseGroup = fin2ExpenseGroupKind(targetRow);
+        const targetExpenseGroup = fin2ExpenseGroupKind(targetSheetRow);
         if (targetExpenseGroup) row.expenseGroup = targetExpenseGroup;
         else delete row.expenseGroup;
       }
     }
     if (groupKey === 'dividas' && !fin2IsPayslipDebtRow(row)) {
       if (targetCustomGroup) fin2MarkDebtAsRegular(row);
-      else if (fin2IsOldDebtRow(targetRow)) fin2MarkDebtAsOld(row);
-      else if (targetRow && !fin2IsPayslipDebtRow(targetRow)) fin2MarkDebtAsRegular(row);
+      else if (fin2IsOldDebtRow(targetSheetRow)) fin2MarkDebtAsOld(row);
+      else if (targetSheetRow && !fin2IsPayslipDebtRow(targetSheetRow)) fin2MarkDebtAsRegular(row);
     }
   }
   if (groupKey === 'dividas') {

@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-27T00:58:15.271Z",
+  "updated_at": "2026-06-27T21:16:23.867Z",
   "sheet": {
     "year": 2026,
     "receitas": [
@@ -20,25 +20,10 @@
           9260.17,
           9260.17,
           9260.17
-        ]
-      },
-      {
-        "id": "uber",
-        "label": "Rodoanel 1",
-        "values": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          7070,
-          4410,
-          5292,
-          null,
-          null,
-          null,
-          null
-        ]
+        ],
+        "cellTotalModes": {
+          "5": "include"
+        }
       },
       {
         "id": "r1780117855502",
@@ -56,47 +41,36 @@
           null,
           null,
           null
-        ]
+        ],
+        "customGroup": "custom-rodoanel",
+        "cellTotalModes": {
+          "5": "include"
+        }
       },
       {
-        "id": "outros",
-        "label": "Outros / Bônus",
+        "id": "uber",
+        "label": "Rodoanel 1",
         "values": [
-          0,
           null,
           null,
           null,
           null,
           null,
-          null,
-          null,
+          7070,
+          4410,
+          5292,
           null,
           null,
           null,
           null
-        ]
+        ],
+        "customGroup": "custom-rodoanel",
+        "cellTotalModes": {
+          "5": "include"
+        }
       }
     ],
     "despesas": [
-      {
-        "id": "pm_despesas",
-        "label": "Despesas PM",
-        "payslipRole": "discounts",
-        "values": [
-          0,
-          0,
-          0,
-          0,
-          0,
-          2661.1099999999997,
-          2661.1099999999997,
-          2661.1099999999997,
-          2661.1099999999997,
-          2661.1099999999997,
-          2661.1099999999997,
-          2661.1099999999997
-        ]
-      },
       {
         "id": "mercado",
         "label": "Mercado 1",
@@ -114,7 +88,10 @@
           null,
           null,
           null
-        ]
+        ],
+        "cellTotalModes": {
+          "5": "exclude"
+        }
       },
       {
         "id": "em1781906897736",
@@ -133,7 +110,10 @@
           null,
           null,
           null
-        ]
+        ],
+        "cellTotalModes": {
+          "5": "exclude"
+        }
       },
       {
         "id": "net",
@@ -285,6 +265,25 @@
           null,
           null,
           null
+        ]
+      },
+      {
+        "id": "pm_despesas",
+        "label": "Despesas PM",
+        "payslipRole": "discounts",
+        "values": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          2661.1099999999997,
+          2661.1099999999997,
+          2661.1099999999997,
+          2661.1099999999997,
+          2661.1099999999997,
+          2661.1099999999997,
+          2661.1099999999997
         ]
       },
       {
@@ -945,7 +944,16 @@
       "dividas"
     ],
     "customGroups": {
-      "receitas": [],
+      "receitas": [
+        {
+          "key": "custom-rodoanel",
+          "label": "Rodoanel"
+        },
+        {
+          "key": "custom-outros",
+          "label": "Outros"
+        }
+      ],
       "despesas": [],
       "dividas": []
     },
@@ -954,6 +962,11 @@
       "gasolina": "Carro",
       "mercado": "Casa"
     },
+    "expenseGroupOrder": [
+      "mercado",
+      "gasolina",
+      "extras"
+    ],
     "debtGroupLabels": {
       "payslip": "Holêrite",
       "old": "Antigas",
@@ -961,9 +974,28 @@
     },
     "debtGroupOrder": [
       "payslip",
-      "old",
-      "current"
-    ]
+      "current",
+      "old"
+    ],
+    "topLevelOrder": {
+      "receitas": [
+        "custom:custom-rodoanel",
+        "custom:custom-outros",
+        "row:pm"
+      ],
+      "despesas": [
+        "row:pm_despesas",
+        "expense:mercado",
+        "expense:gasolina",
+        "expense:extras"
+      ],
+      "dividas": [
+        "debt:payslip",
+        "debt:current",
+        "debt:old"
+      ]
+    },
+    "receiptAdjustedModeVersion": 1
   },
   "creditors": [
     {
@@ -988,7 +1020,7 @@
         {
           "fileName": "Bradesco Contrato 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Bradesco Contrato 469_15.pdf",
-          "uploadedAt": "2026-06-27T00:58:09.863Z",
+          "uploadedAt": "2026-06-27T21:02:07.895Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -1002,7 +1034,7 @@
         {
           "fileName": "Descritivo de Crédito 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Descritivo de Crédito 469_15.pdf",
-          "uploadedAt": "2026-06-27T00:58:09.863Z",
+          "uploadedAt": "2026-06-27T21:02:07.896Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -1909,7 +1941,7 @@
         {
           "fileName": "Saldo Devedor 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Saldo Devedor 469_15.pdf",
-          "uploadedAt": "2026-06-27T00:58:09.864Z",
+          "uploadedAt": "2026-06-27T21:02:07.896Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -4770,6 +4802,96 @@
       "contratos": []
     },
     {
+      "id": "d1782407620519",
+      "name": "Rose Emp",
+      "monthly": 1000,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "contratos": [],
+      "valuesSource": "sheet"
+    },
+    {
+      "id": "d1782407630266",
+      "name": "Rose ACS",
+      "monthly": 1000,
+      "installments": 1,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "negociado",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "contratos": [],
+      "valuesSource": "sheet"
+    },
+    {
+      "id": "d1782407648519",
+      "name": "Rose Cartão",
+      "monthly": 1500,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "contratos": [],
+      "valuesSource": "sheet"
+    },
+    {
+      "id": "d1780883535829",
+      "name": "VivoPF",
+      "monthly": 63.55,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
+    },
+    {
+      "id": "d1780883555087",
+      "name": "Vivo PJ",
+      "monthly": 246.79,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
+    },
+    {
       "id": "d-nucnpj",
       "name": "M.C. Nu PJ",
       "monthly": 2500,
@@ -5006,96 +5128,6 @@
       "id": "d1780883463331",
       "name": "Imp. Renda 3",
       "monthly": 0,
-      "installments": 12,
-      "paid": 0,
-      "saldo": 0,
-      "oferta": 0,
-      "prazo": "",
-      "prazoInicial": "",
-      "priority": "normal",
-      "status": "ativo",
-      "notes": "",
-      "pendurada": false,
-      "contrato": null,
-      "valuesSource": "sheet",
-      "contratos": []
-    },
-    {
-      "id": "d1782407620519",
-      "name": "Rose Emp",
-      "monthly": 1000,
-      "installments": 12,
-      "paid": 0,
-      "saldo": 0,
-      "oferta": 0,
-      "prazo": "",
-      "prazoInicial": "",
-      "priority": "normal",
-      "status": "ativo",
-      "notes": "",
-      "pendurada": false,
-      "contrato": null,
-      "contratos": [],
-      "valuesSource": "sheet"
-    },
-    {
-      "id": "d1782407630266",
-      "name": "Rose ACS",
-      "monthly": 1000,
-      "installments": 1,
-      "paid": 0,
-      "saldo": 0,
-      "oferta": 0,
-      "prazo": "",
-      "prazoInicial": "",
-      "priority": "normal",
-      "status": "negociado",
-      "notes": "",
-      "pendurada": false,
-      "contrato": null,
-      "contratos": [],
-      "valuesSource": "sheet"
-    },
-    {
-      "id": "d1782407648519",
-      "name": "Rose Cartão",
-      "monthly": 1500,
-      "installments": 12,
-      "paid": 0,
-      "saldo": 0,
-      "oferta": 0,
-      "prazo": "",
-      "prazoInicial": "",
-      "priority": "normal",
-      "status": "ativo",
-      "notes": "",
-      "pendurada": false,
-      "contrato": null,
-      "contratos": [],
-      "valuesSource": "sheet"
-    },
-    {
-      "id": "d1780883535829",
-      "name": "VivoPF",
-      "monthly": 63.55,
-      "installments": 12,
-      "paid": 0,
-      "saldo": 0,
-      "oferta": 0,
-      "prazo": "",
-      "prazoInicial": "",
-      "priority": "normal",
-      "status": "ativo",
-      "notes": "",
-      "pendurada": false,
-      "contrato": null,
-      "valuesSource": "sheet",
-      "contratos": []
-    },
-    {
-      "id": "d1780883555087",
-      "name": "Vivo PJ",
-      "monthly": 246.79,
       "installments": 12,
       "paid": 0,
       "saldo": 0,
@@ -5353,16 +5385,16 @@
   },
   "investments": {
     "horizonMonths": 12,
-    "inflationAnnual": 0,
+    "inflationAnnual": 10,
     "broker": {
       "name": "Dukascopy",
       "platform": "MetaTrader 5",
       "accountLabel": "Conta manual",
       "currency": "USD",
-      "balance": 0,
-      "fxRate": 0,
-      "monthlyContribution": 0,
-      "expectedAnnualRate": 0,
+      "balance": 500,
+      "fxRate": 5,
+      "monthlyContribution": 200,
+      "expectedAnnualRate": 12,
       "riskPerTrade": 1
     },
     "allocations": [
@@ -5379,24 +5411,33 @@
         "id": "inv-renda-fixa",
         "category": "Renda fixa",
         "strategy": "Pós, prefixado ou IPCA+",
-        "current": 0,
-        "monthly": 0,
-        "annualRate": 0,
-        "targetPct": 0
+        "current": 200,
+        "monthly": 200,
+        "annualRate": 12,
+        "targetPct": 2500
       },
       {
         "id": "inv-opcoes",
         "category": "Opções",
         "strategy": "Proteção e operações estruturadas",
-        "current": 0,
-        "monthly": 0,
-        "annualRate": 0,
-        "targetPct": 0
+        "current": 100,
+        "monthly": 100,
+        "annualRate": 60,
+        "targetPct": 1800
       },
       {
         "id": "inv-reserva",
         "category": "Reserva",
         "strategy": "Liquidez e margem",
+        "current": 200,
+        "monthly": 200,
+        "annualRate": 12,
+        "targetPct": 2600
+      },
+      {
+        "id": "inv-1782523990373",
+        "category": "Teste",
+        "strategy": "",
         "current": 0,
         "monthly": 0,
         "annualRate": 0,

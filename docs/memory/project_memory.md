@@ -20,7 +20,34 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-06-26T21:58:15-03:00
+- updated_at: 2026-06-27T18:16:23-03:00
+
+## Handoff Atual - Financas Quitacoes Abatem Receita Ajustada
+- timestamp: 2026-06-27T17:37:27-03:00
+- objetivo: fazer o mesmo clique que quita uma Despesa ou Divida reduzir tambem a linha esmaecida de Receitas.
+- regra: `Receitas ajustadas = receitas selecionadas - despesas quitadas - dividas quitadas`. O abatimento e derivado da diferenca entre bruto e ajustado dos grupos de saida, sem reintroduzir segundo botao ou estado legado.
+- holerite: o bruto de `Despesas PM` passou a ignorar modos de quitacao das sublinhas para permanecer imutavel; quitacoes individuais dos descontos entram no abatimento uma unica vez.
+- validacao: com `/api/save` interceptado, Puppeteer confirmou reducoes espelhadas de `2.661` em Despesas PM, `469` em Divida Bradesco, `1.115` no subtotal Gasolina e um desconto expandido do holerite. O bruto de Receitas nao mudou, o Fluxo de Caixa permaneceu coerente, o segundo clique restaurou os valores e nao houve erros de pagina.
+- story: `docs/stories/2.107.story.md`
+- checkpoint: CHK-FIN-02107-RECEITAS-QUITACOES
+
+## Handoff Atual - Financas Ordem Livre e Colunas Uniformes
+- timestamp: 2026-06-27T16:15:44-03:00
+- objetivo: atender a correcao visual indicada pelo usuario e eliminar a ordem fixa que impedia `Pagamento PM` de subir acima das subabas.
+- alinhamento: a Planilha agora usa `colgroup`, mantendo 34px na primeira coluna e 62px na coluna Total em cabecalhos, secoes, subabas e linhas comuns. Todos os puxadores visiveis usam 15px.
+- ordenacao: `sheet.topLevelOrder` registra uma ordem unica por secao. Linhas superiores como `Pagamento PM` e `Despesas PM`, grupos fixos de Despesas, grupos de Dividas e subabas personalizadas podem atravessar uns aos outros sem mudar classificacao ou conteudo.
+- validacao: Puppeteer com `/api/save` interceptado confirmou 57 puxadores funcionais, `Pagamento PM` acima das subabas, subaba ao redor de `Pagamento PM`, `Carro/Gasolina` ao redor de `Despesas PM`, grupos de Dividas alternando, colunas 34px/62px, zero overflow em 1440x900 e 1280x800 e zero erros de pagina.
+- story: `docs/stories/2.107.story.md`
+- checkpoint: CHK-FIN-02107-TOP-ORDER
+
+## Handoff Atual - Financas Alinhamento e Arraste dos Subgrupos
+- timestamp: 2026-06-27T10:34:02-03:00
+- objetivo: corrigir o desalinhamento visual das linhas principais e os puxadores de subgrupos que aceitavam o gesto apenas em partes restritas da Planilha.
+- acao: os controles da primeira coluna foram compactados e contidos no limite da tabela. Subtotais ajustados e linhas internas passaram a encaminhar `dragover`/`drop` para secoes, grupos fixos de Despesas, grupos de Dividas e subabas personalizadas.
+- correcao_adicional: subabas personalizadas vazias agora recebem um placeholder somente de renderizacao, permitindo que a ordem escolhida seja visivel e persistida mesmo sem itens internos.
+- validacao: Puppeteer com `/api/save` interceptado moveu `Outros` vazio antes de `Rodoanel`, `Mercado` pelo subtotal de `Extras`, `Dividas atua` por uma linha de `Dividas anti`, uma linha comum e as secoes principais. Em 1440x900 e 1280x800 houve zero overflow horizontal, nenhum puxador fora da primeira coluna e zero erros de pagina.
+- story: `docs/stories/2.107.story.md`
+- checkpoint: CHK-FIN-02107-DND-ALIGN
 
 ## Handoff Atual - Financas Faixa Unica de Calculo
 - timestamp: 2026-06-26T14:21:55-03:00
@@ -679,6 +706,11 @@
 - proxima_acao: revisar refinamento editorial/visual dos entregaveis com o usuario e, em seguida, acrescentar a esteira de Upsell e Downsell mantendo o mesmo modelo de producao real.
 
 ## Ultimo fechamento
+- timestamp: 2026-06-27T18:16:23-03:00
+- tipo: usuario
+- resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- proxima_acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- checkpoint: CHK-MEM-0754
 - timestamp: 2026-06-26T21:58:15-03:00
 - tipo: usuario
 - resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
@@ -756,6 +788,46 @@
 - checkpoint: CHK-MEM-0250
 
 ## Ultimo fechamento automatico
+- timestamp: 2026-06-27T18:00:39-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0753
+- timestamp: 2026-06-27T16:41:09-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0752
+- timestamp: 2026-06-27T16:26:28-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0751
+- timestamp: 2026-06-27T16:23:25-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0750
+- timestamp: 2026-06-27T11:32:05-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0749
+- timestamp: 2026-06-27T10:36:39-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0748
+- timestamp: 2026-06-27T10:05:28-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0747
+- timestamp: 2026-06-26T23:15:05-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0746
 - timestamp: 2026-06-26T21:58:02-03:00
 - tipo: automatico
 - resumo: Encerramento automatico (fechamento de aba/janela).
@@ -3345,3 +3417,11 @@
 - decisao-open-finance: Integracao bancaria e tecnicamente possivel para transacoes de contas e cartoes, mas depende de parceiro/instituicao receptora autorizada, consentimento, autenticacao e APIs reguladas. Nenhuma conexao foi ativada neste marco.
 - proxima_acao: Refinar o modelo de Investimentos com dados reais do usuario e, separadamente, selecionar parceiro autorizado antes de desenhar a jornada Open Finance.
 - checkpoint: CHK-FIN-02107-INVEST
+
+## Registro Manual - 2026-06-27T09:51:31-03:00
+- tipo: correcao-logica-financas
+- resumo: A linha esmaecida de Receitas foi invertida conforme a logica financeira solicitada: inicia zerada e recebe somente as celulas selecionadas pelas faixas azuis.
+- comportamento: Receitas usam modo persistido `include`; Despesas e Dividas permanecem no modo `exclude`. O total bruto principal nunca e alterado e um segundo clique remove novamente a receita da linha ajustada.
+- validacao: Puppeteer confirmou `Rodoanel 1` em junho acrescentando `7.070` ao ajustado e preservando o bruto de Receitas em `22.504`; o segundo clique voltou a zero. Gasolina preservou o bruto `1.115` e reduziu o ajustado para zero. Autosave registrou `include`, sem erros de pagina.
+- proxima_acao: Prosseguir com os proximos refinamentos da Planilha mantendo a semantica oposta entre Receitas e Despesas/Dividas.
+- checkpoint: CHK-FIN-02107-RECEITAS-INCLUDE

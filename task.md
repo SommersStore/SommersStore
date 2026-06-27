@@ -102,6 +102,10 @@
 - [x] Separar totais brutos fixos de totais ajustados esmaecidos na Planilha de Financas
 - [x] Criar aba Investimentos com Dukascopy/MetaTrader 5, alocacao, aportes e projecoes persistentes
 - [ ] Selecionar parceiro autorizado e definir jornada de consentimento para futura integracao Open Finance
+- [x] Inverter a linha ajustada de Receitas para iniciar zerada e somar apenas celulas selecionadas
+- [x] Corrigir alinhamento da primeira coluna e arrastar/soltar de secoes, subabas vazias e subgrupos de Financas
+- [x] Uniformizar colunas extremas e permitir ordem livre de Pagamento PM, Despesas PM, subabas e grupos de Dividas
+- [x] Fazer quitacoes de Despesas e Dividas abaterem simultaneamente a Receita ajustada
 
 ## Pending Work
 - [x] Handoff UX Master > Clones: remover gaveta lateral grande/flutuante e restaurar abertura dos clones dentro do `Inspector` compacto existente.
@@ -192,6 +196,11 @@
 - [x] Corrigir regressao visual que fazia `Financas` abrir direto em `Dividas/Acordos` em vez de `Planilha`
 
 ## Done in this session
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Checkpoint: CHK-MEM-0754
+
 - [x] Sessao encerrada pelo usuario.
 - [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
 - [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
@@ -686,4 +695,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-06-26T21:58:15-03:00
+- updated_at: 2026-06-27T18:16:23-03:00
