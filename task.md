@@ -93,6 +93,15 @@
 - [x] Refinar `Despesas PM` com visual igual as subabas e permitir arrastar `Gasolina`, `Despesas X` e `Mercado`
 - [x] Adicionar botoes sutis mensais nos subtotais das subabas de `Despesas` e `Dividas`
 - [x] Corrigir botao inferior esquerdo para abater de `Receitas` sem zerar subtotais/celulas locais
+- [x] Simplificar controles da Planilha de Financas para uma faixa unica vertical por celula, subtotal e linha gerenciavel
+- [x] Alinhar verticalmente os precos da Planilha e transformar botoes de holerite PM em faixas laterais direitas
+- [x] Remover botao redundante de holerite em Despesas PM, mantendo anexo unico em Pagamento PM
+- [x] Padronizar `Item`, tornar nomes editaveis, criar subabas vazias e ampliar arrastar/soltar na Planilha de Financas
+- [x] Corrigir renomeacao e autosave das subabas editaveis da Planilha de Financas
+- [x] Remover `Dividas OL` de Despesas PM, preservando copia unica em Dividas e sincronismo com Dividas/Acordos
+- [x] Separar totais brutos fixos de totais ajustados esmaecidos na Planilha de Financas
+- [x] Criar aba Investimentos com Dukascopy/MetaTrader 5, alocacao, aportes e projecoes persistentes
+- [ ] Selecionar parceiro autorizado e definir jornada de consentimento para futura integracao Open Finance
 
 ## Pending Work
 - [x] Handoff UX Master > Clones: remover gaveta lateral grande/flutuante e restaurar abertura dos clones dentro do `Inspector` compacto existente.
@@ -186,6 +195,11 @@
 - [x] Sessao encerrada pelo usuario.
 - [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
 - [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Checkpoint: CHK-MEM-0745
+
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
 - [x] Checkpoint: CHK-MEM-0729
 
 - [x] Sessao encerrada pelo usuario.
@@ -197,6 +211,10 @@
 - [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
 - [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
 - [x] Checkpoint: CHK-MEM-0722
+
+- [x] Story 2.107 concluida/atualizada: os dois botoes sutis da Planilha de Financas foram substituidos por uma faixa unica vertical no canto esquerdo das celulas, subtotais e linhas gerenciaveis. A faixa preenchida retira o valor do calculo do proprio grupo (`Receitas`, `Despesas` ou `Dividas`); a faixa contornada reinclui. O abatimento separado de `Receitas` foi neutralizado e `exclude_receitas` agora normaliza para `exclude`. `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer passaram.
+- [x] Complemento da Story 2.107: valores/precos da Planilha alinhados com largura fixa de 62px e `vertical-align: middle`; botoes de holerite em `Pagamento PM` e `Despesas PM` convertidos para faixa vertical do lado direito da celula, preservando a faixa de calculo do lado esquerdo.
+- [x] Complemento da Story 2.107: confirmado que o holerite anexado em `Pagamento PM` alimenta tambem `Despesas PM`; o botao redundante de `Despesas PM` foi removido, preservando totais/descontos e validando 12 botoes em `Pagamento PM` e 0 em `Despesas PM`.
 
 - [x] Story 2.101 concluida: o botao inferior esquerdo (`receitas`) deixou de zerar subtotais e celulas locais; ele agora apenas abate de `Receitas`/saldo geral e mantem o valor visivel na subaba/celula. Puppeteer validou `Mercado` com subtotal `100` e `Dividas atua` com subtotal `200` preservados, enquanto `Fluxo de Caixa` diminuiu; gates passaram.
 
@@ -668,4 +686,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-06-24T01:02:05-03:00
+- updated_at: 2026-06-26T21:58:15-03:00

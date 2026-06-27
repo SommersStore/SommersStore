@@ -20,7 +20,20 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-06-24T01:02:05-03:00
+- updated_at: 2026-06-26T21:58:15-03:00
+
+## Handoff Atual - Financas Faixa Unica de Calculo
+- timestamp: 2026-06-26T14:21:55-03:00
+- objetivo: simplificar os controles sutis da Planilha de Financas, substituindo os dois botoes por uma unica faixa vertical no canto esquerdo da celula.
+- acao: `docs/aiox_dashboard.html` agora renderiza uma faixa fina em celulas, totalizadores, subtotais e linhas compactas gerenciaveis. Faixa contornada/transparente significa incluida no calculo; faixa preenchida significa retirada do calculo.
+- comportamento: a faixa atua apenas sobre o total do proprio grupo da celula (`Receitas`, `Despesas` ou `Dividas`). O abatimento separado de `Receitas` foi neutralizado; `fin2ReceitasOffsetValue` e `fin2PayslipReceitasOffsetValue` retornam zero, e atributos/classes DOM de deducao de Receitas foram removidos.
+- compatibilidade: estados legados `receitas` deixam de afetar totais e `exclude_receitas` passa a ser normalizado como `exclude`. Handlers antigos de `ReceitasOffset` permanecem apenas como compatibilidade inerte/limpeza de estado.
+- visual: linhas principais `Receitas`, `Despesas` e `Dividas` continuam com borda superior e inferior coloridas; subcategorias como `Despesas PM`, `Gasolina`, `Despesas X`, `Mercado`, `Dividas hole`, `Dividas anti` e `Dividas atua` mantem recuo apenas no nome.
+- refinamento_visual: em 2026-06-26T14:38:00-03:00 os valores/precos da Planilha foram alinhados com largura fixa de 62px e `vertical-align: middle`; nas celulas de `Pagamento PM` e `Despesas PM`, a faixa de calculo fica a esquerda e o botao de holerite vira faixa vertical discreta a direita.
+- holerite_pm: em 2026-06-26T14:58:31-03:00 foi confirmado que o anexo unico em `Pagamento PM` extrai creditos para `Pagamento PM` e descontos para `Despesas PM`; o botao redundante de holerite em `Despesas PM` foi removido.
+- validacao: `node tests/quality/master_hub.test.cjs` passou. Puppeteer em `http://localhost:4000/` com `/api/save` interceptado confirmou 756 celulas gerenciaveis com faixa unica, zero controles antigos, zero atributos antigos de deducao de Receitas, zero overflow horizontal e comportamento correto: a faixa retirou 1000 de `Receitas`, 100 de `Despesas` e 200 de `Dividas` sem alterar os demais grupos.
+- story: `docs/stories/2.107.story.md`
+- checkpoint: CHK-FIN-02107
 
 ## Handoff Atual - Espelho Local Antigravity no Disco D
 - timestamp: 2026-06-23T19:05:30-03:00
@@ -666,6 +679,11 @@
 - proxima_acao: revisar refinamento editorial/visual dos entregaveis com o usuario e, em seguida, acrescentar a esteira de Upsell e Downsell mantendo o mesmo modelo de producao real.
 
 ## Ultimo fechamento
+- timestamp: 2026-06-26T21:58:15-03:00
+- tipo: usuario
+- resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- proxima_acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- checkpoint: CHK-MEM-0745
 - timestamp: 2026-06-24T01:02:05-03:00
 - tipo: usuario
 - resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
@@ -738,6 +756,81 @@
 - checkpoint: CHK-MEM-0250
 
 ## Ultimo fechamento automatico
+- timestamp: 2026-06-26T21:58:02-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0744
+- timestamp: 2026-06-26T21:46:45-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0743
+- timestamp: 2026-06-26T21:11:58-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0742
+- timestamp: 2026-06-26T20:44:51-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0741
+- timestamp: 2026-06-26T20:19:11-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0740
+- timestamp: 2026-06-26T15:14:14-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0739
+- timestamp: 2026-06-26T14:59:48-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0738
+- timestamp: 2026-06-26T14:46:03-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0737
+- timestamp: 2026-06-26T14:26:50-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0736
+- timestamp: 2026-06-26T09:13:55-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0735
+- timestamp: 2026-06-26T02:16:50-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0734
+- timestamp: 2026-06-26T02:15:20-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0733
+- timestamp: 2026-06-26T02:04:58-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0732
+- timestamp: 2026-06-26T01:42:22-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0731
+- timestamp: 2026-06-25T16:26:39-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0730
 - timestamp: 2026-06-24T01:01:42-03:00
 - tipo: automatico
 - resumo: Encerramento automatico (fechamento de aba/janela).
@@ -3235,3 +3328,20 @@
 - validacao: `npm run lint`, `npm run typecheck` e `npm test` passaram, incluindo assercoes novas para corpus, persona, skills e agente `forex-ea-coder-ops-mentor`.
 - proxima_acao: Usar o EA Coder Ops Mentor nos proximos ajustes do AIOX Trader On Chart, principalmente em presets, logs, trade copier, alertas de spread e checklists MT4/MT5.
 - checkpoint: CHK-FOREX-02092
+
+## Registro Manual - 2026-06-26T20:17:57-03:00
+- tipo: ajuste-financas
+- resumo: Story 2.107 atualizada. Na aba `Financas > Planilha`, o cabecalho `Item` passou ao padrao amarelo centralizado dos meses; nomes de secoes, subabas, linhas e resumos ficaram editaveis; o `+` principal passou a oferecer linha comum ou subaba vazia.
+- comportamento: Secoes principais, subabas fixas de Despesas, grupos de Dividas e subabas personalizadas possuem arrastar e soltar com ordem persistida. Linhas comuns podem entrar em subabas compativeis, enquanto linhas automaticas do holerite permanecem protegidas.
+- validacao: `npm run lint`, `npm run typecheck` e `npm test` passaram. Puppeteer em 1440x900 e 1280x800 confirmou zero overflow horizontal, todos os 47 itens visiveis com puxador, criacao de subaba vazia, movimentacao de linha para a subaba e reordenacao das secoes.
+- proxima_acao: Prosseguir com refinamentos pontuais da Planilha solicitados pelo usuario, preservando persistencia dos nomes/ordens e a classificacao automatica do holerite.
+- checkpoint: CHK-FIN-02107-EDIT-DND
+
+## Registro Manual - 2026-06-26T21:33:00-03:00
+- tipo: ajuste-financas-investimentos
+- resumo: Story 2.107 atualizada. `Dividas OL` foi removida da area de Despesas PM e permanece apenas em Dividas, com 9 linhas do holerite sincronizadas com Dividas/Acordos. A Planilha ganhou totalizadores brutos fixos e linhas secundarias esmaecidas para os valores ajustados por exclusoes.
+- comportamento: Clicar nas faixas de exclusao altera somente a linha ajustada e os calculos efetivos de compromissos/fluxo; o subtotal principal continua exibindo o bruto. A nova aba `Investimentos` oferece modelo editavel com Dukascopy/MetaTrader 5, classes de ativos, aportes, horizonte, inflacao e projecao composta, tudo incluido no autosave.
+- validacao: `npm run lint`, `npm run typecheck` e `npm test` passaram. Puppeteer confirmou zero duplicidade em Despesas, um grupo em Dividas, total bruto `1.115` preservado com ajustado `0`, projecao de `38.435` no cenario temporario e ausencia de overflow/erros.
+- decisao-open-finance: Integracao bancaria e tecnicamente possivel para transacoes de contas e cartoes, mas depende de parceiro/instituicao receptora autorizada, consentimento, autenticacao e APIs reguladas. Nenhuma conexao foi ativada neste marco.
+- proxima_acao: Refinar o modelo de Investimentos com dados reais do usuario e, separadamente, selecionar parceiro autorizado antes de desenhar a jornada Open Finance.
+- checkpoint: CHK-FIN-02107-INVEST

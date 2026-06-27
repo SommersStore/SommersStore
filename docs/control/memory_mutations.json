@@ -1,370 +1,6 @@
 {
   "mutations": [
     {
-      "timestamp": "2026-06-05T21:29:47-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260605-0008",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-05T21:29:47-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-07T22:36:00-03:00",
-      "memory_scope": "project_memory",
-      "diff_summary": "Story 2.67 concluida: botoes do cabecalho verificados; Flash corrigido para copiar contexto atual em vez de session_flash.txt antigo.",
-      "mutated_by": "codex",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-07T22:57:04-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260605-0008: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-07T22:57:08-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260607-0001",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-07T22:57:08-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-07T23:09:58-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260607-0001: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-07T23:10:01-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260607-0002",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-07T23:10:01-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-07T23:35:00-03:00",
-      "memory_scope": "project_memory",
-      "diff_summary": "Story 2.68 concluida: bloco Dividas do Holerite fixado como primeiro conteudo da secao Dividas; novas dividas comuns renderizam abaixo e o recolhimento segue restrito ao holerite.",
-      "mutated_by": "codex",
-      "project_id": "financas"
-    },
-    {
-      "timestamp": "2026-06-07T23:31:17-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260607-0002: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-07T23:31:21-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260607-0003",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-07T23:31:21-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-07T23:58:00-03:00",
-      "memory_scope": "project_memory",
-      "diff_summary": "Story 2.69 concluida: grupo Dividas Antigas criado apos Dividas do Holerite, com recolher/expandir e botao por linha para excluir/reincluir dividas antigas dos totais de Dividas e Fluxo de Caixa.",
-      "mutated_by": "codex",
-      "project_id": "financas"
-    },
-    {
-      "timestamp": "2026-06-07T23:48:49-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260607-0003: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-07T23:48:52-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260607-0004",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-07T23:48:52-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T00:12:00-03:00",
-      "memory_scope": "project_memory",
-      "diff_summary": "Story 2.70 concluida: Dividas Antigas agora inicia vazia, nao captura dividas normais automaticamente e recebe apenas linhas adicionadas pelo botao do grupo ou arrastadas manualmente.",
-      "mutated_by": "codex",
-      "project_id": "financas"
-    },
-    {
-      "timestamp": "2026-06-08T00:12:47-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260607-0004: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-08T00:12:51-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260608-0001",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T00:12:51-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T00:26:00-03:00",
-      "memory_scope": "project_memory",
-      "diff_summary": "Story 2.71 concluida: Dividas Antigas reposicionada logo abaixo do bloco Dividas do Holerite, mantendo 0 linhas por padrao e dividas normais abaixo.",
-      "mutated_by": "codex",
-      "project_id": "financas"
-    },
-    {
-      "timestamp": "2026-06-08T00:33:27-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260608-0001: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-08T00:33:30-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260608-0002",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T00:33:30-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T01:08:00-03:00",
-      "memory_scope": "project_memory",
-      "diff_summary": "Story 2.72 concluida: Despesas e Dividas ganharam controles por linha para sair da somatoria local ou tambem abater Receitas.",
-      "mutated_by": "codex",
-      "project_id": "financas"
-    },
-    {
-      "timestamp": "2026-06-08T01:14:31-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260608-0002: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-08T01:14:34-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260608-0003",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T01:14:34-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T01:14:56-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260608-0003: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-08T01:14:59-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260608-0004",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T01:14:59-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T01:59:28-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260608-0004: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-08T18:00:48-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260608-0005",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T18:00:48-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T18:02:31-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260608-0005: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-08T18:58:22-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260608-0006",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T18:58:22-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T18:59:01-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260608-0006: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-08T18:59:03-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260608-0007",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T18:59:03-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T19:00:33-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260608-0007: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-08T19:00:37-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260608-0008",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T19:00:37-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T19:02:00-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260608-0008: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-08T19:02:03-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260608-0009",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T19:02:03-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-08T19:42:25-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260608-0009: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-08T19:42:34-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260608-0010",
-      "mutated_by": "dashboard",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-08T19:42:34-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-08T20:05:18-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260608-0010: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-08T20:05:25-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260608-0011",
-      "mutated_by": "dashboard",
-      "project_id": null
-    },
-    {
       "timestamp": "2026-06-08T20:05:25-03:00",
       "memory_scope": "session_startup",
       "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
@@ -2097,6 +1733,370 @@
       "timestamp": "2026-06-24T01:02:05-03:00",
       "memory_scope": "session_shutdown",
       "diff_summary": "Scribe encerrou SES-20260624-0001: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-24T01:03:00-03:00",
+      "memory_scope": "cloud_sync",
+      "diff_summary": "Cloud sync SYNC-20260624-1782273725494: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.) Copia D: success (Espelho local atualizado em D:\\Antigravity-SommersStore\\workspace.)",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-25T14:10:35-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260625-0001",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-25T14:10:35-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-25T16:26:39-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260625-0001: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-25T21:33:40-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260625-0002",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-25T21:33:40-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T01:32:05-03:00",
+      "memory_scope": "session_milestone",
+      "diff_summary": "Financas Planilha: botoes sutis reorganizados. Azul superior esquerdo abate Receitas, vermelho inferior esquerdo exclui da soma local, e os estados agora coexistem via exclude_receitas; linhas principais ganharam borda superior colorida e subcategorias receberam recuo no nome.",
+      "mutated_by": "codex",
+      "project_id": "financas"
+    },
+    {
+      "timestamp": "2026-06-26T01:42:22-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260625-0002: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-26T01:42:30-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260626-0001",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T01:42:30-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T01:51:46-03:00",
+      "memory_scope": "session_milestone",
+      "diff_summary": "Financas Planilha: botoes sutis refinados para bolinhas sem glifos. Inativos ficam apenas com contorno; marcados ficam preenchidos, mantendo azul para Receitas e vermelho para exclusao da soma local.",
+      "mutated_by": "codex",
+      "project_id": "financas"
+    },
+    {
+      "timestamp": "2026-06-26T02:04:58-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260626-0001: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-26T02:05:03-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260626-0002",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T02:05:03-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T02:15:21-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260626-0002: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-26T02:15:27-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260626-0003",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T02:15:27-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T02:16:51-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260626-0003: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-26T09:13:01-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260626-0004",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T09:13:02-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T09:13:56-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260626-0004: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-26T09:14:02-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260626-0005",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T09:14:02-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T14:21:55-03:00",
+      "memory_scope": "session_milestone",
+      "diff_summary": "Financas Planilha: os dois botoes sutis por celula foram substituidos por uma faixa unica vertical no canto esquerdo. A faixa preenchida retira o valor do calculo do proprio grupo; o abatimento separado de Receitas foi neutralizado e estados legados exclude_receitas normalizam para exclude.",
+      "mutated_by": "codex",
+      "project_id": "financas"
+    },
+    {
+      "timestamp": "2026-06-26T14:26:51-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260626-0005: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-26T14:27:03-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260626-0006",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T14:27:03-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T14:46:03-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260626-0006: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-26T14:46:11-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260626-0007",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T14:46:11-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T14:59:49-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260626-0007: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-26T14:59:55-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260626-0008",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T14:59:55-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T15:14:14-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260626-0008: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-26T15:14:20-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260626-0009",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T15:14:20-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T20:19:12-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260626-0009: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-26T20:19:18-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260626-0010",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T20:19:18-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T20:44:51-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260626-0010: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-26T20:44:59-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260626-0011",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T20:44:59-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T21:11:58-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260626-0011: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-26T21:12:04-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260626-0012",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T21:12:04-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T21:46:45-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260626-0012: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-26T21:46:51-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260626-0013",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T21:46:51-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T21:58:03-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260626-0013: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-26T21:58:09-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260626-0014",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T21:58:09-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-26T21:58:15-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260626-0014: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "mutated_by": "human",
       "project_id": null
     }

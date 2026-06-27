@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-24T04:02:05.182Z",
+  "updated_at": "2026-06-27T00:58:15.271Z",
   "sheet": {
     "year": 2026,
     "receitas": [
@@ -33,7 +33,7 @@
           null,
           7070,
           4410,
-          null,
+          5292,
           null,
           null,
           null,
@@ -50,7 +50,7 @@
           null,
           null,
           6174,
-          4410,
+          5292,
           null,
           null,
           null,
@@ -108,7 +108,7 @@
           null,
           null,
           956.44,
-          0,
+          1200,
           null,
           null,
           null,
@@ -117,36 +117,34 @@
         ]
       },
       {
-        "id": "celularpj",
-        "label": "Celular PJ",
+        "id": "em1781906897736",
+        "label": "Mercado 2",
+        "expenseGroup": "mercado",
         "values": [
+          0,
           null,
           null,
           null,
           null,
-          null,
-          112,
+          300,
           null,
           null,
           null,
           null,
           null,
           null
-        ],
-        "cellTotalModes": {
-          "5": "exclude"
-        }
+        ]
       },
       {
-        "id": "celularpf",
-        "label": "Celular PF",
+        "id": "net",
+        "label": "Net",
         "values": [
           null,
           null,
           null,
           null,
           null,
-          67,
+          90,
           null,
           null,
           null,
@@ -154,9 +152,7 @@
           null,
           null
         ],
-        "cellTotalModes": {
-          "5": "exclude"
-        }
+        "expenseGroup": "mercado"
       },
       {
         "id": "luzgas",
@@ -175,31 +171,49 @@
           null,
           null
         ],
-        "cellTotalModes": {
-          "5": "exclude"
-        }
+        "expenseGroup": "mercado"
       },
       {
-        "id": "net",
-        "label": "Net",
+        "id": "celularpf",
+        "label": "Celular PF",
         "values": [
           null,
           null,
           null,
           null,
           null,
-          90,
+          67,
           null,
           null,
           null,
           null,
           null,
           null
-        ]
+        ],
+        "expenseGroup": "mercado"
+      },
+      {
+        "id": "celularpj",
+        "label": "Celular PJ",
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          112,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "expenseGroup": "mercado"
       },
       {
         "id": "semparar",
-        "label": "C6 TAG PJ (Pajero)",
+        "label": "C6 TAG PJ",
         "values": [
           null,
           null,
@@ -214,20 +228,57 @@
           null,
           null
         ],
-        "cellTotalModes": {
-          "5": "exclude"
-        }
+        "expenseGroup": "gasolina"
       },
       {
-        "id": "d1780602862229",
-        "label": "Cabos e Soldados",
+        "id": "eg1781903060101",
+        "label": "Gas_18-06-26",
+        "expenseGroup": "gasolina",
         "values": [
           0,
           null,
           null,
           null,
           null,
-          100,
+          523,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "id": "eg1781903662921",
+        "label": "Gas_18-06-26",
+        "expenseGroup": "gasolina",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          61.6,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "id": "ee1781904084173",
+        "label": "Rose presente",
+        "expenseGroup": "extras",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          121.8,
           null,
           null,
           null,
@@ -253,13 +304,11 @@
           null,
           null
         ],
-        "cellTotalModes": {
-          "5": "exclude"
-        }
+        "expenseGroup": "extras"
       },
       {
-        "id": "d1780882453760",
-        "label": "ChatGPT",
+        "id": "d1780602862229",
+        "label": "A C S P M",
         "values": [
           0,
           null,
@@ -267,28 +316,6 @@
           null,
           null,
           100,
-          0,
-          null,
-          null,
-          null,
-          null,
-          null
-        ],
-        "cellTotalModes": {
-          "5": "exclude"
-        }
-      },
-      {
-        "id": "eg1781903060101",
-        "label": "18-06-2026",
-        "expenseGroup": "gasolina",
-        "values": [
-          0,
-          null,
-          null,
-          null,
-          null,
-          523,
           null,
           null,
           null,
@@ -296,87 +323,18 @@
           null,
           null
         ],
-        "cellTotalModes": {
-          "5": "exclude"
-        }
+        "expenseGroup": "extras"
       },
       {
-        "id": "ee1781903183817",
-        "label": "Rose 17-06-2026",
-        "expenseGroup": "extras",
+        "id": "d1780882453760",
+        "label": "ChatGPT_Codex",
         "values": [
           0,
           null,
           null,
           null,
           null,
-          3500,
-          0,
-          null,
-          null,
-          null,
-          null,
-          null
-        ],
-        "cellTotalModes": {
-          "5": "receitas"
-        }
-      },
-      {
-        "id": "ee1781903228766",
-        "label": "Rose 19-06-2026",
-        "expenseGroup": "extras",
-        "values": [
-          0,
-          null,
-          null,
-          null,
-          null,
-          1000,
-          0,
-          null,
-          null,
-          null,
-          null,
-          null
-        ],
-        "cellTotalModes": {
-          "5": "exclude"
-        }
-      },
-      {
-        "id": "eg1781903662921",
-        "label": "18-06-2026",
-        "expenseGroup": "gasolina",
-        "values": [
-          0,
-          null,
-          null,
-          null,
-          null,
-          61.6,
-          0,
-          null,
-          null,
-          null,
-          null,
-          null
-        ],
-        "cellTotalModes": {
-          "5": "exclude"
-        }
-      },
-      {
-        "id": "ee1781904084173",
-        "label": "Rose presente",
-        "expenseGroup": "extras",
-        "values": [
-          0,
-          null,
-          null,
-          null,
-          null,
-          121.8,
+          100,
           null,
           null,
           null,
@@ -384,32 +342,11 @@
           null,
           null
         ],
-        "cellTotalModes": {
-          "5": "exclude"
-        }
-      },
-      {
-        "id": "em1781906897736",
-        "label": "Mercado 2",
-        "expenseGroup": "mercado",
-        "values": [
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-        ]
+        "expenseGroup": "extras"
       },
       {
         "id": "eg1782254456057",
-        "label": "22-06-2026",
+        "label": "Gas_22-06-26",
         "expenseGroup": "gasolina",
         "values": [
           0,
@@ -418,16 +355,13 @@
           null,
           null,
           522,
-          0,
+          null,
           null,
           null,
           null,
           null,
           null
-        ],
-        "cellTotalModes": {
-          "5": "exclude"
-        }
+        ]
       }
     ],
     "dividas": [
@@ -449,10 +383,7 @@
           null,
           null
         ],
-        "oldDebt": true,
-        "cellTotalModes": {
-          "1": "exclude"
-        }
+        "oldDebt": true
       },
       {
         "id": "d1780674435288",
@@ -472,10 +403,7 @@
           null,
           null
         ],
-        "oldDebt": true,
-        "cellTotalModes": {
-          "1": "exclude"
-        }
+        "oldDebt": true
       },
       {
         "id": "patric",
@@ -495,10 +423,7 @@
           null,
           null
         ],
-        "oldDebt": true,
-        "cellTotalModes": {
-          "1": "exclude"
-        }
+        "oldDebt": true
       },
       {
         "id": "horto",
@@ -518,10 +443,7 @@
           null,
           null
         ],
-        "oldDebt": true,
-        "cellTotalModes": {
-          "1": "exclude"
-        }
+        "oldDebt": true
       },
       {
         "id": "mamud",
@@ -541,10 +463,7 @@
           null,
           null
         ],
-        "oldDebt": true,
-        "cellTotalModes": {
-          "1": "exclude"
-        }
+        "oldDebt": true
       },
       {
         "id": "lion",
@@ -564,33 +483,7 @@
           null,
           null
         ],
-        "oldDebt": true,
-        "cellTotalModes": {
-          "1": "exclude"
-        }
-      },
-      {
-        "id": "rose",
-        "label": "Rose",
-        "cid": "d-rose",
-        "values": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          2000,
-          0,
-          null,
-          null
-        ],
-        "oldDebt": true,
-        "cellTotalModes": {
-          "1": "exclude"
-        }
+        "oldDebt": true
       },
       {
         "id": "d1780602770884",
@@ -610,148 +503,7 @@
           null,
           null
         ],
-        "oldDebt": true,
-        "cellTotalModes": {
-          "1": "exclude"
-        }
-      },
-      {
-        "id": "d1780674913950",
-        "cid": "d1780674913950",
-        "label": "Mecânico Pajero Wil",
-        "values": [
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1100,
-          0,
-          null,
-          null
-        ],
-        "oldDebt": true,
-        "cellTotalModes": {
-          "1": "exclude"
-        }
-      },
-      {
-        "id": "d1780883009698",
-        "cid": "d1780883009698",
-        "label": "Seguro Loovi",
-        "values": [
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-        ],
-        "oldDebt": true,
-        "cellTotalModes": {
-          "1": "exclude"
-        }
-      },
-      {
-        "id": "d1780883639834",
-        "cid": "d1780883639834",
-        "label": "Imp. Renda 2026",
-        "values": [
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-        ],
-        "oldDebt": true,
-        "cellTotalModes": {
-          "1": "exclude"
-        }
-      },
-      {
-        "id": "d1780883308581",
-        "cid": "d1780883308581",
-        "label": "Imp. Renda 1",
-        "values": [
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-        ],
-        "oldDebt": true,
-        "cellTotalModes": {
-          "1": "exclude"
-        }
-      },
-      {
-        "id": "d1780883323926",
-        "cid": "d1780883323926",
-        "label": "Imp. Renda 2",
-        "values": [
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-        ],
-        "oldDebt": true,
-        "cellTotalModes": {
-          "1": "exclude"
-        }
-      },
-      {
-        "id": "d1780883463331",
-        "cid": "d1780883463331",
-        "label": "Imp. Renda 3",
-        "values": [
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-        ],
-        "oldDebt": true,
-        "cellTotalModes": {
-          "1": "exclude"
-        }
+        "oldDebt": true
       },
       {
         "id": "d1780602925764",
@@ -771,10 +523,127 @@
           null,
           null
         ],
-        "oldDebt": true,
-        "cellTotalModes": {
-          "1": "exclude"
-        }
+        "oldDebt": true
+      },
+      {
+        "id": "d1780674913950",
+        "cid": "d1780674913950",
+        "label": "Mecânico Pajero Wil",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1100,
+          0,
+          null,
+          null
+        ],
+        "oldDebt": true
+      },
+      {
+        "id": "d1780883009698",
+        "cid": "d1780883009698",
+        "label": "Seguro Loovi",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1200,
+          0,
+          null,
+          null
+        ],
+        "oldDebt": true
+      },
+      {
+        "id": "d1780883639834",
+        "cid": "d1780883639834",
+        "label": "Imp. Renda 2026",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "oldDebt": true
+      },
+      {
+        "id": "d1780883308581",
+        "cid": "d1780883308581",
+        "label": "Imp. Renda 1",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "oldDebt": true
+      },
+      {
+        "id": "d1780883323926",
+        "cid": "d1780883323926",
+        "label": "Imp. Renda 2",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "oldDebt": true
+      },
+      {
+        "id": "d1780883463331",
+        "cid": "d1780883463331",
+        "label": "Imp. Renda 3",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "oldDebt": true
       },
       {
         "id": "pmdebt-097292-banco-bradesco-s-a-1",
@@ -795,11 +664,7 @@
           null
         ],
         "source": "payslipDebt",
-        "payslipDebtKey": "097292-banco-bradesco-s-a-1",
-        "cellTotalModes": {
-          "1": "exclude",
-          "5": "exclude"
-        }
+        "payslipDebtKey": "097292-banco-bradesco-s-a-1"
       },
       {
         "id": "pmdebt-097292-banco-bradesco-s-a-2",
@@ -820,11 +685,7 @@
           null
         ],
         "source": "payslipDebt",
-        "payslipDebtKey": "097292-banco-bradesco-s-a-2",
-        "cellTotalModes": {
-          "1": "exclude",
-          "5": "exclude"
-        }
+        "payslipDebtKey": "097292-banco-bradesco-s-a-2"
       },
       {
         "id": "pmdebt-097293-banco-santander-brasil-s-a-1",
@@ -845,11 +706,7 @@
           null
         ],
         "source": "payslipDebt",
-        "payslipDebtKey": "097293-banco-santander-brasil-s-a-1",
-        "cellTotalModes": {
-          "1": "exclude",
-          "5": "exclude"
-        }
+        "payslipDebtKey": "097293-banco-santander-brasil-s-a-1"
       },
       {
         "id": "pmdebt-097294-banco-daycoval-s-a-1",
@@ -870,11 +727,7 @@
           null
         ],
         "source": "payslipDebt",
-        "payslipDebtKey": "097294-banco-daycoval-s-a-1",
-        "cellTotalModes": {
-          "1": "exclude",
-          "5": "exclude"
-        }
+        "payslipDebtKey": "097294-banco-daycoval-s-a-1"
       },
       {
         "id": "pmdebt-097294-banco-daycoval-s-a-2",
@@ -895,11 +748,7 @@
           null
         ],
         "source": "payslipDebt",
-        "payslipDebtKey": "097294-banco-daycoval-s-a-2",
-        "cellTotalModes": {
-          "1": "exclude",
-          "5": "exclude"
-        }
+        "payslipDebtKey": "097294-banco-daycoval-s-a-2"
       },
       {
         "id": "pmdebt-097296-banco-bmg-s-a-1",
@@ -920,11 +769,7 @@
           null
         ],
         "source": "payslipDebt",
-        "payslipDebtKey": "097296-banco-bmg-s-a-1",
-        "cellTotalModes": {
-          "1": "exclude",
-          "5": "exclude"
-        }
+        "payslipDebtKey": "097296-banco-bmg-s-a-1"
       },
       {
         "id": "pmdebt-097296-banco-bmg-s-a-2",
@@ -945,11 +790,7 @@
           null
         ],
         "source": "payslipDebt",
-        "payslipDebtKey": "097296-banco-bmg-s-a-2",
-        "cellTotalModes": {
-          "1": "exclude",
-          "5": "exclude"
-        }
+        "payslipDebtKey": "097296-banco-bmg-s-a-2"
       },
       {
         "id": "pmdebt-097302-banco-safra-s-a-1",
@@ -970,11 +811,7 @@
           null
         ],
         "source": "payslipDebt",
-        "payslipDebtKey": "097302-banco-safra-s-a-1",
-        "cellTotalModes": {
-          "1": "exclude",
-          "5": "exclude"
-        }
+        "payslipDebtKey": "097302-banco-safra-s-a-1"
       },
       {
         "id": "pmdebt-097352-eagle-sociedade-de-credito-direto-s-a-1",
@@ -995,33 +832,64 @@
           null
         ],
         "source": "payslipDebt",
-        "payslipDebtKey": "097352-eagle-sociedade-de-credito-direto-s-a-1",
-        "cellTotalModes": {
-          "1": "exclude",
-          "5": "exclude"
-        }
+        "payslipDebtKey": "097352-eagle-sociedade-de-credito-direto-s-a-1"
       },
       {
-        "id": "d1780882408823",
-        "cid": "d1780882408823",
-        "label": "ChatGPT",
+        "id": "d1782407620519",
+        "cid": "d1782407620519",
+        "label": "Rose Emp",
         "values": [
           0,
           null,
           null,
           null,
           null,
-          null,
-          null,
+          1000,
+          0,
           null,
           null,
           null,
           null,
           null
-        ],
-        "cellTotalModes": {
-          "1": "exclude"
-        }
+        ]
+      },
+      {
+        "id": "d1782407630266",
+        "cid": "d1782407630266",
+        "label": "Rose ACS",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          1000,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "id": "d1782407648519",
+        "cid": "d1782407648519",
+        "label": "Rose Cartão",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          2500,
+          0,
+          1500,
+          null,
+          null,
+          null,
+          null
+        ]
       },
       {
         "id": "d1780883535829",
@@ -1033,17 +901,14 @@
           null,
           null,
           null,
-          null,
+          63.55,
           null,
           null,
           null,
           null,
           null,
           null
-        ],
-        "cellTotalModes": {
-          "1": "exclude"
-        }
+        ]
       },
       {
         "id": "d1780883555087",
@@ -1055,40 +920,49 @@
           null,
           null,
           null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-        ],
-        "cellTotalModes": {
-          "1": "exclude"
-        }
-      },
-      {
-        "id": "d1781903475923",
-        "cid": "d1781903475923",
-        "label": "Multas Pedágio",
-        "values": [
-          0,
-          null,
-          null,
-          null,
-          null,
-          125.45,
-          0,
+          155.44,
+          246.79,
           null,
           null,
           null,
           null,
           null
-        ],
-        "cellTotalModes": {
-          "1": "exclude"
-        }
+        ]
       }
+    ],
+    "sectionLabels": {
+      "receitas": "RECEITAS",
+      "despesas": "DESPESAS",
+      "dividas": "DÍVIDAS"
+    },
+    "summaryLabels": {
+      "commitments": "DESPESAS + DÍVIDAS",
+      "cashflow": "FLUXO DE CAIXA"
+    },
+    "sectionOrder": [
+      "receitas",
+      "despesas",
+      "dividas"
+    ],
+    "customGroups": {
+      "receitas": [],
+      "despesas": [],
+      "dividas": []
+    },
+    "expenseGroupLabels": {
+      "extras": "Extras",
+      "gasolina": "Carro",
+      "mercado": "Casa"
+    },
+    "debtGroupLabels": {
+      "payslip": "Holêrite",
+      "old": "Antigas",
+      "current": "Atuais"
+    },
+    "debtGroupOrder": [
+      "payslip",
+      "old",
+      "current"
     ]
   },
   "creditors": [
@@ -1114,7 +988,7 @@
         {
           "fileName": "Bradesco Contrato 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Bradesco Contrato 469_15.pdf",
-          "uploadedAt": "2026-06-24T04:01:50.516Z",
+          "uploadedAt": "2026-06-27T00:58:09.863Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -1128,7 +1002,7 @@
         {
           "fileName": "Descritivo de Crédito 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Descritivo de Crédito 469_15.pdf",
-          "uploadedAt": "2026-06-24T04:01:50.518Z",
+          "uploadedAt": "2026-06-27T00:58:09.863Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -2035,7 +1909,7 @@
         {
           "fileName": "Saldo Devedor 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Saldo Devedor 469_15.pdf",
-          "uploadedAt": "2026-06-24T04:01:50.518Z",
+          "uploadedAt": "2026-06-27T00:58:09.864Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -4952,7 +4826,7 @@
       "id": "d-horto",
       "name": "Horto",
       "monthly": 2800,
-      "installments": 12,
+      "installments": 1,
       "paid": 0,
       "saldo": 33600,
       "oferta": 10080,
@@ -4970,7 +4844,7 @@
       "id": "d-mamud",
       "name": "Mamud",
       "monthly": 2800,
-      "installments": 12,
+      "installments": 4,
       "paid": 0,
       "saldo": 31200,
       "oferta": 9360,
@@ -5003,24 +4877,6 @@
       "contratos": []
     },
     {
-      "id": "d-rose",
-      "name": "Rose",
-      "monthly": 2000,
-      "installments": 1,
-      "paid": 0,
-      "saldo": 1400,
-      "oferta": 1000,
-      "prazo": "",
-      "priority": "media",
-      "status": "ativo",
-      "notes": "Jan/26 apenas",
-      "pendurada": false,
-      "prazoInicial": "",
-      "contrato": null,
-      "valuesSource": "sheet",
-      "contratos": []
-    },
-    {
       "id": "d1780602770884",
       "name": "Colonia CSd",
       "monthly": 2800,
@@ -5039,10 +4895,28 @@
       "contratos": []
     },
     {
+      "id": "d1780602925764",
+      "name": "Cabos e Soldados At",
+      "monthly": 600,
+      "installments": 1,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "valuesSource": "sheet",
+      "contratos": []
+    },
+    {
       "id": "d1780674913950",
       "name": "Mecânico Pajero Wil",
       "monthly": 1100,
-      "installments": 12,
+      "installments": 1,
       "paid": 0,
       "saldo": 0,
       "oferta": 0,
@@ -5059,8 +4933,8 @@
     {
       "id": "d1780883009698",
       "name": "Seguro Loovi",
-      "monthly": 0,
-      "installments": 12,
+      "monthly": 1200,
+      "installments": 4,
       "paid": 0,
       "saldo": 0,
       "oferta": 0,
@@ -5147,9 +5021,9 @@
       "contratos": []
     },
     {
-      "id": "d1780602925764",
-      "name": "Cabos e Soldados At",
-      "monthly": 600,
+      "id": "d1782407620519",
+      "name": "Rose Emp",
+      "monthly": 1000,
       "installments": 12,
       "paid": 0,
       "saldo": 0,
@@ -5161,13 +5035,31 @@
       "notes": "",
       "pendurada": false,
       "contrato": null,
-      "valuesSource": "sheet",
-      "contratos": []
+      "contratos": [],
+      "valuesSource": "sheet"
     },
     {
-      "id": "d1780882408823",
-      "name": "ChatGPT",
-      "monthly": 0,
+      "id": "d1782407630266",
+      "name": "Rose ACS",
+      "monthly": 1000,
+      "installments": 1,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "negociado",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "contratos": [],
+      "valuesSource": "sheet"
+    },
+    {
+      "id": "d1782407648519",
+      "name": "Rose Cartão",
+      "monthly": 1500,
       "installments": 12,
       "paid": 0,
       "saldo": 0,
@@ -5179,13 +5071,13 @@
       "notes": "",
       "pendurada": false,
       "contrato": null,
-      "valuesSource": "sheet",
-      "contratos": []
+      "contratos": [],
+      "valuesSource": "sheet"
     },
     {
       "id": "d1780883535829",
       "name": "VivoPF",
-      "monthly": 0,
+      "monthly": 63.55,
       "installments": 12,
       "paid": 0,
       "saldo": 0,
@@ -5203,7 +5095,7 @@
     {
       "id": "d1780883555087",
       "name": "Vivo PJ",
-      "monthly": 0,
+      "monthly": 246.79,
       "installments": 12,
       "paid": 0,
       "saldo": 0,
@@ -5217,24 +5109,6 @@
       "contrato": null,
       "valuesSource": "sheet",
       "contratos": []
-    },
-    {
-      "id": "d1781903475923",
-      "name": "Multas Pedágio",
-      "monthly": 125.45,
-      "installments": 12,
-      "paid": 0,
-      "saldo": 0,
-      "oferta": 0,
-      "prazo": "",
-      "prazoInicial": "",
-      "priority": "normal",
-      "status": "ativo",
-      "notes": "",
-      "pendurada": false,
-      "contrato": null,
-      "contratos": [],
-      "valuesSource": "sheet"
     }
   ],
   "ir": {
@@ -5476,6 +5350,59 @@
       "credits": {},
       "discounts": {}
     }
+  },
+  "investments": {
+    "horizonMonths": 12,
+    "inflationAnnual": 0,
+    "broker": {
+      "name": "Dukascopy",
+      "platform": "MetaTrader 5",
+      "accountLabel": "Conta manual",
+      "currency": "USD",
+      "balance": 0,
+      "fxRate": 0,
+      "monthlyContribution": 0,
+      "expectedAnnualRate": 0,
+      "riskPerTrade": 1
+    },
+    "allocations": [
+      {
+        "id": "inv-acoes",
+        "category": "Ações",
+        "strategy": "Carteira de ações",
+        "current": 0,
+        "monthly": 0,
+        "annualRate": 0,
+        "targetPct": 0
+      },
+      {
+        "id": "inv-renda-fixa",
+        "category": "Renda fixa",
+        "strategy": "Pós, prefixado ou IPCA+",
+        "current": 0,
+        "monthly": 0,
+        "annualRate": 0,
+        "targetPct": 0
+      },
+      {
+        "id": "inv-opcoes",
+        "category": "Opções",
+        "strategy": "Proteção e operações estruturadas",
+        "current": 0,
+        "monthly": 0,
+        "annualRate": 0,
+        "targetPct": 0
+      },
+      {
+        "id": "inv-reserva",
+        "category": "Reserva",
+        "strategy": "Liquidez e margem",
+        "current": 0,
+        "monthly": 0,
+        "annualRate": 0,
+        "targetPct": 0
+      }
+    ]
   },
   "debtGroupTotalModes": {
     "payslip": "",
