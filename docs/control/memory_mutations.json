@@ -1,27 +1,6 @@
 {
   "mutations": [
     {
-      "timestamp": "2026-06-09T00:25:41-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-09T00:29:03-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260609-0002: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-09T00:29:06-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260609-0003",
-      "mutated_by": "dashboard",
-      "project_id": null
-    },
-    {
       "timestamp": "2026-06-09T00:29:06-03:00",
       "memory_scope": "session_startup",
       "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
@@ -2097,6 +2076,27 @@
       "timestamp": "2026-06-27T18:16:24-03:00",
       "memory_scope": "session_shutdown",
       "diff_summary": "Scribe encerrou SES-20260627-0008: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-27T18:17:20-03:00",
+      "memory_scope": "cloud_sync",
+      "diff_summary": "Cloud sync SYNC-20260627-1782594984600: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.) Copia D: success (Espelho local atualizado em D:\\Antigravity-SommersStore\\workspace.)",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-27T19:45:04-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260627-0009",
+      "mutated_by": "dashboard",
+      "project_id": "electro"
+    },
+    {
+      "timestamp": "2026-06-27T21:45:33-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260627-0009: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "mutated_by": "human",
       "project_id": null
     }

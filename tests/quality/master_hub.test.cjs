@@ -344,6 +344,7 @@ function testIntegrationPoints() {
   assert.match(dashboardHtml, /fin2RenderAdjustedTotalRow\(`expense:\$\{config\.key\}`/, 'Financas expense subtabs should render adjusted totals directly below their gross totals');
   assert.match(dashboardHtml, /fin2RenderAdjustedTotalRow\(`debt:\$\{totalKind\}`/, 'Financas debt subtabs should render adjusted totals directly below their gross totals');
   assert.match(dashboardHtml, /\.fin2-adjusted-total-row td \{[\s\S]*?opacity:\.56;/, 'Financas adjusted total rows should remain visually subdued');
+  assert.match(dashboardHtml, /\.fin2-adjusted-receitas \.fin2-sh-tot \{ color:#f472b6; \}/, 'Financas adjusted Receitas values should use the requested pink color');
   assert.match(dashboardHtml, /function fin2RenderDebtGroupTotalControls\(kind\)/, 'Financas should render subtle total controls on debt group rows');
   assert.match(dashboardHtml, /data-fin2-debt-group-total-kind="\$\{totalKind\}"/, 'Financas payslip debt group row should expose its total-control kind when rendered inside Dividas');
   assert.match(dashboardHtml, /const FIN2_DEBT_GROUP_DEFAULT_LABELS = \{ payslip: 'Dívidas holê', old: 'Dívidas anti', current: 'Dívidas atua' \};/, 'Financas should keep compact editable defaults for debt subgroup labels');

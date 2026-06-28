@@ -106,6 +106,7 @@
 - [x] Corrigir alinhamento da primeira coluna e arrastar/soltar de secoes, subabas vazias e subgrupos de Financas
 - [x] Uniformizar colunas extremas e permitir ordem livre de Pagamento PM, Despesas PM, subabas e grupos de Dividas
 - [x] Fazer quitacoes de Despesas e Dividas abaterem simultaneamente a Receita ajustada
+- [x] Deixar em pink os numeros da linha esmaecida abaixo de Receitas
 
 ## Pending Work
 - [x] Handoff UX Master > Clones: remover gaveta lateral grande/flutuante e restaurar abertura dos clones dentro do `Inspector` compacto existente.
@@ -196,6 +197,11 @@
 - [x] Corrigir regressao visual que fazia `Financas` abrir direto em `Dividas/Acordos` em vez de `Planilha`
 
 ## Done in this session
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Checkpoint: CHK-MEM-0755
+
 - [x] Sessao encerrada pelo usuario.
 - [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
 - [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
@@ -695,4 +701,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-06-27T18:16:23-03:00
+- updated_at: 2026-06-27T21:45:33-03:00
