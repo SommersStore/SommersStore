@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-28T00:45:33.158Z",
+  "updated_at": "2026-06-30T21:39:01.284Z",
   "sheet": {
     "year": 2026,
     "receitas": [
@@ -26,17 +26,17 @@
         }
       },
       {
-        "id": "r1780117855502",
-        "label": "Rodoanel 2",
+        "id": "uber",
+        "label": "Rodoanel 1",
         "values": [
           null,
           null,
           null,
           null,
           null,
-          6174,
+          7070,
+          4851,
           5292,
-          null,
           null,
           null,
           null,
@@ -48,17 +48,17 @@
         }
       },
       {
-        "id": "uber",
-        "label": "Rodoanel 1",
+        "id": "r1780117855502",
+        "label": "Rodoanel 2",
         "values": [
           null,
           null,
           null,
           null,
           null,
-          7070,
-          4410,
+          6174,
           5292,
+          null,
           null,
           null,
           null,
@@ -103,14 +103,17 @@
           null,
           null,
           null,
-          300,
+          200,
           null,
           null,
           null,
           null,
           null,
           null
-        ]
+        ],
+        "cellTotalModes": {
+          "5": "exclude"
+        }
       },
       {
         "id": "net",
@@ -341,15 +344,18 @@
           null,
           null,
           null,
-          100,
           null,
+          100,
           null,
           null,
           null,
           null,
           null
         ],
-        "expenseGroup": "extras"
+        "expenseGroup": "extras",
+        "cellTotalModes": {
+          "5": "exclude"
+        }
       },
       {
         "id": "d1780882453760",
@@ -368,7 +374,10 @@
           null,
           null
         ],
-        "expenseGroup": "extras"
+        "expenseGroup": "extras",
+        "cellTotalModes": {
+          "5": "exclude"
+        }
       },
       {
         "id": "eg1782254456057",
@@ -382,6 +391,50 @@
           null,
           522,
           null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "ee1782781073799",
+        "label": "Flor mãe da Ingrid",
+        "expenseGroup": "extras",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          61,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "eg1782781131776",
+        "label": "Gas_28-06-26",
+        "expenseGroup": "gasolina",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          400,
+          0,
           null,
           null,
           null,
@@ -979,7 +1032,7 @@
       {
         "id": "d1782407648519",
         "cid": "d1782407648519",
-        "label": "Rose Cartão",
+        "label": "Rose Ações",
         "values": [
           0,
           null,
@@ -989,6 +1042,28 @@
           2500,
           0,
           1500,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "d1782782192879",
+        "cid": "d1782782192879",
+        "label": "Rose Cartão",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          3200,
+          0,
+          null,
           null,
           null,
           null,
@@ -1093,9 +1168,9 @@
     ],
     "topLevelOrder": {
       "receitas": [
-        "row:pm",
         "custom:custom-rodoanel",
-        "custom:custom-outros"
+        "custom:custom-outros",
+        "row:pm"
       ],
       "despesas": [
         "row:pm_despesas",
@@ -1134,7 +1209,7 @@
         {
           "fileName": "Bradesco Contrato 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Bradesco Contrato 469_15.pdf",
-          "uploadedAt": "2026-06-27T22:45:04.239Z",
+          "uploadedAt": "2026-06-30T21:38:06.011Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -1148,7 +1223,7 @@
         {
           "fileName": "Descritivo de Crédito 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Descritivo de Crédito 469_15.pdf",
-          "uploadedAt": "2026-06-27T22:45:04.239Z",
+          "uploadedAt": "2026-06-30T21:38:06.012Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -2055,7 +2130,7 @@
         {
           "fileName": "Saldo Devedor 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Saldo Devedor 469_15.pdf",
-          "uploadedAt": "2026-06-27T22:45:04.239Z",
+          "uploadedAt": "2026-06-30T21:38:06.012Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -4953,8 +5028,26 @@
     },
     {
       "id": "d1782407648519",
-      "name": "Rose Cartão",
+      "name": "Rose Ações",
       "monthly": 1500,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 0,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "normal",
+      "status": "ativo",
+      "notes": "",
+      "pendurada": false,
+      "contrato": null,
+      "contratos": [],
+      "valuesSource": "sheet"
+    },
+    {
+      "id": "d1782782192879",
+      "name": "Rose Cartão",
+      "monthly": 3200,
       "installments": 12,
       "paid": 0,
       "saldo": 0,
