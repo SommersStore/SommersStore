@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-30T21:39:01.284Z",
+  "updated_at": "2026-07-01T01:24:56.457Z",
   "sheet": {
     "year": 2026,
     "receitas": [
@@ -22,7 +22,13 @@
           9260.17
         ],
         "cellTotalModes": {
-          "5": "include"
+          "5": "include",
+          "6": "include",
+          "7": "include",
+          "8": "include",
+          "9": "include",
+          "10": "include",
+          "11": "include"
         }
       },
       {
@@ -44,7 +50,13 @@
         ],
         "customGroup": "custom-rodoanel",
         "cellTotalModes": {
-          "5": "include"
+          "5": "include",
+          "6": "include",
+          "7": "include",
+          "8": "include",
+          "9": "include",
+          "10": "include",
+          "11": "include"
         }
       },
       {
@@ -57,7 +69,7 @@
           null,
           null,
           6174,
-          5292,
+          4100,
           null,
           null,
           null,
@@ -66,7 +78,40 @@
         ],
         "customGroup": "custom-rodoanel",
         "cellTotalModes": {
-          "5": "include"
+          "5": "include",
+          "6": "include",
+          "7": "include",
+          "8": "include",
+          "9": "include",
+          "10": "include",
+          "11": "include"
+        }
+      },
+      {
+        "id": "rc1782868075451",
+        "label": "13º PM",
+        "customGroup": "custom-outros",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          3500,
+          0,
+          null,
+          3500
+        ],
+        "cellTotalModes": {
+          "6": "include",
+          "7": "include",
+          "8": "include",
+          "9": "include",
+          "10": "include",
+          "11": "include"
         }
       }
     ],
@@ -434,6 +479,28 @@
           null,
           null,
           400,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellTotalModes": {
+          "5": "exclude"
+        }
+      },
+      {
+        "id": "ee1782855785851",
+        "label": "Cobertor Rose",
+        "expenseGroup": "extras",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          100,
           0,
           null,
           null,
@@ -1107,7 +1174,7 @@
           null,
           155.44,
           246.79,
-          null,
+          130,
           null,
           null,
           null,
@@ -1168,9 +1235,9 @@
     ],
     "topLevelOrder": {
       "receitas": [
+        "row:pm",
         "custom:custom-rodoanel",
-        "custom:custom-outros",
-        "row:pm"
+        "custom:custom-outros"
       ],
       "despesas": [
         "row:pm_despesas",
@@ -1209,7 +1276,7 @@
         {
           "fileName": "Bradesco Contrato 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Bradesco Contrato 469_15.pdf",
-          "uploadedAt": "2026-06-30T21:38:06.011Z",
+          "uploadedAt": "2026-07-01T01:22:05.992Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -1223,7 +1290,7 @@
         {
           "fileName": "Descritivo de Crédito 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Descritivo de Crédito 469_15.pdf",
-          "uploadedAt": "2026-06-30T21:38:06.012Z",
+          "uploadedAt": "2026-07-01T01:22:05.992Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -2130,7 +2197,7 @@
         {
           "fileName": "Saldo Devedor 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Saldo Devedor 469_15.pdf",
-          "uploadedAt": "2026-06-30T21:38:06.012Z",
+          "uploadedAt": "2026-07-01T01:22:05.992Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -5083,7 +5150,7 @@
     {
       "id": "d1780883555087",
       "name": "Vivo PJ",
-      "monthly": 246.79,
+      "monthly": 130,
       "installments": 12,
       "paid": 0,
       "saldo": 0,

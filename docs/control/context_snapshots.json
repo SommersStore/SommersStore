@@ -1,14 +1,6 @@
 {
   "snapshots": [
     {
-      "id": "CTX-20260626-0187",
-      "timestamp": "2026-06-26T21:19:11-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260626-0012",
-      "summary": "background",
-      "project_id": "electro"
-    },
-    {
       "id": "CTX-20260626-0188",
       "timestamp": "2026-06-26T21:19:55-03:00",
       "type": "session_pulse",
@@ -1865,6 +1857,14 @@
       "session_id": "SES-20260630-0001",
       "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "checkpoint_id": "CHK-MEM-0758"
+    },
+    {
+      "id": "CTX-20260630-0015",
+      "timestamp": "2026-06-30T22:24:56-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260630-0002",
+      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "checkpoint_id": "CHK-MEM-0759"
     }
   ]
 }

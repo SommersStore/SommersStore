@@ -1,20 +1,6 @@
 {
   "mutations": [
     {
-      "timestamp": "2026-06-09T16:25:24-03:00",
-      "memory_scope": "project_memory",
-      "diff_summary": "Story 2.78 concluida: linhas compactas Dividas Antigas e Dividas Atuais receberam os dois botoes sutis de totalizacao, com efeito nos totais de Dividas e Receitas e persistencia em debtGroupTotalModes.",
-      "mutated_by": "codex",
-      "project_id": "financas"
-    },
-    {
-      "timestamp": "2026-06-09T16:27:46-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260609-0005: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
       "timestamp": "2026-06-09T16:27:50-03:00",
       "memory_scope": "session_startup",
       "diff_summary": "Oracle iniciou SES-20260609-0006",
@@ -2097,6 +2083,20 @@
       "timestamp": "2026-06-30T18:39:01-03:00",
       "memory_scope": "session_shutdown",
       "diff_summary": "Scribe encerrou SES-20260630-0001: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-30T18:40:14-03:00",
+      "memory_scope": "cloud_sync",
+      "diff_summary": "Cloud sync SYNC-20260630-1782855541708: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.) Copia D: success (Espelho local atualizado em D:\\Antigravity-SommersStore\\workspace.)",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-06-30T22:24:56-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260630-0002: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "mutated_by": "human",
       "project_id": null
     }
