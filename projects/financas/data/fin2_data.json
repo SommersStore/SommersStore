@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-01T01:24:56.457Z",
+  "updated_at": "2026-07-05T15:55:31.798Z",
   "sheet": {
     "year": 2026,
     "receitas": [
@@ -23,12 +23,7 @@
         ],
         "cellTotalModes": {
           "5": "include",
-          "6": "include",
-          "7": "include",
-          "8": "include",
-          "9": "include",
-          "10": "include",
-          "11": "include"
+          "6": "include"
         }
       },
       {
@@ -51,12 +46,7 @@
         "customGroup": "custom-rodoanel",
         "cellTotalModes": {
           "5": "include",
-          "6": "include",
-          "7": "include",
-          "8": "include",
-          "9": "include",
-          "10": "include",
-          "11": "include"
+          "6": "include"
         }
       },
       {
@@ -79,12 +69,7 @@
         "customGroup": "custom-rodoanel",
         "cellTotalModes": {
           "5": "include",
-          "6": "include",
-          "7": "include",
-          "8": "include",
-          "9": "include",
-          "10": "include",
-          "11": "include"
+          "6": "include"
         }
       },
       {
@@ -106,12 +91,8 @@
           3500
         ],
         "cellTotalModes": {
-          "6": "include",
-          "7": "include",
-          "8": "include",
-          "9": "include",
-          "10": "include",
-          "11": "include"
+          "5": "include",
+          "6": "include"
         }
       }
     ],
@@ -347,12 +328,12 @@
           0,
           0,
           0,
-          2661.1099999999997,
-          2661.1099999999997,
-          2661.1099999999997,
-          2661.1099999999997,
-          2661.1099999999997,
-          2661.1099999999997
+          2713.1099999999997,
+          2713.1099999999997,
+          2713.1099999999997,
+          2713.1099999999997,
+          2713.1099999999997,
+          2713.1099999999997
         ],
         "cellTotalModes": {
           "5": "exclude"
@@ -847,7 +828,7 @@
           null,
           null,
           469.15,
-          null,
+          469.15,
           null,
           null,
           null,
@@ -871,7 +852,7 @@
           null,
           null,
           1138.71,
-          null,
+          1138.71,
           null,
           null,
           null,
@@ -895,7 +876,7 @@
           null,
           null,
           82.47,
-          null,
+          82.47,
           null,
           null,
           null,
@@ -919,7 +900,7 @@
           null,
           null,
           208.44,
-          null,
+          208.44,
           null,
           null,
           null,
@@ -943,7 +924,7 @@
           null,
           null,
           34.11,
-          null,
+          34.11,
           null,
           null,
           null,
@@ -967,7 +948,7 @@
           null,
           null,
           313.92,
-          null,
+          313.92,
           null,
           null,
           null,
@@ -991,7 +972,7 @@
           null,
           null,
           74.97,
-          null,
+          74.97,
           null,
           null,
           null,
@@ -1015,7 +996,7 @@
           null,
           null,
           156,
-          null,
+          114.62,
           null,
           null,
           null,
@@ -1039,7 +1020,7 @@
           null,
           null,
           941.75,
-          null,
+          985.06,
           null,
           null,
           null,
@@ -1183,6 +1164,27 @@
         "cellTotalModes": {
           "5": "exclude"
         }
+      },
+      {
+        "id": "pmdebt-097302-banco-safra-s-a-2",
+        "cid": "pmdebt-097302-banco-safra-s-a-2",
+        "label": "Banco safra s/a",
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          156,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "source": "payslipDebt",
+        "payslipDebtKey": "097302-banco-safra-s-a-2"
       }
     ],
     "sectionLabels": {
@@ -1235,9 +1237,9 @@
     ],
     "topLevelOrder": {
       "receitas": [
-        "row:pm",
         "custom:custom-rodoanel",
-        "custom:custom-outros"
+        "custom:custom-outros",
+        "row:pm"
       ],
       "despesas": [
         "row:pm_despesas",
@@ -1276,7 +1278,7 @@
         {
           "fileName": "Bradesco Contrato 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Bradesco Contrato 469_15.pdf",
-          "uploadedAt": "2026-07-01T01:22:05.992Z",
+          "uploadedAt": "2026-07-05T15:28:51.708Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -1290,7 +1292,7 @@
         {
           "fileName": "Descritivo de Crédito 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Descritivo de Crédito 469_15.pdf",
-          "uploadedAt": "2026-07-01T01:22:05.992Z",
+          "uploadedAt": "2026-07-05T15:28:51.710Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -2197,7 +2199,7 @@
         {
           "fileName": "Saldo Devedor 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Saldo Devedor 469_15.pdf",
-          "uploadedAt": "2026-07-01T01:22:05.992Z",
+          "uploadedAt": "2026-07-05T15:28:51.710Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -5020,7 +5022,7 @@
     {
       "id": "pmdebt-097302-banco-safra-s-a-1",
       "name": "Banco safra s/a",
-      "monthly": 156,
+      "monthly": 114.62,
       "installments": 12,
       "paid": 0,
       "saldo": 1872,
@@ -5040,7 +5042,7 @@
     {
       "id": "pmdebt-097352-eagle-sociedade-de-credito-direto-s-a-1",
       "name": "Eagle sociedade de credito direto s.a",
-      "monthly": 941.75,
+      "monthly": 985.06,
       "installments": 12,
       "paid": 0,
       "saldo": 11301,
@@ -5056,6 +5058,26 @@
       "source": "payslipDebt",
       "payslipDebtKey": "097352-eagle-sociedade-de-credito-direto-s-a-1",
       "contratos": []
+    },
+    {
+      "id": "pmdebt-097302-banco-safra-s-a-2",
+      "name": "Banco safra s/a",
+      "monthly": 156,
+      "installments": 12,
+      "paid": 0,
+      "saldo": 1872,
+      "oferta": 0,
+      "prazo": "",
+      "prazoInicial": "",
+      "priority": "media",
+      "status": "ativo",
+      "notes": "Criada automaticamente a partir do desconto bancario no holerite PM.",
+      "pendurada": false,
+      "contrato": null,
+      "contratos": [],
+      "valuesSource": "payslipDebt",
+      "source": "payslipDebt",
+      "payslipDebtKey": "097302-banco-safra-s-a-2"
     },
     {
       "id": "d1782407620519",
@@ -5622,9 +5644,161 @@
         }
       },
       {
-        "file": null,
-        "credits": [],
-        "discounts": []
+        "file": {
+          "name": "Holerite Julho 2026.pdf",
+          "url": "/docs/uploads/1783266686492_Holerite_Julho_2026.pdf",
+          "uploaded_at": "2026-07-05T15:51:26.535Z"
+        },
+        "credits": [
+          {
+            "id": "pm-001001-1",
+            "code": "001001",
+            "label": "Salario base (padrao)",
+            "value": 2772.19
+          },
+          {
+            "id": "pm-003939-2",
+            "code": "003939",
+            "label": "Hora aula incorporação art 9º , lc 731",
+            "value": 19.78
+          },
+          {
+            "id": "pm-004001-3",
+            "code": "004001",
+            "label": "Retp-regime especial trab.poli",
+            "value": 2772.19
+          },
+          {
+            "id": "pm-008051-4",
+            "code": "008051",
+            "label": "Sexta-parte s/ venc integr",
+            "value": 1191.93
+          },
+          {
+            "id": "pm-008087-5",
+            "code": "008087",
+            "label": "Adic. tempo de servico - a. jud",
+            "value": 1587.46
+          },
+          {
+            "id": "pm-010009-6",
+            "code": "010009",
+            "label": "Sexta-parte s/adic. insalubridade",
+            "value": 130.95
+          },
+          {
+            "id": "pm-012005-7",
+            "code": "012005",
+            "label": "Adic.insalubridade inativo(40%)-efp",
+            "value": 785.67
+          }
+        ],
+        "discounts": [
+          {
+            "id": "pm-070012-8",
+            "code": "070012",
+            "label": "Imposto de renda",
+            "value": 1255.59
+          },
+          {
+            "id": "pm-070018-9",
+            "code": "070018",
+            "label": "Cbpm - contribuicao de assist.",
+            "value": 185.2
+          },
+          {
+            "id": "pm-070060-10",
+            "code": "070060",
+            "label": "Contrib. previd. 11% - l.c. 1013/2007",
+            "value": 86.31
+          },
+          {
+            "id": "pm-078006-11",
+            "code": "078006",
+            "label": "Desconto pensao alimenticia -a/",
+            "value": 1114.01
+          },
+          {
+            "id": "pm-080018-12",
+            "code": "080018",
+            "label": "Cbpm-coopart. lc1353 par. 3?-art.30",
+            "value": 52
+          },
+          {
+            "id": "pm-097182-13",
+            "code": "097182",
+            "label": "Assoc. benef. pro saude pmesp-propm",
+            "value": 20
+          },
+          {
+            "id": "pm-097292-14",
+            "code": "097292",
+            "label": "Banco bradesco s/a",
+            "value": 469.15
+          },
+          {
+            "id": "pm-097292-15",
+            "code": "097292",
+            "label": "Banco bradesco s/a",
+            "value": 1138.71
+          },
+          {
+            "id": "pm-097293-16",
+            "code": "097293",
+            "label": "Banco santander brasil s/a",
+            "value": 82.47
+          },
+          {
+            "id": "pm-097294-17",
+            "code": "097294",
+            "label": "Banco daycoval s/a",
+            "value": 208.44
+          },
+          {
+            "id": "pm-097294-18",
+            "code": "097294",
+            "label": "Banco daycoval s/a",
+            "value": 34.11
+          },
+          {
+            "id": "pm-097296-19",
+            "code": "097296",
+            "label": "Banco bmg s/a",
+            "value": 313.92
+          },
+          {
+            "id": "pm-097296-20",
+            "code": "097296",
+            "label": "Banco bmg s/a",
+            "value": 74.97
+          },
+          {
+            "id": "pm-097302-21",
+            "code": "097302",
+            "label": "Banco safra s/a",
+            "value": 114.62
+          },
+          {
+            "id": "pm-097302-22",
+            "code": "097302",
+            "label": "Banco safra s/a",
+            "value": 156
+          },
+          {
+            "id": "pm-097352-23",
+            "code": "097352",
+            "label": "Eagle sociedade de credito direto s.a",
+            "value": 985.06
+          }
+        ],
+        "extraction": {
+          "engine": "pdf-parse",
+          "extracted_at": "2026-07-05T12:51:26-03:00",
+          "credits_count": 7,
+          "discounts_count": 16,
+          "credits_total": 9260.17,
+          "discounts_total": 6290.5599999999995
+        }
       },
       {
         "file": null,

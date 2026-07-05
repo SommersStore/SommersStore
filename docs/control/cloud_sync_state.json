@@ -2,32 +2,32 @@
   "auto_sync_memory": false,
   "in_progress": true,
   "pending_trigger": null,
-  "last_sync_id": "SYNC-20260630-1782869096777",
+  "last_sync_id": "SYNC-20260705-1783266932794",
   "last_status": "running",
   "last_summary": "Sincronizacao em andamento...",
   "last_trigger": "save_all_one_click",
   "last_scope": "all",
   "last_target": "all",
-  "last_started_at": "2026-06-30T22:24:56-03:00",
-  "last_completed_at": "2026-06-30T18:40:14-03:00",
+  "last_started_at": "2026-07-05T12:55:32-03:00",
+  "last_completed_at": "2026-06-30T22:25:45-03:00",
   "github": {
     "status": "success",
     "note": "Commit e push enviados ao GitHub.",
     "scope": "all",
     "changed_files": 0,
-    "commit_message": "chore(workspace): cloud sync 2026-06-30 18:39:01 (save_all_one_click)",
+    "commit_message": "chore(workspace): cloud sync 2026-06-30 22:24:56 (save_all_one_click)",
     "branch": "master"
   },
   "firebase": {
     "status": "success",
     "note": "Deploy Firebase Hosting concluido.",
-    "duration_ms": 35296
+    "duration_ms": 19785
   },
   "mirror": {
     "status": "success",
     "note": "Espelho local confirmado em D:\\Antigravity-SommersStore\\workspace.",
     "destination": "D:\\Antigravity-SommersStore\\workspace",
-    "completed_at": "2026-07-01T00:17:07.977Z",
+    "completed_at": "2026-07-05T15:32:08.950Z",
     "state_file": "D:\\Antigravity-SommersStore\\sync-state.json"
   }
 }

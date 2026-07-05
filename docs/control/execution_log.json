@@ -1,136 +1,6 @@
 {
   "entries": [
     {
-      "id": "LOG-20260623-0060",
-      "type": "session_pulse",
-      "target": "SES-20260623-0003",
-      "initiated_by": "dashboard",
-      "project_id": null,
-      "timestamp": "2026-06-23T18:38:02-03:00",
-      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
-      "id": "LOG-20260623-0061",
-      "type": "session_pulse",
-      "target": "SES-20260623-0003",
-      "initiated_by": "dashboard",
-      "project_id": null,
-      "timestamp": "2026-06-23T18:45:19-03:00",
-      "details": "background",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
-      "id": "LOG-20260623-0062",
-      "type": "session_pulse",
-      "target": "SES-20260623-0003",
-      "initiated_by": "dashboard",
-      "project_id": null,
-      "timestamp": "2026-06-23T18:45:29-03:00",
-      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
-      "id": "LOG-20260623-0063",
-      "type": "session_pulse",
-      "target": "SES-20260623-0003",
-      "initiated_by": "dashboard",
-      "project_id": null,
-      "timestamp": "2026-06-23T18:52:35-03:00",
-      "details": "background",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
-      "id": "LOG-20260623-0064",
-      "type": "session_pulse",
-      "target": "SES-20260623-0003",
-      "initiated_by": "dashboard",
-      "project_id": null,
-      "timestamp": "2026-06-23T18:52:42-03:00",
-      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
-      "id": "LOG-20260623-0065",
-      "type": "session_pulse",
-      "target": "SES-20260623-0003",
-      "initiated_by": "dashboard",
-      "project_id": null,
-      "timestamp": "2026-06-23T19:03:13-03:00",
-      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
-      "id": "LOG-20260623-0066",
-      "type": "session_pulse",
-      "target": "SES-20260623-0003",
-      "initiated_by": "dashboard",
-      "project_id": null,
-      "timestamp": "2026-06-23T19:13:14-03:00",
-      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
-      "id": "LOG-20260623-0067",
-      "type": "session_close",
-      "target": "SES-20260623-0003",
-      "initiated_by": "system",
-      "project_id": null,
-      "timestamp": "2026-06-23T19:24:01-03:00",
-      "details": "Encerramento automatico (fechamento de aba/janela).",
-      "why_this_ran": "Scribe shutdown automatico"
-    },
-    {
-      "id": "LOG-20260623-0068",
-      "type": "session_start",
-      "target": "SES-20260623-0004",
-      "initiated_by": "dashboard",
-      "project_id": null,
-      "timestamp": "2026-06-23T19:24:06-03:00",
-      "details": "Oracle startup automatico executado",
-      "why_this_ran": "Context flash inicial"
-    },
-    {
-      "id": "LOG-20260623-0069",
-      "type": "session_pulse",
-      "target": "SES-20260623-0004",
-      "initiated_by": "dashboard",
-      "project_id": "electro",
-      "timestamp": "2026-06-23T19:24:56-03:00",
-      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
-      "id": "LOG-20260623-0070",
-      "type": "session_pulse",
-      "target": "SES-20260623-0004",
-      "initiated_by": "dashboard",
-      "project_id": "electro",
-      "timestamp": "2026-06-23T19:25:08-03:00",
-      "details": "background",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
-      "id": "LOG-20260623-0071",
-      "type": "session_pulse",
-      "target": "SES-20260623-0004",
-      "initiated_by": "dashboard",
-      "project_id": "electro",
-      "timestamp": "2026-06-23T19:25:59-03:00",
-      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
-      "id": "LOG-20260623-0072",
-      "type": "session_pulse",
-      "target": "SES-20260623-0004",
-      "initiated_by": "dashboard",
-      "project_id": "electro",
-      "timestamp": "2026-06-23T19:26:20-03:00",
-      "details": "background",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
       "id": "LOG-20260623-0073",
       "type": "session_pulse",
       "target": "SES-20260623-0004",
@@ -4997,6 +4867,136 @@
       "initiated_by": "human",
       "project_id": "sais",
       "timestamp": "2026-06-30T22:24:56-03:00",
+      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260630-0017",
+      "type": "cloud_sync",
+      "target": "SYNC-20260630-1782869096777",
+      "initiated_by": "human",
+      "project_id": "sais",
+      "timestamp": "2026-06-30T22:25:45-03:00",
+      "details": "Cloud sync SYNC-20260630-1782869096777: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.) Copia D: success (Espelho local atualizado em D:\\Antigravity-SommersStore\\workspace.)",
+      "why_this_ran": "target=all; scope=all; trigger=save_all_one_click"
+    },
+    {
+      "id": "LOG-20260705-0001",
+      "type": "session_start",
+      "target": "SES-20260705-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-07-05T12:28:49-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260705-0002",
+      "type": "session_pulse",
+      "target": "SES-20260705-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-07-05T12:29:46-03:00",
+      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260705-0003",
+      "type": "session_pulse",
+      "target": "SES-20260705-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-07-05T12:39:46-03:00",
+      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260705-0004",
+      "type": "session_pulse",
+      "target": "SES-20260705-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-07-05T12:42:19-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260705-0005",
+      "type": "session_pulse",
+      "target": "SES-20260705-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-07-05T12:42:48-03:00",
+      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260705-0006",
+      "type": "session_pulse",
+      "target": "SES-20260705-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-07-05T12:42:48-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260705-0007",
+      "type": "session_pulse",
+      "target": "SES-20260705-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-07-05T12:43:45-03:00",
+      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260705-0008",
+      "type": "session_pulse",
+      "target": "SES-20260705-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-07-05T12:46:45-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260705-0009",
+      "type": "session_pulse",
+      "target": "SES-20260705-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-07-05T12:46:45-03:00",
+      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260705-0010",
+      "type": "session_pulse",
+      "target": "SES-20260705-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-07-05T12:47:29-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260705-0011",
+      "type": "session_pulse",
+      "target": "SES-20260705-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-07-05T12:47:46-03:00",
+      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260705-0012",
+      "type": "session_close",
+      "target": "SES-20260705-0001",
+      "initiated_by": "human",
+      "project_id": "sais",
+      "timestamp": "2026-07-05T12:55:32-03:00",
       "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "why_this_ran": "Scribe shutdown automatico"
     }
