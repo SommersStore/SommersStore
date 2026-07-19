@@ -20,7 +20,29 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-07-05T12:55:32-03:00
+- updated_at: 2026-07-19T01:24:13-03:00
+
+## Handoff Atual - Financas Mobile Parcelamentos e Sync
+- timestamp: 2026-07-18T22:23:59-03:00
+- objetivo: corrigir o app `Financas Mobile` para parcelamentos, historico editavel/excluivel e sincronismo confiavel com o desktop.
+- comportamento: lancamentos parcelados feitos pelo mobile gravam `0` explicito no mes seguinte a ultima parcela quando a celula ainda esta vazia, impedindo que a heranca copie a ultima parcela indefinidamente.
+- historico: cada lancamento mobile pode ser editado ou excluido; a edicao remove os alvos antigos e reaplica o lancamento atualizado, e a exclusao remove parcelas futuras e o zero automatico restaurando o estado anterior.
+- sync: o mobile busca a copia do servidor periodicamente e ao retornar ao foco; saves levam `base_updated_at` e o servidor rejeita payload stale com HTTP 409 para impedir que uma aba/celular antigo ressuscite dados apagados no desktop.
+- validacao: `npm run lint`, `npm run typecheck` e `npm test` passaram; Puppeteer confirmou `10,10,0`, edicao para `20,vazio,vazio`, exclusao restaurando o baseline, e teste HTTP 409 manteve o hash do arquivo inalterado.
+- correcao_pm: em 2026-07-19T00:39:28-03:00, `Despesas PM` passou a separar soma bruta de exibicao da soma efetiva dos totais ajustados. A linha-mae mostra a soma calculada das sublinhas do holerite, enquanto quitacoes/exclusoes continuam afetando apenas totais ajustados e fluxo.
+- story: `docs/stories/2.107.story.md`
+- checkpoint: CHK-FIN-02107-MOBILE-SYNC
+
+## Handoff Atual - Rodovia Segura Mobile Inicial
+- timestamp: 2026-07-08T00:00:00-03:00
+- objetivo: transformar a descricao do app de controle operacional de seguranca rodoviaria em um pacote construivel no Antigravity.
+- escopo: app mobile para 12 postos, regioes Norte e Leste, 4 vigilantes e 4 segurancas armados por posto em escala 12x36, supervisores lideres/regionais/apoio, check-in/check-out, fotos, videos opcionais, ocorrencias, relatorios e auditoria.
+- decisao_tecnica: recomendada stack Expo/React Native + Firebase Auth, Cloud Firestore, Firebase Storage, Security Rules, Expo Camera/ImagePicker e Expo Location.
+- artefatos: `projects/rodovia-segura/README.md`, `brief.md`, `prd.md`, `architecture.md`, `mobile_ux.md`, `data/seed_config.json` e `prompts/antigravity_master_prompt.md`.
+- governanca: projeto `rodovia-segura` registrado em `docs/control/project_flows.json`; `task.md` atualizado com proxima etapa de construir o MVP mobile.
+- validacao: `npm run lint`, `npm run typecheck` e `npm test` passaram.
+- story: `docs/stories/2.108.story.md`
+- checkpoint: CHK-RODOVIA-02108
 
 ## Handoff Atual - Financas Quitacoes Abatem Receita Ajustada
 - timestamp: 2026-06-27T17:37:27-03:00
@@ -706,6 +728,11 @@
 - proxima_acao: revisar refinamento editorial/visual dos entregaveis com o usuario e, em seguida, acrescentar a esteira de Upsell e Downsell mantendo o mesmo modelo de producao real.
 
 ## Ultimo fechamento
+- timestamp: 2026-07-19T01:24:13-03:00
+- tipo: usuario
+- resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- proxima_acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- checkpoint: CHK-MEM-0797
 - timestamp: 2026-07-05T12:55:32-03:00
 - tipo: usuario
 - resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
@@ -808,6 +835,186 @@
 - checkpoint: CHK-MEM-0250
 
 ## Ultimo fechamento automatico
+- timestamp: 2026-07-19T01:20:40-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0796
+- timestamp: 2026-07-19T01:14:48-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0795
+- timestamp: 2026-07-19T01:03:02-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0794
+- timestamp: 2026-07-19T00:44:39-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0793
+- timestamp: 2026-07-18T23:31:06-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0792
+- timestamp: 2026-07-18T23:28:51-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0791
+- timestamp: 2026-07-18T23:24:40-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0790
+- timestamp: 2026-07-18T23:21:11-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0789
+- timestamp: 2026-07-18T23:20:20-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0788
+- timestamp: 2026-07-18T23:19:10-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0787
+- timestamp: 2026-07-18T23:18:40-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0786
+- timestamp: 2026-07-18T23:17:27-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0785
+- timestamp: 2026-07-18T23:15:50-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0784
+- timestamp: 2026-07-18T21:35:32-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0783
+- timestamp: 2026-07-18T21:33:45-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0782
+- timestamp: 2026-07-18T21:29:41-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0781
+- timestamp: 2026-07-18T21:02:49-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0780
+- timestamp: 2026-07-18T19:39:14-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0779
+- timestamp: 2026-07-18T19:35:33-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0778
+- timestamp: 2026-07-18T19:29:33-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0777
+- timestamp: 2026-07-18T15:15:28-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0776
+- timestamp: 2026-07-18T14:17:07-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0775
+- timestamp: 2026-07-18T14:11:41-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0774
+- timestamp: 2026-07-18T14:02:02-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0773
+- timestamp: 2026-07-18T13:49:34-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0772
+- timestamp: 2026-07-18T13:23:18-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0771
+- timestamp: 2026-07-18T13:10:36-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0770
+- timestamp: 2026-07-18T13:06:54-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0769
+- timestamp: 2026-07-18T12:52:38-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0768
+- timestamp: 2026-07-18T12:43:56-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0767
+- timestamp: 2026-07-18T12:29:46-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0766
+- timestamp: 2026-07-18T12:03:35-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0765
+- timestamp: 2026-07-18T11:56:11-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0764
+- timestamp: 2026-07-18T11:48:56-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0763
+- timestamp: 2026-07-18T11:23:52-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0762
+- timestamp: 2026-07-05T18:17:36-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0761
 - timestamp: 2026-06-30T18:38:01-03:00
 - tipo: automatico
 - resumo: Encerramento automatico (fechamento de aba/janela).
@@ -3455,3 +3662,19 @@
 - validacao: Puppeteer confirmou `Rodoanel 1` em junho acrescentando `7.070` ao ajustado e preservando o bruto de Receitas em `22.504`; o segundo clique voltou a zero. Gasolina preservou o bruto `1.115` e reduziu o ajustado para zero. Autosave registrou `include`, sem erros de pagina.
 - proxima_acao: Prosseguir com os proximos refinamentos da Planilha mantendo a semantica oposta entre Receitas e Despesas/Dividas.
 - checkpoint: CHK-FIN-02107-RECEITAS-INCLUDE
+
+## Registro Manual - 2026-07-19T01:00:22-03:00
+- tipo: correcao-financas
+- resumo: Story 2.107 atualizada. A faixa mensal da linha-mae `Despesas PM` passou a alternar todas as sublinhas expandidas do holerite naquela coluna.
+- comportamento: O total bruto exibido na celula-mae continua preservado; o clique apenas marca/desmarca as sublinhas do holerite para os totais ajustados, igual ao comportamento das categorias como `Casa`.
+- validacao: `npm run lint`, `npm run typecheck` e `npm test` passaram. Puppeteer com `/api/save` interceptado confirmou, em junho, 6/6 sublinhas alternadas pelo botao da celula-mae e total visual `2.661` preservado.
+- proxima_acao: Continuar refinando `Financas > Planilha` preservando a separacao entre totais brutos visuais e totais ajustados.
+- checkpoint: CHK-FIN-02107-PM-BULK
+
+## Registro Manual - 2026-07-19T01:18:00-03:00
+- tipo: correcao-financas
+- resumo: Story 2.107 atualizada. O totalizador mensal principal de `Despesas` agora tambem alterna `Despesas PM`, junto das demais subabas.
+- comportamento: Ao clicar em `Despesas`, linhas comuns continuam recebendo modo proprio; a linha `Despesas PM` encaminha a marcacao/desmarcacao para as sublinhas expandidas do holerite e reflete o estado na celula-mae.
+- validacao: `npm run lint`, `npm run typecheck` e `npm test` passaram. Puppeteer com `/api/save` interceptado confirmou que, em junho, o clique em `Despesas` marcou 6/6 sublinhas de `Despesas PM`, preservou `2.661` e o segundo clique desmarcou tudo.
+- proxima_acao: Manter `Despesas PM` sincronizada tanto pelo proprio totalizador mensal quanto pelo totalizador principal de `Despesas`.
+- checkpoint: CHK-FIN-02107-DESPESAS-PM-MAIN

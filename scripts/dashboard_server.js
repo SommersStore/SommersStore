@@ -39,6 +39,7 @@ const SESSIONS_DIR = path.join(CONTROL_DIR, 'sessions');
 const MEMORY_EXTRA_DIR = path.join(CONTROL_DIR, 'memory_extra');
 const TASK_PATH = path.join(ROOT_DIR, 'task.md');
 const FOREX_DATA_DIR = path.join(ROOT_DIR, 'projects', 'forex', 'data');
+const FIN2_DATA_RELATIVE_PATH = 'projects/financas/data/fin2_data.json';
 const IBKR_INTEGRATION_CONFIG_PATH = path.join(FOREX_DATA_DIR, 'ibkr_integration.json');
 const IBKR_PAPER_TICKETS_PATH = path.join(FOREX_DATA_DIR, 'ibkr_paper_tickets.json');
 const IR_OPEN_ALLOWED_ROOTS = [
@@ -962,6 +963,128 @@ function writeText(fullPath, content) {
         JSON.parse(text || '{}');
     }
     writeFileAtomic(fullPath, text);
+}
+
+function normalizeFin2MobileMatchText(value) {
+    return String(value || '')
+        .toLocaleLowerCase('pt-BR')
+        .replace(/\s+\d+\s*\/\s*\d+$/, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+function fin2SavedCellDetailEntries(row, monthIdx) {
+    const details = row && row.cellDetails && typeof row.cellDetails === 'object' ? row.cellDetails : {};
+    const list = Array.isArray(details[String(monthIdx)]) ? details[String(monthIdx)] : [];
+    return list.filter(entry => entry && typeof entry === 'object');
+}
+
+function fin2SavedCellValue(row, monthIdx) {
+    const values = Array.isArray(row && row.values) ? row.values : [];
+    const raw = values[monthIdx];
+    const num = Number(raw);
+    return Number.isFinite(num) ? num : 0;
+}
+
+function fin2SavedDetailMatchesEntry(detail, entry) {
+    const detailName = normalizeFin2MobileMatchText(detail && detail.name);
+    const entryName = normalizeFin2MobileMatchText(entry && entry.name);
+    const detailValue = Number(detail && detail.value) || 0;
+    const entryValue = Number(entry && entry.value) || 0;
+    const valueMatches = Math.abs(detailValue - entryValue) < 0.005;
+    const nameMatches = !entryName || detailName === entryName || detailName.startsWith(`${entryName} `);
+    const dateMatches = !entry.date || !detail.date || String(detail.date) === String(entry.date);
+    return valueMatches && nameMatches && dateMatches;
+}
+
+function fin2SavedFindRow(sheet, groupKey, rowId) {
+    const group = sheet && Array.isArray(sheet[groupKey]) ? sheet[groupKey] : [];
+    return group.find(row => row && String(row.id) === String(rowId || '')) || null;
+}
+
+function fin2SavedMobileEntryStillApplied(sheet, entry) {
+    const row = fin2SavedFindRow(sheet, entry && entry.groupKey, entry && entry.rowId);
+    if (!row || row.payslipRole) return false;
+    const targets = Array.isArray(entry && entry.appliedTargets) ? entry.appliedTargets : [];
+    if (targets.length) {
+        return targets.some(target => {
+            const targetRow = fin2SavedFindRow(sheet, target.groupKey || entry.groupKey, target.rowId || entry.rowId);
+            if (!targetRow) return false;
+            const monthIdx = Math.round(Number(target.monthIdx));
+            if (!Number.isInteger(monthIdx) || monthIdx < 0 || monthIdx > 11) return false;
+            if (target.kind === 'detail') {
+                return fin2SavedCellDetailEntries(targetRow, monthIdx).some(detail => String(detail.id) === String(target.entryId || ''));
+            }
+            if (target.kind === 'value') {
+                const expected = Number(target.expectedValue);
+                const current = fin2SavedCellValue(targetRow, monthIdx);
+                return Number.isFinite(expected)
+                    ? Math.abs(current - expected) < 0.005
+                    : Math.abs(current) >= Math.abs(Number(entry.value) || 0) - 0.005;
+            }
+            if (target.kind === 'postInstallmentZero') return false;
+            return true;
+        });
+    }
+    if (row.cellDetailsEnabled || (row.cellDetails && typeof row.cellDetails === 'object')) {
+        for (let monthIdx = 0; monthIdx < 12; monthIdx++) {
+            if (fin2SavedCellDetailEntries(row, monthIdx).some(detail => fin2SavedDetailMatchesEntry(detail, entry))) return true;
+        }
+        return false;
+    }
+    const entryValue = Math.abs(Number(entry && entry.value) || 0);
+    if (!entryValue) return true;
+    for (let monthIdx = 0; monthIdx < 12; monthIdx++) {
+        if (Math.abs(fin2SavedCellValue(row, monthIdx)) >= entryValue - 0.005) return true;
+    }
+    return false;
+}
+
+function sanitizeFin2DataContentForSave(normalizedPath, content) {
+    if (normalizedPath !== FIN2_DATA_RELATIVE_PATH) return String(content ?? '');
+    try {
+        const data = JSON.parse(String(content ?? '') || '{}');
+        const sheet = data && (data.sheet || data);
+        if (!data.mobile || typeof data.mobile !== 'object' || !Array.isArray(data.mobile.entries)) return String(content ?? '');
+        const before = data.mobile.entries.length;
+        data.mobile.entries = data.mobile.entries.filter(entry => fin2SavedMobileEntryStillApplied(sheet, entry));
+        if (data.mobile.entries.length === before) return String(content ?? '');
+        console.log(`[FIN2] pruned ${before - data.mobile.entries.length} stale mobile entr${before - data.mobile.entries.length === 1 ? 'y' : 'ies'} before save`);
+        return `${JSON.stringify(data, null, 2)}\n`;
+    } catch (error) {
+        console.warn('[FIN2] mobile history sanitize skipped:', error.message);
+        return String(content ?? '');
+    }
+}
+
+function validateFin2DataSaveFreshness(normalizedPath, absolutePath, content) {
+    if (normalizedPath !== FIN2_DATA_RELATIVE_PATH) return { ok: true };
+    try {
+        const incoming = JSON.parse(String(content ?? '') || '{}');
+        const current = readJsonFile(absolutePath, null);
+        if (!current || !current.updated_at) return { ok: true };
+        const currentTs = parseTimestampMs(current.updated_at);
+        if (!Number.isFinite(currentTs)) return { ok: true };
+        const baseTs = parseTimestampMs(incoming.base_updated_at || '');
+        if (!Number.isFinite(baseTs)) {
+            return {
+                ok: false,
+                error: 'A planilha foi atualizada em outro dispositivo. Atualize o app antes de salvar novamente.',
+                current_updated_at: current.updated_at
+            };
+        }
+        if (currentTs > baseTs + 1000) {
+            return {
+                ok: false,
+                error: 'A planilha foi atualizada em outro dispositivo. Recarregue a versao atual antes de salvar.',
+                current_updated_at: current.updated_at,
+                base_updated_at: incoming.base_updated_at || ''
+            };
+        }
+        return { ok: true };
+    } catch (error) {
+        return { ok: true };
+    }
 }
 
 function readJsonFile(fullPath, fallback) {
@@ -4092,9 +4215,10 @@ const server = http.createServer(async (req, res) => {
 
     const url = new URL(req.url, `http://localhost:${PORT}`);
     const pathname = url.pathname;
+    const dashboardPathname = pathname.replace(/\/+$/, '') || '/';
 
     try {
-        if (pathname === '/' || pathname === '/dashboard') {
+        if (dashboardPathname === '/' || dashboardPathname === '/dashboard' || dashboardPathname === '/mobile' || dashboardPathname === '/financas-mobile') {
             const html = fs.readFileSync(path.join(DOCS_DIR, 'aiox_dashboard.html'), 'utf8');
             res.writeHead(200, {
                 'Content-Type': 'text/html; charset=utf-8',
@@ -5518,7 +5642,10 @@ review_path: ${audit.review_path}
             if (!body.path) return sendJson(res, { error: 'path required' }, 400);
             const normalizedPath = normalizePathForJson(body.path);
             const absolute = safeWorkspacePath(normalizedPath);
-            writeText(absolute, body.content || '');
+            const freshness = validateFin2DataSaveFreshness(normalizedPath, absolute, body.content || '');
+            if (!freshness.ok) return sendJson(res, { success: false, ...freshness }, 409);
+            const content = sanitizeFin2DataContentForSave(normalizedPath, body.content || '');
+            writeText(absolute, content);
             if (normalizedPath.startsWith('docs/control/memory_extra/')) {
                 registerTrackedMemoryFile(normalizedPath);
             }
@@ -5539,6 +5666,7 @@ review_path: ${audit.review_path}
                 '.js': 'text/javascript',
                 '.css': 'text/css',
                 '.json': 'application/json',
+                '.webmanifest': 'application/manifest+json',
                 '.png': 'image/png',
                 '.jpg': 'image/jpeg',
                 '.svg': 'image/svg+xml'

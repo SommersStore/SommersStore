@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-15T00:00:00-03:00",
+  "updated_at": "2026-07-08T00:00:00-03:00",
   "projects": {
     "sais": {
       "label": "Sais",
@@ -915,6 +915,106 @@
           "entrega_para": "Usuario",
           "depends_on": ["IR-06"],
           "metric_main": "Processamento confirmado"
+        }
+      ]
+    },
+    "rodovia-segura": {
+      "label": "Rodovia Segura",
+      "description": "Aplicativo mobile para controle operacional de seguranca rodoviaria em 12 postos, com check-in, evidencias, ocorrencias, supervisao e auditoria.",
+      "construcao": [
+        {
+          "id": "RS-01",
+          "nome": "Brief e PRD Mobile",
+          "squad": "SQD-CORE",
+          "status": "em_execucao",
+          "resumo": "Converter a descricao operacional em requisitos rastreaveis, MVP, fases e criterios de aceite.",
+          "entrega": "Pacote de projeto inicial",
+          "entrega_para": "RS-02",
+          "depends_on": [],
+          "metric_main": "PRD e brief aprovados",
+          "edit_path": "projects/rodovia-segura/prd.md"
+        },
+        {
+          "id": "RS-02",
+          "nome": "Arquitetura e Dados",
+          "squad": "SQD-ENG",
+          "status": "em_preparacao",
+          "resumo": "Definir Expo/React Native, Firebase, modelo de dados, storage, permissoes e seed de 12 postos.",
+          "entrega": "Arquitetura pronta para build",
+          "entrega_para": "RS-03",
+          "depends_on": ["RS-01"],
+          "metric_main": "Security model validado",
+          "edit_path": "projects/rodovia-segura/architecture.md"
+        },
+        {
+          "id": "RS-03",
+          "nome": "MVP Check-in Mobile",
+          "squad": "SQD-ENG",
+          "status": "nao_iniciado",
+          "resumo": "Construir app Expo com login, roteamento por cargo e entrada/saida com fotos obrigatorias.",
+          "entrega": "App mobile funcional em campo",
+          "entrega_para": "RS-04",
+          "depends_on": ["RS-02"],
+          "metric_main": "Check-in com 2 fotos validado",
+          "edit_path": "projects/rodovia-segura/prompts/antigravity_master_prompt.md"
+        },
+        {
+          "id": "RS-04",
+          "nome": "Ocorrencias e Midias",
+          "squad": "SQD-ENG",
+          "status": "nao_iniciado",
+          "resumo": "Registrar ocorrencias com gravidade, fotos, videos opcionais, responsavel e status.",
+          "entrega": "Fluxo de ocorrencia operacional",
+          "entrega_para": "RS-05",
+          "depends_on": ["RS-03"],
+          "metric_main": "Ocorrencia com midia criada"
+        },
+        {
+          "id": "RS-05",
+          "nome": "Supervisao Regional e Lider",
+          "squad": "SQD-EXP",
+          "status": "nao_iniciado",
+          "resumo": "Dashboards por regiao e visao geral dos 12 postos conforme permissao.",
+          "entrega": "Paineis de supervisao",
+          "entrega_para": "RS-06",
+          "depends_on": ["RS-04"],
+          "metric_main": "Escopo por cargo validado",
+          "edit_path": "projects/rodovia-segura/mobile_ux.md"
+        },
+        {
+          "id": "RS-06",
+          "nome": "Relatorios e Auditoria",
+          "squad": "SQD-QRO",
+          "status": "nao_iniciado",
+          "resumo": "Gerar relatorios por turno/posto/regiao/equipe e registrar trilha de auditoria.",
+          "entrega": "MVP pronto para piloto",
+          "entrega_para": "Piloto operacional",
+          "depends_on": ["RS-05"],
+          "metric_main": "Relatorio diario emitido"
+        }
+      ],
+      "vendas": [
+        {
+          "id": "RSO-01",
+          "nome": "Piloto em 2 Postos",
+          "squad": "SQD-QRO",
+          "status": "nao_iniciado",
+          "resumo": "Validar app com um posto por regiao antes de escalar para os 12 postos.",
+          "entrega": "Parecer de piloto",
+          "entrega_para": "RSO-02",
+          "depends_on": ["RS-06"],
+          "metric_main": "Turnos sem falha critica"
+        },
+        {
+          "id": "RSO-02",
+          "nome": "Rollout 12 Postos",
+          "squad": "SQD-ENG",
+          "status": "nao_iniciado",
+          "resumo": "Expandir usuarios, postos, supervisores e relatorios para a operacao completa.",
+          "entrega": "Operacao completa ativa",
+          "entrega_para": "Gestao",
+          "depends_on": ["RSO-01"],
+          "metric_main": "12 postos ativos"
         }
       ]
     },

@@ -107,8 +107,26 @@
 - [x] Uniformizar colunas extremas e permitir ordem livre de Pagamento PM, Despesas PM, subabas e grupos de Dividas
 - [x] Fazer quitacoes de Despesas e Dividas abaterem simultaneamente a Receita ajustada
 - [x] Deixar em pink os numeros da linha esmaecida abaixo de Receitas
+- [x] Criar linhas detalhadas por celula/mes em Financas para gasolina e itens variaveis
+- [x] Fazer linhas detalhadas novas nascerem com fevereiro-dezembro em branco para copia mensal
+- [x] Criar subaba `Mobile` em Financas para lancamentos rapidos no modelo de app de celular
+- [x] Criar rota `Mobile` isolada para celular, sem acesso visual ao painel completo
+- [x] Refinar Financas Mobile com icone de tela inicial, rolagem, foto/OCR e historico sincronizado
+- [x] Corrigir parcelamentos, edicao/exclusao e sincronismo desktop-celular do Financas Mobile
+- [x] Corrigir exibicao da soma calculada nas celulas-mae de `Despesas PM`
+- [x] Restaurar copia do mes anterior nas celulas detalhadas vazias de Financas
+- [x] Permitir zero explicito por digitacao direta e retorno a copia ao limpar celulas detalhadas de Financas
+- [x] Ordenar cronologicamente os lancamentos internos das celulas detalhadas de Financas
+- [x] Projetar prestacoes de lancamentos internos para os meses seguintes em Financas
+- [x] Corrigir ancoragem das prestacoes para nao deslocar valores de julho para junho
+- [x] Excluir parcelamentos projetados de todos os meses em Financas
+- [x] Restaurar Mercado 1 na subaba Casa de Despesas
+- [x] Criar pacote inicial do projeto mobile `Rodovia Segura` para Antigravity
+- [x] Fazer a celula totalizadora mensal de `Despesas PM` alternar todas as sublinhas do holerite
+- [x] Fazer o totalizador mensal principal de `Despesas` tambem alternar `Despesas PM`
 
 ## Pending Work
+- [ ] Construir MVP mobile `Rodovia Segura` em Expo/React Native com login, check-in, fotos, ocorrencias e permissoes por cargo
 - [x] Handoff UX Master > Clones: remover gaveta lateral grande/flutuante e restaurar abertura dos clones dentro do `Inspector` compacto existente.
 - [x] Consolidar eventos automaticos de memoria (execution + checkpoint + mutation)
 - [x] Popular KPIs com valores reais em registry.json (P0 auditoria)
@@ -197,6 +215,17 @@
 - [x] Corrigir regressao visual que fazia `Financas` abrir direto em `Dividas/Acordos` em vez de `Planilha`
 
 ## Done in this session
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Checkpoint: CHK-MEM-0797
+
+- [x] Story 2.108 criada: pacote inicial do app mobile `Rodovia Segura Operacional`.
+- [x] Criados brief, PRD, arquitetura, UX mobile, seed de 12 postos e prompt mestre para Antigravity em `projects/rodovia-segura/`.
+- [x] Registrado projeto `rodovia-segura` em `docs/control/project_flows.json`.
+- [x] Quality gates passaram: `npm run lint`, `npm run typecheck`, `npm test`.
+- [x] Proxima acao: construir o MVP mobile em Expo/React Native com Firebase, com foco inicial em login, perfis, check-in com fotos e escopo por cargo.
+
 - [x] Sessao encerrada pelo usuario.
 - [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
 - [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
@@ -716,4 +745,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-07-05T12:55:32-03:00
+- updated_at: 2026-07-19T01:24:13-03:00

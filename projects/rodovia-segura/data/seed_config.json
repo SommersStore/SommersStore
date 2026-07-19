@@ -1,0 +1,214 @@
+{
+  "projectId": "rodovia-segura",
+  "name": "Rodovia Segura Operacional",
+  "generatedFrom": "Solicitacao do usuario em 2026-07-08",
+  "canonicalRegions": [
+    {
+      "id": "norte",
+      "name": "Regiao Norte"
+    },
+    {
+      "id": "leste",
+      "name": "Regiao Leste"
+    }
+  ],
+  "posts": [
+    {
+      "id": "posto-01",
+      "code": "P01",
+      "name": "Posto 01",
+      "regionId": "norte"
+    },
+    {
+      "id": "posto-02",
+      "code": "P02",
+      "name": "Posto 02",
+      "regionId": "norte"
+    },
+    {
+      "id": "posto-03",
+      "code": "P03",
+      "name": "Posto 03",
+      "regionId": "norte"
+    },
+    {
+      "id": "posto-04",
+      "code": "P04",
+      "name": "Posto 04",
+      "regionId": "norte"
+    },
+    {
+      "id": "posto-05",
+      "code": "P05",
+      "name": "Posto 05",
+      "regionId": "norte"
+    },
+    {
+      "id": "posto-06",
+      "code": "P06",
+      "name": "Posto 06",
+      "regionId": "norte"
+    },
+    {
+      "id": "posto-07",
+      "code": "P07",
+      "name": "Posto 07",
+      "regionId": "leste"
+    },
+    {
+      "id": "posto-08",
+      "code": "P08",
+      "name": "Posto 08",
+      "regionId": "leste"
+    },
+    {
+      "id": "posto-09",
+      "code": "P09",
+      "name": "Posto 09",
+      "regionId": "leste"
+    },
+    {
+      "id": "posto-10",
+      "code": "P10",
+      "name": "Posto 10",
+      "regionId": "leste"
+    },
+    {
+      "id": "posto-11",
+      "code": "P11",
+      "name": "Posto 11",
+      "regionId": "leste"
+    },
+    {
+      "id": "posto-12",
+      "code": "P12",
+      "name": "Posto 12",
+      "regionId": "leste"
+    }
+  ],
+  "roles": [
+    {
+      "id": "admin",
+      "name": "Admin / Gestor Geral",
+      "scope": "global"
+    },
+    {
+      "id": "leaderSupervisor",
+      "name": "Supervisor Lider",
+      "scope": "global"
+    },
+    {
+      "id": "regionalSupervisor",
+      "name": "Supervisor Regional",
+      "scope": "region"
+    },
+    {
+      "id": "supportSupervisor",
+      "name": "Supervisor de Apoio",
+      "scope": "region"
+    },
+    {
+      "id": "postGuard",
+      "name": "Vigilante de Posto",
+      "scope": "post"
+    },
+    {
+      "id": "armedSecurity",
+      "name": "Seguranca Armado de Posto",
+      "scope": "post"
+    },
+    {
+      "id": "auditor",
+      "name": "Auditor / Cliente",
+      "scope": "configured_readonly"
+    }
+  ],
+  "teams": [
+    {
+      "id": "alfa",
+      "name": "Alfa",
+      "shiftKind": "day",
+      "cycle": "current_day",
+      "coverage": [
+        "norte",
+        "leste"
+      ]
+    },
+    {
+      "id": "bravo",
+      "name": "Bravo",
+      "shiftKind": "day",
+      "cycle": "next_day",
+      "coverage": [
+        "norte",
+        "leste"
+      ]
+    },
+    {
+      "id": "charlie",
+      "name": "Charlie",
+      "shiftKind": "night",
+      "cycle": "current_night",
+      "coverage": [
+        "norte",
+        "leste"
+      ]
+    },
+    {
+      "id": "delta",
+      "name": "Delta",
+      "shiftKind": "night",
+      "cycle": "next_night",
+      "coverage": [
+        "norte",
+        "leste"
+      ]
+    }
+  ],
+  "shiftTemplates": [
+    {
+      "id": "day-12x36",
+      "name": "Turno Diurno 12x36",
+      "startTime": "06:00",
+      "endTime": "18:00",
+      "durationHours": 12,
+      "scale": "12x36"
+    },
+    {
+      "id": "night-12x36",
+      "name": "Turno Noturno 12x36",
+      "startTime": "18:00",
+      "endTime": "06:00",
+      "durationHours": 12,
+      "scale": "12x36"
+    }
+  ],
+  "staffingModel": {
+    "posts": 12,
+    "guardsPerPost": 4,
+    "armedSecurityPerPost": 4,
+    "postProfessionalsTotal": 96,
+    "leaderSupervisors": 4,
+    "regionalSupervisors": 8,
+    "supportSupervisors": 8,
+    "supervisorsTotal": 20,
+    "totalPeople": 116,
+    "activePerShift": {
+      "guards": 12,
+      "armedSecurity": 12,
+      "regionalSupervisors": 2,
+      "supportSupervisors": 2,
+      "leaderSupervisors": 1,
+      "total": 29
+    }
+  },
+  "mvpRules": {
+    "minimumCheckInPhotos": 2,
+    "videoEnabledForOccurrences": true,
+    "gpsRequiredWhenAvailable": true,
+    "postUserScope": "own_post",
+    "regionalScope": "own_region",
+    "leaderScope": "all_regions"
+  }
+}
+

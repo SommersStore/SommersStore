@@ -8,6 +8,12 @@
     <meta http-equiv="Expires" content="0">
     <title>Painel Anti-Gravity</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23070b11'/%3E%3Cpath d='M14 42 28 14h7L21 42zm18 0 14-28h7L39 42z' fill='%23f5b753'/%3E%3C/svg%3E">
+    <link rel="manifest" href="/financas-mobile.webmanifest">
+    <meta name="theme-color" content="#070b13">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Financas">
+    <link rel="apple-touch-icon" href="/assets/financas-mobile-icon.svg">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -28,6 +34,17 @@
             }
         }
     </script>
+    <script>
+        (function() {
+            const params = new URLSearchParams(window.location.search || '');
+            const path = String(window.location.pathname || '').replace(/\/+$/, '').toLowerCase();
+            const forcedMobile = path === '/mobile' || path === '/financas-mobile' || params.get('mobile') === '1' || params.get('view') === 'mobile';
+            const forcedFull = params.get('full') === '1' || params.get('desktop') === '1';
+            const narrowScreen = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+            window.AIOX_MOBILE_ONLY = !forcedFull && (forcedMobile || narrowScreen);
+            if (window.AIOX_MOBILE_ONLY) document.documentElement.classList.add('fin2-mobile-standalone-root');
+        })();
+    </script>
     <style>
         * { box-sizing: border-box; }
         body { background: #0a0a0f; color: #e5e7eb; overflow: hidden; }
@@ -43,6 +60,35 @@
         .tab-pane { display: none; height: calc(100vh - 56px); overflow-y: auto; }
         .tab-pane::-webkit-scrollbar { width: 4px; }
         .tab-pane::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
+        html.fin2-mobile-standalone-root body { overflow:hidden; }
+        html.fin2-mobile-standalone-root .app-header,
+        html.fin2-mobile-standalone-root #app-shell > aside,
+        html.fin2-mobile-standalone-root #legacy-sidebar-actions { display:none !important; }
+        html.fin2-mobile-standalone-root #app-shell { display:block !important;height:100vh;overflow:hidden; }
+        html.fin2-mobile-standalone-root main { width:100vw;height:100vh;overflow:hidden; }
+        html.fin2-mobile-standalone-root .tab-pane { display:none !important;height:100vh !important; }
+        html.fin2-mobile-standalone-root #pane-financas {
+            display:flex !important;flex-direction:column !important;width:100vw;height:100vh !important;overflow:hidden !important;
+        }
+        html.fin2-mobile-standalone-root #pane-financas .fin2-topnav {
+            min-height:44px;height:44px;padding:0 14px;justify-content:center;border-bottom:1px solid #1e2540;background:#070b13;
+        }
+        html.fin2-mobile-standalone-root #pane-financas .fin2-topnav-left { margin:0;flex:0 0 auto; }
+        html.fin2-mobile-standalone-root #pane-financas .fin2-topnav-brand { font-size:12px;letter-spacing:.12em;text-transform:uppercase; }
+        html.fin2-mobile-standalone-root #pane-financas .fin2-topnav-year { color:#c9a84c; }
+        html.fin2-mobile-standalone-root #pane-financas .fin2-topnav-tabs,
+        html.fin2-mobile-standalone-root #pane-financas .fin2-topnav-actions { display:none !important; }
+        html.fin2-mobile-standalone-root #fin2-pane-planilha,
+        html.fin2-mobile-standalone-root #fin2-pane-dividas,
+        html.fin2-mobile-standalone-root #fin2-pane-investimentos { display:none !important; }
+        html.fin2-mobile-standalone-root #fin2-pane-mobile {
+            display:block !important;flex:1 1 auto;min-height:0;height:calc(100vh - 44px);
+            overflow-y:auto !important;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;background:#070b13;
+        }
+        html.fin2-mobile-standalone-root .fin2-mobile-shell {
+            min-height:auto;padding:12px 12px 48px;display:block !important;align-items:initial;
+        }
+        html.fin2-mobile-standalone-root .fin2-mobile-app { width:100%;max-width:430px;margin:0 auto; }
         /* Glass cards */
         .glass { background: rgba(15,15,22,0.5); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.04); border-radius: 14px; }
         .glass:hover { border-color: rgba(168,85,247,0.15); }
@@ -1503,7 +1549,7 @@
     </div>
 </header>
 
-<div class="flex flex-1 overflow-hidden">
+<div id="app-shell" class="flex flex-1 overflow-hidden">
     <!-- ═ ═ ═ ═ ═ ═ ═  SIDEBAR ═ ═ ═ ═ ═ ═ ═  -->
     <aside class="w-[72px] border-r border-white/5 flex flex-col items-center py-3 gap-1 bg-surface/50 shrink-0 overflow-y-auto" style="scrollbar-width:none">
         <!-- PRIMARY NAVIGATION -->
@@ -2901,6 +2947,10 @@
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
                         Planilha
                     </button>
+                    <button class="fin2-navbtn" id="fin2-btn-mobile" onclick="fin2Switch('mobile')">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+                        Mobile
+                    </button>
                     <button class="fin2-navbtn" id="fin2-btn-dividas" onclick="fin2Switch('dividas')">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
                         Dívidas/Acordos
@@ -2933,6 +2983,10 @@
             </div>
 
             <!-- ── Pane: Dívidas ── -->
+            <div id="fin2-pane-mobile" class="fin2-panel fin2-mobile-pane" style="display:none">
+                <div id="fin2-mobile-content" class="fin2-mobile-shell"></div>
+            </div>
+
             <div id="fin2-pane-dividas" class="fin2-panel" style="display:none;flex:1;overflow:hidden">
                 <div class="fin2-debt-col" id="fin2-debt-col"></div>
                 <aside class="fin2-drawer" id="fin2-drawer">
@@ -4037,6 +4091,7 @@ function openPrimaryHub(hub) {
 
 function switchTab(tab) {
     try {
+        if (window.AIOX_MOBILE_ONLY && tab !== 'financas') tab = 'financas';
         const currentActive = document.querySelector('.sb-icon.active');
         const previousTab = currentActive && currentActive.dataset ? currentActive.dataset.tab : '';
         document.querySelectorAll('.sb-icon').forEach(i => i.classList.remove('active'));
@@ -12032,6 +12087,10 @@ async function saveHubCatalog() {
 async function syncAll() {
     try {
         await loadAllData();
+        if (window.AIOX_MOBILE_ONLY) {
+            if (typeof switchTab === 'function') switchTab('financas');
+            return;
+        }
         renderMasterHub();
         if (typeof renderSessionResumeWidget === 'function') renderSessionResumeWidget();
         if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -13542,6 +13601,10 @@ window.renderPersonas = function() {
 
 window.syncAll = async function() {
     await loadAllData();
+    if (window.AIOX_MOBILE_ONLY) {
+        switchTab('financas');
+        return;
+    }
     renderStatus();
     const active = document.querySelector('.sb-icon.active');
     if (active && active.dataset && active.dataset.tab && active.dataset.tab !== 'status') switchTab(active.dataset.tab);
@@ -13550,6 +13613,10 @@ window.syncAll = async function() {
 
 document.addEventListener('DOMContentLoaded', () => {
     /* Inicializa exibição da aba ativa via JS (controle de display 100% JS) */
+    if (window.AIOX_MOBILE_ONLY) {
+        switchTab('financas');
+        return;
+    }
     switchTab('master');
 
     setTimeout(async () => {
@@ -15184,6 +15251,109 @@ window.vmUnlinkDeliverable = vmUnlinkDeliverable;
 
 /* ── Generic panel ── */
 .fin2-panel { flex:1;overflow:hidden; }
+.fin2-mobile-pane { overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;background:#070b13; }
+.fin2-mobile-shell {
+  min-height:100%;padding:18px;display:flex;justify-content:center;align-items:flex-start;
+}
+.fin2-mobile-app { width:min(430px,100%);display:flex;flex-direction:column;gap:12px; }
+.fin2-mobile-head {
+  display:flex;align-items:flex-end;justify-content:space-between;gap:14px;
+  padding-bottom:4px;border-bottom:1px solid #1e2540;
+}
+.fin2-mobile-title {
+  font-family:'Cormorant Garamond',Georgia,serif;font-size:25px;font-weight:800;color:#f8fbff;line-height:1;
+}
+.fin2-mobile-date-chip {
+  color:#c9a84c;font-size:9px;font-weight:850;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 8px;border:1px solid #c9a84c33;border-radius:6px;background:#c9a84c10;white-space:nowrap;
+}
+.fin2-mobile-card {
+  border:1px solid #1e2540;border-radius:8px;background:#0d1220;padding:12px;display:flex;flex-direction:column;gap:10px;
+}
+.fin2-mobile-segments { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px; }
+.fin2-mobile-segment {
+  height:34px;border:1px solid #26304c;border-radius:7px;background:#111729;color:#7f89ab;
+  font-size:10px;font-weight:850;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;
+}
+.fin2-mobile-segment.active { color:#07101b;border-color:#38bdf855;background:#38bdf8; }
+.fin2-mobile-segment[data-group="despesas"].active { border-color:#86efac55;background:#86efac; }
+.fin2-mobile-segment[data-group="dividas"].active { border-color:#f8717155;background:#f87171; }
+.fin2-mobile-field { display:flex;flex-direction:column;gap:5px;min-width:0; }
+.fin2-mobile-field label {
+  color:#64708f;font-size:8px;font-weight:850;letter-spacing:.09em;text-transform:uppercase;
+}
+.fin2-mobile-field input,
+.fin2-mobile-field select {
+  width:100%;height:38px;box-sizing:border-box;border:1px solid #29304a;border-radius:7px;
+  background:#101729;color:#e5e7eb;font-size:12px;padding:0 10px;outline:none;
+}
+.fin2-mobile-field input:focus,
+.fin2-mobile-field select:focus { border-color:#c9a84c66;box-shadow:0 0 0 2px #c9a84c12; }
+.fin2-mobile-grid { display:grid;grid-template-columns:1fr 104px;gap:8px; }
+.fin2-mobile-grid.three { grid-template-columns:1fr 1fr 84px; }
+.fin2-mobile-value { text-align:right;font-variant-numeric:tabular-nums; }
+.fin2-mobile-actions { display:grid;grid-template-columns:96px 1fr;gap:8px;align-items:center; }
+.fin2-mobile-photo {
+  height:40px;border:1px solid #2563eb55;border-radius:7px;background:#0b1730;color:#93c5fd;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  font-size:10px;font-weight:950;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;
+}
+.fin2-mobile-photo:hover { border-color:#60a5fa88;color:#dbeafe;background:#102247; }
+.fin2-mobile-submit {
+  height:40px;border:none;border-radius:7px;background:#c9a84c;color:#090c14;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  font-size:11px;font-weight:950;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;
+}
+.fin2-mobile-submit:hover { filter:brightness(1.08); }
+.fin2-mobile-photo i,
+.fin2-mobile-submit i { width:14px;height:14px; }
+.fin2-mobile-empty {
+  border:1px dashed #27304a;border-radius:8px;padding:12px;text-align:center;color:#5c6688;font-size:10px;
+}
+.fin2-mobile-status { display:none; }
+.fin2-mobile-status.active { display:block; }
+.fin2-mobile-history { display:flex;flex-direction:column;gap:6px; }
+.fin2-mobile-history-row {
+  display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;
+  border:1px solid #151d31;border-radius:7px;background:#0b1020;padding:8px 9px;
+}
+.fin2-mobile-history-row strong {
+  display:block;color:#dbe4ff;font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.fin2-mobile-history-row span {
+  display:block;margin-top:2px;color:#64708f;font-size:8px;font-weight:750;text-transform:uppercase;letter-spacing:.06em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.fin2-mobile-history-value {
+  color:#f8fbff;font-size:12px;font-weight:900;font-variant-numeric:tabular-nums;text-align:right;
+}
+.fin2-mobile-history-side { display:flex;align-items:flex-end;gap:6px;flex-direction:column; }
+.fin2-mobile-history-actions { display:flex;gap:5px; }
+.fin2-mobile-history-actions button {
+  height:22px;border:1px solid #29304a;border-radius:5px;background:#111729;color:#7f89ab;
+  font-size:7px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;padding:0 6px;
+}
+.fin2-mobile-history-actions button:hover { color:#e5e7eb;border-color:#c9a84c66; }
+.fin2-mobile-history-actions .danger:hover { color:#fecaca;border-color:#ef444466;background:#2a1017; }
+.fin2-mobile-edit-modal .fin2-modal { max-width:420px; }
+.fin2-mobile-edit-form { display:grid;gap:9px; }
+.fin2-mobile-edit-form .fin2-mobile-grid { grid-template-columns:1fr 104px; }
+@media (max-width:760px) {
+  #pane-financas { overflow:hidden; }
+  .fin2-topnav { height:auto;min-height:44px;padding:0 10px;gap:6px;flex-wrap:wrap; }
+  .fin2-topnav-left { flex:1 1 auto; }
+  .fin2-topnav-tabs { order:3;width:100%;overflow-x:auto;justify-content:flex-start;margin:0;padding-top:2px; }
+  .fin2-navbtn { height:36px;padding:0 10px;font-size:10px;white-space:nowrap; }
+  .fin2-topnav-actions { margin-left:0; }
+  .fin2-mobile-shell { padding:12px; }
+  .fin2-mobile-head { align-items:flex-start;flex-direction:column;gap:8px; }
+}
+@media (max-width:430px) {
+  .fin2-mobile-grid,
+  .fin2-mobile-grid.three { grid-template-columns:1fr; }
+  .fin2-mobile-actions { grid-template-columns:1fr; }
+  .fin2-mobile-edit-form .fin2-mobile-grid { grid-template-columns:1fr; }
+}
 
 /* ── Planilha ── */
 .fin2-sheet-wrap { padding:18px 18px 20px;min-width:0; }
@@ -15757,6 +15927,8 @@ window.vmUnlinkDeliverable = vmUnlinkDeliverable;
 .fin2-file-dot.has-file { background:#38bdf8;box-shadow:0 0 0 1px #38bdf855,0 0 9px #38bdf855; }
 .fin2-pm-cell-actions { position:relative;width:62px;margin:0 auto; }
 .fin2-pm-cell-actions .fin2-input { width:62px;box-sizing:border-box;padding-right:14px; }
+.fin2-detail-cell-actions { position:relative;width:62px;margin:0 auto; }
+.fin2-detail-cell-actions .fin2-input { width:62px;box-sizing:border-box;padding-right:14px; }
 .fin2-pm-cell-locked {
   height:22px;display:flex;align-items:center;justify-content:flex-end;
   background:#101729;border:1px solid #1f2740;border-radius:4px;
@@ -15769,6 +15941,10 @@ window.vmUnlinkDeliverable = vmUnlinkDeliverable;
 .fin2-pm-cell-has-attach .fin2-pm-total-cell,
 .fin2-cell-total-managed .fin2-pm-cell-actions.fin2-pm-cell-has-attach .fin2-pm-total-cell {
   padding:3px 13px 3px 4px;
+}
+.fin2-detail-cell-actions .fin2-pm-total-cell,
+.fin2-cell-total-managed .fin2-detail-cell-actions .fin2-pm-total-cell {
+  padding:3px 13px 3px 12px;
 }
 .fin2-pm-total-row-cell { color:#aeb8dc; }
 .fin2-pm-attach-btn {
@@ -15784,6 +15960,20 @@ window.vmUnlinkDeliverable = vmUnlinkDeliverable;
   background:currentColor;box-shadow:none;
 }
 .fin2-pm-attach-btn:hover { opacity:1;background:#38bdf81a; }
+.fin2-cell-detail-btn {
+  position:absolute;right:2px;top:2px;bottom:2px;
+  width:7px;height:auto;border-radius:2px;border:1px solid currentColor;background:transparent;
+  color:#c9a84c;font-size:0;line-height:1;cursor:pointer;padding:0;
+  display:flex;align-items:stretch;justify-content:stretch;opacity:.7;
+}
+.fin2-cell-detail-btn .fin2-file-dot {
+  width:100%;height:100%;display:block;border-radius:1px;background:transparent;box-shadow:none;
+}
+.fin2-cell-detail-btn .fin2-file-dot.has-file {
+  background:currentColor;box-shadow:none;
+}
+.fin2-detail-cell-has-items .fin2-cell-detail-btn { color:#38bdf8;opacity:.86; }
+.fin2-cell-detail-btn:hover { opacity:1;background:#c9a84c1a; }
 .fin2-subrow td { background:#0b1020;border-bottom-color:#10182a; }
 .fin2-subrow-credit td { color:#9bdcff; }
 .fin2-subrow-discount td { color:#a7f3d0; }
@@ -15823,6 +16013,57 @@ window.vmUnlinkDeliverable = vmUnlinkDeliverable;
 .fin2-modal-list { margin-top:12px;border-top:1px solid #1e2540;padding-top:10px;display:grid;gap:6px; }
 .fin2-modal-item { display:flex;justify-content:space-between;gap:8px;font-size:10px;color:#aeb8dc; }
 .fin2-modal-item span:last-child { color:#fff;font-weight:800; }
+.fin2-detail-modal .fin2-modal { width:min(660px,96vw); }
+.fin2-detail-installments {
+  margin-top:10px;padding:9px;border:1px solid #1e2540;border-radius:8px;
+  display:grid;grid-template-columns:minmax(130px,1fr) 118px 90px 64px 92px;gap:6px;align-items:center;
+  background:#11172966;
+}
+.fin2-detail-installments input {
+  min-width:0;background:#111729;border:1px solid #29304a;border-radius:6px;color:#e5e7eb;
+  padding:7px 8px;font-size:10px;outline:none;box-sizing:border-box;
+}
+.fin2-detail-installments input:focus { border-color:#c9a84c66;background:#151b2e; }
+.fin2-detail-installments input[inputmode="decimal"] { text-align:right;font-variant-numeric:tabular-nums; }
+.fin2-detail-installments input[type="number"] { text-align:center; }
+.fin2-detail-installments .fin2-modal-btn { width:100%;height:30px;padding:0 8px; }
+.fin2-detail-total-line {
+  margin-top:10px;padding-top:10px;border-top:1px solid #1e2540;
+  display:flex;justify-content:space-between;gap:10px;font-size:11px;color:#aeb8dc;
+}
+.fin2-detail-total-line strong { color:#fff;font-size:13px; }
+.fin2-detail-rows { margin-top:12px;display:grid;gap:6px; }
+.fin2-detail-row {
+  display:grid;grid-template-columns:minmax(130px,1fr) 112px 94px 58px;gap:6px;align-items:center;
+}
+.fin2-detail-row input {
+  min-width:0;background:#111729;border:1px solid #29304a;border-radius:6px;color:#e5e7eb;
+  padding:7px 8px;font-size:10px;outline:none;box-sizing:border-box;
+}
+.fin2-detail-row input[type="text"]:last-of-type { text-align:right;font-variant-numeric:tabular-nums; }
+.fin2-detail-row input:focus { border-color:#c9a84c66;background:#151b2e; }
+.fin2-detail-remove {
+  width:24px;height:24px;border-radius:6px;border:1px solid #ef444455;background:#ef444414;
+  color:#fca5a5;cursor:pointer;font-size:12px;font-weight:900;line-height:1;
+}
+.fin2-detail-actions { display:flex;align-items:center;gap:4px;justify-content:flex-end; }
+.fin2-detail-remove-all {
+  height:24px;min-width:30px;border-radius:6px;border:1px solid #f9731655;background:#f9731614;
+  color:#fdba74;cursor:pointer;font-size:8px;font-weight:900;line-height:1;text-transform:uppercase;padding:0 5px;
+}
+.fin2-detail-remove:hover,
+.fin2-detail-remove-all:hover { color:#fff;border-color:#c9a84c66; }
+.fin2-detail-empty {
+  padding:12px;border:1px dashed #29304a;border-radius:8px;color:#6f789b;
+  font-size:10px;text-align:center;background:#11172966;
+}
+@media (max-width:720px) {
+  .fin2-detail-installments { grid-template-columns:1fr 1fr; }
+  .fin2-detail-installments input:first-child { grid-column:1 / -1; }
+  .fin2-detail-installments .fin2-modal-btn { grid-column:1 / -1; }
+  .fin2-detail-row { grid-template-columns:1fr 1fr 76px 58px; }
+  .fin2-detail-row input:first-child { grid-column:1 / -1; }
+}
 .fin2-sh-tot {
   display:block;width:62px;margin-left:auto;margin-right:auto;box-sizing:border-box;padding:3px 6px;
   color:#e2e6ff;font-size:11px;font-weight:600;text-align:right;
@@ -16472,6 +16713,8 @@ let FIN2_INVESTMENTS = {
   ]
 };
 
+let FIN2_MOBILE = { entries: [] };
+
 let FIN2_CREDITORS = [
   { id:'d-brad1',  name:'Bradesco',   monthly:1138, installments:58, paid:0, saldo:66004, oferta:19801, prazo:'', priority:'alta',  status:'mapear', notes:'', pendurada:false },
   { id:'d-brad2',  name:'Bradesco',   monthly:469,  installments:26, paid:0, saldo:12194, oferta:3658,  prazo:'', priority:'media', status:'mapear', notes:'', pendurada:false },
@@ -16503,6 +16746,8 @@ let fin2OldDebtsCollapsed = false;
 let fin2CurrentDebtsCollapsed = false;
 let fin2DebtGroupTotalModes = { payslip: '', old: '', current: '' };
 let fin2PayslipModalMonth = new Date().getMonth();
+let fin2CellDetailsModal = { groupKey: '', rowId: '', monthIdx: 0 };
+let fin2MobileForm = { groupKey: 'despesas', rowId: '', status: '' };
 const FIN2_PAYSLIP_DEBT_CODES = new Set(['097292', '097293', '097294', '097296', '097302', '097352']);
 const FIN2_EXPENSE_GROUPS = [
   { key: 'gasolina', label: 'Gasolina' },
@@ -17278,7 +17523,8 @@ window.irScanArquivos = async function(cpfId, exercicio) {
 
 /* ─────────── NAV ─────────── */
 window.fin2Switch = function(tab) {
-  const availableTabs = ['planilha','dividas','investimentos'];
+  const availableTabs = ['planilha','mobile','dividas','investimentos'];
+  if (window.AIOX_MOBILE_ONLY) tab = 'mobile';
   if (!availableTabs.includes(tab)) tab = 'planilha';
   availableTabs.forEach(t => {
     const pane = document.getElementById('fin2-pane-'+t);
@@ -17289,6 +17535,7 @@ window.fin2Switch = function(tab) {
     btn.classList.toggle('active', show);
   });
   if (tab === 'planilha') fin2RenderSheet();
+  if (tab === 'mobile') fin2RenderMobile();
   if (tab === 'dividas')  fin2RenderDebtCol();
   if (tab === 'investimentos') fin2RenderInvestments();
 };
@@ -17353,6 +17600,7 @@ function fin2EnsureSheetMeta() {
       fin2CustomGroupsCollapsed[groupKey] = {};
     }
     if (!Array.isArray(FIN2_SHEET.topLevelOrder[groupKey])) FIN2_SHEET.topLevelOrder[groupKey] = [];
+    FIN2_SHEET[groupKey].forEach(row => fin2EnsureRowCellDetailsState(groupKey, row));
   });
   fin2NormalizeReceiptAdjustedModes();
 }
@@ -17571,6 +17819,190 @@ function fin2MakeCustomGroupKey(groupKey, label) {
   return key;
 }
 
+function fin2NewSheetRowValues() {
+  return [0].concat(Array(11).fill(null));
+}
+
+function fin2EnsureSheetRowValues(row) {
+  if (!row || row.payslipRole) return;
+  if (!Array.isArray(row.values)) row.values = Array(12).fill(null);
+  while (row.values.length < 12) row.values.push(null);
+}
+
+function fin2DetailTextToken(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLocaleLowerCase('pt-BR');
+}
+
+function fin2RowShouldAutoEnableCellDetails(groupKey, row) {
+  if (!row || row.payslipRole || groupKey !== 'despesas') return false;
+  const expenseGroup = String(row.expenseGroup || '').trim().toLocaleLowerCase('pt-BR');
+  const label = fin2DetailTextToken(row.label);
+  return expenseGroup === 'gasolina' && (/^gas(?:[_\s-]|olina\b)/.test(label) || label.includes('gasolina'));
+}
+
+function fin2CellDetailDateSortKey(entry) {
+  const date = String(entry && entry.date || '').trim();
+  return /^\d{4}-\d{2}-\d{2}$/.test(date) ? date : '9999-12-31';
+}
+
+function fin2CellDetailDatePart(value) {
+  return String(Math.max(1, Number(value) || 1)).padStart(2, '0');
+}
+
+function fin2DefaultCellDetailDate(monthIdx) {
+  const year = Number(FIN2_SHEET && FIN2_SHEET.year) || new Date().getFullYear();
+  return `${year}-${fin2CellDetailDatePart(monthIdx + 1)}-01`;
+}
+
+function fin2AddMonthsToCellDetailDate(date, monthOffset) {
+  const raw = String(date || '').trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(raw)) return '';
+  const [year, month, day] = raw.split('-').map(part => parseInt(part, 10));
+  const target = new Date(year, month - 1 + (Number(monthOffset) || 0), 1);
+  const lastDay = new Date(target.getFullYear(), target.getMonth() + 1, 0).getDate();
+  return [
+    target.getFullYear(),
+    fin2CellDetailDatePart(target.getMonth() + 1),
+    fin2CellDetailDatePart(Math.min(day, lastDay))
+  ].join('-');
+}
+
+function fin2CellDetailProjectionStartMonth(openedMonthIdx, date) {
+  const fallback = Math.max(0, Math.min(11, Number(openedMonthIdx) || 0));
+  const raw = String(date || '').trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(raw)) return fallback;
+  const [year, month] = raw.split('-').map(part => parseInt(part, 10));
+  const sheetYear = Number(FIN2_SHEET && FIN2_SHEET.year) || new Date().getFullYear();
+  if (year !== sheetYear || month < 1 || month > 12) return -1;
+  return Math.max(fallback, month - 1);
+}
+
+function fin2CellDetailInstallmentGroupId(entry) {
+  const explicit = String(entry && entry.installmentGroupId || '').trim();
+  if (explicit) return explicit;
+  const id = String(entry && entry.id || '').trim();
+  const match = id.match(/^(inst-.+)-\d+$/);
+  return match ? match[1] : '';
+}
+
+function fin2NormalizeCellDetailEntry(entry, row, monthIdx, index) {
+  const item = {
+    id: String(entry && entry.id || `detail-${row.id || 'row'}-${monthIdx}-${index + 1}`),
+    name: String(entry && entry.name || entry && entry.label || 'Lancamento').trim() || 'Lancamento',
+    date: String(entry && entry.date || ''),
+    value: typeof (entry && entry.value) === 'number' ? (Number(entry.value) || 0) : fin2ParseMoneyInput(entry && entry.value)
+  };
+  const installmentGroupId = fin2CellDetailInstallmentGroupId({ ...entry, id: item.id });
+  if (installmentGroupId) item.installmentGroupId = installmentGroupId;
+  const installmentIndex = Number(entry && entry.installmentIndex);
+  const installmentCount = Number(entry && entry.installmentCount);
+  if (Number.isFinite(installmentIndex) && installmentIndex > 0) item.installmentIndex = Math.floor(installmentIndex);
+  if (Number.isFinite(installmentCount) && installmentCount > 0) item.installmentCount = Math.floor(installmentCount);
+  return item;
+}
+
+function fin2SortCellDetailEntries(entries) {
+  return (Array.isArray(entries) ? entries : [])
+    .map((entry, index) => ({ entry, index }))
+    .sort((a, b) => {
+      const dateOrder = fin2CellDetailDateSortKey(a.entry).localeCompare(fin2CellDetailDateSortKey(b.entry));
+      return dateOrder || a.index - b.index;
+    })
+    .map(item => item.entry);
+}
+
+function fin2NormalizeRowCellDetails(row) {
+  if (!row) return {};
+  const source = row.cellDetails && typeof row.cellDetails === 'object' ? row.cellDetails : {};
+  const normalized = {};
+  for (let monthIdx = 0; monthIdx < 12; monthIdx++) {
+    const list = Array.isArray(source[String(monthIdx)]) ? source[String(monthIdx)] : (Array.isArray(source[monthIdx]) ? source[monthIdx] : []);
+    normalized[String(monthIdx)] = fin2SortCellDetailEntries(list.map((entry, index) => fin2NormalizeCellDetailEntry(entry, row, monthIdx, index)));
+    if (!normalized[String(monthIdx)].length) delete normalized[String(monthIdx)];
+  }
+  row.cellDetails = normalized;
+  return normalized;
+}
+
+function fin2CellDetailEntries(row, monthIdx) {
+  if (!row) return [];
+  const details = fin2NormalizeRowCellDetails(row);
+  return Array.isArray(details[String(monthIdx)]) ? details[String(monthIdx)] : [];
+}
+
+function fin2CellDetailOwnTotal(row, monthIdx) {
+  const entries = fin2CellDetailEntries(row, monthIdx);
+  if (entries.length) return entries.reduce((sum, entry) => sum + (Number(entry.value) || 0), 0);
+  const raw = row && Array.isArray(row.values) ? row.values[monthIdx] : null;
+  return fin2SheetNumber(raw);
+}
+
+function fin2CellDetailTotal(row, monthIdx) {
+  const own = fin2CellDetailOwnTotal(row, monthIdx);
+  return own === null ? 0 : own;
+}
+
+function fin2CellDetailInheritedTotal(row, monthIdx) {
+  let value = 0;
+  for (let i = 0; i <= monthIdx; i++) {
+    const own = fin2CellDetailOwnTotal(row, i);
+    if (own !== null) value = own;
+  }
+  return value;
+}
+
+function fin2SyncCellDetailMonthValue(row, monthIdx) {
+  if (!row) return;
+  fin2EnsureSheetRowValues(row);
+  const own = fin2CellDetailOwnTotal(row, monthIdx);
+  row.values[monthIdx] = own === null ? null : Number(own.toFixed(2));
+}
+
+function fin2SyncCellDetailRowValues(row) {
+  if (!row) return;
+  for (let monthIdx = 0; monthIdx < 12; monthIdx++) fin2SyncCellDetailMonthValue(row, monthIdx);
+}
+
+function fin2EnableCellDetailsOnRow(row, options = {}) {
+  if (!row || row.payslipRole) return row;
+  fin2EnsureSheetRowValues(row);
+  row.cellDetailsEnabled = true;
+  const details = fin2NormalizeRowCellDetails(row);
+  if (options.migrateValues !== false) {
+    for (let monthIdx = 0; monthIdx < 12; monthIdx++) {
+      const key = String(monthIdx);
+      if (Array.isArray(details[key]) && details[key].length) continue;
+      const value = fin2SheetNumber(row.values[monthIdx]);
+      if (value && Math.abs(value) > 0) {
+        details[key] = [{
+          id: `detail-${row.id || 'row'}-${monthIdx}-initial`,
+          name: 'Lancamento inicial',
+          date: '',
+          value
+        }];
+      }
+    }
+    row.cellDetails = details;
+  }
+  fin2SyncCellDetailRowValues(row);
+  return row;
+}
+
+function fin2EnsureRowCellDetailsState(groupKey, row) {
+  if (!row || row.payslipRole) return;
+  fin2EnsureSheetRowValues(row);
+  const hasDetails = Boolean(row.cellDetailsEnabled === true || (row.cellDetails && typeof row.cellDetails === 'object') || fin2RowShouldAutoEnableCellDetails(groupKey, row));
+  if (!hasDetails) return;
+  fin2EnableCellDetailsOnRow(row, { migrateValues: true });
+}
+
+function fin2RowHasCellDetails(row) {
+  return Boolean(row && row.cellDetailsEnabled === true && !row.payslipRole);
+}
+
 function fin2RenderLabelInput(value, onChangeCall, extraClass = '', ariaLabel = 'Nome') {
   return `<input class="fin2-label-input ${extraClass}" type="text" value="${fin2Esc(value)}" aria-label="${fin2Esc(ariaLabel)}" onclick="event.stopPropagation()" onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur();}" onchange="${fin2Esc(onChangeCall)}">`;
 }
@@ -17751,6 +18183,23 @@ function fin2PayslipSeriesCellExcludedFromTotals(seriesRow, monthIdx) {
   return fin2CellModeHas(mode, 'exclude');
 }
 
+function fin2PayslipColumnManagedSeries(role, monthIdx) {
+  if (role !== 'discounts') return [];
+  return fin2BuildPayslipSeries(role).filter(seriesRow => !fin2PayslipSeriesIsDebtDeduction(seriesRow));
+}
+
+function fin2PayslipColumnAllExcluded(role, monthIdx) {
+  const seriesRows = fin2PayslipColumnManagedSeries(role, monthIdx);
+  return Boolean(seriesRows.length && seriesRows.every(seriesRow => fin2PayslipSeriesCellExcludedFromTotals(seriesRow, monthIdx)));
+}
+
+function fin2SetPayslipColumnTotalMode(role, monthIdx, mode) {
+  const seriesRows = fin2PayslipColumnManagedSeries(role, monthIdx);
+  if (!seriesRows.length) return false;
+  seriesRows.forEach(seriesRow => fin2SetPayslipCellTotalMode(role, seriesRow.key, monthIdx, mode));
+  return true;
+}
+
 function fin2PayslipSeriesCellDeductsFromReceitas(seriesRow, monthIdx) {
   return false;
 }
@@ -17776,6 +18225,13 @@ function fin2PayslipEffectiveSum(role, monthIdx) {
       ? fin2PayslipSeriesCountedValue(seriesRow, monthIdx)
       : fin2PayslipSeriesCellValue(seriesRow, monthIdx);
     return sum + value;
+  }, 0);
+}
+
+function fin2PayslipDisplaySum(role, monthIdx) {
+  return fin2BuildPayslipSeries(role).reduce((sum, seriesRow) => {
+    if (role === 'discounts' && fin2PayslipSeriesIsDebtDeduction(seriesRow)) return sum;
+    return sum + fin2PayslipSeriesCellValue(seriesRow, monthIdx);
   }, 0);
 }
 
@@ -17968,7 +18424,7 @@ function fin2SyncPayslipRowValue(role, monthIdx) {
   const groupKey = role === 'discounts' ? 'despesas' : 'receitas';
   const rowId = role === 'discounts' ? 'pm_despesas' : 'pm';
   const row = (FIN2_SHEET[groupKey] || []).find(r => r.id === rowId);
-  if (row) row.values[monthIdx] = fin2PayslipEffectiveSum(role, monthIdx);
+  if (row) row.values[monthIdx] = fin2PayslipDisplaySum(role, monthIdx);
 }
 
 function fin2SyncPayslipRoleValues(role) {
@@ -17978,7 +18434,10 @@ function fin2SyncPayslipRoleValues(role) {
 function fin2SheetOwnCellValue(row, monthIdx) {
   if (!row) return null;
   if (row.payslipRole) {
-    return fin2PayslipEffectiveSum(row.payslipRole, monthIdx);
+    return fin2PayslipDisplaySum(row.payslipRole, monthIdx);
+  }
+  if (fin2RowHasCellDetails(row)) {
+    return fin2CellDetailOwnTotal(row, monthIdx);
   }
   const raw = row.values ? row.values[monthIdx] : null;
   return fin2SheetNumber(raw);
@@ -17988,6 +18447,9 @@ function fin2SheetCellValue(row, monthIdx) {
   if (row && row.payslipRole) {
     const own = fin2SheetOwnCellValue(row, monthIdx);
     return own === null ? 0 : own;
+  }
+  if (fin2RowHasCellDetails(row)) {
+    return fin2CellDetailInheritedTotal(row, monthIdx);
   }
   let value = 0;
   for (let i = 0; i <= monthIdx; i++) {
@@ -17999,10 +18461,7 @@ function fin2SheetCellValue(row, monthIdx) {
 
 function fin2SheetGrossCellValue(row, monthIdx) {
   if (row && row.payslipRole) {
-    return fin2BuildPayslipSeries(row.payslipRole).reduce((sum, seriesRow) => {
-      if (row.payslipRole === 'discounts' && fin2PayslipSeriesIsDebtDeduction(seriesRow)) return sum;
-      return sum + fin2PayslipSeriesCellValue(seriesRow, monthIdx);
-    }, 0);
+    return fin2PayslipDisplaySum(row.payslipRole, monthIdx);
   }
   return fin2SheetCellValue(row, monthIdx);
 }
@@ -18149,6 +18608,7 @@ function fin2CellExcludedFromGroupTotals(groupKey, row, monthIdx) {
   if (!fin2RowSupportsTotalControls(groupKey, row)) return false;
   if (groupKey === 'receitas') return false;
   if (groupKey === 'dividas' && fin2DebtGroupExcludesRow(row)) return true;
+  if (row && row.payslipRole) return fin2RowExcludedFromGroupTotals(groupKey, row);
   const mode = fin2SheetCellTotalMode(row, monthIdx);
   return fin2RowExcludedFromGroupTotals(groupKey, row) || fin2CellModeHas(mode, 'exclude');
 }
@@ -18162,6 +18622,7 @@ function fin2SheetCellTotalValue(groupKey, row, monthIdx) {
     return fin2ReceiptCellIncluded(row, monthIdx) ? fin2SheetCellValue(row, monthIdx) : 0;
   }
   if (fin2CellExcludedFromGroupTotals(groupKey, row, monthIdx)) return 0;
+  if (row && row.payslipRole) return fin2PayslipEffectiveSum(row.payslipRole, monthIdx);
   return fin2SheetCellValue(row, monthIdx);
 }
 
@@ -18233,7 +18694,7 @@ function fin2RenderAdjustedTotalRow(scope, groupKey, monthlyValues, grandTotal, 
 }
 
 function fin2SheetCellIsInherited(row, monthIdx) {
-  if (!row || row.payslipRole || monthIdx <= 0) return false;
+  if (!row || row.payslipRole || fin2RowHasCellDetails(row) || monthIdx <= 0) return false;
   const raw = row.values ? row.values[monthIdx] : null;
   return fin2IsBlankSheetCell(raw);
 }
@@ -18273,9 +18734,25 @@ function fin2ApplyPayslipExtraction(monthIdx, extraction) {
   fin2SyncPayslipRoleValues('discounts');
 }
 
+function fin2RenderCellDetailsParentCell(groupKey, row, monthIdx, value) {
+  const entries = fin2CellDetailEntries(row, monthIdx);
+  const hasItems = entries.some(entry => (Number(entry.value) || 0) !== 0 || String(entry.name || '').trim() || String(entry.date || '').trim());
+  const inherited = monthIdx > 0 && fin2CellDetailOwnTotal(row, monthIdx) === null;
+  const title = `${row.label || 'Linha detalhada'} - ${MONTHS[monthIdx]}: ${entries.length} lancamento${entries.length === 1 ? '' : 's'}${inherited ? ' - copiando mes anterior' : ''}`;
+  const inheritedClass = inherited ? ' fin2-input-inherited' : '';
+  const inheritedAttr = inherited ? ' data-fin2-inherited="true"' : '';
+  return `<div class="fin2-detail-cell-actions${hasItems ? ' fin2-detail-cell-has-items' : ''}" title="${fin2Esc(title)}">
+    <input class="fin2-input${inheritedClass}" type="text" inputmode="decimal" value="${fin2Esc(fin2MoneyCell(value, true))}"${inheritedAttr} title="${fin2Esc(title)}" onfocus="this.select()" onchange="fin2UpdateCell('${groupKey}','${row.id}',${monthIdx},this)">
+    <button class="fin2-cell-detail-btn" onclick='event.stopPropagation();fin2OpenCellDetailsModal(${fin2Js(groupKey)},${fin2Js(row.id)},${monthIdx})' title="Detalhar ${fin2Esc(row.label || 'celula')} em ${MONTHS[monthIdx]}"><span class="fin2-file-dot${hasItems ? ' has-file' : ''}"></span></button>
+  </div>`;
+}
+
 function fin2RenderPayslipParentCell(groupKey, row, monthIdx, value) {
   const role = row.payslipRole;
   if (!role) {
+    if (fin2RowHasCellDetails(row)) {
+      return fin2RenderCellDetailsParentCell(groupKey, row, monthIdx, value);
+    }
     const inherited = fin2SheetCellIsInherited(row, monthIdx);
     const inheritedClass = inherited ? ' fin2-input-inherited' : '';
     const inheritedAttr = inherited ? ' data-fin2-inherited="true"' : '';
@@ -18492,7 +18969,7 @@ function fin2RenderCurrentDebtGroupRow(groupKey, count, parentCollapsed = false)
   const adjusted = MONTHS.map((_month, monthIdx) => fin2DebtGroupSubtotal('current', monthIdx));
   return `<tr class="fin2-current-debt-group-row fin2-group-row-${groupKey}${excluded ? ' fin2-row-total-excluded' : ''}" data-fin2-current-debt-group="true" data-fin2-debt-group-total-kind="current" data-fin2-total-managed="true" data-fin2-excluded-from-group-total="${excluded ? 'true' : 'false'}" onclick="fin2ToggleCurrentDebtRows()" ondragover="fin2DebtGroupDragOver(event,'current')" ondragleave="fin2DragLeave(event)" ondrop="fin2DropDebtGroup(event,'current')"${parentCollapsed ? ' style="display:none"' : ''}>
     <td class="fin2-row-tools"><button class="fin2-drag-handle fin2-debt-group-drag-handle" draggable="true" onclick="event.stopPropagation()" ondragstart="fin2DebtGroupDragStart(event,'current')" ondragend="fin2DragEnd()" title="Arrastar subaba">⋮⋮</button><button class="fin2-debt-filter-toggle fin2-current-debt-toggle" onclick="event.stopPropagation();fin2ToggleCurrentDebtRows()" title="${hidden ? 'Mostrar' : 'Ocultar'} ${fin2Esc(label)}">${hidden ? '▸' : '▾'}</button></td>
-    <td class="fin2-td-label fin2-total-managed-label-cell">${totalControls}<span class="fin2-current-debt-group-title fin2-debt-group-title-total-managed"><button class="fin2-section-add-btn fin2-current-debt-add-btn" onclick="event.stopPropagation();fin2AddRow('dividas')" title="Adicionar dívida atual">+</button>${fin2RenderLabelInput(label, `fin2UpdateDebtGroupLabel('current',this.value)`, 'fin2-subgroup-label-input', 'Nome da subaba de dívidas atuais')}</span></td>
+    <td class="fin2-td-label fin2-total-managed-label-cell">${totalControls}<span class="fin2-current-debt-group-title fin2-debt-group-title-total-managed"><button class="fin2-section-add-btn fin2-current-debt-add-btn" onclick="event.stopPropagation();fin2AddCurrentDebtRow()" title="Adicionar dívida atual">+</button>${fin2RenderLabelInput(label, `fin2UpdateDebtGroupLabel('current',this.value)`, 'fin2-subgroup-label-input', 'Nome da subaba de dívidas atuais')}</span></td>
     ${fin2RenderDebtGroupSubtotalCells('current', count)}
   </tr>${fin2RenderAdjustedTotalRow('debt:current', groupKey, adjusted, fin2DebtGroupGrandSubtotal('current'), parentCollapsed)}`;
 }
@@ -18573,6 +19050,13 @@ function fin2RenderRowTotalControls(groupKey, row) {
 
 function fin2RenderSheetCellTotalControls(groupKey, row, monthIdx) {
   if (!fin2RowSupportsTotalControls(groupKey, row)) return '';
+  if (row && row.payslipRole === 'discounts') {
+    const groupExcluded = fin2PayslipColumnAllExcluded(row.payslipRole, monthIdx);
+    const groupTitle = groupExcluded
+      ? 'Reincluir os descontos do holerite nesta coluna'
+      : 'Quitar os descontos do holerite nesta coluna';
+    return `<button class="fin2-cell-total-toggle fin2-cell-group-toggle ${groupExcluded ? 'is-off' : 'is-on'}" onclick='event.stopPropagation();fin2TogglePayslipColumnGroupTotal(${fin2Js(row.payslipRole)},${monthIdx})' title="${fin2Esc(groupTitle)}" aria-label="${fin2Esc(groupTitle)}"></button>`;
+  }
   const mode = fin2SheetCellTotalMode(row, monthIdx);
   if (groupKey === 'receitas') {
     const included = fin2CellModeHas(mode, 'include');
@@ -18592,7 +19076,9 @@ function fin2RenderSheetCellTotalControls(groupKey, row, monthIdx) {
 function fin2RenderManagedSheetCell(groupKey, row, monthIdx, contentHtml) {
   const controls = fin2RenderSheetCellTotalControls(groupKey, row, monthIdx);
   if (!controls) return contentHtml;
-  const excluded = fin2CellExcludedFromGroupTotals(groupKey, row, monthIdx);
+  const excluded = row && row.payslipRole === 'discounts'
+    ? fin2PayslipColumnAllExcluded(row.payslipRole, monthIdx)
+    : fin2CellExcludedFromGroupTotals(groupKey, row, monthIdx);
   return `<div class="fin2-cell-total-managed${excluded ? ' fin2-cell-total-excluded' : ''}" data-fin2-cell-total-managed="true" data-fin2-cell-excluded-from-group-total="${excluded ? 'true' : 'false'}">${controls}${contentHtml}</div>`;
 }
 
@@ -18609,7 +19095,10 @@ function fin2RowsColumnAllMode(rows, monthIdx, predicate) {
 }
 
 function fin2RowsColumnExcludedByCellMode(rows, monthIdx) {
-  return fin2RowsColumnAllMode(rows, monthIdx, mode => fin2CellModeHas(mode, 'exclude'));
+  return Boolean((rows || []).length && (rows || []).every(row => {
+    if (row && row.payslipRole === 'discounts') return fin2PayslipColumnAllExcluded(row.payslipRole, monthIdx);
+    return fin2CellModeHas(fin2SheetCellTotalMode(row, monthIdx), 'exclude');
+  }));
 }
 
 function fin2RowsColumnIncludedByCellMode(rows, monthIdx) {
@@ -18630,6 +19119,15 @@ function fin2GroupColumnExcludedByCellMode(groupKey, monthIdx) {
 
 function fin2GroupColumnReceitasByCellMode(groupKey, monthIdx) {
   return fin2RowsColumnReceitasByCellMode(fin2GroupColumnRows(groupKey), monthIdx);
+}
+
+function fin2SetManagedColumnTotalMode(groupKey, row, monthIdx, mode) {
+  if (groupKey === 'despesas' && row && row.payslipRole === 'discounts') {
+    fin2SetSheetCellTotalMode(row, monthIdx, '');
+    return fin2SetPayslipColumnTotalMode(row.payslipRole, monthIdx, mode === 'exclude' ? 'exclude' : '');
+  }
+  fin2SetSheetCellTotalMode(row, monthIdx, mode);
+  return true;
 }
 
 function fin2RenderGroupColumnTotalControls(groupKey, monthIdx) {
@@ -19222,6 +19720,681 @@ window.fin2DeleteInvestmentAsset = function(id) {
   fin2TriggerAutoSave();
 };
 
+function fin2EnsureMobileState() {
+  if (!FIN2_MOBILE || typeof FIN2_MOBILE !== 'object') FIN2_MOBILE = {};
+  if (!Array.isArray(FIN2_MOBILE.entries)) FIN2_MOBILE.entries = [];
+  FIN2_MOBILE.entries = FIN2_MOBILE.entries.map((entry, index) => ({
+    id: String(entry && entry.id || `mob-${index + 1}`),
+    groupKey: FIN2_SECTION_KEYS.includes(entry && entry.groupKey) ? entry.groupKey : 'despesas',
+    rowId: String(entry && entry.rowId || ''),
+    rowLabel: String(entry && entry.rowLabel || ''),
+    path: String(entry && entry.path || ''),
+    name: String(entry && entry.name || 'Lancamento'),
+    date: String(entry && entry.date || ''),
+    value: Number(entry && entry.value) || 0,
+    installments: Math.max(1, Math.round(Number(entry && entry.installments) || 1)),
+    appliedMonths: Math.max(1, Math.round(Number(entry && entry.appliedMonths) || Number(entry && entry.installments) || 1)),
+    appliedTargets: Array.isArray(entry && entry.appliedTargets) ? entry.appliedTargets.map(target => ({
+      groupKey: FIN2_SECTION_KEYS.includes(target && target.groupKey) ? target.groupKey : '',
+      rowId: String(target && target.rowId || ''),
+      monthIdx: Math.round(Number(target && target.monthIdx)),
+      kind: String(target && target.kind || ''),
+      entryId: String(target && target.entryId || ''),
+      expectedValue: target && target.expectedValue !== null && target.expectedValue !== undefined && Number.isFinite(Number(target.expectedValue)) ? Number(target.expectedValue) : null,
+      previousValue: target && target.previousValue !== undefined ? target.previousValue : null
+    })).filter(target => target.groupKey && target.rowId && Number.isInteger(target.monthIdx) && target.monthIdx >= 0 && target.monthIdx < 12) : [],
+    createdAt: String(entry && entry.createdAt || new Date().toISOString())
+  })).slice(-300);
+}
+
+function fin2MobileDateValue(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function fin2MobileGroupLabel(groupKey) {
+  if (groupKey === 'receitas') return 'Receita';
+  return groupKey === 'dividas' ? 'Divida' : 'Despesa';
+}
+
+function fin2MobileRowPath(groupKey, row) {
+  if (groupKey === 'despesas') {
+    const expenseKind = fin2ExpenseGroupKind(row);
+    if (expenseKind) return fin2ExpenseGroupConfig(expenseKind).label;
+  }
+  const customKey = fin2RowCustomGroupKey(groupKey, row);
+  if (customKey) {
+    const config = fin2CustomGroupConfig(groupKey, customKey);
+    if (config) return config.label;
+  }
+  if (groupKey === 'dividas') {
+    if (fin2IsOldDebtRow(row)) return fin2DebtGroupLabel('old');
+    return fin2DebtGroupLabel('current');
+  }
+  return fin2SectionLabel(groupKey);
+}
+
+function fin2MobileDestinations(groupKey) {
+  fin2EnsureSheetMeta();
+  return fin2RowsForRender(FIN2_SHEET[groupKey] || [], groupKey)
+    .filter(row => row && row.id && !row.payslipRole && !row.fin2CustomGroupPlaceholder && !row.fin2ExpenseGroupPlaceholder && !row.fin2DebtGroupPlaceholder)
+    .filter(row => groupKey !== 'dividas' || !fin2IsPayslipDebtRow(row))
+    .map(row => {
+      const path = fin2MobileRowPath(groupKey, row);
+      return { row, path, label: `${path} / ${row.label || 'Sem nome'}` };
+    });
+}
+
+function fin2MobileSelectedGroup() {
+  return FIN2_SECTION_KEYS.includes(fin2MobileForm.groupKey) ? fin2MobileForm.groupKey : 'despesas';
+}
+
+function fin2MobileSelectedDestination(groupKey) {
+  const destinations = fin2MobileDestinations(groupKey);
+  if (!destinations.length) return { destinations, selected: null };
+  const selected = destinations.find(item => item.row.id === fin2MobileForm.rowId) || destinations[0];
+  fin2MobileForm.rowId = selected.row.id;
+  return { destinations, selected };
+}
+
+function fin2MobileMonthIndexFromDate(dateValue) {
+  const match = String(dateValue || '').trim().match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) return -1;
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  if (year !== (Number(FIN2_SHEET.year) || new Date().getFullYear()) || month < 1 || month > 12) return -1;
+  return month - 1;
+}
+
+function fin2MobileApplyToRow(groupKey, row, monthIdx, entry, baseValue = null) {
+  if (!row || row.payslipRole || monthIdx < 0 || monthIdx >= 12) return null;
+  if (fin2RowHasCellDetails(row)) {
+    const item = fin2AppendCellDetailEntry(row, monthIdx, entry);
+    return item ? {
+      groupKey,
+      rowId: row.id,
+      monthIdx,
+      kind: 'detail',
+      entryId: item.id
+    } : null;
+  } else {
+    fin2EnsureSheetRowValues(row);
+    const current = Number.isFinite(baseValue) ? baseValue : fin2SheetCellValue(row, monthIdx);
+    row.values[monthIdx] = Number((current + (Number(entry.value) || 0)).toFixed(2));
+    return {
+      groupKey,
+      rowId: row.id,
+      monthIdx,
+      kind: 'value',
+      expectedValue: row.values[monthIdx]
+    };
+  }
+}
+
+function fin2SetPostInstallmentZero(groupKey, row, monthIdx) {
+  if (!row || row.payslipRole || monthIdx < 0 || monthIdx >= 12) return null;
+  fin2EnsureSheetRowValues(row);
+  const previousValue = row.values[monthIdx] === undefined ? null : row.values[monthIdx];
+  if (fin2SheetNumber(previousValue) !== null) return null;
+  if (fin2RowHasCellDetails(row)) {
+    const details = fin2NormalizeRowCellDetails(row);
+    if ((details[String(monthIdx)] || []).length) return null;
+    row.values[monthIdx] = 0;
+    row.cellDetails = details;
+  } else {
+    row.values[monthIdx] = 0;
+  }
+  return {
+    groupKey,
+    rowId: row.id,
+    monthIdx,
+    kind: 'postInstallmentZero',
+    previousValue,
+    expectedValue: 0
+  };
+}
+
+function fin2MobileApplyEntryToDestination(groupKey, destination, baseName, date, value, requestedInstallments, seed = Date.now()) {
+  const row = destination && destination.row;
+  const startMonthIdx = fin2MobileMonthIndexFromDate(date);
+  if (!row || startMonthIdx < 0) return null;
+  const appliedMonths = Math.min(Math.max(1, requestedInstallments), 12 - startMonthIdx);
+  const groupId = appliedMonths > 1 ? `mob-inst-${row.id}-${startMonthIdx}-${seed}` : '';
+  const baseMonthValues = MONTHS.map((_month, monthIdx) => fin2SheetCellValue(row, monthIdx));
+  const appliedTargets = [];
+  for (let offset = 0; offset < appliedMonths; offset++) {
+    const targetMonth = startMonthIdx + offset;
+    const installmentName = appliedMonths > 1 ? `${baseName} ${offset + 1}/${requestedInstallments}` : baseName;
+    const appliedTarget = fin2MobileApplyToRow(groupKey, row, targetMonth, {
+      id: appliedMonths > 1 ? `${groupId}-${offset + 1}` : `mob-${row.id}-${targetMonth}-${seed}`,
+      name: installmentName,
+      date: fin2AddMonthsToCellDetailDate(date, offset) || date,
+      value,
+      installmentGroupId: groupId,
+      installmentIndex: offset + 1,
+      installmentCount: requestedInstallments
+    }, baseMonthValues[targetMonth]);
+    if (appliedTarget) appliedTargets.push(appliedTarget);
+  }
+  if (appliedMonths > 1) {
+    const stopTarget = fin2SetPostInstallmentZero(groupKey, row, startMonthIdx + appliedMonths);
+    if (stopTarget) appliedTargets.push(stopTarget);
+  }
+  return { appliedMonths, appliedTargets };
+}
+
+function fin2MobileNormalizeMatchText(value) {
+  return String(value || '')
+    .toLocaleLowerCase('pt-BR')
+    .replace(/\s+\d+\s*\/\s*\d+$/, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function fin2MobileDetailMatchesEntry(detail, entry) {
+  const detailName = fin2MobileNormalizeMatchText(detail && detail.name);
+  const entryName = fin2MobileNormalizeMatchText(entry && entry.name);
+  const detailValue = Number(detail && detail.value) || 0;
+  const entryValue = Number(entry && entry.value) || 0;
+  const valueMatches = Math.abs(detailValue - entryValue) < 0.005;
+  const nameMatches = !entryName || detailName === entryName || detailName.startsWith(entryName + ' ');
+  const dateMatches = !entry.date || !detail.date || String(detail.date) === String(entry.date);
+  return valueMatches && nameMatches && dateMatches;
+}
+
+function fin2MobileEntryStillApplied(entry) {
+  const row = fin2FindSheetRow(entry.groupKey, entry.rowId);
+  if (!row || row.payslipRole) return false;
+  const targets = Array.isArray(entry.appliedTargets) ? entry.appliedTargets : [];
+  if (targets.length) {
+    return targets.some(target => {
+      const targetRow = fin2FindSheetRow(target.groupKey || entry.groupKey, target.rowId || entry.rowId);
+      if (!targetRow) return false;
+      if (target.kind === 'detail') {
+        return fin2CellDetailEntries(targetRow, target.monthIdx).some(detail => detail.id === target.entryId);
+      }
+      if (target.kind === 'value') {
+        const current = fin2SheetCellValue(targetRow, target.monthIdx);
+        const expected = Number(target.expectedValue);
+        return Number.isFinite(expected)
+          ? Math.abs(current - expected) < 0.005
+          : Math.abs(current) >= Math.abs(Number(entry.value) || 0) - 0.005;
+      }
+      if (target.kind === 'postInstallmentZero') return false;
+      return true;
+    });
+  }
+  if (fin2RowHasCellDetails(row)) {
+    return MONTHS.some((_month, monthIdx) =>
+      fin2CellDetailEntries(row, monthIdx).some(detail => fin2MobileDetailMatchesEntry(detail, entry))
+    );
+  }
+  const entryValue = Math.abs(Number(entry.value) || 0);
+  if (!entryValue) return true;
+  return MONTHS.some((_month, monthIdx) => Math.abs(fin2SheetCellValue(row, monthIdx)) >= entryValue - 0.005);
+}
+
+function fin2PruneMobileHistory() {
+  fin2EnsureMobileState();
+  const before = FIN2_MOBILE.entries.length;
+  FIN2_MOBILE.entries = FIN2_MOBILE.entries.filter(entry => fin2MobileEntryStillApplied(entry)).slice(-300);
+  return FIN2_MOBILE.entries.length !== before;
+}
+
+function fin2MobileSetStatus(message) {
+  fin2MobileForm.status = String(message || '');
+  const el = document.getElementById('fin2-mobile-status');
+  if (!el) return;
+  el.textContent = fin2MobileForm.status;
+  el.classList.toggle('active', Boolean(fin2MobileForm.status));
+}
+
+function fin2MobileLoadExternalScript(src) {
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector(`script[src="${src}"]`);
+    if (existing) {
+      existing.addEventListener('load', resolve, { once: true });
+      existing.addEventListener('error', reject, { once: true });
+      if (window.Tesseract) resolve();
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = src;
+    script.async = true;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}
+
+let fin2MobileOcrLoader = null;
+function fin2MobileEnsureOcr() {
+  if (window.Tesseract && typeof window.Tesseract.recognize === 'function') return Promise.resolve();
+  if (!fin2MobileOcrLoader) {
+    fin2MobileOcrLoader = fin2MobileLoadExternalScript('https://cdn.jsdelivr.net/npm/tesseract.js@6/dist/tesseract.min.js');
+  }
+  return fin2MobileOcrLoader;
+}
+
+function fin2MobileFileToDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function fin2ParseMobileReceiptText(text) {
+  const lines = String(text || '').split(/\r?\n/).map(line => line.replace(/\s+/g, ' ').trim()).filter(Boolean);
+  const rawText = lines.join('\n');
+  const dateMatch = rawText.match(/\b([0-3]?\d)[\/.-]([01]?\d)[\/.-]((?:20)?\d{2})\b/);
+  let date = fin2MobileDateValue();
+  if (dateMatch) {
+    const day = dateMatch[1].padStart(2, '0');
+    const month = dateMatch[2].padStart(2, '0');
+    const year = dateMatch[3].length === 2 ? `20${dateMatch[3]}` : dateMatch[3];
+    date = `${year}-${month}-${day}`;
+  }
+  const moneyRegex = /(?:R\$\s*)?(?:\d{1,3}(?:\.\d{3})+|\d+)(?:,\d{2})/g;
+  const moneyLineRegex = /(?:R\$\s*)?(?:\d{1,3}(?:\.\d{3})+|\d+)(?:,\d{2})/;
+  const moneyCandidates = [];
+  lines.forEach((line, lineIdx) => {
+    const priority = /\b(total|valor|pago|pagamento|debito|credito)\b/i.test(line) ? 1 : 0;
+    const matches = line.match(moneyRegex) || [];
+    matches.forEach(match => {
+      const value = Math.abs(fin2ParseMoneyInput(match));
+      if (Number.isFinite(value) && value > 0) moneyCandidates.push({ value, priority, lineIdx });
+    });
+  });
+  moneyCandidates.sort((a, b) => (b.priority - a.priority) || (b.lineIdx - a.lineIdx) || (b.value - a.value));
+  const name = lines.find(line =>
+    line.length >= 3
+    && line.length <= 48
+    && !/\b(cnpj|cpf|cupom|sat|nfc|nota|documento|endereco|telefone|total|valor|data|hora)\b/i.test(line)
+    && !moneyLineRegex.test(line)
+  ) || '';
+  return {
+    name,
+    date,
+    value: moneyCandidates.length ? moneyCandidates[0].value : 0
+  };
+}
+
+window.fin2MobileOpenPhoto = function() {
+  const input = document.getElementById('fin2-mobile-photo-input');
+  if (input) input.click();
+};
+
+window.fin2MobileReadPhoto = async function(input) {
+  const file = input && input.files && input.files[0];
+  if (!file) return;
+  fin2MobileSetStatus('Lendo foto...');
+  try {
+    await fin2MobileEnsureOcr();
+    if (!window.Tesseract || typeof window.Tesseract.recognize !== 'function') {
+      throw new Error('OCR indisponivel');
+    }
+    const dataUrl = await fin2MobileFileToDataUrl(file);
+    const result = await window.Tesseract.recognize(dataUrl, 'por+eng');
+    const parsed = fin2ParseMobileReceiptText(result && result.data && result.data.text);
+    const nameInput = document.getElementById('fin2-mobile-name');
+    const valueInput = document.getElementById('fin2-mobile-value');
+    const dateInput = document.getElementById('fin2-mobile-date');
+    if (parsed.name && nameInput) nameInput.value = parsed.name;
+    if (parsed.value && valueInput) valueInput.value = fin2MoneyCell(parsed.value);
+    if (parsed.date && dateInput) dateInput.value = parsed.date;
+    fin2MobileSetStatus(parsed.value ? 'Foto lida. Confira os campos antes de lancar.' : 'Nao consegui identificar o valor da foto.');
+  } catch (e) {
+    console.warn('[fin2] mobile OCR error:', e);
+    fin2MobileSetStatus('Nao consegui ler a foto automaticamente. Preencha manualmente.');
+  } finally {
+    if (input) input.value = '';
+  }
+};
+
+function fin2MobileFindEntry(entryId) {
+  fin2EnsureMobileState();
+  return FIN2_MOBILE.entries.find(entry => entry.id === String(entryId || '')) || null;
+}
+
+function fin2MobileRemoveValueTarget(row, monthIdx, value) {
+  fin2EnsureSheetRowValues(row);
+  const own = fin2SheetNumber(row.values[monthIdx]);
+  const current = own === null ? fin2SheetCellValue(row, monthIdx) : own;
+  const next = Number(((Number(current) || 0) - (Number(value) || 0)).toFixed(2));
+  row.values[monthIdx] = Math.abs(next) < 0.005 ? null : next;
+}
+
+function fin2MobileRemoveDetailTarget(row, monthIdx, entry, entryId = '') {
+  const details = fin2NormalizeRowCellDetails(row);
+  const key = String(monthIdx);
+  const entries = Array.isArray(details[key]) ? details[key] : [];
+  let removed = false;
+  const nextEntries = entries.filter(detail => {
+    const match = entryId ? detail.id === entryId : fin2MobileDetailMatchesEntry(detail, entry);
+    if (match && !removed) {
+      removed = true;
+      return false;
+    }
+    return true;
+  });
+  if (nextEntries.length) {
+    details[key] = fin2SortCellDetailEntries(nextEntries);
+  } else {
+    delete details[key];
+    fin2EnsureSheetRowValues(row);
+    row.values[monthIdx] = null;
+  }
+  row.cellDetails = details;
+  fin2SyncCellDetailMonthValue(row, monthIdx);
+  return removed;
+}
+
+function fin2MobileRestorePostInstallmentZero(row, monthIdx, previousValue) {
+  fin2EnsureSheetRowValues(row);
+  if (fin2SheetNumber(row.values[monthIdx]) !== 0) return false;
+  if (fin2RowHasCellDetails(row) && fin2CellDetailEntries(row, monthIdx).length) return false;
+  row.values[monthIdx] = previousValue === undefined ? null : previousValue;
+  return true;
+}
+
+function fin2MobileRemoveAppliedTarget(entry, target) {
+  const row = fin2FindSheetRow(target.groupKey || entry.groupKey, target.rowId || entry.rowId);
+  if (!row || row.payslipRole) return false;
+  const monthIdx = Math.round(Number(target.monthIdx));
+  if (!Number.isInteger(monthIdx) || monthIdx < 0 || monthIdx >= 12) return false;
+  if (target.kind === 'detail') return fin2MobileRemoveDetailTarget(row, monthIdx, entry, target.entryId);
+  if (target.kind === 'value') {
+    fin2MobileRemoveValueTarget(row, monthIdx, entry.value);
+    return true;
+  }
+  if (target.kind === 'postInstallmentZero') return fin2MobileRestorePostInstallmentZero(row, monthIdx, target.previousValue);
+  return false;
+}
+
+function fin2MobileRemoveLegacyApplications(entry) {
+  const row = fin2FindSheetRow(entry.groupKey, entry.rowId);
+  if (!row || row.payslipRole) return 0;
+  const startMonthIdx = fin2MobileMonthIndexFromDate(entry.date);
+  if (startMonthIdx < 0) return 0;
+  const appliedMonths = Math.min(Math.max(1, Number(entry.appliedMonths) || Number(entry.installments) || 1), 12 - startMonthIdx);
+  let removed = 0;
+  for (let offset = 0; offset < appliedMonths; offset++) {
+    const monthIdx = startMonthIdx + offset;
+    if (fin2RowHasCellDetails(row)) {
+      if (fin2MobileRemoveDetailTarget(row, monthIdx, entry)) removed++;
+    } else {
+      fin2MobileRemoveValueTarget(row, monthIdx, entry.value);
+      removed++;
+    }
+  }
+  return removed;
+}
+
+function fin2MobileRemoveEntryApplications(entry) {
+  const targets = Array.isArray(entry && entry.appliedTargets) ? entry.appliedTargets : [];
+  if (!targets.length) return fin2MobileRemoveLegacyApplications(entry);
+  return targets.reduce((count, target) => count + (fin2MobileRemoveAppliedTarget(entry, target) ? 1 : 0), 0);
+}
+
+function fin2MobileFinishEntryMutation(entry, status) {
+  if (entry && entry.groupKey === 'dividas') {
+    const row = fin2FindSheetRow(entry.groupKey, entry.rowId);
+    const creditor = row ? fin2SyncCreditorFromDebtRow(row) : null;
+    if (creditor) fin2RefreshDebtViews(creditor.id);
+  }
+  fin2EnsureMobileState();
+  fin2MobileForm.status = status || '';
+  fin2RenderSheet();
+  fin2RenderMobile();
+  fin2TriggerAutoSave();
+}
+
+window.fin2MobileDeleteEntry = function(entryId) {
+  const entry = fin2MobileFindEntry(entryId);
+  if (!entry) return;
+  if (!confirm(`Excluir "${entry.name}" do aplicativo e da planilha?`)) return;
+  fin2MobileRemoveEntryApplications(entry);
+  FIN2_MOBILE.entries = FIN2_MOBILE.entries.filter(item => item.id !== entry.id);
+  fin2MobileFinishEntryMutation(entry, 'Lancamento excluido do app e da planilha.');
+};
+
+window.fin2MobileOpenEditEntry = function(entryId) {
+  const entry = fin2MobileFindEntry(entryId);
+  if (!entry) return;
+  const destinations = fin2MobileDestinations(entry.groupKey);
+  const options = destinations.map(item => `<option value="${fin2Esc(item.row.id)}"${item.row.id === entry.rowId ? ' selected' : ''}>${fin2Esc(item.label)}</option>`).join('');
+  const existing = document.getElementById('fin2-mobile-edit-modal');
+  if (existing) existing.remove();
+  const modal = document.createElement('div');
+  modal.id = 'fin2-mobile-edit-modal';
+  modal.className = 'fin2-modal-backdrop fin2-mobile-edit-modal';
+  modal.innerHTML = `
+    <div class="fin2-modal">
+      <div class="fin2-modal-head">
+        <div>
+          <div class="fin2-modal-title">Editar lancamento mobile</div>
+          <div class="fin2-modal-sub">${fin2Esc(fin2MobileGroupLabel(entry.groupKey))} - ${fin2Esc(entry.rowLabel || entry.rowId)}</div>
+        </div>
+        <button class="fin2-modal-close" onclick="fin2MobileCloseEditEntry()">&times;</button>
+      </div>
+      <div class="fin2-mobile-edit-form">
+        <div class="fin2-mobile-field">
+          <label for="fin2-mobile-edit-row">Destino</label>
+          <select id="fin2-mobile-edit-row">${options}</select>
+        </div>
+        <div class="fin2-mobile-grid">
+          <div class="fin2-mobile-field">
+            <label for="fin2-mobile-edit-name">Nome</label>
+            <input id="fin2-mobile-edit-name" type="text" value="${fin2Esc(entry.name || '')}">
+          </div>
+          <div class="fin2-mobile-field">
+            <label for="fin2-mobile-edit-value">Valor</label>
+            <input id="fin2-mobile-edit-value" class="fin2-mobile-value" type="text" inputmode="decimal" value="${fin2Esc(fin2MoneyCell(entry.value))}">
+          </div>
+        </div>
+        <div class="fin2-mobile-grid">
+          <div class="fin2-mobile-field">
+            <label for="fin2-mobile-edit-date">Data</label>
+            <input id="fin2-mobile-edit-date" type="date" value="${fin2Esc(entry.date || fin2MobileDateValue())}">
+          </div>
+          <div class="fin2-mobile-field">
+            <label for="fin2-mobile-edit-installments">Parcelas</label>
+            <input id="fin2-mobile-edit-installments" type="number" min="1" max="12" value="${Math.max(1, Number(entry.installments) || 1)}">
+          </div>
+        </div>
+        <button class="fin2-mobile-submit" type="button" onclick='fin2MobileSaveEntryEdit(${fin2Js(entry.id)})'><i data-lucide="save"></i>Salvar</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  if (window.lucide) window.lucide.createIcons();
+};
+
+window.fin2MobileCloseEditEntry = function() {
+  const modal = document.getElementById('fin2-mobile-edit-modal');
+  if (modal) modal.remove();
+};
+
+window.fin2MobileSaveEntryEdit = function(entryId) {
+  const entry = fin2MobileFindEntry(entryId);
+  if (!entry) return;
+  const rowId = String(document.getElementById('fin2-mobile-edit-row')?.value || entry.rowId);
+  const destinations = fin2MobileDestinations(entry.groupKey);
+  const destination = destinations.find(item => item.row.id === rowId);
+  if (!destination) return;
+  const name = String(document.getElementById('fin2-mobile-edit-name')?.value || '').trim() || destination.row.label || 'Lancamento';
+  const value = Math.abs(fin2ParseMoneyInput(document.getElementById('fin2-mobile-edit-value')?.value || ''));
+  if (!value) {
+    alert('Informe o valor.');
+    return;
+  }
+  const date = String(document.getElementById('fin2-mobile-edit-date')?.value || fin2MobileDateValue()).trim();
+  if (fin2MobileMonthIndexFromDate(date) < 0) {
+    alert(`Use uma data dentro de ${FIN2_SHEET.year || 2026}.`);
+    return;
+  }
+  const installments = Math.max(1, Math.round(Number(document.getElementById('fin2-mobile-edit-installments')?.value || 1)));
+  fin2MobileRemoveEntryApplications(entry);
+  const applied = fin2MobileApplyEntryToDestination(entry.groupKey, destination, name, date, value, installments);
+  if (!applied) return;
+  entry.rowId = destination.row.id;
+  entry.rowLabel = destination.row.label || '';
+  entry.path = destination.path || '';
+  entry.name = name;
+  entry.date = date;
+  entry.value = value;
+  entry.installments = installments;
+  entry.appliedMonths = applied.appliedMonths;
+  entry.appliedTargets = applied.appliedTargets;
+  entry.updatedAt = new Date().toISOString();
+  fin2MobileCloseEditEntry();
+  fin2MobileFinishEntryMutation(entry, 'Lancamento mobile atualizado.');
+};
+
+function fin2MobileHistoryHtml() {
+  fin2PruneMobileHistory();
+  const entries = FIN2_MOBILE.entries.slice(-8).reverse();
+  if (!entries.length) return '<div class="fin2-mobile-empty">Nenhum lancamento mobile ainda.</div>';
+  return `<div class="fin2-mobile-history">${entries.map(entry => `
+    <div class="fin2-mobile-history-row">
+      <div>
+        <strong>${fin2Esc(entry.name)}</strong>
+        <span>${fin2Esc(entry.path || fin2MobileGroupLabel(entry.groupKey))} / ${fin2Esc(entry.rowLabel || entry.rowId)} · ${fin2Esc(entry.date || '')}${entry.appliedMonths > 1 ? ` · ${entry.appliedMonths}x` : ''}</span>
+      </div>
+      <div class="fin2-mobile-history-side">
+        <div class="fin2-mobile-history-value">${fin2MoneyCell(entry.value, true)}</div>
+        <div class="fin2-mobile-history-actions">
+          <button type="button" onclick='fin2MobileOpenEditEntry(${fin2Js(entry.id)})'>Editar</button>
+          <button class="danger" type="button" onclick='fin2MobileDeleteEntry(${fin2Js(entry.id)})'>Excluir</button>
+        </div>
+      </div>
+    </div>`).join('')}</div>`;
+}
+
+window.fin2MobileSetGroup = function(groupKey) {
+  if (!FIN2_SECTION_KEYS.includes(groupKey)) return;
+  fin2MobileForm.groupKey = groupKey;
+  fin2MobileForm.rowId = '';
+  fin2MobileForm.status = '';
+  fin2RenderMobile();
+};
+
+window.fin2MobileSetRow = function(rowId) {
+  fin2MobileForm.rowId = String(rowId || '');
+  fin2MobileForm.status = '';
+};
+
+window.fin2RenderMobile = function() {
+  fin2EnsureMobileState();
+  const el = document.getElementById('fin2-mobile-content');
+  if (!el) return;
+  const groupKey = fin2MobileSelectedGroup();
+  const { destinations, selected } = fin2MobileSelectedDestination(groupKey);
+  const today = fin2MobileDateValue();
+  const options = destinations.map(item => `<option value="${fin2Esc(item.row.id)}"${selected && item.row.id === selected.row.id ? ' selected' : ''}>${fin2Esc(item.label)}</option>`).join('');
+  el.innerHTML = `
+    <div class="fin2-mobile-app">
+      <div class="fin2-mobile-head">
+        <div class="fin2-mobile-title">Financas Mobile</div>
+        <div class="fin2-mobile-date-chip">${fin2Esc(MONTHS[new Date().getMonth()] || '')}/${FIN2_SHEET.year || 2026}</div>
+      </div>
+      <div class="fin2-mobile-card">
+        <div class="fin2-mobile-segments">
+          ${FIN2_SECTION_KEYS.map(key => `<button class="fin2-mobile-segment${key === groupKey ? ' active' : ''}" data-group="${key}" onclick="fin2MobileSetGroup('${key}')">${fin2Esc(fin2MobileGroupLabel(key))}</button>`).join('')}
+        </div>
+        <div class="fin2-mobile-field">
+          <label for="fin2-mobile-row">Destino</label>
+          <select id="fin2-mobile-row" onchange="fin2MobileSetRow(this.value)"${destinations.length ? '' : ' disabled'}>${options}</select>
+        </div>
+        <div class="fin2-mobile-grid">
+          <div class="fin2-mobile-field">
+            <label for="fin2-mobile-name">Nome</label>
+            <input id="fin2-mobile-name" type="text" placeholder="Lancamento">
+          </div>
+          <div class="fin2-mobile-field">
+            <label for="fin2-mobile-value">Valor</label>
+            <input id="fin2-mobile-value" class="fin2-mobile-value" type="text" inputmode="decimal" placeholder="0">
+          </div>
+        </div>
+        <div class="fin2-mobile-grid">
+          <div class="fin2-mobile-field">
+            <label for="fin2-mobile-date">Data</label>
+            <input id="fin2-mobile-date" type="date" value="${today}">
+          </div>
+          <div class="fin2-mobile-field">
+            <label for="fin2-mobile-installments">Parcelas</label>
+            <input id="fin2-mobile-installments" type="number" min="1" max="12" value="1">
+          </div>
+        </div>
+        <input id="fin2-mobile-photo-input" type="file" accept="image/*" capture="environment" style="display:none" onchange="fin2MobileReadPhoto(this)">
+        <div class="fin2-mobile-actions">
+          <button class="fin2-mobile-photo" type="button" onclick="fin2MobileOpenPhoto()"><i data-lucide="camera"></i>Foto</button>
+          <button class="fin2-mobile-submit" type="button" onclick="fin2SubmitMobileEntry()"${selected ? '' : ' disabled'}><i data-lucide="check"></i>Lancar</button>
+        </div>
+        <div id="fin2-mobile-status" class="fin2-mobile-empty fin2-mobile-status${fin2MobileForm.status ? ' active' : ''}">${fin2Esc(fin2MobileForm.status || '')}</div>
+      </div>
+      <div class="fin2-mobile-card">
+        ${fin2MobileHistoryHtml()}
+      </div>
+    </div>`;
+  if (window.lucide) window.lucide.createIcons();
+};
+
+window.fin2SubmitMobileEntry = function() {
+  const groupKey = fin2MobileSelectedGroup();
+  const { selected } = fin2MobileSelectedDestination(groupKey);
+  if (!selected) return;
+  const nameInput = document.getElementById('fin2-mobile-name');
+  const valueInput = document.getElementById('fin2-mobile-value');
+  const dateInput = document.getElementById('fin2-mobile-date');
+  const installmentsInput = document.getElementById('fin2-mobile-installments');
+  const rawName = String(nameInput && nameInput.value || '').trim();
+  const baseName = rawName || selected.row.label || 'Lancamento';
+  const value = Math.abs(fin2ParseMoneyInput(valueInput && valueInput.value || ''));
+  if (!value) {
+    alert('Informe o valor.');
+    return;
+  }
+  const date = String(dateInput && dateInput.value || fin2MobileDateValue()).trim();
+  const startMonthIdx = fin2MobileMonthIndexFromDate(date);
+  if (startMonthIdx < 0) {
+    alert(`Use uma data dentro de ${FIN2_SHEET.year || 2026}.`);
+    return;
+  }
+  const requestedInstallments = Math.max(1, Math.round(Number(installmentsInput && installmentsInput.value || 1)));
+  const applied = fin2MobileApplyEntryToDestination(groupKey, selected, baseName, date, value, requestedInstallments);
+  if (!applied) return;
+  if (groupKey === 'dividas') {
+    const creditor = fin2SyncCreditorFromDebtRow(selected.row);
+    if (creditor) fin2RefreshDebtViews(creditor.id);
+  }
+  FIN2_MOBILE.entries.push({
+    id: `mobile-${Date.now()}`,
+    groupKey,
+    rowId: selected.row.id,
+    rowLabel: selected.row.label || '',
+    path: selected.path || '',
+    name: baseName,
+    date,
+    value,
+    installments: requestedInstallments,
+    appliedMonths: applied.appliedMonths,
+    appliedTargets: applied.appliedTargets,
+    createdAt: new Date().toISOString()
+  });
+  fin2EnsureMobileState();
+  fin2MobileForm.status = `${fin2MobileGroupLabel(groupKey)} lancada em ${selected.path || fin2SectionLabel(groupKey)}.`;
+  if (nameInput) nameInput.value = '';
+  if (valueInput) valueInput.value = '';
+  if (installmentsInput) installmentsInput.value = '1';
+  fin2RenderSheet();
+  fin2RenderMobile();
+  fin2TriggerAutoSave();
+};
+
 window.fin2UpdateCell = function(groupKey, rowId, monthIdx, rawInput) {
   const sourceInput = rawInput && rawInput.value !== undefined ? rawInput : null;
   const rawValue = sourceInput ? sourceInput.value : rawInput;
@@ -19230,6 +20403,23 @@ window.fin2UpdateCell = function(groupKey, rowId, monthIdx, rawInput) {
   if (!row) return;
   if (row.payslipRole) return;
   const isBlank = String(rawValue ?? '').trim() === '';
+  if (fin2RowHasCellDetails(row)) {
+    const details = fin2NormalizeRowCellDetails(row);
+    delete details[String(monthIdx)];
+    row.cellDetails = details;
+    if (isBlank) {
+      row.values[monthIdx] = null;
+    } else {
+      row.values[monthIdx] = fin2ParseMoneyInput(rawValue);
+    }
+    if (groupKey === 'dividas') {
+      const creditor = fin2SyncCreditorFromDebtRow(row);
+      if (creditor) fin2RefreshDebtViews(creditor.id);
+    }
+    fin2RenderSheet();
+    fin2TriggerAutoSave();
+    return;
+  }
   if (isBlank) {
     row.values[monthIdx] = null;
   } else {
@@ -19417,7 +20607,7 @@ window.fin2ToggleGroupColumnTotal = function(groupKey, monthIdx) {
   const shouldClear = receiptMode
     ? fin2GroupColumnReceitasByCellMode(groupKey, monthIdx)
     : fin2GroupColumnExcludedByCellMode(groupKey, monthIdx);
-  rows.forEach(row => fin2SetSheetCellTotalMode(row, monthIdx, shouldClear ? '' : (receiptMode ? 'include' : 'exclude')));
+  rows.forEach(row => fin2SetManagedColumnTotalMode(groupKey, row, monthIdx, shouldClear ? '' : (receiptMode ? 'include' : 'exclude')));
   fin2RenderSheet();
   fin2TriggerAutoSave();
 };
@@ -19434,8 +20624,10 @@ function fin2ToggleRowsColumnMode(groupKey, rows, monthIdx, targetMode, activePr
   const managedRows = fin2ManagedColumnRows(groupKey, rows);
   if (!managedRows.length) return false;
   if (targetMode !== 'exclude' && targetMode !== 'include') return false;
-  const shouldClear = fin2RowsColumnAllMode(managedRows, monthIdx, activePredicate);
-  managedRows.forEach(row => fin2SetSheetCellTotalMode(row, monthIdx, shouldClear ? '' : targetMode));
+  const shouldClear = targetMode === 'exclude'
+    ? fin2RowsColumnExcludedByCellMode(managedRows, monthIdx)
+    : fin2RowsColumnAllMode(managedRows, monthIdx, activePredicate);
+  managedRows.forEach(row => fin2SetManagedColumnTotalMode(groupKey, row, monthIdx, shouldClear ? '' : targetMode));
   return true;
 }
 
@@ -19480,6 +20672,18 @@ window.fin2TogglePayslipCellGroupTotal = function(role, key, monthIdx) {
   if (role !== 'discounts') return;
   const current = fin2PayslipCellTotalMode(role, key, monthIdx);
   fin2SetPayslipCellTotalMode(role, key, monthIdx, fin2CellModeHas(current, 'exclude') ? '' : 'exclude');
+  fin2SyncPayslipRoleValues(role);
+  fin2RenderSheet();
+  fin2TriggerAutoSave();
+};
+
+window.fin2TogglePayslipColumnGroupTotal = function(role, monthIdx) {
+  if (role !== 'discounts') return;
+  const shouldClear = fin2PayslipColumnAllExcluded(role, monthIdx);
+  const changed = fin2SetPayslipColumnTotalMode(role, monthIdx, shouldClear ? '' : 'exclude');
+  if (!changed) return;
+  const row = fin2FindSheetRow('despesas', 'pm_despesas');
+  if (row) fin2SetSheetCellTotalMode(row, monthIdx, '');
   fin2SyncPayslipRoleValues(role);
   fin2RenderSheet();
   fin2TriggerAutoSave();
@@ -19629,6 +20833,201 @@ window.fin2DeletePayslipMonth = function(monthIdx) {
   fin2RenderSheet();
   fin2OpenPayslipModal(targetMonth);
   fin2TriggerAutoSave();
+};
+
+function fin2SyncAfterCellDetailsChange(groupKey, row) {
+  if (!row) return;
+  fin2SyncCellDetailRowValues(row);
+  fin2PruneMobileHistory();
+  if (groupKey === 'dividas') {
+    const creditor = fin2SyncCreditorFromDebtRow(row);
+    if (creditor) fin2RefreshDebtViews(creditor.id);
+  }
+  fin2RenderSheet();
+  if (document.getElementById('fin2-cell-details-modal')) {
+    fin2OpenCellDetailsModal(groupKey, row.id, fin2CellDetailsModal.monthIdx);
+  }
+  fin2TriggerAutoSave();
+}
+
+function fin2AppendCellDetailEntry(row, monthIdx, entry) {
+  if (!row || monthIdx < 0 || monthIdx >= 12) return null;
+  const details = fin2NormalizeRowCellDetails(row);
+  const key = String(monthIdx);
+  const entries = Array.isArray(details[key]) ? details[key] : (details[key] = []);
+  const item = fin2NormalizeCellDetailEntry({
+    ...(entry || {}),
+    id: entry && entry.id || `detail-${row.id}-${monthIdx}-${Date.now()}`
+  }, row, monthIdx, entries.length);
+  entries.push(item);
+  details[key] = fin2SortCellDetailEntries(entries);
+  row.cellDetails = details;
+  fin2SyncCellDetailMonthValue(row, monthIdx);
+  return item;
+}
+
+window.fin2OpenCellDetailsModal = function(groupKey, rowId, monthIdx) {
+  const row = fin2FindSheetRow(groupKey, rowId);
+  if (!row || !fin2RowHasCellDetails(row)) return;
+  fin2CellDetailsModal = { groupKey, rowId, monthIdx };
+  const existing = document.getElementById('fin2-cell-details-modal');
+  if (existing) existing.remove();
+  const entries = fin2CellDetailEntries(row, monthIdx);
+  const inherited = monthIdx > 0 && fin2CellDetailOwnTotal(row, monthIdx) === null;
+  const total = fin2SheetCellValue(row, monthIdx);
+  const entryRows = entries.length ? entries.map(entry => {
+    const installmentGroupId = fin2CellDetailInstallmentGroupId(entry);
+    const deleteInstallmentHtml = installmentGroupId
+      ? `<button class="fin2-detail-remove-all" onclick='fin2DeleteCellDetailInstallmentGroup(${fin2Js(groupKey)},${fin2Js(rowId)},${fin2Js(installmentGroupId)})' title="Remover este parcelamento em todos os meses">Tudo</button>`
+      : '';
+    return `
+    <div class="fin2-detail-row" data-fin2-detail-id="${fin2Esc(entry.id)}" data-fin2-installment-group="${fin2Esc(installmentGroupId)}">
+      <input type="text" value="${fin2Esc(entry.name)}" placeholder="Nome" onchange='fin2UpdateCellDetailEntry(${fin2Js(groupKey)},${fin2Js(rowId)},${monthIdx},${fin2Js(entry.id)},"name",this.value)'>
+      <input type="date" value="${fin2Esc(entry.date)}" onchange='fin2UpdateCellDetailEntry(${fin2Js(groupKey)},${fin2Js(rowId)},${monthIdx},${fin2Js(entry.id)},"date",this.value)'>
+      <input type="text" inputmode="decimal" value="${fin2Esc(fin2MoneyCell(entry.value))}" placeholder="0" onfocus="this.select()" onchange='fin2UpdateCellDetailEntry(${fin2Js(groupKey)},${fin2Js(rowId)},${monthIdx},${fin2Js(entry.id)},"value",this.value)'>
+      <div class="fin2-detail-actions">
+        <button class="fin2-detail-remove" onclick='fin2DeleteCellDetailEntry(${fin2Js(groupKey)},${fin2Js(rowId)},${monthIdx},${fin2Js(entry.id)})' title="Remover lancamento">&times;</button>
+        ${deleteInstallmentHtml}
+      </div>
+    </div>`;
+  }).join('') : '<div class="fin2-detail-empty">Nenhum lancamento neste mes.</div>';
+  const modal = document.createElement('div');
+  modal.id = 'fin2-cell-details-modal';
+  modal.className = 'fin2-modal-backdrop fin2-detail-modal';
+  modal.innerHTML = `
+    <div class="fin2-modal">
+      <div class="fin2-modal-head">
+        <div>
+          <div class="fin2-modal-title">Lancamentos da celula</div>
+          <div class="fin2-modal-sub">${fin2Esc(row.label || 'Linha')} - ${MONTHS[monthIdx]}/${FIN2_SHEET.year || 2026}</div>
+        </div>
+        <button class="fin2-modal-close" onclick="fin2CloseCellDetailsModal()">&times;</button>
+      </div>
+      <div class="fin2-modal-actions">
+        <button class="fin2-modal-btn primary" onclick='fin2AddCellDetailEntry(${fin2Js(groupKey)},${fin2Js(rowId)},${monthIdx})'>Adicionar linha</button>
+      </div>
+      <div class="fin2-detail-installments">
+        <input id="fin2-detail-installment-name" type="text" placeholder="Nome">
+        <input id="fin2-detail-installment-date" type="date" value="${fin2Esc(fin2DefaultCellDetailDate(monthIdx))}">
+        <input id="fin2-detail-installment-value" type="text" inputmode="decimal" placeholder="Valor" onfocus="this.select()">
+        <input id="fin2-detail-installment-count" type="number" min="2" max="${Math.max(2, 12 - monthIdx)}" step="1" placeholder="Qtd">
+        <button class="fin2-modal-btn green" onclick='fin2ProjectCellDetailInstallments(${fin2Js(groupKey)},${fin2Js(rowId)},${monthIdx})'>Projetar</button>
+      </div>
+      <div class="fin2-detail-rows">${entryRows}</div>
+      <div class="fin2-detail-total-line"><span>${inherited ? 'Total copiado' : 'Total desta celula'}</span><strong>${fin2MoneyCell(total)}</strong></div>
+    </div>`;
+  document.body.appendChild(modal);
+};
+
+window.fin2CloseCellDetailsModal = function() {
+  const modal = document.getElementById('fin2-cell-details-modal');
+  if (modal) modal.remove();
+};
+
+window.fin2AddCellDetailEntry = function(groupKey, rowId, monthIdx) {
+  const row = fin2FindSheetRow(groupKey, rowId);
+  if (!row || !fin2RowHasCellDetails(row)) return;
+  fin2AppendCellDetailEntry(row, monthIdx, {
+    id: `detail-${row.id}-${monthIdx}-${Date.now()}`,
+    name: 'Novo lancamento',
+    date: '',
+    value: 0
+  });
+  fin2SyncAfterCellDetailsChange(groupKey, row);
+};
+
+window.fin2ProjectCellDetailInstallments = function(groupKey, rowId, monthIdx) {
+  const row = fin2FindSheetRow(groupKey, rowId);
+  if (!row || !fin2RowHasCellDetails(row)) return;
+  const name = String(document.getElementById('fin2-detail-installment-name')?.value || '').trim() || 'Prestacao';
+  const date = String(document.getElementById('fin2-detail-installment-date')?.value || '').trim();
+  const value = fin2ParseMoneyInput(document.getElementById('fin2-detail-installment-value')?.value || '');
+  const requestedCount = Math.floor(Number(document.getElementById('fin2-detail-installment-count')?.value || 0));
+  const count = Math.max(0, requestedCount);
+  if (!count || count < 2) {
+    alert('Informe a quantidade de parcelas.');
+    return;
+  }
+  if (!Number.isFinite(value) || Math.abs(value) <= 0) {
+    alert('Informe o valor da parcela.');
+    return;
+  }
+  const startMonthIdx = fin2CellDetailProjectionStartMonth(monthIdx, date);
+  if (startMonthIdx < 0) {
+    alert(`Use uma data dentro de ${FIN2_SHEET.year || 2026}.`);
+    return;
+  }
+  const monthsToProject = Math.min(count, 12 - startMonthIdx);
+  const groupId = `inst-${row.id}-${startMonthIdx}-${Date.now()}`;
+  for (let offset = 0; offset < monthsToProject; offset++) {
+    fin2AppendCellDetailEntry(row, startMonthIdx + offset, {
+      id: `${groupId}-${offset + 1}`,
+      name: `${name} ${offset + 1}/${count}`,
+      date: fin2AddMonthsToCellDetailDate(date, offset),
+      value,
+      installmentGroupId: groupId,
+      installmentIndex: offset + 1,
+      installmentCount: count
+    });
+  }
+  fin2SetPostInstallmentZero(groupKey, row, startMonthIdx + monthsToProject);
+  fin2SyncAfterCellDetailsChange(groupKey, row);
+  if (monthsToProject < count) {
+    alert(`Foram projetadas ${monthsToProject} de ${count} parcelas, porque a planilha atual termina em dezembro.`);
+  }
+};
+
+window.fin2UpdateCellDetailEntry = function(groupKey, rowId, monthIdx, entryId, field, value) {
+  const row = fin2FindSheetRow(groupKey, rowId);
+  if (!row || !fin2RowHasCellDetails(row)) return;
+  const entry = fin2CellDetailEntries(row, monthIdx).find(item => item.id === entryId);
+  if (!entry) return;
+  if (field === 'name') entry.name = String(value || '').trim() || 'Lancamento';
+  if (field === 'date') entry.date = String(value || '').trim();
+  if (field === 'value') entry.value = fin2ParseMoneyInput(value && value.value !== undefined ? value.value : value);
+  fin2SyncAfterCellDetailsChange(groupKey, row);
+};
+
+window.fin2DeleteCellDetailEntry = function(groupKey, rowId, monthIdx, entryId) {
+  const row = fin2FindSheetRow(groupKey, rowId);
+  if (!row || !fin2RowHasCellDetails(row)) return;
+  const details = fin2NormalizeRowCellDetails(row);
+  const key = String(monthIdx);
+  details[key] = (details[key] || []).filter(entry => entry.id !== entryId);
+  if (!details[key].length) {
+    delete details[key];
+    fin2EnsureSheetRowValues(row);
+    row.values[monthIdx] = null;
+  }
+  row.cellDetails = details;
+  fin2SyncAfterCellDetailsChange(groupKey, row);
+};
+
+window.fin2DeleteCellDetailInstallmentGroup = function(groupKey, rowId, installmentGroupId) {
+  const row = fin2FindSheetRow(groupKey, rowId);
+  if (!row || !fin2RowHasCellDetails(row)) return;
+  const groupId = String(installmentGroupId || '').trim();
+  if (!groupId) return;
+  if (!confirm('Remover este parcelamento de todos os meses?')) return;
+  const details = fin2NormalizeRowCellDetails(row);
+  let removed = 0;
+  for (let monthIdx = 0; monthIdx < 12; monthIdx++) {
+    const key = String(monthIdx);
+    const entries = Array.isArray(details[key]) ? details[key] : [];
+    if (!entries.length) continue;
+    const nextEntries = entries.filter(entry => fin2CellDetailInstallmentGroupId(entry) !== groupId);
+    removed += entries.length - nextEntries.length;
+    if (nextEntries.length) {
+      details[key] = fin2SortCellDetailEntries(nextEntries);
+    } else {
+      delete details[key];
+      fin2EnsureSheetRowValues(row);
+      row.values[monthIdx] = null;
+    }
+  }
+  if (!removed) return;
+  row.cellDetails = details;
+  fin2SyncAfterCellDetailsChange(groupKey, row);
 };
 
 window.fin2OpenPayslipModal = function(monthIdx) {
@@ -20110,24 +21509,37 @@ function fin2ApplyDebtContractExtraction(cid, extraction, options = {}) {
 }
 
 /* ─────────── ADD / DELETE ROW ─────────── */
+function fin2PromptAddChoice(label, allowSubtab) {
+  const options = allowSubtab
+    ? `Adicionar em ${label}:\n1 - Linha normal\n2 - Subaba\n3 - Linha detalhada`
+    : `Adicionar em ${label}:\n1 - Linha normal\n2 - Linha detalhada`;
+  const choice = prompt(options, '1');
+  if (choice === null) return '';
+  const normalized = String(choice || '').trim().toLocaleLowerCase('pt-BR');
+  if (allowSubtab && (normalized === '2' || normalized.includes('sub'))) return 'subtab';
+  if ((allowSubtab && normalized === '3') || (!allowSubtab && normalized === '2') || normalized.includes('detalh') || normalized.includes('celula')) return 'detailed';
+  return 'normal';
+}
+
 window.fin2OpenAddMenu = function(groupKey) {
   const label = fin2SectionLabel(groupKey);
-  const choice = prompt(`Adicionar em ${label}:\n1 - Linha normal\n2 - Subaba`, '1');
-  if (choice === null) return;
-  const normalized = String(choice || '').trim().toLocaleLowerCase('pt-BR');
-  if (normalized === '2' || normalized.includes('sub')) {
+  const choice = fin2PromptAddChoice(label, true);
+  if (!choice) return;
+  if (choice === 'subtab') {
     fin2AddCustomGroup(groupKey);
     return;
   }
-  fin2AddRow(groupKey);
+  fin2AddRow(groupKey, { detailed: choice === 'detailed' });
 };
 
-window.fin2AddRow = function(groupKey) {
+window.fin2AddRow = function(groupKey, options = {}) {
   const lbl = groupKey==='receitas'?'receita':groupKey==='despesas'?'despesa':'dívida';
   const label = prompt('Nome da nova ' + lbl + ':');
   if (!label || !label.trim()) return;
   const newId = groupKey[0] + Date.now();
-  FIN2_SHEET[groupKey].push({ id: newId, cid: groupKey === 'dividas' ? newId : undefined, label: label.trim(), values: [0].concat(Array(11).fill(null)) });
+  const row = { id: newId, cid: groupKey === 'dividas' ? newId : undefined, label: label.trim(), values: fin2NewSheetRowValues() };
+  if (options.detailed) fin2EnableCellDetailsOnRow(row, { migrateValues: false });
+  FIN2_SHEET[groupKey].push(row);
   if (groupKey === 'dividas') {
     FIN2_CREDITORS.push({
       id: newId, name: label.trim(), monthly: 0, installments: 12, paid: 0,
@@ -20156,6 +21568,8 @@ window.fin2AddCustomGroup = function(groupKey) {
 window.fin2AddCustomGroupRow = function(groupKey, customKey) {
   const config = fin2CustomGroupConfig(groupKey, customKey);
   if (!config) return;
+  const choice = fin2PromptAddChoice(config.label, false);
+  if (!choice) return;
   const noun = groupKey === 'receitas' ? 'receita' : groupKey === 'despesas' ? 'despesa' : 'dívida';
   const label = prompt(`Nome da nova ${noun} em ${config.label}:`);
   if (!label || !label.trim()) return;
@@ -20164,8 +21578,9 @@ window.fin2AddCustomGroupRow = function(groupKey, customKey) {
     id: newId,
     label: label.trim(),
     customGroup: config.key,
-    values: [0].concat(Array(11).fill(null))
+    values: fin2NewSheetRowValues()
   };
+  if (choice === 'detailed') fin2EnableCellDetailsOnRow(row, { migrateValues: false });
   if (groupKey === 'dividas') row.cid = newId;
   FIN2_SHEET[groupKey].push(row);
   if (groupKey === 'dividas') {
@@ -20183,20 +21598,28 @@ window.fin2AddCustomGroupRow = function(groupKey, customKey) {
 
 window.fin2AddExpenseGroupRow = function(kind) {
   const config = fin2ExpenseGroupConfig(kind);
+  const choice = fin2PromptAddChoice(config.label, false);
+  if (!choice) return;
   const label = prompt('Nome da nova despesa em ' + config.label + ':');
   if (!label || !label.trim()) return;
   const newId = 'e' + config.key.charAt(0) + Date.now();
   if (!Array.isArray(FIN2_SHEET.despesas)) FIN2_SHEET.despesas = [];
-  FIN2_SHEET.despesas.push({ id: newId, label: label.trim(), expenseGroup: config.key, values: [0].concat(Array(11).fill(null)) });
+  const row = { id: newId, label: label.trim(), expenseGroup: config.key, values: fin2NewSheetRowValues() };
+  if (choice === 'detailed') fin2EnableCellDetailsOnRow(row, { migrateValues: false });
+  FIN2_SHEET.despesas.push(row);
   fin2RenderSheet();
   fin2TriggerAutoSave();
 };
 
 window.fin2AddOldDebtRow = function() {
+  const choice = fin2PromptAddChoice(fin2DebtGroupLabel('old'), false);
+  if (!choice) return;
   const label = prompt('Nome da nova dívida antiga:');
   if (!label || !label.trim()) return;
   const newId = 'd' + Date.now();
-  FIN2_SHEET.dividas.push({ id: newId, cid: newId, label: label.trim(), oldDebt: true, values: [0].concat(Array(11).fill(null)) });
+  const row = { id: newId, cid: newId, label: label.trim(), oldDebt: true, values: fin2NewSheetRowValues() };
+  if (choice === 'detailed') fin2EnableCellDetailsOnRow(row, { migrateValues: false });
+  FIN2_SHEET.dividas.push(row);
   FIN2_CREDITORS.push({
     id: newId, name: label.trim(), monthly: 0, installments: 12, paid: 0,
     saldo: 0, oferta: 0, prazo: '', prazoInicial: '', priority: 'normal',
@@ -20205,6 +21628,12 @@ window.fin2AddOldDebtRow = function() {
   fin2RenderDebtCol();
   fin2RenderSheet();
   fin2TriggerAutoSave();
+};
+
+window.fin2AddCurrentDebtRow = function() {
+  const choice = fin2PromptAddChoice(fin2DebtGroupLabel('current'), false);
+  if (!choice) return;
+  fin2AddRow('dividas', { detailed: choice === 'detailed' });
 };
 
 window.fin2DeleteRow = function(groupKey, rowId) {
@@ -21070,19 +22499,28 @@ window.fin2RemoveDebt = function(cid) {
 const FIN2_DATA_PATH = 'projects/financas/data/fin2_data.json';
 const FIN2_LOCAL_BACKUP_KEY = 'fin2_data_autosave_v2';
 let fin2SaveTimer = null;
+let fin2LoadedSourceUpdatedAt = '';
+let fin2MobileSyncTimer = null;
+let fin2MobileSyncInFlight = false;
+let fin2MobileSyncListenersBound = false;
+let fin2ApplyingRemoteSync = false;
 
 function fin2BuildDataPayload() {
   fin2EnsureSheetMeta();
   fin2EnsurePayslipState();
   fin2EnsureInvestmentState();
+  fin2EnsureMobileState();
+  fin2PruneMobileHistory();
   fin2DebtGroupTotalModes = fin2NormalizeDebtGroupTotalModes(fin2DebtGroupTotalModes);
   return {
     updated_at: new Date().toISOString(),
+    base_updated_at: fin2LoadedSourceUpdatedAt || '',
     sheet: FIN2_SHEET,
     creditors: FIN2_CREDITORS,
     ir: FIN2_IR,
     payslips: FIN2_PAYSLIPS,
     investments: FIN2_INVESTMENTS,
+    mobile: FIN2_MOBILE,
     debtGroupTotalModes: fin2DebtGroupTotalModes
   };
 }
@@ -21118,6 +22556,7 @@ function fin2DataTimestamp(data, fallback) {
 }
 
 function fin2PickLoadData(fileData) {
+  if (window.AIOX_MOBILE_ONLY && fileData && fileData.sheet) return { data: fileData, source: 'file' };
   const backup = fin2ReadLocalBackup();
   if (!backup || !backup.payload) return { data: fileData, source: 'file' };
   const fileTs = fin2DataTimestamp(fileData);
@@ -21127,6 +22566,7 @@ function fin2PickLoadData(fileData) {
 }
 
 function fin2ApplyLoadedData(data) {
+  if (data && data.updated_at) fin2LoadedSourceUpdatedAt = String(data.updated_at || '');
   if (data.sheet) {
     if (typeof data.sheet.year === 'number') FIN2_SHEET.year = data.sheet.year;
     if (Array.isArray(data.sheet.receitas)) FIN2_SHEET.receitas = data.sheet.receitas;
@@ -21149,6 +22589,8 @@ function fin2ApplyLoadedData(data) {
   if (data.payslips && typeof data.payslips === 'object') FIN2_PAYSLIPS = data.payslips;
   if (data.investments && typeof data.investments === 'object') FIN2_INVESTMENTS = data.investments;
   fin2EnsureInvestmentState();
+  if (data.mobile && typeof data.mobile === 'object') FIN2_MOBILE = data.mobile;
+  fin2EnsureMobileState();
   fin2DebtGroupTotalModes = fin2NormalizeDebtGroupTotalModes(data.debtGroupTotalModes);
   fin2EnsurePayslipState();
   if (Array.isArray(data.creditors)) FIN2_CREDITORS = data.creditors;
@@ -21168,6 +22610,7 @@ function fin2ApplyLoadedData(data) {
   fin2SyncDebtsFromSheet();
   fin2SyncPayslipRoleValues('credits');
   fin2SyncPayslipRoleValues('discounts');
+  if (fin2PruneMobileHistory() && !fin2ApplyingRemoteSync) setTimeout(fin2TriggerAutoSave, 0);
 }
 
 window.fin2SaveData = async function() {
@@ -21192,8 +22635,12 @@ window.fin2SaveData = async function() {
     let responseJson = null;
     try { responseJson = responseText ? JSON.parse(responseText) : null; } catch (_) {}
     if (!res.ok || (responseJson && responseJson.success === false)) {
+      if (res.status === 409 && window.AIOX_MOBILE_ONLY) {
+        setTimeout(() => fin2SyncMobileFromServer({ force: true }), 0);
+      }
       throw new Error((responseJson && responseJson.error) || responseText || ('HTTP ' + res.status));
     }
+    fin2LoadedSourceUpdatedAt = payload.updated_at || fin2LoadedSourceUpdatedAt;
     if (el) { el.textContent = '✓ salvo'; el.style.color = '#4ade80'; }
     setTimeout(() => { if (el) el.textContent = ''; }, 2500);
     return true;
@@ -21206,7 +22653,7 @@ window.fin2SaveData = async function() {
 
 window.fin2LoadData = async function() {
   try {
-    const res = await fetch('/api/file?path=' + encodeURIComponent(FIN2_DATA_PATH));
+    const res = await fetch('/api/file?path=' + encodeURIComponent(FIN2_DATA_PATH), { cache: 'no-store' });
     const fileData = res.ok ? await res.json() : {};
     const picked = fin2PickLoadData(fileData);
     fin2ApplyLoadedData(picked.data || {});
@@ -21227,6 +22674,56 @@ window.fin2LoadData = async function() {
   }
 };
 
+async function fin2SyncMobileFromServer(options = {}) {
+  if (!window.AIOX_MOBILE_ONLY || fin2MobileSyncInFlight) return false;
+  if (!options.force && fin2SaveTimer) return false;
+  fin2MobileSyncInFlight = true;
+  try {
+    const res = await fetch('/api/file?path=' + encodeURIComponent(FIN2_DATA_PATH) + '&_=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) return false;
+    const fileData = await res.json();
+    const remoteTs = fin2DataTimestamp(fileData);
+    const localTs = fin2DataTimestamp({ updated_at: fin2LoadedSourceUpdatedAt });
+    if (!options.force && remoteTs <= localTs + 1000) return false;
+    fin2ApplyingRemoteSync = true;
+    fin2ApplyLoadedData(fileData || {});
+    fin2ApplyingRemoteSync = false;
+    fin2WriteLocalBackup(fileData || {});
+    fin2RenderSheet();
+    fin2RenderMobile();
+    return true;
+  } catch (e) {
+    console.warn('[fin2] mobile sync error:', e);
+    return false;
+  } finally {
+    fin2ApplyingRemoteSync = false;
+    fin2MobileSyncInFlight = false;
+  }
+}
+
+function fin2StartMobileSync() {
+  if (!window.AIOX_MOBILE_ONLY || fin2MobileSyncTimer) return;
+  fin2SyncMobileFromServer();
+  fin2MobileSyncTimer = setInterval(() => fin2SyncMobileFromServer(), 5000);
+  if (!fin2MobileSyncListenersBound) {
+    fin2MobileSyncListenersBound = true;
+    window.addEventListener('focus', () => fin2SyncMobileFromServer({ force: true }));
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) fin2SyncMobileFromServer({ force: true });
+    });
+  }
+}
+
+function fin2RegisterMobileServiceWorker() {
+  if (!window.AIOX_MOBILE_ONLY || !('serviceWorker' in navigator)) return;
+  const host = String(window.location.hostname || '').toLowerCase();
+  const localHost = host === 'localhost' || host === '127.0.0.1' || host === '::1';
+  if (!window.isSecureContext && !localHost) return;
+  navigator.serviceWorker.register('/financas-mobile-sw.js').catch(e => {
+    console.warn('[fin2] mobile service worker unavailable:', e);
+  });
+}
+
 window.fin2TriggerAutoSave = function() {
   const el = document.getElementById('fin2-autosave-status');
   if (el) { el.textContent = '● salvando...'; el.style.color = '#c9a84c'; }
@@ -21239,7 +22736,42 @@ window.fin2TriggerAutoSave = function() {
 window.renderFinancas = function() {
   fin2LoadData()
     .then(() => fin2LoadContractsFromServer())
-    .then(() => fin2Switch('planilha'));
+    .then(() => fin2Switch(window.AIOX_MOBILE_ONLY ? 'mobile' : 'planilha'));
+};
+
+window.fin2ApplyMobileStandalone = function() {
+  if (!window.AIOX_MOBILE_ONLY) return false;
+  document.body.classList.add('fin2-mobile-standalone');
+  document.title = 'Financas Mobile';
+  ['.app-header', '#app-shell > aside', '#legacy-sidebar-actions'].forEach(selector => {
+    const el = document.querySelector(selector);
+    if (el) el.style.setProperty('display', 'none', 'important');
+  });
+  const appShell = document.getElementById('app-shell');
+  if (appShell) {
+    appShell.style.setProperty('display', 'block', 'important');
+    appShell.style.height = '100vh';
+    appShell.style.overflow = 'hidden';
+  }
+  const main = document.querySelector('main');
+  if (main) {
+    main.style.width = '100vw';
+    main.style.height = '100vh';
+    main.style.overflow = 'hidden';
+  }
+  document.querySelectorAll('.tab-pane').forEach(pane => {
+    pane.classList.remove('active');
+    pane.style.display = 'none';
+  });
+  const financePane = document.getElementById('pane-financas');
+  if (financePane) {
+    financePane.classList.add('active');
+    financePane.style.display = 'flex';
+    financePane.style.flexDirection = 'column';
+  }
+  if (typeof fin2Switch === 'function') fin2Switch('mobile');
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+  return true;
 };
 
 /* ─────────── PAINEL DE CONTRATOS NO MASTER (clone section) ─────────── */
@@ -21325,6 +22857,11 @@ window.fin2SwitchToDebtDrawer = function() {
 /* ─────────── INIT ─────────── */
 document.addEventListener('DOMContentLoaded', function(){
   fin2LoadContractsFromServer();
+  if (window.AIOX_MOBILE_ONLY) {
+    fin2ApplyMobileStandalone();
+    fin2RegisterMobileServiceWorker();
+    fin2StartMobileSync();
+  }
 });
 
 })();
