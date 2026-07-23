@@ -218,6 +218,11 @@
 - [x] Corrigir regressao visual que fazia `Financas` abrir direto em `Dividas/Acordos` em vez de `Planilha`
 
 ## Done in this session
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
+- [x] Proxima acao: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
+- [x] Checkpoint: CHK-MEM-0814
+
 - [x] Sessao encerrada.
 - [x] Resumo: Financas Mobile Cloud com catalogo vivo no Firestore, UBER confirmado no app publico e Planilha otimizada com cache temporario de totais.
 - [x] Proxima acao: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
@@ -776,4 +781,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-07-23T09:01:21-03:00
+- updated_at: 2026-07-23T09:08:52-03:00

@@ -1,66 +1,6 @@
 {
   "entries": [
     {
-      "id": "LOG-20260627-0116",
-      "type": "session_pulse",
-      "target": "SES-20260627-0008",
-      "initiated_by": "dashboard",
-      "project_id": "electro",
-      "timestamp": "2026-06-27T18:01:43-03:00",
-      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
-      "id": "LOG-20260627-0117",
-      "type": "session_pulse",
-      "target": "SES-20260627-0008",
-      "initiated_by": "dashboard",
-      "project_id": "electro",
-      "timestamp": "2026-06-27T18:10:15-03:00",
-      "details": "background",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
-      "id": "LOG-20260627-0118",
-      "type": "session_pulse",
-      "target": "SES-20260627-0008",
-      "initiated_by": "dashboard",
-      "project_id": "electro",
-      "timestamp": "2026-06-27T18:10:42-03:00",
-      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
-      "id": "LOG-20260627-0119",
-      "type": "session_close",
-      "target": "SES-20260627-0008",
-      "initiated_by": "human",
-      "project_id": "electro",
-      "timestamp": "2026-06-27T18:16:24-03:00",
-      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "why_this_ran": "Scribe shutdown automatico"
-    },
-    {
-      "id": "LOG-20260627-0120",
-      "type": "cloud_sync",
-      "target": "SYNC-20260627-1782594984600",
-      "initiated_by": "human",
-      "project_id": "electro",
-      "timestamp": "2026-06-27T18:17:20-03:00",
-      "details": "Cloud sync SYNC-20260627-1782594984600: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.) Copia D: success (Espelho local atualizado em D:\\Antigravity-SommersStore\\workspace.)",
-      "why_this_ran": "target=all; scope=all; trigger=save_all_one_click"
-    },
-    {
-      "id": "LOG-20260627-0121",
-      "type": "session_start",
-      "target": "SES-20260627-0009",
-      "initiated_by": "dashboard",
-      "project_id": "electro",
-      "timestamp": "2026-06-27T19:45:04-03:00",
-      "details": "Oracle startup automatico executado",
-      "why_this_ran": "Context flash inicial"
-    },
-    {
       "id": "LOG-20260627-0122",
       "type": "session_pulse",
       "target": "SES-20260627-0009",
@@ -5009,6 +4949,56 @@
       "timestamp": "2026-07-23T09:02:43-03:00",
       "details": "Cloud sync SYNC-20260723-1784808082635: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.) Copia D: success (Espelho local atualizado em D:\\Antigravity-SommersStore\\workspace.)",
       "why_this_ran": "target=all; scope=all; trigger=codex_verify_save_all"
+    },
+    {
+      "id": "LOG-20260723-0017",
+      "type": "session_start",
+      "target": "SES-20260723-0004",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-07-23T09:07:10-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260723-0018",
+      "type": "session_pulse",
+      "target": "SES-20260723-0004",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-07-23T09:08:05-03:00",
+      "details": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260723-0019",
+      "type": "session_close",
+      "target": "SES-20260723-0004",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-07-23T09:08:21-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260723-0020",
+      "type": "session_start",
+      "target": "SES-20260723-0005",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-07-23T09:08:27-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260723-0021",
+      "type": "session_close",
+      "target": "SES-20260723-0005",
+      "initiated_by": "human",
+      "project_id": "sais",
+      "timestamp": "2026-07-23T09:08:52-03:00",
+      "details": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+      "why_this_ran": "Scribe shutdown automatico"
     }
   ]
 }

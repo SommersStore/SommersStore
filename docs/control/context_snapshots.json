@@ -1,46 +1,6 @@
 {
   "snapshots": [
     {
-      "id": "CTX-20260719-0002",
-      "timestamp": "2026-07-19T00:12:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260718-0032",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260719-0003",
-      "timestamp": "2026-07-19T00:22:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260718-0032",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260719-0004",
-      "timestamp": "2026-07-19T00:32:08-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260718-0032",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260719-0005",
-      "timestamp": "2026-07-19T00:37:43-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260718-0032",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260719-0006",
-      "timestamp": "2026-07-19T00:38:07-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260718-0032",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
       "id": "CTX-20260719-0007",
       "timestamp": "2026-07-19T00:39:43-03:00",
       "type": "session_pulse",
@@ -1922,6 +1882,84 @@
       "session_id": "SES-20260723-0003",
       "summary": "Financas Mobile Cloud com catalogo vivo no Firestore, UBER confirmado no app publico e Planilha otimizada com cache temporario de totais.",
       "checkpoint_id": "CHK-MEM-0812"
+    },
+    {
+      "id": "CTX-20260723-0015",
+      "timestamp": "2026-07-23T09:07:10-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260723-0004",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
+        "active_task": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0812",
+        "latest_checkpoint_next_action": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+        "latest_raw_checkpoint_id": "CHK-MEM-0812",
+        "latest_raw_checkpoint_next_action": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+        "checkpoint_resolution": "last_actionable_checkpoint",
+        "latest_active_decision_id": "DEC-FOREX-0001",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": [],
+        "continuity_file": "docs/memory/startup_context_latest.md",
+        "continuity_window_days": 7
+      }
+    },
+    {
+      "id": "CTX-20260723-0016",
+      "timestamp": "2026-07-23T09:08:05-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260723-0004",
+      "summary": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260723-0017",
+      "timestamp": "2026-07-23T09:08:21-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260723-0004",
+      "summary": "Encerramento automatico (fechamento de aba/janela).",
+      "checkpoint_id": "CHK-MEM-0813"
+    },
+    {
+      "id": "CTX-20260723-0018",
+      "timestamp": "2026-07-23T09:08:27-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260723-0005",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
+        "active_task": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0812",
+        "latest_checkpoint_next_action": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+        "latest_raw_checkpoint_id": "CHK-MEM-0813",
+        "latest_raw_checkpoint_next_action": "Rodar startup Oracle na proxima abertura",
+        "checkpoint_resolution": "last_actionable_checkpoint",
+        "latest_active_decision_id": "DEC-FOREX-0001",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": [],
+        "continuity_file": "docs/memory/startup_context_latest.md",
+        "continuity_window_days": 7
+      }
+    },
+    {
+      "id": "CTX-20260723-0019",
+      "timestamp": "2026-07-23T09:08:52-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260723-0005",
+      "summary": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+      "checkpoint_id": "CHK-MEM-0814"
     }
   ]
 }

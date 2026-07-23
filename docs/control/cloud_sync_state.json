@@ -1,14 +1,14 @@
 {
   "auto_sync_memory": false,
-  "in_progress": false,
+  "in_progress": true,
   "pending_trigger": null,
-  "last_sync_id": "SYNC-20260723-1784808082635",
-  "last_status": "success",
-  "last_summary": "Cloud sync SYNC-20260723-1784808082635: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.) Copia D: success (Espelho local atualizado em D:\\Antigravity-SommersStore\\workspace.)",
-  "last_trigger": "codex_verify_save_all",
+  "last_sync_id": "SYNC-20260723-1784808532645",
+  "last_status": "running",
+  "last_summary": "Sincronizacao em andamento...",
+  "last_trigger": "save_all_one_click",
   "last_scope": "all",
   "last_target": "all",
-  "last_started_at": "2026-07-23T09:01:22-03:00",
+  "last_started_at": "2026-07-23T09:08:52-03:00",
   "last_completed_at": "2026-07-23T09:02:43-03:00",
   "github": {
     "status": "success",
@@ -25,12 +25,9 @@
   },
   "mirror": {
     "status": "success",
-    "note": "Espelho local atualizado em D:\\Antigravity-SommersStore\\workspace.",
-    "error": null,
+    "note": "Espelho local confirmado em D:\\Antigravity-SommersStore\\workspace.",
     "destination": "D:\\Antigravity-SommersStore\\workspace",
-    "state_file": "D:\\Antigravity-SommersStore\\sync-state.json",
-    "duration_ms": 29981,
-    "robocopy_exit_code": 3,
-    "git_head": "6d4574f9dee99114386da879863693c3bdc7a21c"
+    "completed_at": "2026-07-23T12:04:07.570Z",
+    "state_file": "D:\\Antigravity-SommersStore\\sync-state.json"
   }
 }

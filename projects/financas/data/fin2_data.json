@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-07-23T11:58:37.233Z",
-  "base_updated_at": "2026-07-23T11:58:29.975Z",
+  "updated_at": "2026-07-23T12:08:52.161Z",
+  "base_updated_at": "2026-07-23T12:08:29.203Z",
   "sheet": {
     "year": 2026,
     "receitas": [
@@ -709,6 +709,27 @@
       {
         "id": "eg1784760132577",
         "label": "UBER",
+        "expenseGroup": "gasolina",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellDetailsEnabled": true,
+        "cellDetails": {}
+      },
+      {
+        "id": "eg1784808479112",
+        "label": "teste 10",
         "expenseGroup": "gasolina",
         "values": [
           0,
@@ -1905,7 +1926,7 @@
         {
           "fileName": "Bradesco Contrato 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Bradesco Contrato 469_15.pdf",
-          "uploadedAt": "2026-07-23T11:58:33.868Z",
+          "uploadedAt": "2026-07-23T12:08:27.274Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -1919,7 +1940,7 @@
         {
           "fileName": "Descritivo de Crédito 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Descritivo de Crédito 469_15.pdf",
-          "uploadedAt": "2026-07-23T11:58:33.868Z",
+          "uploadedAt": "2026-07-23T12:08:27.275Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -2826,7 +2847,7 @@
         {
           "fileName": "Saldo Devedor 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Saldo Devedor 469_15.pdf",
-          "uploadedAt": "2026-07-23T11:58:33.868Z",
+          "uploadedAt": "2026-07-23T12:08:27.275Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
