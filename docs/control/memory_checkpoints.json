@@ -17104,6 +17104,31 @@
       "linked_loops": [],
       "linked_decisions": [],
       "recovery_instruction": "Reabrir dashboard e executar startup automatico"
+    },
+    {
+      "id": "CHK-MEM-0812",
+      "timestamp": "2026-07-23T09:01:21-03:00",
+      "title": "Fechamento SES-20260723-0003",
+      "where_it_stopped": "Financas Mobile Cloud com catalogo vivo no Firestore, UBER confirmado no app publico e Planilha otimizada com cache temporario de totais.",
+      "completed_since_last_checkpoint": [
+        "Catalogo vivo do app publicado em financasMobileCatalog/main",
+        "Firestore rules e Hosting publicados",
+        "Render da Planilha otimizado e validado"
+      ],
+      "do_not_repeat": [
+        "Fechar sem checkpoint",
+        "Fechar sem mutacao"
+      ],
+      "next_exact_action": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+      "active_risks": [],
+      "affected_files": [
+        "task.md",
+        "docs/control/memory_*.json",
+        "docs/memory/*.md"
+      ],
+      "linked_loops": [],
+      "linked_decisions": [],
+      "recovery_instruction": "Reabrir dashboard e executar startup automatico"
     }
   ]
 }

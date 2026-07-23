@@ -18,6 +18,7 @@ import {
   enableIndexedDbPersistence,
   getDoc,
   getFirestore,
+  onSnapshot,
   serverTimestamp,
   type Firestore,
 } from "firebase/firestore";
@@ -108,6 +109,45 @@ function parseMoney(value: string) {
 
 const emptyDestinations: DestinationCatalog = { despesas: [], receitas: [], dividas: [] };
 
+function asRecord(value: unknown): Record<string, unknown> {
+  return value && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : {};
+}
+
+function text(value: unknown, fallback = "") {
+  return String(value || fallback).trim();
+}
+
+function normalizeDestination(value: unknown): Destination | null {
+  const source = asRecord(value);
+  const id = text(source.id);
+  if (!id) return null;
+  const label = text(source.label, "Sem nome");
+  return {
+    id,
+    label,
+    path: text(source.path),
+    sectionLabel: text(source.sectionLabel),
+    categoryKey: text(source.categoryKey, text(source.path)),
+    categoryLabel: text(source.categoryLabel, text(source.path)),
+    subdivisionLabel: text(source.subdivisionLabel, label),
+    locked: source.locked === true,
+    lockedReason: text(source.lockedReason) || undefined,
+  };
+}
+
+function normalizeDestinationCatalog(value: unknown): DestinationCatalog {
+  const source = asRecord(value);
+  return {
+    despesas: Array.isArray(source.despesas) ? source.despesas.map(normalizeDestination).filter(Boolean) as Destination[] : [],
+    receitas: Array.isArray(source.receitas) ? source.receitas.map(normalizeDestination).filter(Boolean) as Destination[] : [],
+    dividas: Array.isArray(source.dividas) ? source.dividas.map(normalizeDestination).filter(Boolean) as Destination[] : [],
+  };
+}
+
+function hasDestinations(catalog: DestinationCatalog) {
+  return catalog.despesas.length > 0 || catalog.receitas.length > 0 || catalog.dividas.length > 0;
+}
+
 function uniqueCategories(items: Destination[]) {
   return items.reduce<CategoryOption[]>((categories, item) => {
     const key = item.categoryKey || item.path;
@@ -142,6 +182,7 @@ export default function FinancasMobileCloudClient({ destinations = emptyDestinat
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
   const [services, setServices] = useState<FirebaseServices | null>(null);
+  const [liveDestinations, setLiveDestinations] = useState<DestinationCatalog | null>(null);
 
   useEffect(() => {
     const app = getConfiguredApp();
@@ -179,7 +220,21 @@ export default function FinancasMobileCloudClient({ destinations = emptyDestinat
     };
   }, []);
 
-  const activeDestinations = useMemo(() => destinations[entryType] || [], [destinations, entryType]);
+  useEffect(() => {
+    if (!services) return undefined;
+    return onSnapshot(
+      doc(services.db, "financasMobileCatalog", "main"),
+      snapshot => {
+        if (!snapshot.exists()) return;
+        const catalog = normalizeDestinationCatalog(snapshot.data().destinations);
+        if (hasDestinations(catalog)) setLiveDestinations(catalog);
+      },
+      () => null
+    );
+  }, [services]);
+
+  const destinationCatalog = liveDestinations || destinations;
+  const activeDestinations = useMemo(() => destinationCatalog[entryType] || [], [destinationCatalog, entryType]);
   const categoryOptions = useMemo(() => uniqueCategories(activeDestinations), [activeDestinations]);
   const defaultCategory = categoryOptions.find(category => category.available > 0)?.key || categoryOptions[0]?.key || "";
   const activeCategory = categoryByType[entryType] || defaultCategory;

@@ -12821,13 +12821,19 @@ window.saveAllNow = async function() {
         const githubStatus = cloud.github && cloud.github.status ? String(cloud.github.status).toUpperCase() : 'NÃO EXECUTADO';
         const firebaseStatus = cloud.firebase && cloud.firebase.status ? String(cloud.firebase.status).toUpperCase() : 'NÃO EXECUTADO';
         const mirrorStatus = cloud.mirror && cloud.mirror.status ? String(cloud.mirror.status).toUpperCase() : 'NÃO EXECUTADO';
+        const mobileCatalog = data.mobile_catalog || {};
+        const mobileCatalogStatus = mobileCatalog.ok === true
+            ? `OK (${mobileCatalog.rowCount || 0} destinos)`
+            : mobileCatalog.ok === false
+                ? `ERRO - ${mobileCatalog.error || 'catalogo nao atualizado'}`
+                : 'NAO EXECUTADO';
         if (data.cloud_succeeded === true) {
-            alert(`Tudo salvo e sincronizado. Checkpoint: ${cp}.\n\nGitHub: ${githubStatus} · Firebase: ${firebaseStatus} · Cópia D: ${mirrorStatus}.\nFlash de Contexto atualizado — pronto para retomada.`);
+            alert(`Tudo salvo e sincronizado. Checkpoint: ${cp}.\n\nGitHub: ${githubStatus} · Firebase: ${firebaseStatus} · Cópia D: ${mirrorStatus}.\nApp mobile: ${mobileCatalogStatus}.\nFlash de Contexto atualizado — pronto para retomada.`);
         } else {
             const githubNote = cloud.github && cloud.github.note ? `\nGitHub: ${githubStatus} — ${cloud.github.note}` : `\nGitHub: ${githubStatus}`;
             const firebaseNote = cloud.firebase && cloud.firebase.note ? `\nFirebase: ${firebaseStatus} — ${cloud.firebase.note}` : `\nFirebase: ${firebaseStatus}`;
             const mirrorNote = cloud.mirror && cloud.mirror.note ? `\nCópia D: ${mirrorStatus} — ${cloud.mirror.note}` : `\nCópia D: ${mirrorStatus}`;
-            alert(`Checkpoint salvo localmente: ${cp}.\nA sincronização em nuvem terminou com status ${cloudStatus}.${githubNote}${firebaseNote}${mirrorNote}\n\nNada foi apagado. Corrija o destino bloqueado e tente sincronizar novamente.`);
+            alert(`Checkpoint salvo localmente: ${cp}.\nA sincronização em nuvem terminou com status ${cloudStatus}.${githubNote}${firebaseNote}${mirrorNote}\nApp mobile: ${mobileCatalogStatus}.\n\nNada foi apagado. Corrija o destino bloqueado e tente sincronizar novamente.`);
         }
     } catch (e) {
         window.CLOUD_SYNC_STATE = Object.assign({}, window.CLOUD_SYNC_STATE || {}, {
@@ -17684,23 +17690,29 @@ function fin2RowCustomGroupKey(groupKey, row) {
 }
 
 function fin2CustomGroupRows(groupKey, customKey) {
-  return (FIN2_SHEET[groupKey] || []).filter(row => fin2RowCustomGroupKey(groupKey, row) === customKey);
+  return fin2RenderKeyCacheValue('customGroupRows', `${groupKey}:${customKey}`, () => {
+    return (FIN2_SHEET[groupKey] || []).filter(row => fin2RowCustomGroupKey(groupKey, row) === customKey);
+  });
 }
 
 function fin2CustomGroupSubtotal(groupKey, customKey, monthIdx) {
-  return fin2CustomGroupRows(groupKey, customKey).reduce((sum, row) => sum + fin2SheetCellTotalValue(groupKey, row, monthIdx), 0);
+  return fin2RenderKeyCacheValue('customGroupSubtotal', `${groupKey}:${customKey}:${monthIdx}`, () => {
+    return fin2CustomGroupRows(groupKey, customKey).reduce((sum, row) => sum + fin2SheetCellTotalValue(groupKey, row, monthIdx), 0);
+  });
 }
 
 function fin2CustomGroupGrandSubtotal(groupKey, customKey) {
-  return MONTHS.reduce((sum, _month, monthIdx) => sum + fin2CustomGroupSubtotal(groupKey, customKey, monthIdx), 0);
+  return fin2RenderKeyCacheValue('customGroupGrandSubtotal', `${groupKey}:${customKey}`, () => MONTHS.reduce((sum, _month, monthIdx) => sum + fin2CustomGroupSubtotal(groupKey, customKey, monthIdx), 0));
 }
 
 function fin2CustomGroupGrossSubtotal(groupKey, customKey, monthIdx) {
-  return fin2CustomGroupRows(groupKey, customKey).reduce((sum, row) => sum + fin2SheetCellValue(row, monthIdx), 0);
+  return fin2RenderKeyCacheValue('customGroupGrossSubtotal', `${groupKey}:${customKey}:${monthIdx}`, () => {
+    return fin2CustomGroupRows(groupKey, customKey).reduce((sum, row) => sum + fin2SheetCellValue(row, monthIdx), 0);
+  });
 }
 
 function fin2CustomGroupGrossGrandSubtotal(groupKey, customKey) {
-  return MONTHS.reduce((sum, _month, monthIdx) => sum + fin2CustomGroupGrossSubtotal(groupKey, customKey, monthIdx), 0);
+  return fin2RenderKeyCacheValue('customGroupGrossGrandSubtotal', `${groupKey}:${customKey}`, () => MONTHS.reduce((sum, _month, monthIdx) => sum + fin2CustomGroupGrossSubtotal(groupKey, customKey, monthIdx), 0));
 }
 
 function fin2TopLevelRowToken(row) {
@@ -18461,6 +18473,33 @@ function fin2SyncPayslipRoleValues(role) {
   MONTHS.forEach((_month, monthIdx) => fin2SyncPayslipRowValue(role, monthIdx));
 }
 
+let fin2SheetRenderTotalsCache = null;
+
+function fin2RenderKeyCacheValue(bucket, key, compute) {
+  if (!fin2SheetRenderTotalsCache) return compute();
+  if (!fin2SheetRenderTotalsCache[bucket]) fin2SheetRenderTotalsCache[bucket] = Object.create(null);
+  const store = fin2SheetRenderTotalsCache[bucket];
+  if (Object.prototype.hasOwnProperty.call(store, key)) return store[key];
+  const value = compute();
+  store[key] = value;
+  return value;
+}
+
+function fin2RenderRowCacheValue(bucket, row, key, compute) {
+  if (!fin2SheetRenderTotalsCache || !row || typeof row !== 'object') return compute();
+  if (!fin2SheetRenderTotalsCache[bucket]) fin2SheetRenderTotalsCache[bucket] = new WeakMap();
+  const store = fin2SheetRenderTotalsCache[bucket];
+  let rowStore = store.get(row);
+  if (!rowStore) {
+    rowStore = Object.create(null);
+    store.set(row, rowStore);
+  }
+  if (Object.prototype.hasOwnProperty.call(rowStore, key)) return rowStore[key];
+  const value = compute();
+  rowStore[key] = value;
+  return value;
+}
+
 function fin2SheetOwnCellValue(row, monthIdx) {
   if (!row) return null;
   if (row.payslipRole) {
@@ -18474,30 +18513,34 @@ function fin2SheetOwnCellValue(row, monthIdx) {
 }
 
 function fin2SheetCellValue(row, monthIdx) {
-  if (row && row.payslipRole) {
-    const own = fin2SheetOwnCellValue(row, monthIdx);
-    return own === null ? 0 : own;
-  }
-  if (fin2RowHasCellDetails(row)) {
-    return fin2CellDetailInheritedTotal(row, monthIdx);
-  }
-  let value = 0;
-  for (let i = 0; i <= monthIdx; i++) {
-    const own = fin2SheetOwnCellValue(row, i);
-    if (own !== null) value = own;
-  }
-  return value;
+  return fin2RenderRowCacheValue('cellValue', row, String(monthIdx), () => {
+    if (row && row.payslipRole) {
+      const own = fin2SheetOwnCellValue(row, monthIdx);
+      return own === null ? 0 : own;
+    }
+    if (fin2RowHasCellDetails(row)) {
+      return fin2CellDetailInheritedTotal(row, monthIdx);
+    }
+    let value = 0;
+    for (let i = 0; i <= monthIdx; i++) {
+      const own = fin2SheetOwnCellValue(row, i);
+      if (own !== null) value = own;
+    }
+    return value;
+  });
 }
 
 function fin2SheetGrossCellValue(row, monthIdx) {
-  if (row && row.payslipRole) {
-    return fin2PayslipDisplaySum(row.payslipRole, monthIdx);
-  }
-  return fin2SheetCellValue(row, monthIdx);
+  return fin2RenderRowCacheValue('grossCellValue', row, String(monthIdx), () => {
+    if (row && row.payslipRole) {
+      return fin2PayslipDisplaySum(row.payslipRole, monthIdx);
+    }
+    return fin2SheetCellValue(row, monthIdx);
+  });
 }
 
 function fin2SheetRowTotal(row) {
-  return MONTHS.reduce((sum, _month, monthIdx) => sum + fin2SheetCellValue(row, monthIdx), 0);
+  return fin2RenderRowCacheValue('rowTotal', row, 'all', () => MONTHS.reduce((sum, _month, monthIdx) => sum + fin2SheetCellValue(row, monthIdx), 0));
 }
 
 function fin2IsPayslipDebtRow(row) {
@@ -18648,49 +18691,59 @@ function fin2CellDeductsFromReceitas(groupKey, row, monthIdx) {
 }
 
 function fin2SheetCellTotalValue(groupKey, row, monthIdx) {
-  if (groupKey === 'receitas') {
-    return fin2ReceiptCellIncluded(row, monthIdx) ? fin2SheetCellValue(row, monthIdx) : 0;
-  }
-  if (fin2CellExcludedFromGroupTotals(groupKey, row, monthIdx)) return 0;
-  if (row && row.payslipRole) return fin2PayslipEffectiveSum(row.payslipRole, monthIdx);
-  return fin2SheetCellValue(row, monthIdx);
+  return fin2RenderRowCacheValue('cellTotalValue', row, `${groupKey}:${monthIdx}`, () => {
+    if (groupKey === 'receitas') {
+      return fin2ReceiptCellIncluded(row, monthIdx) ? fin2SheetCellValue(row, monthIdx) : 0;
+    }
+    if (fin2CellExcludedFromGroupTotals(groupKey, row, monthIdx)) return 0;
+    if (row && row.payslipRole) return fin2PayslipEffectiveSum(row.payslipRole, monthIdx);
+    return fin2SheetCellValue(row, monthIdx);
+  });
 }
 
 function fin2SheetRowTotalForTotals(groupKey, row) {
-  return MONTHS.reduce((sum, _month, monthIdx) => sum + fin2SheetCellTotalValue(groupKey, row, monthIdx), 0);
+  return fin2RenderRowCacheValue('rowTotalForTotals', row, groupKey, () => MONTHS.reduce((sum, _month, monthIdx) => sum + fin2SheetCellTotalValue(groupKey, row, monthIdx), 0));
 }
 
 function fin2GroupMonthSourceTotal(groupKey, monthIdx) {
-  return (FIN2_SHEET[groupKey] || []).reduce((sum, row) => {
-    return sum + fin2SheetCellTotalValue(groupKey, row, monthIdx);
-  }, 0);
+  return fin2RenderKeyCacheValue('groupMonthSourceTotal', `${groupKey}:${monthIdx}`, () => {
+    return (FIN2_SHEET[groupKey] || []).reduce((sum, row) => {
+      return sum + fin2SheetCellTotalValue(groupKey, row, monthIdx);
+    }, 0);
+  });
 }
 
 function fin2ReceitasOffsetValue(monthIdx) {
-  return ['despesas', 'dividas'].reduce((sum, groupKey) => {
-    const gross = fin2GroupMonthGrossTotal(groupKey, monthIdx);
-    const adjusted = fin2GroupMonthSourceTotal(groupKey, monthIdx);
-    return sum + Math.max(0, gross - adjusted);
-  }, 0);
+  return fin2RenderKeyCacheValue('receitasOffsetValue', String(monthIdx), () => {
+    return ['despesas', 'dividas'].reduce((sum, groupKey) => {
+      const gross = fin2GroupMonthGrossTotal(groupKey, monthIdx);
+      const adjusted = fin2GroupMonthSourceTotal(groupKey, monthIdx);
+      return sum + Math.max(0, gross - adjusted);
+    }, 0);
+  });
 }
 
 function fin2GroupMonthTotal(groupKey, monthIdx) {
-  const base = fin2GroupMonthSourceTotal(groupKey, monthIdx);
-  return groupKey === 'receitas' ? base - fin2ReceitasOffsetValue(monthIdx) : base;
+  return fin2RenderKeyCacheValue('groupMonthTotal', `${groupKey}:${monthIdx}`, () => {
+    const base = fin2GroupMonthSourceTotal(groupKey, monthIdx);
+    return groupKey === 'receitas' ? base - fin2ReceitasOffsetValue(monthIdx) : base;
+  });
 }
 
 function fin2GroupGrandTotal(groupKey) {
-  return MONTHS.reduce((sum, _month, monthIdx) => sum + fin2GroupMonthTotal(groupKey, monthIdx), 0);
+  return fin2RenderKeyCacheValue('groupGrandTotal', groupKey, () => MONTHS.reduce((sum, _month, monthIdx) => sum + fin2GroupMonthTotal(groupKey, monthIdx), 0));
 }
 
 function fin2GroupMonthGrossTotal(groupKey, monthIdx) {
-  return (FIN2_SHEET[groupKey] || []).reduce((sum, row) => {
-    return sum + fin2SheetGrossCellValue(row, monthIdx);
-  }, 0);
+  return fin2RenderKeyCacheValue('groupMonthGrossTotal', `${groupKey}:${monthIdx}`, () => {
+    return (FIN2_SHEET[groupKey] || []).reduce((sum, row) => {
+      return sum + fin2SheetGrossCellValue(row, monthIdx);
+    }, 0);
+  });
 }
 
 function fin2GroupGrandGrossTotal(groupKey) {
-  return MONTHS.reduce((sum, _month, monthIdx) => sum + fin2GroupMonthGrossTotal(groupKey, monthIdx), 0);
+  return fin2RenderKeyCacheValue('groupGrandGrossTotal', groupKey, () => MONTHS.reduce((sum, _month, monthIdx) => sum + fin2GroupMonthGrossTotal(groupKey, monthIdx), 0));
 }
 
 function fin2AdjustedTotalDragAttributes(scope) {
@@ -18850,23 +18903,33 @@ function fin2IsExpenseItemRow(row) {
 
 function fin2ExpenseGroupRows(kind) {
   const key = fin2ExpenseGroupConfig(kind).key;
-  return (FIN2_SHEET.despesas || []).filter(row => fin2ExpenseGroupKind(row) === key);
+  return fin2RenderKeyCacheValue('expenseGroupRows', key, () => {
+    return (FIN2_SHEET.despesas || []).filter(row => fin2ExpenseGroupKind(row) === key);
+  });
 }
 
 function fin2ExpenseGroupSubtotal(kind, monthIdx) {
-  return fin2ExpenseGroupRows(kind).reduce((sum, row) => sum + fin2SheetCellTotalValue('despesas', row, monthIdx), 0);
+  const key = fin2ExpenseGroupConfig(kind).key;
+  return fin2RenderKeyCacheValue('expenseGroupSubtotal', `${key}:${monthIdx}`, () => {
+    return fin2ExpenseGroupRows(key).reduce((sum, row) => sum + fin2SheetCellTotalValue('despesas', row, monthIdx), 0);
+  });
 }
 
 function fin2ExpenseGroupGrandSubtotal(kind) {
-  return MONTHS.reduce((sum, _month, monthIdx) => sum + fin2ExpenseGroupSubtotal(kind, monthIdx), 0);
+  const key = fin2ExpenseGroupConfig(kind).key;
+  return fin2RenderKeyCacheValue('expenseGroupGrandSubtotal', key, () => MONTHS.reduce((sum, _month, monthIdx) => sum + fin2ExpenseGroupSubtotal(key, monthIdx), 0));
 }
 
 function fin2ExpenseGroupGrossSubtotal(kind, monthIdx) {
-  return fin2ExpenseGroupRows(kind).reduce((sum, row) => sum + fin2SheetCellValue(row, monthIdx), 0);
+  const key = fin2ExpenseGroupConfig(kind).key;
+  return fin2RenderKeyCacheValue('expenseGroupGrossSubtotal', `${key}:${monthIdx}`, () => {
+    return fin2ExpenseGroupRows(key).reduce((sum, row) => sum + fin2SheetCellValue(row, monthIdx), 0);
+  });
 }
 
 function fin2ExpenseGroupGrossGrandSubtotal(kind) {
-  return MONTHS.reduce((sum, _month, monthIdx) => sum + fin2ExpenseGroupGrossSubtotal(kind, monthIdx), 0);
+  const key = fin2ExpenseGroupConfig(kind).key;
+  return fin2RenderKeyCacheValue('expenseGroupGrossGrandSubtotal', key, () => MONTHS.reduce((sum, _month, monthIdx) => sum + fin2ExpenseGroupGrossSubtotal(key, monthIdx), 0));
 }
 
 function fin2RenderExpenseGroupSubtotalCells(kind, count) {
@@ -18902,27 +18965,33 @@ function fin2RenderPayslipDebtToggle(scope) {
 }
 
 function fin2DebtGroupRows(kind) {
-  const rows = FIN2_SHEET.dividas || [];
-  if (kind === 'payslip') return rows.filter(row => fin2IsPayslipDebtRow(row));
-  if (kind === 'old') return rows.filter(row => fin2IsOldDebtRow(row));
-  if (kind === 'current') return rows.filter(row => !fin2IsPayslipDebtRow(row) && !fin2IsOldDebtRow(row));
-  return [];
+  return fin2RenderKeyCacheValue('debtGroupRows', kind, () => {
+    const rows = FIN2_SHEET.dividas || [];
+    if (kind === 'payslip') return rows.filter(row => fin2IsPayslipDebtRow(row));
+    if (kind === 'old') return rows.filter(row => fin2IsOldDebtRow(row));
+    if (kind === 'current') return rows.filter(row => !fin2IsPayslipDebtRow(row) && !fin2IsOldDebtRow(row));
+    return [];
+  });
 }
 
 function fin2DebtGroupSubtotal(kind, monthIdx) {
-  return fin2DebtGroupRows(kind).reduce((sum, row) => sum + fin2SheetCellTotalValue('dividas', row, monthIdx), 0);
+  return fin2RenderKeyCacheValue('debtGroupSubtotal', `${kind}:${monthIdx}`, () => {
+    return fin2DebtGroupRows(kind).reduce((sum, row) => sum + fin2SheetCellTotalValue('dividas', row, monthIdx), 0);
+  });
 }
 
 function fin2DebtGroupGrandSubtotal(kind) {
-  return MONTHS.reduce((sum, _month, monthIdx) => sum + fin2DebtGroupSubtotal(kind, monthIdx), 0);
+  return fin2RenderKeyCacheValue('debtGroupGrandSubtotal', kind, () => MONTHS.reduce((sum, _month, monthIdx) => sum + fin2DebtGroupSubtotal(kind, monthIdx), 0));
 }
 
 function fin2DebtGroupGrossSubtotal(kind, monthIdx) {
-  return fin2DebtGroupRows(kind).reduce((sum, row) => sum + fin2SheetCellValue(row, monthIdx), 0);
+  return fin2RenderKeyCacheValue('debtGroupGrossSubtotal', `${kind}:${monthIdx}`, () => {
+    return fin2DebtGroupRows(kind).reduce((sum, row) => sum + fin2SheetCellValue(row, monthIdx), 0);
+  });
 }
 
 function fin2DebtGroupGrossGrandSubtotal(kind) {
-  return MONTHS.reduce((sum, _month, monthIdx) => sum + fin2DebtGroupGrossSubtotal(kind, monthIdx), 0);
+  return fin2RenderKeyCacheValue('debtGroupGrossGrandSubtotal', kind, () => MONTHS.reduce((sum, _month, monthIdx) => sum + fin2DebtGroupGrossSubtotal(kind, monthIdx), 0));
 }
 
 function fin2RenderDebtGroupSubtotalCells(kind, count) {
@@ -19309,6 +19378,7 @@ window.fin2RenderSheet = function() {
   fin2EnsureSheetMeta();
   fin2EnsurePayslipState();
   fin2SyncDebtsFromSheet();
+  fin2SheetRenderTotalsCache = Object.create(null);
   const s = FIN2_SHEET;
   // col order: [ctrl] [label] [12 months] [total]
   const allCollapsed = Object.values(fin2Collapsed).every(v=>v);
@@ -19497,6 +19567,7 @@ window.fin2RenderSheet = function() {
 
   html += '</tbody>';
   tbl.innerHTML = html;
+  fin2SheetRenderTotalsCache = null;
 };
 
 function fin2EnsureInvestmentState() {

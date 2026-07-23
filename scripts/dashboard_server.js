@@ -31,6 +31,8 @@ let YoutubeTranscript = null;
 let youtubeTranscriptLoadTried = false;
 let ytDlpClient = null;
 let ytDlpReadyPromise = null;
+let financasMobileCatalogPublishTimer = null;
+let financasMobileCatalogLastResult = null;
 
 const PORT = Number(process.env.AIOX_PORT || 4000);
 const ROOT_DIR = path.join(__dirname, '..');
@@ -46,7 +48,25 @@ const FINANCAS_FIREBASE_PROJECT_ID = process.env.FINANCAS_FIREBASE_PROJECT_ID ||
 const FINANCAS_FIRESTORE_DATABASE = process.env.FINANCAS_FIRESTORE_DATABASE || '(default)';
 const FINANCAS_MOBILE_INBOX_COLLECTION = 'financasMobileInbox';
 const FINANCAS_MOBILE_CONTROL_DOC = 'financasMobileControl/main';
+const FINANCAS_MOBILE_CATALOG_DOC = 'financasMobileCatalog/main';
 const FINANCAS_MOBILE_HISTORY_RETENTION_MS = 24 * 60 * 60 * 1000;
+const FINANCAS_MOBILE_CATALOG_PUBLISH_DELAY_MS = 1200;
+const FINANCAS_MOBILE_ENTRY_TYPES = ['despesas', 'receitas', 'dividas'];
+const FINANCAS_MOBILE_EXPENSE_GROUPS = [
+    { key: 'gasolina', label: 'Gasolina' },
+    { key: 'extras', label: 'Despesas X' },
+    { key: 'mercado', label: 'Mercado' }
+];
+const FINANCAS_MOBILE_DEBT_GROUPS = [
+    { key: 'payslip', label: 'Holerite' },
+    { key: 'old', label: 'Dividas antigas' },
+    { key: 'current', label: 'Dividas atuais' }
+];
+const FINANCAS_MOBILE_SECTION_FALLBACK = {
+    receitas: 'Receitas',
+    despesas: 'Despesas',
+    dividas: 'Dividas'
+};
 const IBKR_INTEGRATION_CONFIG_PATH = path.join(FOREX_DATA_DIR, 'ibkr_integration.json');
 const IBKR_PAPER_TICKETS_PATH = path.join(FOREX_DATA_DIR, 'ibkr_paper_tickets.json');
 const IR_OPEN_ALLOWED_ROOTS = [
@@ -1939,6 +1959,244 @@ async function financasMobileCloudPruneImported() {
         }
     }
     return { scanned: imported.length, deleted };
+}
+
+function financasMobilePlainObject(value) {
+    return value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+}
+
+function financasMobileRowArray(value) {
+    return Array.isArray(value)
+        ? value.filter(item => item && typeof item === 'object' && !Array.isArray(item))
+        : [];
+}
+
+function financasMobileText(value, fallback = '') {
+    return String(value || fallback).trim();
+}
+
+function financasMobileStringArray(value) {
+    return Array.isArray(value) ? value.map(item => financasMobileText(item)).filter(Boolean) : [];
+}
+
+function financasMobileOrderedKeys(saved, defaults) {
+    const order = financasMobileStringArray(saved)
+        .filter((key, index, keys) => defaults.includes(key) && keys.indexOf(key) === index);
+    defaults.forEach(key => {
+        if (!order.includes(key)) order.push(key);
+    });
+    return order;
+}
+
+function financasMobileCloudCatalogFromSheetPayload(payload) {
+    const empty = { despesas: [], receitas: [], dividas: [] };
+    const sheet = financasMobilePlainObject(payload && (payload.sheet || payload));
+    const sectionLabels = financasMobilePlainObject(sheet.sectionLabels);
+    const expenseGroupLabels = financasMobilePlainObject(sheet.expenseGroupLabels);
+    const debtGroupLabels = financasMobilePlainObject(sheet.debtGroupLabels);
+    const customGroups = financasMobilePlainObject(sheet.customGroups);
+    const customMaps = FINANCAS_MOBILE_ENTRY_TYPES.reduce((acc, groupKey) => {
+        acc[groupKey] = new Map(
+            financasMobileRowArray(customGroups[groupKey])
+                .map(entry => [financasMobileText(entry.key), financasMobileText(entry.label, 'Subaba')])
+                .filter(([key]) => Boolean(key))
+        );
+        return acc;
+    }, { despesas: new Map(), receitas: new Map(), dividas: new Map() });
+
+    function sectionLabel(groupKey) {
+        return financasMobileText(sectionLabels[groupKey], FINANCAS_MOBILE_SECTION_FALLBACK[groupKey]);
+    }
+
+    function customGroupKey(groupKey, row) {
+        const customKey = financasMobileText(row && row.customGroup);
+        return customKey && customMaps[groupKey].has(customKey) ? customKey : '';
+    }
+
+    function expenseGroupKey(row) {
+        const key = financasMobileText(row && row.expenseGroup).toLowerCase();
+        return FINANCAS_MOBILE_EXPENSE_GROUPS.some(entry => entry.key === key) ? key : '';
+    }
+
+    function isPayslipDebtRow(row) {
+        return Boolean(row && (row.source === 'payslipDebt' || row.payslipDebtKey));
+    }
+
+    function isOldDebtRow(row) {
+        return Boolean(row && row.oldDebt === true && !isPayslipDebtRow(row));
+    }
+
+    function debtGroupKey(row) {
+        if (isPayslipDebtRow(row)) return 'payslip';
+        return isOldDebtRow(row) ? 'old' : 'current';
+    }
+
+    function rowLocked(groupKey, row) {
+        if (row && row.payslipRole) return 'Linha controlada pelo holerite';
+        if (groupKey === 'dividas' && isPayslipDebtRow(row)) return 'Divida sincronizada do holerite';
+        return '';
+    }
+
+    function customUnits(groupKey, rows) {
+        return financasMobileRowArray(customGroups[groupKey])
+            .map(entry => {
+                const key = financasMobileText(entry.key);
+                return {
+                    token: `custom:${key}`,
+                    key,
+                    label: financasMobileText(entry.label, 'Subaba'),
+                    rows: rows.filter(row => customGroupKey(groupKey, row) === key)
+                };
+            })
+            .filter(unit => unit.key);
+    }
+
+    function rowUnit(groupKey, row) {
+        const id = financasMobileText(row && row.id);
+        return {
+            token: `row:${id}`,
+            key: id,
+            label: financasMobileText(row && row.label, sectionLabel(groupKey)),
+            rows: [row]
+        };
+    }
+
+    function expenseUnits(rows) {
+        const defaults = FINANCAS_MOBILE_EXPENSE_GROUPS.map(entry => entry.key);
+        const fallbackByKey = new Map(FINANCAS_MOBILE_EXPENSE_GROUPS.map(entry => [entry.key, entry.label]));
+        return financasMobileOrderedKeys(sheet.expenseGroupOrder, defaults).map(key => ({
+            token: `expense:${key}`,
+            key,
+            label: financasMobileText(expenseGroupLabels[key], fallbackByKey.get(key) || key),
+            rows: rows.filter(row => expenseGroupKey(row) === key)
+        }));
+    }
+
+    function debtUnits(rows) {
+        const defaults = FINANCAS_MOBILE_DEBT_GROUPS.map(entry => entry.key);
+        const fallbackByKey = new Map(FINANCAS_MOBILE_DEBT_GROUPS.map(entry => [entry.key, entry.label]));
+        return financasMobileOrderedKeys(sheet.debtGroupOrder, defaults).map(key => ({
+            token: `debt:${key}`,
+            key,
+            label: financasMobileText(debtGroupLabels[key], fallbackByKey.get(key) || key),
+            rows: rows.filter(row => debtGroupKey(row) === key && !customGroupKey('dividas', row))
+        }));
+    }
+
+    function defaultUnits(groupKey, rows) {
+        const groupedCustomUnits = customUnits(groupKey, rows);
+        if (groupKey === 'receitas') {
+            const ungrouped = rows.filter(row => !customGroupKey(groupKey, row)).map(row => rowUnit(groupKey, row));
+            return groupedCustomUnits.concat(ungrouped);
+        }
+        if (groupKey === 'despesas') {
+            const payslipRows = rows.filter(row => row.payslipRole).map(row => rowUnit(groupKey, row));
+            const groupedRows = expenseUnits(rows);
+            const customRows = groupedCustomUnits;
+            const ungrouped = rows
+                .filter(row => !row.payslipRole && !expenseGroupKey(row) && !customGroupKey(groupKey, row))
+                .map(row => rowUnit(groupKey, row));
+            return groupedRows.concat(customRows, ungrouped, payslipRows);
+        }
+        if (groupKey === 'dividas') return debtUnits(rows).concat(groupedCustomUnits);
+        return [];
+    }
+
+    function orderedUnits(groupKey, rows) {
+        const units = defaultUnits(groupKey, rows);
+        if (groupKey === 'despesas') return units;
+        const byToken = new Map(units.map(unit => [unit.token, unit]));
+        const topLevelOrder = financasMobilePlainObject(sheet.topLevelOrder);
+        const saved = financasMobileStringArray(topLevelOrder[groupKey])
+            .filter((token, index, tokens) => byToken.has(token) && tokens.indexOf(token) === index);
+        units.forEach(unit => {
+            if (!saved.includes(unit.token)) saved.push(unit.token);
+        });
+        return saved.map(token => byToken.get(token)).filter(Boolean);
+    }
+
+    const catalog = { ...empty };
+    FINANCAS_MOBILE_ENTRY_TYPES.forEach(groupKey => {
+        const rows = financasMobileRowArray(sheet[groupKey]);
+        const label = sectionLabel(groupKey);
+        catalog[groupKey] = orderedUnits(groupKey, rows).flatMap(unit => unit.rows
+            .filter(row => financasMobileText(row && row.id))
+            .map(row => {
+                const lockedReason = rowLocked(groupKey, row);
+                const subdivisionLabel = financasMobileText(row && row.label, 'Sem nome');
+                const destination = {
+                    id: financasMobileText(row && row.id),
+                    label: subdivisionLabel,
+                    path: `${label} / ${unit.label}`,
+                    sectionLabel: label,
+                    categoryKey: unit.token,
+                    categoryLabel: unit.label,
+                    subdivisionLabel,
+                    locked: Boolean(lockedReason)
+                };
+                if (lockedReason) destination.lockedReason = lockedReason;
+                return destination;
+            }));
+    });
+    return catalog;
+}
+
+function financasMobileCloudBuildCatalogSnapshot() {
+    const absolute = path.join(ROOT_DIR, FIN2_DATA_RELATIVE_PATH);
+    const raw = fs.readFileSync(absolute, 'utf8');
+    const payload = JSON.parse(raw);
+    const destinations = financasMobileCloudCatalogFromSheetPayload(payload);
+    const rowCount = FINANCAS_MOBILE_ENTRY_TYPES.reduce((sum, groupKey) => sum + destinations[groupKey].length, 0);
+    return {
+        destinations,
+        sourceUpdatedAt: payload && payload.updated_at || null,
+        rowCount,
+        builtAtDevice: nowIso()
+    };
+}
+
+async function financasMobileCloudPublishCatalog(trigger = 'manual') {
+    const snapshot = financasMobileCloudBuildCatalogSnapshot();
+    const payload = {
+        destinations: snapshot.destinations,
+        sourceUpdatedAt: snapshot.sourceUpdatedAt,
+        rowCount: snapshot.rowCount,
+        publishedAtDevice: nowIso(),
+        updatedBy: 'local-dashboard',
+        trigger
+    };
+    const document = await firestoreRequest(
+        'PATCH',
+        firestoreDocumentApiPath(FINANCAS_MOBILE_CATALOG_DOC, firestoreUpdateMaskQuery(Object.keys(payload))),
+        { fields: firestoreFieldsFromObject(payload) }
+    );
+    const result = {
+        ok: true,
+        cloudDocName: document && document.name || null,
+        sourceUpdatedAt: payload.sourceUpdatedAt,
+        rowCount: payload.rowCount,
+        publishedAtDevice: payload.publishedAtDevice,
+        trigger
+    };
+    financasMobileCatalogLastResult = result;
+    return result;
+}
+
+function scheduleFinancasMobileCloudCatalogPublish(trigger = 'fin2_save') {
+    if (financasMobileCatalogPublishTimer) clearTimeout(financasMobileCatalogPublishTimer);
+    financasMobileCatalogPublishTimer = setTimeout(() => {
+        financasMobileCatalogPublishTimer = null;
+        financasMobileCloudPublishCatalog(trigger).catch(error => {
+            financasMobileCatalogLastResult = {
+                ok: false,
+                error: error.message || 'Nao consegui atualizar o catalogo do app.',
+                trigger,
+                publishedAtDevice: nowIso()
+            };
+            console.warn('[FIN2] mobile cloud catalog publish skipped:', error.message);
+        });
+    }, FINANCAS_MOBILE_CATALOG_PUBLISH_DELAY_MS);
+    return { scheduled: true, delay_ms: FINANCAS_MOBILE_CATALOG_PUBLISH_DELAY_MS, trigger };
 }
 
 function parsePorcelainPath(line) {
@@ -5902,6 +6160,17 @@ review_path: ${audit.review_path}
                 skip_auto_cloud: true
             };
             const closeResult = runSessionClose(closePayload);
+            let mobileCatalog = null;
+            try {
+                mobileCatalog = await financasMobileCloudPublishCatalog(body.trigger || 'save_all_button');
+            } catch (catalogError) {
+                mobileCatalog = {
+                    ok: false,
+                    error: catalogError.message || 'Nao consegui atualizar o catalogo do app.',
+                    trigger: body.trigger || 'save_all_button',
+                    publishedAtDevice: nowIso()
+                };
+            }
             const cloudResult = await runCloudSyncJob({
                 target: 'all',
                 scope: 'all',
@@ -5915,6 +6184,7 @@ review_path: ${audit.review_path}
                 cloud_succeeded: cloudSyncSucceeded(cloudResult.status),
                 checkpoint_id: closeResult.checkpoint_id || null,
                 session: closeResult.session || null,
+                mobile_catalog: mobileCatalog,
                 cloud: cloudResult
             });
         }
@@ -5950,6 +6220,30 @@ review_path: ${audit.review_path}
                 });
             } catch (error) {
                 return sendJson(res, { ok: false, error: error.message || 'Cloud mobile indisponivel.' }, 503);
+            }
+        }
+
+        if (pathname === '/api/financas/mobile-cloud/catalog' && req.method === 'GET') {
+            try {
+                const snapshot = financasMobileCloudBuildCatalogSnapshot();
+                return sendJson(res, {
+                    ok: true,
+                    ...snapshot,
+                    last_publish: financasMobileCatalogLastResult,
+                    synced_at: nowIso()
+                });
+            } catch (error) {
+                return sendJson(res, { ok: false, error: error.message || 'Nao consegui montar o catalogo do app.' }, 500);
+            }
+        }
+
+        if (pathname === '/api/financas/mobile-cloud/catalog/publish' && req.method === 'POST') {
+            try {
+                const body = await parseBody(req);
+                const result = await financasMobileCloudPublishCatalog(body.trigger || 'manual');
+                return sendJson(res, { ok: true, catalog: result, synced_at: nowIso() });
+            } catch (error) {
+                return sendJson(res, { ok: false, error: error.message || 'Nao consegui publicar o catalogo do app.' }, 503);
             }
         }
 
@@ -6025,10 +6319,14 @@ review_path: ${audit.review_path}
             }
             const isMemoryFile = maybeRegisterFileMutation(normalizedPath, body.initiated_by || 'human');
             const autoCloud = isMemoryFile ? scheduleAutoCloudSync('memory_file_save', body.project_id || null) : { scheduled: false };
+            const mobileCatalog = normalizedPath === FIN2_DATA_RELATIVE_PATH
+                ? scheduleFinancasMobileCloudCatalogPublish('fin2_data_save')
+                : { scheduled: false };
             return sendJson(res, {
                 success: true,
                 memory_file: Boolean(isMemoryFile),
-                cloud_sync_scheduled: Boolean(autoCloud.scheduled)
+                cloud_sync_scheduled: Boolean(autoCloud.scheduled),
+                financas_mobile_catalog_scheduled: Boolean(mobileCatalog.scheduled)
             });
         }
 

@@ -1,41 +1,6 @@
 {
   "mutations": [
     {
-      "timestamp": "2026-06-20T10:24:28-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260620-0001: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-22T21:26:49-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260622-0001",
-      "mutated_by": "dashboard",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-22T21:26:49-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-22T21:58:18-03:00",
-      "memory_scope": "session_milestone",
-      "diff_summary": "Story 2.102 concluida: Forex virou IBKR Manual Desk com calculadora 3x1 em 1,5R, simulador de protective put e Dukascopy rebaixada a laboratorio secundario.",
-      "mutated_by": "codex",
-      "project_id": "forex"
-    },
-    {
-      "timestamp": "2026-06-22T22:20:08-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260622-0001: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
       "timestamp": "2026-06-22T22:20:13-03:00",
       "memory_scope": "session_startup",
       "diff_summary": "Oracle iniciou SES-20260622-0002",
@@ -2099,6 +2064,41 @@
       "diff_summary": "Scribe encerrou SES-20260723-0002: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "mutated_by": "human",
       "project_id": null
+    },
+    {
+      "timestamp": "2026-07-23T08:17:43-03:00",
+      "memory_scope": "cloud_sync",
+      "diff_summary": "Cloud sync SYNC-20260723-1784805322476: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.) Copia D: success (Espelho local atualizado em D:\\Antigravity-SommersStore\\workspace.)",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-23T08:56:25-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260723-0003",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-23T08:56:25-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-23T08:55:00-03:00",
+      "memory_scope": "financas_mobile_cloud_live_catalog",
+      "diff_summary": "Financas Mobile Cloud passou a usar catalogo vivo em financasMobileCatalog/main, com publicacao a partir de fin2_data.json; Planilha recebeu cache temporario de totais e Hosting/Firestore foram publicados.",
+      "mutated_by": "codex",
+      "project_id": "financas"
+    },
+    {
+      "timestamp": "2026-07-23T09:01:22-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260723-0003: Financas Mobile Cloud com catalogo vivo no Firestore, UBER confirmado no app publico e Planilha otimizada com cache temporario de totais.",
+      "mutated_by": "codex",
+      "project_id": "financas"
     }
   ]
 }

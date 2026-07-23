@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-07-23T11:15:18.983Z",
-  "base_updated_at": "2026-07-23T11:12:34.625Z",
+  "updated_at": "2026-07-23T11:58:37.233Z",
+  "base_updated_at": "2026-07-23T11:58:29.975Z",
   "sheet": {
     "year": 2026,
     "receitas": [
@@ -21,11 +21,7 @@
           null,
           3500
         ],
-        "customGroup": "custom-outros",
-        "cellTotalModes": {
-          "5": "include",
-          "6": "include"
-        }
+        "customGroup": "custom-outros"
       },
       {
         "id": "pm",
@@ -44,11 +40,7 @@
           9260.17,
           9260.17,
           9260.17
-        ],
-        "cellTotalModes": {
-          "5": "include",
-          "6": "include"
-        }
+        ]
       },
       {
         "id": "uber",
@@ -67,11 +59,7 @@
           null,
           null
         ],
-        "customGroup": "custom-rodoanel",
-        "cellTotalModes": {
-          "5": "include",
-          "6": "include"
-        }
+        "customGroup": "custom-rodoanel"
       },
       {
         "id": "r1780117855502",
@@ -90,11 +78,7 @@
           null,
           null
         ],
-        "customGroup": "custom-rodoanel",
-        "cellTotalModes": {
-          "5": "include",
-          "6": "include"
-        }
+        "customGroup": "custom-rodoanel"
       }
     ],
     "despesas": [
@@ -1921,7 +1905,7 @@
         {
           "fileName": "Bradesco Contrato 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Bradesco Contrato 469_15.pdf",
-          "uploadedAt": "2026-07-23T11:09:37.261Z",
+          "uploadedAt": "2026-07-23T11:58:33.868Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -1935,7 +1919,7 @@
         {
           "fileName": "Descritivo de Crédito 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Descritivo de Crédito 469_15.pdf",
-          "uploadedAt": "2026-07-23T11:09:37.261Z",
+          "uploadedAt": "2026-07-23T11:58:33.868Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -2842,7 +2826,7 @@
         {
           "fileName": "Saldo Devedor 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Saldo Devedor 469_15.pdf",
-          "uploadedAt": "2026-07-23T11:09:37.261Z",
+          "uploadedAt": "2026-07-23T11:58:33.868Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,

@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-07-23T08:15:19-03:00
+- updated_at: 2026-07-23T09:01:21-03:00
 
 ## Handoff Atual - Financas Mobile Parcelamentos e Sync
 - timestamp: 2026-07-18T22:23:59-03:00
@@ -728,6 +728,11 @@
 - proxima_acao: revisar refinamento editorial/visual dos entregaveis com o usuario e, em seguida, acrescentar a esteira de Upsell e Downsell mantendo o mesmo modelo de producao real.
 
 ## Ultimo fechamento
+- timestamp: 2026-07-23T09:01:21-03:00
+- tipo: manual
+- resumo: Financas Mobile Cloud com catalogo vivo no Firestore, UBER confirmado no app publico e Planilha otimizada com cache temporario de totais.
+- proxima_acao: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
+- checkpoint: CHK-MEM-0812
 - timestamp: 2026-07-23T08:15:19-03:00
 - tipo: usuario
 - resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
@@ -3845,3 +3850,13 @@
 - estado_final: App mobile publicado e validado em producao; usuario confirmou que ficou otimo. `startup_context_latest.md` foi realinhado para retomar pelo checkpoint `CHK-FIN-02110-MOBILE-UX-POLISH`, evitando voltar ao foco antigo de clones/skills.
 - proxima_acao: Amanha, testar em uso real no celular e notebook se o usuario quiser, ou seguir para novos acertos em Financas.
 - checkpoint: CHK-FIN-02110-SESSION-CLOSE
+
+## Registro Manual - 2026-07-23T08:55:00-03:00
+- tipo: correcao-catalogo-vivo-e-performance-financas
+- resumo: Corrigida a dependencia do build estatico para categorias/subdivisoes do Financas Mobile Cloud. O app hospedado agora escuta `financasMobileCatalog/main` no Firestore e usa o catalogo estatico apenas como fallback.
+- comportamento: O servidor local monta o catalogo a partir de `projects/financas/data/fin2_data.json`, agenda publicacao quando a planilha e salva e tenta publicar o catalogo antes do fluxo `Salvar Tudo`. O alerta de `Salvar Tudo` agora informa tambem `App mobile`.
+- performance: A Planilha recebeu cache temporario para totais de celulas, secoes, subabas de despesas, grupos de dividas e subabas customizadas durante cada render. A media local de `fin2RenderSheet()` caiu de cerca de 3,3s para 1,74s na amostra medida.
+- validacao: Passaram `npm run lint`, `npm run typecheck`, `npm test`, `projects/loja-digital npm run typecheck`, lint focado do app cloud e `projects/loja-digital npm run build`. Firestore rules + Hosting foram publicados na versao `b9af57e10a646b83`.
+- app_publico: `financasMobileCatalog/main` foi publicado com 47 destinos e `UBER` confirmado; a URL publica respondeu 200, os chunks remotos contem `financasMobileCatalog` e `onSnapshot`, e teste headless confirmou `UBER` em `Carro/Transp.`.
+- observacao_operacional: O processo local do painel na porta 4000 estava ativo com codigo antigo e o comando de parada/restart foi bloqueado pela politica de ferramenta. O HTML novo ja e servido do disco, mas os endpoints novos do servidor entram plenamente apos reiniciar o painel.
+- checkpoint: CHK-FIN-02110-LIVE-CATALOG-PERF

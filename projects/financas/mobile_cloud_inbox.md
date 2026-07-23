@@ -25,7 +25,12 @@ A sincronizacao normal nao depende dessa aba estar aberta. O F5 na planilha/Fina
 
 ## Categorias e destinos
 
-O catalogo do app cloud e gerado a partir de `projects/financas/data/fin2_data.json` durante o build do `projects/loja-digital`.
+O catalogo do app cloud e publicado em `financasMobileCatalog/main` no Firestore a partir de `projects/financas/data/fin2_data.json`.
+
+- Quando a planilha e salva no painel, o servidor local agenda a atualizacao desse catalogo.
+- Quando o usuario clica em `Salvar Tudo`, o servidor publica o catalogo antes de sincronizar GitHub/Firebase.
+- O app hospedado escuta esse documento em tempo real e atualiza categorias/subdivisoes sem depender de novo build.
+- O catalogo embutido no build continua existindo apenas como fallback se o Firestore estiver indisponivel.
 
 Estrutura esperada:
 
@@ -43,6 +48,7 @@ Estrutura esperada:
 - Firestore region: `southamerica-east1`
 - Auth: email/senha continua existindo para areas privadas do site; o app financeiro 24h usa Auth anonimo.
 - Controle emergencial: `financasMobileControl/main`
+- Catalogo vivo do app: `financasMobileCatalog/main`
 - Inbox temporaria: `users/{uid}/financasMobileInbox`
 
 ## Variaveis de build

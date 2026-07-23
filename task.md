@@ -115,6 +115,7 @@
 - [x] Corrigir parcelamentos, edicao/exclusao e sincronismo desktop-celular do Financas Mobile
 - [x] Criar Cloud Inbox 24h para Financas Mobile, independente do notebook ligado
 - [x] Polir interface do Financas Mobile Cloud com marca Sommer's Store, sem observacao, sem textos auxiliares e cores por secao da planilha
+- [x] Atualizar Financas Mobile Cloud com catalogo vivo do Firestore e otimizar render da Planilha
 - [x] Corrigir exibicao da soma calculada nas celulas-mae de `Despesas PM`
 - [x] Restaurar copia do mes anterior nas celulas detalhadas vazias de Financas
 - [x] Permitir zero explicito por digitacao direta e retorno a copia ao limpar celulas detalhadas de Financas
@@ -217,6 +218,11 @@
 - [x] Corrigir regressao visual que fazia `Financas` abrir direto em `Dividas/Acordos` em vez de `Planilha`
 
 ## Done in this session
+- [x] Sessao encerrada.
+- [x] Resumo: Financas Mobile Cloud com catalogo vivo no Firestore, UBER confirmado no app publico e Planilha otimizada com cache temporario de totais.
+- [x] Proxima acao: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
+- [x] Checkpoint: CHK-MEM-0812
+
 - [x] Sessao encerrada pelo usuario.
 - [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
 - [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
@@ -770,4 +776,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-07-23T08:15:19-03:00
+- updated_at: 2026-07-23T09:01:21-03:00

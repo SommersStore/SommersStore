@@ -250,6 +250,8 @@ function testIntegrationPoints() {
   assert.match(dashboardHtml, /appliedTargets/, 'Financas Mobile should remember where a phone launch was applied');
   assert.match(dashboardHtml, /function fin2SetPostInstallmentZero\(groupKey, row, monthIdx\)/, 'Financas installment launches should set an explicit zero after the final parcel when the next month is blank');
   assert.match(dashboardHtml, /kind: 'postInstallmentZero'/, 'Financas Mobile should track the automatic post-installment zero so edits/deletes can restore it');
+  assert.match(dashboardHtml, /let fin2SheetRenderTotalsCache = null;/, 'Financas sheet rendering should keep a short-lived totals cache');
+  assert.match(dashboardHtml, /function fin2RenderKeyCacheValue\(bucket, key, compute\)/, 'Financas sheet rendering should reuse repeated group total calculations during a render');
   assert.match(dashboardHtml, /window\.fin2MobileOpenEditEntry\s*=/, 'Financas Mobile should allow editing launches from the app history');
   assert.match(dashboardHtml, /window\.fin2MobileDeleteEntry\s*=/, 'Financas Mobile should allow deleting launches from the app history');
   assert.match(dashboardHtml, /function fin2MobileRemoveEntryApplications\(entry\)/, 'Financas Mobile edit/delete should remove prior applications from the sheet');
@@ -280,6 +282,9 @@ function testIntegrationPoints() {
   assert.match(financasMobileCloudPage, /return groupedRows\.concat\(customRows, ungrouped, payslipRows\)/, 'Financas Mobile Cloud should place Despesas PM after editable Despesas subcategories');
   assert.match(financasMobileCloudPage, /lockedReason/, 'Financas Mobile Cloud should expose protected holerite subdivisions without making them selectable');
   assert.match(financasMobileCloudPage, /<FinancasMobileCloudClient destinations=\{buildDestinationCatalog\(\)\}/, 'Financas Mobile Cloud should pass sheet destinations to the phone client');
+  assert.match(financasMobileCloudClient, /onSnapshot/, 'Financas Mobile Cloud should listen for live destination catalog updates');
+  assert.match(financasMobileCloudClient, /doc\(services\.db, "financasMobileCatalog", "main"\)/, 'Financas Mobile Cloud should read the live destination catalog document');
+  assert.match(financasMobileCloudClient, /const destinationCatalog = liveDestinations \|\| destinations/, 'Financas Mobile Cloud should keep the static catalog as a fallback');
   assert.match(financasMobileCloudClient, /NEXT_PUBLIC_FINANCAS_FIREBASE_API_KEY/, 'Financas Mobile Cloud should read Firebase config from public build env vars');
   assert.match(financasMobileCloudClient, /signInAnonymously/, 'Financas Mobile Cloud should authenticate the phone launcher without asking for a password');
   assert.match(financasMobileCloudClient, /getDoc\(doc\(db, "financasMobileControl", "main"\)\)/, 'Financas Mobile Cloud should read the emergency enable/disable control document');
@@ -315,6 +320,11 @@ function testIntegrationPoints() {
   assert.match(serverJs, /getFirebaseCliAccessToken/, 'server should reuse the local Firebase CLI credential instead of asking for Firebase login in the browser');
   assert.match(serverJs, /\/api\/financas\/mobile-cloud\/pending/, 'server should expose the pending cloud inbox endpoint for the local dashboard');
   assert.match(serverJs, /financasMobileControl\/main/, 'server should manage the emergency mobile app control document');
+  assert.match(serverJs, /FINANCAS_MOBILE_CATALOG_DOC = 'financasMobileCatalog\/main'/, 'server should target the shared Financas Mobile destination catalog document');
+  assert.match(serverJs, /function financasMobileCloudPublishCatalog\(trigger = 'manual'\)/, 'server should publish the live Financas Mobile destination catalog');
+  assert.match(serverJs, /\/api\/financas\/mobile-cloud\/catalog\/publish/, 'server should expose a manual live catalog publish endpoint');
+  assert.match(serverJs, /financas_mobile_catalog_scheduled/, 'server should schedule live catalog updates when fin2_data.json is saved');
+  assert.match(firestoreRules, /match \/financasMobileCatalog\/main \{[\s\S]*?allow read: if true;[\s\S]*?allow write: if false;/, 'Firestore rules should let the phone read but not write the live catalog');
   assert.match(serverJs, /:runQuery/, 'server should query Firestore through the REST API');
   assert.doesNotMatch(dashboardHtml, /id="fin2-cloud-apiKey"/, 'Financas Cloud Inbox should not ask the user to type Firebase API keys manually');
   assert.match(dashboardHtml, /source: 'financas-mobile-cloud'/, 'Financas local Mobile pane should preserve cloud launch origin in local history');
