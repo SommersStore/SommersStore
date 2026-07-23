@@ -33,6 +33,7 @@ let ytDlpClient = null;
 let ytDlpReadyPromise = null;
 let financasMobileCatalogPublishTimer = null;
 let financasMobileCatalogLastResult = null;
+const SERVER_STARTED_AT = new Date().toISOString();
 
 const PORT = Number(process.env.AIOX_PORT || 4000);
 const ROOT_DIR = path.join(__dirname, '..');
@@ -4807,6 +4808,7 @@ const server = http.createServer(async (req, res) => {
                 dashboard_path: path.join(DOCS_DIR, 'aiox_dashboard.html'),
                 cwd: process.cwd(),
                 node_pid: process.pid,
+                server_started_at: SERVER_STARTED_AT,
                 workspace_hint: `${path.basename(path.dirname(ROOT_DIR))}/${path.basename(ROOT_DIR)}`,
                 is_antigravity_ide_workspace: rootLower.includes(`${path.sep}.gemini${path.sep}antigravity-ide${path.sep}`)
             });

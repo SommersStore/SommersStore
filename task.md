@@ -780,10 +780,13 @@
 - [x] Draft do Volume I de "THE BLACK PROTOCOL" (Manifesto e Guia).
 
 - [x] Janela visivel de `node.exe` corrigida: tarefa do espelho e servidor local do painel agora iniciam ocultos via `wscript.exe`, preservando as automacoes.
+- [x] Financas Mobile Cloud verificado apos reinicio real: app publico mostra `UBER` e `teste 10` em `DESPESAS > Carro/Transp.`.
+- [x] Criado `reiniciar_painel.bat` e modo `start_painel.bat restart` para trocar o servidor antigo quando houver endpoint novo.
+- [x] Firebase Hosting publicado na versao `b0fa421391879c29` e catalogo vivo do app confirmado com 48 destinos.
 
 ## Risks
 - Automacao implantada precisa de validacao operacional recorrente para detectar regressao cedo.
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-07-23T09:16:31-03:00
+- updated_at: 2026-07-23T09:32:21-03:00

@@ -15,10 +15,15 @@ set "DASHBOARD_HIDDEN_RUNNER=%ROOT%scripts\run_dashboard_server_hidden.vbs"
 set "NODE_EXE=%ProgramFiles%\nodejs\node.exe"
 if not exist "%NODE_EXE%" set "NODE_EXE=node"
 
+if /I "%~1"=="restart" goto FORCE_RESTART
+if /I "%~1"=="/restart" goto FORCE_RESTART
+if /I "%~1"=="reiniciar" goto FORCE_RESTART
+
 echo Verificando se o painel ja esta ativo...
 "%POWERSHELL_EXE%" -NoProfile -Command "try { $r = Invoke-WebRequest -UseBasicParsing '%HEALTH_URL%' -TimeoutSec 1; if ($r.StatusCode -eq 200) { exit 0 } else { exit 1 } } catch { exit 1 }"
 if "%ERRORLEVEL%"=="0" goto OPEN_BROWSER
 
+:START_SERVER
 echo Servidor inativo. Subindo Node.js em background...
 if exist "%DASHBOARD_HIDDEN_RUNNER%" (
   if exist "%WSCRIPT_EXE%" (
@@ -46,3 +51,9 @@ start "" http://localhost:4000
 echo.
 echo Painel iniciado com sucesso.
 endlocal
+exit /b 0
+
+:FORCE_RESTART
+echo Reiniciando servidor local do painel...
+"%POWERSHELL_EXE%" -NoProfile -ExecutionPolicy Bypass -Command "$root = [IO.Path]::GetFullPath('%ROOT%').TrimEnd('\'); Get-CimInstance Win32_Process -Filter 'Name = ''node.exe''' | Where-Object { ($_.CommandLine -like '*dashboard_server.js*') -and ($_.CommandLine -like ('*' + $root + '*')) } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force }"
+goto START_SERVER

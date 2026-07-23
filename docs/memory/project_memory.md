@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-07-23T09:16:31-03:00
+- updated_at: 2026-07-23T09:29:58-03:00
 
 ## Handoff Atual - Financas Mobile Parcelamentos e Sync
 - timestamp: 2026-07-18T22:23:59-03:00
@@ -860,6 +860,16 @@
 - checkpoint: CHK-MEM-0250
 
 ## Ultimo fechamento automatico
+- timestamp: 2026-07-23T09:29:58-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0817
+- timestamp: 2026-07-23T09:29:39-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0816
 - timestamp: 2026-07-23T09:08:21-03:00
 - tipo: automatico
 - resumo: Encerramento automatico (fechamento de aba/janela).
@@ -3875,3 +3885,12 @@
 - app_publico: `financasMobileCatalog/main` foi publicado com 47 destinos e `UBER` confirmado; a URL publica respondeu 200, os chunks remotos contem `financasMobileCatalog` e `onSnapshot`, e teste headless confirmou `UBER` em `Carro/Transp.`.
 - observacao_operacional: O processo local do painel na porta 4000 estava ativo com codigo antigo e o comando de parada/restart foi bloqueado pela politica de ferramenta. O HTML novo ja e servido do disco, mas os endpoints novos do servidor entram plenamente apos reiniciar o painel.
 - checkpoint: CHK-FIN-02110-LIVE-CATALOG-PERF
+
+## Registro Manual - 2026-07-23T09:32:21-03:00
+- tipo: validacao-reinicio-real-e-catalogo-financas-mobile
+- resumo: Confirmado que a mensagem `App mobile: NAO EXECUTADO` veio de servidor local antigo ainda ativo na porta 4000. O painel foi reiniciado de verdade e o catalogo vivo do app foi publicado com 48 destinos.
+- comportamento: `start_painel.bat` ganhou modo `restart`/`reiniciar` e foi criado `reiniciar_painel.bat`; `runtime/info` agora retorna `server_started_at` para confirmar troca de processo.
+- validacao: `cmd /c start_painel.bat restart` subiu novo PID, `/api/financas/mobile-cloud/catalog` confirmou `UBER` e `teste 10`, a publicacao do catalogo retornou `ok: true`, e Puppeteer no app publico confirmou `DESPESAS > Carro/Transp.` com `C6 TAG PJ`, `Gasolina`, `UBER` e `teste 10`.
+- deploy: Firebase Hosting publicado na versao `b0fa421391879c29`, mantendo a URL `https://sommersstore-c6c23.web.app/financas-mobile-cloud`.
+- proxima_acao: Usar `reiniciar_painel.bat` quando houver alteracao server-side; para uso diario, F5/abrir o painel basta para importar dados e atualizar a tela.
+- checkpoint: CHK-FIN-02110-REAL-RESTART-CATALOG

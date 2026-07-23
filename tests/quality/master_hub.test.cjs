@@ -1097,6 +1097,9 @@ function testProjectMirrorConfiguration() {
   assert.match(hiddenMirrorRunner, /project_mirror_schedule\.log/, 'hidden mirror runner should keep a log for diagnostics');
   assert.match(startPainel, /run_dashboard_server_hidden\.vbs/, 'panel starter should use the hidden dashboard runner');
   assert.match(startPainel, /wscript\.exe/, 'panel starter should prefer wscript for hidden server startup');
+  assert.match(startPainel, /FORCE_RESTART/, 'panel starter should expose an explicit real restart mode');
+  assert.match(startPainel, /Stop-Process -Id \$_.ProcessId -Force/, 'panel restart mode should stop the old dashboard server process');
+  assert.ok(fs.existsSync(path.join(ROOT, 'reiniciar_painel.bat')), 'repository should provide a one-click restart helper');
   assert.match(hiddenDashboardRunner, /dashboard_server\.js/, 'hidden dashboard runner should start the local panel server');
   assert.match(hiddenDashboardRunner, /shell\.Run\([^,]+,\s*0,\s*False\)/, 'hidden dashboard runner should detach the server without a visible console');
   assert.match(hiddenDashboardRunner, /dashboard_server\.log/, 'hidden dashboard runner should keep a log for diagnostics');
