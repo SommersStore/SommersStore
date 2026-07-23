@@ -17171,6 +17171,27 @@
       "linked_loops": [],
       "linked_decisions": [],
       "recovery_instruction": "Reabrir dashboard e executar startup automatico"
+    },
+    {
+      "id": "CHK-MEM-0815",
+      "timestamp": "2026-07-23T09:16:31-03:00",
+      "title": "Fechamento SES-20260723-0006",
+      "where_it_stopped": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+      "completed_since_last_checkpoint": [],
+      "do_not_repeat": [
+        "Fechar sem checkpoint",
+        "Fechar sem mutacao"
+      ],
+      "next_exact_action": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+      "active_risks": [],
+      "affected_files": [
+        "task.md",
+        "docs/control/memory_*.json",
+        "docs/memory/*.md"
+      ],
+      "linked_loops": [],
+      "linked_decisions": [],
+      "recovery_instruction": "Reabrir dashboard e executar startup automatico"
     }
   ]
 }

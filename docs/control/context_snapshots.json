@@ -1,30 +1,6 @@
 {
   "snapshots": [
     {
-      "id": "CTX-20260719-0007",
-      "timestamp": "2026-07-19T00:39:43-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260718-0032",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260719-0008",
-      "timestamp": "2026-07-19T00:40:07-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260718-0032",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260719-0009",
-      "timestamp": "2026-07-19T00:44:39-03:00",
-      "type": "session_close",
-      "session_id": "SES-20260718-0032",
-      "summary": "Encerramento automatico (fechamento de aba/janela).",
-      "checkpoint_id": "CHK-MEM-0793"
-    },
-    {
       "id": "CTX-20260719-0010",
       "timestamp": "2026-07-19T00:44:45-03:00",
       "type": "session_start",
@@ -1960,6 +1936,49 @@
       "session_id": "SES-20260723-0005",
       "summary": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
       "checkpoint_id": "CHK-MEM-0814"
+    },
+    {
+      "id": "CTX-20260723-0020",
+      "timestamp": "2026-07-23T09:13:03-03:00",
+      "type": "session_start",
+      "session_id": "SES-20260723-0006",
+      "context_flash": {
+        "project": "SommersStore Elite",
+        "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
+        "active_task": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+        "build_phase": "BLD-07",
+        "ops_stage": "OPS-01",
+        "latest_checkpoint_id": "CHK-MEM-0814",
+        "latest_checkpoint_next_action": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+        "latest_raw_checkpoint_id": "CHK-MEM-0814",
+        "latest_raw_checkpoint_next_action": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+        "checkpoint_resolution": "last_actionable_checkpoint",
+        "latest_active_decision_id": "DEC-FOREX-0001",
+        "open_loops_count": 2,
+        "open_loop_ids": [
+          "LOOP-0001",
+          "LOOP-0003"
+        ],
+        "tracked_files": [],
+        "continuity_file": "docs/memory/startup_context_latest.md",
+        "continuity_window_days": 7
+      }
+    },
+    {
+      "id": "CTX-20260723-0021",
+      "timestamp": "2026-07-23T09:14:01-03:00",
+      "type": "session_pulse",
+      "session_id": "SES-20260723-0006",
+      "summary": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+      "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260723-0022",
+      "timestamp": "2026-07-23T09:16:31-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260723-0006",
+      "summary": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+      "checkpoint_id": "CHK-MEM-0815"
     }
   ]
 }

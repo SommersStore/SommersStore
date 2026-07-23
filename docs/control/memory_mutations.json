@@ -1,34 +1,6 @@
 {
   "mutations": [
     {
-      "timestamp": "2026-06-23T02:41:36-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260622-0003: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-23T08:52:43-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260623-0001",
-      "mutated_by": "dashboard",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-23T08:52:43-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-23T13:25:35-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260623-0001: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
       "timestamp": "2026-06-23T13:25:40-03:00",
       "memory_scope": "session_startup",
       "diff_summary": "Oracle iniciou SES-20260623-0002",
@@ -2097,6 +2069,34 @@
       "timestamp": "2026-07-23T09:08:52-03:00",
       "memory_scope": "session_shutdown",
       "diff_summary": "Scribe encerrou SES-20260723-0005: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-23T09:09:43-03:00",
+      "memory_scope": "cloud_sync",
+      "diff_summary": "Cloud sync SYNC-20260723-1784808532645: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.) Copia D: success (Espelho local atualizado em D:\\Antigravity-SommersStore\\workspace.)",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-23T09:13:03-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260723-0006",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-23T09:13:03-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-23T09:16:31-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260723-0006: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
       "mutated_by": "human",
       "project_id": null
     }

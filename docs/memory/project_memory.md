@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-07-23T09:08:52-03:00
+- updated_at: 2026-07-23T09:16:31-03:00
 
 ## Handoff Atual - Financas Mobile Parcelamentos e Sync
 - timestamp: 2026-07-18T22:23:59-03:00
@@ -728,6 +728,11 @@
 - proxima_acao: revisar refinamento editorial/visual dos entregaveis com o usuario e, em seguida, acrescentar a esteira de Upsell e Downsell mantendo o mesmo modelo de producao real.
 
 ## Ultimo fechamento
+- timestamp: 2026-07-23T09:16:31-03:00
+- tipo: usuario
+- resumo: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
+- proxima_acao: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
+- checkpoint: CHK-MEM-0815
 - timestamp: 2026-07-23T09:08:52-03:00
 - tipo: usuario
 - resumo: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.

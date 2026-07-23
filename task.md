@@ -221,6 +221,11 @@
 - [x] Sessao encerrada pelo usuario.
 - [x] Resumo: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
 - [x] Proxima acao: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
+- [x] Checkpoint: CHK-MEM-0815
+
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
+- [x] Proxima acao: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
 - [x] Checkpoint: CHK-MEM-0814
 
 - [x] Sessao encerrada.
@@ -781,4 +786,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-07-23T09:08:52-03:00
+- updated_at: 2026-07-23T09:16:31-03:00
