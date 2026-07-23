@@ -102,7 +102,7 @@ export default function HubClient({ catalog }: { catalog: HubCatalog }) {
   }, [rows]);
 
   const handleLogout = async () => {
-    await signOut(auth);
+    if (auth) await signOut(auth);
     router.push("/login");
   };
 
@@ -768,7 +768,7 @@ export default function HubClient({ catalog }: { catalog: HubCatalog }) {
               <div className="hub-avatar">EA</div>
               <div>
                 <div className="hub-user-name">Membro Elite</div>
-                <div className="hub-user-email">{auth.currentUser?.email}</div>
+                <div className="hub-user-email">{auth?.currentUser?.email}</div>
               </div>
             </div>
             <button className="hub-logout-btn" onClick={handleLogout}>Encerrar sessão</button>

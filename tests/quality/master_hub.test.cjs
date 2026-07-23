@@ -59,10 +59,15 @@ function testIntegrationPoints() {
   const dashboardHtml = fs.readFileSync(path.join(ROOT, 'docs/aiox_dashboard.html'), 'utf8');
   const serverJs = fs.readFileSync(path.join(ROOT, 'scripts/dashboard_server.js'), 'utf8');
   const packageJson = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+  const firebaseJson = readJson('firebase.json');
   const fin2Data = readJson('projects/financas/data/fin2_data.json');
   const fin2Sheet = fin2Data.sheet || fin2Data;
   const registry = readJson('docs/control/registry.json');
   const backfillScript = fs.readFileSync(path.join(ROOT, 'scripts/maintenance/backfill_project_log_ids.cjs'), 'utf8');
+  const financasMobileCloudPage = fs.readFileSync(path.join(ROOT, 'projects/loja-digital/app/financas-mobile-cloud/page.tsx'), 'utf8');
+  const financasMobileCloudClient = fs.readFileSync(path.join(ROOT, 'projects/loja-digital/app/financas-mobile-cloud/FinancasMobileCloudClient.tsx'), 'utf8');
+  const financasMobileCloudManifest = fs.readFileSync(path.join(ROOT, 'projects/loja-digital/public/financas-mobile-cloud.webmanifest'), 'utf8');
+  const firestoreRules = fs.readFileSync(path.join(ROOT, 'firestore.rules'), 'utf8');
   const fin2PlanilhaScript = dashboardHtml.slice(
     dashboardHtml.indexOf('function fin2Esc(value)'),
     dashboardHtml.indexOf('window.fin2AddRow = function(groupKey)')
@@ -236,7 +241,7 @@ function testIntegrationPoints() {
   assert.match(dashboardHtml, /apple-mobile-web-app-title" content="Financas"/, 'Financas Mobile should expose an iOS home-screen title');
   assert.match(dashboardHtml, /navigator\.serviceWorker\.register\('\/financas-mobile-sw\.js'\)/, 'Financas Mobile should register a service worker when the origin allows it');
   assert.match(dashboardHtml, /html\.fin2-mobile-standalone-root #fin2-pane-mobile \{[\s\S]*?height:calc\(100vh - 44px\);[\s\S]*?overflow-y:auto !important;[\s\S]*?-webkit-overflow-scrolling:touch;/, 'Financas Mobile standalone pane should scroll vertically on phones');
-  assert.match(dashboardHtml, /id="fin2-mobile-photo-input" type="file" accept="image\/\*" capture="environment"/, 'Financas Mobile should expose a camera capture input');
+  assert.doesNotMatch(dashboardHtml, /id="fin2-mobile-photo-input" type="file" accept="image\/\*" capture="environment"/, 'Financas local Mobile pane should not render the old PC-side camera launcher');
   assert.match(dashboardHtml, /window\.fin2MobileOpenPhoto\s*=/, 'Financas Mobile should open the camera/photo picker from its compact button');
   assert.match(dashboardHtml, /window\.fin2MobileReadPhoto\s*=\s*async function/, 'Financas Mobile should read selected photos before launch');
   assert.match(dashboardHtml, /function fin2ParseMobileReceiptText\(text\)/, 'Financas Mobile should parse OCR text into launch fields');
@@ -261,6 +266,63 @@ function testIntegrationPoints() {
   assert.ok(fs.existsSync(path.join(ROOT, 'docs/financas-mobile.webmanifest')), 'Financas Mobile manifest should exist');
   assert.ok(fs.existsSync(path.join(ROOT, 'docs/financas-mobile-sw.js')), 'Financas Mobile service worker should exist');
   assert.ok(fs.existsSync(path.join(ROOT, 'docs/assets/financas-mobile-icon.svg')), 'Financas Mobile home-screen icon should exist');
+  assert.ok(fs.existsSync(path.join(ROOT, 'projects/loja-digital/app/financas-mobile-cloud/page.tsx')), 'Financas Mobile Cloud should expose a hosted Next route');
+  assert.ok(fs.existsSync(path.join(ROOT, 'projects/loja-digital/public/financas-mobile-cloud.webmanifest')), 'Financas Mobile Cloud should expose a hosted PWA manifest');
+  assert.ok(firebaseJson.hosting.rewrites.some(item => item.source === '/financas-mobile-cloud' && item.destination === '/financas-mobile-cloud.html'), 'Firebase Hosting should rewrite /financas-mobile-cloud to the exported route');
+  assert.match(financasMobileCloudPage, /manifest: "\/financas-mobile-cloud\.webmanifest"/, 'Financas Mobile Cloud route should advertise its PWA manifest');
+  assert.match(financasMobileCloudPage, /title: "Finanças Mobile \| Sommer's Store"/, 'Financas Mobile Cloud route should use the requested app title and brand');
+  assert.match(financasMobileCloudManifest, /"name": "Finanças Mobile"/, 'Financas Mobile Cloud manifest should not expose the old Cloud name');
+  assert.match(financasMobileCloudPage, /readFileSync\(join\(process\.cwd\(\), "\.\.", "financas", "data", "fin2_data\.json"\)/, 'Financas Mobile Cloud should build a destination catalog from the local Financas sheet');
+  assert.match(financasMobileCloudPage, /topLevelOrder/, 'Financas Mobile Cloud should respect the sheet top-level category order');
+  assert.match(financasMobileCloudPage, /expenseGroupOrder/, 'Financas Mobile Cloud should respect the saved Despesas subcategory order');
+  assert.match(financasMobileCloudPage, /debtGroupOrder/, 'Financas Mobile Cloud should respect the saved Dividas subcategory order');
+  assert.match(financasMobileCloudPage, /label: text\(row\.label, sectionLabel\(groupKey\)\)/, 'Financas Mobile Cloud should keep Pagamento PM and Despesas PM as their own automatic categories');
+  assert.match(financasMobileCloudPage, /return groupedRows\.concat\(customRows, ungrouped, payslipRows\)/, 'Financas Mobile Cloud should place Despesas PM after editable Despesas subcategories');
+  assert.match(financasMobileCloudPage, /lockedReason/, 'Financas Mobile Cloud should expose protected holerite subdivisions without making them selectable');
+  assert.match(financasMobileCloudPage, /<FinancasMobileCloudClient destinations=\{buildDestinationCatalog\(\)\}/, 'Financas Mobile Cloud should pass sheet destinations to the phone client');
+  assert.match(financasMobileCloudClient, /NEXT_PUBLIC_FINANCAS_FIREBASE_API_KEY/, 'Financas Mobile Cloud should read Firebase config from public build env vars');
+  assert.match(financasMobileCloudClient, /signInAnonymously/, 'Financas Mobile Cloud should authenticate the phone launcher without asking for a password');
+  assert.match(financasMobileCloudClient, /getDoc\(doc\(db, "financasMobileControl", "main"\)\)/, 'Financas Mobile Cloud should read the emergency enable/disable control document');
+  assert.doesNotMatch(financasMobileCloudClient, /signInWithEmailAndPassword/, 'Financas Mobile Cloud should not ask for email/password on the phone launcher');
+  assert.match(financasMobileCloudClient, /addDoc\(collection\(services\.db, "users", user\.uid, "financasMobileInbox"\)/, 'Financas Mobile Cloud should save pending launches under the signed-in user inbox');
+  assert.match(financasMobileCloudClient, /destinationRowId: selectedDestination\.id/, 'Financas Mobile Cloud should save the selected sheet destination id');
+  assert.match(financasMobileCloudClient, /destinationPath: selectedDestination\.path/, 'Financas Mobile Cloud should save the selected sheet destination category');
+  assert.match(financasMobileCloudClient, /destinationCategoryLabel: selectedDestination\.categoryLabel/, 'Financas Mobile Cloud should save the selected subcategory label');
+  assert.match(financasMobileCloudClient, /destinationSubdivisionLabel: selectedDestination\.subdivisionLabel/, 'Financas Mobile Cloud should save the selected subdivision label');
+  assert.match(financasMobileCloudClient, /uniqueCategories\(activeDestinations\)/, 'Financas Mobile Cloud should render category tabs from available destinations');
+  assert.match(financasMobileCloudClient, /Subdivisao/, 'Financas Mobile Cloud should expose row subdivisions after subcategory selection');
+  assert.match(financasMobileCloudClient, /disabled=\{destination\.locked\}/, 'Financas Mobile Cloud should show protected subdivisions as disabled options');
+  assert.match(financasMobileCloudClient, /status: "pending"/, 'Financas Mobile Cloud should create pending launches for later notebook review');
+  assert.match(financasMobileCloudClient, /source: "financas-mobile-cloud"/, 'Financas Mobile Cloud should tag its launch source');
+  assert.match(financasMobileCloudClient, /enableIndexedDbPersistence/, 'Financas Mobile Cloud should request browser offline persistence for phone capture');
+  assert.match(financasMobileCloudClient, /if \(!hasFirebaseConfig\)[\s\S]*?Sommer&apos;s Store[\s\S]*?Finanças Mobile/, 'Financas Mobile Cloud should keep setup mode with the requested app title and brand');
+  assert.match(financasMobileCloudClient, /<header className="text-center">[\s\S]*?Sommer&apos;s Store[\s\S]*?Finanças Mobile/, 'Financas Mobile Cloud header should center the requested title and brand');
+  assert.match(financasMobileCloudClient, /label: "RECEITAS"[\s\S]*?border-sky-400[\s\S]*?label: "DESPESAS"[\s\S]*?border-emerald-400[\s\S]*?label: "DÍVIDAS"[\s\S]*?border-red-400/, 'Financas Mobile Cloud should color Receitas, Despesas and Dividas using the sheet palette');
+  assert.match(financasMobileCloudClient, />\s*SALVAR\s*</, 'Financas Mobile Cloud save button should use the compact SALVAR label');
+  assert.doesNotMatch(financasMobileCloudClient, /const \[note, setNote\]|note: note\.trim\(\)|Observacao|Observação|Salvar na nuvem|Salvando na nuvem|O notebook importa automaticamente|Lancamentos para sincronizar automaticamente|Lançamentos para sincronizar automaticamente|Cloud 24h|CLOUD 24H/, 'Financas Mobile Cloud should remove note and explanatory sync/cloud copy from the app form');
+  assert.match(dashboardHtml, /id="fin2-mobile-cloud-inbox"/, 'Financas local Mobile pane should render the app emergency control');
+  assert.match(dashboardHtml, /const FIN2_MOBILE_CLOUD_APP_URL = 'https:\/\/sommersstore-c6c23\.web\.app\/financas-mobile-cloud';/, 'Financas local Mobile pane should open the hosted cloud app instead of localhost');
+  assert.match(dashboardHtml, /fin2MobileCloudApi\('\/api\/financas\/mobile-cloud\/pending'\)/, 'Financas local Mobile pane should read pending launches through the local server bridge');
+  assert.match(dashboardHtml, /window\.fin2MobileCloudToggleEnabled\s*=\s*async function/, 'Financas local Mobile pane should expose an emergency enable/disable control');
+  assert.match(dashboardHtml, /Desativar app do celular/, 'Financas local Mobile pane should replace Firebase setup with a deactivate button');
+  assert.doesNotMatch(dashboardHtml, /id="fin2-cloud-email"/, 'Financas local Mobile pane should not ask for Firebase email');
+  assert.doesNotMatch(dashboardHtml, /id="fin2-cloud-password"/, 'Financas local Mobile pane should not ask for Firebase password');
+  assert.match(dashboardHtml, /window\.fin2MobileCloudApplyEntry\s*=\s*async function\(entryId, options = \{\}\)/, 'Financas local Mobile pane should support manual and automatic cloud launch imports');
+  assert.match(dashboardHtml, /window\.fin2MobileCloudAutoImportPending\s*=\s*async function/, 'Financas local Mobile pane should auto-import pending cloud launches when the notebook is available');
+  assert.match(dashboardHtml, /fin2MobileCloudStartAutoSync\(\)/, 'Financas should run Cloud Inbox sync after loading the desktop sheet');
+  assert.match(dashboardHtml, /fin2MobileCloud\.autoSyncTimer = 'initial-load-only'/, 'Financas Cloud Inbox should sync only on page load or F5, without a polling timer');
+  assert.doesNotMatch(dashboardHtml, /setInterval\(\(\) => window\.fin2MobileCloudAutoImportPending\(\), 60000\)/, 'Financas Cloud Inbox should not poll every 60 seconds');
+  assert.match(serverJs, /getFirebaseCliAccessToken/, 'server should reuse the local Firebase CLI credential instead of asking for Firebase login in the browser');
+  assert.match(serverJs, /\/api\/financas\/mobile-cloud\/pending/, 'server should expose the pending cloud inbox endpoint for the local dashboard');
+  assert.match(serverJs, /financasMobileControl\/main/, 'server should manage the emergency mobile app control document');
+  assert.match(serverJs, /:runQuery/, 'server should query Firestore through the REST API');
+  assert.doesNotMatch(dashboardHtml, /id="fin2-cloud-apiKey"/, 'Financas Cloud Inbox should not ask the user to type Firebase API keys manually');
+  assert.match(dashboardHtml, /source: 'financas-mobile-cloud'/, 'Financas local Mobile pane should preserve cloud launch origin in local history');
+  assert.match(dashboardHtml, /rowSelect && rowSelect\.value \|\| entry\.destinationRowId/, 'Financas local Mobile pane should default imports to the destination chosen on the phone');
+  assert.match(dashboardHtml, /\/api\/financas\/mobile-cloud\/imported/, 'Financas local Mobile pane should mark imported cloud launches through the local server bridge');
+  assert.match(firestoreRules, /match \/users\/\{userId\}\/financasMobileInbox\/\{entryId\}/, 'Firestore rules should scope Financas Mobile Cloud launches per user');
+  assert.match(firestoreRules, /request\.auth\.uid == userId/, 'Firestore rules should require the signed-in user to own the inbox');
+  assert.match(firestoreRules, /match \/financasMobileControl\/main/, 'Firestore rules should expose the mobile emergency control as read-only to clients');
   assert.match(dashboardHtml, /name: 'Dukascopy',[\s\S]*?platform: 'MetaTrader 5'/, 'Financas investments should highlight Dukascopy with MetaTrader 5');
   assert.match(dashboardHtml, /function fin2InvestmentFutureValue\(current, monthly, annualRate, months\)/, 'Financas investments should calculate compound projections');
   assert.match(dashboardHtml, /window\.fin2RenderInvestments\s*=/, 'Financas should render the investments planning workspace');
@@ -268,7 +330,7 @@ function testIntegrationPoints() {
   assert.match(dashboardHtml, /window\.fin2AddInvestmentAsset\s*=/, 'Financas should add new investment classes');
   assert.match(dashboardHtml, /investments: FIN2_INVESTMENTS/, 'Financas autosave payload should persist investment planning data');
   assert.match(dashboardHtml, /if \(data\.investments && typeof data\.investments === 'object'\) FIN2_INVESTMENTS = data\.investments;/, 'Financas should reload persisted investment planning data');
-  assert.match(dashboardHtml, /\.then\(\(\) => fin2Switch\(window\.AIOX_MOBILE_ONLY \? 'mobile' : 'planilha'\)\);/, 'Financas render should return to Planilha on desktop and Mobile in phone-only mode');
+  assert.match(dashboardHtml, /\.then\(\(\) => fin2Switch\(window\.AIOX_MOBILE_ONLY \? 'mobile' : 'planilha'\)\)\s*\.then\(\(\) => fin2MobileCloudStartAutoSync\(\)\);/, 'Financas render should return to Planilha/Mobile and then run initial Cloud Inbox sync');
   assert.doesNotMatch(dashboardHtml, /id="fin2-btn-ir"/, 'Financas should not expose the Imp. de Renda top nav tab');
   assert.doesNotMatch(dashboardHtml, /id="fin2-btn-mapa"/, 'Financas should not expose the Mapa top nav tab');
   assert.doesNotMatch(dashboardHtml, /id="fin2-pane-ir"/, 'Financas should not render the Imp. de Renda pane');
@@ -1004,6 +1066,10 @@ function testCloudSyncGuardrails() {
 
 function testProjectMirrorConfiguration() {
   const packageJson = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+  const mirrorScheduleInstaller = fs.readFileSync(path.join(ROOT, 'scripts/install_project_mirror_schedule.js'), 'utf8');
+  const hiddenMirrorRunner = fs.readFileSync(path.join(ROOT, 'scripts/run_project_mirror_sync_hidden.vbs'), 'utf8');
+  const startPainel = fs.readFileSync(path.join(ROOT, 'start_painel.bat'), 'utf8');
+  const hiddenDashboardRunner = fs.readFileSync(path.join(ROOT, 'scripts/run_dashboard_server_hidden.vbs'), 'utf8');
   assert.equal(projectMirror.DEFAULT_MIRROR_ROOT, 'D:\\Antigravity-SommersStore', 'mirror should use the requested D drive by default');
   assert.equal(projectMirror.workspacePathFor(), 'D:\\Antigravity-SommersStore\\workspace', 'mirror workspace should be isolated below the D drive root');
   assert.equal(projectMirror.isRobocopySuccess(0), true, 'robocopy exit code zero should be successful');
@@ -1015,6 +1081,15 @@ function testProjectMirrorConfiguration() {
   assert.equal(packageJson.scripts['sync:mirror'], 'node scripts/project_mirror_sync.js sync --trigger npm_manual', 'package should expose a manual mirror command');
   assert.equal(packageJson.scripts['deploy:hosting'], 'node scripts/deploy_hosting_with_mirror.js', 'manual Firebase deploy should run through the mirror-aware command');
   assert.ok(fs.existsSync(path.join(ROOT, '.githooks', 'post-push')), 'repository should version the post-push mirror hook template');
+  assert.match(mirrorScheduleInstaller, /run_project_mirror_sync_hidden\.vbs/, 'scheduled mirror sync should use the hidden Windows runner');
+  assert.match(mirrorScheduleInstaller, /wscript\.exe/, 'scheduled mirror sync should not launch node.exe in a visible console window');
+  assert.match(hiddenMirrorRunner, /shell\.Run\([^,]+,\s*0,\s*True\)/, 'hidden mirror runner should execute the sync without a visible window');
+  assert.match(hiddenMirrorRunner, /project_mirror_schedule\.log/, 'hidden mirror runner should keep a log for diagnostics');
+  assert.match(startPainel, /run_dashboard_server_hidden\.vbs/, 'panel starter should use the hidden dashboard runner');
+  assert.match(startPainel, /wscript\.exe/, 'panel starter should prefer wscript for hidden server startup');
+  assert.match(hiddenDashboardRunner, /dashboard_server\.js/, 'hidden dashboard runner should start the local panel server');
+  assert.match(hiddenDashboardRunner, /shell\.Run\([^,]+,\s*0,\s*False\)/, 'hidden dashboard runner should detach the server without a visible console');
+  assert.match(hiddenDashboardRunner, /dashboard_server\.log/, 'hidden dashboard runner should keep a log for diagnostics');
 }
 
 function testAioxMasterNext() {

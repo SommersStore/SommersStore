@@ -12,7 +12,7 @@ export default function AuthGuard({ children }: { children: ReactNode }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (!isConfigValid) {
+    if (!isConfigValid || !auth) {
       return;
     }
 
@@ -57,7 +57,7 @@ export default function AuthGuard({ children }: { children: ReactNode }) {
     );
   }
 
-  if (!isConfigValid) {
+  if (!isConfigValid || !auth) {
     return (
       <main style={{
         minHeight: "100vh",

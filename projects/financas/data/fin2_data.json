@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-07-19T04:24:12.808Z",
-  "base_updated_at": "2026-07-19T04:22:10.264Z",
+  "updated_at": "2026-07-23T11:15:18.983Z",
+  "base_updated_at": "2026-07-23T11:12:34.625Z",
   "sheet": {
     "year": 2026,
     "receitas": [
@@ -24,12 +24,7 @@
         "customGroup": "custom-outros",
         "cellTotalModes": {
           "5": "include",
-          "6": "include",
-          "7": "include",
-          "8": "include",
-          "9": "include",
-          "10": "include",
-          "11": "include"
+          "6": "include"
         }
       },
       {
@@ -52,12 +47,7 @@
         ],
         "cellTotalModes": {
           "5": "include",
-          "6": "include",
-          "7": "include",
-          "8": "include",
-          "9": "include",
-          "10": "include",
-          "11": "include"
+          "6": "include"
         }
       },
       {
@@ -80,12 +70,7 @@
         "customGroup": "custom-rodoanel",
         "cellTotalModes": {
           "5": "include",
-          "6": "include",
-          "7": "include",
-          "8": "include",
-          "9": "include",
-          "10": "include",
-          "11": "include"
+          "6": "include"
         }
       },
       {
@@ -108,12 +93,7 @@
         "customGroup": "custom-rodoanel",
         "cellTotalModes": {
           "5": "include",
-          "6": "include",
-          "7": "include",
-          "8": "include",
-          "9": "include",
-          "10": "include",
-          "11": "include"
+          "6": "include"
         }
       }
     ],
@@ -130,7 +110,7 @@
           null,
           1200,
           1688.62,
-          null,
+          1300,
           null,
           null,
           null,
@@ -152,6 +132,14 @@
               "name": "Mercado",
               "date": "2026-07-11",
               "value": 1688.62
+            }
+          ],
+          "7": [
+            {
+              "id": "detail-em1784393679788-7-initial",
+              "name": "Lancamento inicial",
+              "date": "",
+              "value": 1300
             }
           ]
         },
@@ -286,7 +274,7 @@
           null,
           null,
           100,
-          1631.32,
+          2126.3,
           null,
           null,
           null,
@@ -337,6 +325,14 @@
               "name": "Gasolina trabalho",
               "date": "2026-07-16",
               "value": 512.57
+            },
+            {
+              "id": "mob-eg1781903060101-6-1784804988628",
+              "name": "Trabalho",
+              "date": "2026-07-22",
+              "value": 494.98,
+              "installmentIndex": 1,
+              "installmentCount": 1
             }
           ]
         }
@@ -465,12 +461,12 @@
           null,
           null,
           61,
-          0,
           null,
           null,
           null,
           null,
-          null
+          null,
+          0
         ],
         "cellDetailsEnabled": true,
         "cellDetails": {
@@ -657,15 +653,24 @@
           null,
           null,
           null,
-          null,
-          null,
+          260,
+          0,
           null,
           null,
           0,
           null
         ],
         "cellDetailsEnabled": true,
-        "cellDetails": {},
+        "cellDetails": {
+          "6": [
+            {
+              "id": "detail-ee1784395511114-6-1784672678512",
+              "name": "Internet e Gás",
+              "date": "2026-07-20",
+              "value": 260
+            }
+          ]
+        },
         "cellTotalModes": {
           "5": "exclude",
           "6": "exclude"
@@ -716,6 +721,27 @@
           "5": "exclude",
           "6": "exclude"
         }
+      },
+      {
+        "id": "eg1784760132577",
+        "label": "UBER",
+        "expenseGroup": "gasolina",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellDetailsEnabled": true,
+        "cellDetails": {}
       }
     ],
     "dividas": [
@@ -1529,7 +1555,7 @@
     },
     "expenseGroupLabels": {
       "extras": "Extras",
-      "gasolina": "Carro",
+      "gasolina": "Carro/Transp.",
       "mercado": "Casa"
     },
     "expenseGroupOrder": [
@@ -1895,7 +1921,7 @@
         {
           "fileName": "Bradesco Contrato 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Bradesco Contrato 469_15.pdf",
-          "uploadedAt": "2026-07-19T04:20:48.142Z",
+          "uploadedAt": "2026-07-23T11:09:37.261Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -1909,7 +1935,7 @@
         {
           "fileName": "Descritivo de Crédito 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Descritivo de Crédito 469_15.pdf",
-          "uploadedAt": "2026-07-19T04:20:48.142Z",
+          "uploadedAt": "2026-07-23T11:09:37.261Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -2816,7 +2842,7 @@
         {
           "fileName": "Saldo Devedor 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Saldo Devedor 469_15.pdf",
-          "uploadedAt": "2026-07-19T04:20:48.142Z",
+          "uploadedAt": "2026-07-23T11:09:37.261Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -6177,7 +6203,35 @@
     ]
   },
   "mobile": {
-    "entries": []
+    "entries": [
+      {
+        "id": "cloud-jjwYemwdKIIKZTFH4dnP-1784804988632",
+        "groupKey": "despesas",
+        "rowId": "eg1781903060101",
+        "rowLabel": "Gasolina",
+        "path": "Carro/Transp.",
+        "name": "Trabalho",
+        "date": "2026-07-22",
+        "value": 494.98,
+        "installments": 1,
+        "appliedMonths": 1,
+        "appliedTargets": [
+          {
+            "groupKey": "despesas",
+            "rowId": "eg1781903060101",
+            "monthIdx": 6,
+            "kind": "detail",
+            "entryId": "mob-eg1781903060101-6-1784804988628",
+            "expectedValue": null,
+            "previousValue": null
+          }
+        ],
+        "source": "financas-mobile-cloud",
+        "cloudEntryId": "jjwYemwdKIIKZTFH4dnP",
+        "importedAt": "2026-07-23T11:09:48.632Z",
+        "createdAt": "2026-07-23T00:50:52.328Z"
+      }
+    ]
   },
   "debtGroupTotalModes": {
     "payslip": "",

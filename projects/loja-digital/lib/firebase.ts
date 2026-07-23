@@ -12,15 +12,15 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase only if config is valid
-const isConfigValid = !!firebaseConfig.apiKey;
+const isConfigValid = Object.values(firebaseConfig).every(Boolean);
 
 if (!isConfigValid) {
-  console.error("❌ Firebase: Configuração ausente em .env.local");
+  console.error("Firebase: configuracao ausente em .env.local");
 }
 
-const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+const app = isConfigValid ? (getApps().length > 0 ? getApp() : initializeApp(firebaseConfig)) : null;
+const auth = app ? getAuth(app) : null;
+const db = app ? getFirestore(app) : null;
 
 export { app, auth, db, isConfigValid };
 

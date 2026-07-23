@@ -113,6 +113,8 @@
 - [x] Criar rota `Mobile` isolada para celular, sem acesso visual ao painel completo
 - [x] Refinar Financas Mobile com icone de tela inicial, rolagem, foto/OCR e historico sincronizado
 - [x] Corrigir parcelamentos, edicao/exclusao e sincronismo desktop-celular do Financas Mobile
+- [x] Criar Cloud Inbox 24h para Financas Mobile, independente do notebook ligado
+- [x] Polir interface do Financas Mobile Cloud com marca Sommer's Store, sem observacao, sem textos auxiliares e cores por secao da planilha
 - [x] Corrigir exibicao da soma calculada nas celulas-mae de `Despesas PM`
 - [x] Restaurar copia do mes anterior nas celulas detalhadas vazias de Financas
 - [x] Permitir zero explicito por digitacao direta e retorno a copia ao limpar celulas detalhadas de Financas
@@ -215,6 +217,27 @@
 - [x] Corrigir regressao visual que fazia `Financas` abrir direto em `Dividas/Acordos` em vez de `Planilha`
 
 ## Done in this session
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Checkpoint: CHK-MEM-0811
+
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- [x] Checkpoint: CHK-MEM-0809
+
+- [x] Story 2.110 concluida: Financas Mobile ganhou app cloud hospedavel em `/financas-mobile-cloud` e Cloud Inbox no painel local para importar lancamentos pendentes da nuvem.
+- [x] Implementados Firebase Auth/Firestore no app publico, manifest PWA, regras Firestore por usuario, rewrite Hosting, documentacao operacional e build/export da rota.
+- [x] O painel local `Financas > Mobile` foi reduzido ao controle de emergencia para ativar/desativar o app do celular; sem campos Firebase, email ou senha no PC.
+- [x] Validacao: `npm run lint`, `npm run typecheck`, `npm test`, typecheck/build do `projects/loja-digital` e lint focado dos arquivos tocados passaram.
+- [x] Deploy operacional concluido: Firestore criado em `southamerica-east1`, regras publicadas, Hosting atualizado e URL 24h validada em `https://sommersstore-c6c23.web.app/financas-mobile-cloud`.
+- [x] Corrigida regressao do app cloud: o formulario voltou a mostrar categorias/destinos da planilha e grava o destino escolhido para o notebook importar por padrao.
+- [x] Corrigido catalogo completo do app cloud: Receitas, Despesas e Dividas agora exibem subcategorias e subdivisoes da planilha, com holerite visivel e protegido.
+- [x] Corrigido mapeamento conceitual do holerite: `Pagamento PM` e `Despesas PM` aparecem como categorias automaticas proprias; `Holerite` fica na subcategoria de emprestimos bancarios em `Dividas`.
+- [x] Cloud Inbox local ajustado: servidor `dashboard_server.js` usa a credencial local do Firebase CLI para buscar pendencias no Firestore e auto-importar somente ao abrir/F5 a planilha, sem polling a cada 60s e sem login Firebase no navegador.
+- [x] App Financas Mobile Cloud ajustado para Firebase Auth anonimo; provedor anonimo habilitado no Firebase, regras Firestore publicadas e Hosting atualizado para `c0401352affba540`.
+
 - [x] Sessao encerrada pelo usuario.
 - [x] Resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
 - [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
@@ -740,9 +763,11 @@
 - [x] Geração do PDF Editorial: "O Cofre das Botânicas Secretas" (28 páginas).
 - [x] Draft do Volume I de "THE BLACK PROTOCOL" (Manifesto e Guia).
 
+- [x] Janela visivel de `node.exe` corrigida: tarefa do espelho e servidor local do painel agora iniciam ocultos via `wscript.exe`, preservando as automacoes.
+
 ## Risks
 - Automacao implantada precisa de validacao operacional recorrente para detectar regressao cedo.
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-07-19T01:24:13-03:00
+- updated_at: 2026-07-23T08:15:19-03:00

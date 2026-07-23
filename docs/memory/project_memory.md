@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-07-19T01:24:13-03:00
+- updated_at: 2026-07-23T08:15:19-03:00
 
 ## Handoff Atual - Financas Mobile Parcelamentos e Sync
 - timestamp: 2026-07-18T22:23:59-03:00
@@ -728,6 +728,16 @@
 - proxima_acao: revisar refinamento editorial/visual dos entregaveis com o usuario e, em seguida, acrescentar a esteira de Upsell e Downsell mantendo o mesmo modelo de producao real.
 
 ## Ultimo fechamento
+- timestamp: 2026-07-23T08:15:19-03:00
+- tipo: usuario
+- resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- proxima_acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- checkpoint: CHK-MEM-0811
+- timestamp: 2026-07-22T19:48:28-03:00
+- tipo: usuario
+- resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- proxima_acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- checkpoint: CHK-MEM-0809
 - timestamp: 2026-07-19T01:24:13-03:00
 - tipo: usuario
 - resumo: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
@@ -835,6 +845,66 @@
 - checkpoint: CHK-MEM-0250
 
 ## Ultimo fechamento automatico
+- timestamp: 2026-07-23T08:08:51-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0810
+- timestamp: 2026-07-22T19:40:12-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0808
+- timestamp: 2026-07-22T18:07:06-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0807
+- timestamp: 2026-07-22T17:37:25-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0806
+- timestamp: 2026-07-22T17:37:16-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0805
+- timestamp: 2026-07-22T17:17:39-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0804
+- timestamp: 2026-07-22T14:11:43-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0803
+- timestamp: 2026-07-22T13:03:26-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0802
+- timestamp: 2026-07-22T12:39:01-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0801
+- timestamp: 2026-07-22T10:10:07-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0800
+- timestamp: 2026-07-22T10:10:03-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0799
+- timestamp: 2026-07-21T22:07:14-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0798
 - timestamp: 2026-07-19T01:20:40-03:00
 - tipo: automatico
 - resumo: Encerramento automatico (fechamento de aba/janela).
@@ -3678,3 +3748,100 @@
 - validacao: `npm run lint`, `npm run typecheck` e `npm test` passaram. Puppeteer com `/api/save` interceptado confirmou que, em junho, o clique em `Despesas` marcou 6/6 sublinhas de `Despesas PM`, preservou `2.661` e o segundo clique desmarcou tudo.
 - proxima_acao: Manter `Despesas PM` sincronizada tanto pelo proprio totalizador mensal quanto pelo totalizador principal de `Despesas`.
 - checkpoint: CHK-FIN-02107-DESPESAS-PM-MAIN
+
+## Registro Manual - 2026-07-21T19:55:00-03:00
+- tipo: correcao-arquitetural-financas
+- resumo: Story 2.110 concluida. O Financas Mobile local deixou de ser o unico caminho para lancamentos pelo celular; foi criado um app hospedavel em `/financas-mobile-cloud` e um `Cloud Inbox 24h` no painel local.
+- comportamento: O celular registra lancamentos autenticados no Firestore em `users/{uid}/financasMobileInbox` com `status: pending`, sem depender de `start_painel.bat` nem do notebook ligado. No notebook, o painel local autentica, lista pendencias, permite escolher o destino da planilha e importa manualmente cada item, marcando como `imported` quando possivel.
+- seguranca: Foram adicionadas regras Firestore por usuario e o codigo nao contem chaves Firebase hardcoded; o app mostra modo setup enquanto `NEXT_PUBLIC_FINANCAS_FIREBASE_*` nao estiver configurado.
+- validacao: Passaram `npm run lint`, `npm run typecheck`, `npm test`, `projects/loja-digital npm run typecheck`, lint focado dos arquivos tocados e `projects/loja-digital npm run build`. O build gerou `out_deploy/financas-mobile-cloud.html` e manifest.
+- deploy: Em 2026-07-21, Firestore API foi habilitada, banco `(default)` criado em `southamerica-east1` com delete protection, regras Firestore publicadas e Hosting atualizado. URL validada: `https://sommersstore-c6c23.web.app/financas-mobile-cloud`.
+- proxima_acao: Usar o app no celular com o usuario Firebase existente e conferir no notebook pelo `Cloud Inbox 24h`; se desejar outro operador, criar novo usuario no Firebase Auth.
+- checkpoint: CHK-FIN-02110-CLOUD-INBOX
+
+## Registro Manual - 2026-07-21T21:52:04-03:00
+- tipo: correcao-ui-financas-mobile-cloud
+- resumo: A regressao visual do app cloud foi corrigida. O formulario 24h voltou a mostrar tipo, categorias e destinos derivados da planilha local, em vez de apenas um preenchimento simples.
+- comportamento: O build do app publico le `projects/financas/data/fin2_data.json` e entrega ao celular o catalogo de destinos. Cada lancamento grava `destinationRowId`, `destinationLabel` e `destinationPath`; o `Cloud Inbox` local usa esse destino escolhido no celular como padrao ao importar.
+- validacao: Passaram `npm run lint`, `npm run typecheck`, `npm test`, `projects/loja-digital npm run typecheck`, lint focado do app cloud e `projects/loja-digital npm run build`. A URL remota respondeu HTTP 200; o HTML publicado contem categorias como `Casa`, `Carro`, `Extras` e `Rodoanel`, e os scripts remotos contem `Destino`, `Nome`, `Valor`, `Parcelas`, `destinationRowId` e `destinationPath`.
+- deploy: Hosting publicado novamente no projeto `sommersstore-c6c23` em 2026-07-21; URL mantida em `https://sommersstore-c6c23.web.app/financas-mobile-cloud`.
+- proxima_acao: Testar no celular com o login Firebase existente. Senhas do Firebase Auth nao sao recuperaveis pelo Codex; se a senha nao estiver disponivel, criar/redefinir acesso.
+- checkpoint: CHK-FIN-02110-CLOUD-CATEGORIES
+
+## Registro Manual - 2026-07-21T22:19:02-03:00
+- tipo: correcao-catalogo-financas-mobile-cloud
+- resumo: O app cloud deixou de resumir a planilha em um nivel unico e passou a espelhar a arvore completa de `Receitas`, `Despesas` e `Dividas`.
+- comportamento: O catalogo publicado passou a mostrar a arvore completa, mas este checkpoint ainda continha um mapeamento conceitual incompleto de holerite em `Receitas` e `Despesas`. O checkpoint seguinte corrige isso para `Pagamento PM` e `Despesas PM`.
+- dados-gravados: Lancamentos cloud continuam gravando `destinationRowId`, `destinationLabel` e `destinationPath`, e agora tambem registram `destinationSectionLabel`, `destinationCategoryLabel` e `destinationSubdivisionLabel`.
+- validacao: Passaram `projects/loja-digital npm run typecheck`, lint focado de `app/financas-mobile-cloud`, `projects/loja-digital npm run build`, `npm run lint`, `npm run typecheck` e `npm test`. O build exportado e a URL remota confirmaram `Rodoanel`, `Outros`, `Casa`, `Carro`, `Extras`, `Atuais`, `Antigas`, `Hol`, `Subdivisao`, `destinationCategoryLabel` e `destinationSubdivisionLabel`.
+- deploy: Firebase Hosting publicado no projeto `sommersstore-c6c23`, versao `35df36b1cb534efd`, mantendo a URL `https://sommersstore-c6c23.web.app/financas-mobile-cloud`.
+- proxima_acao: No celular, atualizar a pagina/app para limpar cache e conferir a arvore completa apos login.
+- checkpoint: CHK-FIN-02110-CLOUD-FULL-TREE
+
+## Registro Manual - 2026-07-21T22:36:39-03:00
+- tipo: correcao-conceitual-holerite-financas-mobile-cloud
+- resumo: Corrigido o mapeamento conceitual do holerite no app cloud. `Pagamento PM` em Receitas e `Despesas PM` em Despesas sao categorias automaticas proprias; `Holerite` fica apenas como subcategoria automatica de emprestimos bancarios em `Dividas`.
+- comportamento: A arvore publicada agora segue a organizacao informada pelo usuario: `Receitas` -> `Rodoanel` (`Rodoanel 1`, `Rodoanel 2`), `Outros` (`13º PM`) e `Pagamento PM` bloqueado; `Despesas` -> `Casa` (`Mercado`, `Net`, `Luz + Gas`, `Celular PF`, `Celular PJ`), `Carro` (`C6 TAG PJ`, `Gasolina`), `Extras` (`Rose`, `Junior`, `Marcelo`, `Gabriel`, `Rosa`, `A C S P M`, `ChatGPT_Codex`) e `Despesas PM` bloqueado; `Dividas` -> `Atuais`, `Antigas` e `Holerite`, com linhas de holerite bloqueadas.
+- dados-gravados: Lancamentos editaveis continuam gravando `destinationRowId`, `destinationLabel`, `destinationPath`, `destinationSectionLabel`, `destinationCategoryLabel` e `destinationSubdivisionLabel`.
+- validacao: Passaram `projects/loja-digital npm run typecheck`, lint focado de `app/financas-mobile-cloud`, `projects/loja-digital npm run build`, `npm run lint`, `npm run typecheck` e `npm test`. A URL remota confirmou `Rodoanel`, `Outros`, `Pagamento PM`, `Casa`, `Carro`, `Extras`, `Despesas PM`, `Atuais`, `Antigas`, `Hol`, `Subdivisao`, `destinationCategoryLabel` e `destinationSubdivisionLabel`.
+- deploy: Firebase Hosting publicado no projeto `sommersstore-c6c23`, versao `ad38c2f8734bfaec`, mantendo a URL `https://sommersstore-c6c23.web.app/financas-mobile-cloud`.
+- proxima_acao: Reabrir/atualizar o app no celular para limpar cache e validar a arvore corrigida apos login.
+- checkpoint: CHK-FIN-02110-CLOUD-PM-MAPPING
+
+## Registro Manual - 2026-07-22T12:49:44-03:00
+- tipo: automacao-cloud-inbox-financas
+- resumo: O painel local deixou de tratar o Cloud Inbox como importacao exclusivamente manual. Agora a nuvem funciona como fila temporaria: o celular grava pendencias e o notebook importa automaticamente quando a planilha estiver aberta e autenticada.
+- comportamento: `docs/aiox_dashboard.html` carregava a config publica do Firebase por Hosting, escondia campos manuais de API Key/Auth Domain/Project ID/Storage/Sender/App ID e iniciava `fin2MobileCloudAutoImportPending` depois do `renderFinancas`. Este checkpoint foi superado pelo ajuste `CHK-FIN-02110-NO-POLLING`.
+- seguranca_operacional: A senha nao e salva pelo codigo. O usuario precisa conectar uma vez no notebook; depois o Firebase Auth usa persistencia local. Auto-importacao exige `destinationRowId` valido vindo do celular e nao redireciona silenciosamente para outro destino se a linha sumir.
+- validacao: Passaram `npm run lint`, `npm run typecheck` e `npm test` usando `C:\Program Files\nodejs` no PATH da sessao. Testes cobriam config automatica, ausencia de campo manual `fin2-cloud-apiKey` e auto-importacao inicial.
+- proxima_acao: No notebook, abrir `Financas > Mobile > Cloud Inbox` uma vez, clicar `Conectar` com email/senha Firebase e depois usar F5/abrir a planilha para auto-importar pendencias.
+- checkpoint: CHK-FIN-02110-CLOUD-AUTO-IMPORT
+
+## Registro Manual - 2026-07-22T13:50:32-03:00
+- tipo: simplificacao-operacional-financas-mobile-cloud
+- resumo: O fluxo anterior de login/config Firebase no PC foi substituido por uma ponte server-side. A aba `Financas > Mobile` agora mostra apenas o controle de emergencia para ativar/desativar o app do celular.
+- comportamento: O app hospedado usa Firebase Auth anonimo, sem email/senha. O painel local chama `/api/financas/mobile-cloud/*`; o `dashboard_server.js` fala com o Firestore pela API REST usando a credencial local do Firebase CLI e importa pendencias somente ao abrir/F5 a pagina.
+- seguranca_operacional: `financasMobileControl/main` e lido pelo app hospedado; quando o painel desativa o app, regras Firestore bloqueiam novos `pending`. O usuario nao precisa digitar senha Firebase nem preencher API Key no PC.
+- historico: lancamentos importados ficam como historico temporario na nuvem e podem ser limpos apos 24h; a fonte definitiva permanece em `projects/financas/data/fin2_data.json`.
+- validacao: Auth anonimo habilitado via Identity Toolkit Admin REST, regras Firestore publicadas, Hosting publicado na versao `c0401352affba540`, endpoints locais retornaram `ok: true` e a URL remota contem `signInAnonymously` e `financasMobileControl`.
+- proxima_acao: Usar o app no celular sem senha; no notebook, apenas abrir ou atualizar a planilha para importar as pendencias. A aba Mobile local serve somente para desligar/religar o app em emergencia.
+- checkpoint: CHK-FIN-02110-ANON-SERVER-SYNC
+
+## Registro Manual - 2026-07-22T14:16:33-03:00
+- tipo: ajuste-performance-financas-mobile-cloud
+- resumo: Atendendo preferencia do usuario, removido o polling de sincronizacao a cada 60 segundos do Cloud Inbox local.
+- comportamento: `fin2MobileCloudStartAutoSync` agora agenda apenas uma importacao inicial apos o carregamento da planilha. Novos dados do celular entram no notebook quando o painel abre ou quando a pagina e atualizada com F5.
+- validacao: testes atualizados para exigir ausencia de `setInterval` de 60s e presenca do modo `initial-load-only`.
+- proxima_acao: Se precisar conferir lancamentos feitos depois que a pagina ja estava aberta, usar F5 no painel.
+- checkpoint: CHK-FIN-02110-NO-POLLING
+
+## Registro Manual - 2026-07-22T17:45:17-03:00
+- tipo: ajuste-operacional-espelho-local
+- resumo: A janela preta `C:\Program Files\nodejs\node.exe` que aparecia periodicamente foi rastreada para a tarefa agendada `SommersStore Project Mirror Sync`.
+- comportamento: A tarefa continua habilitada e repetindo a cada 15 minutos para manter o espelho local em `D:\Antigravity-SommersStore\workspace`, mas agora chama `scripts/run_project_mirror_sync_hidden.vbs` via `wscript.exe` para rodar oculta.
+- validacao: A tarefa foi executada manualmente pelo Agendador apos a alteracao, terminou com ultimo resultado `0` e registrou sucesso em `docs/control/project_mirror_schedule.log`.
+- proxima_acao: Se a janela voltar a aparecer, verificar outras tarefas que chamem `node.exe` diretamente; esta salvaguarda do espelho ja esta em modo oculto.
+- checkpoint: CHK-MIRROR-HIDDEN-SCHEDULE
+
+## Registro Manual - 2026-07-22T17:54:30-03:00
+- tipo: ajuste-operacional-servidor-painel
+- resumo: A janela restante `C:\Program Files\nodejs\node.exe` foi identificada como o servidor local `scripts/dashboard_server.js`, nao como a tarefa agendada do espelho.
+- comportamento: `start_painel.bat` agora prefere `wscript.exe` chamando `scripts/run_dashboard_server_hidden.vbs`; o wrapper inicia `dashboard_server.js` em segundo plano, redireciona logs para `docs/control/dashboard_server.log` e nao abre janela de console.
+- validacao: O processo visivel foi encerrado e reiniciado oculto; `http://127.0.0.1:4000/api/session` respondeu `200`, `tasklist /v` mostrou o novo `node.exe` com titulo `N/A`, e passaram `npm run lint`, `npm run typecheck` e `npm test`.
+- proxima_acao: Se uma nova janela aparecer, verificar se o titulo/comando e outro processo `node.exe`; o servidor local do painel e a salvaguarda do espelho ja estao em modo oculto.
+- checkpoint: CHK-DASHBOARD-HIDDEN-SERVER
+
+## Registro Manual - 2026-07-22T18:38:55-03:00
+- tipo: ajuste-ux-financas-mobile-cloud
+- resumo: O app Financas Mobile Cloud foi simplificado para lancamento rapido no celular e publicado novamente no Firebase Hosting.
+- comportamento: Campo `observacao`, subtitulo sob o titulo e rodape explicativo foram removidos. O cabecalho foi centralizado com `Financas Mobile`, a marca passou de `CLOUD 24H` para `Sommer's Store`, o botao principal passou de `Salvar na nuvem` para `SALVAR`, e os botoes `RECEITAS`, `DESPESAS` e `DIVIDAS` seguem as cores da planilha local: azul/ciano, verde e vermelho.
+- validacao: Passaram `projects/loja-digital npm run typecheck`, lint focado do app cloud, `projects/loja-digital npm run build`, `npm run lint`, `npm run typecheck` e `npm test`. O deploy Firebase Hosting publicou a versao `d97c9ce9168efc78`; scan remoto confirmou os novos textos e a ausencia dos textos antigos.
+- observacao: `projects/loja-digital npm run lint` completo ainda aponta erros legados em backups/saida gerada fora deste ajuste; o lint focado dos arquivos alterados passou.
+- checkpoint: CHK-FIN-02110-MOBILE-UX-POLISH
+
+## Registro Manual - 2026-07-22T19:44:58-03:00
+- tipo: encerramento-sessao
+- resumo: Sessao encerrada apos aprovacao do usuario sobre o polimento do Financas Mobile Cloud.
+- estado_final: App mobile publicado e validado em producao; usuario confirmou que ficou otimo. `startup_context_latest.md` foi realinhado para retomar pelo checkpoint `CHK-FIN-02110-MOBILE-UX-POLISH`, evitando voltar ao foco antigo de clones/skills.
+- proxima_acao: Amanha, testar em uso real no celular e notebook se o usuario quiser, ou seguir para novos acertos em Financas.
+- checkpoint: CHK-FIN-02110-SESSION-CLOSE

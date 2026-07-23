@@ -27,7 +27,7 @@ export default function LoginPage() {
     setLoading(true);
     setError("");
 
-    if (!isConfigValid) {
+    if (!isConfigValid || !auth) {
       setError("Firebase ainda nao esta configurado neste ambiente.");
       setLoading(false);
       return;

@@ -6,7 +6,11 @@
       "ignore": ["node_modules", ".git", "firebase-debug.log", ".env"]
     }
   ],
+  "firestore": {
+    "rules": "firestore.rules"
+  },
   "hosting": {
+    "site": "sommersstore-c6c23",
     "public": "projects/loja-digital/out_deploy",
     "ignore": [
       "firebase.json",
@@ -51,6 +55,10 @@
       {
         "source": "/hub",
         "destination": "/hub.html"
+      },
+      {
+        "source": "/financas-mobile-cloud",
+        "destination": "/financas-mobile-cloud.html"
       },
       {
         "source": "/ebook/viewer",

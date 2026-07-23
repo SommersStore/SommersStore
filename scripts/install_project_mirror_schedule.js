@@ -12,8 +12,8 @@ function createSchedule() {
             resolve({ ok: false, error: 'O agendamento do espelho em D: está disponível apenas no Windows.' });
             return;
         }
-        const mirrorScript = path.join(ROOT_DIR, 'scripts', 'project_mirror_sync.js');
-        const taskCommand = `"${process.execPath}" "${mirrorScript}" sync --trigger scheduled-watchdog`;
+        const hiddenRunner = path.join(ROOT_DIR, 'scripts', 'run_project_mirror_sync_hidden.vbs');
+        const taskCommand = `"${path.join(process.env.SystemRoot || 'C:\\Windows', 'System32', 'wscript.exe')}" "${hiddenRunner}"`;
         execFile('schtasks.exe', [
             '/Create',
             '/TN', TASK_NAME,

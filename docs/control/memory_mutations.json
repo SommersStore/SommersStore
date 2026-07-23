@@ -1,370 +1,6 @@
 {
   "mutations": [
     {
-      "timestamp": "2026-06-19T14:05:07-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260616-0001: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-19T14:05:13-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260619-0001",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T14:05:13-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T14:20:46-03:00",
-      "memory_scope": "session_milestone",
-      "diff_summary": "Story 2.94 concluida: Financas preservou as 9 dividas do holerite; linhas compactas de dividas do holerite, antigas e atuais agora expandem pelo clique na linha; Conectar Pasta passou a conectar automaticamente ao workspace local via servidor sem abrir seletor quando localhost esta disponivel.",
-      "mutated_by": "codex",
-      "project_id": "financas"
-    },
-    {
-      "timestamp": "2026-06-19T14:44:41-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260619-0001: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-19T14:44:47-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260619-0002",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T14:44:47-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T14:57:22-03:00",
-      "memory_scope": "session_milestone",
-      "diff_summary": "Story 2.95 concluida: em Financas, as linhas de M.C. Nu PJ ate Cabos e Soldados At foram reclassificadas como Dividas Antigas via oldDebt:true; Dividas Atuais ficou com 8 linhas e as 9 dividas do holerite foram preservadas.",
-      "mutated_by": "codex",
-      "project_id": "financas"
-    },
-    {
-      "timestamp": "2026-06-19T15:04:47-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260619-0002: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-19T15:04:58-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260619-0003",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T15:04:58-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T15:23:59-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260619-0003: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-19T15:24:02-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260619-0004",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T15:24:02-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T15:34:15-03:00",
-      "memory_scope": "session_milestone",
-      "diff_summary": "Story 2.96 concluida: Financas ganhou subgrupo Despesas dentro da secao Despesas, abaixo de Despesas PM, com seta de expandir/retrair, botao + para fin2AddRow('despesas') e subtotais das despesas comuns.",
-      "mutated_by": "codex",
-      "project_id": "financas"
-    },
-    {
-      "timestamp": "2026-06-19T15:54:00-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260619-0004: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-19T15:54:11-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260619-0005",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T15:54:11-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T16:35:54-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260619-0005: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-19T16:36:00-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260619-0006",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T16:36:00-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T16:38:25-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260619-0006: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-19T16:38:30-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260619-0007",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T16:38:30-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T17:43:12-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260619-0008",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T17:43:12-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T17:52:37-03:00",
-      "memory_scope": "session_milestone",
-      "diff_summary": "Story 2.97 concluida: subgrupo anterior de Despesas foi substituido por Despesas EX e Gasolina vazios em Financas > Planilha > Despesas; despesas comuns permanecem fora dos subgrupos, e cada novo grupo tem seta e botao + especifico.",
-      "mutated_by": "codex",
-      "project_id": "financas"
-    },
-    {
-      "timestamp": "2026-06-19T18:03:03-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260619-0008: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-19T18:03:07-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260619-0009",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T18:03:07-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T18:38:11-03:00",
-      "memory_scope": "session_milestone",
-      "diff_summary": "Story 2.98 concluida: Financas > Planilha > Despesas foi reorganizada com Despesas PM, Gasolina, Despesas X e Mercado no topo; Mercado 1 entrou no grupo Mercado; totalizadores mensais das categorias ganharam botoes em lote para aplicar exclusao/abatimento a todos os itens da coluna.",
-      "mutated_by": "codex",
-      "project_id": "financas"
-    },
-    {
-      "timestamp": "2026-06-19T18:45:53-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260619-0009: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-19T18:45:59-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260619-0010",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T18:45:59-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T19:01:15-03:00",
-      "memory_scope": "session_milestone",
-      "diff_summary": "Story 2.99 concluida: Financas > Planilha > Despesas agora mostra Despesas PM com a mesma fonte/cor compacta verde das subabas e permite arrastar Gasolina, Despesas X e Mercado, persistindo a ordem em sheet.expenseGroupOrder.",
-      "mutated_by": "codex",
-      "project_id": "financas"
-    },
-    {
-      "timestamp": "2026-06-19T19:06:11-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260619-0010: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-19T19:06:16-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260619-0011",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T19:06:16-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T19:15:58-03:00",
-      "memory_scope": "session_milestone",
-      "diff_summary": "Story 2.100 concluida: os subtotais mensais de Gasolina, Despesas X, Mercado, Dividas holê, Dividas anti e Dividas atua ganharam os dois botoes sutis para exclusao/abatimento em lote por subaba e mes.",
-      "mutated_by": "codex",
-      "project_id": "financas"
-    },
-    {
-      "timestamp": "2026-06-19T19:23:32-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260619-0011: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-19T19:23:39-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260619-0012",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T19:23:39-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T19:38:21-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260619-0012: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-19T19:38:25-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260619-0013",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T19:38:25-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T20:09:23-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260619-0013: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-19T20:09:28-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260619-0014",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-19T20:09:28-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-20T01:38:12-03:00",
-      "memory_scope": "session_milestone",
-      "diff_summary": "Story 2.101 concluida: o botao inferior esquerdo dos subtotais/subcelulas agora abate de Receitas e do saldo geral sem zerar a celula local nem o subtotal da subaba; somente o botao superior esquerdo exclui da coluna local.",
-      "mutated_by": "codex",
-      "project_id": "financas"
-    },
-    {
-      "timestamp": "2026-06-20T09:13:54-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260619-0014: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-20T09:13:57-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260620-0001",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
-      "timestamp": "2026-06-20T09:13:57-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "sais"
-    },
-    {
       "timestamp": "2026-06-20T10:24:28-03:00",
       "memory_scope": "session_shutdown",
       "diff_summary": "Scribe encerrou SES-20260620-0001: Encerramento automatico (fechamento de aba/janela).",
@@ -2097,6 +1733,370 @@
       "timestamp": "2026-07-19T01:24:13-03:00",
       "memory_scope": "session_shutdown",
       "diff_summary": "Scribe encerrou SES-20260719-0004: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-19T01:25:13-03:00",
+      "memory_scope": "cloud_sync",
+      "diff_summary": "Cloud sync SYNC-20260719-1784435053649: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.) Copia D: success (Espelho local atualizado em D:\\Antigravity-SommersStore\\workspace.)",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-21T18:55:47-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260721-0001",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-21T18:55:47-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-21T19:55:00-03:00",
+      "memory_scope": "project_memory",
+      "diff_summary": "Story 2.110 concluida: Financas Mobile recebeu app cloud hospedavel em /financas-mobile-cloud e Cloud Inbox local para importar lancamentos pendentes do Firestore quando o notebook voltar a ser usado.",
+      "mutated_by": "codex",
+      "project_id": "financas"
+    },
+    {
+      "timestamp": "2026-07-21T21:12:00-03:00",
+      "memory_scope": "cloud_deploy",
+      "diff_summary": "Financas Mobile Cloud publicado: Firestore API habilitada, database default em southamerica-east1 com delete protection, regras Firestore deployadas, Hosting atualizado e URL 24h validada.",
+      "mutated_by": "codex",
+      "project_id": "financas"
+    },
+    {
+      "timestamp": "2026-07-21T21:52:04-03:00",
+      "memory_scope": "project_memory",
+      "diff_summary": "Regressao visual do Financas Mobile Cloud corrigida: app voltou a mostrar categorias/destinos da planilha, grava destinationRowId/destinationPath e Cloud Inbox local usa o destino escolhido como padrao de importacao.",
+      "mutated_by": "codex",
+      "project_id": "financas"
+    },
+    {
+      "timestamp": "2026-07-21T22:07:15-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260721-0001: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-21T22:07:25-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260721-0002",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-21T22:07:25-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-21T22:19:02-03:00",
+      "memory_scope": "project_memory",
+      "diff_summary": "Financas Mobile Cloud corrigido para espelhar a arvore completa da planilha: Receitas, Despesas e Dividas exibem subcategorias e subdivisoes; holerite aparece protegido; lancamentos gravam labels de secao, categoria e subdivisao.",
+      "mutated_by": "codex",
+      "project_id": "financas"
+    },
+    {
+      "timestamp": "2026-07-21T22:36:39-03:00",
+      "memory_scope": "project_memory",
+      "diff_summary": "Corrigido mapeamento conceitual do holerite no Financas Mobile Cloud: Pagamento PM e Despesas PM aparecem como categorias automaticas proprias e protegidas; Holerite fica apenas na subcategoria de emprestimos bancarios em Dividas.",
+      "mutated_by": "codex",
+      "project_id": "financas"
+    },
+    {
+      "timestamp": "2026-07-22T10:10:04-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260721-0002: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-22T10:10:11-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260722-0001: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-22T12:30:55-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260722-0002",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-22T12:30:55-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-22T12:39:02-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260722-0002: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-22T12:39:15-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260722-0003",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-22T12:39:16-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-22T12:49:44-03:00",
+      "memory_scope": "project_memory",
+      "diff_summary": "Cloud Inbox local passou a auto-importar pendencias do celular quando o notebook estiver autenticado: config Firebase automatica pelo Hosting, sem campos manuais de API Key, sincronizacao no F5/abertura, a cada 60s e ao recuperar foco.",
+      "mutated_by": "codex",
+      "project_id": "financas"
+    },
+    {
+      "timestamp": "2026-07-22T13:03:27-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260722-0003: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-22T13:03:35-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260722-0004",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-22T13:03:35-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-22T13:50:32-03:00",
+      "memory_scope": "project_memory",
+      "diff_summary": "Financas Mobile Cloud simplificado: app do celular usa Auth anonimo, painel PC nao pede Firebase/email/senha, dashboard_server sincroniza Firestore via credencial Firebase CLI e aba Mobile virou controle de emergencia.",
+      "mutated_by": "codex",
+      "project_id": "financas"
+    },
+    {
+      "timestamp": "2026-07-22T14:11:43-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260722-0004: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-22T14:11:52-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260722-0005",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-22T14:11:52-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-22T14:16:33-03:00",
+      "memory_scope": "project_memory",
+      "diff_summary": "Financas Mobile Cloud: removido polling de 60 segundos; sincronizacao local agora roda apenas ao abrir/F5 a pagina do painel.",
+      "mutated_by": "codex",
+      "project_id": "financas"
+    },
+    {
+      "timestamp": "2026-07-22T17:17:41-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260722-0005: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-22T17:17:58-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260722-0006",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-22T17:17:58-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-22T17:37:21-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260722-0006: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-22T17:37:25-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260722-0007: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-22T17:38:28-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260722-0008",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-22T17:38:29-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-22T17:45:17-03:00",
+      "memory_scope": "project_memory",
+      "diff_summary": "SommersStore Project Mirror Sync mantido ativo, mas alterado para executar via wscript oculto; a janela visivel de node.exe nao deve mais aparecer e o espelho D continuou validado com ultimo resultado 0.",
+      "mutated_by": "codex",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-22T17:54:30-03:00",
+      "memory_scope": "project_memory",
+      "diff_summary": "Servidor local do painel identificado como a janela restante de node.exe; start_painel.bat passou a usar run_dashboard_server_hidden.vbs via wscript, o processo foi reiniciado oculto e os gates passaram.",
+      "mutated_by": "codex",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-22T18:07:07-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260722-0008: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-22T18:07:29-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260722-0009",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-22T18:07:29-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-22T18:38:55-03:00",
+      "memory_scope": "project_memory",
+      "diff_summary": "Financas Mobile Cloud polido: removidos observacao/subtitulo/rodape, marca alterada para Sommer's Store, botao principal SALVAR e botoes Receitas/Despesas/Dividas nas cores da planilha; Hosting publicado na versao d97c9ce9168efc78.",
+      "mutated_by": "codex",
+      "project_id": "financas"
+    },
+    {
+      "timestamp": "2026-07-22T19:40:13-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260722-0009: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-22T19:40:23-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260722-0010",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-22T19:40:23-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-22T19:44:58-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260722-0010: usuario aprovou o polimento do Financas Mobile Cloud; startup_context_latest realinhado para CHK-FIN-02110-MOBILE-UX-POLISH.",
+      "mutated_by": "codex",
+      "project_id": "financas"
+    },
+    {
+      "timestamp": "2026-07-22T19:48:29-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260722-0010: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-22T19:48:29-03:00",
+      "memory_scope": "cloud_sync",
+      "diff_summary": "Cloud sync SYNC-20260722-1784760509402: ERROR. GitHub: error (Repositorio Git nao encontrado.) Firebase: error (Falha no deploy Firebase Hosting.) Copia D: skipped (Nenhum destino em nuvem foi atualizado; espelho local nao necessario.)",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-23T08:06:41-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260723-0001",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-23T08:06:41-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-23T08:08:53-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260723-0001: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-07-23T08:09:43-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260723-0002",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-23T08:09:44-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-07-23T08:15:19-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260723-0002: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
       "mutated_by": "human",
       "project_id": null
     }

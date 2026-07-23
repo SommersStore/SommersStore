@@ -5,12 +5,14 @@ const pdfParse = require('pdf-parse');
 const { createWorker } = require('tesseract.js');
 const { spawn } = require('child_process');
 const https = require('https');
+const os = require('os');
 const { randomUUID } = require('crypto');
 const { JSDOM } = require('jsdom');
 const DOMPurify = require('dompurify');
 const TurndownService = require('turndown');
 const ytdl = require('@distube/ytdl-core');
 const YtDlpWrap = require('yt-dlp-wrap').default;
+const { GoogleAuth } = require('google-auth-library');
 const {
     DEFAULT_CONFIG: IBKR_DEFAULT_CONFIG,
     normalizeConfig: normalizeIbkrConfig,
@@ -40,6 +42,11 @@ const MEMORY_EXTRA_DIR = path.join(CONTROL_DIR, 'memory_extra');
 const TASK_PATH = path.join(ROOT_DIR, 'task.md');
 const FOREX_DATA_DIR = path.join(ROOT_DIR, 'projects', 'forex', 'data');
 const FIN2_DATA_RELATIVE_PATH = 'projects/financas/data/fin2_data.json';
+const FINANCAS_FIREBASE_PROJECT_ID = process.env.FINANCAS_FIREBASE_PROJECT_ID || process.env.FIREBASE_PROJECT_ID || 'sommersstore-c6c23';
+const FINANCAS_FIRESTORE_DATABASE = process.env.FINANCAS_FIRESTORE_DATABASE || '(default)';
+const FINANCAS_MOBILE_INBOX_COLLECTION = 'financasMobileInbox';
+const FINANCAS_MOBILE_CONTROL_DOC = 'financasMobileControl/main';
+const FINANCAS_MOBILE_HISTORY_RETENTION_MS = 24 * 60 * 60 * 1000;
 const IBKR_INTEGRATION_CONFIG_PATH = path.join(FOREX_DATA_DIR, 'ibkr_integration.json');
 const IBKR_PAPER_TICKETS_PATH = path.join(FOREX_DATA_DIR, 'ibkr_paper_tickets.json');
 const IR_OPEN_ALLOWED_ROOTS = [
@@ -1631,6 +1638,307 @@ function runCommand(command, args, options = {}) {
             });
         });
     });
+}
+
+function firebaseCliConfigPaths() {
+    return [
+        process.env.FIREBASE_TOOLS_CONFIG_PATH,
+        path.join(os.homedir(), '.config', 'configstore', 'firebase-tools.json'),
+        process.env.APPDATA ? path.join(process.env.APPDATA, 'configstore', 'firebase-tools.json') : ''
+    ].filter(Boolean).filter((item, index, all) => all.indexOf(item) === index);
+}
+
+function readFirebaseCliTokenPayload() {
+    for (const configPath of firebaseCliConfigPaths()) {
+        try {
+            if (!fs.existsSync(configPath)) continue;
+            const data = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+            const tokens = data && data.tokens && typeof data.tokens === 'object' ? data.tokens : null;
+            if (tokens && tokens.access_token) return {
+                accessToken: String(tokens.access_token),
+                expiresAt: Number(tokens.expires_at || 0),
+                sourcePath: configPath
+            };
+        } catch (_) { /* ignore malformed local firebase cli config */ }
+    }
+    return null;
+}
+
+async function refreshFirebaseCliToken() {
+    const result = await runCommand('npx', ['firebase', 'projects:list', '--json', '--non-interactive'], { cwd: ROOT_DIR });
+    if (!result.ok) {
+        const detail = result.stderr || result.stdout || 'firebase cli indisponivel';
+        throw new Error(`Firebase CLI nao conseguiu renovar a credencial local: ${detail}`);
+    }
+}
+
+async function getFirebaseCliAccessToken() {
+    let payload = readFirebaseCliTokenPayload();
+    if (payload && payload.accessToken && (!payload.expiresAt || payload.expiresAt > Date.now() + 60000)) {
+        return payload.accessToken;
+    }
+    await refreshFirebaseCliToken();
+    payload = readFirebaseCliTokenPayload();
+    if (payload && payload.accessToken && (!payload.expiresAt || payload.expiresAt > Date.now() + 10000)) {
+        return payload.accessToken;
+    }
+    throw new Error('Credencial local do Firebase CLI nao encontrou access token valido.');
+}
+
+let googleAuthClientPromise = null;
+
+async function getGoogleAdcAccessToken() {
+    if (!googleAuthClientPromise) {
+        const auth = new GoogleAuth({ scopes: ['https://www.googleapis.com/auth/datastore'] });
+        googleAuthClientPromise = auth.getClient();
+    }
+    const client = await googleAuthClientPromise;
+    const tokenResult = await client.getAccessToken();
+    const token = typeof tokenResult === 'string' ? tokenResult : tokenResult && tokenResult.token;
+    if (!token) throw new Error('ADC sem access token.');
+    return token;
+}
+
+async function getFirestoreAccessToken() {
+    try {
+        return await getFirebaseCliAccessToken();
+    } catch (firebaseCliError) {
+        try {
+            return await getGoogleAdcAccessToken();
+        } catch (adcError) {
+            throw new Error(`Credencial Firestore indisponivel. Firebase CLI: ${firebaseCliError.message}. Google ADC: ${adcError.message}.`);
+        }
+    }
+}
+
+function firestoreDatabaseApiBasePath() {
+    return `/v1/projects/${encodeURIComponent(FINANCAS_FIREBASE_PROJECT_ID)}/databases/${encodeURIComponent(FINANCAS_FIRESTORE_DATABASE)}/documents`;
+}
+
+function encodeFirestoreDocumentPath(documentPath) {
+    return String(documentPath || '')
+        .split('/')
+        .filter(Boolean)
+        .map(segment => encodeURIComponent(segment))
+        .join('/');
+}
+
+function firestoreDocumentApiPath(documentPath, query = '') {
+    const suffix = query ? `?${query}` : '';
+    return `${firestoreDatabaseApiBasePath()}/${encodeFirestoreDocumentPath(documentPath)}${suffix}`;
+}
+
+function firestoreResourceApiPath(resourceName, query = '') {
+    const suffix = query ? `?${query}` : '';
+    const encoded = String(resourceName || '')
+        .split('/')
+        .filter(Boolean)
+        .map(segment => encodeURIComponent(segment))
+        .join('/');
+    return `/v1/${encoded}${suffix}`;
+}
+
+function firestoreUpdateMaskQuery(fieldPaths) {
+    const params = new URLSearchParams();
+    asArray(fieldPaths).forEach(fieldPath => params.append('updateMask.fieldPaths', String(fieldPath)));
+    return params.toString();
+}
+
+async function firestoreRequest(method, apiPath, body = null) {
+    const token = await getFirestoreAccessToken();
+    const payload = body === null || body === undefined ? null : JSON.stringify(body);
+    const requestPath = apiPath.startsWith('/v1/') ? apiPath : `/v1/${String(apiPath || '').replace(/^\/+/, '')}`;
+    return new Promise((resolve, reject) => {
+        const headers = {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json'
+        };
+        if (payload !== null) {
+            headers['Content-Type'] = 'application/json';
+            headers['Content-Length'] = Buffer.byteLength(payload);
+        }
+        const request = https.request({
+            hostname: 'firestore.googleapis.com',
+            path: requestPath,
+            method,
+            headers
+        }, response => {
+            let raw = '';
+            response.on('data', chunk => { raw += chunk.toString(); });
+            response.on('end', () => {
+                let parsed = null;
+                if (raw.trim()) {
+                    try {
+                        parsed = JSON.parse(raw);
+                    } catch (_) {
+                        parsed = raw;
+                    }
+                }
+                if (response.statusCode >= 200 && response.statusCode < 300) return resolve(parsed);
+                const message = parsed && parsed.error && parsed.error.message
+                    ? parsed.error.message
+                    : `Firestore HTTP ${response.statusCode}`;
+                const error = new Error(message);
+                error.status = response.statusCode;
+                error.body = parsed;
+                reject(error);
+            });
+        });
+        request.on('error', reject);
+        if (payload !== null) request.write(payload);
+        request.end();
+    });
+}
+
+function firestoreValueFromJs(value) {
+    if (value === undefined) return null;
+    if (value === null) return { nullValue: null };
+    if (typeof value === 'string') return { stringValue: value };
+    if (typeof value === 'boolean') return { booleanValue: value };
+    if (typeof value === 'number') {
+        return Number.isInteger(value) ? { integerValue: String(value) } : { doubleValue: value };
+    }
+    if (Array.isArray(value)) {
+        const values = value.map(firestoreValueFromJs).filter(Boolean);
+        return values.length ? { arrayValue: { values } } : { arrayValue: {} };
+    }
+    if (value && typeof value === 'object') {
+        return { mapValue: { fields: firestoreFieldsFromObject(value) } };
+    }
+    return { stringValue: String(value) };
+}
+
+function firestoreFieldsFromObject(object) {
+    return Object.entries(object || {}).reduce((fields, [key, value]) => {
+        const encoded = firestoreValueFromJs(value);
+        if (encoded) fields[key] = encoded;
+        return fields;
+    }, {});
+}
+
+function firestoreValueToJs(value) {
+    if (!value || typeof value !== 'object') return null;
+    if (Object.prototype.hasOwnProperty.call(value, 'stringValue')) return value.stringValue;
+    if (Object.prototype.hasOwnProperty.call(value, 'integerValue')) return Number(value.integerValue);
+    if (Object.prototype.hasOwnProperty.call(value, 'doubleValue')) return Number(value.doubleValue);
+    if (Object.prototype.hasOwnProperty.call(value, 'booleanValue')) return Boolean(value.booleanValue);
+    if (Object.prototype.hasOwnProperty.call(value, 'timestampValue')) return value.timestampValue;
+    if (Object.prototype.hasOwnProperty.call(value, 'nullValue')) return null;
+    if (value.arrayValue) return asArray(value.arrayValue.values).map(firestoreValueToJs);
+    if (value.mapValue) return firestoreObjectFromFields(value.mapValue.fields || {});
+    return null;
+}
+
+function firestoreObjectFromFields(fields) {
+    return Object.entries(fields || {}).reduce((object, [key, value]) => {
+        object[key] = firestoreValueToJs(value);
+        return object;
+    }, {});
+}
+
+function financasMobileCloudEntryFromDocument(document) {
+    const data = firestoreObjectFromFields(document && document.fields || {});
+    const id = String(document && document.name || '').split('/').pop() || '';
+    return { ...data, id, cloudDocName: document.name };
+}
+
+function normalizeFinancasMobileCloudDocName(docName) {
+    const name = String(docName || '').trim();
+    const prefix = `projects/${FINANCAS_FIREBASE_PROJECT_ID}/databases/${FINANCAS_FIRESTORE_DATABASE}/documents/users/`;
+    if (!name.startsWith(prefix)) throw new Error('Documento cloud fora da inbox financeira.');
+    const parts = name.slice(prefix.length).split('/');
+    if (parts.length !== 3 || !parts[0] || parts[1] !== FINANCAS_MOBILE_INBOX_COLLECTION || !parts[2]) {
+        throw new Error('Documento cloud invalido.');
+    }
+    return name;
+}
+
+async function financasMobileCloudQueryByStatus(status, limit = 100) {
+    const response = await firestoreRequest('POST', `${firestoreDatabaseApiBasePath()}:runQuery`, {
+        structuredQuery: {
+            from: [{ collectionId: FINANCAS_MOBILE_INBOX_COLLECTION, allDescendants: true }],
+            limit: Math.max(1, Math.min(300, Math.round(Number(limit) || 100)))
+        }
+    });
+    const expectedStatus = String(status || '');
+    return asArray(response)
+        .map(row => row && row.document)
+        .filter(Boolean)
+        .map(financasMobileCloudEntryFromDocument)
+        .filter(entry => String(entry.status || '') === expectedStatus)
+        .sort((a, b) => String(b.createdAtDevice || b.importedAtDevice || '').localeCompare(String(a.createdAtDevice || a.importedAtDevice || '')));
+}
+
+async function financasMobileCloudGetControl() {
+    try {
+        const document = await firestoreRequest('GET', firestoreDocumentApiPath(FINANCAS_MOBILE_CONTROL_DOC));
+        const data = firestoreObjectFromFields(document && document.fields || {});
+        return {
+            enabled: data.enabled !== false,
+            updatedAtDevice: data.updatedAtDevice || null,
+            updatedBy: data.updatedBy || null,
+            cloudDocName: document && document.name || null
+        };
+    } catch (error) {
+        if (error.status === 404) {
+            return { enabled: true, updatedAtDevice: null, updatedBy: null, cloudDocName: null };
+        }
+        throw error;
+    }
+}
+
+async function financasMobileCloudSetControl(enabled) {
+    const payload = {
+        enabled: Boolean(enabled),
+        updatedAtDevice: nowIso(),
+        updatedBy: 'local-dashboard'
+    };
+    const document = await firestoreRequest(
+        'PATCH',
+        firestoreDocumentApiPath(FINANCAS_MOBILE_CONTROL_DOC, firestoreUpdateMaskQuery(Object.keys(payload))),
+        { fields: firestoreFieldsFromObject(payload) }
+    );
+    const data = firestoreObjectFromFields(document && document.fields || {});
+    return {
+        enabled: data.enabled !== false,
+        updatedAtDevice: data.updatedAtDevice || payload.updatedAtDevice,
+        updatedBy: data.updatedBy || payload.updatedBy,
+        cloudDocName: document && document.name || null
+    };
+}
+
+async function financasMobileCloudMarkImported(docName) {
+    const safeDocName = normalizeFinancasMobileCloudDocName(docName);
+    const payload = {
+        status: 'imported',
+        importedAtDevice: nowIso(),
+        importedBy: 'local-dashboard'
+    };
+    await firestoreRequest(
+        'PATCH',
+        firestoreResourceApiPath(safeDocName, firestoreUpdateMaskQuery(Object.keys(payload))),
+        { fields: firestoreFieldsFromObject(payload) }
+    );
+    return payload;
+}
+
+async function financasMobileCloudDeleteDocument(docName) {
+    const safeDocName = normalizeFinancasMobileCloudDocName(docName);
+    await firestoreRequest('DELETE', firestoreResourceApiPath(safeDocName));
+}
+
+async function financasMobileCloudPruneImported() {
+    const imported = await financasMobileCloudQueryByStatus('imported', 300);
+    const cutoff = Date.now() - FINANCAS_MOBILE_HISTORY_RETENTION_MS;
+    let deleted = 0;
+    for (const entry of imported) {
+        const entryMs = parseTimestampMs(entry.importedAtDevice || entry.createdAtDevice || entry.createdAt || '');
+        if (Number.isFinite(entryMs) && entryMs < cutoff) {
+            await financasMobileCloudDeleteDocument(entry.cloudDocName);
+            deleted += 1;
+        }
+    }
+    return { scanned: imported.length, deleted };
 }
 
 function parsePorcelainPath(line) {
@@ -5625,6 +5933,72 @@ review_path: ${audit.review_path}
             body.updated_at = new Date().toISOString().slice(0, 10);
             writeJsonAtomic(HUB_CATALOG_PATH, body);
             return sendJson(res, { success: true, updated_at: body.updated_at });
+        }
+
+        if (pathname === '/api/financas/mobile-cloud/status' && req.method === 'GET') {
+            try {
+                const [control, pending] = await Promise.all([
+                    financasMobileCloudGetControl(),
+                    financasMobileCloudQueryByStatus('pending', 100)
+                ]);
+                return sendJson(res, {
+                    ok: true,
+                    project_id: FINANCAS_FIREBASE_PROJECT_ID,
+                    control,
+                    pending_count: pending.length,
+                    synced_at: nowIso()
+                });
+            } catch (error) {
+                return sendJson(res, { ok: false, error: error.message || 'Cloud mobile indisponivel.' }, 503);
+            }
+        }
+
+        if (pathname === '/api/financas/mobile-cloud/toggle' && req.method === 'POST') {
+            try {
+                const body = await parseBody(req);
+                if (typeof body.enabled !== 'boolean') return sendJson(res, { ok: false, error: 'enabled boolean obrigatorio.' }, 400);
+                const control = await financasMobileCloudSetControl(body.enabled);
+                return sendJson(res, { ok: true, control, synced_at: nowIso() });
+            } catch (error) {
+                return sendJson(res, { ok: false, error: error.message || 'Nao consegui alterar o app do celular.' }, 503);
+            }
+        }
+
+        if (pathname === '/api/financas/mobile-cloud/pending' && req.method === 'GET') {
+            try {
+                const [control, entries] = await Promise.all([
+                    financasMobileCloudGetControl(),
+                    financasMobileCloudQueryByStatus('pending', 100)
+                ]);
+                let prune = { scanned: 0, deleted: 0 };
+                try {
+                    prune = await financasMobileCloudPruneImported();
+                } catch (pruneError) {
+                    console.warn('[FIN2] mobile cloud prune skipped:', pruneError.message);
+                }
+                return sendJson(res, {
+                    ok: true,
+                    control,
+                    entries,
+                    prune,
+                    synced_at: nowIso()
+                });
+            } catch (error) {
+                return sendJson(res, { ok: false, error: error.message || 'Nao consegui buscar pendencias do celular.' }, 503);
+            }
+        }
+
+        if (pathname === '/api/financas/mobile-cloud/imported' && req.method === 'POST') {
+            try {
+                const body = await parseBody(req);
+                const docName = body.docName || body.cloudDocName;
+                if (!docName) return sendJson(res, { ok: false, error: 'docName obrigatorio.' }, 400);
+                const imported = await financasMobileCloudMarkImported(docName);
+                return sendJson(res, { ok: true, imported, synced_at: nowIso() });
+            } catch (error) {
+                const code = /invalido|fora da inbox/.test(error.message || '') ? 400 : 503;
+                return sendJson(res, { ok: false, error: error.message || 'Nao consegui marcar pendencia como importada.' }, code);
+            }
         }
 
         if (pathname.startsWith('/api/file') && req.method === 'GET') {

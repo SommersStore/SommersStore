@@ -2,32 +2,34 @@
   "auto_sync_memory": false,
   "in_progress": true,
   "pending_trigger": null,
-  "last_sync_id": "SYNC-20260719-1784435053649",
+  "last_sync_id": "SYNC-20260723-1784805322476",
   "last_status": "running",
   "last_summary": "Sincronizacao em andamento...",
   "last_trigger": "save_all_one_click",
   "last_scope": "all",
   "last_target": "all",
-  "last_started_at": "2026-07-19T01:24:13-03:00",
-  "last_completed_at": "2026-07-05T12:56:28-03:00",
+  "last_started_at": "2026-07-23T08:15:22-03:00",
+  "last_completed_at": "2026-07-22T19:48:29-03:00",
   "github": {
-    "status": "success",
-    "note": "Commit e push enviados ao GitHub.",
+    "status": "error",
+    "note": "Repositorio Git nao encontrado.",
     "scope": "all",
     "changed_files": 0,
-    "commit_message": "chore(workspace): cloud sync 2026-07-05 12:55:32 (save_all_one_click)",
-    "branch": "master"
+    "commit_message": null,
+    "branch": null,
+    "error": "spawn git ENOENT"
   },
   "firebase": {
-    "status": "success",
-    "note": "Deploy Firebase Hosting concluido.",
-    "duration_ms": 22157
+    "status": "error",
+    "note": "Falha no deploy Firebase Hosting.",
+    "error": "'firebase' n�o � reconhecido como um comando interno\r\nou externo, um programa oper�vel ou um arquivo em lotes.",
+    "duration_ms": 76
   },
   "mirror": {
     "status": "success",
     "note": "Espelho local confirmado em D:\\Antigravity-SommersStore\\workspace.",
     "destination": "D:\\Antigravity-SommersStore\\workspace",
-    "completed_at": "2026-07-19T04:17:12.554Z",
+    "completed_at": "2026-07-22T22:40:41.926Z",
     "state_file": "D:\\Antigravity-SommersStore\\sync-state.json"
   }
 }

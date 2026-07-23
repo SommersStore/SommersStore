@@ -15270,6 +15270,30 @@ window.vmUnlinkDeliverable = vmUnlinkDeliverable;
 .fin2-mobile-card {
   border:1px solid #1e2540;border-radius:8px;background:#0d1220;padding:12px;display:flex;flex-direction:column;gap:10px;
 }
+.fin2-mobile-cloud-card { border-color:#1d4ed866;background:#08142a; }
+.fin2-mobile-cloud-head { display:flex;align-items:flex-start;justify-content:space-between;gap:10px; }
+.fin2-mobile-cloud-head strong { display:block;color:#dbeafe;font-size:12px;font-weight:900; }
+.fin2-mobile-cloud-head span { display:block;margin-top:3px;color:#7f89ab;font-size:9px;line-height:1.45; }
+.fin2-mobile-cloud-actions { display:grid;grid-template-columns:1fr;gap:8px; }
+.fin2-mobile-cloud-btn {
+  height:36px;border:1px solid #2563eb66;border-radius:7px;background:#0b1730;color:#bfdbfe;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  font-size:9px;font-weight:950;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;
+}
+.fin2-mobile-cloud-btn.secondary { border-color:#334155;background:#101729;color:#cbd5e1; }
+.fin2-mobile-cloud-btn:disabled { opacity:.45;cursor:not-allowed; }
+.fin2-mobile-cloud-config { display:grid;grid-template-columns:1fr 1fr;gap:8px; }
+.fin2-mobile-cloud-entry {
+  display:grid;grid-template-columns:1fr;gap:8px;border:1px solid #17233c;border-radius:8px;background:#0b1020;padding:9px;
+}
+.fin2-mobile-cloud-entry-top { display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start; }
+.fin2-mobile-cloud-entry strong {
+  display:block;color:#e5efff;font-size:11px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.fin2-mobile-cloud-entry span {
+  display:block;margin-top:3px;color:#7f89ab;font-size:8px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+}
+.fin2-mobile-cloud-value { color:#f8fbff;font-size:12px;font-weight:950;font-variant-numeric:tabular-nums;text-align:right; }
 .fin2-mobile-segments { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px; }
 .fin2-mobile-segment {
   height:34px;border:1px solid #26304c;border-radius:7px;background:#111729;color:#7f89ab;
@@ -15352,6 +15376,8 @@ window.vmUnlinkDeliverable = vmUnlinkDeliverable;
   .fin2-mobile-grid,
   .fin2-mobile-grid.three { grid-template-columns:1fr; }
   .fin2-mobile-actions { grid-template-columns:1fr; }
+  .fin2-mobile-cloud-actions,
+  .fin2-mobile-cloud-config { grid-template-columns:1fr; }
   .fin2-mobile-edit-form .fin2-mobile-grid { grid-template-columns:1fr; }
 }
 
@@ -16748,6 +16774,10 @@ let fin2DebtGroupTotalModes = { payslip: '', old: '', current: '' };
 let fin2PayslipModalMonth = new Date().getMonth();
 let fin2CellDetailsModal = { groupKey: '', rowId: '', monthIdx: 0 };
 let fin2MobileForm = { groupKey: 'despesas', rowId: '', status: '' };
+let fin2MobileCloud = { status: '', entries: [], control: { enabled: true }, pendingCount: 0, lastSyncAt: '', statusLoaded: false, statusLoading: false, loading: false, autoSyncing: false, autoSyncTimer: null, autoSyncListenersBound: false };
+const FIN2_MOBILE_CLOUD_APP_URL = 'https://sommersstore-c6c23.web.app/financas-mobile-cloud';
+const FIN2_MOBILE_CLOUD_CONFIG_URL = 'https://sommersstore-c6c23.web.app/__/firebase/init.json';
+const FIN2_MOBILE_CLOUD_CONFIG_KEY = 'fin2_mobile_cloud_firebase_config_v1';
 const FIN2_PAYSLIP_DEBT_CODES = new Set(['097292', '097293', '097294', '097296', '097302', '097352']);
 const FIN2_EXPENSE_GROUPS = [
   { key: 'gasolina', label: 'Gasolina' },
@@ -19743,6 +19773,9 @@ function fin2EnsureMobileState() {
       expectedValue: target && target.expectedValue !== null && target.expectedValue !== undefined && Number.isFinite(Number(target.expectedValue)) ? Number(target.expectedValue) : null,
       previousValue: target && target.previousValue !== undefined ? target.previousValue : null
     })).filter(target => target.groupKey && target.rowId && Number.isInteger(target.monthIdx) && target.monthIdx >= 0 && target.monthIdx < 12) : [],
+    source: String(entry && entry.source || ''),
+    cloudEntryId: String(entry && entry.cloudEntryId || ''),
+    importedAt: String(entry && entry.importedAt || ''),
     createdAt: String(entry && entry.createdAt || new Date().toISOString())
   })).slice(-300);
 }
@@ -20254,6 +20287,401 @@ window.fin2MobileSaveEntryEdit = function(entryId) {
   fin2MobileFinishEntryMutation(entry, 'Lancamento mobile atualizado.');
 };
 
+function fin2MobileCloudEmptyConfig() {
+  return { apiKey: '', authDomain: '', projectId: '', storageBucket: '', messagingSenderId: '', appId: '' };
+}
+
+function fin2MobileCloudStoredConfig() {
+  try {
+    const raw = localStorage.getItem(FIN2_MOBILE_CLOUD_CONFIG_KEY);
+    const parsed = raw ? JSON.parse(raw) : {};
+    return { ...fin2MobileCloudEmptyConfig(), ...(parsed && typeof parsed === 'object' ? parsed : {}) };
+  } catch (e) {
+    return fin2MobileCloudEmptyConfig();
+  }
+}
+
+function fin2MobileCloudConfigFromForm() {
+  const stored = fin2MobileCloudStoredConfig();
+  return {
+    apiKey: String(document.getElementById('fin2-cloud-apiKey')?.value || stored.apiKey || '').trim(),
+    authDomain: String(document.getElementById('fin2-cloud-authDomain')?.value || stored.authDomain || '').trim(),
+    projectId: String(document.getElementById('fin2-cloud-projectId')?.value || stored.projectId || '').trim(),
+    storageBucket: String(document.getElementById('fin2-cloud-storageBucket')?.value || stored.storageBucket || '').trim(),
+    messagingSenderId: String(document.getElementById('fin2-cloud-messagingSenderId')?.value || stored.messagingSenderId || '').trim(),
+    appId: String(document.getElementById('fin2-cloud-appId')?.value || stored.appId || '').trim()
+  };
+}
+
+function fin2MobileCloudConfigComplete(config) {
+  return Object.values(config || {}).every(value => String(value || '').trim());
+}
+
+function fin2MobileCloudConfigPick(raw) {
+  return {
+    apiKey: String(raw && raw.apiKey || '').trim(),
+    authDomain: String(raw && raw.authDomain || '').trim(),
+    projectId: String(raw && raw.projectId || '').trim(),
+    storageBucket: String(raw && raw.storageBucket || '').trim(),
+    messagingSenderId: String(raw && raw.messagingSenderId || '').trim(),
+    appId: String(raw && raw.appId || '').trim()
+  };
+}
+
+function fin2MobileCloudSetStatus(message) {
+  fin2MobileCloud.status = String(message || '');
+  const el = document.getElementById('fin2-mobile-cloud-status');
+  if (!el) return;
+  el.textContent = fin2MobileCloud.status;
+  el.classList.toggle('active', Boolean(fin2MobileCloud.status));
+}
+
+window.fin2MobileCloudOpenApp = function() {
+  window.open(FIN2_MOBILE_CLOUD_APP_URL, '_blank', 'noopener');
+};
+
+async function fin2MobileCloudApi(path, options = {}) {
+  const response = await fetch(path, {
+    cache: 'no-store',
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...(options && options.headers ? options.headers : {})
+    }
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok || data.ok === false) throw new Error(data.error || `HTTP ${response.status}`);
+  return data;
+}
+
+window.fin2MobileCloudLoadStatus = async function(options = {}) {
+  const silent = Boolean(options && options.silent);
+  const rerender = Boolean(options && options.render);
+  fin2MobileCloud.statusLoading = true;
+  if (!silent) fin2MobileCloudSetStatus('Conferindo app do celular...');
+  try {
+    const data = await fin2MobileCloudApi('/api/financas/mobile-cloud/status');
+    fin2MobileCloud.control = data.control || { enabled: true };
+    fin2MobileCloud.pendingCount = Number(data.pending_count || 0);
+    fin2MobileCloud.lastSyncAt = String(data.synced_at || '');
+    fin2MobileCloud.statusLoaded = true;
+    if (!silent) {
+      fin2MobileCloudSetStatus(fin2MobileCloud.control.enabled === false
+        ? 'App do celular desativado.'
+        : 'App do celular ativo e sincronizacao automatica ligada.');
+    }
+    return data;
+  } catch (e) {
+    if (!silent) fin2MobileCloudSetStatus(e && e.message ? e.message : 'Nao consegui conferir o app do celular.');
+    return null;
+  } finally {
+    fin2MobileCloud.statusLoading = false;
+    if (!silent || rerender) fin2RenderMobile();
+  }
+};
+
+window.fin2MobileCloudToggleEnabled = async function() {
+  const currentEnabled = !(fin2MobileCloud.control && fin2MobileCloud.control.enabled === false);
+  const nextEnabled = !currentEnabled;
+  fin2MobileCloud.loading = true;
+  fin2MobileCloudSetStatus(nextEnabled ? 'Ativando app do celular...' : 'Desativando app do celular...');
+  try {
+    const data = await fin2MobileCloudApi('/api/financas/mobile-cloud/toggle', {
+      method: 'POST',
+      body: JSON.stringify({ enabled: nextEnabled })
+    });
+    fin2MobileCloud.control = data.control || { enabled: nextEnabled };
+    fin2MobileCloud.statusLoaded = true;
+    fin2MobileCloudSetStatus(nextEnabled
+      ? 'App do celular ativado.'
+      : 'App do celular desativado para novos lancamentos.');
+    return true;
+  } catch (e) {
+    fin2MobileCloudSetStatus(e && e.message ? e.message : 'Nao consegui alterar o app do celular.');
+    return false;
+  } finally {
+    fin2MobileCloud.loading = false;
+    fin2RenderMobile();
+  }
+};
+
+window.fin2MobileCloudLoadHostedConfig = async function() {
+  fin2MobileCloudSetStatus('Carregando config publica do Firebase...');
+  try {
+    const response = await fetch(FIN2_MOBILE_CLOUD_CONFIG_URL, { cache: 'no-store' });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const config = fin2MobileCloudConfigPick(await response.json());
+    if (!fin2MobileCloudConfigComplete(config)) throw new Error('Config publica incompleta.');
+    localStorage.setItem(FIN2_MOBILE_CLOUD_CONFIG_KEY, JSON.stringify(config));
+    fin2MobileCloudSetStatus('Config Firebase carregada do Hosting.');
+    fin2RenderMobile();
+    return config;
+  } catch (e) {
+    fin2MobileCloudSetStatus('Nao consegui carregar a config publica. Preencha manualmente.');
+    throw e;
+  }
+};
+
+window.fin2MobileCloudSaveConfig = function() {
+  const config = fin2MobileCloudConfigFromForm();
+  if (!fin2MobileCloudConfigComplete(config)) {
+    fin2MobileCloudSetStatus('Preencha todas as chaves Firebase antes de conectar.');
+    return false;
+  }
+  localStorage.setItem(FIN2_MOBILE_CLOUD_CONFIG_KEY, JSON.stringify(config));
+  fin2MobileCloudSetStatus('Configuracao Firebase salva neste navegador.');
+  return true;
+};
+
+async function fin2MobileCloudLoadModules() {
+  if (fin2MobileCloud.modules) return fin2MobileCloud.modules;
+  const [app, auth, firestore] = await Promise.all([
+    import('https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js'),
+    import('https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js'),
+    import('https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js')
+  ]);
+  fin2MobileCloud.modules = { app, auth, firestore };
+  return fin2MobileCloud.modules;
+}
+
+async function fin2MobileCloudEnsureServices() {
+  let config = fin2MobileCloudConfigFromForm();
+  if (!fin2MobileCloudConfigComplete(config)) config = await window.fin2MobileCloudLoadHostedConfig();
+  if (!fin2MobileCloudConfigComplete(config)) throw new Error('Config Firebase incompleta.');
+  localStorage.setItem(FIN2_MOBILE_CLOUD_CONFIG_KEY, JSON.stringify(config));
+  const modules = await fin2MobileCloudLoadModules();
+  const existing = modules.app.getApps().find(item => item.name === 'financas-mobile-cloud-local');
+  const app = existing || modules.app.initializeApp(config, 'financas-mobile-cloud-local');
+  const auth = modules.auth.getAuth(app);
+  const db = modules.firestore.getFirestore(app);
+  await modules.auth.setPersistence(auth, modules.auth.browserLocalPersistence).catch(() => null);
+  fin2MobileCloud.services = { auth, db };
+  fin2MobileCloud.user = auth.currentUser || fin2MobileCloud.user;
+  return { modules, auth, db };
+}
+
+function fin2MobileCloudWaitForUser(modules, auth, timeoutMs = 4000) {
+  if (auth.currentUser) return Promise.resolve(auth.currentUser);
+  return new Promise(resolve => {
+    let settled = false;
+    let unsubscribe = () => {};
+    const finish = user => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      try { unsubscribe(); } catch (_) {}
+      resolve(user || auth.currentUser || null);
+    };
+    const timer = setTimeout(() => finish(auth.currentUser || null), timeoutMs);
+    try {
+      unsubscribe = modules.auth.onAuthStateChanged(auth, user => finish(user));
+    } catch (_) {
+      finish(auth.currentUser || null);
+    }
+  });
+}
+
+window.fin2MobileCloudSignIn = async function() {
+  fin2MobileCloud.loading = true;
+  fin2MobileCloudSetStatus('Sincronizando app do celular...');
+  try {
+    await window.fin2MobileCloudLoadEntries();
+    await window.fin2MobileCloudAutoImportPending();
+  } catch (e) {
+    fin2MobileCloudSetStatus(e && e.message ? e.message : 'Nao consegui sincronizar o app do celular.');
+  } finally {
+    fin2MobileCloud.loading = false;
+    fin2RenderMobile();
+  }
+};
+
+window.fin2MobileCloudSignOut = async function() {
+  fin2MobileCloud.entries = [];
+  fin2MobileCloudSetStatus('App do celular continua controlado pelo servidor local.');
+  fin2RenderMobile();
+};
+
+function fin2MobileCloudEntryGroup(entry) {
+  if (FIN2_SECTION_KEYS.includes(entry && entry.type)) return entry.type;
+  if (FIN2_SECTION_KEYS.includes(entry && entry.groupKey)) return entry.groupKey;
+  return 'despesas';
+}
+
+window.fin2MobileCloudLoadEntries = async function(options = {}) {
+  const silent = Boolean(options && options.silent);
+  const skipRender = Boolean(options && options.skipRender);
+  fin2MobileCloud.loading = true;
+  if (!silent) fin2MobileCloudSetStatus('Buscando pendencias na nuvem...');
+  try {
+    const data = await fin2MobileCloudApi('/api/financas/mobile-cloud/pending');
+    fin2MobileCloud.control = data.control || { enabled: true };
+    fin2MobileCloud.lastSyncAt = String(data.synced_at || '');
+    fin2MobileCloud.statusLoaded = true;
+    fin2EnsureMobileState();
+    const alreadyImported = new Set(FIN2_MOBILE.entries.map(entry => entry.cloudEntryId).filter(Boolean));
+    fin2MobileCloud.entries = (Array.isArray(data.entries) ? data.entries : [])
+      .filter(entry => !alreadyImported.has(entry.id))
+      .sort((a, b) => String(b.createdAtDevice || '').localeCompare(String(a.createdAtDevice || '')));
+    fin2MobileCloud.pendingCount = fin2MobileCloud.entries.length;
+    if (!silent) fin2MobileCloudSetStatus(fin2MobileCloud.entries.length ? `${fin2MobileCloud.entries.length} pendencia(s) pronta(s) para importar.` : 'Nenhuma pendencia nova na nuvem.');
+    return fin2MobileCloud.entries;
+  } catch (e) {
+    if (!silent) fin2MobileCloudSetStatus(e && e.message ? e.message : 'Nao consegui buscar pendencias.');
+    return [];
+  } finally {
+    fin2MobileCloud.loading = false;
+    if (!skipRender) fin2RenderMobile();
+  }
+};
+
+window.fin2MobileCloudApplyEntry = async function(entryId, options = {}) {
+  const automatic = Boolean(options && options.automatic === true);
+  const entry = fin2MobileCloud.entries.find(item => item.id === String(entryId || ''));
+  if (!entry) return false;
+  const groupKey = fin2MobileCloudEntryGroup(entry);
+  const rowSelect = document.getElementById(`fin2-cloud-row-${entry.id}`);
+  const rowId = String(rowSelect && rowSelect.value || entry.destinationRowId || '');
+  const destinations = fin2MobileDestinations(groupKey);
+  const destination = destinations.find(item => item.row.id === rowId);
+  if (!destination) {
+    const message = entry.destinationRowId
+      ? 'Destino escolhido no celular nao existe mais na planilha. Revise manualmente no Cloud Inbox.'
+      : 'Lancamento da nuvem sem destino salvo. Revise manualmente no Cloud Inbox.';
+    if (automatic) {
+      console.warn('[fin2] cloud auto import skipped:', message, entry);
+      fin2MobileCloudSetStatus(message);
+      return false;
+    }
+    alert(destinations.length ? message : 'Crie pelo menos uma linha de destino antes de importar.');
+    return false;
+  }
+  const name = String(entry.name || destination.row.label || 'Lancamento').trim();
+  const value = Math.abs(Number(entry.value) || 0);
+  const date = String(entry.date || fin2MobileDateValue()).trim();
+  if (!value) {
+    if (!automatic) alert('Lancamento da nuvem sem valor valido.');
+    return false;
+  }
+  if (fin2MobileMonthIndexFromDate(date) < 0) {
+    if (!automatic) alert(`Use uma data dentro de ${FIN2_SHEET.year || 2026}.`);
+    return false;
+  }
+  const requestedInstallments = Math.max(1, Math.min(12, Math.round(Number(entry.installments) || 1)));
+  const applied = fin2MobileApplyEntryToDestination(groupKey, destination, name, date, value, requestedInstallments);
+  if (!applied) return false;
+  if (groupKey === 'dividas') {
+    const creditor = fin2SyncCreditorFromDebtRow(destination.row);
+    if (creditor) fin2RefreshDebtViews(creditor.id);
+  }
+  FIN2_MOBILE.entries.push({
+    id: `cloud-${entry.id}-${Date.now()}`,
+    groupKey,
+    rowId: destination.row.id,
+    rowLabel: destination.row.label || '',
+    path: destination.path || '',
+    name,
+    date,
+    value,
+    installments: requestedInstallments,
+    appliedMonths: applied.appliedMonths,
+    appliedTargets: applied.appliedTargets,
+    source: 'financas-mobile-cloud',
+    cloudEntryId: entry.id,
+    importedAt: new Date().toISOString(),
+    createdAt: String(entry.createdAtDevice || new Date().toISOString())
+  });
+  let markedImported = false;
+  try {
+    if (entry.cloudDocName) {
+      await fin2MobileCloudApi('/api/financas/mobile-cloud/imported', {
+        method: 'POST',
+        body: JSON.stringify({ docName: entry.cloudDocName })
+      });
+      markedImported = true;
+    }
+  } catch (e) {
+    console.warn('[fin2] cloud imported mark error:', e);
+  }
+  fin2MobileCloud.entries = fin2MobileCloud.entries.filter(item => item.id !== entry.id);
+  fin2EnsureMobileState();
+  fin2MobileForm.status = `${fin2MobileGroupLabel(groupKey)} importada do Cloud Inbox.`;
+  fin2MobileCloudSetStatus(markedImported ? 'Pendencia importada e marcada como conferida na nuvem.' : 'Importei localmente, mas nao consegui marcar a nuvem agora.');
+  fin2RenderSheet();
+  fin2RenderMobile();
+  fin2TriggerAutoSave();
+  return true;
+};
+
+window.fin2MobileCloudAutoImportPending = async function() {
+  if (window.AIOX_MOBILE_ONLY || fin2MobileCloud.autoSyncing) return false;
+  fin2MobileCloud.autoSyncing = true;
+  try {
+    await window.fin2MobileCloudLoadEntries({ silent: true, skipRender: true });
+    const pendingEntries = fin2MobileCloud.entries.slice();
+    if (!pendingEntries.length) {
+      fin2MobileCloudSetStatus('App do celular sincronizado: nenhuma pendencia nova.');
+      return true;
+    }
+    let imported = 0;
+    let skipped = 0;
+    for (const entry of pendingEntries) {
+      const ok = await window.fin2MobileCloudApplyEntry(entry.id, { automatic: true });
+      if (ok) imported += 1;
+      else skipped += 1;
+    }
+    fin2MobileCloudSetStatus(skipped
+      ? `App do celular: ${imported} importada(s), ${skipped} exigem revisao manual.`
+      : `App do celular: ${imported} lancamento(s) importado(s) automaticamente.`);
+    return imported > 0;
+  } catch (e) {
+    console.warn('[fin2] cloud auto import error:', e);
+    fin2MobileCloudSetStatus(e && e.message ? e.message : 'Sincronizacao automatica indisponivel agora.');
+    return false;
+  } finally {
+    fin2MobileCloud.autoSyncing = false;
+    fin2RenderMobile();
+  }
+};
+
+function fin2MobileCloudStartAutoSync() {
+  if (window.AIOX_MOBILE_ONLY || fin2MobileCloud.autoSyncTimer) return;
+  setTimeout(() => window.fin2MobileCloudAutoImportPending(), 900);
+  fin2MobileCloud.autoSyncTimer = 'initial-load-only';
+}
+
+function fin2MobileCloudConfigHtml() {
+  const enabled = !(fin2MobileCloud.control && fin2MobileCloud.control.enabled === false);
+  const pending = Number(fin2MobileCloud.pendingCount || 0);
+  return `
+    <div class="fin2-mobile-empty fin2-mobile-status active">
+      ${enabled ? 'App ativo' : 'App desativado'} - ${pending ? `${pending} pendencia(s) aguardando importacao.` : 'sem pendencias novas.'}
+    </div>`;
+}
+
+function fin2MobileCloudEntriesHtml() {
+  return '';
+}
+
+function fin2MobileCloudInboxHtml() {
+  const enabled = !(fin2MobileCloud.control && fin2MobileCloud.control.enabled === false);
+  const label = enabled ? 'Desativar app do celular' : 'Ativar app do celular';
+  return `
+    <div id="fin2-mobile-cloud-inbox" class="fin2-mobile-card fin2-mobile-cloud-card">
+      <div class="fin2-mobile-cloud-head">
+        <div>
+          <strong>App do celular 24h</strong>
+          <span>O notebook sincroniza automaticamente ao abrir ou atualizar a pagina.</span>
+        </div>
+      </div>
+      ${fin2MobileCloudConfigHtml()}
+      <div class="fin2-mobile-cloud-actions">
+        <button class="fin2-mobile-cloud-btn${enabled ? ' secondary' : ''}" type="button" onclick="fin2MobileCloudToggleEnabled()"${fin2MobileCloud.loading ? ' disabled' : ''}>${label}</button>
+      </div>
+      <div id="fin2-mobile-cloud-status" class="fin2-mobile-empty fin2-mobile-status${fin2MobileCloud.status ? ' active' : ''}">${fin2Esc(fin2MobileCloud.status || '')}</div>
+      ${fin2MobileCloudEntriesHtml()}
+    </div>`;
+}
+
 function fin2MobileHistoryHtml() {
   fin2PruneMobileHistory();
   const entries = FIN2_MOBILE.entries.slice(-8).reverse();
@@ -20291,55 +20719,17 @@ window.fin2RenderMobile = function() {
   fin2EnsureMobileState();
   const el = document.getElementById('fin2-mobile-content');
   if (!el) return;
-  const groupKey = fin2MobileSelectedGroup();
-  const { destinations, selected } = fin2MobileSelectedDestination(groupKey);
-  const today = fin2MobileDateValue();
-  const options = destinations.map(item => `<option value="${fin2Esc(item.row.id)}"${selected && item.row.id === selected.row.id ? ' selected' : ''}>${fin2Esc(item.label)}</option>`).join('');
   el.innerHTML = `
     <div class="fin2-mobile-app">
       <div class="fin2-mobile-head">
-        <div class="fin2-mobile-title">Financas Mobile</div>
+        <div class="fin2-mobile-title">Controle do app 24h</div>
         <div class="fin2-mobile-date-chip">${fin2Esc(MONTHS[new Date().getMonth()] || '')}/${FIN2_SHEET.year || 2026}</div>
       </div>
-      <div class="fin2-mobile-card">
-        <div class="fin2-mobile-segments">
-          ${FIN2_SECTION_KEYS.map(key => `<button class="fin2-mobile-segment${key === groupKey ? ' active' : ''}" data-group="${key}" onclick="fin2MobileSetGroup('${key}')">${fin2Esc(fin2MobileGroupLabel(key))}</button>`).join('')}
-        </div>
-        <div class="fin2-mobile-field">
-          <label for="fin2-mobile-row">Destino</label>
-          <select id="fin2-mobile-row" onchange="fin2MobileSetRow(this.value)"${destinations.length ? '' : ' disabled'}>${options}</select>
-        </div>
-        <div class="fin2-mobile-grid">
-          <div class="fin2-mobile-field">
-            <label for="fin2-mobile-name">Nome</label>
-            <input id="fin2-mobile-name" type="text" placeholder="Lancamento">
-          </div>
-          <div class="fin2-mobile-field">
-            <label for="fin2-mobile-value">Valor</label>
-            <input id="fin2-mobile-value" class="fin2-mobile-value" type="text" inputmode="decimal" placeholder="0">
-          </div>
-        </div>
-        <div class="fin2-mobile-grid">
-          <div class="fin2-mobile-field">
-            <label for="fin2-mobile-date">Data</label>
-            <input id="fin2-mobile-date" type="date" value="${today}">
-          </div>
-          <div class="fin2-mobile-field">
-            <label for="fin2-mobile-installments">Parcelas</label>
-            <input id="fin2-mobile-installments" type="number" min="1" max="12" value="1">
-          </div>
-        </div>
-        <input id="fin2-mobile-photo-input" type="file" accept="image/*" capture="environment" style="display:none" onchange="fin2MobileReadPhoto(this)">
-        <div class="fin2-mobile-actions">
-          <button class="fin2-mobile-photo" type="button" onclick="fin2MobileOpenPhoto()"><i data-lucide="camera"></i>Foto</button>
-          <button class="fin2-mobile-submit" type="button" onclick="fin2SubmitMobileEntry()"${selected ? '' : ' disabled'}><i data-lucide="check"></i>Lancar</button>
-        </div>
-        <div id="fin2-mobile-status" class="fin2-mobile-empty fin2-mobile-status${fin2MobileForm.status ? ' active' : ''}">${fin2Esc(fin2MobileForm.status || '')}</div>
-      </div>
-      <div class="fin2-mobile-card">
-        ${fin2MobileHistoryHtml()}
-      </div>
+      ${fin2MobileCloudInboxHtml()}
     </div>`;
+  if (!fin2MobileCloud.statusLoaded && !fin2MobileCloud.statusLoading) {
+    window.fin2MobileCloudLoadStatus({ silent: true, render: true });
+  }
   if (window.lucide) window.lucide.createIcons();
 };
 
@@ -22736,7 +23126,8 @@ window.fin2TriggerAutoSave = function() {
 window.renderFinancas = function() {
   fin2LoadData()
     .then(() => fin2LoadContractsFromServer())
-    .then(() => fin2Switch(window.AIOX_MOBILE_ONLY ? 'mobile' : 'planilha'));
+    .then(() => fin2Switch(window.AIOX_MOBILE_ONLY ? 'mobile' : 'planilha'))
+    .then(() => fin2MobileCloudStartAutoSync());
 };
 
 window.fin2ApplyMobileStandalone = function() {
