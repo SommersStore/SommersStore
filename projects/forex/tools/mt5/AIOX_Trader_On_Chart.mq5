@@ -5,7 +5,7 @@
 //+------------------------------------------------------------------+
 #property copyright "Copyright 2026, SommersStore"
 #property link      "https://sommers.store"
-#property version   "1.32"
+#property version   "1.33"
 
 #include <Trade\Trade.mqh>
 #include <Trade\PositionInfo.mqh>
@@ -48,6 +48,7 @@ input bool EnableOCO = true;               // Delete opposite pending after fill
 input int PanelOffsetX = 20;
 input int PanelOffsetY = 40;
 input int PanelScalePercent = 135;         // 135 = TOC-style panel enlarged for readability
+input int PanelFontScalePercent = 82;      // Slim typography without reducing panel dimensions
 input int PanelRefreshSeconds = 1;         // Panel refresh timer
 
 //--- Runtime state
@@ -64,15 +65,15 @@ bool   g_oco_enabled = true;
 int    g_pending_mode = 0;                 // 0=Buy Stop, 1=Sell Stop, 2=Buy Limit, 3=Sell Limit
 
 //--- Colors
-color COLOR_BG = C'250,250,250';
-color COLOR_BORDER = C'170,170,170';
-color COLOR_TEXT = C'24,24,24';
-color COLOR_MUTED = C'128,128,128';
-color COLOR_SYMBOL = C'0,38,255';
+color COLOR_BG = C'12,18,28';
+color COLOR_BORDER = C'64,80,104';
+color COLOR_TEXT = C'232,238,246';
+color COLOR_MUTED = C'139,155,180';
+color COLOR_SYMBOL = C'74,163,255';
 color COLOR_BUY = C'35,160,55';
 color COLOR_SELL = C'235,28,36';
 color COLOR_PENDING = C'20,170,90';
-color COLOR_BTN_DEFAULT = C'236,236,236';
+color COLOR_BTN_DEFAULT = C'28,40,56';
 color COLOR_BTN_ACTIVE = C'255,211,36';
 
 //+------------------------------------------------------------------+
@@ -114,7 +115,7 @@ int OnInit()
    trade.SetDeviationInPoints(DefaultSlippage);
    trade.SetTypeFillingBySymbol(Symbol());
    trade.SetAsyncMode(false);
-   ChartSetInteger(0, CHART_SHOW_OBJECT_DESCR, true);
+   ChartSetInteger(0, CHART_SHOW_OBJECT_DESCR, false);
 
    CreatePanel();
    UpdateLines();
@@ -159,7 +160,7 @@ int U(int value)
 
 int UiFont(int value)
 {
-   return(MathMax(7, U(value)));
+   return(MathMax(7, (int)MathRound(U(value) * MathMax(60, PanelFontScalePercent) / 100.0)));
 }
 
 //+------------------------------------------------------------------+
@@ -277,9 +278,10 @@ void CreatePanel()
    ObjectSetInteger(0, "AIOX_TOC_BG", OBJPROP_CORNER, CORNER_LEFT_UPPER);
    ObjectSetInteger(0, "AIOX_TOC_BG", OBJPROP_SELECTABLE, false);
    ObjectSetInteger(0, "AIOX_TOC_BG", OBJPROP_BACK, false);
+   ObjectSetInteger(0, "AIOX_TOC_BG", OBJPROP_ZORDER, 100);
 
    CreateLabel("AIOX_TOC_LBL_SYMBOL", Symbol(), x + U(8), y + U(6), COLOR_SYMBOL, 11, true);
-   CreateLabel("AIOX_TOC_LBL_VERSION", "AIOX v1.32", x + U(182), y + U(8), COLOR_TEXT, 7, true);
+   CreateLabel("AIOX_TOC_LBL_VERSION", "AIOX v1.33", x + U(182), y + U(8), COLOR_TEXT, 7, true);
 
    CreateLabel("AIOX_TOC_LBL_CLOSE_ORDERS", "Close orders:", x + U(8), y + U(28), COLOR_TEXT, 7, true);
    CreateButton("AIOX_TOC_BTN_CLOSE_MARKET", "All", x + U(88), y + U(25), U(30), U(18), 7);
@@ -364,9 +366,10 @@ void CreateLabel(string name, string text, int x, int y, color fg, int fontSize,
    ObjectSetString(0, name, OBJPROP_TEXT, text);
    ObjectSetInteger(0, name, OBJPROP_COLOR, fg);
    ObjectSetInteger(0, name, OBJPROP_FONTSIZE, UiFont(fontSize));
-   ObjectSetString(0, name, OBJPROP_FONT, isBold ? "Arial Bold" : "Arial");
+   ObjectSetString(0, name, OBJPROP_FONT, isBold ? "Segoe UI Semibold" : "Segoe UI");
    ObjectSetInteger(0, name, OBJPROP_CORNER, CORNER_LEFT_UPPER);
    ObjectSetInteger(0, name, OBJPROP_SELECTABLE, false);
+   ObjectSetInteger(0, name, OBJPROP_ZORDER, 102);
 }
 
 void CreateButton(string name, string text, int x, int y, int w, int h, int fontSize)
@@ -380,9 +383,10 @@ void CreateButton(string name, string text, int x, int y, int w, int h, int font
    ObjectSetInteger(0, name, OBJPROP_BGCOLOR, COLOR_BTN_DEFAULT);
    ObjectSetInteger(0, name, OBJPROP_COLOR, COLOR_TEXT);
    ObjectSetInteger(0, name, OBJPROP_FONTSIZE, UiFont(fontSize));
-   ObjectSetString(0, name, OBJPROP_FONT, "Arial");
+   ObjectSetString(0, name, OBJPROP_FONT, "Segoe UI");
    ObjectSetInteger(0, name, OBJPROP_CORNER, CORNER_LEFT_UPPER);
    ObjectSetInteger(0, name, OBJPROP_SELECTABLE, false);
+   ObjectSetInteger(0, name, OBJPROP_ZORDER, 103);
 }
 
 void CreateEdit(string name, string text, int x, int y, int w, int h, int fontSize)
@@ -393,12 +397,13 @@ void CreateEdit(string name, string text, int x, int y, int w, int h, int fontSi
    ObjectSetInteger(0, name, OBJPROP_XSIZE, w);
    ObjectSetInteger(0, name, OBJPROP_YSIZE, h);
    ObjectSetString(0, name, OBJPROP_TEXT, text);
-   ObjectSetInteger(0, name, OBJPROP_BGCOLOR, clrWhite);
+   ObjectSetInteger(0, name, OBJPROP_BGCOLOR, C'236,241,247');
    ObjectSetInteger(0, name, OBJPROP_COLOR, COLOR_TEXT);
    ObjectSetInteger(0, name, OBJPROP_FONTSIZE, UiFont(fontSize));
-   ObjectSetString(0, name, OBJPROP_FONT, "Arial");
+   ObjectSetString(0, name, OBJPROP_FONT, "Segoe UI");
    ObjectSetInteger(0, name, OBJPROP_CORNER, CORNER_LEFT_UPPER);
    ObjectSetInteger(0, name, OBJPROP_ALIGN, ALIGN_CENTER);
+   ObjectSetInteger(0, name, OBJPROP_ZORDER, 103);
 }
 
 //+------------------------------------------------------------------+

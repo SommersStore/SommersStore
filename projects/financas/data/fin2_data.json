@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-07-23T12:16:31.505Z",
-  "base_updated_at": "2026-07-23T12:14:04.342Z",
+  "updated_at": "2026-08-18T03:45:53.005Z",
+  "base_updated_at": "2026-08-18T01:19:45.374Z",
   "sheet": {
     "year": 2026,
     "receitas": [
@@ -341,6 +341,40 @@
         ]
       },
       {
+        "id": "ee1785155935926",
+        "label": "Sergio",
+        "expenseGroup": "extras",
+        "values": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          156.39,
+          0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "cellDetailsEnabled": true,
+        "cellDetails": {
+          "6": [
+            {
+              "id": "detail-ee1785155935926-6-1785156557961",
+              "name": "Aliexpress-divisões para a agenda",
+              "date": "2026-07-26",
+              "value": 156.39
+            }
+          ]
+        },
+        "cellTotalModes": {
+          "5": "exclude",
+          "6": "exclude"
+        }
+      },
+      {
         "id": "ee1784386430551",
         "label": "Rose",
         "expenseGroup": "extras",
@@ -351,7 +385,7 @@
           null,
           null,
           122,
-          661.5,
+          709.5,
           0,
           null,
           null,
@@ -392,6 +426,14 @@
               "name": "Estacionamento Deck Cantareira",
               "date": "2026-07-12",
               "value": 35
+            },
+            {
+              "id": "mob-ee1784386430551-6-1785155044792",
+              "name": "Café domingo 26/07",
+              "date": "2026-07-26",
+              "value": 48,
+              "installmentIndex": 1,
+              "installmentCount": 1
             }
           ]
         },
@@ -445,7 +487,7 @@
           null,
           null,
           61,
-          null,
+          0,
           null,
           null,
           null,
@@ -717,7 +759,7 @@
           null,
           null,
           null,
-          null,
+          27.36,
           null,
           null,
           null,
@@ -725,12 +767,32 @@
           null
         ],
         "cellDetailsEnabled": true,
-        "cellDetails": {}
+        "cellDetails": {
+          "6": [
+            {
+              "id": "mob-eg1784760132577-6-1785155078611",
+              "name": "Rose",
+              "date": "2026-07-25",
+              "value": 13.46,
+              "installmentIndex": 1,
+              "installmentCount": 1
+            },
+            {
+              "id": "detail-eg1784760132577-6-1785156340324",
+              "name": "Rose manhã",
+              "date": "",
+              "value": 13.9
+            }
+          ]
+        },
+        "cellTotalModes": {
+          "6": "exclude"
+        }
       },
       {
-        "id": "eg1784808479112",
-        "label": "teste 10",
-        "expenseGroup": "gasolina",
+        "id": "em1785156312565",
+        "label": "Spotfy",
+        "expenseGroup": "mercado",
         "values": [
           0,
           null,
@@ -738,15 +800,16 @@
           null,
           null,
           null,
-          null,
+          29.9,
           null,
           null,
           null,
           null,
           null
         ],
-        "cellDetailsEnabled": true,
-        "cellDetails": {}
+        "cellTotalModes": {
+          "6": "exclude"
+        }
       }
     ],
     "dividas": [
@@ -1926,7 +1989,7 @@
         {
           "fileName": "Bradesco Contrato 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Bradesco Contrato 469_15.pdf",
-          "uploadedAt": "2026-07-23T12:14:02.149Z",
+          "uploadedAt": "2026-08-18T01:19:43.084Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -1940,7 +2003,7 @@
         {
           "fileName": "Descritivo de Crédito 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Descritivo de Crédito 469_15.pdf",
-          "uploadedAt": "2026-07-23T12:14:02.151Z",
+          "uploadedAt": "2026-08-18T01:19:43.084Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -2847,7 +2910,7 @@
         {
           "fileName": "Saldo Devedor 469_15.pdf",
           "path": "projects/financas/contracts/pmdebt-097292-banco-bradesco-s-a-1/Saldo Devedor 469_15.pdf",
-          "uploadedAt": "2026-07-23T12:14:02.153Z",
+          "uploadedAt": "2026-08-18T01:19:43.085Z",
           "extracted": {
             "engine": "pdf-parse",
             "parser_version": 2,
@@ -6235,6 +6298,60 @@
         "cloudEntryId": "jjwYemwdKIIKZTFH4dnP",
         "importedAt": "2026-07-23T11:09:48.632Z",
         "createdAt": "2026-07-23T00:50:52.328Z"
+      },
+      {
+        "id": "cloud-09s69J3NxcGwMkUOKnrr-1785155044794",
+        "groupKey": "despesas",
+        "rowId": "ee1784386430551",
+        "rowLabel": "Rose",
+        "path": "Extras",
+        "name": "Café domingo 26/07",
+        "date": "2026-07-26",
+        "value": 48,
+        "installments": 1,
+        "appliedMonths": 1,
+        "appliedTargets": [
+          {
+            "groupKey": "despesas",
+            "rowId": "ee1784386430551",
+            "monthIdx": 6,
+            "kind": "detail",
+            "entryId": "mob-ee1784386430551-6-1785155044792",
+            "expectedValue": null,
+            "previousValue": null
+          }
+        ],
+        "source": "financas-mobile-cloud",
+        "cloudEntryId": "09s69J3NxcGwMkUOKnrr",
+        "importedAt": "2026-07-27T12:24:04.794Z",
+        "createdAt": "2026-07-26T21:19:41.146Z"
+      },
+      {
+        "id": "cloud-XBo4NIT3kyyq5UQ7P3Rl-1785155078612",
+        "groupKey": "despesas",
+        "rowId": "eg1784760132577",
+        "rowLabel": "UBER",
+        "path": "Carro/Transp.",
+        "name": "Rose",
+        "date": "2026-07-25",
+        "value": 13.46,
+        "installments": 1,
+        "appliedMonths": 1,
+        "appliedTargets": [
+          {
+            "groupKey": "despesas",
+            "rowId": "eg1784760132577",
+            "monthIdx": 6,
+            "kind": "detail",
+            "entryId": "mob-eg1784760132577-6-1785155078611",
+            "expectedValue": null,
+            "previousValue": null
+          }
+        ],
+        "source": "financas-mobile-cloud",
+        "cloudEntryId": "XBo4NIT3kyyq5UQ7P3Rl",
+        "importedAt": "2026-07-27T12:24:38.612Z",
+        "createdAt": "2026-07-25T12:12:55.065Z"
       }
     ]
   },

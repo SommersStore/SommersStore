@@ -3497,35 +3497,89 @@
                 #pane-forex .ibkr-inline-message { min-height:17px; margin-top:8px; color:#94a3b8; font-size:8px; line-height:1.4; }
                 #pane-forex .ibkr-inline-message.error { color:#fca5a5; }
                 #pane-forex .ibkr-inline-message.success { color:#6ee7b7; }
+                #pane-forex .protheus-kpis { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+                #pane-forex .protheus-kpi { min-height:78px; padding:11px; border:1px solid rgba(148,163,184,.14); border-radius:10px; background:rgba(15,23,42,.52); }
+                #pane-forex .protheus-kpi span { display:block; color:#94a3b8; font-size:7px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; }
+                #pane-forex .protheus-kpi strong { display:block; margin-top:7px; color:#f8fafc; font-size:12px; line-height:1.25; font-weight:950; }
+                #pane-forex .protheus-kpi.good strong { color:#6ee7b7; }
+                #pane-forex .protheus-kpi.bad strong { color:#fca5a5; }
+                #pane-forex .protheus-level-rail { position:relative; display:grid; grid-template-columns:repeat(7,minmax(54px,1fr)); align-items:end; gap:6px; margin-top:12px; min-height:102px; padding:15px 10px 10px; overflow:auto; border:1px solid rgba(148,163,184,.15); border-radius:10px; background:rgba(2,6,23,.5); }
+                #pane-forex .protheus-level-rail::before { content:''; position:absolute; left:24px; right:24px; top:49px; height:1px; background:linear-gradient(90deg,#166534,#22c55e,#d946ef,#60a5fa,#f59e0b,#92400e); }
+                #pane-forex .protheus-level { position:relative; z-index:1; display:grid; justify-items:center; gap:5px; color:#94a3b8; font-size:7px; font-weight:900; letter-spacing:.06em; text-align:center; text-transform:uppercase; }
+                #pane-forex .protheus-level i { width:9px; height:9px; border:2px solid #0f172a; border-radius:99px; background:#64748b; box-shadow:0 0 0 2px rgba(100,116,139,.35); }
+                #pane-forex .protheus-level.support i { background:#22c55e; box-shadow:0 0 0 2px rgba(34,197,94,.3); }
+                #pane-forex .protheus-level.balance i { background:#d946ef; box-shadow:0 0 0 2px rgba(217,70,239,.3); }
+                #pane-forex .protheus-level.vwap i { background:#60a5fa; box-shadow:0 0 0 2px rgba(96,165,250,.3); }
+                #pane-forex .protheus-level.price i { width:13px; height:13px; background:#f8fafc; box-shadow:0 0 0 3px rgba(248,250,252,.22); }
+                #pane-forex .protheus-level.resistance i { background:#f59e0b; box-shadow:0 0 0 2px rgba(245,158,11,.3); }
+                #pane-forex .protheus-level strong { color:#f8fafc; font-size:9px; letter-spacing:0; text-transform:none; }
+                #pane-forex .protheus-sequence { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px; margin-top:12px; }
+                #pane-forex .protheus-step { min-height:96px; padding:10px; border:1px solid rgba(148,163,184,.14); border-radius:9px; background:rgba(15,23,42,.46); }
+                #pane-forex .protheus-step b { display:grid; place-items:center; width:20px; height:20px; margin-bottom:8px; border-radius:6px; color:#dbeafe; background:rgba(59,130,246,.18); font-size:8px; }
+                #pane-forex .protheus-step span { display:block; color:#94a3b8; font-size:7px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; }
+                #pane-forex .protheus-step strong { display:block; margin-top:5px; color:#e2e8f0; font-size:9px; line-height:1.35; }
                 @media (max-width:950px) { #pane-forex .ibkr-grid { grid-template-columns:1fr; } #pane-forex .ibkr-flow { grid-template-columns:1fr; } }
                 @media (max-width:950px) { #pane-forex .ibkr-intel-split { grid-template-columns:1fr; } }
-                @media (max-width:620px) { #pane-forex .ibkr-shell { padding:8px; } #pane-forex .ibkr-topbar { flex-direction:column; padding:13px; } #pane-forex .ibkr-badges { justify-content:flex-start; } #pane-forex .ibkr-input-grid, #pane-forex .ibkr-outcomes, #pane-forex .ibkr-comparison, #pane-forex .ibkr-guardrails, #pane-forex .ibkr-quote-grid, #pane-forex .ibkr-candidate-grid { grid-template-columns:1fr; } #pane-forex .ibkr-option-summary { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+                @media (max-width:950px) { #pane-forex .protheus-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); } #pane-forex .protheus-sequence { grid-template-columns:1fr; } }
+                @media (max-width:620px) { #pane-forex .ibkr-shell { padding:8px; } #pane-forex .ibkr-topbar { flex-direction:column; padding:13px; } #pane-forex .ibkr-badges { justify-content:flex-start; } #pane-forex .ibkr-input-grid, #pane-forex .ibkr-outcomes, #pane-forex .ibkr-comparison, #pane-forex .ibkr-guardrails, #pane-forex .ibkr-quote-grid, #pane-forex .ibkr-candidate-grid, #pane-forex .protheus-kpis { grid-template-columns:1fr; } #pane-forex .ibkr-option-summary { grid-template-columns:repeat(2,minmax(0,1fr)); } }
             </style>
             <div id="ibkr-manual-desk" class="ibkr-shell">
                 <header class="ibkr-topbar">
                     <div class="ibkr-title">
                         <div class="ibkr-mark"><i data-lucide="shield-check" class="w-5 h-5"></i></div>
                         <div>
-                            <div class="ibkr-eyebrow">Mercados internacionais • execução manual</div>
-                            <h2 aria-label="IBKR Manual Desk">IBKR <span style="color:#60a5fa">Manual Desk</span></h2>
-                            <p>Uma tela para disciplinar a campanha 3x1, estudar proteção e, opcionalmente, consultar uma ponte local de dados. Nenhuma ordem é enviada pelo painel.</p>
+                            <div class="ibkr-eyebrow">Leitura de mercado • execução humana</div>
+                            <h2 aria-label="Protheus Market Desk">Protheus <span style="color:#60a5fa">Market Desk</span></h2>
+                            <p>Contexto visual do MT5 organizado pela síntese Gamma Levels + Fluxo e Opções. O painel observa, informa a qualidade dos dados e nunca envia ordens.</p>
                         </div>
                     </div>
                     <div class="ibkr-badges">
-                        <span class="ibkr-badge primary"><i data-lucide="building-2" class="w-3 h-3"></i> IBKR prioritária</span>
-                        <span class="ibkr-badge"><i data-lucide="mouse-pointer-click" class="w-3 h-3"></i> Manual primeiro</span>
-                        <span class="ibkr-badge"><i data-lucide="flask-conical" class="w-3 h-3"></i> Dukas: laboratório</span>
+                        <span class="ibkr-badge primary"><i data-lucide="candlestick-chart" class="w-3 h-3"></i> MT5 ActivTrades</span>
+                        <span class="ibkr-badge"><i data-lucide="eye" class="w-3 h-3"></i> Observador local</span>
+                        <span class="ibkr-badge"><i data-lucide="shield-check" class="w-3 h-3"></i> Paper only</span>
                     </div>
                 </header>
 
                 <nav class="ibkr-tabs" aria-label="Estratégias e fluxo manual">
-                    <button id="ibkr-tab-campaign" class="ibkr-tab active" type="button" onclick="switchIbkrDeskView('campaign')"><i data-lucide="git-branch" class="w-3 h-3"></i> Campanha 3x1</button>
+                    <button id="ibkr-tab-protheus" class="ibkr-tab active" type="button" onclick="switchIbkrDeskView('protheus')"><i data-lucide="candlestick-chart" class="w-3 h-3"></i> Protheus contexto</button>
+                    <button id="ibkr-tab-campaign" class="ibkr-tab" type="button" onclick="switchIbkrDeskView('campaign')"><i data-lucide="git-branch" class="w-3 h-3"></i> Campanha 3x1</button>
                     <button id="ibkr-tab-options" class="ibkr-tab" type="button" onclick="switchIbkrDeskView('options')"><i data-lucide="shield-plus" class="w-3 h-3"></i> Proteção por opções</button>
                     <button id="ibkr-tab-intelligence" class="ibkr-tab" type="button" onclick="switchIbkrDeskView('intelligence')"><i data-lucide="radio-tower" class="w-3 h-3"></i> Inteligência &amp; paper</button>
                     <button id="ibkr-tab-desk" class="ibkr-tab" type="button" onclick="switchIbkrDeskView('desk')"><i data-lucide="monitor-check" class="w-3 h-3"></i> Processo e plataformas</button>
                 </nav>
 
-                <section id="ibkr-view-campaign" class="ibkr-view active">
+                <section id="ibkr-view-protheus" class="ibkr-view active">
+                    <div class="ibkr-grid">
+                        <aside class="ibkr-panel ibkr-panel-pad">
+                            <div class="ibkr-section-label"><i data-lucide="radar" class="w-3 h-3"></i> Leitura do indicador MT5</div>
+                            <h3 style="margin:5px 0 4px">Gamma Levels + Fluxo e Opções</h3>
+                            <p class="ibkr-panel-note">A teoria dos cursos organiza a sequência. Na V2, PDL/PDH, VAL/POC/VAH e VWAP D-1 usam somente sessões encerradas e ficam congelados durante toda a sessão, independentemente do timeframe. Eles continuam sendo proxies de preço e tick volume — não são Gamma, OI, DOM ou agressão institucional.</p>
+                            <div class="ibkr-input-grid" style="margin-top:12px">
+                                <div class="ibkr-field full"><label for="protheus-context-symbol">Gráfico monitorado</label><select id="protheus-context-symbol" onchange="protheusSelectContext(this.value)"><option value="">Aguardando MT5</option></select></div>
+                            </div>
+                            <div class="ibkr-actions"><button class="ibkr-action" type="button" onclick="protheusLoadContext()"><i data-lucide="refresh-cw" class="w-3 h-3"></i> Atualizar leitura</button></div>
+                            <div id="protheus-context-message" class="ibkr-inline-message"></div>
+                            <div class="ibkr-risk-callout"><i data-lucide="shield-alert" class="w-3 h-3"></i><span>Observador local: nenhuma ordem é criada ou enviada. Dado vencido ou Gamma ausente bloqueia o playbook; o MT5 não inventa dados institucionais.</span></div>
+                        </aside>
+
+                        <section class="ibkr-panel">
+                            <div class="ibkr-panel-head"><div><div class="ibkr-section-label"><i data-lucide="scan-line" class="w-3 h-3"></i> Estado operacional auditável</div><h3>Qualidade antes da interpretação</h3></div><span class="ibkr-badge primary">paper only · sem ordens</span></div>
+                            <div class="ibkr-panel-pad">
+                                <div id="protheus-context-kpis" class="protheus-kpis"></div>
+                                <div id="protheus-context-rail" class="protheus-level-rail"></div>
+                                <p id="protheus-context-meta" class="ibkr-caption"></p>
+                            </div>
+                        </section>
+                    </div>
+
+                    <section class="ibkr-panel ibkr-panel-pad" style="margin-top:12px">
+                        <div class="ibkr-section-label"><i data-lucide="list-checks" class="w-3 h-3"></i> Sequência de leitura — não é sinal de entrada</div>
+                        <div id="protheus-context-sequence" class="protheus-sequence"></div>
+                        <div class="ibkr-footnote"><strong style="color:#bfdbfe">Como usar:</strong> leia contexto → volatilidade → Gamma/opções → localização → confirmação → risco. M5 e M15 podem produzir confirmações diferentes, mas o identificador e os preços do conjunto bloqueado devem ser os mesmos. Com “Opções” MISSING, observe o mapa local sem tratá-lo como sinal do curso.</div>
+                    </section>
+                </section>
+
+                <section id="ibkr-view-campaign" class="ibkr-view">
                     <div class="ibkr-grid">
                         <aside class="ibkr-panel ibkr-panel-pad">
                             <div class="ibkr-section-label"><i data-lucide="sliders-horizontal" class="w-3 h-3"></i> Simulador de uma nova oportunidade</div>
@@ -4085,7 +4139,8 @@ function openPrimaryHub(hub) {
         window.MASTER_SELECTED_ID = '';
         if (typeof persistMasterUiState === 'function') persistMasterUiState();
     }
-    switchTab('master');
+    const requestedInitialTab = new URLSearchParams(window.location.search || '').get('tab');
+    switchTab(requestedInitialTab === 'forex' ? 'forex' : 'master');
     activatePrimaryNav(hub);
 }
 
@@ -5362,7 +5417,7 @@ function openForexFile(path, title) {
     window.open('/api/file?path=' + encodeURIComponent(path), '_blank');
 }
 
-let IBKR_DESK_STATE = { activeView: 'campaign' };
+let IBKR_DESK_STATE = { activeView: 'protheus' };
 let IBKR_INTELLIGENCE_STATE = {
     initialized: false,
     status: null,
@@ -5373,6 +5428,7 @@ let IBKR_INTELLIGENCE_STATE = {
     ticketsLoading: false,
     candidates: []
 };
+let PROTHEUS_CONTEXT_STATE = { initialized: false, loading: false, items: [], selectedId: '' };
 
 function ibkrDeskNumber(id, fallback) {
     const field = document.getElementById(id);
@@ -5417,6 +5473,108 @@ async function ibkrDeskFetch(url, options) {
         throw error;
     }
     return payload;
+}
+
+function protheusFormatPrice(value) {
+    const number = Number(value);
+    if (!Number.isFinite(number)) return '—';
+    return number.toLocaleString('pt-BR', {
+        minimumFractionDigits: number < 10 ? 4 : 2,
+        maximumFractionDigits: number < 10 ? 5 : 2
+    });
+}
+
+function protheusRenderContext() {
+    const selector = document.getElementById('protheus-context-symbol');
+    const kpis = document.getElementById('protheus-context-kpis');
+    const rail = document.getElementById('protheus-context-rail');
+    const meta = document.getElementById('protheus-context-meta');
+    const sequence = document.getElementById('protheus-context-sequence');
+    if (!selector || !kpis || !rail || !meta || !sequence) return;
+
+    const items = Array.isArray(PROTHEUS_CONTEXT_STATE.items) ? PROTHEUS_CONTEXT_STATE.items : [];
+    selector.innerHTML = items.length
+        ? items.map(item => `<option value="${ibkrDeskEscape(item.id)}">${ibkrDeskEscape(item.symbol)} · ${ibkrDeskEscape(String(item.timeframe || '').replace('PERIOD_', ''))}</option>`).join('')
+        : '<option value="">Aguardando indicador MT5</option>';
+    if (items.length && !items.some(item => item.id === PROTHEUS_CONTEXT_STATE.selectedId)) PROTHEUS_CONTEXT_STATE.selectedId = items[0].id;
+    selector.value = PROTHEUS_CONTEXT_STATE.selectedId || '';
+    const context = items.find(item => item.id === PROTHEUS_CONTEXT_STATE.selectedId) || items[0];
+    if (!context) {
+        kpis.innerHTML = '<div class="ibkr-data-empty" style="grid-column:1/-1">Nenhum snapshot foi encontrado. Aplique o template Protheus Black Context no MT5 e mantenha o gráfico aberto por alguns segundos.</div>';
+        rail.innerHTML = '<div class="ibkr-data-empty" style="grid-column:1/-1">Os níveis aparecerão aqui quando o indicador publicar a leitura local.</div>';
+        meta.textContent = 'Fonte prevista: MetaTrader 5 · Common Files · Protheus. Nenhuma credencial é lida.';
+        sequence.innerHTML = '';
+        return;
+    }
+
+    const current = String(context.data_status || '').toUpperCase() === 'CURRENT';
+    const optionsCurrent = String(context.options_status || '').toUpperCase().startsWith('CURRENT');
+    const locked = context.schema === 'protheus.market-context.v2'
+        && String(context.level_policy || '') === 'SESSION_LOCKED_PREVIOUS_DATA'
+        && String(context.repaint || '').toLowerCase() === 'false';
+    const cards = [
+        ['Qualidade', context.data_status || 'MISSING', current ? 'good' : 'bad'],
+        ['Estrutura', locked ? 'LOCKED · NÃO REPAINTA' : 'LEGADO / NÃO AUDITADO', locked ? 'good' : 'bad'],
+        ['Regime local', context.regime || 'NÃO CLASSIFICADO', ''],
+        ['Gamma/opções', context.options_status || 'MISSING', optionsCurrent ? 'good' : 'bad']
+    ];
+    kpis.innerHTML = cards.map(([label, value, tone]) => `<article class="protheus-kpi ${tone}"><span>${ibkrDeskEscape(label)}</span><strong>${ibkrDeskEscape(value)}</strong></article>`).join('');
+
+    const levelDefinitions = [
+        [context.support2_label || 'S2', context.support2, 'support'],
+        [context.support1_label || 'S1', context.support1, 'support'],
+        [context.balance_label || 'Equilíbrio', context.balance, 'balance'],
+        [context.vwap_label || 'VWAP', context.vwap, 'vwap'],
+        ['Preço', context.price, 'price'],
+        [context.resistance1_label || 'R1', context.resistance1, 'resistance'],
+        [context.resistance2_label || 'R2', context.resistance2, 'resistance']
+    ].filter(([, value]) => Number.isFinite(Number(value))).sort((left, right) => Number(left[1]) - Number(right[1]));
+    rail.innerHTML = levelDefinitions.map(([label, value, tone]) => `<div class="protheus-level ${tone}"><span>${ibkrDeskEscape(label)}</span><i></i><strong>${protheusFormatPrice(value)}</strong></div>`).join('');
+
+    meta.textContent = `Conjunto: ${context.level_set_id || 'legado'} · congelado em: ${context.level_as_of || 'não informado'} · perfil: ${context.profile_timeframe || 'não informado'} / ${context.profile_days || '—'} sessões · fonte: ${context.source || 'BROKER_TICK_PROXY'} · último tick: ${context.market_as_of || 'não informado'} · idade: ${Number(context.data_age_minutes || 0).toFixed(1)} min.`;
+    const steps = [
+        ['Contexto', `${current ? 'Tick atual' : 'Dados vencidos'} · ${locked ? 'níveis bloqueados' : 'estrutura não auditada'}`],
+        ['Volatilidade', `ATR relativo ${Number(context.atr_ratio || 0).toFixed(2)} · ${context.regime || 'aguardando'}`],
+        ['Gamma/opções', optionsCurrent ? context.options_status : 'MISSING/STALE · playbook bloqueado'],
+        ['Localização', context.location || 'Aguardando localização'],
+        ['Confirmação', `${String(context.timeframe || '').replace('PERIOD_', '')} fechado · ${context.confirmation || 'sem confirmação'}`],
+        ['Risco', `${context.playbook || 'NO_TRADE'} · PAPER ONLY · nenhuma ordem`]
+    ];
+    sequence.innerHTML = steps.map(([label, value], index) => `<article class="protheus-step"><b>${index + 1}</b><span>${ibkrDeskEscape(label)}</span><strong>${ibkrDeskEscape(value)}</strong></article>`).join('');
+    ibkrSetInlineMessage(
+        'protheus-context-message',
+        current ? (optionsCurrent ? 'Níveis bloqueados e camada de opções disponíveis; confirme a fonte antes de usar.' : 'Níveis locais bloqueados e atuais. Gamma/OI continua ausente, não foi simulado e o playbook está em NO_TRADE.') : 'Dados MT5 vencidos. O playbook foi bloqueado até o gráfico receber ticks atuais.',
+        current ? (optionsCurrent ? 'success' : '') : 'error'
+    );
+}
+
+function protheusSelectContext(id) {
+    PROTHEUS_CONTEXT_STATE.selectedId = String(id || '');
+    protheusRenderContext();
+}
+
+async function protheusLoadContext() {
+    if (PROTHEUS_CONTEXT_STATE.loading) return;
+    PROTHEUS_CONTEXT_STATE.loading = true;
+    ibkrSetInlineMessage('protheus-context-message', 'Lendo o snapshot local do MT5…', '');
+    try {
+        const payload = await ibkrDeskFetch('/api/protheus/context');
+        PROTHEUS_CONTEXT_STATE.items = Array.isArray(payload.items) ? payload.items : [];
+    } catch (error) {
+        PROTHEUS_CONTEXT_STATE.items = [];
+        ibkrSetInlineMessage('protheus-context-message', error.message, 'error');
+    } finally {
+        PROTHEUS_CONTEXT_STATE.loading = false;
+        protheusRenderContext();
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+}
+
+function protheusInitializeContext() {
+    if (PROTHEUS_CONTEXT_STATE.initialized) return;
+    PROTHEUS_CONTEXT_STATE.initialized = true;
+    protheusRenderContext();
+    protheusLoadContext();
 }
 
 function ibkrRenderPaperForm() {
@@ -5595,10 +5753,11 @@ function ibkrInitializeIntelligence() {
 }
 
 function switchIbkrDeskView(view) {
-    IBKR_DESK_STATE.activeView = ['campaign', 'options', 'intelligence', 'desk'].includes(view) ? view : 'campaign';
+    IBKR_DESK_STATE.activeView = ['protheus', 'campaign', 'options', 'intelligence', 'desk'].includes(view) ? view : 'protheus';
     document.querySelectorAll('#ibkr-manual-desk .ibkr-view').forEach(element => element.classList.toggle('active', element.id === `ibkr-view-${IBKR_DESK_STATE.activeView}`));
     document.querySelectorAll('#ibkr-manual-desk .ibkr-tab').forEach(element => element.classList.toggle('active', element.id === `ibkr-tab-${IBKR_DESK_STATE.activeView}`));
     if (IBKR_DESK_STATE.activeView === 'intelligence') ibkrInitializeIntelligence();
+    if (IBKR_DESK_STATE.activeView === 'protheus') protheusInitializeContext();
     if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
@@ -20662,9 +20821,10 @@ window.fin2MobileCloudApplyEntry = async function(entryId, options = {}) {
     createdAt: String(entry.createdAtDevice || new Date().toISOString())
   });
   let markedImported = false;
+  let importedResult = null;
   try {
     if (entry.cloudDocName) {
-      await fin2MobileCloudApi('/api/financas/mobile-cloud/imported', {
+      importedResult = await fin2MobileCloudApi('/api/financas/mobile-cloud/imported', {
         method: 'POST',
         body: JSON.stringify({ docName: entry.cloudDocName })
       });
@@ -20676,7 +20836,11 @@ window.fin2MobileCloudApplyEntry = async function(entryId, options = {}) {
   fin2MobileCloud.entries = fin2MobileCloud.entries.filter(item => item.id !== entry.id);
   fin2EnsureMobileState();
   fin2MobileForm.status = `${fin2MobileGroupLabel(groupKey)} importada do Cloud Inbox.`;
-  fin2MobileCloudSetStatus(markedImported ? 'Pendencia importada e marcada como conferida na nuvem.' : 'Importei localmente, mas nao consegui marcar a nuvem agora.');
+  fin2MobileCloudSetStatus(markedImported
+    ? (importedResult && importedResult.imported && importedResult.imported.deleted === true
+      ? 'Pendencia importada e removida do celular.'
+      : 'Pendencia importada e fechada na nuvem.')
+    : 'Importei localmente, mas nao consegui marcar a nuvem agora.');
   fin2RenderSheet();
   fin2RenderMobile();
   fin2TriggerAutoSave();

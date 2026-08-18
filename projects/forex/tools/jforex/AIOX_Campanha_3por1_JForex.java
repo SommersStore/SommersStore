@@ -34,9 +34,9 @@ public class AIOX_Campanha_3por1_JForex implements IStrategy {
     @Configurable("H1 Period")
     public Period h1Period = Period.ONE_HOUR;
     @Configurable("M15 Period")
-    public Period m15Period = Period.fifteenMin();
+    public Period m15Period = Period.FIFTEEN_MINS;
     @Configurable("M5 Period")
-    public Period m5Period = Period.fiveMin();
+    public Period m5Period = Period.FIVE_MINS;
 
     @Configurable("EMA Fast (Trend)")
     public int emaFast = 20;
@@ -103,8 +103,8 @@ public class AIOX_Campanha_3por1_JForex implements IStrategy {
         }
 
         // Listen for order close events
-        if (message.getType() == IMessage.Type.ORDER_CLOSE_OK || message.getType() == IMessage.Type.ORDER_CLOSE_BY_SYSTEM) {
-            double profit = order.getProfitUSD();
+        if (message.getType() == IMessage.Type.ORDER_CLOSE_OK) {
+            double profit = order.getProfitLossInUSD();
             console.getOut().println("Order closed: " + order.getLabel() + " | Profit USD: " + profit);
 
             if (profit > 0) {
@@ -186,18 +186,18 @@ public class AIOX_Campanha_3por1_JForex implements IStrategy {
 
         if (isBullish && m15Rsi > 50) {
             // Execute BUY Order
-            executeTrade(OrderCommand.BUY, m15Atr);
+            executeTrade(IEngine.OrderCommand.BUY, m15Atr);
         } else if (isBearish && m15Rsi < 50) {
             // Execute SELL Order
-            executeTrade(OrderCommand.SELL, m15Atr);
+            executeTrade(IEngine.OrderCommand.SELL, m15Atr);
         }
     }
 
     /**
      * Submits a market order to Dukascopy Engine with correct Stop Loss, Take Profit and dynamic lot sizing
      */
-    private void executeTrade(OrderCommand command, double atrM15) throws JFException {
-        double entryPrice = (command == OrderCommand.BUY) ? history.getLastTick(instrument).getAsk() : history.getLastTick(instrument).getBid();
+    private void executeTrade(IEngine.OrderCommand command, double atrM15) throws JFException {
+        double entryPrice = (command == IEngine.OrderCommand.BUY) ? history.getLastTick(instrument).getAsk() : history.getLastTick(instrument).getBid();
         double pipValue = instrument.getPipValue();
 
         // Stop Loss calculation (Playbook rule: Stop below pullback or minimum 1.5 * ATR M15)
@@ -207,7 +207,7 @@ public class AIOX_Campanha_3por1_JForex implements IStrategy {
         }
 
         double slPrice, tpPrice;
-        if (command == OrderCommand.BUY) {
+        if (command == IEngine.OrderCommand.BUY) {
             slPrice = entryPrice - slDistance;
             tpPrice = entryPrice + (1.6 * slDistance); // Playbook rule: 1.6R reward
         } else {

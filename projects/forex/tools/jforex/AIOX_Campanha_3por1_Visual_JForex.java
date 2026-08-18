@@ -7,7 +7,7 @@ import com.dukascopy.api.*;
  * Instead, when started, it automatically:
  * 1. Opens or targets the chart for the configured Instrument (e.g., EURUSD).
  * 2. Plots the required EMAs (20, 50, 200) onto the chart.
- * 3. Plots the RSI (14) and ATR (14) indicators.
+ * 3. Plots the SOMMA FP pressure histogram with marked S/R zones.
  *
  * This leaves your screen perfectly prepared for manual trading according to the Campanha 3 por 1 strategy.
  */
@@ -17,7 +17,7 @@ public class AIOX_Campanha_3por1_Visual_JForex implements IStrategy {
     private IIndicators indicators;
 
     @Configurable("Instrumento")
-    public Instrument instrument = Instrument.EURUSD;
+    public Instrument instrument = Instrument.XAUUSD;
 
     @Override
     public void onStart(IContext context) throws JFException {
@@ -28,10 +28,8 @@ public class AIOX_Campanha_3por1_Visual_JForex implements IStrategy {
 
         // 1. Obter ou abrir o gráfico do instrumento
         IChart chart = context.getChart(instrument);
-        if (chart == null) {
-            console.getOut().println("Gráfico não estava aberto. Abrindo novo gráfico para " + instrument + "...");
-            chart = context.openChart(instrument);
-        }
+        if (chart == null)
+            console.getWarn().println("Abra um gráfico de " + instrument + " antes de iniciar o template visual.");
 
         if (chart != null) {
             // 2. Adicionar as Médias Móveis Exponenciais (EMAs)
@@ -40,10 +38,10 @@ public class AIOX_Campanha_3por1_Visual_JForex implements IStrategy {
             chart.add(indicators.getIndicator("EMA"), new Object[] { 50 });
             chart.add(indicators.getIndicator("EMA"), new Object[] { 200 });
 
-            // 3. Adicionar RSI e ATR
-            console.getOut().println("Plotando RSI (14) e ATR (14) no gráfico...");
-            chart.add(indicators.getIndicator("RSI"), new Object[] { 14 });
-            chart.add(indicators.getIndicator("ATR"), new Object[] { 14 });
+            // 3. Rodape visual unico com histograma e zonas S/R marcadas
+            String customName = indicators.registerCustomIndicator(SOMMA_FP_Pressure_JForex.class);
+            console.getOut().println("Plotando SOMMA FP Pressao S/R + Volume: " + customName);
+            chart.add(indicators.getIndicator(customName));
 
             console.getOut().println(">>> Gráfico configurado com sucesso! Setup visual pronto para operação manual. <<<");
         } else {

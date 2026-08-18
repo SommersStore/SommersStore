@@ -25,6 +25,7 @@ const {
     evaluateGitSyncPreflight,
     cloudSyncSucceeded
 } = require('./cloud_sync_guardrails');
+const { loadProtheusContexts } = require('./protheus_context_reader');
 const { syncProjectMirror, readProjectMirrorState } = require('./project_mirror_sync');
 require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 let YoutubeTranscript = null;
@@ -70,6 +71,9 @@ const FINANCAS_MOBILE_SECTION_FALLBACK = {
 };
 const IBKR_INTEGRATION_CONFIG_PATH = path.join(FOREX_DATA_DIR, 'ibkr_integration.json');
 const IBKR_PAPER_TICKETS_PATH = path.join(FOREX_DATA_DIR, 'ibkr_paper_tickets.json');
+const PROTHEUS_MT5_CONTEXT_DIR = process.env.PROTHEUS_MT5_CONTEXT_DIR || path.join(
+    process.env.APPDATA || '', 'MetaQuotes', 'Terminal', 'Common', 'Files', 'Protheus'
+);
 const IR_OPEN_ALLOWED_ROOTS = [
     'C:\\Arquivos de Programas RFB',
     'C:\\Program Files RFB',
@@ -1159,6 +1163,12 @@ function assertAllowedIbkrOrigin(req, res) {
     return false;
 }
 
+function assertAllowedProtheusOrigin(req, res) {
+    if (hasAllowedIbkrOrigin(req)) return true;
+    sendJson(res, { ok: false, error: 'A API de contexto Protheus aceita somente chamadas locais.' }, 403);
+    return false;
+}
+
 async function fetchIbkrLocalBridge(config, kind, query = {}) {
     const endpointPath = kind === 'health' ? config.bridge.health_path : config.bridge.intelligence_path;
     const endpoint = new URL(endpointPath, `${config.bridge.base_url}/`);
@@ -1940,7 +1950,13 @@ async function financasMobileCloudMarkImported(docName) {
         firestoreResourceApiPath(safeDocName, firestoreUpdateMaskQuery(Object.keys(payload))),
         { fields: firestoreFieldsFromObject(payload) }
     );
-    return payload;
+    try {
+        await financasMobileCloudDeleteDocument(safeDocName);
+        return { ...payload, deleted: true };
+    } catch (error) {
+        console.warn('[FIN2] mobile cloud imported delete skipped:', error.message);
+        return { ...payload, deleted: false, deleteError: error.message || 'Nao consegui remover a pendencia importada.' };
+    }
 }
 
 async function financasMobileCloudDeleteDocument(docName) {
@@ -4817,6 +4833,18 @@ const server = http.createServer(async (req, res) => {
         if (pathname === '/api/ibkr/status' && req.method === 'GET') {
             if (!assertAllowedIbkrOrigin(req, res)) return;
             return sendJson(res, await ibkrStatusPayload());
+        }
+
+        if (pathname === '/api/protheus/context' && req.method === 'GET') {
+            if (!assertAllowedProtheusOrigin(req, res)) return;
+            return sendJson(res, {
+                ok: true,
+                mode: 'observer_only',
+                live_orders_enabled: false,
+                source: 'MT5_COMMON_FILES',
+                read_at: nowIso(),
+                items: loadProtheusContexts(PROTHEUS_MT5_CONTEXT_DIR)
+            });
         }
 
         if (pathname === '/api/ibkr/intelligence' && req.method === 'GET') {

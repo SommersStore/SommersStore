@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const vm = require('node:vm');
 const ibkrBridge = require('../../scripts/ibkr_local_bridge.js');
+const protheusContextReader = require('../../scripts/protheus_context_reader.js');
 const cloudSyncGuardrails = require('../../scripts/cloud_sync_guardrails.js');
 const projectMirror = require('../../scripts/project_mirror_sync.js');
 
@@ -88,13 +89,15 @@ function testIntegrationPoints() {
   assert.match(dashboardHtml, /master-system-link-pajero-full/, 'dashboard should preserve Pajero Full through Master system shortcuts');
   assert.match(dashboardHtml, /id="pane-pajero-full"/, 'dashboard should render a Pajero Full pane');
   assert.match(dashboardHtml, /id="pane-forex"/, 'dashboard should render a Forex pane');
-  assert.match(dashboardHtml, /IBKR Manual Desk/, 'Forex pane should expose the IBKR-first manual desk');
+  assert.match(dashboardHtml, /Protheus Market Desk/, 'Forex pane should expose the Protheus market context first');
+  assert.match(dashboardHtml, /id="ibkr-view-protheus"/, 'Forex pane should expose the Protheus MT5 context view');
+  assert.match(dashboardHtml, /Gamma Levels \+ Fluxo e Opções/, 'Protheus context should disclose its course synthesis');
   assert.match(dashboardHtml, /Campanha 3x1/, 'Forex pane should expose the 3x1 campaign view');
   assert.match(dashboardHtml, /Proteção por opções/, 'Forex pane should expose an independent options-protection view');
   assert.match(dashboardHtml, /alvo 1,5R/, 'Forex simulator should use the user-defined 1.5R target');
   assert.match(dashboardHtml, /Ganha 1, perde 2/, 'Forex simulator should expose the second-level loss outcome');
-  assert.match(dashboardHtml, /Dukas: laboratório/, 'Forex should retain Dukascopy as secondary research, not the primary journey');
-  assert.match(dashboardHtml, /Nenhuma ordem é enviada/, 'Forex should state that the dashboard does not send broker orders');
+  assert.match(dashboardHtml, /MT5 ActivTrades/, 'Forex should identify the current operational MT5 target');
+  assert.match(dashboardHtml, /nunca envia ordens|nenhuma ordem é criada ou enviada/i, 'Forex should state that the dashboard does not send broker orders');
   assert.match(dashboardHtml, /function renderForexPanel\(/, 'Forex should define a renderer');
   assert.match(dashboardHtml, /function switchIbkrDeskView\(view\)/, 'Forex should expose IBKR desk tabs');
   assert.match(dashboardHtml, /function renderIbkrManualDesk\(\)/, 'Forex should expose interactive campaign and options calculations');
@@ -146,12 +149,13 @@ function testIntegrationPoints() {
   assert.match(mt4TraderOnChart, /SmartBEOffsetPips/, 'MT4 Trader On Chart EA should expose smart breakeven cost coverage');
   assert.match(mt5TraderOnChart, /AIOX_TOC_BTN_STRADDLE/, 'MT5 Trader On Chart EA should expose straddle orders');
   assert.match(mt5TraderOnChart, /ApplyTrailingStops/, 'MT5 Trader On Chart EA should expose trailing stop management');
-  assert.match(mt5TraderOnChart, /#property version\s+"1\.32"/, 'MT5 Trader On Chart EA should be v1.32');
+  assert.match(mt5TraderOnChart, /#property version\s+"1\.33"/, 'MT5 Trader On Chart EA should be v1.33');
   assert.match(mt5TraderOnChart, /PanelScalePercent\s*=\s*135/, 'MT5 Trader On Chart EA should default to 135 percent panel scale');
   assert.match(mt5TraderOnChart, /PipSizeOverride/, 'MT5 Trader On Chart EA should expose pip-size override for CFDs and crypto');
   assert.match(mt5TraderOnChart, /IsForexSymbol/, 'MT5 Trader On Chart EA should detect Forex symbols before auto-scaling pip size');
   assert.match(mt5TraderOnChart, /SpreadText/, 'MT5 Trader On Chart EA should show spread with configured max');
-  assert.match(mt5TraderOnChart, /COLOR_BG\s*=\s*C'250,250,250'/, 'MT5 Trader On Chart EA should use a light TOC-style panel background');
+  assert.match(mt5TraderOnChart, /PanelFontScalePercent\s*=\s*82/, 'MT5 Trader On Chart EA should expose slim typography independently of panel size');
+  assert.match(mt5TraderOnChart, /COLOR_BG\s*=\s*C'12,18,28'/, 'MT5 Trader On Chart EA should use an opaque dark panel background');
   assert.match(mt5TraderOnChart, /COLOR_BUY\s*=\s*C'35,160,55'/, 'MT5 Trader On Chart EA should use TOC-style green buy button');
   assert.match(mt5TraderOnChart, /AIOX_TOC_BTN_MODE_CYCLE/, 'MT5 Trader On Chart EA should expose compact risk mode selector');
   assert.match(mt5TraderOnChart, /AIOX_TOC_LBL_SYMBOL/, 'MT5 Trader On Chart EA should expose symbol header like a chart trade panel');
@@ -287,9 +291,13 @@ function testIntegrationPoints() {
   assert.match(financasMobileCloudClient, /const destinationCatalog = liveDestinations \|\| destinations/, 'Financas Mobile Cloud should keep the static catalog as a fallback');
   assert.match(financasMobileCloudClient, /NEXT_PUBLIC_FINANCAS_FIREBASE_API_KEY/, 'Financas Mobile Cloud should read Firebase config from public build env vars');
   assert.match(financasMobileCloudClient, /signInAnonymously/, 'Financas Mobile Cloud should authenticate the phone launcher without asking for a password');
-  assert.match(financasMobileCloudClient, /getDoc\(doc\(db, "financasMobileControl", "main"\)\)/, 'Financas Mobile Cloud should read the emergency enable/disable control document');
+  assert.match(financasMobileCloudClient, /onSnapshot\(\s*doc\(db, "financasMobileControl", "main"\)/, 'Financas Mobile Cloud should listen to the emergency enable/disable control document');
   assert.doesNotMatch(financasMobileCloudClient, /signInWithEmailAndPassword/, 'Financas Mobile Cloud should not ask for email/password on the phone launcher');
   assert.match(financasMobileCloudClient, /addDoc\(collection\(services\.db, "users", user\.uid, "financasMobileInbox"\)/, 'Financas Mobile Cloud should save pending launches under the signed-in user inbox');
+  assert.match(financasMobileCloudClient, /collection\(services\.db, "users", user\.uid, "financasMobileInbox"\)[\s\S]*?normalizeInboxEntry/, 'Financas Mobile Cloud should load the signed-in user pending history from Firestore');
+  assert.match(financasMobileCloudClient, /updateDoc\(doc\(services\.db, "users", user\.uid, "financasMobileInbox", editingEntryId\)/, 'Financas Mobile Cloud should update an existing pending launch when edited from history');
+  assert.match(financasMobileCloudClient, /deleteDoc\(doc\(services\.db, "users", user\.uid, "financasMobileInbox", entryId\)\)/, 'Financas Mobile Cloud should let the phone remove its own pending launch before notebook import');
+  assert.match(financasMobileCloudClient, /Historico pendente/, 'Financas Mobile Cloud should show pending mobile history until notebook import confirms it');
   assert.match(financasMobileCloudClient, /destinationRowId: selectedDestination\.id/, 'Financas Mobile Cloud should save the selected sheet destination id');
   assert.match(financasMobileCloudClient, /destinationPath: selectedDestination\.path/, 'Financas Mobile Cloud should save the selected sheet destination category');
   assert.match(financasMobileCloudClient, /destinationCategoryLabel: selectedDestination\.categoryLabel/, 'Financas Mobile Cloud should save the selected subcategory label');
@@ -303,7 +311,7 @@ function testIntegrationPoints() {
   assert.match(financasMobileCloudClient, /if \(!hasFirebaseConfig\)[\s\S]*?Sommer&apos;s Store[\s\S]*?Finanças Mobile/, 'Financas Mobile Cloud should keep setup mode with the requested app title and brand');
   assert.match(financasMobileCloudClient, /<header className="text-center">[\s\S]*?Sommer&apos;s Store[\s\S]*?Finanças Mobile/, 'Financas Mobile Cloud header should center the requested title and brand');
   assert.match(financasMobileCloudClient, /label: "RECEITAS"[\s\S]*?border-sky-400[\s\S]*?label: "DESPESAS"[\s\S]*?border-emerald-400[\s\S]*?label: "DÍVIDAS"[\s\S]*?border-red-400/, 'Financas Mobile Cloud should color Receitas, Despesas and Dividas using the sheet palette');
-  assert.match(financasMobileCloudClient, />\s*SALVAR\s*</, 'Financas Mobile Cloud save button should use the compact SALVAR label');
+  assert.match(financasMobileCloudClient, /editingEntryId \? "ATUALIZAR" : "SALVAR"/, 'Financas Mobile Cloud save button should switch to update mode when editing pending history');
   assert.doesNotMatch(financasMobileCloudClient, /const \[note, setNote\]|note: note\.trim\(\)|Observacao|Observação|Salvar na nuvem|Salvando na nuvem|O notebook importa automaticamente|Lancamentos para sincronizar automaticamente|Lançamentos para sincronizar automaticamente|Cloud 24h|CLOUD 24H/, 'Financas Mobile Cloud should remove note and explanatory sync/cloud copy from the app form');
   assert.match(dashboardHtml, /id="fin2-mobile-cloud-inbox"/, 'Financas local Mobile pane should render the app emergency control');
   assert.match(dashboardHtml, /const FIN2_MOBILE_CLOUD_APP_URL = 'https:\/\/sommersstore-c6c23\.web\.app\/financas-mobile-cloud';/, 'Financas local Mobile pane should open the hosted cloud app instead of localhost');
@@ -330,8 +338,12 @@ function testIntegrationPoints() {
   assert.match(dashboardHtml, /source: 'financas-mobile-cloud'/, 'Financas local Mobile pane should preserve cloud launch origin in local history');
   assert.match(dashboardHtml, /rowSelect && rowSelect\.value \|\| entry\.destinationRowId/, 'Financas local Mobile pane should default imports to the destination chosen on the phone');
   assert.match(dashboardHtml, /\/api\/financas\/mobile-cloud\/imported/, 'Financas local Mobile pane should mark imported cloud launches through the local server bridge');
+  assert.match(serverJs, /financasMobileCloudDeleteDocument\(safeDocName\)/, 'server should remove cloud inbox documents after notebook import is confirmed');
+  assert.match(dashboardHtml, /Pendencia importada e removida do celular/, 'Financas local Mobile pane should report imported launches as removed from the phone queue');
   assert.match(firestoreRules, /match \/users\/\{userId\}\/financasMobileInbox\/\{entryId\}/, 'Firestore rules should scope Financas Mobile Cloud launches per user');
   assert.match(firestoreRules, /request\.auth\.uid == userId/, 'Firestore rules should require the signed-in user to own the inbox');
+  assert.match(firestoreRules, /allow update:[\s\S]*?resource\.data\.status == 'pending'[\s\S]*?request\.resource\.data\.status == 'pending'/, 'Firestore rules should only let the phone edit pending inbox documents');
+  assert.match(firestoreRules, /allow delete:[\s\S]*?resource\.data\.status == 'pending'/, 'Firestore rules should only let the phone delete pending inbox documents');
   assert.match(firestoreRules, /match \/financasMobileControl\/main/, 'Firestore rules should expose the mobile emergency control as read-only to clients');
   assert.match(dashboardHtml, /name: 'Dukascopy',[\s\S]*?platform: 'MetaTrader 5'/, 'Financas investments should highlight Dukascopy with MetaTrader 5');
   assert.match(dashboardHtml, /function fin2InvestmentFutureValue\(current, monthly, annualRate, months\)/, 'Financas investments should calculate compound projections');
@@ -1042,6 +1054,34 @@ function testIbkrPaperOnlyBridge() {
   assert.equal(ticket.broker_transmission, false, 'paper ticket must never be transmitted by the server');
 }
 
+function testProtheusMt5ContextObserver() {
+  const serverJs = fs.readFileSync(path.join(ROOT, 'scripts/dashboard_server.js'), 'utf8');
+  const dashboardHtml = fs.readFileSync(path.join(ROOT, 'docs/aiox_dashboard.html'), 'utf8');
+  const sample = [
+    'schema;generated_at;market_as_of;data_status;data_age_minutes;symbol;timeframe;source;options_status;options_as_of;regime;playbook;price;support2;support1;balance;vwap;resistance1;resistance2;atr;atr_ratio;tick_volume_ratio;location;confirmation;warning',
+    'protheus.market-context.v1;2026.08.17 21:00:00;2026.08.17 20:55:00;CURRENT;5;EURUSD;PERIOD_M5;BROKER_TICK_PROXY;MISSING;;EXPANSAO PROXY;P2 OBSERVAR EXPANSAO;1.15935;1.15248;1.15605;1.15373;1.15415;1.15986;1.16036;0.00063;1.648;1.401;PROXIMO R1;SEM CONFIRMACAO;Proxy local'
+  ].join('\n');
+  const parsed = protheusContextReader.parseSemicolonSnapshot(sample);
+
+  assert.equal(parsed.symbol, 'EURUSD', 'MT5 context parser should retain the chart symbol');
+  assert.equal(parsed.price, 1.15935, 'MT5 context parser should normalize numeric levels');
+  assert.equal(parsed.data_status, 'CURRENT', 'MT5 context parser should retain explicit freshness');
+  const sampleV2 = [
+    'schema;generated_at;market_as_of;data_status;data_age_minutes;symbol;timeframe;source;level_set_id;level_as_of;profile_days;profile_bars;level_policy;repaint;price;support2;support1;balance;vwap;resistance1;resistance2',
+    'protheus.market-context.v2;2026.08.18 04:10:00;2026.08.18 04:10:00;CURRENT;0;GOLD;PERIOD_M15;BROKER_TICK_PROXY;GOLD-20260818-LOCKED;2026.08.17 23:59:59;5;6900;SESSION_LOCKED_PREVIOUS_DATA;false;4400.00;4367.18;4370.15;4395.47;4400.94;4420.78;4428.73'
+  ].join('\n');
+  const parsedV2 = protheusContextReader.parseSemicolonSnapshot(sampleV2);
+  assert.equal(parsedV2.schema, 'protheus.market-context.v2', 'MT5 context parser should accept the locked V2 schema');
+  assert.equal(parsedV2.level_set_id, 'GOLD-20260818-LOCKED', 'V2 parser should retain the immutable level-set identifier');
+  assert.equal(parsedV2.profile_bars, 6900, 'V2 parser should normalize profile metadata');
+  assert.equal(parsedV2.repaint, 'false', 'V2 parser should retain the explicit non-repaint contract');
+  assert.match(serverJs, /\/api\/protheus\/context/, 'server should expose a read-only Protheus context endpoint');
+  assert.match(serverJs, /live_orders_enabled: false/, 'Protheus context endpoint must explicitly disable live orders');
+  assert.match(dashboardHtml, /function protheusLoadContext\(\)/, 'dashboard should load MT5 context without credentials');
+  assert.match(dashboardHtml, /LOCKED · NÃO REPAINTA/, 'dashboard should expose the V2 immutable-level contract');
+  assert.match(dashboardHtml, /não são Gamma, OI, DOM ou agressão institucional/, 'dashboard should distinguish local proxies from institutional option data');
+}
+
 function testCloudSyncGuardrails() {
   const dashboardHtml = fs.readFileSync(path.join(ROOT, 'docs/aiox_dashboard.html'), 'utf8');
   const serverJs = fs.readFileSync(path.join(ROOT, 'scripts/dashboard_server.js'), 'utf8');
@@ -1200,6 +1240,7 @@ function run() {
   testPersonaMaterials();
   testIntegrationPoints();
   testIbkrPaperOnlyBridge();
+  testProtheusMt5ContextObserver();
   testCloudSyncGuardrails();
   testProjectMirrorConfiguration();
   testDashboardInlineScriptsParse();

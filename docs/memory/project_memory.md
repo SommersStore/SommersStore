@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-07-23T09:29:58-03:00
+- updated_at: 2026-08-18T00:45:53-03:00
 
 ## Handoff Atual - Financas Mobile Parcelamentos e Sync
 - timestamp: 2026-07-18T22:23:59-03:00
@@ -728,6 +728,11 @@
 - proxima_acao: revisar refinamento editorial/visual dos entregaveis com o usuario e, em seguida, acrescentar a esteira de Upsell e Downsell mantendo o mesmo modelo de producao real.
 
 ## Ultimo fechamento
+- timestamp: 2026-08-18T00:45:53-03:00
+- tipo: usuario
+- resumo: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
+- proxima_acao: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
+- checkpoint: CHK-MEM-0823
 - timestamp: 2026-07-23T09:16:31-03:00
 - tipo: usuario
 - resumo: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
@@ -860,6 +865,31 @@
 - checkpoint: CHK-MEM-0250
 
 ## Ultimo fechamento automatico
+- timestamp: 2026-08-16T21:19:57-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0822
+- timestamp: 2026-07-27T09:52:29-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0821
+- timestamp: 2026-07-27T09:51:27-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0820
+- timestamp: 2026-07-27T09:47:49-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0819
+- timestamp: 2026-07-23T09:50:48-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0818
 - timestamp: 2026-07-23T09:29:58-03:00
 - tipo: automatico
 - resumo: Encerramento automatico (fechamento de aba/janela).
@@ -3894,3 +3924,33 @@
 - deploy: Firebase Hosting publicado na versao `b0fa421391879c29`, mantendo a URL `https://sommersstore-c6c23.web.app/financas-mobile-cloud`.
 - proxima_acao: Usar `reiniciar_painel.bat` quando houver alteracao server-side; para uso diario, F5/abrir o painel basta para importar dados e atualizar a tela.
 - checkpoint: CHK-FIN-02110-REAL-RESTART-CATALOG
+
+## Registro Manual - 2026-07-27T09:31:00-03:00
+- tipo: ajuste-historico-pendente-financas-mobile
+- resumo: O Financas Mobile Cloud agora mantem no celular um historico/fila de lancamentos pendentes ate a primeira importacao confirmada pelo notebook.
+- comportamento: O app publico escuta `users/{uid}/financasMobileInbox`, mostra `Historico pendente`, permite editar o lancamento no mesmo documento Firestore com `updateDoc` ou excluir pendencias com `deleteDoc`. O controle de emergencia `financasMobileControl/main` passou a ser acompanhado em tempo real no app.
+- importacao_notebook: Quando o painel local importa um item pendente para `projects/financas/data/fin2_data.json`, o servidor marca o documento como `imported` e tenta remove-lo da inbox cloud. Assim o historico some automaticamente do celular depois que o computador recebeu os dados.
+- seguranca_operacional: Regras Firestore permitem ao proprio usuario apenas criar/editar/excluir documentos `pending`; itens importados nao ficam editaveis pelo celular.
+- validacao: Passaram `npm run lint`, `npm run typecheck`, `npm test`, `projects/loja-digital npm run typecheck`, lint focado de `app/financas-mobile-cloud` e `projects/loja-digital npm run build`. Firebase rules + Hosting publicados na versao `a8245ba95195b7ad`; scan remoto confirmou `Historico pendente`, `ATUALIZAR`, `deleteDoc` e `updateDoc`.
+- status_local: `start_painel.bat restart` reiniciou o servidor local; `/api/financas/mobile-cloud/status` viu 3 pendencias inicialmente e depois voltou `pending_count: 0` apos a primeira abertura/atualizacao do painel.
+- proxima_acao: No uso diario, lancar no celular; se precisar corrigir antes de importar, tocar no item em `Historico pendente` e usar `ATUALIZAR`. Ao abrir/F5 na planilha do notebook, os pendentes sao importados e removidos do celular.
+- checkpoint: CHK-FIN-02110-PENDING-HISTORY-ACK
+
+## Registro Manual - 2026-08-17T23:31:00-03:00
+- tipo: integracao-protheus-market-context-v2
+- resumo: A view `Protheus contexto` da aba Forex foi atualizada para consumir `protheus.market-context.v2`, exibindo níveis bloqueados por sessão e distinguindo estrutura local de Gamma/OI real.
+- comportamento: O leitor aceita V1/V2, normaliza os novos campos, elimina snapshots duplicados por símbolo/timeframe e mostra `LOCKED · NÃO REPAINTA`, PDL, VAL5D, POC5D, VWAP D-1, VAH5D e PDH. A sequência visual passou a ser contexto, volatilidade, Gamma/opções, localização, confirmação e risco.
+- seguranca_operacional: O endpoint permanece somente loopback, retorna `live_orders_enabled: false` e mantém `NO_TRADE` quando Gamma/OI está `MISSING` ou `STALE`.
+- validacao: Endpoint confirmou GOLD/M5 `CURRENT`, `GOLD-20260818-LOCKED`, `repaint=false`; captura headless não registrou erros. Passaram `npm run lint`, `npm run typecheck` e `npm test`.
+- evidencia: `artifacts/protheus-market-desk-v2-20260817.png`.
+- proxima_acao: Acompanhar o diário de 30 sessões no projeto canônico Protheus e só enriquecer Gamma/OI quando existir fonte licenciada com `as_of` verificável.
+- checkpoint: CHK-FOREX-PROTHEUS-LOCKED-V2
+
+## Registro Manual - 2026-08-18T00:24:02-03:00
+- tipo: protheus-gamma-confluence-exness
+- resumo: O projeto canônico Protheus recebeu uma terceira camada independente na MT5 Exness. O indicador lê os objetos Gamma licenciados já renderizados no gráfico e os combina com estrutura local bloqueada, sem alterar o produto fechado nem o Market Context da ActivTrades.
+- validacao: Em `XAUUSDm`, 28 níveis e 14 campos estruturais permaneceram idênticos entre M5/M15; os hashes dos quatro artefatos protegidos conferiram e a compilação terminou com zero erro/aviso.
+- seguranca_operacional: A camada é apenas de leitura/paper, não decompila código, não contorna licença e não contém primitivas de ordem. Superioridade foi reconhecida apenas no plano operacional/explicativo, ainda não no preditivo.
+- evidencia: `../Protheus/records/PRO-010-exness-gamma-confluence-20260818.md` e `../Protheus/artifacts/mt5/exness-gamma-confluence-nonrepaint-audit-20260818.json`.
+- proxima_acao: Acompanhar o diário forward/paper de 30 sessões em duas trilhas, comparando ActivTrades e Exness e medindo estabilidade, falsos rompimentos, excursão adversa e resultado por grau A/B/C.
+- checkpoint: CHK-FOREX-PROTHEUS-GAMMA-CONFLUENCE-EXNESS

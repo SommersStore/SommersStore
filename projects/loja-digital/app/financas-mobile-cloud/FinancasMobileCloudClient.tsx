@@ -14,12 +14,13 @@ import {
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   enableIndexedDbPersistence,
-  getDoc,
   getFirestore,
   onSnapshot,
   serverTimestamp,
+  updateDoc,
   type Firestore,
 } from "firebase/firestore";
 
@@ -44,6 +45,23 @@ type CategoryOption = {
   label: string;
   total: number;
   available: number;
+};
+
+type InboxEntry = {
+  id: string;
+  type: EntryType;
+  name: string;
+  destinationRowId: string;
+  destinationLabel: string;
+  destinationPath: string;
+  destinationSectionLabel: string;
+  destinationCategoryLabel: string;
+  destinationSubdivisionLabel: string;
+  value: number;
+  date: string;
+  installments: number;
+  createdAtDevice: string;
+  updatedAtDevice: string;
 };
 
 type FirebaseConfig = {
@@ -168,6 +186,40 @@ function uniqueCategories(items: Destination[]) {
   }, []);
 }
 
+function entryType(value: unknown): EntryType {
+  const raw = text(value);
+  return raw === "receitas" || raw === "dividas" ? raw : "despesas";
+}
+
+function normalizeInboxEntry(id: string, value: unknown): InboxEntry | null {
+  const source = asRecord(value);
+  if (text(source.status) !== "pending") return null;
+  return {
+    id,
+    type: entryType(source.type),
+    name: text(source.name, "Lancamento"),
+    destinationRowId: text(source.destinationRowId),
+    destinationLabel: text(source.destinationLabel),
+    destinationPath: text(source.destinationPath),
+    destinationSectionLabel: text(source.destinationSectionLabel),
+    destinationCategoryLabel: text(source.destinationCategoryLabel),
+    destinationSubdivisionLabel: text(source.destinationSubdivisionLabel),
+    value: Math.abs(Number(source.value) || 0),
+    date: text(source.date, todayValue()),
+    installments: Math.max(1, Math.min(12, Math.round(Number(source.installments) || 1))),
+    createdAtDevice: text(source.createdAtDevice),
+    updatedAtDevice: text(source.updatedAtDevice),
+  };
+}
+
+function moneyLabel(value: number) {
+  return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(Number(value) || 0);
+}
+
+function moneyInputValue(value: number) {
+  return value ? String(Number(value).toFixed(2)).replace(".", ",") : "";
+}
+
 export default function FinancasMobileCloudClient({ destinations = emptyDestinations }: { destinations?: DestinationCatalog }) {
   const [user, setUser] = useState<User | null>(null);
   const [authReady, setAuthReady] = useState(false);
@@ -183,6 +235,8 @@ export default function FinancasMobileCloudClient({ destinations = emptyDestinat
   const [busy, setBusy] = useState(false);
   const [services, setServices] = useState<FirebaseServices | null>(null);
   const [liveDestinations, setLiveDestinations] = useState<DestinationCatalog | null>(null);
+  const [pendingEntries, setPendingEntries] = useState<InboxEntry[]>([]);
+  const [editingEntryId, setEditingEntryId] = useState("");
 
   useEffect(() => {
     const app = getConfiguredApp();
@@ -196,13 +250,15 @@ export default function FinancasMobileCloudClient({ destinations = emptyDestinat
       enableIndexedDbPersistence(db).catch(() => null);
     }
     setServices({ auth, db });
-    getDoc(doc(db, "financasMobileControl", "main"))
-      .then(snapshot => {
+    const unsubscribeControl = onSnapshot(
+      doc(db, "financasMobileControl", "main"),
+      snapshot => {
         if (!cancelled) setMobileEnabled(!snapshot.exists() || snapshot.data().enabled !== false);
-      })
-      .catch(() => {
+      },
+      () => {
         if (!cancelled) setMobileEnabled(true);
-      });
+      }
+    );
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       if (cancelled) return;
       setUser(currentUser);
@@ -216,6 +272,7 @@ export default function FinancasMobileCloudClient({ destinations = emptyDestinat
     });
     return () => {
       cancelled = true;
+      unsubscribeControl();
       unsubscribe();
     };
   }, []);
@@ -232,6 +289,24 @@ export default function FinancasMobileCloudClient({ destinations = emptyDestinat
       () => null
     );
   }, [services]);
+
+  useEffect(() => {
+    if (!services || !user) {
+      setPendingEntries([]);
+      return undefined;
+    }
+    return onSnapshot(
+      collection(services.db, "users", user.uid, "financasMobileInbox"),
+      snapshot => {
+        const entries = snapshot.docs
+          .map(item => normalizeInboxEntry(item.id, item.data()))
+          .filter(Boolean) as InboxEntry[];
+        entries.sort((a, b) => String(b.updatedAtDevice || b.createdAtDevice).localeCompare(String(a.updatedAtDevice || a.createdAtDevice)));
+        setPendingEntries(entries);
+      },
+      error => setStatus(error instanceof Error ? error.message : "Nao consegui carregar o historico.")
+    );
+  }, [services, user]);
 
   const destinationCatalog = liveDestinations || destinations;
   const activeDestinations = useMemo(() => destinationCatalog[entryType] || [], [destinationCatalog, entryType]);
@@ -268,6 +343,66 @@ export default function FinancasMobileCloudClient({ destinations = emptyDestinat
     setDestinationByType(previous => ({ ...previous, [entryType]: nextDestination?.id || "" }));
   }
 
+  function resetForm() {
+    setName("");
+    setValue("");
+    setInstallments("1");
+    setEditingEntryId("");
+  }
+
+  function findDestination(type: EntryType, rowId: string) {
+    return (destinationCatalog[type] || []).find(destination => destination.id === rowId) || null;
+  }
+
+  function startEditPendingEntry(entry: InboxEntry) {
+    const destination = findDestination(entry.type, entry.destinationRowId);
+    setEntryType(entry.type);
+    if (destination) {
+      setCategoryByType(previous => ({ ...previous, [entry.type]: destination.categoryKey || destination.path }));
+      setDestinationByType(previous => ({ ...previous, [entry.type]: destination.id }));
+    } else {
+      setDestinationByType(previous => ({ ...previous, [entry.type]: "" }));
+    }
+    setName(entry.name);
+    setValue(moneyInputValue(entry.value));
+    setDate(entry.date || todayValue());
+    setInstallments(String(entry.installments || 1));
+    setEditingEntryId(entry.id);
+    setStatus("Corrigindo lancamento pendente.");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  async function deletePendingEntry(entryId: string) {
+    if (!services || !user || busy) return;
+    if (!mobileEnabled) {
+      setStatus("App do celular desativado pelo painel do notebook.");
+      return;
+    }
+    const entry = pendingEntries.find(item => item.id === entryId);
+    if (!window.confirm(`Excluir ${entry?.name || "este lancamento"}?`)) return;
+    setBusy(true);
+    setStatus("Excluindo...");
+    try {
+      await deleteDoc(doc(services.db, "users", user.uid, "financasMobileInbox", entryId));
+      if (editingEntryId === entryId) resetForm();
+      setStatus("Lancamento pendente excluido.");
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : "Nao consegui excluir.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  useEffect(() => {
+    if (!editingEntryId) return;
+    if (pendingEntries.some(entry => entry.id === editingEntryId)) return;
+    setName("");
+    setValue("");
+    setInstallments("1");
+    setEditingEntryId("");
+    setStatus("Lancamento importado pelo notebook.");
+  }, [editingEntryId, pendingEntries]);
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!services || !user) return;
@@ -288,7 +423,7 @@ export default function FinancasMobileCloudClient({ destinations = emptyDestinat
     setBusy(true);
     setStatus("Salvando...");
     try {
-      await addDoc(collection(services.db, "users", user.uid, "financasMobileInbox"), {
+      const payload = {
         type: entryType,
         name: launchName,
         destinationRowId: selectedDestination.id,
@@ -303,14 +438,25 @@ export default function FinancasMobileCloudClient({ destinations = emptyDestinat
         status: "pending",
         source: "financas-mobile-cloud",
         clientMode: "anonymous",
-        createdAt: serverTimestamp(),
-        createdAtDevice: new Date().toISOString(),
+        updatedAt: serverTimestamp(),
+        updatedAtDevice: new Date().toISOString(),
         importedAt: null,
-      });
+      };
+      if (editingEntryId) {
+        await updateDoc(doc(services.db, "users", user.uid, "financasMobileInbox", editingEntryId), payload);
+      } else {
+        await addDoc(collection(services.db, "users", user.uid, "financasMobileInbox"), {
+          ...payload,
+          createdAt: serverTimestamp(),
+          createdAtDevice: new Date().toISOString(),
+        });
+      }
+      const wasEditing = Boolean(editingEntryId);
       setName("");
       setValue("");
       setInstallments("1");
-      setStatus("Lançamento salvo.");
+      setEditingEntryId("");
+      setStatus(wasEditing ? "Lancamento corrigido." : "Lancamento salvo.");
     } catch (error) {
       setStatus(error instanceof Error ? error.message : "Não consegui salvar.");
     } finally {
@@ -362,6 +508,14 @@ export default function FinancasMobileCloudClient({ destinations = emptyDestinat
         )}
 
         <form className="flex flex-col gap-3 rounded-lg border border-slate-800 bg-slate-950/70 p-4" onSubmit={handleSubmit}>
+            {editingEntryId && (
+              <div className="flex items-center justify-between gap-3 rounded-lg border border-amber-300/40 bg-amber-300/10 px-3 py-2 text-xs font-black text-amber-100">
+                <span>Corrigindo pendente</span>
+                <button className="rounded-md border border-amber-200/40 px-2 py-1 text-[11px] text-amber-50" onClick={resetForm} type="button">
+                  CANCELAR
+                </button>
+              </div>
+            )}
             <div className="grid grid-cols-3 gap-2">
               {(["receitas", "despesas", "dividas"] as EntryType[]).map(type => {
                 const theme = typeThemes[type];
@@ -429,7 +583,7 @@ export default function FinancasMobileCloudClient({ destinations = emptyDestinat
               <input className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-3 text-base text-slate-100" value={date} onChange={event => setDate(event.target.value)} type="date" />
             </label>
             <button className="rounded-lg bg-emerald-600 px-4 py-3 text-sm font-black text-white disabled:opacity-50" disabled={busy || !mobileEnabled} type="submit">
-              SALVAR
+              {editingEntryId ? "ATUALIZAR" : "SALVAR"}
             </button>
         </form>
 
@@ -438,6 +592,45 @@ export default function FinancasMobileCloudClient({ destinations = emptyDestinat
             {status}
           </div>
         )}
+
+        <section className="flex flex-col gap-3 rounded-lg border border-slate-800 bg-slate-950/60 p-4">
+          <header className="flex items-center justify-between gap-3">
+            <h2 className="text-sm font-black text-slate-100">Historico pendente</h2>
+            <span className="rounded-md border border-slate-700 px-2 py-1 text-xs font-black text-slate-300">{pendingEntries.length}</span>
+          </header>
+          {pendingEntries.length ? (
+            <div className="flex flex-col gap-2">
+              {pendingEntries.map(entry => (
+                <article className="rounded-lg border border-slate-800 bg-slate-900/70 p-3" key={entry.id}>
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <div className="truncate text-sm font-black text-slate-100">{entry.name}</div>
+                      <div className="mt-1 text-xs font-bold leading-5 text-slate-400">
+                        {entry.destinationPath || entry.destinationCategoryLabel || typeThemes[entry.type].label} / {entry.destinationSubdivisionLabel || entry.destinationLabel || entry.destinationRowId}
+                      </div>
+                      <div className="mt-1 text-xs font-bold text-slate-500">
+                        {entry.date}{entry.installments > 1 ? ` - ${entry.installments}x` : ""}
+                      </div>
+                    </div>
+                    <div className="shrink-0 text-right text-sm font-black text-emerald-200">{moneyLabel(entry.value)}</div>
+                  </div>
+                  <div className="mt-3 grid grid-cols-2 gap-2">
+                    <button className="rounded-md border border-sky-400/50 bg-sky-500/10 px-3 py-2 text-xs font-black text-sky-100 disabled:opacity-50" disabled={busy} onClick={() => startEditPendingEntry(entry)} type="button">
+                      EDITAR
+                    </button>
+                    <button className="rounded-md border border-red-400/50 bg-red-500/10 px-3 py-2 text-xs font-black text-red-100 disabled:opacity-50" disabled={busy} onClick={() => deletePendingEntry(entry.id)} type="button">
+                      EXCLUIR
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-lg border border-dashed border-slate-800 px-3 py-4 text-center text-xs font-bold text-slate-500">
+              Nenhum lancamento pendente.
+            </div>
+          )}
+        </section>
       </section>
     </main>
   );

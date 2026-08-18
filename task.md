@@ -79,6 +79,8 @@
 - [x] Enriquecer Forex com skills/agentes MQL5, portabilidade MT4 -> MT5/JForex/ProfitPro e template inicial ProfitPro
 - [x] Criar corpus Rimantas/EA Coder para persona e skills operacionais MetaTrader
 - [x] Reformular Forex como `IBKR Manual Desk`, com campanha 3x1 em 1,5R, simulador de protective put e Dukascopy como laboratório secundário
+- [x] Integrar o `Protheus Market Context V2` ao painel Forex com níveis bloqueados, schema V2, `LOCKED · NÃO REPAINTA` e bloqueio `NO_TRADE` quando Gamma/OI estiver ausente
+- [x] Registrar o checkpoint da camada independente `Protheus_Gamma_Confluence` instalada e validada na MT5 Exness, preservando os indicadores originais e a separação da ActivTrades
 - [x] Adicionar inteligência local IBKR em modo paper-only: status de conector, triagem explicável de puts e rascunhos locais sem transmissão de ordens
 - [x] Corrigir `Salvar Tudo`: distinguir checkpoint local de cloud, validar identidade Git antes do stage e preservar dados sensíveis fora do Git
 - [x] Organizar o stage legado em commits locais por domínio, sem push, PR, tag ou novo deploy
@@ -116,6 +118,7 @@
 - [x] Criar Cloud Inbox 24h para Financas Mobile, independente do notebook ligado
 - [x] Polir interface do Financas Mobile Cloud com marca Sommer's Store, sem observacao, sem textos auxiliares e cores por secao da planilha
 - [x] Atualizar Financas Mobile Cloud com catalogo vivo do Firestore e otimizar render da Planilha
+- [x] Manter historico pendente editavel no Financas Mobile Cloud ate importacao confirmada pelo notebook
 - [x] Corrigir exibicao da soma calculada nas celulas-mae de `Despesas PM`
 - [x] Restaurar copia do mes anterior nas celulas detalhadas vazias de Financas
 - [x] Permitir zero explicito por digitacao direta e retorno a copia ao limpar celulas detalhadas de Financas
@@ -218,6 +221,11 @@
 - [x] Corrigir regressao visual que fazia `Financas` abrir direto em `Dividas/Acordos` em vez de `Planilha`
 
 ## Done in this session
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
+- [x] Proxima acao: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
+- [x] Checkpoint: CHK-MEM-0823
+
 - [x] Sessao encerrada pelo usuario.
 - [x] Resumo: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
 - [x] Proxima acao: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
@@ -789,4 +797,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-07-23T09:32:21-03:00
+- updated_at: 2026-08-18T00:45:53-03:00
