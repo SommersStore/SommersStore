@@ -810,14 +810,17 @@
 - [x] Preservar os 487 conflitos contra sobrescrita ampla e manter o stash `1a906151...` intacto.
 - [x] Mesclar com seguranca o indice de sessoes do Codex e preservar a configuracao propria do PC novo.
 - [x] Classificar os 456 conflitos MetaTrader e restaurar somente artefatos customizados inequivocamente mais atuais, com backup previo; nenhum dos conflitos era customizado inequivoco, portanto os 456 atuais foram preservados.
-- [ ] Executar gates, smoke tests das plataformas sem ordens reais e somente entao promover o PC novo como base.
-- [ ] Atualizar o espelho local de seguranca depois da promocao validada.
+- [x] Executar os gates e promover o PC novo como base principal para workspace, Codex e dados locais.
+- [x] Atualizar e validar o espelho local de seguranca em `C:\AIOX\Backups\SommersStore`.
+- [ ] Usuario configurar e validar manualmente MetaTrader 5 e NinjaTrader, com automacao e ordens desativadas.
+- [ ] Executar smoke manual do JForex em workspace DEMO, sem iniciar estrategias.
 - [x] Checkpoint: CHK-MIG-PC-NOVO-RESTORE-APPLIED
 - [x] Checkpoint: CHK-MIG-PC-NOVO-CONFLICTS-SELECTIVE
+- [x] Checkpoint: CHK-MIG-PC-NOVO-PRIMARY-CORE
 
 ## Risks
 - Automacao implantada precisa de validacao operacional recorrente para detectar regressao cedo.
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-09-08T00:19:28-03:00
+- updated_at: 2026-09-08T15:16:37-03:00

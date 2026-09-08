@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-09-08T10:08:43-03:00
+- updated_at: 2026-09-08T15:16:37-03:00
 
 ## Handoff Atual - Gamma Black MT4 distribuido no MT5 ActivTrades/FTMO
 - timestamp: 2026-09-01T01:02:13-03:00
@@ -4006,3 +4006,16 @@
 - seguranca_operacional: O stash `1a906151...`, credenciais e `auth.json` permaneceram intocados. Nenhuma plataforma de trading foi aberta, nenhuma automacao foi ativada, nenhuma ordem foi enviada e nenhum deploy Firebase foi executado.
 - pendencia: Fazer smoke visual manual em conta demo, com AutoTrading e estrategias automaticas desativados; depois promover o PC novo e atualizar o espelho local.
 - checkpoint: CHK-MIG-PC-NOVO-CONFLICTS-SELECTIVE
+
+## Registro Manual - 2026-09-08T15:16:37-03:00
+- tipo: migracao-pc-novo-promocao-core-local-first
+- resumo: Por decisao expressa do usuario, o PC novo passa a ser a base principal para workspace, Codex e dados locais. MetaTrader 5 e NinjaTrader permanecem sob configuracao e validacao manual do usuario; nenhuma correcao automatica foi aplicada nessas plataformas.
+- integridade: O pacote foi reverificado com 29.930/29.930 hashes aprovados. Git permaneceu em `migration/pc-new-20260907`, HEAD `daa1549897e7ea2a8263d07853aa1712bdf01f26`, sincronizado com o origin; `git fsck` terminou com codigo 0 e o stage permaneceu vazio.
+- dados_privados: Os tres JSON privados sao UTF-8/JSON validos, continuam fora do stage e possuem copia de hash identico no espelho local. Eles seguem proibidos em commits.
+- codex: `config.toml` sem caminhos legados `C:\Users\ADMIN` ou `D:\`, sem chaves sensiveis; `session_index.jsonl` com 31 entradas validas, unicas e sem duplicidade. O `auth.json` local nao foi lido nem transferido e inexiste no manifesto do pacote.
+- jforex: 32/32 arquivos conferem com o manifesto, incluindo nove estrategias, tres templates e vinte workspaces DEMO; zero conflitos, erros ou processos ativos. O smoke operacional em DEMO continua manual e pendente.
+- espelho_local: `C:\AIOX\Backups\SommersStore` esta configurado por variavel de usuario e tarefa agendada a cada 15 minutos. O estado registra sucesso, HEAD correto e copia dos tres dados privados; a unidade C: esta saudavel e tinha aproximadamente 835 GB livres na auditoria.
+- plataformas_manuais: Os arquivos MetaTrader continuam fisicamente integros, mas logs apontam falhas de add-ons. O NinjaTrader 8.1.8.2 tem falha de compilacao dos add-ons Gamma e Global Simulation Mode estava desativado no ultimo inicio; o usuario assumiu a configuracao manual. Nenhuma ordem ou estrategia habilitada foi detectada na auditoria.
+- seguranca_operacional: Stash `1a906151...`, credenciais e Firebase permaneceram intocados; nenhuma plataforma foi aberta por esta automacao e nenhum deploy foi executado.
+- proxima_acao: Usuario concluir configuracao/smoke seguro de MetaTrader 5 e NinjaTrader e realizar smoke JForex em DEMO. Manter GitHub e Google Drive como copias, com o armazenamento local deste PC como fonte principal.
+- checkpoint: CHK-MIG-PC-NOVO-PRIMARY-CORE
