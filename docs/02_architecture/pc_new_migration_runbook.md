@@ -64,7 +64,7 @@ Instale Git, Node.js LTS, Google Drive Desktop, Antigravity IDE, Codex e as plat
 ```powershell
 New-Item -ItemType Directory -Force -Path C:\AIOX\Workspace
 Set-Location C:\AIOX\Workspace
-git clone https://github.com/SommersStore/SommersStore.git
+git clone --branch migration/pc-new-20260907 --single-branch https://github.com/SommersStore/SommersStore.git
 Set-Location C:\AIOX\Workspace\SommersStore
 npm install
 ```
