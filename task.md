@@ -802,9 +802,21 @@
 - [x] AIOX Trader On Chart MT5 v1.50 instalado em Exness, duas FTMO e duas ActivTrades: Buy/Sell reorganizados, botoes superiores brancos, Place ampliado, BE/trailing/linhas auditados e tres parciais hedging adicionadas com automacao desligada por padrao.
 - [x] `Gamma Black MT4` e `Gamma Black MT4_EA Risco` instalados com sete indicadores e dependencias nas duas ActivTrades e duas FTMO; AIOX v1.50 recompilado, 52/52 componentes validados e backups preservados.
 
+## Migracao para o PC novo - Story 2.112
+
+- [x] Publicar no GitHub a camada versionada e transferir pelo Google Drive o pacote privado criptografado e verificado.
+- [x] Verificar no PC novo os nove volumes, o arquivo remontado e os 29.930 arquivos do pacote.
+- [x] Aplicar restauracao conservadora: 27.024 copiados, tres dados privados substituidos e zero erros.
+- [x] Preservar os 487 conflitos contra sobrescrita ampla e manter o stash `1a906151...` intacto.
+- [ ] Mesclar com seguranca o indice de sessoes do Codex e preservar a configuracao propria do PC novo.
+- [ ] Classificar os 456 conflitos MetaTrader e restaurar somente artefatos customizados inequivocamente mais atuais, com backup previo.
+- [ ] Executar gates, smoke tests das plataformas sem ordens reais e somente entao promover o PC novo como base.
+- [ ] Atualizar o espelho local de seguranca depois da promocao validada.
+- [x] Checkpoint: CHK-MIG-PC-NOVO-RESTORE-APPLIED
+
 ## Risks
 - Automacao implantada precisa de validacao operacional recorrente para detectar regressao cedo.
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-09-01T01:02:13-03:00
+- updated_at: 2026-09-08T00:19:28-03:00

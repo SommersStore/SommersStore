@@ -3986,3 +3986,13 @@
 - evidencia: `../Protheus/records/PRO-010-exness-gamma-confluence-20260818.md` e `../Protheus/artifacts/mt5/exness-gamma-confluence-nonrepaint-audit-20260818.json`.
 - proxima_acao: Acompanhar o diário forward/paper de 30 sessões em duas trilhas, comparando ActivTrades e Exness e medindo estabilidade, falsos rompimentos, excursão adversa e resultado por grau A/B/C.
 - checkpoint: CHK-FOREX-PROTHEUS-GAMMA-CONFLUENCE-EXNESS
+
+## Registro Manual - 2026-09-08T00:19:28-03:00
+- tipo: migracao-pc-novo-restauracao-principal
+- resumo: A restauracao conservadora foi aplicada no PC novo a partir do pacote privado verificado e da branch `migration/pc-new-20260907`, em `5721cf2fe65d56f08fc532a63d23b09a55116e82`. Foram copiados 27.024 arquivos, substituidos somente tres arquivos privados autorizados e registrados zero erros.
+- arquivos_privados_substituidos: `projects/financas/data/fin2_data.json`, `projects/financas/data/finance_state.json` e `projects/imposto-de-renda/data/ir_state.json`.
+- conflitos_preservados: 487 no total: MetaTrader 456, Workspace 28, Codex 2, NinjaTrader 8 1 e JForex 0. A preservacao e intencional; nao foi usada sobrescrita ampla de Workspace, MetaTrader, Codex ou NinjaTrader.
+- seguranca_operacional: MetaTrader, NinjaTrader e JForex permaneceram fechados durante a copia; nenhum deploy Firebase foi executado; `auth.json` nao foi transferido; o stash `1a906151...` permanece intacto em `stash@{0}`.
+- estado_git_pc_novo: Apenas os tres arquivos privados restaurados aparecem modificados. Eles nao devem ser adicionados a commit.
+- proxima_acao: No PC novo, manter os 28 conflitos de Workspace sob autoridade do GitHub e o `.csproj` do NinjaTrader sob autoridade da instalacao nova; preservar `config.toml`, mesclar `session_index.jsonl` por IDs unicos e auditar os 456 conflitos MetaTrader para aplicar somente artefatos customizados inequivocamente mais atuais, sempre com backup. Depois executar gates e smoke tests sem ordens reais antes de promover a maquina.
+- checkpoint: CHK-MIG-PC-NOVO-RESTORE-APPLIED
