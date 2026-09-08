@@ -324,7 +324,7 @@ class AgentConfigLoader {
       const content = await fs.readFile(agentPath, 'utf8');
       
       // Extract YAML block (handle both ```yaml and ```yml)
-      const yamlMatch = content.match(/```ya?ml\n([\s\S]*?)\n```/);
+      const yamlMatch = content.match(/```ya?ml\r?\n([\s\S]*?)\r?\n```/);
       if (!yamlMatch) {
         throw new Error(`No YAML block found in ${this.agentId}.md`);
       }

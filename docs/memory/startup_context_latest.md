@@ -1,29 +1,21 @@
 # Startup Context (Latest)
 
 ## Session
-- generated_at: 2026-08-18T00:24:02-03:00
-- session_id: SES-20260817-0001
+- generated_at: 2026-08-31T07:56:02-03:00
+- session_id: SES-20260831-0001
 
 ## Continuity Snapshot
-- checkpoint_base: CHK-FOREX-PROTHEUS-GAMMA-CONFLUENCE-EXNESS
-- checkpoint_id: CHK-FOREX-PROTHEUS-GAMMA-CONFLUENCE-EXNESS
+- checkpoint_id: CHK-MEM-0823
 - checkpoint_strategy: last_actionable_checkpoint
-- checkpoint_title: Protheus Gamma Confluence independente na MT5 Exness
-- onde_paramos: O `Protheus_Gamma_Confluence` foi instalado e validado na Exness em `XAUUSDm,M5`. Ele lê 28 níveis Gamma licenciados expostos no gráfico, combina-os com estrutura local bloqueada e preserva integralmente os originais Exness/ActivTrades.
-- where_it_stopped: A auditoria M5/M15 confirmou os 14 campos estruturais idênticos, o terminal ficou aberto e responsivo em M5 e nenhuma ordem foi habilitada.
-- proxima_acao_objetiva: Executar o diário forward/paper de 30 sessões, comparando a trilha local ActivTrades com a trilha Gamma licenciada Exness antes de qualquer conclusão preditiva.
-- next_action: Registrar frescor/assinatura, estabilidade M5/M15, falsos rompimentos, excursão adversa e resultado por grau A/B/C.
+- checkpoint_title: Fechamento SES-20260817-0001
+- where_it_stopped: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
+- next_action: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
 
-## Resumo das 3 Conversas Relevantes
-- A V1 da ActivTrades foi rejeitada porque seus níveis mudavam com preço e timeframe.
-- A V2 bloqueou PDL/PDH, VAL/POC/VAH e VWAP D-1 por sessão e passou no teste M5/M15.
-- Com a fonte Gamma licenciada disponível na Exness, foi criada uma terceira camada separada, melhor operacionalmente, sem modificar ou decompilar os indicadores originais.
-
-## Fonte
-- `../Protheus/docs/memory/project_memory.md`
-- `../Protheus/records/PRO-010-exness-gamma-confluence-20260818.md`
-- `../Protheus/artifacts/mt5/exness-gamma-confluence-nonrepaint-audit-20260818.json`
-- `../Protheus/artifacts/install-exness-gamma-confluence-20260818-001323.json`
-- `docs/memory/project_memory.md`
-- `docs/control/memory_mutations.json`
-- `task.md`
+## Ultimas Conversas Relevantes
+- last_sessions: 7
+- sessions_considered: 120
+- SES-20260817-0001: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
+- SES-20260723-0003: Financas Mobile Cloud com catalogo vivo no Firestore, UBER confirmado no app publico e Planilha otimizada com cache temporario de totais.
+- SES-20260723-0002: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
+- session_startup: Startup context atualizado em docs/memory/startup_context_latest.md
+- cloud_sync: Cloud sync SYNC-20260818-1787024753247: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.) Copia D: success (Espelho local atualizado em D:\Antigravity-SommersStore\workspace.)

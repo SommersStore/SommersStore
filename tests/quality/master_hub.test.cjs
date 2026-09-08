@@ -6,6 +6,7 @@ const ibkrBridge = require('../../scripts/ibkr_local_bridge.js');
 const protheusContextReader = require('../../scripts/protheus_context_reader.js');
 const cloudSyncGuardrails = require('../../scripts/cloud_sync_guardrails.js');
 const projectMirror = require('../../scripts/project_mirror_sync.js');
+const pcMigration = require('../../scripts/pc_migration_bundle.js');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 
@@ -149,14 +150,30 @@ function testIntegrationPoints() {
   assert.match(mt4TraderOnChart, /SmartBEOffsetPips/, 'MT4 Trader On Chart EA should expose smart breakeven cost coverage');
   assert.match(mt5TraderOnChart, /AIOX_TOC_BTN_STRADDLE/, 'MT5 Trader On Chart EA should expose straddle orders');
   assert.match(mt5TraderOnChart, /ApplyTrailingStops/, 'MT5 Trader On Chart EA should expose trailing stop management');
-  assert.match(mt5TraderOnChart, /#property version\s+"1\.33"/, 'MT5 Trader On Chart EA should be v1.33');
+  assert.match(mt5TraderOnChart, /#property version\s+"1\.50"/, 'MT5 Trader On Chart EA should be v1.50');
   assert.match(mt5TraderOnChart, /PanelScalePercent\s*=\s*135/, 'MT5 Trader On Chart EA should default to 135 percent panel scale');
   assert.match(mt5TraderOnChart, /PipSizeOverride/, 'MT5 Trader On Chart EA should expose pip-size override for CFDs and crypto');
   assert.match(mt5TraderOnChart, /IsForexSymbol/, 'MT5 Trader On Chart EA should detect Forex symbols before auto-scaling pip size');
   assert.match(mt5TraderOnChart, /SpreadText/, 'MT5 Trader On Chart EA should show spread with configured max');
   assert.match(mt5TraderOnChart, /PanelFontScalePercent\s*=\s*82/, 'MT5 Trader On Chart EA should expose slim typography independently of panel size');
+  assert.match(mt5TraderOnChart, /PanelTheme\s*=\s*TEMA_ESCURO_GRAFICO_PRETO/, 'MT5 Trader On Chart EA should default to the dark chart theme');
+  assert.match(mt5TraderOnChart, /TEMA_CLARO_ORIGINAL_MT4/, 'MT5 Trader On Chart EA should expose the original MT4 light palette');
+  assert.match(mt5TraderOnChart, /COLOR_ACTIVE_TEXT\s*=\s*C'24,28,34'/, 'MT5 Trader On Chart EA should use dark text on active yellow buttons');
+  assert.match(mt5TraderOnChart, /COLOR_EDIT_BG\s*=\s*C'20,29,41'/, 'MT5 Trader On Chart EA should use a dark editing field in the dark theme');
+  assert.match(mt5TraderOnChart, /SetButtonColors/, 'MT5 Trader On Chart EA should apply foreground and background colors together');
   assert.match(mt5TraderOnChart, /COLOR_BG\s*=\s*C'12,18,28'/, 'MT5 Trader On Chart EA should use an opaque dark panel background');
   assert.match(mt5TraderOnChart, /COLOR_BUY\s*=\s*C'35,160,55'/, 'MT5 Trader On Chart EA should use TOC-style green buy button');
+  assert.match(mt5TraderOnChart, /COLOR_BUY\s*=\s*C'8,104,56'/, 'MT5 Trader On Chart EA should use the darker green action button in dark mode');
+  assert.match(mt5TraderOnChart, /COLOR_SELL\s*=\s*C'166,34,46'/, 'MT5 Trader On Chart EA should use the darker red action button in dark mode');
+  assert.match(mt5TraderOnChart, /COLOR_CLOSE_BG\s*=\s*clrWhite/, 'MT5 Trader On Chart EA should use white close-order buttons');
+  assert.match(mt5TraderOnChart, /AIOX_TOC_BTN_BUY",\s*"BUY",\s*x \+ U\(8\)/, 'MT5 Trader On Chart EA should place BUY on the left');
+  assert.match(mt5TraderOnChart, /AIOX_TOC_BTN_SELL",\s*"SELL",\s*x \+ U\(156\)/, 'MT5 Trader On Chart EA should place SELL on the right');
+  assert.doesNotMatch(mt5TraderOnChart, /"BUY\\n"|"SELL\\n"|"Buy\\n"|"Sell\\n"/, 'MT5 Trader On Chart action buttons should not display live quotes');
+  assert.match(mt5TraderOnChart, /EnablePartialClose1\s*=\s*false/, 'MT5 Trader On Chart EA should keep staged partial exits disabled by default');
+  assert.match(mt5TraderOnChart, /AIOX_TOC_BTN_PARTIAL_3/, 'MT5 Trader On Chart EA should expose three partial-close controls');
+  assert.match(mt5TraderOnChart, /ACCOUNT_MARGIN_MODE_RETAIL_HEDGING/, 'MT5 Trader On Chart EA should guard partial close by account accounting mode');
+  assert.match(mt5TraderOnChart, /trade\.PositionClosePartial\(ticket, closeVolume/, 'MT5 Trader On Chart EA should reduce positions by ticket on hedging accounts');
+  assert.match(mt5TraderOnChart, /CHARTEVENT_OBJECT_DRAG/, 'MT5 Trader On Chart EA should recalculate the panel after draggable line changes');
   assert.match(mt5TraderOnChart, /AIOX_TOC_BTN_MODE_CYCLE/, 'MT5 Trader On Chart EA should expose compact risk mode selector');
   assert.match(mt5TraderOnChart, /AIOX_TOC_LBL_SYMBOL/, 'MT5 Trader On Chart EA should expose symbol header like a chart trade panel');
   assert.match(mt5TraderOnChart, /SetTypeFillingBySymbol/, 'MT5 Trader On Chart EA should select filling mode by symbol');
@@ -1145,6 +1162,52 @@ function testProjectMirrorConfiguration() {
   assert.match(hiddenDashboardRunner, /dashboard_server\.log/, 'hidden dashboard runner should keep a log for diagnostics');
 }
 
+function testPcMigrationGuardrails() {
+  const packageJson = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+  assert.equal(pcMigration.DEFAULT_BUNDLE_ROOT, 'D:\\AIOX-Migracao-PC-Novo', 'migration bundles should default to the protected D staging area');
+  assert.equal(pcMigration.DEFAULT_RESTORE_ROOT, 'C:\\AIOX\\Workspace\\SommersStore', 'the new PC workspace should use the agreed single-drive path');
+  assert.equal(pcMigration.shouldSkipFile('auth.json'), true, 'Codex authentication tokens must never enter the migration bundle');
+  assert.equal(pcMigration.shouldSkipFile('state_5.sqlite-wal'), true, 'Codex local databases must not enter the migration bundle');
+  assert.equal(pcMigration.shouldSkipDirectory('node_modules'), true, 'dependencies should be installed fresh on the new PC');
+  assert.throws(() => pcMigration.assertSafeExternalRoot(path.join(ROOT, 'migration')), /dentro do projeto/i, 'bundle destination must stay outside the source project');
+  assert.throws(() => pcMigration.resolveInside('C:\\AIOX\\Workspace', '..\\escape'), /fora da raiz/i, 'restore paths must not escape their authorized root');
+  assert.equal(packageJson.scripts['migration:prepare'], 'node scripts/pc_migration_bundle.js prepare', 'package should expose migration preparation through CLI');
+  assert.equal(packageJson.scripts['migration:restore'], 'node scripts/pc_migration_bundle.js restore', 'package should expose conservative restoration through CLI');
+
+  const temporaryRoot = fs.mkdtempSync(path.join(require('os').tmpdir(), 'aiox-migration-test-'));
+  const bundleDir = path.join(temporaryRoot, 'bundle');
+  const dataDir = path.join(bundleDir, 'data', 'workspace');
+  const restoreRoot = path.join(temporaryRoot, 'restore');
+  fs.mkdirSync(dataDir, { recursive: true });
+  fs.writeFileSync(path.join(dataDir, 'portable.txt'), 'portable-context', 'utf8');
+  const entry = {
+    scope: 'workspace',
+    relative_path: 'portable.txt',
+    bundle_path: 'data/workspace/portable.txt',
+    bytes: Buffer.byteLength('portable-context'),
+    sha256: pcMigration.hashFile(path.join(dataDir, 'portable.txt'))
+  };
+  fs.writeFileSync(path.join(bundleDir, 'migration-manifest.json'), JSON.stringify({ schema: pcMigration.SCHEMA_VERSION, entries: [entry] }), 'utf8');
+
+  try {
+    assert.equal(pcMigration.verifyBundle(bundleDir).ok, true, 'a valid migration manifest should pass SHA-256 verification');
+    const dryRun = pcMigration.restoreBundle({ bundleDir, restoreRoot, environment: { USERPROFILE: path.join(temporaryRoot, 'profile'), APPDATA: path.join(temporaryRoot, 'appdata') } });
+    assert.equal(dryRun.mode, 'dry_run', 'restore must be a simulation unless --apply is explicit');
+    assert.equal(fs.existsSync(path.join(restoreRoot, 'portable.txt')), false, 'dry-run must not copy files');
+    const applied = pcMigration.restoreBundle({ bundleDir, restoreRoot, apply: true, environment: { USERPROFILE: path.join(temporaryRoot, 'profile'), APPDATA: path.join(temporaryRoot, 'appdata') } });
+    assert.equal(applied.copied.length, 1, 'apply should copy a missing file');
+    fs.writeFileSync(path.join(restoreRoot, 'portable.txt'), 'new-pc-version', 'utf8');
+    const conflict = pcMigration.restoreBundle({ bundleDir, restoreRoot, apply: true, environment: { USERPROFILE: path.join(temporaryRoot, 'profile'), APPDATA: path.join(temporaryRoot, 'appdata') } });
+    assert.equal(conflict.conflicts.length, 1, 'a divergent destination must be reported as a conflict');
+    assert.equal(fs.readFileSync(path.join(restoreRoot, 'portable.txt'), 'utf8'), 'new-pc-version', 'conflicts must never be overwritten');
+    const replaced = pcMigration.restoreBundle({ bundleDir, restoreRoot, apply: true, replaceWorkspaceConflicts: true, environment: { USERPROFILE: path.join(temporaryRoot, 'profile'), APPDATA: path.join(temporaryRoot, 'appdata') } });
+    assert.equal(replaced.replaced.length, 1, 'workspace conflicts may be replaced only through the explicit restore flag');
+    assert.equal(fs.readFileSync(path.join(restoreRoot, 'portable.txt'), 'utf8'), 'portable-context', 'explicit workspace replacement should restore the notebook version');
+  } finally {
+    fs.rmSync(temporaryRoot, { recursive: true, force: true });
+  }
+}
+
 function testAioxMasterNext() {
   const nextHtml = fs.readFileSync(path.join(ROOT, 'docs/aiox_master_next.html'), 'utf8');
   const serverJs = fs.readFileSync(path.join(ROOT, 'scripts/dashboard_server.js'), 'utf8');
@@ -1235,6 +1298,28 @@ function testVelasAromaticasDeliverables() {
   assert.deepEqual(velas.nodes.map(node => node.sequenceIndex), [1, 2, 3, 4, 5, 6], 'Velas nodes should remain sequentially numbered');
 }
 
+function testGammaBlackMt5DistributionEvidence() {
+  const report = fs.readFileSync(
+    path.join(ROOT, 'projects/forex/tools/install-report-20260901-gamma-black-mt5.md'),
+    'utf8'
+  );
+  const verification = fs.readFileSync(
+    path.join(ROOT, 'projects/forex/tools/install-verification-20260901-gamma-black-mt5.csv'),
+    'utf8'
+  );
+
+  assert.match(report, /Gamma Black MT4\.tpl/, 'distribution report should identify the original Gamma template');
+  assert.match(report, /Gamma Black MT4_EA Risco\.tpl/, 'distribution report should identify the separate AIOX template');
+  assert.match(report, /AIOX_Trader_On_Chart` v1\.50/, 'distribution report should lock the requested AIOX version');
+  assert.match(report, /ActivTrades - Teste TPL/, 'distribution report should cover both ActivTrades installations');
+  assert.match(report, /FTMO Free/, 'distribution report should cover both FTMO installations');
+  assert.match(report, /um Expert Advisor anexado por grafico/, 'distribution report should explain the one-EA-per-chart boundary');
+
+  const matches = verification.match(/,"True"\r?$/gm) || [];
+  assert.equal(matches.length, 52, 'all 13 dependencies should be verified in each of the four MT5 terminals');
+  assert.doesNotMatch(verification, /,"False"\r?$/m, 'no installed dependency should have a divergent hash');
+}
+
 function run() {
   testProjectFlows();
   testPersonaMaterials();
@@ -1243,9 +1328,11 @@ function run() {
   testProtheusMt5ContextObserver();
   testCloudSyncGuardrails();
   testProjectMirrorConfiguration();
+  testPcMigrationGuardrails();
   testDashboardInlineScriptsParse();
   testAioxMasterNext();
   testVelasAromaticasDeliverables();
+  testGammaBlackMt5DistributionEvidence();
   console.log('Tests passed: Master Hub quality checks succeeded.');
 }
 

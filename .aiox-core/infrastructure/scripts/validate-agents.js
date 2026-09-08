@@ -69,7 +69,7 @@ const SHARED_COMMANDS = new Set([
  * Extract YAML content from markdown file
  */
 function extractYamlFromMarkdown(content) {
-  const yamlBlockMatch = content.match(/```yaml\n([\s\S]*?)\n```/);
+  const yamlBlockMatch = content.match(/```yaml\r?\n([\s\S]*?)\r?\n```/);
   if (yamlBlockMatch) {
     return yaml.load(yamlBlockMatch[1]);
   }

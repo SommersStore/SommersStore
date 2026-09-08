@@ -792,9 +792,19 @@
 - [x] Criado `reiniciar_painel.bat` e modo `start_painel.bat restart` para trocar o servidor antigo quando houver endpoint novo.
 - [x] Firebase Hosting publicado na versao `b0fa421391879c29` e catalogo vivo do app confirmado com 48 destinos.
 
+- [x] Falha `Cannot find module 'execa'` corrigida no `.aiox-core`; ativacao `dev`, validacao estrutural, validacao de agentes e gates da raiz verificados.
+- [x] `4-CONJUNTO-DE-VELAS` MT5 v1.20 ajustado para quatro cores/espessuras editaveis como no MT4 e instalado nas plataformas Exness e ActivTrades.
+- [x] Paridade visual MT4/MT5 refinada: candle v1.21 normaliza largura legada e `Fractals_Original_MT5` replica raio 2, platôs 5-9 barras, cores e simbolo do MT4.
+- [x] Compensacao final de rasterizacao: candle MT5 v1.30 usa Inputs MT4 `1/2` com pixels nativos `0/1`; fractais MT5 v1.10 usam largura `0`.
+- [x] Fractal MT5 v1.20 instalado na Exness e ActivTrades: runtime que persiste largura minima `1` compensado por marcador ultrafino 159, com opcao 119 original preservada.
+- [x] SOMMA Multimarket Desk v1.10 instalado na Exness e ActivTrades: atualizacao incremental das EMAs corrigida para encerrar as linhas normalmente, sem queda vertical ate zero.
+- [x] AIOX Trader On Chart MT5 v1.40 instalado na Exness e ActivTrades com temas claro MT4/escuro contrastante; Gamma Server preservado e uso definido em segundo grafico do mesmo ativo.
+- [x] AIOX Trader On Chart MT5 v1.50 instalado em Exness, duas FTMO e duas ActivTrades: Buy/Sell reorganizados, botoes superiores brancos, Place ampliado, BE/trailing/linhas auditados e tres parciais hedging adicionadas com automacao desligada por padrao.
+- [x] `Gamma Black MT4` e `Gamma Black MT4_EA Risco` instalados com sete indicadores e dependencias nas duas ActivTrades e duas FTMO; AIOX v1.50 recompilado, 52/52 componentes validados e backups preservados.
+
 ## Risks
 - Automacao implantada precisa de validacao operacional recorrente para detectar regressao cedo.
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-08-18T00:45:53-03:00
+- updated_at: 2026-09-01T01:02:13-03:00

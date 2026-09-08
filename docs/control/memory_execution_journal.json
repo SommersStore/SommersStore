@@ -1,50 +1,6 @@
 {
   "items": [
     {
-      "id": "RUN-MEM-20260601-0006",
-      "timestamp_start": "2026-06-01T10:42:48-03:00",
-      "timestamp_end": "2026-06-01T10:42:48-03:00",
-      "actor": "system",
-      "squad": "SQD-MEM",
-      "skill": "MemoryLifecycle",
-      "module": "memory-governance",
-      "entity": "dashboard",
-      "action": "session_close",
-      "input_summary": "Automatic lifecycle event",
-      "output_summary": "Sessao SES-20260601-0003 encerrada com CHK-MEM-0619",
-      "result": "success",
-      "files_touched": [
-        "docs/control/memory_current_state.json",
-        "docs/control/memory_checkpoints.json",
-        "docs/control/memory_mutations.json",
-        "task.md"
-      ],
-      "project_id": null
-    },
-    {
-      "id": "RUN-MEM-20260601-0007",
-      "timestamp_start": "2026-06-01T10:42:50-03:00",
-      "timestamp_end": "2026-06-01T10:42:50-03:00",
-      "actor": "system",
-      "squad": "SQD-MEM",
-      "skill": "MemoryLifecycle",
-      "module": "memory-governance",
-      "entity": "dashboard",
-      "action": "session_start",
-      "input_summary": "Automatic lifecycle event",
-      "output_summary": "Sessao SES-20260601-0004 iniciada",
-      "result": "success",
-      "files_touched": [
-        "docs/control/memory_current_state.json",
-        "docs/control/memory_open_loops.json",
-        "docs/control/memory_checkpoints.json",
-        "docs/control/memory_decision_log.json",
-        "docs/memory/startup_context_latest.md",
-        "task.md"
-      ],
-      "project_id": "electro"
-    },
-    {
       "id": "RUN-MEM-20260601-0008",
       "timestamp_start": "2026-06-01T10:44:10-03:00",
       "timestamp_end": "2026-06-01T10:44:10-03:00",
@@ -8793,6 +8749,73 @@
         "task.md"
       ],
       "project_id": null
+    },
+    {
+      "id": "RUN-MEM-20260823-0001",
+      "timestamp_start": "2026-08-23T01:00:52-03:00",
+      "timestamp_end": "2026-08-23T01:00:52-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_start",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260823-0001 iniciada",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_open_loops.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_decision_log.json",
+        "docs/memory/startup_context_latest.md",
+        "task.md"
+      ],
+      "project_id": "sais"
+    },
+    {
+      "id": "RUN-MEM-20260823-0002",
+      "timestamp_start": "2026-08-23T01:03:45-03:00",
+      "timestamp_end": "2026-08-23T01:03:45-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_close",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260823-0001 encerrada com CHK-MEM-0824",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_mutations.json",
+        "task.md"
+      ],
+      "project_id": null
+    },
+    {
+      "id": "RUN-MEM-20260831-0001",
+      "timestamp_start": "2026-08-31T07:56:02-03:00",
+      "timestamp_end": "2026-08-31T07:56:02-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_start",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260831-0001 iniciada",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_open_loops.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_decision_log.json",
+        "docs/memory/startup_context_latest.md",
+        "task.md"
+      ],
+      "project_id": "sais"
     }
   ]
 }

@@ -1,66 +1,6 @@
 {
   "entries": [
     {
-      "id": "LOG-20260705-0014",
-      "type": "session_start",
-      "target": "SES-20260705-0002",
-      "initiated_by": "dashboard",
-      "project_id": "sais",
-      "timestamp": "2026-07-05T14:12:52-03:00",
-      "details": "Oracle startup automatico executado",
-      "why_this_ran": "Context flash inicial"
-    },
-    {
-      "id": "LOG-20260705-0015",
-      "type": "session_pulse",
-      "target": "SES-20260705-0002",
-      "initiated_by": "dashboard",
-      "project_id": "sais",
-      "timestamp": "2026-07-05T14:13:51-03:00",
-      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
-      "id": "LOG-20260705-0016",
-      "type": "session_pulse",
-      "target": "SES-20260705-0002",
-      "initiated_by": "dashboard",
-      "project_id": "sais",
-      "timestamp": "2026-07-05T14:23:52-03:00",
-      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
-      "id": "LOG-20260705-0017",
-      "type": "session_pulse",
-      "target": "SES-20260705-0002",
-      "initiated_by": "dashboard",
-      "project_id": "sais",
-      "timestamp": "2026-07-05T14:28:14-03:00",
-      "details": "background",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
-      "id": "LOG-20260705-0018",
-      "type": "session_pulse",
-      "target": "SES-20260705-0002",
-      "initiated_by": "dashboard",
-      "project_id": "sais",
-      "timestamp": "2026-07-05T14:28:51-03:00",
-      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
-      "id": "LOG-20260705-0019",
-      "type": "session_pulse",
-      "target": "SES-20260705-0002",
-      "initiated_by": "dashboard",
-      "project_id": "sais",
-      "timestamp": "2026-07-05T14:30:23-03:00",
-      "details": "background",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
       "id": "LOG-20260705-0020",
       "type": "session_pulse",
       "target": "SES-20260705-0002",
@@ -4999,6 +4939,136 @@
       "timestamp": "2026-08-18T00:45:53-03:00",
       "details": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
       "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260818-0012",
+      "type": "cloud_sync",
+      "target": "SYNC-20260818-1787024753247",
+      "initiated_by": "human",
+      "project_id": "sais",
+      "timestamp": "2026-08-18T00:48:27-03:00",
+      "details": "Cloud sync SYNC-20260818-1787024753247: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.) Copia D: success (Espelho local atualizado em D:\\Antigravity-SommersStore\\workspace.)",
+      "why_this_ran": "target=all; scope=all; trigger=save_all_one_click"
+    },
+    {
+      "id": "LOG-20260823-0001",
+      "type": "session_start",
+      "target": "SES-20260823-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-08-23T01:00:52-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260823-0002",
+      "type": "session_pulse",
+      "target": "SES-20260823-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-08-23T01:01:19-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260823-0003",
+      "type": "session_pulse",
+      "target": "SES-20260823-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-08-23T01:01:44-03:00",
+      "details": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260823-0004",
+      "type": "session_pulse",
+      "target": "SES-20260823-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-08-23T01:03:45-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260823-0005",
+      "type": "session_close",
+      "target": "SES-20260823-0001",
+      "initiated_by": "system",
+      "project_id": "sais",
+      "timestamp": "2026-08-23T01:03:45-03:00",
+      "details": "Encerramento automatico (fechamento de aba/janela).",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260831-0001",
+      "type": "session_start",
+      "target": "SES-20260831-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-08-31T07:56:02-03:00",
+      "details": "Oracle startup automatico executado",
+      "why_this_ran": "Context flash inicial"
+    },
+    {
+      "id": "LOG-20260831-0002",
+      "type": "session_pulse",
+      "target": "SES-20260831-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-08-31T07:56:52-03:00",
+      "details": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260831-0003",
+      "type": "session_pulse",
+      "target": "SES-20260831-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-08-31T07:57:04-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260831-0004",
+      "type": "session_pulse",
+      "target": "SES-20260831-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-08-31T07:57:52-03:00",
+      "details": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260831-0005",
+      "type": "session_pulse",
+      "target": "SES-20260831-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-08-31T07:59:59-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260831-0006",
+      "type": "session_pulse",
+      "target": "SES-20260831-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-08-31T08:01:13-03:00",
+      "details": "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
+      "why_this_ran": "Pulse keepalive"
+    },
+    {
+      "id": "LOG-20260831-0007",
+      "type": "session_pulse",
+      "target": "SES-20260831-0001",
+      "initiated_by": "dashboard",
+      "project_id": "sais",
+      "timestamp": "2026-08-31T08:01:13-03:00",
+      "details": "background",
+      "why_this_ran": "Pulse keepalive"
     }
   ]
 }

@@ -5,7 +5,7 @@
 //+------------------------------------------------------------------+
 #property copyright "Copyright 2026, SommersStore"
 #property link      "https://sommers.store"
-#property version   "1.33"
+#property version   "1.50"
 
 #include <Trade\Trade.mqh>
 #include <Trade\PositionInfo.mqh>
@@ -14,6 +14,12 @@
 CTrade trade;
 CPositionInfo position;
 COrderInfo orderInfo;
+
+enum ENUM_AIOX_PANEL_THEME
+{
+   TEMA_CLARO_ORIGINAL_MT4 = 0,
+   TEMA_ESCURO_GRAFICO_PRETO = 1
+};
 
 //--- Risk parameters
 input double RiskPercent = 1.0;            // Default risk % in percent mode
@@ -44,12 +50,24 @@ input int StraddleExpiryMinutes = 60;      // Pending expiry, 0=GTC
 input bool EnableTwoWayTrading = true;     // Straddle can place both directions
 input bool EnableOCO = true;               // Delete opposite pending after fill
 
+//--- Staged partial exits (disabled by default for safe rollout)
+input bool EnablePartialClose1 = false;     // Auto partial 1
+input int PartialClose1TriggerPips = 12;    // Profit trigger for partial 1
+input double PartialClose1Percent = 33.0;   // Percent of remaining volume
+input bool EnablePartialClose2 = false;     // Auto partial 2
+input int PartialClose2TriggerPips = 20;    // Profit trigger for partial 2
+input double PartialClose2Percent = 33.0;   // Percent of remaining volume
+input bool EnablePartialClose3 = false;     // Auto partial 3
+input int PartialClose3TriggerPips = 30;    // Profit trigger for partial 3
+input double PartialClose3Percent = 34.0;   // Percent of remaining volume
+
 //--- Visual offset
 input int PanelOffsetX = 20;
 input int PanelOffsetY = 40;
 input int PanelScalePercent = 135;         // 135 = TOC-style panel enlarged for readability
 input int PanelFontScalePercent = 82;      // Slim typography without reducing panel dimensions
 input int PanelRefreshSeconds = 1;         // Panel refresh timer
+input ENUM_AIOX_PANEL_THEME PanelTheme = TEMA_ESCURO_GRAFICO_PRETO;
 
 //--- Runtime state
 int    g_risk_mode = 0;
@@ -75,6 +93,73 @@ color COLOR_SELL = C'235,28,36';
 color COLOR_PENDING = C'20,170,90';
 color COLOR_BTN_DEFAULT = C'28,40,56';
 color COLOR_BTN_ACTIVE = C'255,211,36';
+color COLOR_BTN_TEXT = C'232,238,246';
+color COLOR_ACTIVE_TEXT = C'24,28,34';
+color COLOR_ACTION_TEXT = clrWhite;
+color COLOR_EDIT_BG = C'20,29,41';
+color COLOR_EDIT_TEXT = C'232,238,246';
+color COLOR_POSITIVE_TEXT = C'92,220,154';
+color COLOR_NEGATIVE_TEXT = C'255,130,136';
+color COLOR_CLOSE_BG = clrWhite;
+color COLOR_CLOSE_ALL_TEXT = C'170,30,45';
+color COLOR_CLOSE_PROFIT_TEXT = C'0,120,65';
+color COLOR_CLOSE_LOSS_TEXT = C'205,28,45';
+color COLOR_CLOSE_PENDING_TEXT = C'150,70,0';
+
+void ApplyPanelTheme()
+{
+   if(PanelTheme == TEMA_CLARO_ORIGINAL_MT4)
+   {
+      COLOR_BG = C'250,250,250';
+      COLOR_BORDER = C'170,170,170';
+      COLOR_TEXT = C'24,24,24';
+      COLOR_MUTED = C'128,128,128';
+      COLOR_SYMBOL = C'0,38,255';
+      COLOR_BUY = C'35,160,55';
+      COLOR_SELL = C'235,28,36';
+      COLOR_PENDING = C'20,170,90';
+      COLOR_BTN_DEFAULT = C'236,236,236';
+      COLOR_BTN_ACTIVE = C'255,211,36';
+      COLOR_BTN_TEXT = C'24,24,24';
+      COLOR_ACTIVE_TEXT = C'24,24,24';
+      COLOR_ACTION_TEXT = clrWhite;
+      COLOR_EDIT_BG = clrWhite;
+      COLOR_EDIT_TEXT = C'24,24,24';
+      COLOR_POSITIVE_TEXT = COLOR_PENDING;
+      COLOR_NEGATIVE_TEXT = COLOR_SELL;
+      return;
+   }
+
+   COLOR_BG = C'12,18,28';
+   COLOR_BORDER = C'64,80,104';
+   COLOR_TEXT = C'232,238,246';
+   COLOR_MUTED = C'160,174,194';
+   COLOR_SYMBOL = C'74,163,255';
+   COLOR_BUY = C'8,104,56';
+   COLOR_SELL = C'166,34,46';
+   COLOR_PENDING = C'5,105,62';
+   COLOR_BTN_DEFAULT = C'28,40,56';
+   COLOR_BTN_ACTIVE = C'255,193,7';
+   COLOR_BTN_TEXT = C'232,238,246';
+   COLOR_ACTIVE_TEXT = C'24,28,34';
+   COLOR_ACTION_TEXT = clrWhite;
+   COLOR_EDIT_BG = C'20,29,41';
+   COLOR_EDIT_TEXT = C'232,238,246';
+   COLOR_POSITIVE_TEXT = C'92,220,154';
+   COLOR_NEGATIVE_TEXT = C'255,130,136';
+}
+
+void SetButtonColors(const string name, const color background, const color foreground)
+{
+   ObjectSetInteger(0, name, OBJPROP_BGCOLOR, background);
+   ObjectSetInteger(0, name, OBJPROP_COLOR, foreground);
+}
+
+void SetButtonFont(const string name, const int fontSize, const bool semibold = true)
+{
+   ObjectSetInteger(0, name, OBJPROP_FONTSIZE, UiFont(fontSize));
+   ObjectSetString(0, name, OBJPROP_FONT, semibold ? "Segoe UI Semibold" : "Segoe UI");
+}
 
 //+------------------------------------------------------------------+
 //| Price helpers                                                    |
@@ -94,6 +179,8 @@ double GetAsk()
 //+------------------------------------------------------------------+
 int OnInit()
 {
+   ApplyPanelTheme();
+
    g_risk_mode = DefaultRiskMode;
    if(g_risk_mode < 0 || g_risk_mode > 2)
       g_risk_mode = 0;
@@ -141,6 +228,7 @@ void OnTick()
 {
    if(g_auto_trailing)
       ApplyTrailingStops();
+   ApplyAutomaticPartialCloses();
    if(g_oco_enabled)
       ApplyOCO();
 }
@@ -210,6 +298,12 @@ void OnChartEvent(const int id, const long &lparam, const double &dparam, const 
          ClosePositions("", 0);
       else if(sparam == "AIOX_TOC_BTN_DELPEND")
          DeletePendingOrders();
+      else if(sparam == "AIOX_TOC_BTN_PARTIAL_1")
+         ClosePartialPositions(PartialClose1Percent, 1, true);
+      else if(sparam == "AIOX_TOC_BTN_PARTIAL_2")
+         ClosePartialPositions(PartialClose2Percent, 2, true);
+      else if(sparam == "AIOX_TOC_BTN_PARTIAL_3")
+         ClosePartialPositions(PartialClose3Percent, 3, true);
 
       if(StringFind(sparam, "AIOX_TOC_BTN_", 0) == 0)
          ObjectSetInteger(0, sparam, OBJPROP_STATE, false);
@@ -266,7 +360,7 @@ void CreatePanel()
    int x = PanelOffsetX;
    int y = PanelOffsetY;
    int w = U(240);
-   int h = U(396);
+   int h = U(425);
 
    ObjectCreate(0, "AIOX_TOC_BG", OBJ_RECTANGLE_LABEL, 0, 0, 0);
    ObjectSetInteger(0, "AIOX_TOC_BG", OBJPROP_XDISTANCE, x);
@@ -281,17 +375,17 @@ void CreatePanel()
    ObjectSetInteger(0, "AIOX_TOC_BG", OBJPROP_ZORDER, 100);
 
    CreateLabel("AIOX_TOC_LBL_SYMBOL", Symbol(), x + U(8), y + U(6), COLOR_SYMBOL, 11, true);
-   CreateLabel("AIOX_TOC_LBL_VERSION", "AIOX v1.33", x + U(182), y + U(8), COLOR_TEXT, 7, true);
+   CreateLabel("AIOX_TOC_LBL_VERSION", "AIOX v1.50", x + U(182), y + U(8), COLOR_TEXT, 7, true);
 
    CreateLabel("AIOX_TOC_LBL_CLOSE_ORDERS", "Close orders:", x + U(8), y + U(28), COLOR_TEXT, 7, true);
-   CreateButton("AIOX_TOC_BTN_CLOSE_MARKET", "All", x + U(88), y + U(25), U(30), U(18), 7);
-   CreateButton("AIOX_TOC_BTN_CLOSE_PROFIT", "Profit", x + U(122), y + U(25), U(38), U(18), 7);
-   CreateButton("AIOX_TOC_BTN_CLOSE_LOSS", "Loss", x + U(164), y + U(25), U(30), U(18), 7);
-   CreateButton("AIOX_TOC_BTN_CLOSE_PENDING", "Pend", x + U(198), y + U(25), U(34), U(18), 7);
-   ObjectSetInteger(0, "AIOX_TOC_BTN_CLOSE_MARKET", OBJPROP_COLOR, COLOR_SELL);
-   ObjectSetInteger(0, "AIOX_TOC_BTN_CLOSE_PROFIT", OBJPROP_COLOR, COLOR_PENDING);
-   ObjectSetInteger(0, "AIOX_TOC_BTN_CLOSE_LOSS", OBJPROP_COLOR, COLOR_SELL);
-   ObjectSetInteger(0, "AIOX_TOC_BTN_CLOSE_PENDING", OBJPROP_COLOR, COLOR_SELL);
+   CreateButton("AIOX_TOC_BTN_CLOSE_MARKET", "All", x + U(88), y + U(24), U(30), U(20), 7);
+   CreateButton("AIOX_TOC_BTN_CLOSE_PROFIT", "Profit", x + U(122), y + U(24), U(38), U(20), 7);
+   CreateButton("AIOX_TOC_BTN_CLOSE_LOSS", "Loss", x + U(164), y + U(24), U(30), U(20), 7);
+   CreateButton("AIOX_TOC_BTN_CLOSE_PENDING", "Pend", x + U(198), y + U(24), U(34), U(20), 7);
+   SetButtonColors("AIOX_TOC_BTN_CLOSE_MARKET", COLOR_CLOSE_BG, COLOR_CLOSE_ALL_TEXT);
+   SetButtonColors("AIOX_TOC_BTN_CLOSE_PROFIT", COLOR_CLOSE_BG, COLOR_CLOSE_PROFIT_TEXT);
+   SetButtonColors("AIOX_TOC_BTN_CLOSE_LOSS", COLOR_CLOSE_BG, COLOR_CLOSE_LOSS_TEXT);
+   SetButtonColors("AIOX_TOC_BTN_CLOSE_PENDING", COLOR_CLOSE_BG, COLOR_CLOSE_PENDING_TEXT);
 
    CreateRule("AIOX_TOC_RULE_TOP", x + U(6), y + U(50), U(228));
 
@@ -316,33 +410,38 @@ void CreatePanel()
    CreateButton("AIOX_TOC_BTN_OCO", "Yes", x + U(45), y + U(205), U(48), U(20), 8);
    CreateButton("AIOX_TOC_BTN_PENDING_MODE", PendingModeText(), x + U(102), y + U(205), U(122), U(20), 8);
 
-   CreateButton("AIOX_TOC_BTN_DISTANCE_LABEL", "pips distance", x + U(8), y + U(234), U(142), U(20), 8);
-   CreateEdit("AIOX_TOC_EDIT_PENDING_OFFSET", IntegerToString(g_pending_offset_pips), x + U(158), y + U(234), U(36), U(20), 8);
-   CreateButton("AIOX_TOC_BTN_PEND", "Place", x + U(198), y + U(234), U(34), U(20), 8);
+   CreateButton("AIOX_TOC_BTN_DISTANCE_LABEL", "Pips distance", x + U(8), y + U(233), U(108), U(22), 8);
+   CreateEdit("AIOX_TOC_EDIT_PENDING_OFFSET", IntegerToString(g_pending_offset_pips), x + U(122), y + U(233), U(38), U(22), 8);
+   CreateButton("AIOX_TOC_BTN_PEND", "PLACE", x + U(166), y + U(233), U(66), U(22), 8);
+   SetButtonFont("AIOX_TOC_BTN_PEND", 8, true);
 
    CreateButton("AIOX_TOC_BTN_STRADDLE", "Straddle", x + U(8), y + U(263), U(78), U(22), 8);
    CreateButton("AIOX_TOC_BTN_BE", "BE", x + U(92), y + U(263), U(34), U(22), 8);
    CreateButton("AIOX_TOC_BTN_TRAIL", "Trail", x + U(132), y + U(263), U(42), U(22), 8);
    CreateButton("AIOX_TOC_BTN_DELPEND", "Del", x + U(180), y + U(263), U(44), U(22), 8);
-   ObjectSetInteger(0, "AIOX_TOC_BTN_STRADDLE", OBJPROP_BGCOLOR, COLOR_PENDING);
-   ObjectSetInteger(0, "AIOX_TOC_BTN_STRADDLE", OBJPROP_COLOR, clrWhite);
+   SetButtonColors("AIOX_TOC_BTN_STRADDLE", COLOR_PENDING, COLOR_ACTION_TEXT);
 
-   CreateLabel("AIOX_TOC_LBL_CALC_LOTS", "Lot: --", x + U(8), y + U(294), COLOR_TEXT, 8, false);
-   CreateLabel("AIOX_TOC_LBL_CALC_RISK", "Risk: --", x + U(8), y + U(312), COLOR_TEXT, 8, false);
-   CreateLabel("AIOX_TOC_LBL_MARKET", "Spread: --", x + U(8), y + U(330), COLOR_MUTED, 8, false);
+   CreateLabel("AIOX_TOC_LBL_PARTIAL", "Partial:", x + U(8), y + U(296), COLOR_TEXT, 8, true);
+   CreateButton("AIOX_TOC_BTN_PARTIAL_1", PartialButtonText(1), x + U(55), y + U(291), U(54), U(22), 7);
+   CreateButton("AIOX_TOC_BTN_PARTIAL_2", PartialButtonText(2), x + U(113), y + U(291), U(54), U(22), 7);
+   CreateButton("AIOX_TOC_BTN_PARTIAL_3", PartialButtonText(3), x + U(171), y + U(291), U(53), U(22), 7);
 
-   CreateButton("AIOX_TOC_BTN_SELL", "Sell", x + U(8), y + U(350), U(78), U(32), 9);
-   ObjectSetInteger(0, "AIOX_TOC_BTN_SELL", OBJPROP_BGCOLOR, COLOR_SELL);
-   ObjectSetInteger(0, "AIOX_TOC_BTN_SELL", OBJPROP_COLOR, clrWhite);
+   CreateLabel("AIOX_TOC_LBL_CALC_LOTS", "Lot: --", x + U(8), y + U(323), COLOR_TEXT, 8, false);
+   CreateLabel("AIOX_TOC_LBL_CALC_RISK", "Risk: --", x + U(8), y + U(341), COLOR_TEXT, 8, false);
+   CreateLabel("AIOX_TOC_LBL_MARKET", "Spread: --", x + U(8), y + U(359), COLOR_MUTED, 8, false);
 
-   CreateButton("AIOX_TOC_BTN_LOT_DISPLAY", "0.00", x + U(92), y + U(357), U(56), U(18), 8);
-   ObjectSetInteger(0, "AIOX_TOC_BTN_LOT_DISPLAY", OBJPROP_BGCOLOR, clrWhite);
+   CreateButton("AIOX_TOC_BTN_BUY", "BUY", x + U(8), y + U(378), U(78), U(34), 10);
+   SetButtonColors("AIOX_TOC_BTN_BUY", COLOR_BUY, COLOR_ACTION_TEXT);
+   SetButtonFont("AIOX_TOC_BTN_BUY", 10, true);
 
-   CreateButton("AIOX_TOC_BTN_BUY", "Buy", x + U(156), y + U(350), U(76), U(32), 9);
-   ObjectSetInteger(0, "AIOX_TOC_BTN_BUY", OBJPROP_BGCOLOR, COLOR_BUY);
-   ObjectSetInteger(0, "AIOX_TOC_BTN_BUY", OBJPROP_COLOR, clrWhite);
+   CreateButton("AIOX_TOC_BTN_LOT_DISPLAY", "0.00", x + U(92), y + U(386), U(56), U(18), 8);
+   SetButtonColors("AIOX_TOC_BTN_LOT_DISPLAY", COLOR_EDIT_BG, COLOR_EDIT_TEXT);
 
-   CreateLabel("AIOX_TOC_LBL_POWERED", "Powered by AIOX", x + U(76), y + U(382), COLOR_MUTED, 7, false);
+   CreateButton("AIOX_TOC_BTN_SELL", "SELL", x + U(156), y + U(378), U(76), U(34), 10);
+   SetButtonColors("AIOX_TOC_BTN_SELL", COLOR_SELL, COLOR_ACTION_TEXT);
+   SetButtonFont("AIOX_TOC_BTN_SELL", 10, true);
+
+   CreateLabel("AIOX_TOC_LBL_POWERED", "Powered by AIOX", x + U(76), y + U(411), COLOR_MUTED, 7, false);
 }
 
 void CreateRule(string name, int x, int y, int w)
@@ -381,9 +480,9 @@ void CreateButton(string name, string text, int x, int y, int w, int h, int font
    ObjectSetInteger(0, name, OBJPROP_YSIZE, h);
    ObjectSetString(0, name, OBJPROP_TEXT, text);
    ObjectSetInteger(0, name, OBJPROP_BGCOLOR, COLOR_BTN_DEFAULT);
-   ObjectSetInteger(0, name, OBJPROP_COLOR, COLOR_TEXT);
+   ObjectSetInteger(0, name, OBJPROP_COLOR, COLOR_BTN_TEXT);
    ObjectSetInteger(0, name, OBJPROP_FONTSIZE, UiFont(fontSize));
-   ObjectSetString(0, name, OBJPROP_FONT, "Segoe UI");
+   ObjectSetString(0, name, OBJPROP_FONT, "Segoe UI Semibold");
    ObjectSetInteger(0, name, OBJPROP_CORNER, CORNER_LEFT_UPPER);
    ObjectSetInteger(0, name, OBJPROP_SELECTABLE, false);
    ObjectSetInteger(0, name, OBJPROP_ZORDER, 103);
@@ -397,8 +496,8 @@ void CreateEdit(string name, string text, int x, int y, int w, int h, int fontSi
    ObjectSetInteger(0, name, OBJPROP_XSIZE, w);
    ObjectSetInteger(0, name, OBJPROP_YSIZE, h);
    ObjectSetString(0, name, OBJPROP_TEXT, text);
-   ObjectSetInteger(0, name, OBJPROP_BGCOLOR, C'236,241,247');
-   ObjectSetInteger(0, name, OBJPROP_COLOR, COLOR_TEXT);
+   ObjectSetInteger(0, name, OBJPROP_BGCOLOR, COLOR_EDIT_BG);
+   ObjectSetInteger(0, name, OBJPROP_COLOR, COLOR_EDIT_TEXT);
    ObjectSetInteger(0, name, OBJPROP_FONTSIZE, UiFont(fontSize));
    ObjectSetString(0, name, OBJPROP_FONT, "Segoe UI");
    ObjectSetInteger(0, name, OBJPROP_CORNER, CORNER_LEFT_UPPER);
@@ -734,6 +833,33 @@ string PendingModeText()
    return("SELL LIMIT");
 }
 
+double PartialPercent(const int stage)
+{
+   if(stage == 1) return(PartialClose1Percent);
+   if(stage == 2) return(PartialClose2Percent);
+   return(PartialClose3Percent);
+}
+
+int PartialTriggerPips(const int stage)
+{
+   if(stage == 1) return(PartialClose1TriggerPips);
+   if(stage == 2) return(PartialClose2TriggerPips);
+   return(PartialClose3TriggerPips);
+}
+
+bool PartialStageEnabled(const int stage)
+{
+   if(stage == 1) return(EnablePartialClose1);
+   if(stage == 2) return(EnablePartialClose2);
+   return(EnablePartialClose3);
+}
+
+string PartialButtonText(const int stage)
+{
+   double percent = MathMax(0.0, MathMin(99.0, PartialPercent(stage)));
+   return("P" + IntegerToString(stage) + " " + DoubleToString(percent, 0) + "%");
+}
+
 void CyclePendingMode()
 {
    g_pending_mode++;
@@ -840,19 +966,36 @@ void RecalculateAndRedraw()
    ObjectSetString(0, "AIOX_TOC_LINE_SL", OBJPROP_TEXT, "AIOX SL " + IntegerToString(g_sl_pips) + "p | risk " + DoubleToString(riskCash, 2));
    ObjectSetString(0, "AIOX_TOC_LINE_TP", OBJPROP_TEXT, "AIOX TP " + IntegerToString(g_tp_pips) + "p | reward " + DoubleToString(rewardCash, 2));
 
-   ObjectSetInteger(0, "AIOX_TOC_BTN_MODE_CYCLE", OBJPROP_BGCOLOR, COLOR_BTN_ACTIVE);
-   ObjectSetInteger(0, "AIOX_TOC_BTN_TRAIL", OBJPROP_BGCOLOR, g_auto_trailing ? COLOR_BTN_ACTIVE : COLOR_BTN_DEFAULT);
+   SetButtonColors("AIOX_TOC_BTN_MODE_CYCLE", COLOR_BTN_ACTIVE, COLOR_ACTIVE_TEXT);
+   SetButtonColors("AIOX_TOC_BTN_TRAIL",
+                   g_auto_trailing ? COLOR_BTN_ACTIVE : COLOR_BTN_DEFAULT,
+                   g_auto_trailing ? COLOR_ACTIVE_TEXT : COLOR_BTN_TEXT);
    ObjectSetString(0, "AIOX_TOC_BTN_TRAIL", OBJPROP_TEXT, g_auto_trailing ? "On" : "Trail");
-   ObjectSetString(0, "AIOX_TOC_BTN_BUY", OBJPROP_TEXT, "Buy\n" + DoubleToString(GetAsk(), _Digits));
-   ObjectSetString(0, "AIOX_TOC_BTN_SELL", OBJPROP_TEXT, "Sell\n" + DoubleToString(GetBid(), _Digits));
+   ObjectSetString(0, "AIOX_TOC_BTN_BUY", OBJPROP_TEXT, "BUY");
+   ObjectSetString(0, "AIOX_TOC_BTN_SELL", OBJPROP_TEXT, "SELL");
    ObjectSetString(0, "AIOX_TOC_BTN_PENDING_MODE", OBJPROP_TEXT, PendingModeText());
+   ObjectSetString(0, "AIOX_TOC_BTN_PARTIAL_1", OBJPROP_TEXT, PartialButtonText(1));
+   ObjectSetString(0, "AIOX_TOC_BTN_PARTIAL_2", OBJPROP_TEXT, PartialButtonText(2));
+   ObjectSetString(0, "AIOX_TOC_BTN_PARTIAL_3", OBJPROP_TEXT, PartialButtonText(3));
    ObjectSetString(0, "AIOX_TOC_BTN_TWOWAY", OBJPROP_TEXT, g_two_way ? "Yes" : "No");
    ObjectSetString(0, "AIOX_TOC_BTN_OCO", OBJPROP_TEXT, g_oco_enabled ? "Yes" : "No");
-   ObjectSetInteger(0, "AIOX_TOC_BTN_TWOWAY", OBJPROP_BGCOLOR, g_two_way ? COLOR_BTN_ACTIVE : COLOR_BTN_DEFAULT);
-   ObjectSetInteger(0, "AIOX_TOC_BTN_OCO", OBJPROP_BGCOLOR, g_oco_enabled ? COLOR_BTN_ACTIVE : COLOR_BTN_DEFAULT);
-   ObjectSetInteger(0, "AIOX_TOC_BTN_PEND", OBJPROP_BGCOLOR, COLOR_PENDING);
-   ObjectSetInteger(0, "AIOX_TOC_BTN_PEND", OBJPROP_COLOR, clrWhite);
-   ObjectSetInteger(0, "AIOX_TOC_BTN_PENDING_MODE", OBJPROP_BGCOLOR, COLOR_BTN_ACTIVE);
+   SetButtonColors("AIOX_TOC_BTN_TWOWAY",
+                   g_two_way ? COLOR_BTN_ACTIVE : COLOR_BTN_DEFAULT,
+                   g_two_way ? COLOR_ACTIVE_TEXT : COLOR_BTN_TEXT);
+   SetButtonColors("AIOX_TOC_BTN_OCO",
+                   g_oco_enabled ? COLOR_BTN_ACTIVE : COLOR_BTN_DEFAULT,
+                   g_oco_enabled ? COLOR_ACTIVE_TEXT : COLOR_BTN_TEXT);
+   SetButtonColors("AIOX_TOC_BTN_PEND", COLOR_PENDING, COLOR_ACTION_TEXT);
+   SetButtonColors("AIOX_TOC_BTN_PENDING_MODE", COLOR_BTN_ACTIVE, COLOR_ACTIVE_TEXT);
+   SetButtonColors("AIOX_TOC_BTN_PARTIAL_1",
+                   EnablePartialClose1 ? COLOR_BTN_ACTIVE : COLOR_BTN_DEFAULT,
+                   EnablePartialClose1 ? COLOR_ACTIVE_TEXT : COLOR_BTN_TEXT);
+   SetButtonColors("AIOX_TOC_BTN_PARTIAL_2",
+                   EnablePartialClose2 ? COLOR_BTN_ACTIVE : COLOR_BTN_DEFAULT,
+                   EnablePartialClose2 ? COLOR_ACTIVE_TEXT : COLOR_BTN_TEXT);
+   SetButtonColors("AIOX_TOC_BTN_PARTIAL_3",
+                   EnablePartialClose3 ? COLOR_BTN_ACTIVE : COLOR_BTN_DEFAULT,
+                   EnablePartialClose3 ? COLOR_ACTIVE_TEXT : COLOR_BTN_TEXT);
 
    ChartRedraw(0);
 }
@@ -1019,6 +1162,158 @@ void ClosePositions(string sym, int profitFilter)
 
       if(!trade.PositionClose(position.Ticket()))
          Print("AIOX TOC position close failed #", position.Ticket(), " retcode=", TradeErrorText());
+   }
+}
+
+string PartialStateKey(const ulong identifier, const int stage)
+{
+   return("AIOX_PC_" + IntegerToString(AccountInfoInteger(ACCOUNT_LOGIN)) + "_" +
+          IntegerToString((long)identifier) + "_" + IntegerToString(stage));
+}
+
+bool PartialStageDone(const ulong identifier, const int stage)
+{
+   return(GlobalVariableCheck(PartialStateKey(identifier, stage)));
+}
+
+void MarkPartialStageDone(const ulong identifier, const int stage)
+{
+   GlobalVariableSet(PartialStateKey(identifier, stage), (double)TimeCurrent());
+}
+
+double NormalizePartialCloseVolume(const double currentVolume, const double percent)
+{
+   double minVolume = SymbolInfoDouble(Symbol(), SYMBOL_VOLUME_MIN);
+   double step = SymbolInfoDouble(Symbol(), SYMBOL_VOLUME_STEP);
+   if(step <= 0.0)
+      step = minVolume;
+   if(step <= 0.0 || minVolume <= 0.0 || currentVolume <= minVolume)
+      return(0.0);
+
+   double requested = currentVolume * MathMax(0.0, MathMin(99.0, percent)) / 100.0;
+   double closeVolume = MathFloor((requested + step * 1e-8) / step) * step;
+   closeVolume = NormalizeDouble(closeVolume, VolumeDigits(step));
+   double remaining = NormalizeDouble(currentVolume - closeVolume, VolumeDigits(step));
+
+   if(closeVolume < minVolume || closeVolume >= currentVolume || remaining < minVolume)
+      return(0.0);
+   return(closeVolume);
+}
+
+bool ClosePositionPartialByTicket(const ulong ticket, const double percent, const bool reportErrors)
+{
+   if(AccountInfoInteger(ACCOUNT_MARGIN_MODE) != ACCOUNT_MARGIN_MODE_RETAIL_HEDGING)
+   {
+      if(reportErrors)
+         Alert("AIOX TOC: partial closing is enabled only on MT5 hedging accounts.");
+      return(false);
+   }
+
+   if(!PositionSelectByTicket(ticket))
+      return(false);
+
+   double currentVolume = PositionGetDouble(POSITION_VOLUME);
+   double closeVolume = NormalizePartialCloseVolume(currentVolume, percent);
+   if(closeVolume <= 0.0)
+   {
+      if(reportErrors)
+         Alert("AIOX TOC: this position volume cannot be reduced by ",
+               DoubleToString(percent, 0), "% without violating the broker minimum/step.");
+      return(false);
+   }
+
+   bool requested = trade.PositionClosePartial(ticket, closeVolume, (ulong)DefaultSlippage);
+   if(!requested || !TradeSucceeded())
+   {
+      if(reportErrors)
+         Alert("AIOX TOC partial close failed #", ticket, " retcode=", TradeErrorText());
+      else
+         Print("AIOX TOC automatic partial close failed #", ticket, " retcode=", TradeErrorText());
+      return(false);
+   }
+
+   Print("AIOX TOC partial close completed #", ticket,
+         " volume=", DoubleToString(closeVolume, VolumeDigits(SymbolInfoDouble(Symbol(), SYMBOL_VOLUME_STEP))),
+         " percent=", DoubleToString(percent, 0), "%");
+   return(true);
+}
+
+void ClosePartialPositions(const double percent, const int stage, const bool manualRequest)
+{
+   if(!TerminalInfoInteger(TERMINAL_TRADE_ALLOWED) || !MQLInfoInteger(MQL_TRADE_ALLOWED))
+   {
+      if(manualRequest)
+         Alert("AIOX TOC: enable Algo Trading before using partial close.");
+      return;
+   }
+
+   bool completed = false;
+   for(int i = PositionsTotal() - 1; i >= 0; i--)
+   {
+      if(!position.SelectByIndex(i))
+         continue;
+      if(position.Symbol() != Symbol() || !PositionInScope())
+         continue;
+
+      ulong ticket = position.Ticket();
+      ulong identifier = (ulong)PositionGetInteger(POSITION_IDENTIFIER);
+      if(ClosePositionPartialByTicket(ticket, percent, manualRequest))
+      {
+         MarkPartialStageDone(identifier, stage);
+         completed = true;
+      }
+   }
+
+   if(manualRequest && !completed)
+      Print("AIOX TOC: no scoped position was partially closed for stage P", stage, ".");
+}
+
+double SelectedPositionProfitPips()
+{
+   double pip = GetPipSize();
+   if(pip <= 0.0)
+      return(0.0);
+   if(position.PositionType() == POSITION_TYPE_BUY)
+      return((GetBid() - position.PriceOpen()) / pip);
+   return((position.PriceOpen() - GetAsk()) / pip);
+}
+
+void ApplyAutomaticPartialCloses()
+{
+   if(!EnablePartialClose1 && !EnablePartialClose2 && !EnablePartialClose3)
+      return;
+
+   static datetime lastCheck = 0;
+   datetime now = TimeCurrent();
+   if(now == lastCheck)
+      return;
+   lastCheck = now;
+
+   if(AccountInfoInteger(ACCOUNT_MARGIN_MODE) != ACCOUNT_MARGIN_MODE_RETAIL_HEDGING)
+      return;
+
+   for(int i = PositionsTotal() - 1; i >= 0; i--)
+   {
+      if(!position.SelectByIndex(i))
+         continue;
+      if(position.Symbol() != Symbol() || !PositionInScope())
+         continue;
+
+      ulong ticket = position.Ticket();
+      ulong identifier = (ulong)PositionGetInteger(POSITION_IDENTIFIER);
+      double profitPips = SelectedPositionProfitPips();
+
+      for(int stage = 1; stage <= 3; stage++)
+      {
+         if(!PartialStageEnabled(stage) || PartialStageDone(identifier, stage))
+            continue;
+         if(profitPips < MathMax(0, PartialTriggerPips(stage)))
+            continue;
+
+         if(ClosePositionPartialByTicket(ticket, PartialPercent(stage), false))
+            MarkPartialStageDone(identifier, stage);
+         break;
+      }
    }
 }
 

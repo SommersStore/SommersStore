@@ -20,7 +20,34 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-08-18T00:45:53-03:00
+- updated_at: 2026-09-01T01:02:13-03:00
+
+## Handoff Atual - Gamma Black MT4 distribuido no MT5 ActivTrades/FTMO
+- timestamp: 2026-09-01T01:02:13-03:00
+- objetivo: instalar o template `Gamma Black MT4` e seus indicadores nas MT5 ActivTrades/FTMO, assegurando tambem o `AIOX_Trader_On_Chart` v1.50.
+- terminais: ActivTrades (`FE0E...`), ActivTrades Teste (`ABF1...`), FTMO Free (`0CCB...`) e FTMO (`81A9...`).
+- templates: `Gamma Black MT4.tpl` preserva o `GammaLevels_Server_EA_Exness`; `Gamma Black MT4_EA Risco.tpl` preserva os mesmos sete indicadores e anexa o AIOX v1.50. A separacao e obrigatoria porque o MT5 aceita um EA por grafico.
+- dependencias: Top Clock, SOMMA Multimarket Desk, 4 Conjunto de Velas, Fractals Original, AIOX Peak SDA, SOMMA FP Force Displacement Resizable, smFisherTransform3, arquivo SOMMA de niveis e o binario Gamma Server foram sincronizados nos caminhos esperados pelo template.
+- validacao: 13 componentes por terminal, total de 52/52 hashes sem divergencia. O AIOX v1.50 foi recompilado nos quatro MetaEditor com `0 errors, 0 warnings`; `npm run lint`, `npm run typecheck` e `npm test` aprovados.
+- seguranca: nenhuma credencial, permissao ou ordem foi alterada/enviada. A disponibilidade do feed externo Gamma nas corretoras nao Exness continua dependente da licenca do fornecedor; linhas persistidas no template nao provam atualizacao em tempo real.
+- backup: `D:\Desktop\MT5_Corrigidos_2026-09-01\backups\Gamma_Black_MT4_20260901-005711`.
+- evidencia: `projects/forex/tools/install-report-20260901-gamma-black-mt5.md`, manifesto e verificacao CSV, quatro logs de compilacao `*-gamma-black.log`.
+- proxima_acao: atualizar o Navegador/reiniciar cada MT5, abrir um grafico de teste e aplicar o template desejado; validar visualmente os sete indicadores e, em conta demo, testar o AIOX na variante `EA Risco`.
+- story: `docs/stories/2.111.story.md`
+- checkpoint: CHK-FOREX-02111-GAMMA-BLACK-MT5
+
+## Handoff Atual - AIOX Trader On Chart MT5 v1.50
+- timestamp: 2026-08-31T23:25:27-03:00
+- objetivo: refinar o gerenciador de risco MT5, preservar o visual claro/escuro existente e adicionar fechamento parcial sem interferir no Gamma Levels Server.
+- visual: Buy foi movido para a esquerda e Sell para a direita, ambos sem cotacoes; acoes receberam tons mais escuros e texto branco; `Place` foi ampliado; os quatro botoes de fechamento do topo usam fundo branco e tipografia centralizada.
+- gestao: break-even inteligente, trailing stop e recalculo por arraste das linhas Entry/SL/TP foram auditados. Tres botoes de parcial e tres estagios automaticos opcionais por pips/percentual do volume remanescente foram adicionados.
+- seguranca: parciais automaticas iniciam desativadas; `CTrade::PositionClosePartial` e usado apenas em conta hedging, respeitando volume minimo e passo do simbolo. Validar primeiro em conta demo.
+- instalacao: v1.50 compilada com zero erros/avisos em Exness (`D0E...`), FTMO Free (`0CC...`), FTMO (`81A...`), ActivTrades (`FE0...`) e ActivTrades Teste (`ABF...`). Fontes sincronizados; Gamma Exness permaneceu com 98.592 bytes e data 2026-08-06 20:10:07.
+- entrega: `D:\Desktop\MT5_Corrigidos_2026-08-31\AIOX_Trader_On_Chart.mq5` e `.ex5`; backups anteriores em `D:\Desktop\MT5_Corrigidos_2026-08-31\backups\AIOX_Trader_On_Chart_v140_before_v150`.
+- validacao: cinco compilacoes MT5 com `0 errors, 0 warnings`; `git diff --check`, `npm run lint`, `npm run typecheck` e `npm test` aprovados. O repositorio nao possui script `build`.
+- proxima_acao: atualizar/reanexar o EA em uma janela secundaria de conta demo e testar Buy/Sell, BE, Trail, arraste e P1/P2/P3; depois confrontar o comportamento com o link/manual MQL5 prometido pelo usuario.
+- story: `docs/stories/2.111.story.md`
+- checkpoint: CHK-FOREX-02111-AIOX-TOC-V150
 
 ## Handoff Atual - Financas Mobile Parcelamentos e Sync
 - timestamp: 2026-07-18T22:23:59-03:00
@@ -865,6 +892,11 @@
 - checkpoint: CHK-MEM-0250
 
 ## Ultimo fechamento automatico
+- timestamp: 2026-08-23T01:03:45-03:00
+- tipo: automatico
+- resumo: Encerramento automatico (fechamento de aba/janela).
+- proxima_acao: (nao informada)
+- checkpoint: CHK-MEM-0824
 - timestamp: 2026-08-16T21:19:57-03:00
 - tipo: automatico
 - resumo: Encerramento automatico (fechamento de aba/janela).

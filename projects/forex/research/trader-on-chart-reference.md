@@ -32,14 +32,22 @@ Registrar o escopo observavel do Trader On Chart para orientar uma alternativa A
 - Nao ha copia do layout visual, marca, imagens, textos comerciais ou codigo do produto externo.
 - O EA AIOX nao e um gerador de sinais e nao promete resultado.
 - A automacao de trailing depende do terminal aberto e do EA rodando no grafico.
+- O MT5 permite somente um Expert Advisor por grafico; para manter outro EA ativo no mesmo simbolo, o AIOX deve rodar em uma segunda janela desse simbolo.
 - Todos os parametros precisam ser testados em demo/Strategy Tester antes de qualquer conta real.
+
+## Pesquisa complementar para a v1.50
+
+- API oficial de fechamento parcial: `https://www.mql5.com/en/docs/standardlibrary/tradeclasses/ctrade/ctradepositionclosepartial`. A MetaQuotes limita `CTrade::PositionClosePartial` a contas com contabilidade hedging e recomenda validar `ResultRetcode()` depois do envio.
+- Tipos de conta: `https://www.mql5.com/en/docs/constants/environment_state/accountinformation`. O EA consulta `ACCOUNT_MARGIN_MODE` antes de habilitar reducao parcial.
+- Restricoes de volume: `https://www.mql5.com/en/docs/constants/environment_state/marketinfoconstants`. Cada parcial respeita `SYMBOL_VOLUME_MIN` e `SYMBOL_VOLUME_STEP`, sem arredondar o fechamento acima do percentual solicitado.
+- Referencias funcionais publicas no Market MQL5 mostraram dois padroes uteis: fechamento manual por percentual e ate tres estagios automaticos com gatilho em pips e percentual do volume remanescente. Esses conceitos orientaram a v1.50, sem copiar codigo, marca ou layout de terceiros.
 
 ## Escopo AIOX implementado
 
 - `projects/forex/tools/mt4/AIOX_Trader_On_Chart.mq4`
 - `projects/forex/tools/mt5/AIOX_Trader_On_Chart.mq5`
-- Versao funcional atual: `v1.31`.
-- Painel branco/cinza claro padrao com `PanelScalePercent = 130`, layout compacto e mais proximo do painel TOC v1.5 mostrado pelo usuario.
+- Versao funcional atual: MT5 `v1.50`; MT4 `v1.32` preservado como referencia visual clara.
+- MT5 possui `PanelTheme` com `TEMA_CLARO_ORIGINAL_MT4` e `TEMA_ESCURO_GRAFICO_PRETO`; o tema escuro e o padrao e ambos usam `PanelScalePercent = 135`.
 - Modos de risco: percentual da conta, valor fixo em dinheiro e lote fixo.
 - Linhas `AIOX_TOC_LINE_ENTRY`, `AIOX_TOC_LINE_SL` e `AIOX_TOC_LINE_TP`.
 - Botoes: `BUY`, `SELL`, `PENDING`, `STRADDLE`, `BE`, `TRAIL`, `CLOSE`, `DEL`, `CLOSE ALL`, `Market`, `Profit`, `Loss`, `Pending`, `Two Way`, `OCO`, seletor de pendente e `Place`.
@@ -47,10 +55,12 @@ Registrar o escopo observavel do Trader On Chart para orientar uma alternativa A
 - Smart BE: adiciona comissao/swap quando a plataforma expuser estes custos e aplica buffer extra.
 - OCO: remove pendentes do mesmo simbolo/escopo quando uma posicao e aberta.
 - Guardrails: filtro de spread, stop level do broker, magic number e gerenciamento opcional apenas de ordens AIOX.
+- MT5 v1.50: Buy a esquerda e Sell a direita sem cotacao nos botoes, acoes com cores mais escuras e texto branco, `Place` ampliado e botoes de fechamento com fundo branco.
+- MT5 v1.50: tres controles de fechamento parcial manual e tres estagios automaticos opcionais por gatilho em pips e percentual do volume remanescente. Os estagios automaticos iniciam desativados e a reducao por ticket e limitada a contas hedging, conforme a API oficial `CTrade::PositionClosePartial`.
 
-## Matriz de paridade v1.31
+## Matriz de paridade v1.50
 
-| Recurso publico Trader On Chart | Status AIOX v1.31 |
+| Recurso publico Trader On Chart | Status AIOX v1.50 |
 | --- | --- |
 | Painel no grafico MetaTrader | Implementado MT4/MT5 |
 | Buy/Sell one-click | Implementado MT4/MT5 |
@@ -64,6 +74,8 @@ Registrar o escopo observavel do Trader On Chart para orientar uma alternativa A
 | Fechar mercado/lucro/prejuizo/pendentes | Implementado |
 | Visual compacto com simbolo no topo | Implementado como aproximacao propria |
 | Buy verde e Sell vermelho | Implementado |
+| Tema claro semelhante ao MT4 e tema escuro contrastante | Implementado no MT5 por `PanelTheme` |
+| Fechamento parcial em ate tres estagios | Implementado no MT5 por botoes e gatilhos opcionais; conta hedging obrigatoria |
 | Visual identico e marca original | Fora do escopo por propriedade intelectual; aproximacao propria |
 
 ## Pendencias para comparacao exata

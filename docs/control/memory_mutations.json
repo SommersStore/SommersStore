@@ -1,34 +1,6 @@
 {
   "mutations": [
     {
-      "timestamp": "2026-06-26T01:42:30-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260626-0001",
-      "mutated_by": "dashboard",
-      "project_id": "electro"
-    },
-    {
-      "timestamp": "2026-06-26T01:42:30-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "electro"
-    },
-    {
-      "timestamp": "2026-06-26T01:51:46-03:00",
-      "memory_scope": "session_milestone",
-      "diff_summary": "Financas Planilha: botoes sutis refinados para bolinhas sem glifos. Inativos ficam apenas com contorno; marcados ficam preenchidos, mantendo azul para Receitas e vermelho para exclusao da soma local.",
-      "mutated_by": "codex",
-      "project_id": "financas"
-    },
-    {
-      "timestamp": "2026-06-26T02:04:58-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260626-0001: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
       "timestamp": "2026-06-26T02:05:03-03:00",
       "memory_scope": "session_startup",
       "diff_summary": "Oracle iniciou SES-20260626-0002",
@@ -2099,6 +2071,62 @@
       "diff_summary": "Scribe encerrou SES-20260817-0001: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
       "mutated_by": "human",
       "project_id": null
+    },
+    {
+      "timestamp": "2026-08-18T00:48:27-03:00",
+      "memory_scope": "cloud_sync",
+      "diff_summary": "Cloud sync SYNC-20260818-1787024753247: SUCCESS. GitHub: success (Commit e push enviados ao GitHub.) Firebase: success (Deploy Firebase Hosting concluido.) Copia D: success (Espelho local atualizado em D:\\Antigravity-SommersStore\\workspace.)",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-08-23T01:00:52-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260823-0001",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-08-23T01:00:52-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-08-23T01:03:45-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260823-0001: Encerramento automatico (fechamento de aba/janela).",
+      "mutated_by": "system",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-08-31T07:56:02-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Oracle iniciou SES-20260831-0001",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-08-31T07:56:02-03:00",
+      "memory_scope": "session_startup",
+      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
+      "mutated_by": "dashboard",
+      "project_id": "sais"
+    },
+    {
+      "timestamp": "2026-08-31T23:25:27-03:00",
+      "memory_scope": "milestone",
+      "diff_summary": "AIOX Trader On Chart MT5 v1.50 refinado, compilado e instalado em Exness, duas FTMO e duas ActivTrades; tres parciais hedging adicionadas com automacao desativada por padrao e Gamma preservado.",
+      "mutated_by": "scribe",
+      "project_id": "forex"
+    },
+    {
+      "timestamp": "2026-09-01T01:02:13-03:00",
+      "memory_scope": "milestone_checkpoint",
+      "diff_summary": "Gamma Black MT4 e variante EA Risco distribuidos nas duas ActivTrades e duas FTMO com sete indicadores e dependencias; AIOX v1.50 recompilado, 52/52 componentes validados, backups preservados e nenhum envio de ordem.",
+      "mutated_by": "codex-scribe",
+      "project_id": "forex"
     }
   ]
 }

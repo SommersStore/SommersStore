@@ -3,7 +3,7 @@
 //|  Visual MVP: market map, volatility regime, MTF trend and setups |
 //+------------------------------------------------------------------+
 #property copyright "Copyright 2026, SommersStore"
-#property version   "1.00"
+#property version   "1.10"
 #property indicator_chart_window
 #property indicator_buffers 5
 #property indicator_plots   5
@@ -467,6 +467,12 @@ int OnInit()
    SetIndexBuffer(2, Ema200Buffer, INDICATOR_DATA);
    SetIndexBuffer(3, BuyBuffer, INDICATOR_DATA);
    SetIndexBuffer(4, SellBuffer, INDICATOR_DATA);
+   PlotIndexSetDouble(0, PLOT_EMPTY_VALUE, EMPTY_VALUE);
+   PlotIndexSetDouble(1, PLOT_EMPTY_VALUE, EMPTY_VALUE);
+   PlotIndexSetDouble(2, PLOT_EMPTY_VALUE, EMPTY_VALUE);
+   PlotIndexSetInteger(0, PLOT_DRAW_BEGIN, 19);
+   PlotIndexSetInteger(1, PLOT_DRAW_BEGIN, 49);
+   PlotIndexSetInteger(2, PLOT_DRAW_BEGIN, 199);
    PlotIndexSetInteger(3, PLOT_ARROW, 233);
    PlotIndexSetInteger(4, PLOT_ARROW, 234);
    PlotIndexSetDouble(3, PLOT_EMPTY_VALUE, EMPTY_VALUE);
@@ -532,13 +538,31 @@ int OnCalculate(const int rates_total,
                 const int &spread[])
 {
    if(rates_total < 210) return(0);
-   int start = prev_calculated > 0 ? prev_calculated - 1 : 0;
-   int count = rates_total - start;
+
+   int start = (prev_calculated > 0 && prev_calculated <= rates_total)
+               ? prev_calculated - 1
+               : 0;
+   int values_to_copy = (start == 0) ? rates_total : rates_total - prev_calculated + 1;
+
    if(ShowEMAs)
    {
-      CopyBuffer(hEma20, 0, start, count, Ema20Buffer);
-      CopyBuffer(hEma50, 0, start, count, Ema50Buffer);
-      CopyBuffer(hEma200, 0, start, count, Ema200Buffer);
+      // CopyBuffer uses a shift from the current bar, not a chart-buffer index.
+      // Always copy from shift zero so the newest EMA value cannot remain zero
+      // and create a vertical segment at the right edge of the chart.
+      int newest = rates_total - 1;
+      Ema20Buffer[newest] = EMPTY_VALUE;
+      Ema50Buffer[newest] = EMPTY_VALUE;
+      Ema200Buffer[newest] = EMPTY_VALUE;
+
+      if(BarsCalculated(hEma20) < rates_total ||
+         BarsCalculated(hEma50) < rates_total ||
+         BarsCalculated(hEma200) < rates_total)
+         return(prev_calculated);
+
+      if(CopyBuffer(hEma20, 0, 0, values_to_copy, Ema20Buffer) != values_to_copy ||
+         CopyBuffer(hEma50, 0, 0, values_to_copy, Ema50Buffer) != values_to_copy ||
+         CopyBuffer(hEma200, 0, 0, values_to_copy, Ema200Buffer) != values_to_copy)
+         return(prev_calculated);
    }
    else
    {
