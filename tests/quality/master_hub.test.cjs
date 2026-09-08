@@ -1169,12 +1169,17 @@ function testPcMigrationGuardrails() {
   assert.equal(pcMigration.shouldSkipFile('auth.json'), true, 'Codex authentication tokens must never enter the migration bundle');
   assert.equal(pcMigration.shouldSkipFile('state_5.sqlite-wal'), true, 'Codex local databases must not enter the migration bundle');
   assert.equal(pcMigration.shouldSkipDirectory('node_modules'), true, 'dependencies should be installed fresh on the new PC');
+  assert.equal(pcMigration.isPrivateWorkspacePath('projects/financas/data/fin2_data.json'), true, 'finance data should be eligible for private-only conflict replacement');
+  assert.equal(pcMigration.isPrivateWorkspacePath('apps/site/.env.local'), true, 'local environment secrets should be eligible for private-only conflict replacement');
+  assert.equal(pcMigration.isPrivateWorkspacePath('apps/site/.env.example'), false, 'versioned environment templates should remain controlled by GitHub');
+  assert.equal(pcMigration.isPrivateWorkspacePath('package.json'), false, 'versioned project files must not be treated as private data');
   assert.throws(() => pcMigration.assertSafeExternalRoot(path.join(ROOT, 'migration')), /dentro do projeto/i, 'bundle destination must stay outside the source project');
   assert.throws(() => pcMigration.resolveInside('C:\\AIOX\\Workspace', '..\\escape'), /fora da raiz/i, 'restore paths must not escape their authorized root');
   assert.equal(packageJson.scripts['migration:prepare'], 'node scripts/pc_migration_bundle.js prepare', 'package should expose migration preparation through CLI');
   assert.equal(packageJson.scripts['migration:transport'], 'node scripts/pc_migration_bundle.js transport', 'package should expose Google Drive transport volumes through CLI');
   assert.equal(packageJson.scripts['migration:verify-transport'], 'node scripts/pc_migration_bundle.js verify-transport', 'package should expose transport hash verification through CLI');
   assert.equal(packageJson.scripts['migration:restore'], 'node scripts/pc_migration_bundle.js restore', 'package should expose conservative restoration through CLI');
+  assert.equal(pcMigration.readCliOptions(['restore', '--apply', '--replace-private-workspace-conflicts']).replacePrivateWorkspaceConflicts, true, 'CLI should parse the private-only replacement guardrail');
 
   const temporaryRoot = fs.mkdtempSync(path.join(require('os').tmpdir(), 'aiox-migration-test-'));
   const bundleDir = path.join(temporaryRoot, 'bundle');
@@ -1182,6 +1187,9 @@ function testPcMigrationGuardrails() {
   const restoreRoot = path.join(temporaryRoot, 'restore');
   fs.mkdirSync(dataDir, { recursive: true });
   fs.writeFileSync(path.join(dataDir, 'portable.txt'), 'portable-context', 'utf8');
+  const privateBundlePath = path.join(dataDir, 'projects', 'financas', 'data', 'private.json');
+  fs.mkdirSync(path.dirname(privateBundlePath), { recursive: true });
+  fs.writeFileSync(privateBundlePath, 'notebook-private-data', 'utf8');
   const entry = {
     scope: 'workspace',
     relative_path: 'portable.txt',
@@ -1189,7 +1197,14 @@ function testPcMigrationGuardrails() {
     bytes: Buffer.byteLength('portable-context'),
     sha256: pcMigration.hashFile(path.join(dataDir, 'portable.txt'))
   };
-  fs.writeFileSync(path.join(bundleDir, 'migration-manifest.json'), JSON.stringify({ schema: pcMigration.SCHEMA_VERSION, entries: [entry] }), 'utf8');
+  const privateEntry = {
+    scope: 'workspace',
+    relative_path: 'projects/financas/data/private.json',
+    bundle_path: 'data/workspace/projects/financas/data/private.json',
+    bytes: Buffer.byteLength('notebook-private-data'),
+    sha256: pcMigration.hashFile(privateBundlePath)
+  };
+  fs.writeFileSync(path.join(bundleDir, 'migration-manifest.json'), JSON.stringify({ schema: pcMigration.SCHEMA_VERSION, entries: [entry, privateEntry] }), 'utf8');
 
   try {
     assert.equal(pcMigration.verifyBundle(bundleDir).ok, true, 'a valid migration manifest should pass SHA-256 verification');
@@ -1197,11 +1212,17 @@ function testPcMigrationGuardrails() {
     assert.equal(dryRun.mode, 'dry_run', 'restore must be a simulation unless --apply is explicit');
     assert.equal(fs.existsSync(path.join(restoreRoot, 'portable.txt')), false, 'dry-run must not copy files');
     const applied = pcMigration.restoreBundle({ bundleDir, restoreRoot, apply: true, environment: { USERPROFILE: path.join(temporaryRoot, 'profile'), APPDATA: path.join(temporaryRoot, 'appdata') } });
-    assert.equal(applied.copied.length, 1, 'apply should copy a missing file');
+    assert.equal(applied.copied.length, 2, 'apply should copy missing public and private files');
     fs.writeFileSync(path.join(restoreRoot, 'portable.txt'), 'new-pc-version', 'utf8');
+    fs.writeFileSync(path.join(restoreRoot, 'projects', 'financas', 'data', 'private.json'), 'old-git-private-data', 'utf8');
     const conflict = pcMigration.restoreBundle({ bundleDir, restoreRoot, apply: true, environment: { USERPROFILE: path.join(temporaryRoot, 'profile'), APPDATA: path.join(temporaryRoot, 'appdata') } });
-    assert.equal(conflict.conflicts.length, 1, 'a divergent destination must be reported as a conflict');
+    assert.equal(conflict.conflicts.length, 2, 'divergent destinations must be reported as conflicts');
     assert.equal(fs.readFileSync(path.join(restoreRoot, 'portable.txt'), 'utf8'), 'new-pc-version', 'conflicts must never be overwritten');
+    const privateReplacement = pcMigration.restoreBundle({ bundleDir, restoreRoot, apply: true, replacePrivateWorkspaceConflicts: true, environment: { USERPROFILE: path.join(temporaryRoot, 'profile'), APPDATA: path.join(temporaryRoot, 'appdata') } });
+    assert.equal(privateReplacement.replaced.length, 1, 'private-only replacement should restore only governed private data');
+    assert.equal(privateReplacement.conflicts.length, 1, 'private-only replacement should preserve the versioned project conflict');
+    assert.equal(fs.readFileSync(path.join(restoreRoot, 'portable.txt'), 'utf8'), 'new-pc-version', 'private-only replacement must preserve the GitHub workspace version');
+    assert.equal(fs.readFileSync(path.join(restoreRoot, 'projects', 'financas', 'data', 'private.json'), 'utf8'), 'notebook-private-data', 'private-only replacement should restore the notebook finance data');
     const replaced = pcMigration.restoreBundle({ bundleDir, restoreRoot, apply: true, replaceWorkspaceConflicts: true, environment: { USERPROFILE: path.join(temporaryRoot, 'profile'), APPDATA: path.join(temporaryRoot, 'appdata') } });
     assert.equal(replaced.replaced.length, 1, 'workspace conflicts may be replaced only through the explicit restore flag');
     assert.equal(fs.readFileSync(path.join(restoreRoot, 'portable.txt'), 'utf8'), 'portable-context', 'explicit workspace replacement should restore the notebook version');

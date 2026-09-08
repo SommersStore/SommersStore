@@ -139,6 +139,18 @@ function shouldSkipDirectory(directoryName) {
     return SKIP_DIRECTORY_NAMES.has(String(directoryName || '').toLowerCase());
 }
 
+function isPrivateWorkspacePath(relativePath) {
+    const portable = portablePath(relativePath).replace(/^\.\//, '').toLowerCase();
+    const inPrivateRoot = PROJECT_PRIVATE_ROOTS.some(root => {
+        const normalizedRoot = portablePath(root).toLowerCase();
+        return portable === normalizedRoot || portable.startsWith(`${normalizedRoot}/`);
+    });
+    if (inPrivateRoot) return true;
+    const fileName = portable.split('/').pop();
+    return /^\.env(?:\..+)?$/i.test(fileName)
+        && !/^\.env\.(?:example|sample|template)$/i.test(fileName);
+}
+
 function findGitExecutable() {
     const candidates = [
         process.env.AIOX_GIT_PATH,
@@ -420,6 +432,10 @@ function restoreBundle(options = {}) {
         schema: 'aiox.pc-migration.restore.v1',
         created_at: new Date().toISOString(),
         mode: options.apply ? 'apply' : 'dry_run',
+        policy: {
+            replace_workspace_conflicts: options.replaceWorkspaceConflicts === true,
+            replace_private_workspace_conflicts: options.replacePrivateWorkspaceConflicts === true
+        },
         roots,
         copied: [],
         existing_same: [],
@@ -439,7 +455,10 @@ function restoreBundle(options = {}) {
         if (fs.existsSync(destination)) {
             const actualHash = fs.statSync(destination).isFile() ? hashFile(destination) : null;
             if (actualHash === entry.sha256) report.existing_same.push({ scope: entry.scope, path: entry.relative_path });
-            else if (options.apply && options.replaceWorkspaceConflicts && entry.scope === 'workspace') {
+            else if (options.apply && entry.scope === 'workspace' && (
+                options.replaceWorkspaceConflicts
+                || (options.replacePrivateWorkspaceConflicts && isPrivateWorkspacePath(entry.relative_path))
+            )) {
                 fs.copyFileSync(source, destination);
                 report.replaced.push({ scope: entry.scope, path: entry.relative_path });
             } else report.conflicts.push({ scope: entry.scope, path: entry.relative_path });
@@ -551,7 +570,12 @@ function verifyTransportReceipt(receiptPath) {
 
 function readCliOptions(argv) {
     const args = Array.from(argv || []);
-    const options = { command: args.shift() || 'plan', apply: false, replaceWorkspaceConflicts: false };
+    const options = {
+        command: args.shift() || 'plan',
+        apply: false,
+        replaceWorkspaceConflicts: false,
+        replacePrivateWorkspaceConflicts: false
+    };
     for (let index = 0; index < args.length; index += 1) {
         const key = args[index];
         if (key === '--apply') {
@@ -560,6 +584,10 @@ function readCliOptions(argv) {
         }
         if (key === '--replace-workspace-conflicts') {
             options.replaceWorkspaceConflicts = true;
+            continue;
+        }
+        if (key === '--replace-private-workspace-conflicts') {
+            options.replacePrivateWorkspaceConflicts = true;
             continue;
         }
         const value = args[index + 1];
@@ -608,6 +636,7 @@ module.exports = {
     collectSelection,
     createTransportVolumes,
     hashFile,
+    isPrivateWorkspacePath,
     isInsidePath,
     prepareBundle,
     readCliOptions,

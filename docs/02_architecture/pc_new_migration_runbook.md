@@ -110,11 +110,13 @@ node scripts\pc_migration_bundle.js restore --bundle-dir "C:\AIOX\Transfer\Pacot
 
 Arquivos inexistentes sao copiados. Arquivos iguais sao reconhecidos. Arquivos diferentes viram conflitos e **nao sao sobrescritos**.
 
-Em um clone novo, os conflitos de `workspace` representam normalmente a versao antiga do GitHub contra a versao mais recente do notebook. Depois de revisar o relatorio, eles podem ser substituidos de forma explicita, sem afetar as configuracoes Codex/trading que tenham conflito:
+Em um clone novo, arquivos privados legados podem existir no Git apesar do `.gitignore`. Depois de revisar o relatorio, use a opcao restrita abaixo para substituir somente `.env` reais e conteudo das raizes privadas governadas de Financas/IR, contratos, uploads e sessoes/arquivos locais. Os demais arquivos do workspace continuam sob autoridade do GitHub:
 
 ```powershell
-node scripts\pc_migration_bundle.js restore --bundle-dir "C:\AIOX\Transfer\Pacote" --apply --replace-workspace-conflicts
+node scripts\pc_migration_bundle.js restore --bundle-dir "C:\AIOX\Transfer\Pacote" --apply --replace-private-workspace-conflicts
 ```
+
+Nao use `--replace-workspace-conflicts` durante a migracao normal: essa opcao ampla tambem substituiria codigo, stories, memoria versionada e scripts mais novos do GitHub.
 
 ## Validacao antes de promover o PC novo
 
