@@ -7,6 +7,7 @@ const protheusContextReader = require('../../scripts/protheus_context_reader.js'
 const cloudSyncGuardrails = require('../../scripts/cloud_sync_guardrails.js');
 const projectMirror = require('../../scripts/project_mirror_sync.js');
 const pcMigration = require('../../scripts/pc_migration_bundle.js');
+const { runContinuityTests } = require('./continuity_backup.test.cjs');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 
@@ -1362,6 +1363,7 @@ function run() {
   testCloudSyncGuardrails();
   testProjectMirrorConfiguration();
   testPcMigrationGuardrails();
+  runContinuityTests();
   testDashboardInlineScriptsParse();
   testAioxMasterNext();
   testVelasAromaticasDeliverables();

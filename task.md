@@ -812,11 +812,23 @@
 - [x] Classificar os 456 conflitos MetaTrader e restaurar somente artefatos customizados inequivocamente mais atuais, com backup previo; nenhum dos conflitos era customizado inequivoco, portanto os 456 atuais foram preservados.
 - [x] Executar os gates e promover o PC novo como base principal para workspace, Codex e dados locais.
 - [x] Atualizar e validar o espelho local de seguranca em `C:\AIOX\Backups\SommersStore`.
-- [ ] Usuario configurar e validar manualmente MetaTrader 5 e NinjaTrader, com automacao e ordens desativadas.
-- [ ] Executar smoke manual do JForex em workspace DEMO, sem iniciar estrategias.
+- [x] Registrar que MetaTrader 5 e NinjaTrader serao configurados e validados manualmente pelo usuario, fora da migracao automatica.
+- [x] Registrar que JForex tambem sera configurado e validado manualmente pelo usuario, fora da migracao automatica.
 - [x] Checkpoint: CHK-MIG-PC-NOVO-RESTORE-APPLIED
 - [x] Checkpoint: CHK-MIG-PC-NOVO-CONFLICTS-SELECTIVE
 - [x] Checkpoint: CHK-MIG-PC-NOVO-PRIMARY-CORE
+
+## Continuidade integral em nuvem - Story 2.113
+
+- [x] Definir GitHub para codigo e Google Drive para snapshots privados criptografados, sem usar Firebase como backup.
+- [x] Excluir instalacoes/configuracoes de MetaTrader 5, NinjaTrader e JForex; manter os fontes autorais do Protheus.
+- [x] Implementar CLI de preflight, backup incremental, verificacao, status, restore isolado e escritor unico.
+- [x] Instalar e verificar Restic 0.19.1 e Rclone 1.75.1 por SHA-256 oficial.
+- [x] Inicializar o Protheus como repositorio Git local independente, com 296 arquivos seguros e binarios/privados ignorados.
+- [ ] Autorizar o remote OAuth `aioxdrive` e cadastrar a senha de recuperacao no DPAPI.
+- [ ] Executar e validar o primeiro snapshot real no Drive, seguido de restore isolado.
+- [ ] Criar/publicar o repositorio GitHub privado do Protheus depois da reautenticacao.
+- [ ] Instalar a agenda de 2 horas somente no PC novo e validar o primeiro ciclo automatico.
 
 ## Risks
 - Automacao implantada precisa de validacao operacional recorrente para detectar regressao cedo.

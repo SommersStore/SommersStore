@@ -1,0 +1,42 @@
+# Dependencias e saidas reconstruiveis
+**/node_modules/**
+**/.next/**
+**/.firebase/**
+**/.cache/**
+**/cache/**
+**/cache2/**
+**/coverage/**
+**/dist/**
+**/out_deploy/**
+
+# Metadados Git sao preservados por bundles gerados antes do snapshot
+**/.git/**
+
+# Credenciais, identificadores de maquina e runtime do Codex
+**/auth.json
+**/.credentials.json
+**/.sandbox-secrets/**
+**/mcp-oauth-locks/**
+**/installation_id
+**/cap_sid
+**/logs_*.sqlite*
+**/state_*.sqlite*
+**/queue_*.sqlite*
+**/goals_*.sqlite*
+**/models_cache.json
+
+# Caches e telemetria do Antigravity
+**/browser_recordings/**
+**/crashes/**
+**/logs/**
+
+# Plataformas instaladas: configuracao e restauracao sao manuais
+**/AppData/Roaming/MetaQuotes/Terminal/**
+**/Documents/NinjaTrader 8/**
+**/JForex4/**
+
+# Temporarios genericos; dados de projeto explicitamente versionados fora destes nomes continuam inclusos
+**/*.tmp
+**/~$*
+**/Thumbs.db
+**/desktop.ini

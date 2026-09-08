@@ -60,11 +60,12 @@ function ensureDir(dirPath) {
 }
 
 function parseArgs(argv) {
-  const args = { push: false, noCommit: false, summary: '', nextAction: '' };
+  const args = { push: false, noCommit: false, noBackup: false, summary: '', nextAction: '' };
   for (let i = 0; i < argv.length; i += 1) {
     const token = argv[i];
     if (token === '--push') args.push = true;
     else if (token === '--no-commit') args.noCommit = true;
+    else if (token === '--no-backup') args.noBackup = true;
     else if (token === '--summary' && argv[i + 1]) {
       args.summary = String(argv[i + 1]);
       i += 1;
@@ -293,13 +294,38 @@ async function main() {
     close_response: closeData,
     latest_closed_session: latestSession,
     copied_files: copied,
-    git: gitResult
+    git: gitResult,
+    continuity: null
   };
+
+  if (args.noBackup) {
+    manifest.continuity = { status: 'skipped', reason: 'disabled_by_parameter' };
+  } else {
+    const continuity = spawnSync(process.execPath, ['scripts/aiox_continuity.js', 'backup', '--trigger', 'daily_close'], {
+      cwd: ROOT_DIR,
+      encoding: 'utf8',
+      windowsHide: true,
+      stdio: ['ignore', 'pipe', 'pipe'],
+      timeout: 12 * 60 * 60 * 1000,
+      maxBuffer: 64 * 1024 * 1024
+    });
+    let continuityResult = null;
+    try { continuityResult = JSON.parse(String(continuity.stdout || '').trim()); } catch (_err) {}
+    manifest.continuity = continuityResult || {
+      status: 'error',
+      error: String(continuity.stderr || continuity.error?.message || `codigo ${continuity.status}`).trim()
+    };
+    if (continuity.status !== 0 || manifest.continuity.status !== 'success') {
+      fs.writeFileSync(path.join(snapshotRoot, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
+      throw new Error(`Memoria local salva, mas o backup de continuidade falhou: ${manifest.continuity.error || 'erro nao detalhado'}`);
+    }
+  }
   fs.writeFileSync(path.join(snapshotRoot, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
 
   console.log(`[AIOX] Sessao encerrada com checkpoint: ${checkpointId || 'N/A'}`);
   console.log(`[AIOX] Snapshot salvo em: ${manifest.snapshot_root}`);
   console.log(`[AIOX] Git: ${gitResult.note || 'ok'}`);
+  console.log(`[AIOX] Continuidade: ${manifest.continuity.status}`);
 }
 
 main().catch((error) => {

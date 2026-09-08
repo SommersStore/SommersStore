@@ -1,0 +1,129 @@
+{
+  "schema_version": "aiox.continuity.v1",
+  "rpo_minutes": 120,
+  "repository": {
+    "require_remote_api": true,
+    "rclone_remote_name": "aioxdrive",
+    "cloud_remote_candidates": [
+      "${AIOX_CONTINUITY_REMOTE_REPOSITORY}",
+      "rclone:aioxdrive:10-Backups-Criptografados/Restic-AIOX"
+    ],
+    "local_candidates": [
+      "${AIOX_CONTINUITY_LOCAL_REPOSITORY}",
+      "C:\\AIOX\\Continuity\\Repository"
+    ],
+    "cloud_candidates": [
+      "${AIOX_CONTINUITY_CLOUD_REPOSITORY}",
+      "G:\\Meu Drive\\SommersStore - Backup PC\\10-Backups-Criptografados\\Restic-AIOX"
+    ],
+    "reports_candidates": [
+      "${AIOX_CONTINUITY_REPORTS_DIR}",
+      "G:\\Meu Drive\\SommersStore - Backup PC\\20-Relatorios-de-Integridade"
+    ],
+    "recovery_kit_candidates": [
+      "${AIOX_CONTINUITY_RECOVERY_KIT_DIR}",
+      "G:\\Meu Drive\\SommersStore - Backup PC\\00-Recovery-Kit"
+    ]
+  },
+  "retention": {
+    "keep_hourly": 24,
+    "keep_daily": 14,
+    "keep_weekly": 8,
+    "keep_monthly": 12
+  },
+  "sources": [
+    {
+      "id": "sommersstore",
+      "description": "Workspace completo SommersStore, incluindo privados e trabalho nao commitado",
+      "required": true,
+      "restore_policy": "workspace_overlay_review",
+      "candidates": [
+        "${AIOX_SOMMERSSTORE_ROOT}",
+        "C:\\AIOX\\Workspace\\SommersStore",
+        "${PROJECT_ROOT}"
+      ]
+    },
+    {
+      "id": "protheus",
+      "description": "Projeto canonico Protheus e seus codigos-fonte autorais",
+      "required": true,
+      "restore_policy": "workspace_complete",
+      "candidates": [
+        "${AIOX_PROTHEUS_ROOT}",
+        "C:\\AIOX\\Workspace\\Protheus",
+        "${USERPROFILE}\\.gemini\\antigravity-ide\\scratch\\Protheus"
+      ]
+    },
+    {
+      "id": "codex_portable",
+      "description": "Historico e configuracao portavel do Codex, sem autenticacao ou telemetria",
+      "required": true,
+      "restore_policy": "manual_merge",
+      "candidates": [
+        "${CODEX_HOME}",
+        "${USERPROFILE}\\.codex"
+      ],
+      "includes": [
+        "AGENTS.md",
+        "config.toml",
+        ".codex-global-state.json",
+        ".codex-global-state.json.bak",
+        "ambient-suggestions",
+        "archived_sessions",
+        "attachments",
+        "memories",
+        "memories_1.sqlite",
+        "sessions",
+        "session_index.jsonl",
+        "skills"
+      ]
+    },
+    {
+      "id": "antigravity_context",
+      "description": "Conversas, memoria implicita e conhecimento portavel do Antigravity",
+      "required": true,
+      "restore_policy": "manual_merge",
+      "candidates": [
+        "${ANTIGRAVITY_IDE_HOME}",
+        "${USERPROFILE}\\.gemini\\antigravity-ide"
+      ],
+      "includes": [
+        "brain",
+        "conversations",
+        "html_artifacts",
+        "implicit",
+        "knowledge"
+      ]
+    },
+    {
+      "id": "antigravity_user",
+      "description": "Preferencias, snippets e historico de workspace do IDE",
+      "required": false,
+      "restore_policy": "manual_review",
+      "candidates": [
+        "${APPDATA}\\Antigravity\\User"
+      ],
+      "includes": [
+        "History",
+        "settings.json",
+        "snippets",
+        "workspaceStorage"
+      ]
+    }
+  ],
+  "blocked_operational_roots": [
+    "${APPDATA}\\MetaQuotes\\Terminal",
+    "${USERPROFILE}\\Documents\\NinjaTrader 8",
+    "${USERPROFILE}\\JForex4"
+  ],
+  "recovery_kit_files": [
+    "docs/02_architecture/cloud_continuity_architecture.md",
+    "docs/02_architecture/google_drive_rclone_setup.md",
+    "config/aiox_continuity_sources.json",
+    "config/aiox_continuity_excludes.txt",
+    "scripts/bootstrap_aiox_recovery.ps1",
+    "scripts/install_restic.ps1",
+    "scripts/install_rclone.ps1",
+    "scripts/aiox_continuity_secret.ps1"
+  ]
+}
