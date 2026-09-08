@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-09-01T01:02:13-03:00
+- updated_at: 2026-09-08T10:08:43-03:00
 
 ## Handoff Atual - Gamma Black MT4 distribuido no MT5 ActivTrades/FTMO
 - timestamp: 2026-09-01T01:02:13-03:00
@@ -3996,3 +3996,13 @@
 - estado_git_pc_novo: Apenas os tres arquivos privados restaurados aparecem modificados. Eles nao devem ser adicionados a commit.
 - proxima_acao: No PC novo, manter os 28 conflitos de Workspace sob autoridade do GitHub e o `.csproj` do NinjaTrader sob autoridade da instalacao nova; preservar `config.toml`, mesclar `session_index.jsonl` por IDs unicos e auditar os 456 conflitos MetaTrader para aplicar somente artefatos customizados inequivocamente mais atuais, sempre com backup. Depois executar gates e smoke tests sem ordens reais antes de promover a maquina.
 - checkpoint: CHK-MIG-PC-NOVO-RESTORE-APPLIED
+
+## Registro Manual - 2026-09-08T10:08:43-03:00
+- tipo: migracao-pc-novo-conflitos-seletivos
+- resumo: Os 487 conflitos da restauracao receberam backup verificado em `C:\AIOX\Transfer\ConflictBackups\20260908-094818`. Workspace e NinjaTrader permaneceram sob autoridade do PC novo/GitHub; nenhum conflito dessas areas foi substituido pelo pacote.
+- codex: O `config.toml` atual foi preservado e recebeu apenas a preferencia global portavel pelo Antigravity e o endpoint publico da documentacao OpenAI. O `session_index.jsonl` foi mesclado atomicamente de 1 para 31 IDs unicos, com 30 entradas validas adicionadas, zero invalidas e zero duplicadas.
+- metatrader: Os 456 conflitos foram classificados individualmente em 441 arquivos nativos/vendor e 15 profiles `Default` ambiguos. Nenhuma familia customizada AIOX, SOMMA, Gamma ou FP apareceu nesse conjunto; nenhum arquivo foi substituido.
+- gates: Lint, typecheck, testes, validacao estrutural e validacao de agentes passaram. O teste do espelho passou a respeitar o override local `AIOX_PROJECT_MIRROR_DIR`, mantendo `D:\Antigravity-SommersStore` como default historico.
+- seguranca_operacional: O stash `1a906151...`, credenciais e `auth.json` permaneceram intocados. Nenhuma plataforma de trading foi aberta, nenhuma automacao foi ativada, nenhuma ordem foi enviada e nenhum deploy Firebase foi executado.
+- pendencia: Fazer smoke visual manual em conta demo, com AutoTrading e estrategias automaticas desativados; depois promover o PC novo e atualizar o espelho local.
+- checkpoint: CHK-MIG-PC-NOVO-CONFLICTS-SELECTIVE

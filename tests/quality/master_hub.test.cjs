@@ -1137,12 +1137,13 @@ function testProjectMirrorConfiguration() {
   const hiddenMirrorRunner = fs.readFileSync(path.join(ROOT, 'scripts/run_project_mirror_sync_hidden.vbs'), 'utf8');
   const startPainel = fs.readFileSync(path.join(ROOT, 'start_painel.bat'), 'utf8');
   const hiddenDashboardRunner = fs.readFileSync(path.join(ROOT, 'scripts/run_dashboard_server_hidden.vbs'), 'utf8');
-  assert.equal(projectMirror.DEFAULT_MIRROR_ROOT, 'D:\\Antigravity-SommersStore', 'mirror should use the requested D drive by default');
-  assert.equal(projectMirror.workspacePathFor(), 'D:\\Antigravity-SommersStore\\workspace', 'mirror workspace should be isolated below the D drive root');
+  const configuredMirrorRoot = process.env.AIOX_PROJECT_MIRROR_DIR || 'D:\\Antigravity-SommersStore';
+  assert.equal(projectMirror.DEFAULT_MIRROR_ROOT, configuredMirrorRoot, 'mirror should honor the configured root or use the requested D drive default');
+  assert.equal(projectMirror.workspacePathFor(), path.join(configuredMirrorRoot, 'workspace'), 'mirror workspace should be isolated below the configured root');
   assert.equal(projectMirror.isRobocopySuccess(0), true, 'robocopy exit code zero should be successful');
   assert.equal(projectMirror.isRobocopySuccess(7), true, 'robocopy informational exit codes should be successful');
   assert.equal(projectMirror.isRobocopySuccess(8), false, 'robocopy error exit codes should fail the mirror');
-  assert.equal(projectMirror.readProjectMirrorState().status, 'success', 'mirror state should be readable from the configured D drive');
+  assert.equal(projectMirror.readProjectMirrorState().status, 'success', 'mirror state should be readable from the configured mirror root');
   assert.throws(() => projectMirror.assertSafeMirrorRoot(path.join(ROOT, 'mirror')), /não pode ficar dentro/i, 'mirror destination must not recurse into the source project');
   assert.equal(projectMirror.readCliOptions(['sync', '--trigger', 'test', '--github-status', 'success']).trigger, 'test', 'mirror CLI should parse its trigger');
   assert.equal(packageJson.scripts['sync:mirror'], 'node scripts/project_mirror_sync.js sync --trigger npm_manual', 'package should expose a manual mirror command');

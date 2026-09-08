@@ -2134,6 +2134,13 @@
       "diff_summary": "Restauracao conservadora aplicada no PC novo: 27.024 arquivos copiados, tres arquivos privados substituidos, 487 conflitos preservados e zero erros; promocao aguarda resolucao seletiva e smoke tests.",
       "mutated_by": "codex-scribe",
       "project_id": "sommersstore"
+    },
+    {
+        "timestamp":  "2026-09-08T10:08:43-03:00",
+        "memory_scope":  "milestone_checkpoint",
+        "diff_summary":  "CHK-MIG-PC-NOVO-CONFLICTS-SELECTIVE: backup 487/487; Codex mesclado para 31 sessoes validas; 441 conflitos MetaTrader nativos/vendor e 15 ambiguos preservados; Workspace e NinjaTrader mantidos; gates aprovados e smoke demo manual pendente.",
+        "mutated_by":  "codex-scribe",
+        "project_id":  "sommersstore"
     }
   ]
 }

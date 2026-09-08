@@ -808,11 +808,12 @@
 - [x] Verificar no PC novo os nove volumes, o arquivo remontado e os 29.930 arquivos do pacote.
 - [x] Aplicar restauracao conservadora: 27.024 copiados, tres dados privados substituidos e zero erros.
 - [x] Preservar os 487 conflitos contra sobrescrita ampla e manter o stash `1a906151...` intacto.
-- [ ] Mesclar com seguranca o indice de sessoes do Codex e preservar a configuracao propria do PC novo.
-- [ ] Classificar os 456 conflitos MetaTrader e restaurar somente artefatos customizados inequivocamente mais atuais, com backup previo.
+- [x] Mesclar com seguranca o indice de sessoes do Codex e preservar a configuracao propria do PC novo.
+- [x] Classificar os 456 conflitos MetaTrader e restaurar somente artefatos customizados inequivocamente mais atuais, com backup previo; nenhum dos conflitos era customizado inequivoco, portanto os 456 atuais foram preservados.
 - [ ] Executar gates, smoke tests das plataformas sem ordens reais e somente entao promover o PC novo como base.
 - [ ] Atualizar o espelho local de seguranca depois da promocao validada.
 - [x] Checkpoint: CHK-MIG-PC-NOVO-RESTORE-APPLIED
+- [x] Checkpoint: CHK-MIG-PC-NOVO-CONFLICTS-SELECTIVE
 
 ## Risks
 - Automacao implantada precisa de validacao operacional recorrente para detectar regressao cedo.
