@@ -495,6 +495,60 @@ function archiveBundle(bundleDir) {
     return { archive: archivePath, receipt: receiptPath, bytes: fs.statSync(archivePath).size };
 }
 
+function createTransportVolumes(options = {}) {
+    const loaded = loadManifest(options.bundleDir);
+    const archivePath = `${loaded.bundleDir}.7z`;
+    if (!fs.existsSync(archivePath)) throw new Error(`Arquivo criptografado nao localizado: ${archivePath}`);
+    const sevenZip = find7Zip();
+    if (!sevenZip) throw new Error('7-Zip nao localizado.');
+    const volumeSize = normalizeText(options.volumeSize) || '90m';
+    if (!/^\d{1,2}m$/i.test(volumeSize) || Number.parseInt(volumeSize, 10) > 90) {
+        throw new Error('O volume deve ser informado entre 1m e 90m para respeitar o limite do conector do Google Drive.');
+    }
+    const transportBase = `${loaded.bundleDir}-gdrive.7z`;
+    const existing = fs.readdirSync(path.dirname(transportBase)).some(name => name.startsWith(`${path.basename(transportBase)}.`));
+    if (existing) throw new Error(`Ja existem volumes para ${transportBase}.`);
+    const result = spawnSync(sevenZip, ['a', '-t7z', '-mx=0', `-v${volumeSize}`, transportBase, archivePath], {
+        cwd: path.dirname(archivePath),
+        stdio: 'inherit',
+        windowsHide: true
+    });
+    if (result.error || result.status !== 0) throw new Error(`7-Zip terminou com codigo ${result.status}.`);
+    const prefix = `${path.basename(transportBase)}.`;
+    const volumes = fs.readdirSync(path.dirname(transportBase))
+        .filter(name => name.startsWith(prefix))
+        .sort()
+        .map(name => {
+            const filePath = path.join(path.dirname(transportBase), name);
+            return { file: name, bytes: fs.statSync(filePath).size, sha256: hashFile(filePath) };
+        });
+    const receiptPath = `${loaded.bundleDir}-gdrive.parts.sha256.txt`;
+    const lines = volumes.map(volume => `${volume.sha256}  ${volume.file}`);
+    lines.push(`${hashFile(archivePath)}  ${path.basename(archivePath)}`);
+    fs.writeFileSync(receiptPath, `${lines.join('\n')}\n`, { flag: 'wx' });
+    return { volumes, receipt: receiptPath, encrypted_archive: archivePath };
+}
+
+function verifyTransportReceipt(receiptPath) {
+    const resolvedReceipt = path.resolve(normalizeText(receiptPath));
+    if (!normalizeText(receiptPath) || !fs.existsSync(resolvedReceipt)) throw new Error('Arquivo de hashes do transporte nao localizado.');
+    const directory = path.dirname(resolvedReceipt);
+    const rows = fs.readFileSync(resolvedReceipt, 'utf8').split(/\r?\n/).filter(Boolean).map(line => {
+        const match = line.match(/^([a-f0-9]{64})\s{2}(.+)$/i);
+        if (!match) throw new Error(`Linha invalida no arquivo de hashes: ${line}`);
+        return { sha256: match[1].toLowerCase(), file: match[2] };
+    });
+    const volumeRows = rows.filter(row => /-gdrive\.7z\.\d+$/i.test(row.file));
+    if (!volumeRows.length) throw new Error('O arquivo de hashes nao contem volumes do Google Drive.');
+    const failures = [];
+    for (const row of volumeRows) {
+        const filePath = resolveInside(directory, row.file);
+        if (!fs.existsSync(filePath)) failures.push({ file: row.file, issue: 'missing' });
+        else if (hashFile(filePath) !== row.sha256) failures.push({ file: row.file, issue: 'sha256_mismatch' });
+    }
+    return { ok: failures.length === 0, checked: volumeRows.length, failures };
+}
+
 function readCliOptions(argv) {
     const args = Array.from(argv || []);
     const options = { command: args.shift() || 'plan', apply: false, replaceWorkspaceConflicts: false };
@@ -513,6 +567,8 @@ function readCliOptions(argv) {
         else if (key === '--bundle-id') options.bundleId = value;
         else if (key === '--bundle-dir') options.bundleDir = value;
         else if (key === '--restore-root') options.restoreRoot = value;
+        else if (key === '--volume-size') options.volumeSize = value;
+        else if (key === '--receipt') options.receipt = value;
         else throw new Error(`Opcao desconhecida: ${key}`);
         index += 1;
     }
@@ -527,7 +583,9 @@ async function main() {
     else if (options.command === 'verify') result = verifyBundle(options.bundleDir);
     else if (options.command === 'restore') result = restoreBundle(options);
     else if (options.command === 'archive') result = archiveBundle(options.bundleDir);
-    else throw new Error(`Comando desconhecido: ${options.command}. Use plan, prepare, verify, archive ou restore.`);
+    else if (options.command === 'transport') result = createTransportVolumes(options);
+    else if (options.command === 'verify-transport') result = verifyTransportReceipt(options.receipt);
+    else throw new Error(`Comando desconhecido: ${options.command}. Use plan, prepare, verify, archive, transport, verify-transport ou restore.`);
     process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
     if (result.ok === false) process.exitCode = 1;
 }
@@ -548,6 +606,7 @@ module.exports = {
     archiveBundle,
     assertSafeExternalRoot,
     collectSelection,
+    createTransportVolumes,
     hashFile,
     isInsidePath,
     prepareBundle,
@@ -557,5 +616,6 @@ module.exports = {
     selectionSummary,
     shouldSkipDirectory,
     shouldSkipFile,
+    verifyTransportReceipt,
     verifyBundle
 };

@@ -1172,6 +1172,8 @@ function testPcMigrationGuardrails() {
   assert.throws(() => pcMigration.assertSafeExternalRoot(path.join(ROOT, 'migration')), /dentro do projeto/i, 'bundle destination must stay outside the source project');
   assert.throws(() => pcMigration.resolveInside('C:\\AIOX\\Workspace', '..\\escape'), /fora da raiz/i, 'restore paths must not escape their authorized root');
   assert.equal(packageJson.scripts['migration:prepare'], 'node scripts/pc_migration_bundle.js prepare', 'package should expose migration preparation through CLI');
+  assert.equal(packageJson.scripts['migration:transport'], 'node scripts/pc_migration_bundle.js transport', 'package should expose Google Drive transport volumes through CLI');
+  assert.equal(packageJson.scripts['migration:verify-transport'], 'node scripts/pc_migration_bundle.js verify-transport', 'package should expose transport hash verification through CLI');
   assert.equal(packageJson.scripts['migration:restore'], 'node scripts/pc_migration_bundle.js restore', 'package should expose conservative restoration through CLI');
 
   const temporaryRoot = fs.mkdtempSync(path.join(require('os').tmpdir(), 'aiox-migration-test-'));
@@ -1203,6 +1205,15 @@ function testPcMigrationGuardrails() {
     const replaced = pcMigration.restoreBundle({ bundleDir, restoreRoot, apply: true, replaceWorkspaceConflicts: true, environment: { USERPROFILE: path.join(temporaryRoot, 'profile'), APPDATA: path.join(temporaryRoot, 'appdata') } });
     assert.equal(replaced.replaced.length, 1, 'workspace conflicts may be replaced only through the explicit restore flag');
     assert.equal(fs.readFileSync(path.join(restoreRoot, 'portable.txt'), 'utf8'), 'portable-context', 'explicit workspace replacement should restore the notebook version');
+
+    const volumeName = 'sample-gdrive.7z.001';
+    const volumePath = path.join(temporaryRoot, volumeName);
+    const receiptPath = path.join(temporaryRoot, 'sample-gdrive.parts.sha256.txt');
+    fs.writeFileSync(volumePath, 'transport-volume', 'utf8');
+    fs.writeFileSync(receiptPath, `${pcMigration.hashFile(volumePath)}  ${volumeName}\n`, 'utf8');
+    assert.equal(pcMigration.verifyTransportReceipt(receiptPath).ok, true, 'downloaded Google Drive volumes should pass their receipt hashes');
+    fs.writeFileSync(volumePath, 'corrupted-volume', 'utf8');
+    assert.equal(pcMigration.verifyTransportReceipt(receiptPath).ok, false, 'a corrupted transport volume must fail verification');
   } finally {
     fs.rmSync(temporaryRoot, { recursive: true, force: true });
   }

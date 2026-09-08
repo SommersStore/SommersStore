@@ -50,10 +50,16 @@ Feche e abra o PowerShell, e crie o arquivo criptografado substituindo `<PASTA_D
 node scripts\pc_migration_bundle.js archive --bundle-dir "<PASTA_DO_PACOTE>"
 ```
 
-O 7-Zip pedira uma senha forte sem grava-la no script. Guarde essa senha fora do Google Drive. Depois, envie ao Google Drive **somente**:
+O 7-Zip pedira uma senha forte sem grava-la no script. Guarde essa senha fora do Google Drive. Depois, gere os volumes de transporte:
 
-- `SommersStore-PC-Novo-....7z`
-- `SommersStore-PC-Novo-....7z.sha256.txt`
+```powershell
+node scripts\pc_migration_bundle.js transport --bundle-dir "<PASTA_DO_PACOTE>"
+```
+
+Esse comando divide o arquivo criptografado em volumes de ate 90 MB, adequados ao conector do Google Drive. Envie somente:
+
+- todos os arquivos `SommersStore-PC-Novo-....-gdrive.7z.001`, `.002` e seguintes;
+- `SommersStore-PC-Novo-....-gdrive.parts.sha256.txt`.
 
 A pasta aberta de preparacao permanece no disco D como copia local. Ela nao deve ser colocada no Google Drive.
 
@@ -69,23 +75,37 @@ Set-Location C:\AIOX\Workspace\SommersStore
 npm install
 ```
 
-Baixe pelo Google Drive os dois arquivos do pacote. Compare o hash exibido por este comando com o arquivo `.sha256.txt`:
+Baixe pelo Google Drive todos os volumes e o arquivo `.sha256.txt` para a mesma pasta. Verifique as partes:
 
 ```powershell
-Get-FileHash -Algorithm SHA256 "C:\CAMINHO\SommersStore-PC-Novo-....7z"
+node scripts\pc_migration_bundle.js verify-transport --receipt "C:\CAMINHO\SommersStore-PC-Novo-....-gdrive.parts.sha256.txt"
 ```
 
-Extraia o `.7z` para uma pasta temporaria fora do projeto. Feche MetaTrader, NinjaTrader e JForex antes da restauracao. Em seguida, valide e simule:
+O resultado deve ser `"ok": true`. Reuna os volumes extraindo o primeiro arquivo; o 7-Zip le automaticamente os demais:
 
 ```powershell
-node scripts\pc_migration_bundle.js verify --bundle-dir "C:\CAMINHO\PACOTE_EXTRAIDO"
-node scripts\pc_migration_bundle.js restore --bundle-dir "C:\CAMINHO\PACOTE_EXTRAIDO"
+New-Item -ItemType Directory -Force -Path C:\AIOX\Transfer
+& 'C:\Program Files\7-Zip\7z.exe' x "C:\CAMINHO\SommersStore-PC-Novo-....-gdrive.7z.001" -o"C:\AIOX\Transfer"
+```
+
+Isso produz o `.7z` criptografado original. Extraia-o para uma pasta fora do projeto e informe a senha criada no notebook:
+
+```powershell
+New-Item -ItemType Directory -Force -Path C:\AIOX\Transfer\Pacote
+& 'C:\Program Files\7-Zip\7z.exe' x "C:\AIOX\Transfer\SommersStore-PC-Novo-....7z" -o"C:\AIOX\Transfer\Pacote"
+```
+
+Feche MetaTrader, NinjaTrader e JForex antes da restauracao. Em seguida, valide e simule:
+
+```powershell
+node scripts\pc_migration_bundle.js verify --bundle-dir "C:\AIOX\Transfer\Pacote"
+node scripts\pc_migration_bundle.js restore --bundle-dir "C:\AIOX\Transfer\Pacote"
 ```
 
 O segundo comando e apenas uma simulacao. Leia `migration-restore-report.json`. Se o relatorio estiver correto, aplique:
 
 ```powershell
-node scripts\pc_migration_bundle.js restore --bundle-dir "C:\CAMINHO\PACOTE_EXTRAIDO" --apply
+node scripts\pc_migration_bundle.js restore --bundle-dir "C:\AIOX\Transfer\Pacote" --apply
 ```
 
 Arquivos inexistentes sao copiados. Arquivos iguais sao reconhecidos. Arquivos diferentes viram conflitos e **nao sao sobrescritos**.
@@ -93,7 +113,7 @@ Arquivos inexistentes sao copiados. Arquivos iguais sao reconhecidos. Arquivos d
 Em um clone novo, os conflitos de `workspace` representam normalmente a versao antiga do GitHub contra a versao mais recente do notebook. Depois de revisar o relatorio, eles podem ser substituidos de forma explicita, sem afetar as configuracoes Codex/trading que tenham conflito:
 
 ```powershell
-node scripts\pc_migration_bundle.js restore --bundle-dir "C:\CAMINHO\PACOTE_EXTRAIDO" --apply --replace-workspace-conflicts
+node scripts\pc_migration_bundle.js restore --bundle-dir "C:\AIOX\Transfer\Pacote" --apply --replace-workspace-conflicts
 ```
 
 ## Validacao antes de promover o PC novo

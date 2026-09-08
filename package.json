@@ -17,6 +17,8 @@
     "migration:plan": "node scripts/pc_migration_bundle.js plan",
     "migration:prepare": "node scripts/pc_migration_bundle.js prepare",
     "migration:verify": "node scripts/pc_migration_bundle.js verify",
+    "migration:transport": "node scripts/pc_migration_bundle.js transport",
+    "migration:verify-transport": "node scripts/pc_migration_bundle.js verify-transport",
     "migration:restore": "node scripts/pc_migration_bundle.js restore",
     "deploy:hosting": "node scripts/deploy_hosting_with_mirror.js",
     "validate:structure": "node .aiox-core/infrastructure/scripts/validate-paths.js",
