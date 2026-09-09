@@ -63,6 +63,12 @@ O antigo `Trading_Backups`, criado por uma rotina Gemini de copia direta, deve s
 
 A origem `Outros computadores/Meu computador/Documents` e incompatível com a operacao do NinjaTrader porque propaga a criacao e remocao de arquivos temporarios. A agenda de continuidade permanece bloqueada ate o usuario desativar o backup direto de `Documents` na interface do Google Drive Desktop e a remocao dessa origem ser confirmada. O conteudo remoto preexistente permanece preservado durante a transicao.
 
+## Desktop e Downloads
+
+A Area de Trabalho real e resolvida por candidatos portaveis, priorizando `AIOX_DESKTOP_ROOT`, `D:\Desktop` e o Desktop do perfil. Downloads usa `AIOX_DOWNLOADS_ROOT` ou a pasta do perfil. As duas origens entram no snapshot criptografado; em Downloads, documentos, midias, fontes e pacotes permanecem, enquanto instaladores (`exe`, `msi`, `msix`, `appx`, `iso`) e transferencias incompletas sao reconstruiveis e ficam excluidos. Os originais locais nao sao movidos.
+
+A sincronizacao direta dessas duas pastas no Google Drive Desktop so deve ser retirada depois de um snapshot confirmado localmente e na nuvem. As copias historicas em `Outros computadores` permanecem preservadas ate uma restauracao isolada aprovada.
+
 ## Topologia
 
 1. A maquina primaria grava o trabalho em disco local.

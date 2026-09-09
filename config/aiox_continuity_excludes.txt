@@ -42,6 +42,26 @@
 **/AppData/Roaming/Tradovate Trader/**
 **/scripts/backup_trading_platforms.ps1
 
+# Downloads: preservar documentos, midias, fontes e pacotes; excluir instaladores e transferencias incompletas
+**/Downloads/*.exe
+**/Downloads/**/*.exe
+**/Downloads/*.msi
+**/Downloads/**/*.msi
+**/Downloads/*.msix
+**/Downloads/**/*.msix
+**/Downloads/*.msixbundle
+**/Downloads/**/*.msixbundle
+**/Downloads/*.appx
+**/Downloads/**/*.appx
+**/Downloads/*.iso
+**/Downloads/**/*.iso
+**/Downloads/*.crdownload
+**/Downloads/**/*.crdownload
+**/Downloads/*.part
+**/Downloads/**/*.part
+**/Downloads/*.download
+**/Downloads/**/*.download
+
 # Temporarios genericos; dados de projeto explicitamente versionados fora destes nomes continuam inclusos
 **/*.tmp
 **/~$*

@@ -391,6 +391,12 @@ function selectNewestSnapshot(snapshots = []) {
   })[0] || null;
 }
 
+function snapshotCompletedAt(snapshot) {
+  if (!snapshot) return null;
+  const completed = snapshot.summary && snapshot.summary.backup_end;
+  return normalizeText(completed) || normalizeText(snapshot.time) || null;
+}
+
 function latestSnapshot(resticPath, repository, password) {
   const result = runRestic(resticPath, repository, [
     'snapshots', '--json', '--latest', '1', '--tag', SNAPSHOT_TAG
@@ -763,7 +769,16 @@ function preflight(options = {}) {
     ? rcloneRemoteAvailable(rclonePath, paths.rclone_remote_name, environment)
     : null;
   const exclusions = fs.existsSync(EXCLUDES_PATH) ? fs.readFileSync(EXCLUDES_PATH, 'utf8') : '';
-  const requiredExclusions = ['auth.json', 'MetaQuotes/Terminal', 'NinjaTrader 8', 'JForex4', 'Nelogica/Profit', 'Tradovate Trader'];
+  const requiredExclusions = [
+    'auth.json',
+    'MetaQuotes/Terminal',
+    'NinjaTrader 8',
+    'JForex4',
+    'Nelogica/Profit',
+    'Tradovate Trader',
+    'Downloads/*.exe',
+    'Downloads/*.msi'
+  ];
   const missingExclusions = requiredExclusions.filter((item) => !exclusions.includes(item));
   const errors = [];
   if (resolution.missing_required.length > 0) errors.push('required_sources_missing');
@@ -1005,8 +1020,9 @@ function status(options = {}) {
   if (result.local_repository) result.latest_local_snapshot = latestSnapshot(resticPath, paths.local, password);
   if (result.cloud_repository) result.latest_cloud_snapshot = latestSnapshot(resticPath, paths.active_cloud, password);
   const reference = result.latest_cloud_snapshot || result.latest_local_snapshot;
-  if (reference && reference.time) {
-    result.rpo.age_minutes = Math.max(0, Math.round((Date.now() - new Date(reference.time).getTime()) / 60000));
+  const referenceTime = snapshotCompletedAt(reference);
+  if (referenceTime) {
+    result.rpo.age_minutes = Math.max(0, Math.round((Date.now() - new Date(referenceTime).getTime()) / 60000));
     result.rpo.within_limit = result.rpo.age_minutes <= result.rpo.limit_minutes;
   }
   result.ok = Boolean(
@@ -1256,6 +1272,7 @@ module.exports = {
   rcloneRemoteAvailable,
   rcloneRepositoryTarget,
   selectNewestSnapshot,
+  snapshotCompletedAt,
   shouldExcludeCriticalPath,
   status,
   validateRestoredSentinels,

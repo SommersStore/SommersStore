@@ -16,6 +16,8 @@ function createFixture(root) {
   const codex = path.join(profile, '.codex');
   const antigravity = path.join(profile, '.gemini', 'antigravity-ide');
   const antigravityUser = path.join(appData, 'Antigravity', 'User');
+  const desktop = path.join(root, 'personal', 'Desktop');
+  const downloads = path.join(root, 'personal', 'Downloads');
   const localRepository = path.join(root, 'continuity', 'local-repository');
   const cloudRepository = path.join(root, 'drive', 'Restic-AIOX');
   const reports = path.join(root, 'drive', 'reports');
@@ -29,7 +31,9 @@ function createFixture(root) {
     [path.join(codex, 'session_index.jsonl')]: '{"id":"portable"}',
     [path.join(codex, 'auth.json')]: '{"token":"must-not-be-selected"}',
     [path.join(antigravity, 'conversations', 'conversation.json')]: '{"conversation":true}',
-    [path.join(antigravityUser, 'settings.json')]: '{"theme":"dark"}'
+    [path.join(antigravityUser, 'settings.json')]: '{"theme":"dark"}',
+    [path.join(desktop, 'project-note.md')]: 'desktop sentinel',
+    [path.join(downloads, 'research.pdf')]: 'downloads sentinel'
   };
   for (const [filePath, content] of Object.entries(files)) {
     fs.mkdirSync(path.dirname(filePath), { recursive: true });
@@ -61,7 +65,9 @@ function createFixture(root) {
       { id: 'protheus', required: true, candidates: [protheus] },
       { id: 'codex_portable', required: true, candidates: [codex], includes: ['sessions', 'session_index.jsonl'] },
       { id: 'antigravity_context', required: true, candidates: [antigravity], includes: ['conversations'] },
-      { id: 'antigravity_user', required: false, candidates: [antigravityUser], includes: ['settings.json'] }
+      { id: 'antigravity_user', required: false, candidates: [antigravityUser], includes: ['settings.json'] },
+      { id: 'personal_desktop', required: true, candidates: [desktop] },
+      { id: 'downloads_selective', required: true, candidates: [downloads] }
     ],
     blocked_operational_roots: [
       path.join(appData, 'MetaQuotes', 'Terminal'),
@@ -106,6 +112,10 @@ function testPureGuardrails() {
     { id: 'older', time: '2026-09-09T00:44:30.000Z' },
     { id: 'newer', time: '2026-09-09T15:50:52.000Z' }
   ]).id, 'newer', 'Restic can return one latest snapshot per path group; select the newest globally');
+  assert.equal(continuity.snapshotCompletedAt({
+    time: '2026-09-09T13:35:50.000Z',
+    summary: { backup_end: '2026-09-09T13:57:15.000Z' }
+  }), '2026-09-09T13:57:15.000Z');
 }
 
 function testInvestmentPlatformCapture() {
@@ -168,8 +178,13 @@ function testResolutionAndSingleWriter() {
     const resolved = continuity.resolveSources(fixture.config, fixture.environment, { projectRoot: path.join(root, 'project') });
     assert.deepEqual(resolved.missing_required, []);
     assert.ok(resolved.sources.some((source) => source.id === 'protheus'));
+    assert.ok(resolved.sources.some((source) => source.id === 'personal_desktop'));
+    assert.ok(resolved.sources.some((source) => source.id === 'downloads_selective'));
     assert.ok(resolved.source_paths.includes(fixture.protheus));
     assert.ok(!resolved.source_paths.some((sourcePath) => path.basename(sourcePath).toLowerCase() === 'auth.json'));
+    const exclusions = fs.readFileSync(continuity.EXCLUDES_PATH, 'utf8');
+    assert.match(exclusions, /\*\*\/Downloads\/\*\.exe/);
+    assert.match(exclusions, /\*\*\/Downloads\/\*\.msi/);
 
     const firstClaim = continuity.claimPrimary({ config: fixture.config, environment: fixture.environment, paths: fixture.paths });
     assert.equal(firstClaim.ok, true);

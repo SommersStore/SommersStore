@@ -114,6 +114,27 @@
       ]
     },
     {
+      "id": "personal_desktop",
+      "description": "Area de Trabalho do usuario, incluindo projetos, documentos e midias locais",
+      "required": true,
+      "restore_policy": "personal_files_isolated_restore",
+      "candidates": [
+        "${AIOX_DESKTOP_ROOT}",
+        "D:\\Desktop",
+        "${USERPROFILE}\\Desktop"
+      ]
+    },
+    {
+      "id": "downloads_selective",
+      "description": "Downloads pessoais preservados sem instaladores e transferencias temporarias reconstruiveis",
+      "required": true,
+      "restore_policy": "personal_files_isolated_restore",
+      "candidates": [
+        "${AIOX_DOWNLOADS_ROOT}",
+        "${USERPROFILE}\\Downloads"
+      ]
+    },
+    {
       "id": "investment_platforms",
       "description": "Captura controlada e catalogada das configuracoes portaveis das plataformas de investimento",
       "required": false,

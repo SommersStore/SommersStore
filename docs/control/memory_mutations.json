@@ -2176,6 +2176,13 @@
       "diff_summary": "CHK-CONTINUITY-02114-PLATFORMS-CLOUD: Documents removida da sincronizacao direta sem exclusao; oito familias de plataformas capturadas em 28.021 arquivos; snapshot cbf1a2fb confirmado com IDs local/nuvem iguais, RPO e verificacoes Restic aprovados; Desktop/Downloads e adocao no PC novo permanecem pendentes.",
       "mutated_by": "codex-scribe",
       "project_id": "sommersstore"
+    },
+    {
+      "timestamp": "2026-09-09T15:51:35-03:00",
+      "memory_scope": "milestone_checkpoint",
+      "diff_summary": "CHK-CONTINUITY-02114-PERSONAL-FILES-CLOUD: D:\\Desktop integral e Downloads seletivo adicionados ao Restic; snapshot 06cf8e00 confirmado com IDs local/nuvem iguais e verificacoes aprovadas; Desktop/Downloads permanecem temporariamente na sincronizacao direta ate a agenda do PC novo assumir.",
+      "mutated_by": "codex-scribe",
+      "project_id": "sommersstore"
     }
   ]
 }

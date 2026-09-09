@@ -20,20 +20,21 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-09-09T12:55:42-03:00
+- updated_at: 2026-09-09T15:51:35-03:00
 
-## Handoff Atual - Plataformas protegidas e snapshot confirmado no Drive
-- timestamp: 2026-09-09T12:55:42-03:00
-- objetivo: incluir as plataformas de investimento na continuidade criptografada sem sincronizar diretamente pastas operacionais sujeitas a exclusoes propagadas.
+## Handoff Atual - Desktop, Downloads e plataformas confirmados no Drive
+- timestamp: 2026-09-09T15:51:35-03:00
+- objetivo: incluir arquivos pessoais e plataformas na continuidade criptografada sem depender de sincronizacao direta de pastas operacionais.
 - plataformas: MetaTrader 4/5, NinjaTrader 8, JForex 4, ProfitPro, BlackArrow, cTrader, TWS/IBKR e Tradovate; captura completa com todas fechadas, 28.021 arquivos, 1.162.124.487 bytes e zero erros.
-- snapshot: `cbf1a2fba945c12a2c2aa6ae2f453e3f51c70ec96892280f15ebb4cc976afed2`; mesmo ID confirmado no repositorio local e em `Google Drive/SommersStore - Backup PC/10-Backups-Criptografados/Restic-AIOX`, RPO aprovado e `restic check` aprovado nos dois destinos.
-- seguranca_drive: sincronizacao direta de `Documents` desativada pelo usuario; pasta local e copia historica em `Outros computadores/Meu computador/Documents` preservadas. Desktop e Downloads continuam sincronizados ate integracao seletiva futura.
+- arquivos_pessoais: `D:\Desktop` integral e `C:\Users\ADMIN\Downloads` seletivo entraram como fontes obrigatorias; instaladores e transferencias incompletas de Downloads ficam excluidos, sem mover os originais.
+- snapshot: `06cf8e00b1cb3cb151da600bbda440843bc180f1db0480816efeb0c890b1d4fc`; mesmo ID confirmado no repositorio local e em `Google Drive/SommersStore - Backup PC/10-Backups-Criptografados/Restic-AIOX`, verificacoes Restic aprovadas e RPO de 114 minutos aprovado pelo horario de conclusao.
+- seguranca_drive: sincronizacao direta de `Documents` desativada; pasta local e copia historica preservadas. Desktop e Downloads continuam temporariamente sincronizados ate o PC novo assumir a agenda, evitando janela sem protecao.
 - organizacao_drive: raiz simplificada, arvore legivel de plataformas criada e backup Gemini movido para legado sem exclusoes.
-- codigo: Story 2.114 publicada inicialmente em `1260c24`; correcao subsequente seleciona o snapshot globalmente mais novo quando o Restic retorna grupos de caminhos distintos.
+- codigo: Story 2.114 publicada em `1260c24` e seletor do snapshot corrigido em `02a389d`; alteracao atual adiciona Desktop/Downloads e calcula o RPO por `summary.backup_end`.
 - escritor: notebook executou somente snapshot de handoff; nenhum primario foi reivindicado. O PC novo deve adotar o snapshot e receber a agenda de duas horas como unico escritor.
-- pendencias: publicar a correcao do seletor; integrar Desktop/Downloads seletivamente; adotar, restaurar isoladamente e agendar no PC novo.
+- pendencias: publicar a integracao; no PC novo, adotar e restaurar isoladamente `06cf8e00`, reivindicar escritor unico e instalar a agenda; depois retirar Desktop/Downloads da sincronizacao direta sem excluir o historico remoto.
 - story: `docs/stories/2.114.story.md`
-- checkpoint: CHK-CONTINUITY-02114-PLATFORMS-CLOUD
+- checkpoint: CHK-CONTINUITY-02114-PERSONAL-FILES-CLOUD
 
 ## Handoff Atual - Continuidade criptografada validada no Google Drive
 - timestamp: 2026-09-08T23:56:47-03:00
