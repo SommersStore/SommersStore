@@ -2155,6 +2155,13 @@
       "diff_summary": "CHK-CONTINUITY-02113-CLOUD-RESTORE: snapshot criptografado ff215859 com 6.789 arquivos confirmado pela API do Google Drive, verificacoes estrutural/amostral aprovadas e restore isolado com cinco sentinelas validos; plataformas de trading excluidas e PC novo sera o unico escritor agendado.",
       "mutated_by": "codex-scribe",
       "project_id": "sommersstore"
+    },
+    {
+      "timestamp": "2026-09-09T00:28:47-03:00",
+      "memory_scope": "milestone_checkpoint",
+      "diff_summary": "CHK-CONTINUITY-02113-SECURITY-GATE: GitHub CLI autorizado; auditoria npm remediada de 18 para zero vulnerabilidades; gates, Puppeteer 25 e conversao PDF aprovados; pushes aguardam autorizacao explicita.",
+      "mutated_by": "codex-scribe",
+      "project_id": "sommersstore"
     }
   ]
 }

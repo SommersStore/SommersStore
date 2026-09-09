@@ -35,6 +35,14 @@
 - story: `docs/stories/2.113.story.md`
 - checkpoint: CHK-CONTINUITY-02113-CLOUD-RESTORE
 
+## Registro Manual - 2026-09-09T00:28:47-03:00
+- tipo: gate-seguranca-pre-push-continuity
+- resumo: O GitHub CLI foi autorizado para a conta SommersStore. O gate npm inicialmente encontrou 18 vulnerabilidades, incluindo 3 criticas; atualizacoes compativeis e as migracoes de `pdf-to-img` 4 para 5 e Puppeteer 24 para 25 reduziram o resultado para zero vulnerabilidades.
+- validacao: Passaram `npm run lint`, `npm run typecheck`, `npm test`, `npm run validate:structure`, `npm run validate:agents` com zero erros e 116 avisos preexistentes, `npm audit --audit-level=low`, smoke headless do Puppeteer e conversao real de uma pagina PDF.
+- preservacao: `projects/financas/data/fin2_data.json` e `scripts/backup_trading_platforms.ps1` permaneceram fora do stage e intocados; nenhuma plataforma de trading, credencial ou deploy Firebase foi acionado.
+- proxima_acao: Solicitar autorizacao explicita para publicar a branch SommersStore e criar/publicar o repositorio GitHub privado do Protheus; em seguida adotar a continuidade no PC novo.
+- checkpoint: CHK-CONTINUITY-02113-SECURITY-GATE
+
 ## Handoff Atual - Gamma Black MT4 distribuido no MT5 ActivTrades/FTMO
 - timestamp: 2026-09-01T01:02:13-03:00
 - objetivo: instalar o template `Gamma Black MT4` e seus indicadores nas MT5 ActivTrades/FTMO, assegurando tambem o `AIOX_Trader_On_Chart` v1.50.
