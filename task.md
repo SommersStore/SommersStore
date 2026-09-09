@@ -831,9 +831,19 @@
 - [x] Criar/publicar o repositorio GitHub privado do Protheus depois da reautenticacao.
 - [ ] Instalar a agenda de 2 horas somente no PC novo e validar o primeiro ciclo automatico.
 
+## Plataformas e organizacao segura do Drive - Story 2.114
+
+- [x] Inventariar plataformas instaladas e confirmar a causa da sincronizacao duplicada de `Documents`.
+- [x] Implementar captura controlada para MT4/MT5, NinjaTrader, JForex, ProfitPro, BlackArrow, cTrader, TWS/IBKR e Tradovate.
+- [x] Integrar o staging de plataformas aos snapshots criptografados e aos relatorios de continuidade.
+- [x] Preservar o backup Gemini como legado e criar a pasta legivel de plataformas no Drive.
+- [ ] Desativar o backup direto de `Documents` no Google Drive Desktop antes de retomar a sincronizacao.
+- [x] Validar captura completa com todas as plataformas fechadas: 28.021 arquivos, cerca de 1,16 GB e zero erros.
+- [ ] Reproduzir configuracao, restauracao e agenda no PC novo quando ele estiver disponivel.
+
 ## Risks
 - Automacao implantada precisa de validacao operacional recorrente para detectar regressao cedo.
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-09-09T00:41:40-03:00
+- updated_at: 2026-09-09T11:05:00-03:00

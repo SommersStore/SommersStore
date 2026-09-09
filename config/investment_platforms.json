@@ -1,0 +1,157 @@
+{
+  "schema_version": "aiox.investment-platforms.v1",
+  "snapshot_root_candidates": [
+    "${AIOX_PLATFORM_SNAPSHOT_DIR}",
+    "${LOCALAPPDATA}\\AIOX\\Continuity\\platforms"
+  ],
+  "catalog_candidates": [
+    "${AIOX_PLATFORM_CATALOG_DIR}",
+    "G:\\Meu Drive\\SommersStore - Backup PC\\30-Plataformas-de-Investimento\\00 - Catalogos e instrucoes"
+  ],
+  "common_exclude_directories": [
+    ".cache",
+    "cache",
+    "cache2",
+    "Code Cache",
+    "Crashpad",
+    "DawnCache",
+    "GPUCache",
+    "logs",
+    "log",
+    "temp",
+    "tmp",
+    "WebCache",
+    "WebStorage",
+    "Network",
+    "Session Storage",
+    "Local Storage",
+    "IndexedDB",
+    "LastLogin"
+  ],
+  "common_exclude_files": [
+    "auth.json",
+    ".credentials.json",
+    "Cookies",
+    "Cookies-journal",
+    "Login Data",
+    "Login Data-journal",
+    "Web Data",
+    "Web Data-journal",
+    "accounts.dat",
+    "accounts.ini",
+    "cookies.dat",
+    "Config.xml",
+    "NinjaTrader.sqlite",
+    "*.log",
+    "*.tmp",
+    "*.lock"
+  ],
+  "platforms": [
+    {
+      "id": "metatrader",
+      "name": "MetaTrader 4 e 5",
+      "process_names": ["terminal.exe", "terminal64.exe", "metaeditor.exe", "metaeditor64.exe"],
+      "sources": [
+        {
+          "id": "metaquotes-terminal",
+          "candidates": ["${APPDATA}\\MetaQuotes\\Terminal"],
+          "includes": [
+            "*/origin.txt",
+            "*/MQL4/**",
+            "*/MQL5/**",
+            "*/Profiles/**",
+            "*/profiles/**",
+            "*/templates/**",
+            "*/config/**",
+            "Common/**"
+          ],
+          "exclude_directories": ["bases", "history", "Tester", "tester", "Community", "Market", "WebInstall"]
+        }
+      ]
+    },
+    {
+      "id": "ninjatrader-8",
+      "name": "NinjaTrader 8",
+      "process_names": ["NinjaTrader.exe"],
+      "sources": [
+        {
+          "id": "documents",
+          "candidates": ["${USERPROFILE}\\Documents\\NinjaTrader 8"],
+          "includes": ["bin/Custom/**", "templates/**", "workspaces/**", "db/**", "*.xml", "*.json"],
+          "exclude_directories": ["BrazeWebView2", "BrazeWebSDK", "EBWebView", "tick", "minute", "day", "strategyanalyzerlogs"]
+        }
+      ]
+    },
+    {
+      "id": "jforex-4",
+      "name": "JForex 4",
+      "process_names": ["JForex.exe", "JForex4.exe"],
+      "sources": [
+        {
+          "id": "user-data",
+          "candidates": ["${USERPROFILE}\\JForex4"],
+          "includes": ["Workspaces/**", "Strategies/**", "Templates/**", "Indicators/**", "Plugins/**", ".settings/**", "jfxide/**", "*.jfw", "*.xml", "*.json"],
+          "exclude_directories": ["jre", "libs", ".install4j"]
+        }
+      ]
+    },
+    {
+      "id": "nelogica-profit",
+      "name": "Nelogica ProfitPro",
+      "process_names": ["Profit.exe", "ProfitPro.exe"],
+      "sources": [
+        {
+          "id": "profile",
+          "candidates": ["${APPDATA}\\Nelogica\\Profit"],
+          "includes": ["Profile/**", "strategy/**", "SecurityLists/**", "ListasIndices/**", "TreeMapManager/**", "formatos/**", "MarketHours2/**", "NewMarketHours/**", "*.json", "*.ini", "*.xml"],
+          "exclude_directories": ["database", "Edge114.0.1823.43.x64", "Edge138.0.3351.77.x64", "ResourceDlls", "LibAV", "x64", "update"]
+        }
+      ]
+    },
+    {
+      "id": "nelogica-blackarrow",
+      "name": "Nelogica BlackArrow",
+      "process_names": ["BlackArrow.exe"],
+      "sources": [
+        {
+          "id": "profile",
+          "candidates": ["${APPDATA}\\Nelogica\\BlackArrow"],
+          "includes": ["Profile/**", "strategy/**", "SecurityLists/**", "ListasIndices/**", "formatos/**", "MarketHours2/**", "NewMarketHours/**", "*.json", "*.ini", "*.xml"],
+          "exclude_directories": ["database", "Edge114.0.1823.43.x64", "Edge138.0.3351.77.x64", "ResourceDlls", "LibAV", "x64", "update"]
+        }
+      ]
+    },
+    {
+      "id": "ctrader",
+      "name": "cTrader",
+      "process_names": ["cTrader.exe"],
+      "sources": [
+        { "id": "calgo", "candidates": ["${USERPROFILE}\\Documents\\cAlgo"], "includes": ["**"] },
+        { "id": "documents", "candidates": ["${USERPROFILE}\\Documents\\cTrader"], "includes": ["**"] },
+        { "id": "settings", "candidates": ["${APPDATA}\\Spotware"], "includes": ["**"] }
+      ]
+    },
+    {
+      "id": "ibkr-tws",
+      "name": "Interactive Brokers - Trader Workstation",
+      "process_names": ["tws.exe", "ibgateway.exe"],
+      "sources": [
+        { "id": "user-jts", "candidates": ["${USERPROFILE}\\Jts", "${USERPROFILE}\\Documents\\Jts"], "includes": ["**"] },
+        { "id": "installation-settings", "candidates": ["D:\\tws", "C:\\Jts"], "includes": ["data/**", "charts/**", "*.ini", "*.xml", "*.properties"] }
+      ]
+    },
+    {
+      "id": "tradovate",
+      "name": "Tradovate Trader",
+      "process_names": ["Tradovate Trader.exe"],
+      "sources": [
+        {
+          "id": "settings",
+          "candidates": ["${APPDATA}\\Tradovate Trader"],
+          "includes": ["Preferences", "*.json"],
+          "exclude_directories": ["databases", "blob_storage"]
+        }
+      ]
+    }
+  ]
+}

@@ -29,6 +29,11 @@
     "keep_weekly": 8,
     "keep_monthly": 12
   },
+  "investment_platforms": {
+    "enabled": true,
+    "require_drive_sync_ack": true,
+    "config_path": "config/investment_platforms.json"
+  },
   "sources": [
     {
       "id": "sommersstore",
@@ -107,20 +112,40 @@
         "snippets",
         "workspaceStorage"
       ]
+    },
+    {
+      "id": "investment_platforms",
+      "description": "Captura controlada e catalogada das configuracoes portaveis das plataformas de investimento",
+      "required": false,
+      "restore_policy": "platform_selective_restore",
+      "candidates": [
+        "${AIOX_PLATFORM_SNAPSHOT_DIR}\\current",
+        "${LOCALAPPDATA}\\AIOX\\Continuity\\platforms\\current"
+      ]
     }
   ],
   "blocked_operational_roots": [
     "${APPDATA}\\MetaQuotes\\Terminal",
     "${USERPROFILE}\\Documents\\NinjaTrader 8",
-    "${USERPROFILE}\\JForex4"
+    "${USERPROFILE}\\JForex4",
+    "${APPDATA}\\Nelogica\\Profit",
+    "${APPDATA}\\Nelogica\\BlackArrow",
+    "${USERPROFILE}\\Documents\\cAlgo",
+    "${USERPROFILE}\\Documents\\cTrader",
+    "${APPDATA}\\Spotware",
+    "${USERPROFILE}\\Jts",
+    "${APPDATA}\\Tradovate Trader"
   ],
   "recovery_kit_files": [
     "docs/02_architecture/cloud_continuity_architecture.md",
+    "docs/02_architecture/investment_platform_continuity.md",
     "docs/02_architecture/google_drive_desktop_setup.md",
     "config/aiox_continuity_sources.json",
     "config/aiox_continuity_excludes.txt",
+    "config/investment_platforms.json",
     "scripts/bootstrap_aiox_recovery.ps1",
     "scripts/install_restic.ps1",
-    "scripts/aiox_continuity_secret.ps1"
+    "scripts/aiox_continuity_secret.ps1",
+    "scripts/investment_platform_backup.js"
   ]
 }

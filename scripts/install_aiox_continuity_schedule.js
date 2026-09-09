@@ -24,6 +24,11 @@ async function createSchedule(options = {}) {
     return { ok: false, error: 'O agendamento de continuidade esta disponivel apenas no Windows.' };
   }
 
+  const preflight = continuity.preflight();
+  if (!preflight.ok) {
+    return { ok: false, error: `Preflight bloqueou a agenda: ${preflight.errors.join(', ')}`, preflight_errors: preflight.errors };
+  }
+
   const claim = continuity.claimPrimary({ replacePrimary: Boolean(options.replacePrimary) });
   if (!claim.ok) return claim;
 

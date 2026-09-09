@@ -6,6 +6,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const { spawnSync } = require('child_process');
+const investmentPlatforms = require('./investment_platform_backup.js');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const CONFIG_PATH = path.join(ROOT_DIR, 'config', 'aiox_continuity_sources.json');
@@ -131,7 +132,19 @@ function pathIsOperationalPlatform(candidate, blockedRoots = []) {
     || portable.includes('/documents/ninjatrader 8/')
     || portable.endsWith('/documents/ninjatrader 8')
     || portable.includes('/jforex4/')
-    || portable.endsWith('/jforex4');
+    || portable.endsWith('/jforex4')
+    || portable.includes('/appdata/roaming/nelogica/profit/')
+    || portable.endsWith('/appdata/roaming/nelogica/profit')
+    || portable.includes('/appdata/roaming/nelogica/blackarrow/')
+    || portable.endsWith('/appdata/roaming/nelogica/blackarrow')
+    || portable.includes('/documents/calgo/')
+    || portable.endsWith('/documents/calgo')
+    || portable.includes('/documents/ctrader/')
+    || portable.endsWith('/documents/ctrader')
+    || portable.includes('/appdata/roaming/spotware/')
+    || portable.endsWith('/appdata/roaming/spotware')
+    || portable.includes('/appdata/roaming/tradovate trader/')
+    || portable.endsWith('/appdata/roaming/tradovate trader');
 }
 
 function shouldExcludeCriticalPath(candidate, blockedRoots = []) {
@@ -742,7 +755,7 @@ function preflight(options = {}) {
     ? rcloneRemoteAvailable(rclonePath, paths.rclone_remote_name, environment)
     : null;
   const exclusions = fs.existsSync(EXCLUDES_PATH) ? fs.readFileSync(EXCLUDES_PATH, 'utf8') : '';
-  const requiredExclusions = ['auth.json', 'MetaQuotes/Terminal', 'NinjaTrader 8', 'JForex4'];
+  const requiredExclusions = ['auth.json', 'MetaQuotes/Terminal', 'NinjaTrader 8', 'JForex4', 'Nelogica/Profit', 'Tradovate Trader'];
   const missingExclusions = requiredExclusions.filter((item) => !exclusions.includes(item));
   const errors = [];
   if (resolution.missing_required.length > 0) errors.push('required_sources_missing');
@@ -752,6 +765,13 @@ function preflight(options = {}) {
   if (paths.require_remote_api && !paths.cloud_remote) errors.push('cloud_remote_missing');
   if (missingExclusions.length > 0) errors.push('critical_exclusions_missing');
   if (!fs.existsSync(path.dirname(paths.cloud))) errors.push('google_drive_parent_missing');
+  let platformDriveSafety = null;
+  if (config.investment_platforms && config.investment_platforms.enabled) {
+    platformDriveSafety = investmentPlatforms.driveSafetyStatus({ environment });
+    if (config.investment_platforms.require_drive_sync_ack && !platformDriveSafety.ok) {
+      errors.push('google_drive_direct_sync_not_acknowledged');
+    }
+  }
   return {
     ok: errors.length === 0,
     schema_version: SCHEMA_VERSION,
@@ -771,6 +791,7 @@ function preflight(options = {}) {
     } : { installed: false, remote_ready: false, required: paths.require_remote_api },
     repositories: paths,
     missing_critical_exclusions: missingExclusions,
+    platform_drive_safety: platformDriveSafety,
     resolution
   };
 }
@@ -810,10 +831,32 @@ function backup(options = {}) {
     sources: [],
     snapshot: null,
     cloud_validation: null,
+    platform_capture: null,
     error: null
   };
 
   try {
+    if (config.investment_platforms && config.investment_platforms.enabled) {
+      const safety = investmentPlatforms.driveSafetyStatus({ environment });
+      if (config.investment_platforms.require_drive_sync_ack && !safety.ok) {
+        throw new Error('Backup direto de Documents ainda nao foi confirmado como desativado no Google Drive Desktop.');
+      }
+      const captured = investmentPlatforms.capturePlatforms({ environment });
+      report.platform_capture = {
+        status: captured.status,
+        root: captured.root,
+        platforms: captured.manifest ? captured.manifest.platforms.map((platform) => ({
+          id: platform.id,
+          name: platform.name,
+          status: platform.status,
+          files: platform.files,
+          bytes: platform.bytes,
+          active: platform.active
+        })) : [],
+        error: captured.error || null
+      };
+      if (!captured.ok) throw new Error(`Falha na captura das plataformas: ${captured.error}`);
+    }
     const check = preflight({ config, environment, resticPath: options.resticPath });
     paths = check.repositories;
     if (!check.ok) throw new Error(`Preflight bloqueou o backup: ${check.errors.join(', ')}`);
@@ -848,6 +891,7 @@ function backup(options = {}) {
     }
     runRestic(resticPath, paths.active_cloud, ['check'], password, { environment, timeout: 60 * 60 * 1000 });
     const kit = publishRecoveryKit(config, paths);
+    const platformCatalog = report.platform_capture ? investmentPlatforms.publishCatalog({ environment }) : null;
 
     report.status = 'success';
     report.completed_at = new Date().toISOString();
@@ -858,6 +902,9 @@ function backup(options = {}) {
       included_entries: source.entries.length
     }));
     report.warnings = check.resolution.warnings;
+    if (report.platform_capture && report.platform_capture.status === 'partial') {
+      report.warnings.push({ id: 'investment_platforms', reason: 'one_or_more_platforms_partial' });
+    }
     report.snapshot = {
       id: localSnapshot.id,
       short_id: localSnapshot.short_id || localSnapshot.id.slice(0, 8),
@@ -873,6 +920,10 @@ function backup(options = {}) {
       transport_exit_code: replication.status
     };
     report.recovery_kit_files = kit.length;
+    report.platform_catalog = platformCatalog;
+    if (platformCatalog && !platformCatalog.ok) {
+      report.warnings.push({ id: 'investment_platforms', reason: 'drive_catalog_publish_failed', detail: platformCatalog.error });
+    }
     report.git = runtime.git.map((item) => ({
       source_id: item.source_id,
       is_repository: item.is_repository,

@@ -1,0 +1,42 @@
+{
+  "schema_version": "aiox.google-drive-organization.v1",
+  "account": "sommersstoreltda@gmail.com",
+  "executed_at": "2026-09-09T13:45:00Z",
+  "policy": "moves_only_no_deletes",
+  "root_after": [
+    "SommersStore - Backup PC",
+    "01 - Projetos e trabalho",
+    "02 - Documentos",
+    "03 - Midia",
+    "04 - WhatsApp",
+    "90 - A revisar"
+  ],
+  "technical_folders": {
+    "backup_root_id": "1dUHExcnYTlDsdFlaY9AEa_MvY027v8B1",
+    "platforms_id": "1OnMvWFpFk22T63_Lj4Rb_sbTdxsZryBj",
+    "platform_catalogs_id": "13oR6S3jq_unWTqyJkx2eStkfnLYhFPqo",
+    "legacy_id": "12bWKQSjZ6y5TvZOlNHukF4mjQqROoQTc"
+  },
+  "legacy_move": {
+    "file_id": "1LN1YFLeXC4Arvh66Ya0Evtmnjh53oDUa",
+    "old_name": "Trading_Backups",
+    "new_name": "Backup-Plataformas-Legado-Gemini-2026-09-08",
+    "old_parent_id": "1dUHExcnYTlDsdFlaY9AEa_MvY027v8B1",
+    "new_parent_id": "12bWKQSjZ6y5TvZOlNHukF4mjQqROoQTc"
+  },
+  "root_document_moves": {
+    "total": 35,
+    "projects_and_work": 15,
+    "marketing_and_content": 10,
+    "personal_and_legal": 1,
+    "general_documents": 2,
+    "needs_review": 7
+  },
+  "verification": {
+    "root_items": 6,
+    "legacy_readback": true,
+    "platform_tree_readback": true,
+    "root_document_readback": true,
+    "deleted_items": 0
+  }
+}

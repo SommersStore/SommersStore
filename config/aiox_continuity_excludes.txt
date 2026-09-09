@@ -30,10 +30,16 @@
 **/crashes/**
 **/logs/**
 
-# Plataformas instaladas: configuracao e restauracao sao manuais
+# Raizes operacionais das plataformas nunca entram diretamente; somente o staging controlado e permitido
 **/AppData/Roaming/MetaQuotes/Terminal/**
 **/Documents/NinjaTrader 8/**
 **/JForex4/**
+**/AppData/Roaming/Nelogica/Profit/**
+**/AppData/Roaming/Nelogica/BlackArrow/**
+**/Documents/cAlgo/**
+**/Documents/cTrader/**
+**/AppData/Roaming/Spotware/**
+**/AppData/Roaming/Tradovate Trader/**
 **/scripts/backup_trading_platforms.ps1
 
 # Temporarios genericos; dados de projeto explicitamente versionados fora destes nomes continuam inclusos

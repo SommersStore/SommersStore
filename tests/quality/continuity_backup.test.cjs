@@ -5,6 +5,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const continuity = require('../../scripts/aiox_continuity.js');
+const investmentPlatforms = require('../../scripts/investment_platform_backup.js');
 
 function createFixture(root) {
   const profile = path.join(root, 'profile');
@@ -89,6 +90,8 @@ function testPureGuardrails() {
   assert.equal(continuity.pathIsOperationalPlatform('C:\\Users\\A\\AppData\\Roaming\\MetaQuotes\\Terminal\\ABC'), true);
   assert.equal(continuity.pathIsOperationalPlatform('C:\\Users\\A\\Documents\\NinjaTrader 8\\workspaces'), true);
   assert.equal(continuity.pathIsOperationalPlatform('C:\\Users\\A\\JForex4\\Workspaces'), true);
+  assert.equal(continuity.pathIsOperationalPlatform('C:\\Users\\A\\AppData\\Roaming\\Nelogica\\Profit\\Profile'), true);
+  assert.equal(continuity.pathIsOperationalPlatform('C:\\Users\\A\\AppData\\Roaming\\Tradovate Trader\\Preferences'), true);
   assert.equal(continuity.pathIsOperationalPlatform('C:\\AIOX\\Workspace\\Protheus\\platforms\\mt5'), false, 'authorial source inside Protheus is not an installed platform root');
   assert.equal(continuity.shouldExcludeCriticalPath('C:\\Users\\A\\.codex\\auth.json'), true);
   assert.equal(continuity.shouldExcludeCriticalPath('C:\\Users\\A\\.codex\\state_5.sqlite-wal'), true);
@@ -99,6 +102,59 @@ function testPureGuardrails() {
   assert.equal(continuity.isRobocopySuccess(8), false);
   assert.equal(continuity.parseCli(['backup', '--handoff-source', '--trigger', 'test']).handoffSource, true);
   assert.throws(() => continuity.assertSafeRestoreTarget('C:\\AIOX\\Workspace', 'C:\\AIOX\\RestoreTest'), /subpasta/i);
+}
+
+function testInvestmentPlatformCapture() {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-platform-capture-'));
+  try {
+    const profile = path.join(root, 'profile');
+    const appData = path.join(profile, 'AppData', 'Roaming');
+    const localAppData = path.join(profile, 'AppData', 'Local');
+    const terminal = path.join(appData, 'MetaQuotes', 'Terminal', 'ABCDEF0123456789ABCDEF0123456789');
+    const files = {
+      [path.join(terminal, 'MQL5', 'Experts', 'AIOX.mq5')]: 'source',
+      [path.join(terminal, 'MQL5', 'logs', 'runtime.log')]: 'volatile',
+      [path.join(terminal, 'config', 'terminal.ini')]: 'setting',
+      [path.join(terminal, 'config', 'accounts.dat')]: 'account-secret',
+      [path.join(terminal, 'config', 'auth.json')]: 'secret'
+    };
+    for (const [filePath, content] of Object.entries(files)) {
+      fs.mkdirSync(path.dirname(filePath), { recursive: true });
+      fs.writeFileSync(filePath, content, 'utf8');
+    }
+    const snapshotRoot = path.join(localAppData, 'AIOX', 'Continuity', 'platforms');
+    const environment = { ...process.env, USERPROFILE: profile, APPDATA: appData, LOCALAPPDATA: localAppData, COMPUTERNAME: 'PLATFORM-TEST' };
+    const config = {
+      schema_version: investmentPlatforms.SCHEMA_VERSION,
+      snapshot_root_candidates: [snapshotRoot],
+      common_exclude_directories: ['logs', 'cache', 'LastLogin'],
+      common_exclude_files: ['auth.json', 'accounts.dat', 'Config.xml', '*.log'],
+      platforms: [{
+        id: 'metatrader',
+        name: 'MetaTrader',
+        process_names: ['terminal64.exe'],
+        sources: [{
+          id: 'terminal',
+          candidates: [path.join(appData, 'MetaQuotes', 'Terminal')],
+          includes: ['*/MQL5/**', '*/config/**']
+        }]
+      }]
+    };
+    const captured = investmentPlatforms.capturePlatforms({ config, environment, snapshotRoot, runningProcesses: ['terminal64.exe'] });
+    assert.equal(captured.ok, true);
+    assert.equal(captured.status, 'partial');
+    assert.equal(captured.manifest.platforms[0].status, 'partial_platform_open');
+    assert.ok(fs.existsSync(path.join(snapshotRoot, 'current', 'metatrader', 'terminal-1', 'ABCDEF0123456789ABCDEF0123456789', 'MQL5', 'Experts', 'AIOX.mq5')));
+    assert.ok(!fs.existsSync(path.join(snapshotRoot, 'current', 'metatrader', 'terminal-1', 'ABCDEF0123456789ABCDEF0123456789', 'MQL5', 'logs', 'runtime.log')));
+    assert.ok(!fs.existsSync(path.join(snapshotRoot, 'current', 'metatrader', 'terminal-1', 'ABCDEF0123456789ABCDEF0123456789', 'config', 'auth.json')));
+    assert.ok(!fs.existsSync(path.join(snapshotRoot, 'current', 'metatrader', 'terminal-1', 'ABCDEF0123456789ABCDEF0123456789', 'config', 'accounts.dat')));
+
+    assert.equal(investmentPlatforms.acknowledgeDriveSafe('wrong', { config, environment }).ok, false);
+    assert.equal(investmentPlatforms.acknowledgeDriveSafe(investmentPlatforms.ACK_PHRASE, { config, environment }).ok, true);
+    assert.equal(investmentPlatforms.driveSafetyStatus({ config, environment }).ok, true);
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
 }
 
 function testResolutionAndSingleWriter() {
@@ -165,6 +221,7 @@ function testResticRoundTripWhenAvailable() {
 
 function runContinuityTests() {
   testPureGuardrails();
+  testInvestmentPlatformCapture();
   testResolutionAndSingleWriter();
   testResticRoundTripWhenAvailable();
 }

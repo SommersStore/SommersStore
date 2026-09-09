@@ -36,11 +36,32 @@ Tambem nao e tecnicamente correto prometer igualdade continua byte a byte entre 
 | Conversas, brain, implicit e conhecimento do Antigravity | Nao | Sim | Seletiva |
 | Preferencias e historico local do IDE | Nao | Sim | Revisao antes de aplicar |
 | `auth.json`, tokens, identificadores de instalacao e caches | Nunca | Nunca | Login novo |
-| MetaTrader 5 instalado, perfis e dados de terminais | Nao | Nao | Configuracao manual do usuario |
-| NinjaTrader instalado, workspaces e configuracoes | Nao | Nao | Configuracao manual do usuario |
-| JForex instalado, workspaces e configuracoes | Nao | Nao | Configuracao manual do usuario |
+| Plataformas de investimento: instaladores e caches reconstruiveis | Nao | Nao | Reinstalacao oficial |
+| Plataformas de investimento: configuracoes e artefatos portaveis | Nao | Sim, por staging controlado | Restauracao seletiva e login novo |
 
-Os diretorios `platforms/` ou `projects/forex/tools/` que estejam dentro do projeto Protheus/SommersStore sao codigo-fonte autoral e continuam incluidos. A exclusao vale para os diretorios operacionais instalados das plataformas.
+Os diretorios `platforms/` ou `projects/forex/tools/` que estejam dentro do projeto Protheus/SommersStore sao codigo-fonte autoral e continuam incluidos. As raizes operacionais instaladas continuam proibidas como fontes diretas: um coletor somente leitura seleciona os artefatos portaveis, remove caches/credenciais conhecidas, grava uma captura local atomica e somente essa captura entra no Restic.
+
+## Plataformas de investimento
+
+A cobertura inicial inclui MetaTrader 4/5, NinjaTrader 8, JForex 4, ProfitPro, BlackArrow, cTrader, Trader Workstation/IBKR e Tradovate. Novas plataformas detectadas entram no inventario como `perfil_pendente`, sem copia ampla por suposicao.
+
+Cada perfil define caminhos candidatos portaveis, processos associados, diretorios relevantes e exclusoes. O coletor nunca abre, fecha ou configura uma plataforma. Se o processo estiver ativo, arquivos de estado sujeitos a lock ou gravacao continua nao sao tratados como captura completa; o relatorio exige uma nova captura apos o fechamento.
+
+O staging fica fora dos diretorios ativos, sob `%LOCALAPPDATA%\AIOX\Continuity\platforms`. A troca de `current` ocorre por rename somente depois de a captura e o manifesto terminarem. O Restic fornece versoes, criptografia e retencao. Uma pasta legivel no Drive recebe somente catalogos, instrucoes e relatorios sem segredo; ela nao e um espelho do runtime.
+
+## Organizacao do Google Drive
+
+A conta oficial de continuidade e `sommersstoreltda@gmail.com`. A raiz tecnica existente `SommersStore - Backup PC` e preservada para evitar quebrar configuracoes e passa a conter:
+
+- `00-Recovery-Kit`;
+- `10-Backups-Criptografados`;
+- `20-Relatorios-de-Integridade`;
+- `30-Plataformas-de-Investimento`;
+- `90-Migracoes-Legadas`.
+
+O antigo `Trading_Backups`, criado por uma rotina Gemini de copia direta, deve ser movido para `90-Migracoes-Legadas` e renomeado, preservando o ID do Drive e sem excluir arquivos. Midias e documentos pessoais ficam fora do repositorio tecnico, em pastas simples da raiz (`Documentos`, `Midia/Fotos`, `Midia/Videos`, `Midia/Audio`, `WhatsApp` e `A-Revisar`). Movimentacoes usam IDs, manifesto anterior/posterior e leitura de confirmacao; nenhum duplicado e apagado automaticamente.
+
+A origem `Outros computadores/Meu computador/Documents` e incompatível com a operacao do NinjaTrader porque propaga a criacao e remocao de arquivos temporarios. A agenda de continuidade permanece bloqueada ate o usuario desativar o backup direto de `Documents` na interface do Google Drive Desktop e a remocao dessa origem ser confirmada. O conteudo remoto preexistente permanece preservado durante a transicao.
 
 ## Topologia
 
@@ -110,7 +131,7 @@ O repositorio SommersStore foi identificado como publico. Essa visibilidade nao 
 5. Informar a senha de recuperacao e executar restauracao primeiro em diretorio isolado.
 6. Aplicar o overlay privado e os historicos portaveis apos revisar conflitos e caminhos da maquina.
 7. Reautenticar Codex, Firebase e demais servicos.
-8. Instalar e configurar manualmente MetaTrader 5, NinjaTrader e JForex; nenhuma configuracao dessas plataformas e restaurada automaticamente.
+8. Reinstalar as plataformas por fontes oficiais e restaurar seletivamente os artefatos portaveis a partir do snapshot, mantendo logins e automacoes desativados ate a validacao manual.
 9. Rodar lint, typecheck, testes, validacao de memoria e relatorio de integridade.
 10. Somente entao reivindicar o papel de maquina primaria e instalar a agenda.
 
