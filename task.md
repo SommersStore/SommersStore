@@ -828,7 +828,7 @@
 - [x] Cadastrar a senha de recuperacao no DPAPI; o transporte padrao usa o Google Drive Desktop ja autenticado.
 - [x] Executar e validar o primeiro snapshot real `ff215859` no Drive, seguido de restore isolado com cinco sentinelas aprovados.
 - [x] Remediar o gate npm de 18 para zero vulnerabilidades e validar Puppeteer/PDF apos as atualizacoes.
-- [ ] Criar/publicar o repositorio GitHub privado do Protheus depois da reautenticacao.
+- [x] Criar/publicar o repositorio GitHub privado do Protheus depois da reautenticacao.
 - [ ] Instalar a agenda de 2 horas somente no PC novo e validar o primeiro ciclo automatico.
 
 ## Risks
@@ -836,4 +836,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-09-09T00:28:47-03:00
+- updated_at: 2026-09-09T00:41:40-03:00

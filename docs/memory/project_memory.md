@@ -43,6 +43,14 @@
 - proxima_acao: Solicitar autorizacao explicita para publicar a branch SommersStore e criar/publicar o repositorio GitHub privado do Protheus; em seguida adotar a continuidade no PC novo.
 - checkpoint: CHK-CONTINUITY-02113-SECURITY-GATE
 
+## Registro Manual - 2026-09-09T00:41:40-03:00
+- tipo: publicacao-github-continuity
+- resumo: A branch `migration/pc-new-20260907` do SommersStore foi publicada no GitHub em `0c6f5e4`. O repositorio independente `SommersStore/Protheus` foi criado, confirmado como `PRIVATE` pela API do GitHub e publicado na branch `main` em `3dbb05a`.
+- gates_protheus: Zero padroes de credencial nos 296 arquivos rastreados; lint, typecheck e 11 testes aprovados. O projeto nao possui dependencias externas nem lockfile, portanto `npm audit` nao se aplica.
+- preservacao: O dado financeiro local e o script legado de backup das plataformas permaneceram fora do commit; configuracoes de MetaTrader, NinjaTrader e JForex continuam manuais e excluidas da continuidade automatica.
+- proxima_acao: Gerar o snapshot incremental final do notebook e adotar/validar a continuidade no PC novo antes de instalar nele a agenda de duas horas.
+- checkpoint: CHK-CONTINUITY-02113-GITHUB-PUBLISHED
+
 ## Handoff Atual - Gamma Black MT4 distribuido no MT5 ActivTrades/FTMO
 - timestamp: 2026-09-01T01:02:13-03:00
 - objetivo: instalar o template `Gamma Black MT4` e seus indicadores nas MT5 ActivTrades/FTMO, assegurando tambem o `AIOX_Trader_On_Chart` v1.50.
