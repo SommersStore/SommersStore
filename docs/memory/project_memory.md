@@ -20,7 +20,20 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-09-08T23:56:47-03:00
+- updated_at: 2026-09-09T12:55:42-03:00
+
+## Handoff Atual - Plataformas protegidas e snapshot confirmado no Drive
+- timestamp: 2026-09-09T12:55:42-03:00
+- objetivo: incluir as plataformas de investimento na continuidade criptografada sem sincronizar diretamente pastas operacionais sujeitas a exclusoes propagadas.
+- plataformas: MetaTrader 4/5, NinjaTrader 8, JForex 4, ProfitPro, BlackArrow, cTrader, TWS/IBKR e Tradovate; captura completa com todas fechadas, 28.021 arquivos, 1.162.124.487 bytes e zero erros.
+- snapshot: `cbf1a2fba945c12a2c2aa6ae2f453e3f51c70ec96892280f15ebb4cc976afed2`; mesmo ID confirmado no repositorio local e em `Google Drive/SommersStore - Backup PC/10-Backups-Criptografados/Restic-AIOX`, RPO aprovado e `restic check` aprovado nos dois destinos.
+- seguranca_drive: sincronizacao direta de `Documents` desativada pelo usuario; pasta local e copia historica em `Outros computadores/Meu computador/Documents` preservadas. Desktop e Downloads continuam sincronizados ate integracao seletiva futura.
+- organizacao_drive: raiz simplificada, arvore legivel de plataformas criada e backup Gemini movido para legado sem exclusoes.
+- codigo: Story 2.114 publicada inicialmente em `1260c24`; correcao subsequente seleciona o snapshot globalmente mais novo quando o Restic retorna grupos de caminhos distintos.
+- escritor: notebook executou somente snapshot de handoff; nenhum primario foi reivindicado. O PC novo deve adotar o snapshot e receber a agenda de duas horas como unico escritor.
+- pendencias: publicar a correcao do seletor; integrar Desktop/Downloads seletivamente; adotar, restaurar isoladamente e agendar no PC novo.
+- story: `docs/stories/2.114.story.md`
+- checkpoint: CHK-CONTINUITY-02114-PLATFORMS-CLOUD
 
 ## Handoff Atual - Continuidade criptografada validada no Google Drive
 - timestamp: 2026-09-08T23:56:47-03:00

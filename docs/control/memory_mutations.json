@@ -2169,6 +2169,13 @@
       "diff_summary": "CHK-CONTINUITY-02113-GITHUB-PUBLISHED: branch SommersStore publicada em 0c6f5e4; repositorio SommersStore/Protheus criado e confirmado PRIVATE, com main publicada em 3dbb05a; proxima etapa e adocao no PC novo.",
       "mutated_by": "codex-scribe",
       "project_id": "sommersstore"
+    },
+    {
+      "timestamp": "2026-09-09T12:55:42-03:00",
+      "memory_scope": "milestone_checkpoint",
+      "diff_summary": "CHK-CONTINUITY-02114-PLATFORMS-CLOUD: Documents removida da sincronizacao direta sem exclusao; oito familias de plataformas capturadas em 28.021 arquivos; snapshot cbf1a2fb confirmado com IDs local/nuvem iguais, RPO e verificacoes Restic aprovados; Desktop/Downloads e adocao no PC novo permanecem pendentes.",
+      "mutated_by": "codex-scribe",
+      "project_id": "sommersstore"
     }
   ]
 }

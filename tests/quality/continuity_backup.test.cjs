@@ -102,6 +102,10 @@ function testPureGuardrails() {
   assert.equal(continuity.isRobocopySuccess(8), false);
   assert.equal(continuity.parseCli(['backup', '--handoff-source', '--trigger', 'test']).handoffSource, true);
   assert.throws(() => continuity.assertSafeRestoreTarget('C:\\AIOX\\Workspace', 'C:\\AIOX\\RestoreTest'), /subpasta/i);
+  assert.equal(continuity.selectNewestSnapshot([
+    { id: 'older', time: '2026-09-09T00:44:30.000Z' },
+    { id: 'newer', time: '2026-09-09T15:50:52.000Z' }
+  ]).id, 'newer', 'Restic can return one latest snapshot per path group; select the newest globally');
 }
 
 function testInvestmentPlatformCapture() {

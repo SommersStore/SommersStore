@@ -837,8 +837,10 @@
 - [x] Implementar captura controlada para MT4/MT5, NinjaTrader, JForex, ProfitPro, BlackArrow, cTrader, TWS/IBKR e Tradovate.
 - [x] Integrar o staging de plataformas aos snapshots criptografados e aos relatorios de continuidade.
 - [x] Preservar o backup Gemini como legado e criar a pasta legivel de plataformas no Drive.
-- [ ] Desativar o backup direto de `Documents` no Google Drive Desktop antes de retomar a sincronizacao.
+- [x] Desativar o backup direto de `Documents` no Google Drive Desktop, preservar a copia historica em `Outros computadores` e retomar a sincronizacao sem novas mensagens de lixeira.
 - [x] Validar captura completa com todas as plataformas fechadas: 28.021 arquivos, cerca de 1,16 GB e zero erros.
+- [x] Confirmar o snapshot `cbf1a2fb...` no repositorio local e no Google Drive, com IDs iguais, RPO aprovado e `restic check` nos dois destinos.
+- [ ] Integrar Desktop e Downloads seletivamente ao backup controlado antes de retirar a sincronizacao direta dessas pastas.
 - [ ] Reproduzir configuracao, restauracao e agenda no PC novo quando ele estiver disponivel.
 
 ## Risks
@@ -846,4 +848,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-09-09T11:05:00-03:00
+- updated_at: 2026-09-09T12:55:42-03:00

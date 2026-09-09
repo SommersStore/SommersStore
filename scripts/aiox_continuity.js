@@ -382,12 +382,20 @@ function parseSnapshotList(stdout) {
   return Array.isArray(value) ? value : [];
 }
 
+function selectNewestSnapshot(snapshots = []) {
+  return [...snapshots].sort((left, right) => {
+    const rightTime = Date.parse(right && right.time ? right.time : 0) || 0;
+    const leftTime = Date.parse(left && left.time ? left.time : 0) || 0;
+    if (rightTime !== leftTime) return rightTime - leftTime;
+    return String(right && right.id ? right.id : '').localeCompare(String(left && left.id ? left.id : ''));
+  })[0] || null;
+}
+
 function latestSnapshot(resticPath, repository, password) {
   const result = runRestic(resticPath, repository, [
     'snapshots', '--json', '--latest', '1', '--tag', SNAPSHOT_TAG
   ], password, { timeout: 180000 });
-  const snapshots = parseSnapshotList(result.stdout);
-  return snapshots[0] || null;
+  return selectNewestSnapshot(parseSnapshotList(result.stdout));
 }
 
 function hashFile(filePath) {
@@ -1247,6 +1255,7 @@ module.exports = {
   retentionArgs,
   rcloneRemoteAvailable,
   rcloneRepositoryTarget,
+  selectNewestSnapshot,
   shouldExcludeCriticalPath,
   status,
   validateRestoredSentinels,

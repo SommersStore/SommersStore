@@ -7,17 +7,17 @@
     "source": "dashboard_auto_boot",
     "model_hint": "dashboard",
     "project_id": "sais",
-    "last_seen_at": "2026-09-08T23:56:47-03:00",
+    "last_seen_at": "2026-09-09T12:55:42-03:00",
     "context_flash": {
       "project": "SommersStore Elite",
       "active_goal": "Garantir continuidade integral e recuperavel em GitHub e Google Drive",
-      "active_task": "Publicar commits seguros, criar remoto privado do Protheus e adotar a agenda somente no PC novo.",
+      "active_task": "Integrar Desktop e Downloads seletivamente e adotar a continuidade no PC novo como unico escritor agendado.",
       "build_phase": "BLD-07",
       "ops_stage": "OPS-01",
-      "latest_checkpoint_id": "CHK-CONTINUITY-02113-CLOUD-RESTORE",
-      "latest_checkpoint_next_action": "Publicar os commits seguros, criar o remoto GitHub privado do Protheus e instalar a agenda somente no PC novo apos adocao.",
-      "latest_raw_checkpoint_id": "CHK-CONTINUITY-02113-CLOUD-RESTORE",
-      "latest_raw_checkpoint_next_action": "Adotar e validar o snapshot no PC novo.",
+      "latest_checkpoint_id": "CHK-CONTINUITY-02114-PLATFORMS-CLOUD",
+      "latest_checkpoint_next_action": "Integrar Desktop e Downloads seletivamente e instalar a agenda somente no PC novo apos adocao e restore isolado.",
+      "latest_raw_checkpoint_id": "CHK-CONTINUITY-02114-PLATFORMS-CLOUD",
+      "latest_raw_checkpoint_next_action": "Publicar a correcao do seletor e adotar o snapshot cbf1a2fb no PC novo.",
       "checkpoint_resolution": "last_actionable_checkpoint",
       "latest_active_decision_id": "DEC-FOREX-0001",
       "open_loops_count": 2,
@@ -29,9 +29,9 @@
       "continuity_file": "docs/memory/startup_context_latest.md",
       "continuity_window_days": 7
     },
-    "last_context_note": "Snapshot ff215859 confirmado na nuvem e restaurado isoladamente.",
-    "last_pulse_logged_at": "2026-09-08T23:56:47-03:00",
-    "last_pulse_note": "Continuar pela publicacao GitHub e adocao no PC novo."
+    "last_context_note": "Snapshot cbf1a2fb com oito familias de plataformas confirmado localmente e no Google Drive.",
+    "last_pulse_logged_at": "2026-09-09T12:55:42-03:00",
+    "last_pulse_note": "Integrar Desktop/Downloads seletivamente e adotar a continuidade no PC novo."
   },
   "history": [
     {
