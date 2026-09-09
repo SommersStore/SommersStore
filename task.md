@@ -825,8 +825,8 @@
 - [x] Implementar CLI de preflight, backup incremental, verificacao, status, restore isolado e escritor unico.
 - [x] Instalar e verificar Restic 0.19.1; manter Rclone 1.75.1 instalado apenas como opcao tecnica, sem OAuth obrigatorio.
 - [x] Inicializar o Protheus como repositorio Git local independente, com 296 arquivos seguros e binarios/privados ignorados.
-- [ ] Cadastrar a senha de recuperacao no DPAPI; o transporte padrao usa o Google Drive Desktop ja autenticado.
-- [ ] Executar e validar o primeiro snapshot real no Drive, seguido de restore isolado.
+- [x] Cadastrar a senha de recuperacao no DPAPI; o transporte padrao usa o Google Drive Desktop ja autenticado.
+- [x] Executar e validar o primeiro snapshot real `ff215859` no Drive, seguido de restore isolado com cinco sentinelas aprovados.
 - [ ] Criar/publicar o repositorio GitHub privado do Protheus depois da reautenticacao.
 - [ ] Instalar a agenda de 2 horas somente no PC novo e validar o primeiro ciclo automatico.
 
@@ -835,4 +835,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-09-08T15:16:37-03:00
+- updated_at: 2026-09-08T23:56:47-03:00

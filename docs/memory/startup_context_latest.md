@@ -1,25 +1,25 @@
 # Startup Context (Latest)
 
 ## Session
-- generated_at: 2026-09-08T15:16:37-03:00
-- session_id: MIG-PC-NOVO-20260908
+- generated_at: 2026-09-08T23:56:47-03:00
+- session_id: CONTINUITY-CLOUD-20260908
 
 ## Continuity Snapshot
-- checkpoint_id: CHK-MIG-PC-NOVO-PRIMARY-CORE
+- checkpoint_id: CHK-CONTINUITY-02113-CLOUD-RESTORE
 - checkpoint_strategy: latest_actionable_milestone
-- checkpoint_title: PC novo promovido como base principal do nucleo local-first
-- where_it_stopped: Workspace, Git, dados privados, Codex, pacote, JForex e espelho local foram revalidados. O PC novo e a base principal para esses escopos; GitHub e Google Drive permanecem copias. MetaTrader 5 e NinjaTrader ficaram sob configuracao manual do usuario, e o smoke JForex DEMO continua pendente.
-- next_action: Concluir manualmente MetaTrader 5 e NinjaTrader com automacao e ordens desativadas, realizar smoke JForex em DEMO e registrar os resultados sem transferir credenciais.
+- checkpoint_title: Primeiro snapshot integral criptografado confirmado e restaurado
+- where_it_stopped: O notebook gerou o snapshot `ff215859` com SommersStore, Protheus e contexto portavel do Codex/Antigravity. A copia foi confirmada pela API do Google Drive, passou em verificacao estrutural e amostral e foi restaurada em diretorio isolado com cinco sentinelas aprovados. Plataformas de trading ficaram fora da automacao.
+- next_action: Publicar os commits seguros, criar o remoto GitHub privado do Protheus e, no PC novo, adotar o snapshot, validar a restauracao e instalar a agenda de duas horas como unico escritor.
 
 ## Ultimas Conversas Relevantes
 - last_sessions: 3
-- sessions_considered: migration_pc_new
-- conversa_1: A restauracao conservadora copiou 27.024 arquivos e substituiu somente tres dados privados, restando 487 conflitos preservados e zero erros.
-- conversa_2: Os 487 conflitos foram salvos em backup e tratados seletivamente: Codex mesclado, Workspace/NinjaTrader preservados e MetaTrader mantido apos classificacao integral; gates aprovados.
-- conversa_3: O pacote, Codex, JForex, Git e espelho local foram revalidados; o PC novo foi promovido como base principal do nucleo, enquanto MT5/NinjaTrader e o smoke JForex ficaram manuais.
+- sessions_considered: migration_pc_new, cloud_continuity
+- conversa_1: O usuario determinou continuidade diaria integral em GitHub e Google Drive, com arquivos locais preservados e sem dependencia de uma maquina especifica.
+- conversa_2: A arquitetura passou a excluir configuracoes operacionais de MetaTrader, NinjaTrader e JForex; Protheus ganhou baseline Git local seguro e o Drive Desktop foi adotado sem OAuth externo.
+- conversa_3: O snapshot `ff215859` foi confirmado na nuvem, verificado e restaurado isoladamente com cinco sentinelas aprovados e zero falhas de conteudo.
 
 ## Fonte
-- `docs/stories/2.112.story.md`
+- `docs/stories/2.113.story.md`
 - `docs/memory/project_memory.md`
 - `docs/control/memory_mutations.json`
 - `task.md`

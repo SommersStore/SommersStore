@@ -2148,6 +2148,13 @@
       "diff_summary": "CHK-MIG-PC-NOVO-PRIMARY-CORE: PC novo promovido como base principal para workspace, Codex e dados locais; pacote 29.930/29.930, JForex 32/32 e espelho C local validados; configuracao e smoke de MT5/NinjaTrader assumidos manualmente pelo usuario, com smoke JForex DEMO ainda pendente.",
       "mutated_by": "codex-scribe",
       "project_id": "sommersstore"
+    },
+    {
+      "timestamp": "2026-09-08T23:56:47-03:00",
+      "memory_scope": "milestone_checkpoint",
+      "diff_summary": "CHK-CONTINUITY-02113-CLOUD-RESTORE: snapshot criptografado ff215859 com 6.789 arquivos confirmado pela API do Google Drive, verificacoes estrutural/amostral aprovadas e restore isolado com cinco sentinelas validos; plataformas de trading excluidas e PC novo sera o unico escritor agendado.",
+      "mutated_by": "codex-scribe",
+      "project_id": "sommersstore"
     }
   ]
 }

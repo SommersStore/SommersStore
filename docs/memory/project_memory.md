@@ -20,7 +20,20 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-09-08T15:16:37-03:00
+- updated_at: 2026-09-08T23:56:47-03:00
+
+## Handoff Atual - Continuidade criptografada validada no Google Drive
+- timestamp: 2026-09-08T23:56:47-03:00
+- objetivo: eliminar dependencia de uma maquina e manter SommersStore, Protheus e contexto portavel do Codex/Antigravity recuperaveis diariamente pela nuvem.
+- snapshot: `ff215859474ca42e3e2f2652c0cccbfb10c8031768d7bbf199b0db366ef90088`, com 6.789 arquivos e 1.854.241.670 bytes processados; 1.301.632.164 bytes criptografados/compactados adicionados ao repositorio.
+- nuvem: copia aditiva em `Google Drive/SommersStore - Backup PC/10-Backups-Criptografados/Restic-AIOX`; Restic abriu a copia e aprovou verificacao estrutural e amostral. A API do Drive confirmou o arquivo exato do snapshot na nuvem.
+- recuperacao: restore isolado concluido em `C:\AIOX\RestoreTest\2026-09-09T02-53-44-825Z`; cinco sentinelas aprovados, zero falhas e workspace ativo intocado.
+- fronteira: instalacoes, perfis, contas e configuracoes de MetaTrader, NinjaTrader e JForex permanecem fora da automacao. O script local `backup_trading_platforms.ps1` esta inativo, nao agendado e excluido do snapshot.
+- credenciais: senha do Restic protegida localmente por DPAPI; autenticacoes e tokens nao entram no backup. A senha precisa permanecer guardada pelo usuario fora do PC e fora deste mesmo Drive.
+- escritor: este notebook gerou somente o snapshot de handoff. A agenda de duas horas sera instalada exclusivamente no PC novo depois de adotar o snapshot e reivindicar o papel de maquina primaria.
+- pendencias: publicar os commits SommersStore, criar/publicar o remoto GitHub privado do Protheus, adotar/validar no PC novo e instalar a agenda somente nele.
+- story: `docs/stories/2.113.story.md`
+- checkpoint: CHK-CONTINUITY-02113-CLOUD-RESTORE
 
 ## Handoff Atual - Gamma Black MT4 distribuido no MT5 ActivTrades/FTMO
 - timestamp: 2026-09-01T01:02:13-03:00
