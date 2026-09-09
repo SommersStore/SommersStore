@@ -2,11 +2,9 @@
   "schema_version": "aiox.continuity.v1",
   "rpo_minutes": 120,
   "repository": {
-    "require_remote_api": true,
-    "rclone_remote_name": "aioxdrive",
+    "require_remote_api": false,
     "cloud_remote_candidates": [
-      "${AIOX_CONTINUITY_REMOTE_REPOSITORY}",
-      "rclone:aioxdrive:10-Backups-Criptografados/Restic-AIOX"
+      "${AIOX_CONTINUITY_REMOTE_REPOSITORY}"
     ],
     "local_candidates": [
       "${AIOX_CONTINUITY_LOCAL_REPOSITORY}",
@@ -118,12 +116,11 @@
   ],
   "recovery_kit_files": [
     "docs/02_architecture/cloud_continuity_architecture.md",
-    "docs/02_architecture/google_drive_rclone_setup.md",
+    "docs/02_architecture/google_drive_desktop_setup.md",
     "config/aiox_continuity_sources.json",
     "config/aiox_continuity_excludes.txt",
     "scripts/bootstrap_aiox_recovery.ps1",
     "scripts/install_restic.ps1",
-    "scripts/install_rclone.ps1",
     "scripts/aiox_continuity_secret.ps1"
   ]
 }

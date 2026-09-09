@@ -738,7 +738,9 @@ function preflight(options = {}) {
   const paths = resolveRepositoryPaths(config, environment);
   const resticPath = options.resticPath || findRestic(environment);
   const rclonePath = options.rclonePath || findRclone(environment);
-  const remoteReady = !paths.require_remote_api || rcloneRemoteAvailable(rclonePath, paths.rclone_remote_name, environment);
+  const remoteReady = paths.require_remote_api
+    ? rcloneRemoteAvailable(rclonePath, paths.rclone_remote_name, environment)
+    : null;
   const exclusions = fs.existsSync(EXCLUDES_PATH) ? fs.readFileSync(EXCLUDES_PATH, 'utf8') : '';
   const requiredExclusions = ['auth.json', 'MetaQuotes/Terminal', 'NinjaTrader 8', 'JForex4'];
   const missingExclusions = requiredExclusions.filter((item) => !exclusions.includes(item));
@@ -764,8 +766,9 @@ function preflight(options = {}) {
       installed: true,
       path: rclonePath,
       remote_name: paths.rclone_remote_name,
-      remote_ready: remoteReady
-    } : { installed: false, remote_ready: false },
+      remote_ready: remoteReady,
+      required: paths.require_remote_api
+    } : { installed: false, remote_ready: false, required: paths.require_remote_api },
     repositories: paths,
     missing_critical_exclusions: missingExclusions,
     resolution

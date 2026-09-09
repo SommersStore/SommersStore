@@ -823,9 +823,9 @@
 - [x] Definir GitHub para codigo e Google Drive para snapshots privados criptografados, sem usar Firebase como backup.
 - [x] Excluir instalacoes/configuracoes de MetaTrader 5, NinjaTrader e JForex; manter os fontes autorais do Protheus.
 - [x] Implementar CLI de preflight, backup incremental, verificacao, status, restore isolado e escritor unico.
-- [x] Instalar e verificar Restic 0.19.1 e Rclone 1.75.1 por SHA-256 oficial.
+- [x] Instalar e verificar Restic 0.19.1; manter Rclone 1.75.1 instalado apenas como opcao tecnica, sem OAuth obrigatorio.
 - [x] Inicializar o Protheus como repositorio Git local independente, com 296 arquivos seguros e binarios/privados ignorados.
-- [ ] Autorizar o remote OAuth `aioxdrive` e cadastrar a senha de recuperacao no DPAPI.
+- [ ] Cadastrar a senha de recuperacao no DPAPI; o transporte padrao usa o Google Drive Desktop ja autenticado.
 - [ ] Executar e validar o primeiro snapshot real no Drive, seguido de restore isolado.
 - [ ] Criar/publicar o repositorio GitHub privado do Protheus depois da reautenticacao.
 - [ ] Instalar a agenda de 2 horas somente no PC novo e validar o primeiro ciclo automatico.

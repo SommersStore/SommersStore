@@ -21,7 +21,7 @@ Tambem nao e tecnicamente correto prometer igualdade continua byte a byte entre 
 
 - durante o trabalho, o ponto de recuperacao pode ter no maximo 2 horas;
 - no fechamento de uma sessao, um backup deve ser executado imediatamente;
-- um backup so recebe estado `success` depois de criar o snapshot local, copiar o repositorio para o Drive e validar que o snapshot aparece na copia de nuvem;
+- um backup so recebe estado `success` depois de criar o snapshot local, copiar o repositorio para a unidade do Google Drive Desktop e abrir essa copia com o Restic;
 - qualquer fonte obrigatoria ausente, credencial indevidamente selecionada ou nuvem indisponivel produz estado `error`, nunca uma confirmacao positiva enganosa.
 
 ## Fronteira de escopo
@@ -47,8 +47,8 @@ Os diretorios `platforms/` ou `projects/forex/tools/` que estejam dentro do proj
 1. A maquina primaria grava o trabalho em disco local.
 2. Antes do backup, a rotina gera inventario da maquina e bundles dos repositorios Git para preservar branches e commits ainda nao publicados.
 3. Restic cria um snapshot criptografado no repositorio local gerenciado em `C:\AIOX\Continuity\Repository`.
-4. A rotina replica aditivamente o repositorio pela API do Google Drive, via Rclone, para `SommersStore - Backup PC/10-Backups-Criptografados/Restic-AIOX`.
-5. A copia remota e aberta pelo proprio Restic atraves da API para confirmar que o snapshot ficou legivel. O mount `G:` e usado para acesso humano e para os relatorios, mas nao e aceito como unica prova de upload.
+4. A rotina replica aditivamente o repositorio para `G:\Meu Drive\SommersStore - Backup PC\10-Backups-Criptografados\Restic-AIOX`, unidade ja autenticada pelo Google Drive Desktop.
+5. A copia na unidade sincronizada e aberta pelo proprio Restic para confirmar que o snapshot ficou legivel. A conclusao do envio aos servidores Google continua observavel no estado de sincronizacao do Google Drive Desktop e e auditada externamente no primeiro backup e nas verificacoes periodicas.
 6. Um relatorio sem segredos e gravado em `20-Relatorios-de-Integridade`.
 
 O repositorio local acelera os backups e oferece uma copia adicional. O repositorio no Drive e a copia para desastre total da maquina.
@@ -88,7 +88,7 @@ Fontes obrigatorias ausentes bloqueiam o backup. Fontes opcionais ausentes sao r
 - 14 snapshots diarios;
 - 8 snapshots semanais;
 - 12 snapshots mensais;
-- verificacao estrutural depois de cada replica para a nuvem;
+- verificacao estrutural depois de cada replica para a unidade sincronizada;
 - leitura amostral de dados semanal;
 - verificacao integral mensal, conforme capacidade de banda;
 - teste de restauracao isolado mensal em `C:\AIOX\RestoreTest`, sem sobrescrever o workspace ativo.
@@ -127,10 +127,9 @@ O PC novo estara plenamente independente do notebook quando:
 
 ## Referencias tecnicas
 
-- Restic: preparacao de repositorios e backend rclone: <https://restic.readthedocs.io/en/stable/030_preparing_a_new_repo.html>
+- Restic: preparacao de repositorios: <https://restic.readthedocs.io/en/stable/030_preparing_a_new_repo.html>
 - Restic: backup e exclusoes: <https://restic.readthedocs.io/en/latest/040_backup.html>
 - Restic: restauracao: <https://restic.readthedocs.io/en/stable/050_restore.html>
 - Restic: retencao: <https://restic.readthedocs.io/en/latest/060_forget.html>
 - Restic: verificacao: <https://restic.readthedocs.io/en/stable/077_troubleshooting.html>
 - Google Drive para computador, streaming e espelhamento: <https://support.google.com/drive/answer/13401938?hl=pt-BR>
-- Rclone e Google Drive: <https://rclone.org/drive/>

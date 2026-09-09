@@ -59,15 +59,6 @@ try {
     & powershell.exe -NoProfile -ExecutionPolicy Bypass -File 'scripts\install_restic.ps1'
     if ($LASTEXITCODE -ne 0) { throw 'Falha ao instalar Restic.' }
 
-    & powershell.exe -NoProfile -ExecutionPolicy Bypass -File 'scripts\install_rclone.ps1'
-    if ($LASTEXITCODE -ne 0) { throw 'Falha ao instalar Rclone.' }
-
-    $rclonePath = Join-Path $env:LOCALAPPDATA 'AIOX\Tools\rclone.exe'
-    $configuredRemotes = & $rclonePath listremotes
-    if ($LASTEXITCODE -ne 0 -or $configuredRemotes -notcontains 'aioxdrive:') {
-        throw 'O remote aioxdrive ainda nao foi autorizado. Configure-o antes de adotar o backup.'
-    }
-
     & powershell.exe -NoProfile -ExecutionPolicy Bypass -File 'scripts\aiox_continuity_secret.ps1' set
     if ($LASTEXITCODE -ne 0) { throw 'Falha ao proteger a senha de recuperacao nesta maquina.' }
 
