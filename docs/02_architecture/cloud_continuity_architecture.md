@@ -1,7 +1,7 @@
 # Arquitetura de continuidade AIOX em nuvem
 
-**Status:** decisao aprovada para implementacao  
-**Data:** 2026-09-08  
+**Status:** decisao aprovada para implementacao
+**Data:** 2026-09-08
 **Escopo:** SommersStore, Protheus, memoria/contexto do Codex e estado portavel do Antigravity
 
 ## Decisao
