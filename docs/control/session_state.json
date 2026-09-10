@@ -7,17 +7,17 @@
     "source": "dashboard_auto_boot",
     "model_hint": "dashboard",
     "project_id": "sais",
-    "last_seen_at": "2026-09-09T15:51:35-03:00",
+    "last_seen_at": "2026-09-10T12:58:44-03:00",
     "context_flash": {
       "project": "SommersStore Elite",
-      "active_goal": "Garantir continuidade integral e recuperavel em GitHub e Google Drive",
-      "active_task": "Adotar o snapshot 06cf8e00 no PC novo, validar restore isolado e instalar a agenda como unico escritor.",
+      "active_goal": "Manter a continuidade integral e recuperavel no PC novo como escritor primario",
+      "active_task": "Publicar o checkpoint administrativo apos autorizacao; depois planejar a integracao separada do painel sem implementar.",
       "build_phase": "BLD-07",
       "ops_stage": "OPS-01",
-      "latest_checkpoint_id": "CHK-CONTINUITY-02114-PERSONAL-FILES-CLOUD",
-      "latest_checkpoint_next_action": "Publicar a integracao e instalar a agenda somente no PC novo apos adocao e restore isolado de 06cf8e00.",
-      "latest_raw_checkpoint_id": "CHK-CONTINUITY-02114-PERSONAL-FILES-CLOUD",
-      "latest_raw_checkpoint_next_action": "Adotar o snapshot 06cf8e00 no PC novo.",
+      "latest_checkpoint_id": "CHK-CONTINUITY-PC-NEW-PROMOTION-ADMIN",
+      "latest_checkpoint_next_action": "Publicar o checkpoint apos autorizacao e depois planejar a proxima story do painel, sem implementar.",
+      "latest_raw_checkpoint_id": "CHK-CONTINUITY-PC-NEW-PROMOTION-ADMIN",
+      "latest_raw_checkpoint_next_action": "Aguardar autorizacao unica para git push do checkpoint administrativo.",
       "checkpoint_resolution": "last_actionable_checkpoint",
       "latest_active_decision_id": "DEC-FOREX-0001",
       "open_loops_count": 2,
@@ -29,9 +29,9 @@
       "continuity_file": "docs/memory/startup_context_latest.md",
       "continuity_window_days": 7
     },
-    "last_context_note": "Snapshot 06cf8e00 com Desktop, Downloads seletivo e oito familias de plataformas confirmado localmente e no Google Drive.",
-    "last_pulse_logged_at": "2026-09-09T15:51:35-03:00",
-    "last_pulse_note": "Publicar a integracao e adotar 06cf8e00 no PC novo como unico escritor."
+    "last_context_note": "Tres conflitos auditados: sessao Codex consolidada em arquivo; JSON de anexos e protobuf Antigravity preservados por origem, sem sobrescrita ativa.",
+    "last_pulse_logged_at": "2026-09-10T12:58:44-03:00",
+    "last_pulse_note": "Checkpoint administrativo pronto para gates, commit e autorizacao unica de push."
   },
   "history": [
     {

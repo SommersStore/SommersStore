@@ -20,7 +20,26 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-09-09T15:51:35-03:00
+- updated_at: 2026-09-10T12:58:44-03:00
+
+## Handoff Atual - PC novo como escritor primario da continuidade
+- timestamp: 2026-09-10T12:31:34-03:00
+- objetivo: adotar o repositorio criptografado do notebook, restaurar e reconciliar em isolamento e promover o PC novo como unico escritor.
+- git: SommersStore em `migration/pc-new-20260907` no commit `b4a17cf9bef4a45aa74b9f91aab49f3ea7fa413e`; Protheus/main em `3dbb05afaf92616f695840567d90528313c0c4df`; ambos limpos e sincronizados.
+- preservacao_git: stashes novos `27c6e978...` e `8bdd1791...` guardam o estado exclusivo anterior; stash historico `1a906151...` permaneceu intacto.
+- drive: conta oficial confirmada em `G:`; backup direto de Desktop, Documents e Downloads desativado sem apagar as copias historicas.
+- handoff: snapshot `5cb25b9fbe1662337f9f6b6d84e4a7b33c38a607bea0984943f24d51ff47278b` adotado; `restic check` aprovado no local e na nuvem.
+- restore: `C:\AIOX\RestoreTest\2026-09-10T14-55-21-715Z`, 48.973 arquivos, 8,883 GiB e 8/8 sentinelas aprovados apos conceder ao usuario AMD acesso somente a copia isolada.
+- reconciliacao: 20.669 arquivos ausentes copiados, 20.917 identicos confirmados e 38 caminhos sensiveis mantidos apenas no restore. A sessao Codex conflitante era um prefixo exato e recebeu consolidacao arquivada; JSON de anexos e protobuf Antigravity permaneceram em pares nomeados por origem, sem alterar arquivos ativos. Manifesto: `docs/control/continuity_conflict_resolution_20260910.json`.
+- codex: indice permaneceu com 31 linhas JSON validas; as 30 entradas do notebook ja existiam, sem duplicadas ou invalidas e sem regravacao. `config.toml` e autenticacao do PC novo nao foram substituidos.
+- primary: `DESKTOP-SPUG59L` registrado sob politica `single_writer`; tarefa `AIOX Cloud Continuity Backup` habilitada a cada duas horas e primeiro ciclo concluido com resultado 0.
+- snapshot_pc_novo: `8c9177f38da1bcd01a9ad33edc5739fde158b3fdca609930b425318956a4e571`; IDs local/nuvem iguais, verificacoes aprovadas, RPO de 1 minuto e `ok=true`.
+- gates: lint, typecheck, estrutura e agentes aprovados; suite principal aprovada sem autodeteccao Restic apos o round-trip padrao validar dados e falhar somente na limpeza ACL/EPERM. A integracao Restic real local/nuvem e o restore completo foram aprovados separadamente.
+- seguranca: zero Firebase deploy, zero credencial transferida, zero alteracao em diretorios ativos de plataformas, zero plataforma aberta e zero ordem enviada.
+- proxima_acao: publicar este checkpoint apos autorizacao unica; em seguida planejar, sem implementar, a story que separara as operacoes de continuidade no painel.
+- story: `docs/stories/2.114.story.md`
+- checkpoint_anterior: CHK-CONTINUITY-PC-NEW-PRIMARY
+- checkpoint: CHK-CONTINUITY-PC-NEW-PROMOTION-ADMIN
 
 ## Handoff Atual - Desktop, Downloads e plataformas confirmados no Drive
 - timestamp: 2026-09-09T15:51:35-03:00

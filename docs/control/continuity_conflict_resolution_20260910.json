@@ -1,0 +1,130 @@
+{
+  "schema_version": "aiox.continuity-conflict-resolution.v1",
+  "resolved_at": "2026-09-10T12:45:00-03:00",
+  "source_root": "C:\\AIOX\\Transfer\\ConflictBackups\\20260910-151000-continuity-reconciliation",
+  "policy": "no_overwrite_no_delete",
+  "active_files_modified": 0,
+  "conflicts": [
+    {
+      "id": "codex_session",
+      "relative_path": "2026/09/07/rollout-2026-09-07T01-39-16-01a07a29-d4ee-7591-99aa-aa4afd1e68bc.jsonl",
+      "before": {
+        "current": {
+          "sha256": "1423f484f0a0501d94ee18acaedfeaef4bbd940dfe245118aba89f11c45add4e",
+          "bytes": 3682079,
+          "valid_lines": 933
+        },
+        "incoming": {
+          "sha256": "37cbceed9ad25e6e213f49ac057ab5f56d30ce1f9835104e2f3bd2a362057893",
+          "bytes": 16592850,
+          "valid_lines": 5089
+        }
+      },
+      "audit": {
+        "compatible": true,
+        "current_is_exact_prefix": true,
+        "common_exact_lines": 933,
+        "current_only_exact_lines": 0,
+        "incoming_only_exact_lines": 4156,
+        "common_stable_ids_same": 543,
+        "common_stable_ids_different": 0,
+        "incoming_only_stable_ids": 2624,
+        "invalid_lines": 0
+      },
+      "decision": "merged_as_verified_incoming_superset_in_archive",
+      "after": {
+        "pc_new_current": {
+          "path": "resolved/codex_session/rollout-2026-09-07T01-39-16-01a07a29-d4ee-7591-99aa-aa4afd1e68bc--pc-new-current-prefix.jsonl",
+          "sha256": "1423f484f0a0501d94ee18acaedfeaef4bbd940dfe245118aba89f11c45add4e",
+          "bytes": 3682079
+        },
+        "notebook_incoming": {
+          "path": "resolved/codex_session/rollout-2026-09-07T01-39-16-01a07a29-d4ee-7591-99aa-aa4afd1e68bc--notebook-incoming-superset.jsonl",
+          "sha256": "37cbceed9ad25e6e213f49ac057ab5f56d30ce1f9835104e2f3bd2a362057893",
+          "bytes": 16592850
+        },
+        "merged": {
+          "path": "resolved/codex_session/rollout-2026-09-07T01-39-16-01a07a29-d4ee-7591-99aa-aa4afd1e68bc--merged-compatible.jsonl",
+          "sha256": "37cbceed9ad25e6e213f49ac057ab5f56d30ce1f9835104e2f3bd2a362057893",
+          "bytes": 16592850
+        }
+      }
+    },
+    {
+      "id": "codex_attachments",
+      "relative_path": "pasted-text-attachments.json",
+      "before": {
+        "current": {
+          "sha256": "9cabab083c8bd036ebffc257c64897cbc011e344f78ca270ad2748431a303ec1",
+          "bytes": 2367,
+          "json_valid": true
+        },
+        "incoming": {
+          "sha256": "2acfe9c414847785579bbe4d9acb9716bad452a3978c231965d0e5bdd54d6e3c",
+          "bytes": 2372,
+          "json_valid": true
+        }
+      },
+      "audit": {
+        "compatible": false,
+        "stable_identifiers": 0,
+        "same_top_level_envelope": true,
+        "internal_structure_equal": false
+      },
+      "decision": "real_collision_preserve_both_named_in_archive",
+      "after": {
+        "pc_new_current": {
+          "path": "resolved/codex_attachments/pasted-text-attachments--pc-new-current.json",
+          "sha256": "9cabab083c8bd036ebffc257c64897cbc011e344f78ca270ad2748431a303ec1",
+          "bytes": 2367
+        },
+        "notebook_incoming": {
+          "path": "resolved/codex_attachments/pasted-text-attachments--notebook-incoming.json",
+          "sha256": "2acfe9c414847785579bbe4d9acb9716bad452a3978c231965d0e5bdd54d6e3c",
+          "bytes": 2372
+        }
+      }
+    },
+    {
+      "id": "antigravity_implicit",
+      "relative_path": "843914fb-c6bd-4dca-b217-4c38817b64a1.pb",
+      "before": {
+        "current": {
+          "sha256": "310dc84a6f5eca0f234a82ba15be0f0b3dc18defdd0d1e5bc16ee81e34712beb",
+          "bytes": 125684
+        },
+        "incoming": {
+          "sha256": "a250b277d42406d7bb3fe662209d2707962ba6a986de1f5106526784585f8552",
+          "bytes": 165295
+        }
+      },
+      "audit": {
+        "compatible": false,
+        "format": "protobuf_binary",
+        "same_filename_uuid": true,
+        "schema_available": false
+      },
+      "decision": "real_collision_preserve_both_named_in_archive",
+      "after": {
+        "pc_new_current": {
+          "path": "resolved/antigravity_implicit/843914fb-c6bd-4dca-b217-4c38817b64a1--pc-new-current.pb",
+          "sha256": "310dc84a6f5eca0f234a82ba15be0f0b3dc18defdd0d1e5bc16ee81e34712beb",
+          "bytes": 125684
+        },
+        "notebook_incoming": {
+          "path": "resolved/antigravity_implicit/843914fb-c6bd-4dca-b217-4c38817b64a1--notebook-incoming.pb",
+          "sha256": "a250b277d42406d7bb3fe662209d2707962ba6a986de1f5106526784585f8552",
+          "bytes": 165295
+        }
+      }
+    }
+  ],
+  "security": {
+    "credentials_copied": false,
+    "auth_files_copied": false,
+    "tokens_copied": false,
+    "active_codex_overwritten": false,
+    "active_antigravity_overwritten": false,
+    "files_deleted": 0
+  }
+}

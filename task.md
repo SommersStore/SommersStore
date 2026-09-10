@@ -829,7 +829,7 @@
 - [x] Executar e validar o primeiro snapshot real `ff215859` no Drive, seguido de restore isolado com cinco sentinelas aprovados.
 - [x] Remediar o gate npm de 18 para zero vulnerabilidades e validar Puppeteer/PDF apos as atualizacoes.
 - [x] Criar/publicar o repositorio GitHub privado do Protheus depois da reautenticacao.
-- [ ] Instalar a agenda de 2 horas somente no PC novo e validar o primeiro ciclo automatico.
+- [x] Instalar a agenda de 2 horas somente no PC novo e validar o primeiro ciclo automatico; snapshot `8c9177f3...` confirmado local/nuvem com RPO de 1 minuto.
 
 ## Plataformas e organizacao segura do Drive - Story 2.114
 
@@ -841,12 +841,15 @@
 - [x] Validar captura completa com todas as plataformas fechadas: 28.021 arquivos, cerca de 1,16 GB e zero erros.
 - [x] Confirmar o snapshot `cbf1a2fb...` no repositorio local e no Google Drive, com IDs iguais, RPO aprovado e `restic check` nos dois destinos.
 - [x] Integrar `D:\Desktop` integral e Downloads seletivamente ao backup controlado; snapshot `06cf8e00...` confirmado local/nuvem e verificacao Restic aprovada.
-- [ ] Manter temporariamente a sincronizacao direta de Desktop/Downloads ate o PC novo adotar o snapshot e ativar a agenda; depois retirar as duas origens sem excluir o historico remoto.
-- [ ] Reproduzir configuracao, restauracao e agenda no PC novo quando ele estiver disponivel.
+- [x] Retirar Desktop, Documents e Downloads do backup direto do Google Drive Desktop sem excluir o historico remoto.
+- [x] Adotar e restaurar o handoff no PC novo, reconciliar somente ausentes e ativar a agenda como escritor primario.
+- [x] Auditar os tres conflitos da reconciliacao: sessao Codex consolidada por prefixo compativel; JSON de anexos e protobuf Antigravity preservados em pares nomeados, com hashes antes/depois.
+- [x] Checkpoint: CHK-CONTINUITY-PC-NEW-PRIMARY
+- [x] Checkpoint: CHK-CONTINUITY-PC-NEW-PROMOTION-ADMIN
 
 ## Risks
 - Automacao implantada precisa de validacao operacional recorrente para detectar regressao cedo.
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-09-09T15:51:35-03:00
+- updated_at: 2026-09-10T12:58:44-03:00

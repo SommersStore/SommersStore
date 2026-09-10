@@ -2183,6 +2183,20 @@
       "diff_summary": "CHK-CONTINUITY-02114-PERSONAL-FILES-CLOUD: D:\\Desktop integral e Downloads seletivo adicionados ao Restic; snapshot 06cf8e00 confirmado com IDs local/nuvem iguais e verificacoes aprovadas; Desktop/Downloads permanecem temporariamente na sincronizacao direta ate a agenda do PC novo assumir.",
       "mutated_by": "codex-scribe",
       "project_id": "sommersstore"
+    },
+    {
+      "timestamp": "2026-09-10T12:31:34-03:00",
+      "memory_scope": "milestone_checkpoint",
+      "diff_summary": "CHK-CONTINUITY-PC-NEW-PRIMARY: PC novo adotou 5cb25b9f, validou restore isolado 48.973/8 sentinelas, reconciliou 20.669 ausentes sem sobrescrita, preservou tres conflitos e assumiu agenda de duas horas; primeiro ciclo gerou 8c9177f3 com IDs local/nuvem iguais, RPO de 1 minuto e ok=true.",
+      "mutated_by": "codex-scribe",
+      "project_id": "sommersstore"
+    },
+    {
+      "timestamp": "2026-09-10T12:58:44-03:00",
+      "memory_scope": "milestone_checkpoint",
+      "diff_summary": "CHK-CONTINUITY-PC-NEW-PROMOTION-ADMIN: tres conflitos auditados individualmente; sessao Codex consolidada por prefixo exato, JSON de anexos e protobuf Antigravity preservados por origem com hashes verificados; zero sobrescrita, exclusao ou alteracao ativa.",
+      "mutated_by": "codex-scribe",
+      "project_id": "sommersstore"
     }
   ]
 }

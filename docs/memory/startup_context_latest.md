@@ -1,22 +1,22 @@
 # Startup Context (Latest)
 
 ## Session
-- generated_at: 2026-09-09T15:51:35-03:00
-- session_id: CONTINUITY-PLATFORMS-20260909
+- generated_at: 2026-09-10T12:58:44-03:00
+- session_id: CONTINUITY-PC-NEW-PROMOTION-ADMIN-20260910
 
 ## Continuity Snapshot
-- checkpoint_id: CHK-CONTINUITY-02114-PERSONAL-FILES-CLOUD
+- checkpoint_id: CHK-CONTINUITY-PC-NEW-PROMOTION-ADMIN
 - checkpoint_strategy: latest_actionable_milestone
-- checkpoint_title: Desktop, Downloads e plataformas protegidos no snapshot criptografado
-- where_it_stopped: `D:\Desktop` integral, Downloads seletivo e as oito familias de plataformas entraram no snapshot `06cf8e00...`; IDs local/nuvem iguais, verificacoes Restic aprovadas e RPO aprovado. Documents permanece fora da sincronizacao direta; Desktop/Downloads continuam nela temporariamente ate o PC novo assumir.
-- next_action: Publicar a integracao e, no PC novo, adotar/restaurar `06cf8e00`, reivindicar o escritor unico e instalar a agenda; somente depois retirar Desktop e Downloads da sincronizacao direta.
+- checkpoint_title: PC novo promovido como escritor primario com continuidade local e Google Drive aprovada
+- where_it_stopped: O handoff `5cb25b9f...` foi adotado e restaurado isoladamente com 48.973 arquivos e 8/8 sentinelas validos. A reconciliacao copiou 20.669 ausentes. Os tres conflitos foram auditados: a sessao Codex era um prefixo compativel e recebeu consolidacao arquivada; JSON de anexos e protobuf Antigravity eram colisoes reais e foram preservados com nomes inequivocos. O ciclo primario `8c9177f3...` permanece identico local/nuvem, RPO aprovado e `ok=true`.
+- next_action: Publicar este checkpoint somente apos autorizacao unica do usuario; depois planejar, sem implementar, a story de integracao separada do painel com continuidade.
 
 ## Ultimas Conversas Relevantes
 - last_sessions: 3
-- sessions_considered: migration_pc_new, cloud_continuity, investment_platform_continuity
-- conversa_1: O usuario determinou continuidade diaria integral em GitHub e Google Drive, mantendo arquivos locais e sem dependencia de uma maquina especifica.
-- conversa_2: O Drive foi reorganizado sem exclusoes e oito familias de plataformas passaram a usar captura seletiva local seguida de snapshot criptografado.
-- conversa_3: `Documents` saiu da sincronizacao direta; Desktop e Downloads foram integrados ao Restic, mas permanecem temporariamente no mecanismo antigo ate a agenda do PC novo estar operacional.
+- sessions_considered: migration_pc_new, cloud_continuity, pc_new_primary_adoption
+- conversa_1: A migracao seletiva preservou conflitos de workspace, Codex, NinjaTrader e MetaTrader, mantendo arquivos privados fora de commits e plataformas sem automacao.
+- conversa_2: GitHub passou a ser a fonte canonica do codigo e Restic/Google Drive a copia criptografada dos dados portateis e privados.
+- conversa_3: Desktop, Documents e Downloads sairam do backup direto do Drive; o PC novo adotou o handoff, reconciliou apenas ausentes e assumiu a agenda de duas horas.
 
 ## Fonte
 - `docs/stories/2.113.story.md`
@@ -25,3 +25,4 @@
 - `docs/control/session_state.json`
 - `docs/control/memory_mutations.json`
 - `task.md`
+- `C:\AIOX\Transfer\ConflictBackups\20260910-151000-continuity-reconciliation\reconciliation-report.json`
