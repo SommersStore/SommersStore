@@ -1,20 +1,6 @@
 {
   "mutations": [
     {
-      "timestamp": "2026-06-26T14:59:55-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260626-0008",
-      "mutated_by": "dashboard",
-      "project_id": "electro"
-    },
-    {
-      "timestamp": "2026-06-26T14:59:55-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "electro"
-    },
-    {
       "timestamp": "2026-06-26T15:14:14-03:00",
       "memory_scope": "session_shutdown",
       "diff_summary": "Scribe encerrou SES-20260626-0008: Encerramento automatico (fechamento de aba/janela).",
@@ -2099,6 +2085,27 @@
       "diff_summary": "Scribe encerrou SES-20260915-0003: Story 2.115 concluida e revisada: continuidade segura entre escritor primario e notebook secundario.",
       "mutated_by": "human",
       "project_id": null
+    },
+    {
+      "timestamp": "2026-09-16T00:11:44-03:00",
+      "memory_scope": "milestone_checkpoint",
+      "diff_summary": "CHK-STORY-2.115-PUBLISHED: commit 20343ea29af54507c006e73c61b21cddd85fde29 publicado por push normal; HEAD remoto confirmado; Firebase nao executado; snapshot local/Drive 01fcf747ebe38c2bcb0765f73338ceafbbb69f52b520322590c87bd33b778b84; notebook secundario pendente.",
+      "mutated_by": "codex-scribe",
+      "project_id": "sommersstore"
+    },
+    {
+      "timestamp": "2026-09-16T14:53:31-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260916-0001: Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-09-16T15:20:00-03:00",
+      "memory_scope": "milestone_checkpoint",
+      "diff_summary": "CHK-STORY-2.116-LOCAL: continuidade Git multirrepositorio implementada e validada; Protheus 3dbb05a limpo, gates dos dois projetos aprovados, snapshot local/Drive 7bfb700d identico, Firebase/shutdown/push nao executados e autorizacao de push pendente.",
+      "mutated_by": "codex-scribe",
+      "project_id": "sommersstore"
     }
   ]
 }

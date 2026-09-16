@@ -169,9 +169,9 @@ function testFinalizeGuardrails() {
   assert.match(source, /--no-shutdown/);
   assert.match(source, /shutdown\.exe/);
   assert.match(source, /skip_auto_cloud:\s*true/);
-  assert.match(source, /['conflict', 'secret', 'unknown', 'review']/);
+  assert.match(source, /preflightAll\(repositories\)/);
   const startupSource = fs.readFileSync(path.join(__dirname, '..', '..', 'scripts', 'startup_sync.cjs'), 'utf8');
-  assert.ok(startupSource.indexOf('restorePrivateFiles(stagingRoot') < startupSource.indexOf('gitStartupSync({ root: ROOT_DIR'), 'private restore must precede Git synchronization');
+  assert.ok(startupSource.indexOf('restorePrivateFiles(stagingRoot') < startupSource.indexOf('syncRepositories(repositories'), 'private restore must precede multi-repository Git synchronization');
 }
 
 function runDayContinuityTests() {

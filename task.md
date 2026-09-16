@@ -222,6 +222,11 @@
 
 ## Done in this session
 - [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.
+- [x] Proxima acao: Executar Oracle e sincronizacao segura na proxima inicializacao.
+- [x] Checkpoint: CHK-MEM-0829
+
+- [x] Sessao encerrada pelo usuario.
 - [x] Resumo: Story 2.115 concluida e revisada: continuidade segura entre escritor primario e notebook secundario.
 - [x] Proxima acao: Aguardar autorizacao do usuario para publicar o commit da Story 2.115.
 - [x] Checkpoint: CHK-MEM-0828
@@ -867,9 +872,29 @@
 - [x] Checkpoint: CHK-CONTINUITY-PC-NEW-PRIMARY
 - [x] Checkpoint: CHK-CONTINUITY-PC-NEW-PROMOTION-ADMIN
 
+## Continuidade entre PC novo e notebook - Story 2.115
+
+- [x] Implementar e validar o comando Finalizar o dia e desligar com `--no-shutdown`.
+- [x] Implementar sincronizacao inicial fail-closed com staging e quarentena.
+- [x] Adicionar Documents por captura seletiva sem raizes operacionais das plataformas.
+- [x] Instalar o atalho no PC novo e confirmar Restic local/Drive com IDs iguais.
+- [x] Publicar por push normal o commit `20343ea29af54507c006e73c61b21cddd85fde29` e confirmar o HEAD remoto.
+- [ ] Configurar o notebook como secundario usando o dry-run da sincronizacao inicial.
+
+## Continuidade Git multirrepositorio - Story 2.116
+
+- [x] Declarar Protheus como repositorio canonico prioritario em `main` e SommersStore como orquestrador em `migration/pc-new-20260907`.
+- [x] Sincronizar ambos no inicio com fetch, somente fast-forward limpo e relatorio individual de branch/HEAD.
+- [x] Classificar, validar, stagear e publicar cada repositorio separadamente no encerramento, com preflight global anterior a mutacoes.
+- [x] Executar gates proprios dos dois projetos, varredura de segredos e ensaio integral `--no-shutdown --test-mode` sem Firebase.
+- [x] Confirmar Restic integral para ambos e snapshot local/nuvem `7bfb700d1fe3be5d10ebb3ef9c23aa0db02b1161b413a2695c2977489b21819e`.
+- [x] Criar checkpoint local da Story 2.116, sem push.
+- [ ] Receber autorizacao expressa e executar push normal do commit local; confirmar HEAD remoto.
+- [ ] Configurar o notebook como secundario por fast-forward e executar o dry-run inicial.
+
 ## Risks
 - Automacao implantada precisa de validacao operacional recorrente para detectar regressao cedo.
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-09-15T23:26:46-03:00
+- updated_at: 2026-09-16T15:20:00-03:00

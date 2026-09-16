@@ -152,6 +152,16 @@ O PC novo estara plenamente independente do notebook quando:
 - o PC novo estiver registrado como unico escritor agendado;
 - a senha de recuperacao tiver duas copias independentes confirmadas pelo usuario.
 
+## Continuidade Git multirrepositorio
+
+A Story 2.116 separa a continuidade Git do backup Restic. A configuracao `config/aiox_git_repositories.json` declara o Protheus como repositorio canonico prioritario na branch `main` e o SommersStore como painel/orquestrador na branch `migration/pc-new-20260907`.
+
+Na inicializacao, a restauracao privada em staging permanece anterior ao Git. Em seguida, os dois repositorios executam fetch e recebem relatorio proprio de branch, HEAD local e HEAD remoto. Somente um workspace limpo, na branch esperada e cujo HEAD local seja ancestral do remoto pode receber `merge --ff-only`; dirty, branch incorreta ou divergencia sao bloqueados sem sobrescrita.
+
+No encerramento, os repositorios usam classificacao, allowlist e gates independentes. O Protheus executa lint, typecheck e testes antes do SommersStore, que tambem executa as validacoes estrutural e de agentes. Todos os preflights terminam antes da primeira mutacao Git. Cada repositorio usa stage explicito, commit proprio, push normal e leitura remota posterior. Nao existem force push, stage global ou operacao de stash.
+
+Firebase considera exclusivamente os caminhos publicaveis do SommersStore. Restic continua capturando integralmente os dois workspaces obrigatorios a partir do filesystem, inclusive arquivos ignorados permitidos, e permanece responsavel por dados que nao podem entrar no Git. A automacao declara que o Protheus deve permanecer privado e nunca altera visibilidade ou permissoes do GitHub.
+
 ## Referencias tecnicas
 
 - Restic: preparacao de repositorios: <https://restic.readthedocs.io/en/stable/030_preparing_a_new_repo.html>

@@ -3,19 +3,19 @@
   "build_phase": "BLD-07",
   "ops_stage": "OPS-01",
   "active_goal": "Aprimorar registro e configuracao da arquitetura de IA",
-  "active_task": "Aguardar autorizacao do usuario para publicar o commit da Story 2.115.",
+  "active_task": "Executar Oracle e sincronizacao segura na proxima inicializacao.",
   "deliverable_in_progress": "Registry Settings & Persona Bindings",
   "current_owner": "SQD-MEM",
-  "last_relevant_event": "Story 2.115 concluida e revisada: continuidade segura entre escritor primario e notebook secundario.",
+  "last_relevant_event": "Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.",
   "next_actions": [
+    "Executar Oracle e sincronizacao segura na proxima inicializacao.",
     "Aguardar autorizacao do usuario para publicar o commit da Story 2.115.",
     "Auditar checkpoint e publicar somente apos autorizacao do usuario.",
     "Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.",
     "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
     "Configurar e aprimorar squads, agentes, skills e personas/clones.",
     "Iniciar conversa nova aplicando Continuity Handshake",
-    "Focar EXCLUSIVAMENTE na configuracao de squads, agentes, skills e personas/clones",
-    "Aprimoramento do painel (P0/P1 da auditoria) foi postergado para uma sessao FUTURA"
+    "Focar EXCLUSIVAMENTE na configuracao de squads, agentes, skills e personas/clones"
   ],
   "open_blockers": [
     "KPIs todos null em registry.json — Master Hub sem metricas",
@@ -27,6 +27,6 @@
     "Retomada incompleta se checkpoint nao registrar proxima acao exata"
   ],
   "latest_active_decision_id": "DEC-MEM-0004",
-  "latest_checkpoint_id": "CHK-MEM-0828",
-  "updated_at": "2026-09-15T23:26:46-03:00"
+  "latest_checkpoint_id": "CHK-MEM-0829",
+  "updated_at": "2026-09-16T14:53:31-03:00"
 }

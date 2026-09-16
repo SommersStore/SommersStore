@@ -8,6 +8,7 @@ const { spawn, spawnSync } = require('child_process');
 const continuity = require('./aiox_continuity.js');
 const mirror = require('./project_mirror_sync.js');
 const safeGit = require('./lib/safe_git_checkpoint.cjs');
+const multiRepo = require('./lib/multi_repo_continuity.cjs');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const PORT = Number(process.env.AIOX_PORT || 4000);
@@ -134,7 +135,7 @@ async function runScribe(summary, nextAction) {
       body: JSON.stringify({
         summary,
         next_action: nextAction,
-        completed_tasks: ['Story 2.115: finalizacao segura do dia'],
+        completed_tasks: ['Story 2.116: continuidade Git multirrepositorio'],
         closed_by: 'human',
         model_hint: 'codex',
         project_id: 'sais',
@@ -167,30 +168,8 @@ function createLocalCheckpoint(runRoot) {
   return { status: 'success', root: checkpointRoot, copied_files: copied };
 }
 
-function runGates() {
-  const npmCommand = process.platform === 'win32' ? process.execPath : 'npm';
-  const npmPrefix = process.platform === 'win32'
-    ? [path.join(path.dirname(process.execPath), 'node_modules', 'npm', 'bin', 'npm-cli.js')]
-    : [];
-  const env = {
-    ...process.env,
-    AIOX_TEST_DISABLE_REAL_RESTIC: '1',
-    LOCALAPPDATA: process.env.AIOX_GATE_LOCALAPPDATA || 'C:\\AIOX\\Temp\\AIOX-NoRestic-Test'
-  };
-  const definitions = [
-    ['lint', ['run', 'lint']],
-    ['typecheck', ['run', 'typecheck']],
-    ['test', ['test']],
-    ['validate:structure', ['run', 'validate:structure']],
-    ['validate:agents', ['run', 'validate:agents']]
-  ];
-  const gates = [];
-  for (const [name, args] of definitions) {
-    const result = run(npmCommand, [...npmPrefix, ...args], { env, timeout: 20 * 60 * 1000 });
-    gates.push({ name, status: result.ok ? 'passed' : 'failed', exit_code: result.status, detail: result.ok ? result.stdout.split(/\r?\n/).slice(-2).join(' ') : (result.stderr || result.stdout || result.error) });
-    if (!result.ok) throw Object.assign(new Error(`Gate ${name} falhou.`), { gateResults: gates });
-  }
-  return gates;
+function runGates(repository, options = {}) {
+  return multiRepo.runGates(repository, options);
 }
 
 function readFirebaseDefaultProject() {
@@ -255,6 +234,7 @@ function writeReadableReport(report, runRoot) {
     `Maquina: ${report.machine}`,
     `Scribe: ${report.steps.scribe?.status || 'nao executado'}`,
     `Git: ${report.steps.git?.status || 'nao executado'}`,
+    ...((report.steps.git?.repositories || []).map((item) => `  ${item.id}: ${item.status} | branch=${item.branch || 'n/a'} | local=${item.local_head || item.commit || 'n/a'} | remoto=${item.remote_head || item.remote_after || 'n/a'}`)),
     `Varredura de segredos: ${report.steps.secret_scan?.status || 'nao executado'}`,
     `Firebase: ${report.steps.firebase?.status || 'nao executado'}`,
     `Restic local: ${report.steps.restic?.local_snapshot || 'nao executado'}`,
@@ -278,7 +258,7 @@ async function execute(options = {}) {
   const startedAt = new Date();
   const runRoot = path.join(REPORT_ROOT, isoStamp(startedAt));
   const report = {
-    schema_version: 'aiox.daily-finalization.v1',
+    schema_version: 'aiox.daily-finalization.v2',
     started_at: toIsoLocal(startedAt),
     completed_at: null,
     status: 'running',
@@ -297,40 +277,24 @@ async function execute(options = {}) {
     report.steps.primary = { status: 'passed', computer_name: report.machine, policy: initialStatus.primary.policy };
     report.steps.scribe = await runScribe(options.summary, options.nextAction);
     report.steps.checkpoint = createLocalCheckpoint(runRoot);
-    safeGit.assertEmptyStage({ root: ROOT_DIR });
-    const classification = safeGit.classifyWorkspace({ root: ROOT_DIR });
-    report.steps.classification = classification;
-    report.steps.secret_scan = {
-      status: classification.secret_findings.length === 0 ? 'passed' : 'failed',
-      findings: classification.secret_findings
+    const repositories = multiRepo.readRepositories(options.repositoryConfigPath, options.environment || process.env);
+    report.steps.restic_sources = { status: 'passed', repositories: multiRepo.verifyResticSources(options.continuityConfigPath) };
+    const preflights = multiRepo.preflightAll(repositories);
+    report.steps.classification = Object.fromEntries(preflights.map((item) => [item.id, item.classification]));
+    const secretFindings = preflights.flatMap((item) => item.classification.secret_findings.map((finding) => ({ repository: item.id, ...finding })));
+    report.steps.secret_scan = { status: secretFindings.length === 0 ? 'passed' : 'failed', findings: secretFindings };
+    report.steps.gates = {
+      status: 'passed',
+      repositories: preflights.map((item) => ({ id: item.id, status: 'passed', items: item.gates }))
     };
-    const unsafeBlocked = classification.blocked.filter((entry) => ['conflict', 'secret', 'unknown', 'review'].includes(entry.category));
-    if (unsafeBlocked.length > 0) {
-      throw new Error(`Classificacao Git bloqueou a finalizacao: ${unsafeBlocked.map((entry) => `${entry.path}:${entry.reason}`).join(', ')}`);
-    }
-    const gateItems = runGates();
-    gateItems.push({ name: 'secret-scan', status: 'passed', exit_code: 0, detail: 'Nenhum segredo detectado nos caminhos elegiveis.' });
-    report.steps.gates = { status: 'passed', items: gateItems };
-    const changedPaths = classification.eligible_paths.slice();
-    if (options.testMode) {
-      const branch = safeGit.currentBranch({ root: ROOT_DIR });
-      safeGit.fetchRemote('origin', branch, { root: ROOT_DIR });
-      const localHead = safeGit.currentHead({ root: ROOT_DIR });
-      const remoteHead = safeGit.readRemoteHead('origin', branch, { root: ROOT_DIR });
-      safeGit.assertRemoteCanFastForward(remoteHead, localHead, { root: ROOT_DIR });
-      report.steps.git = { status: 'planned', mode: 'test_mode_no_git_write', branch, local_head: localHead, remote_head: remoteHead, eligible_paths: changedPaths };
-    } else if (changedPaths.length === 0) {
-      report.steps.git = { status: 'skipped', reason: 'no_safe_changes' };
-    } else {
-      const staged = safeGit.stageExplicit(changedPaths, { root: ROOT_DIR });
-      const dateLabel = new Date().toISOString().slice(0, 10);
-      const published = safeGit.commitAndPush({
-        root: ROOT_DIR,
-        message: `chore(continuity): finalize day ${dateLabel}`,
-        env: { ...process.env, AIOX_ACTIVE_AGENT: 'github-devops', AIOX_TEST_DISABLE_REAL_RESTIC: '1' }
-      });
-      report.steps.git = { status: 'success', staged, ...published };
-    }
+    const publications = multiRepo.publishAll(repositories, preflights, { testMode: options.testMode });
+    report.steps.git = {
+      status: options.testMode ? 'planned' : (publications.some((item) => item.status === 'success') ? 'success' : 'skipped'),
+      mode: options.testMode ? 'test_mode_no_git_write' : 'normal_push_only',
+      repositories: publications
+    };
+    const sommersPreflight = preflights.find((item) => item.id === 'sommersstore');
+    const changedPaths = sommersPreflight ? sommersPreflight.classification.eligible_paths.slice() : [];
     report.steps.firebase = deployFirebaseIfNeeded(changedPaths, options);
     report.steps.restic = runContinuityBackup();
     report.steps.mirror = await runMirror(report.steps.git.status, report.steps.firebase.status, report.steps.restic.local_snapshot);
@@ -341,7 +305,7 @@ async function execute(options = {}) {
     report.status = 'error';
     report.completed_at = toIsoLocal(new Date());
     report.error = error.message;
-    if (error.gateResults) report.steps.gates = { status: 'failed', items: error.gateResults };
+    if (error.gateResults) report.steps.gates = { status: 'failed', repository: error.repositoryId || null, items: error.gateResults };
     report.steps.shutdown = { status: 'blocked', reason: 'mandatory_step_failed' };
   }
   report.report_files = writeReadableReport(report, runRoot);

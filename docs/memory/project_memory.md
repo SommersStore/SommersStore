@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-09-15T23:26:46-03:00
+- updated_at: 2026-09-16T14:53:31-03:00
 
 ## Handoff Atual - PC novo como escritor primario da continuidade
 - timestamp: 2026-09-10T12:31:34-03:00
@@ -817,6 +817,11 @@
 - proxima_acao: revisar refinamento editorial/visual dos entregaveis com o usuario e, em seguida, acrescentar a esteira de Upsell e Downsell mantendo o mesmo modelo de producao real.
 
 ## Ultimo fechamento
+- timestamp: 2026-09-16T14:53:31-03:00
+- tipo: usuario
+- resumo: Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.
+- proxima_acao: Executar Oracle e sincronizacao segura na proxima inicializacao.
+- checkpoint: CHK-MEM-0829
 - timestamp: 2026-09-15T23:26:46-03:00
 - tipo: usuario
 - resumo: Story 2.115 concluida e revisada: continuidade segura entre escritor primario e notebook secundario.
@@ -4101,3 +4106,22 @@
 - seguranca_operacional: Stash `1a906151...`, credenciais e Firebase permaneceram intocados; nenhuma plataforma foi aberta por esta automacao e nenhum deploy foi executado.
 - proxima_acao: Usuario concluir configuracao/smoke seguro de MetaTrader 5 e NinjaTrader e realizar smoke JForex em DEMO. Manter GitHub e Google Drive como copias, com o armazenamento local deste PC como fonte principal.
 - checkpoint: CHK-MIG-PC-NOVO-PRIMARY-CORE
+
+## Registro Manual - 2026-09-16T00:11:44-03:00
+- tipo: story-2.115-publicada
+- resumo: Encerramento seguro do dia, sincronizacao inicial conservadora e captura seletiva de Documents implementados e publicados.
+- git: Branch `migration/pc-new-20260907`; commit remoto confirmado em `20343ea29af54507c006e73c61b21cddd85fde29`; push normal, sem force push e sem outros commits.
+- continuidade: DESKTOP-SPUG59L segue como escritor primario; snapshot local/Drive `01fcf747ebe38c2bcb0765f73338ceafbbb69f52b520322590c87bd33b778b84`; atalho instalado; teste `--no-shutdown` aprovado.
+- seguranca: Firebase nao executado; arquivos privados, credenciais, plataformas e stashes permaneceram intocados.
+- proxima_acao: Configurar o notebook como secundario por fast-forward e `continuity:startup-sync -- --dry-run`.
+- checkpoint: CHK-STORY-2.115-PUBLISHED
+
+## Registro Manual - 2026-09-16T15:20:00-03:00
+- tipo: story-2.116-checkpoint-local
+- resumo: Continuidade Git multirrepositorio implementada com Protheus canonico prioritario em main e SommersStore orquestrador em migration/pc-new-20260907; inicio e encerramento agora classificam, validam e relatam os repositorios separadamente.
+- testes: Gates Protheus (lint, typecheck, 11 testes) e SommersStore (lint, typecheck, testes, estrutura e agentes) aprovados; startup dry-run bloqueou SommersStore dirty sem sobrescrita; ensaio close:day:test aprovado sem Git/Firebase/shutdown.
+- continuidade: Snapshot Restic local/Drive 7bfb700d1fe3be5d10ebb3ef9c23aa0db02b1161b413a2695c2977489b21819e com IDs iguais; espelho local atualizado; Protheus e SommersStore permanecem fontes integrais obrigatorias.
+- seguranca: Zero segredos; arquivos privados, credenciais, plataformas, stashes, snapshots e historicos permaneceram intocados; Protheus continua sob politica GitHub PRIVATE.
+- git: Protheus permaneceu limpo em 3dbb05afaf92616f695840567d90528313c0c4df. SommersStore parte de 20343ea29af54507c006e73c61b21cddd85fde29; checkpoint local desta Story sera criado sem push e aguardara autorizacao expressa.
+- proxima_acao: Autorizar push normal do commit local da Story 2.116 para origin/migration/pc-new-20260907; depois configurar o notebook como secundario por fast-forward e executar continuity:startup-sync -- --dry-run.
+- checkpoint: CHK-STORY-2.116-LOCAL

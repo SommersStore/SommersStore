@@ -179,6 +179,7 @@
     "docs/02_architecture/investment_platform_continuity.md",
     "docs/02_architecture/google_drive_desktop_setup.md",
     "config/aiox_continuity_sources.json",
+    "config/aiox_git_repositories.json",
     "config/aiox_continuity_excludes.txt",
     "config/investment_platforms.json",
     "scripts/bootstrap_aiox_recovery.ps1",
@@ -187,6 +188,8 @@
     "scripts/investment_platform_backup.js",
     "scripts/documents_continuity.cjs",
     "scripts/startup_sync.cjs",
-    "scripts/finalize_day.cjs"
+    "scripts/finalize_day.cjs",
+    "scripts/lib/safe_git_checkpoint.cjs",
+    "scripts/lib/multi_repo_continuity.cjs"
   ]
 }

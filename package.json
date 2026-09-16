@@ -48,6 +48,7 @@
     "prepare": "husky",
     "continuity:documents": "node scripts/documents_continuity.cjs",
     "continuity:startup-sync": "node scripts/startup_sync.cjs",
+    "continuity:repos:status": "node scripts/lib/multi_repo_continuity.cjs --fetch",
     "close:day:test": "node scripts/finalize_day.cjs --no-shutdown --test-mode",
     "close:day:install": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install_finalize_day_shortcut.ps1"
   },

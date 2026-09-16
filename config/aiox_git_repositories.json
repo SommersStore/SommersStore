@@ -1,0 +1,96 @@
+{
+  "schema_version": "aiox.git-continuity.v1",
+  "repositories": [
+    {
+      "id": "protheus",
+      "priority": 1,
+      "role": "canonical_investments",
+      "root_env": "AIOX_PROTHEUS_ROOT",
+      "root": "C:\\AIOX\\Workspace\\Protheus",
+      "remote": "origin",
+      "branch": "main",
+      "required": true,
+      "github_visibility": "private",
+      "gates": [
+        ["lint", "run", "lint"],
+        ["typecheck", "run", "typecheck"],
+        ["test", "test"]
+      ],
+      "policy": {
+        "private_roots": [
+          "brain/99-private/",
+          "corpus/private/",
+          "corpus/raw/",
+          "data/private/",
+          "data/runtime/",
+          "records/private/"
+        ],
+        "runtime_roots": ["tmp/"],
+        "safe_untracked_roots": [
+          ".github/",
+          "agents/",
+          "apps/",
+          "assets/",
+          "brain/",
+          "config/",
+          "corpus/",
+          "data/",
+          "docs/",
+          "evals/",
+          "policies/",
+          "records/",
+          "schemas/",
+          "scripts/",
+          "squads/",
+          "src/",
+          "test/",
+          "tests/",
+          "workflows/"
+        ],
+        "safe_untracked_files": [
+          ".gitignore",
+          "AGENTS.md",
+          "README.md",
+          "package-lock.json",
+          "package.json",
+          "task.md",
+          "tsconfig.json"
+        ]
+      }
+    },
+    {
+      "id": "sommersstore",
+      "priority": 2,
+      "role": "administrative_orchestrator",
+      "root_env": "AIOX_SOMMERSSTORE_ROOT",
+      "root": "C:\\AIOX\\Workspace\\SommersStore",
+      "remote": "origin",
+      "branch": "migration/pc-new-20260907",
+      "required": true,
+      "github_visibility": "preserve_existing",
+      "gates": [
+        ["lint", "run", "lint"],
+        ["typecheck", "run", "typecheck"],
+        ["test", "test"],
+        ["validate:structure", "run", "validate:structure"],
+        ["validate:agents", "run", "validate:agents"]
+      ],
+      "policy": {
+        "private_paths": [
+          "projects/financas/data/fin2_data.json",
+          "projects/financas/data/finance_state.json",
+          "projects/imposto-de-renda/data/ir_state.json"
+        ],
+        "safe_untracked_roots": [
+          ".github/",
+          "bin/",
+          "config/",
+          "docs/",
+          "packages/",
+          "scripts/",
+          "tests/"
+        ]
+      }
+    }
+  ]
+}

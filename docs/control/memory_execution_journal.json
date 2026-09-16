@@ -1,29 +1,6 @@
 {
   "items": [
     {
-      "id": "RUN-MEM-20260601-0013",
-      "timestamp_start": "2026-06-01T17:11:53-03:00",
-      "timestamp_end": "2026-06-01T17:11:53-03:00",
-      "actor": "system",
-      "squad": "SQD-MEM",
-      "skill": "MemoryLifecycle",
-      "module": "memory-governance",
-      "entity": "dashboard",
-      "action": "session_start",
-      "input_summary": "Automatic lifecycle event",
-      "output_summary": "Sessao SES-20260601-0007 iniciada",
-      "result": "success",
-      "files_touched": [
-        "docs/control/memory_current_state.json",
-        "docs/control/memory_open_loops.json",
-        "docs/control/memory_checkpoints.json",
-        "docs/control/memory_decision_log.json",
-        "docs/memory/startup_context_latest.md",
-        "task.md"
-      ],
-      "project_id": "electro"
-    },
-    {
       "id": "RUN-MEM-20260602-0001",
       "timestamp_start": "2026-06-02T22:05:10-03:00",
       "timestamp_end": "2026-06-02T22:05:10-03:00",
@@ -8783,6 +8760,27 @@
       "action": "session_close",
       "input_summary": "Automatic lifecycle event",
       "output_summary": "Sessao SES-20260915-0003 encerrada com CHK-MEM-0828",
+      "result": "success",
+      "files_touched": [
+        "docs/control/memory_current_state.json",
+        "docs/control/memory_checkpoints.json",
+        "docs/control/memory_mutations.json",
+        "task.md"
+      ],
+      "project_id": null
+    },
+    {
+      "id": "RUN-MEM-20260916-0001",
+      "timestamp_start": "2026-09-16T14:53:31-03:00",
+      "timestamp_end": "2026-09-16T14:53:31-03:00",
+      "actor": "system",
+      "squad": "SQD-MEM",
+      "skill": "MemoryLifecycle",
+      "module": "memory-governance",
+      "entity": "dashboard",
+      "action": "session_close",
+      "input_summary": "Automatic lifecycle event",
+      "output_summary": "Sessao SES-20260916-0001 encerrada com CHK-MEM-0829",
       "result": "success",
       "files_touched": [
         "docs/control/memory_current_state.json",

@@ -137,25 +137,42 @@ function isRuntimePath(repoPath) {
   return RUNTIME_PATH_PATTERNS.some((pattern) => pattern.test(repoPath));
 }
 
-function isSafeUntrackedPath(repoPath) {
-  if (SAFE_UNTRACKED_FILES.has(repoPath)) return true;
-  if (!SAFE_UNTRACKED_ROOTS.some((root) => repoPath.startsWith(root))) return false;
-  if (repoPath.includes('/data/') && repoPath.startsWith('projects/')) return false;
-  return SAFE_UNTRACKED_EXTENSIONS.has(path.posix.extname(repoPath).toLowerCase());
+function policySet(values, fallback) {
+  return new Set(Array.isArray(values) ? values.map(normalizeRepoPath) : fallback);
 }
 
-function classifyChange(entry) {
+function policyRoots(values, fallback) {
+  return (Array.isArray(values) ? values : fallback).map((value) => {
+    const normalized = normalizeRepoPath(value);
+    return normalized.endsWith('/') ? normalized : `${normalized}/`;
+  });
+}
+
+function isSafeUntrackedPath(repoPath, policy = {}) {
+  const safeFiles = policySet(policy.safe_untracked_files, SAFE_UNTRACKED_FILES);
+  const safeRoots = policyRoots(policy.safe_untracked_roots, SAFE_UNTRACKED_ROOTS);
+  const safeExtensions = policySet(policy.safe_untracked_extensions, SAFE_UNTRACKED_EXTENSIONS);
+  if (safeFiles.has(repoPath)) return true;
+  if (!safeRoots.some((root) => repoPath.startsWith(root))) return false;
+  if (repoPath.includes('/data/') && repoPath.startsWith('projects/')) return false;
+  return safeExtensions.has(path.posix.extname(repoPath).toLowerCase());
+}
+
+function classifyChange(entry, policy = {}) {
   const repoPath = normalizeRepoPath(entry.path);
   const untracked = entry.status === '??';
   const conflicted = /U|AA|DD/.test(entry.status);
   const deleted = entry.status.includes('D');
+  const privatePaths = policySet(policy.private_paths, PRIVATE_PATHS);
+  const privateRoots = policyRoots(policy.private_roots, []);
+  const runtimeRoots = policyRoots(policy.runtime_roots, []);
 
   if (conflicted) return { ...entry, path: repoPath, category: 'conflict', eligible: false, reason: 'git_conflict' };
-  if (PRIVATE_PATHS.has(repoPath)) return { ...entry, path: repoPath, category: 'private', eligible: false, reason: 'private_data' };
+  if (privatePaths.has(repoPath) || privateRoots.some((root) => repoPath.startsWith(root))) return { ...entry, path: repoPath, category: 'private', eligible: false, reason: 'private_data' };
   if (isCredentialPath(repoPath)) return { ...entry, path: repoPath, category: 'credential', eligible: false, reason: 'credential_path' };
-  if (isRuntimePath(repoPath)) return { ...entry, path: repoPath, category: 'runtime', eligible: false, reason: 'runtime_path' };
+  if (isRuntimePath(repoPath) || runtimeRoots.some((root) => repoPath.startsWith(root))) return { ...entry, path: repoPath, category: 'runtime', eligible: false, reason: 'runtime_path' };
   if (deleted) return { ...entry, path: repoPath, category: 'review', eligible: false, reason: 'deletion_requires_review' };
-  if (untracked && !isSafeUntrackedPath(repoPath)) {
+  if (untracked && !isSafeUntrackedPath(repoPath, policy)) {
     return { ...entry, path: repoPath, category: 'unknown', eligible: false, reason: 'untracked_not_allowlisted' };
   }
   return { ...entry, path: repoPath, category: untracked ? 'safe_untracked' : 'safe_tracked', eligible: true, reason: 'allowed' };
@@ -190,7 +207,7 @@ function scanPathsForSecrets(paths, options = {}) {
 }
 
 function classifyWorkspace(options = {}) {
-  const entries = listChanges(options).map(classifyChange);
+  const entries = listChanges(options).map((entry) => classifyChange(entry, options.policy || {}));
   const initiallyEligible = entries.filter((entry) => entry.eligible).map((entry) => entry.path);
   const secretFindings = scanPathsForSecrets(initiallyEligible, options);
   const secretPaths = new Set(secretFindings.map((finding) => finding.path));

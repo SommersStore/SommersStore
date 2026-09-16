@@ -1,0 +1,34 @@
+schema: 1
+story: "2.116"
+title: "Continuidade Git multirrepositorio para Protheus e SommersStore"
+gate: PASS
+status_reason: >-
+  Os dois repositorios possuem configuracao, branch, politica, gates e relatorio independentes;
+  o preflight global ocorre antes da primeira mutacao Git; os testes focados, os gates dos dois
+  projetos e o ensaio integral sem shutdown passaram com zero segredo e snapshot Restic identico.
+reviewer: "Quinn (Test Architect)"
+updated: "2026-09-16T15:15:00-03:00"
+waiver: { active: false }
+top_issues: []
+evidence:
+  tests_reviewed: 4
+  risks_identified: 0
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+    ac_gaps: []
+nfr_validation:
+  security: { status: PASS, notes: "Stage explicito, segredo zero, credenciais/privados excluidos e nenhum force/stash." }
+  reliability: { status: PASS, notes: "Dirty, branch incorreta e divergencia sao fail-closed; fast-forward e confirmacao remota testados." }
+  maintainability: { status: PASS, notes: "Politicas e gates declarativos por repositorio, com compatibilidade do classificador existente." }
+  recoverability: { status: PASS, notes: "Restic confirmou Protheus e SommersStore integrais; IDs local/nuvem 7bfb700d... iguais." }
+test_evidence:
+  protheus: [lint, typecheck, test]
+  sommersstore: [lint, typecheck, test, validate_structure, validate_agents]
+  startup_dry_run: PASS
+  close_day_no_shutdown: PASS
+  firebase: skipped_no_publishable_artifacts
+  shutdown: skipped_no_shutdown
+  snapshot: "7bfb700d1fe3be5d10ebb3ef9c23aa0db02b1161b413a2695c2977489b21819e"
+recommendations:
+  future:
+    - "Revalidar a visibilidade PRIVATE do Protheus pela API GitHub quando gh estiver autenticado; a automacao nao altera visibilidade."

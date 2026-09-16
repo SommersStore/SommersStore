@@ -8,6 +8,7 @@ const path = require('path');
 const { spawnSync } = require('child_process');
 const continuity = require('./aiox_continuity.js');
 const safeGit = require('./lib/safe_git_checkpoint.cjs');
+const multiRepo = require('./lib/multi_repo_continuity.cjs');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const CONFIG_PATH = path.join(ROOT_DIR, 'config', 'aiox_private_reconciliation.json');
@@ -177,19 +178,49 @@ function reconcilePrivateFiles(options) {
 
 function gitStartupSync(options = {}) {
   const root = options.root || ROOT_DIR;
+  const id = options.id || 'repository';
   const branch = safeGit.currentBranch({ root });
+  const expectedBranch = options.expectedBranch || branch;
+  const remote = options.remote || 'origin';
   const statusBefore = safeGit.listChanges({ root });
-  safeGit.fetchRemote('origin', branch, { root });
+  safeGit.fetchRemote(remote, expectedBranch, { root });
   const localHead = safeGit.currentHead({ root });
-  const remoteHead = safeGit.readRemoteHead('origin', branch, { root });
-  if (statusBefore.length > 0) return { status: 'blocked_dirty', branch, local_head: localHead, remote_head: remoteHead, dirty_entries: statusBefore };
-  if (localHead === remoteHead) return { status: 'up_to_date', branch, local_head: localHead, remote_head: remoteHead };
+  const remoteHead = safeGit.readRemoteHead(remote, expectedBranch, { root });
+  const base = { id, root, branch, expected_branch: expectedBranch, local_head: localHead, remote_head: remoteHead };
+  if (branch !== expectedBranch) return { ...base, status: 'blocked_wrong_branch' };
+  if (statusBefore.length > 0) return { ...base, status: 'blocked_dirty', dirty_entries: statusBefore };
+  if (localHead === remoteHead) return { ...base, status: 'up_to_date' };
   const localIsAncestor = safeGit.runGit(['merge-base', '--is-ancestor', localHead, remoteHead], { root });
-  if (!localIsAncestor.ok) return { status: 'blocked_diverged', branch, local_head: localHead, remote_head: remoteHead };
-  if (options.dryRun) return { status: 'planned_fast_forward', branch, local_head: localHead, remote_head: remoteHead };
-  const merge = safeGit.runGit(['merge', '--ff-only', `origin/${branch}`], { root });
-  if (!merge.ok) throw new Error(`Fast-forward falhou: ${merge.stderr || merge.stdout}`);
-  return { status: 'fast_forwarded', branch, local_head_before: localHead, local_head: safeGit.currentHead({ root }), remote_head: remoteHead };
+  if (!localIsAncestor.ok) return { ...base, status: 'blocked_diverged' };
+  if (options.dryRun) return { ...base, status: 'planned_fast_forward' };
+  const merge = safeGit.runGit(['merge', '--ff-only', `${remote}/${expectedBranch}`], { root });
+  if (!merge.ok) throw new Error(`${id}: fast-forward falhou: ${merge.stderr || merge.stdout}`);
+  return { ...base, status: 'fast_forwarded', local_head_before: localHead, local_head: safeGit.currentHead({ root }) };
+}
+
+function syncRepositories(repositories, options = {}) {
+  return repositories.map((repository) => {
+    try {
+      return gitStartupSync({
+        id: repository.id,
+        root: repository.root,
+        remote: repository.remote,
+        expectedBranch: repository.branch,
+        dryRun: options.dryRun
+      });
+    } catch (error) {
+      return {
+        id: repository.id,
+        root: repository.root,
+        branch: null,
+        expected_branch: repository.branch,
+        local_head: null,
+        remote_head: null,
+        status: 'error',
+        error: error.message
+      };
+    }
+  });
 }
 
 function execute(options = {}) {
@@ -201,7 +232,7 @@ function execute(options = {}) {
   ensureDir(stagingRoot);
   ensureDir(quarantineRoot);
   const report = {
-    schema_version: 'aiox.startup-sync.v1',
+    schema_version: 'aiox.startup-sync.v2',
     started_at: new Date().toISOString(),
     machine: process.env.COMPUTERNAME || os.hostname(),
     dry_run: Boolean(options.dryRun),
@@ -209,6 +240,7 @@ function execute(options = {}) {
     primary: null,
     role: null,
     git: null,
+    repositories: [],
     restore: null,
     reconciliation: [],
     quarantine_root: quarantineRoot,
@@ -221,7 +253,9 @@ function execute(options = {}) {
     report.role = String(report.primary).toUpperCase() === String(report.machine).toUpperCase() ? 'primary' : 'secondary';
     const config = readConfig(options.configPath || CONFIG_PATH);
     report.restore = restorePrivateFiles(stagingRoot, config.files, options.repository || 'cloud');
-    report.git = gitStartupSync({ root: ROOT_DIR, dryRun: options.dryRun });
+    const repositories = multiRepo.readRepositories(options.repositoryConfigPath, options.environment || process.env);
+    report.repositories = syncRepositories(repositories, { dryRun: options.dryRun });
+    report.git = report.repositories.find((item) => item.id === 'sommersstore') || null;
     report.reconciliation = reconcilePrivateFiles({
       files: config.files,
       workspaceRoot: ROOT_DIR,
@@ -229,7 +263,9 @@ function execute(options = {}) {
       quarantineRoot,
       dryRun: options.dryRun
     });
-    report.status = report.reconciliation.some((item) => item.status === 'quarantined') ? 'success_with_quarantine' : 'success';
+    const repositoryBlocked = report.repositories.some((item) => item.status.startsWith('blocked_') || item.status === 'error');
+    const quarantined = report.reconciliation.some((item) => item.status === 'quarantined');
+    report.status = repositoryBlocked || quarantined ? 'success_with_blocks' : 'success';
   } catch (error) {
     report.status = 'error';
     report.error = error.message;
@@ -264,5 +300,6 @@ module.exports = {
   readConfig,
   reconcilePrivateFiles,
   restorePrivateFiles,
+  syncRepositories,
   validateFile
 };

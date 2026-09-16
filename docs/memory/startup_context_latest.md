@@ -1,28 +1,26 @@
 # Startup Context (Latest)
 
 ## Session
-- generated_at: 2026-09-10T12:58:44-03:00
-- session_id: CONTINUITY-PC-NEW-PROMOTION-ADMIN-20260910
+- generated_at: 2026-09-16T15:20:00-03:00
+- session_id: STORY-2.116-LOCAL-CHECKPOINT
 
 ## Continuity Snapshot
-- checkpoint_id: CHK-CONTINUITY-PC-NEW-PROMOTION-ADMIN
+- checkpoint_id: CHK-STORY-2.116-LOCAL
 - checkpoint_strategy: latest_actionable_milestone
-- checkpoint_title: PC novo promovido como escritor primario com continuidade local e Google Drive aprovada
-- where_it_stopped: O handoff `5cb25b9f...` foi adotado e restaurado isoladamente com 48.973 arquivos e 8/8 sentinelas validos. A reconciliacao copiou 20.669 ausentes. Os tres conflitos foram auditados: a sessao Codex era um prefixo compativel e recebeu consolidacao arquivada; JSON de anexos e protobuf Antigravity eram colisoes reais e foram preservados com nomes inequivocos. O ciclo primario `8c9177f3...` permanece identico local/nuvem, RPO aprovado e `ok=true`.
-- next_action: Publicar este checkpoint somente apos autorizacao unica do usuario; depois planejar, sem implementar, a story de integracao separada do painel com continuidade.
+- checkpoint_title: Story 2.116 implementada e validada; push pendente de autorizacao
+- where_it_stopped: Protheus permanece limpo em `main`, HEAD local/remoto `3dbb05afaf92616f695840567d90528313c0c4df`. SommersStore parte de `20343ea29af54507c006e73c61b21cddd85fde29` e recebeu a implementacao multirrepositorio; gates e QA passaram, o ensaio `--no-shutdown --test-mode` nao fez commit/push/Firebase/shutdown, e o snapshot Restic local/Drive coincide em `7bfb700d1fe3be5d10ebb3ef9c23aa0db02b1161b413a2695c2977489b21819e`.
+- next_action: Obter autorizacao expressa para push normal do commit local da Story 2.116; depois, no notebook secundario, fazer fast-forward e executar `npm run continuity:startup-sync -- --dry-run`.
 
 ## Ultimas Conversas Relevantes
 - last_sessions: 3
-- sessions_considered: migration_pc_new, cloud_continuity, pc_new_primary_adoption
-- conversa_1: A migracao seletiva preservou conflitos de workspace, Codex, NinjaTrader e MetaTrader, mantendo arquivos privados fora de commits e plataformas sem automacao.
-- conversa_2: GitHub passou a ser a fonte canonica do codigo e Restic/Google Drive a copia criptografada dos dados portateis e privados.
-- conversa_3: Desktop, Documents e Downloads sairam do backup direto do Drive; o PC novo adotou o handoff, reconciliou apenas ausentes e assumiu a agenda de duas horas.
+- conversa_1: A Story 2.115 publicou o encerramento seguro e a sincronizacao conservadora do SommersStore no commit `20343ea...`.
+- conversa_2: A Story 2.116 separou Protheus e SommersStore por branch, politica, gates, stage, commit, push e relatorio, com preflight global antes de qualquer mutacao.
+- conversa_3: Startup dry-run, gates dos dois projetos, QA e close:day:test passaram; Firebase e shutdown nao executaram e Restic confirmou IDs iguais.
 
 ## Fonte
-- `docs/stories/2.113.story.md`
-- `docs/stories/2.114.story.md`
+- `docs/stories/2.116.story.md`
+- `docs/qa/gates/2.116-continuidade-git-multirrepositorio.yml`
+- `docs/02_architecture/cloud_continuity_architecture.md`
 - `docs/memory/project_memory.md`
-- `docs/control/session_state.json`
 - `docs/control/memory_mutations.json`
 - `task.md`
-- `C:\AIOX\Transfer\ConflictBackups\20260910-151000-continuity-reconciliation\reconciliation-report.json`
