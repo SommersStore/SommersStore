@@ -1,0 +1,35 @@
+schema: 1
+story: '2.115'
+story_title: 'Encerramento seguro e sincronizacao conservadora entre maquinas'
+gate: PASS
+status_reason: 'Todos os 16 criterios foram rastreados; gates, auditoria de dependencias, varredura local de seguranca e ensaios reais --no-shutdown/startup-sync passaram sem sobrescrita, deploy ou desligamento.'
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-09-15T23:32:00-03:00'
+top_issues: []
+waiver:
+  active: false
+quality_score: 100
+evidence:
+  tests_reviewed: 8
+  risks_identified: 0
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    ac_gaps: []
+nfr_validation:
+  security:
+    status: PASS
+    notes: 'Stage explicito, paths privados/credenciais/runtime bloqueados, conteudo indexado conferido, zero segredos e npm audit com zero vulnerabilidades.'
+  performance:
+    status: PASS
+    notes: 'Ensaio integral concluiu em 228 segundos; captura seletiva e espelho terminaram sem erro.'
+  reliability:
+    status: PASS
+    notes: 'Fail-closed validado; snapshots local/Drive 01fcf747ebe38c2bcb0765f73338ceafbbb69f52b520322590c87bd33b778b84 iguais; shutdown suprimido no teste.'
+  maintainability:
+    status: PASS
+    notes: 'Responsabilidades separadas entre Git, Firebase, Restic, espelho, reconciliacao e energia; relatorios JSON/texto e testes dedicados.'
+recommendations:
+  immediate: []
+  future:
+    - action: 'Executar CodeRabbit somente se houver autorizacao explicita para transmitir o diff a um servico externo.'
+      refs: ['docs/stories/2.115.story.md']

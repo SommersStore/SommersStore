@@ -160,3 +160,11 @@ O PC novo estara plenamente independente do notebook quando:
 - Restic: retencao: <https://restic.readthedocs.io/en/latest/060_forget.html>
 - Restic: verificacao: <https://restic.readthedocs.io/en/stable/077_troubleshooting.html>
 - Google Drive para computador, streaming e espelhamento: <https://support.google.com/drive/answer/13401938?hl=pt-BR>
+
+## Encerramento do dia e sincronizacao de inicializacao
+
+A Story 2.115 adiciona dois comandos CLI separados. O encerramento executa Scribe/checkpoint, classificacao Git e gates, publicacao GitHub normal, Firebase Hosting somente para artefatos publicaveis confirmados, backup Restic, espelho local e por ultimo controle de energia. Uma falha obrigatoria bloqueia o desligamento; `--no-shutdown --test-mode` valida o fluxo sem commit, push, deploy ou desligamento.
+
+A sincronizacao inicial consulta o marcador de escritor, faz fetch e somente fast-forward em workspace limpo. Dados privados sao restaurados primeiro em staging isolado; ausentes podem ser copiados, identicos sao mantidos e divergencias sao preservadas em quarentena por hash. Nenhuma plataforma e aberta, fechada ou configurada.
+
+Documents entra por captura seletiva atomica em `%LOCALAPPDATA%\AIOX\Continuity\documents\current`. Diretorios operacionais de NinjaTrader, cTrader/cAlgo, MetaTrader/MetaQuotes, JForex, Profit/Nelogica, BlackArrow, Tradovate, IBKR/Jts e Spotware sao excluidos antes do Restic.

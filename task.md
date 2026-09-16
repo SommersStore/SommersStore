@@ -222,6 +222,26 @@
 
 ## Done in this session
 - [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Story 2.115 concluida e revisada: continuidade segura entre escritor primario e notebook secundario.
+- [x] Proxima acao: Aguardar autorizacao do usuario para publicar o commit da Story 2.115.
+- [x] Checkpoint: CHK-MEM-0828
+
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Story 2.115 implementada: encerramento seguro, sincronizacao conservadora e Documentos seletivos.
+- [x] Proxima acao: Auditar checkpoint e publicar somente apos autorizacao do usuario.
+- [x] Checkpoint: CHK-MEM-0827
+
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Story 2.115 implementada: encerramento seguro, sincronizacao conservadora e Documentos seletivos.
+- [x] Proxima acao: Auditar checkpoint e publicar somente apos autorizacao do usuario.
+- [x] Checkpoint: CHK-MEM-0826
+
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Story 2.115 implementada: encerramento seguro, sincronizacao conservadora e Documentos seletivos.
+- [x] Proxima acao: Auditar checkpoint e publicar somente apos autorizacao do usuario.
+- [x] Checkpoint: CHK-MEM-0825
+
+- [x] Sessao encerrada pelo usuario.
 - [x] Resumo: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
 - [x] Proxima acao: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.
 - [x] Checkpoint: CHK-MEM-0823
@@ -852,4 +872,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-09-10T12:58:44-03:00
+- updated_at: 2026-09-15T23:26:46-03:00

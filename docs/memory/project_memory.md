@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-09-10T12:58:44-03:00
+- updated_at: 2026-09-15T23:26:46-03:00
 
 ## Handoff Atual - PC novo como escritor primario da continuidade
 - timestamp: 2026-09-10T12:31:34-03:00
@@ -817,6 +817,26 @@
 - proxima_acao: revisar refinamento editorial/visual dos entregaveis com o usuario e, em seguida, acrescentar a esteira de Upsell e Downsell mantendo o mesmo modelo de producao real.
 
 ## Ultimo fechamento
+- timestamp: 2026-09-15T23:26:46-03:00
+- tipo: usuario
+- resumo: Story 2.115 concluida e revisada: continuidade segura entre escritor primario e notebook secundario.
+- proxima_acao: Aguardar autorizacao do usuario para publicar o commit da Story 2.115.
+- checkpoint: CHK-MEM-0828
+- timestamp: 2026-09-15T23:12:24-03:00
+- tipo: usuario
+- resumo: Story 2.115 implementada: encerramento seguro, sincronizacao conservadora e Documentos seletivos.
+- proxima_acao: Auditar checkpoint e publicar somente apos autorizacao do usuario.
+- checkpoint: CHK-MEM-0827
+- timestamp: 2026-09-15T23:11:07-03:00
+- tipo: usuario
+- resumo: Story 2.115 implementada: encerramento seguro, sincronizacao conservadora e Documentos seletivos.
+- proxima_acao: Auditar checkpoint e publicar somente apos autorizacao do usuario.
+- checkpoint: CHK-MEM-0826
+- timestamp: 2026-09-15T23:07:46-03:00
+- tipo: usuario
+- resumo: Story 2.115 implementada: encerramento seguro, sincronizacao conservadora e Documentos seletivos.
+- proxima_acao: Auditar checkpoint e publicar somente apos autorizacao do usuario.
+- checkpoint: CHK-MEM-0825
 - timestamp: 2026-08-18T00:45:53-03:00
 - tipo: usuario
 - resumo: Reiniciar o painel local quando conveniente para carregar os novos endpoints server-side na porta 4000 e seguir usando F5/Salvar Tudo normalmente.

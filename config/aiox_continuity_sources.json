@@ -135,6 +135,16 @@
       ]
     },
     {
+      "id": "personal_documents",
+      "description": "Documentos pessoais por captura seletiva, sem raizes operacionais das plataformas de investimento",
+      "required": true,
+      "restore_policy": "personal_files_isolated_restore",
+      "candidates": [
+        "${AIOX_DOCUMENTS_SNAPSHOT_DIR}\\current",
+        "${LOCALAPPDATA}\\AIOX\\Continuity\\documents\\current"
+      ]
+    },
+    {
       "id": "investment_platforms",
       "description": "Captura controlada e catalogada das configuracoes portaveis das plataformas de investimento",
       "required": false,
@@ -155,7 +165,14 @@
     "${USERPROFILE}\\Documents\\cTrader",
     "${APPDATA}\\Spotware",
     "${USERPROFILE}\\Jts",
-    "${APPDATA}\\Tradovate Trader"
+    "${APPDATA}\\Tradovate Trader",
+    "${USERPROFILE}\\Documents\\MetaTrader 4",
+    "${USERPROFILE}\\Documents\\MetaTrader 5",
+    "${USERPROFILE}\\Documents\\JForex4",
+    "${USERPROFILE}\\Documents\\Profit",
+    "${USERPROFILE}\\Documents\\BlackArrow",
+    "${USERPROFILE}\\Documents\\Tradovate",
+    "${USERPROFILE}\\Documents\\IBKR"
   ],
   "recovery_kit_files": [
     "docs/02_architecture/cloud_continuity_architecture.md",
@@ -167,6 +184,9 @@
     "scripts/bootstrap_aiox_recovery.ps1",
     "scripts/install_restic.ps1",
     "scripts/aiox_continuity_secret.ps1",
-    "scripts/investment_platform_backup.js"
+    "scripts/investment_platform_backup.js",
+    "scripts/documents_continuity.cjs",
+    "scripts/startup_sync.cjs",
+    "scripts/finalize_day.cjs"
   ]
 }

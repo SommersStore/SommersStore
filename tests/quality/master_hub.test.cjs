@@ -8,6 +8,7 @@ const cloudSyncGuardrails = require('../../scripts/cloud_sync_guardrails.js');
 const projectMirror = require('../../scripts/project_mirror_sync.js');
 const pcMigration = require('../../scripts/pc_migration_bundle.js');
 const { runContinuityTests } = require('./continuity_backup.test.cjs');
+const { runDayContinuityTests } = require('./day_continuity.test.cjs');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 
@@ -1364,6 +1365,7 @@ function run() {
   testProjectMirrorConfiguration();
   testPcMigrationGuardrails();
   runContinuityTests();
+  runDayContinuityTests();
   testDashboardInlineScriptsParse();
   testAioxMasterNext();
   testVelasAromaticasDeliverables();

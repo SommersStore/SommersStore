@@ -201,6 +201,7 @@ function testResolutionAndSingleWriter() {
 }
 
 function testResticRoundTripWhenAvailable() {
+  if (process.env.AIOX_TEST_DISABLE_REAL_RESTIC === '1') return;
   const resticPath = continuity.findRestic(process.env);
   if (!resticPath || process.platform !== 'win32') return;
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-continuity-restic-'));

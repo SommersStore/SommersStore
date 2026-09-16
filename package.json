@@ -41,11 +41,15 @@
     "deploy:hosting": "node scripts/deploy_hosting_with_mirror.js",
     "validate:structure": "node .aiox-core/infrastructure/scripts/validate-paths.js",
     "validate:agents": "node .aiox-core/infrastructure/scripts/validate-agents.js",
-    "close:day": "node scripts/daily_close.cjs",
-    "close:day:push": "node scripts/daily_close.cjs --push",
+    "close:day": "node scripts/finalize_day.cjs",
+    "close:day:push": "node scripts/finalize_day.cjs --no-shutdown",
     "logs:backfill:project-id": "node scripts/maintenance/backfill_project_log_ids.cjs",
     "personas:clean-md": "node scripts/maintenance/clean_persona_markdown_assets.cjs",
-    "prepare": "husky"
+    "prepare": "husky",
+    "continuity:documents": "node scripts/documents_continuity.cjs",
+    "continuity:startup-sync": "node scripts/startup_sync.cjs",
+    "close:day:test": "node scripts/finalize_day.cjs --no-shutdown --test-mode",
+    "close:day:install": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install_finalize_day_shortcut.ps1"
   },
   "keywords": [],
   "author": "",

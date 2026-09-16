@@ -7,6 +7,7 @@ const os = require('os');
 const path = require('path');
 const { spawnSync } = require('child_process');
 const investmentPlatforms = require('./investment_platform_backup.js');
+const documentsContinuity = require('./documents_continuity.cjs');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const CONFIG_PATH = path.join(ROOT_DIR, 'config', 'aiox_continuity_sources.json');
@@ -855,10 +856,21 @@ function backup(options = {}) {
     snapshot: null,
     cloud_validation: null,
     platform_capture: null,
+    documents_capture: null,
     error: null
   };
 
   try {
+    const documentsCapture = documentsContinuity.captureDocuments({ environment });
+    report.documents_capture = {
+      status: documentsCapture.status,
+      root: documentsCapture.root,
+      files: documentsCapture.manifest ? documentsCapture.manifest.files : 0,
+      bytes: documentsCapture.manifest ? documentsCapture.manifest.bytes : 0,
+      excluded: documentsCapture.manifest ? documentsCapture.manifest.excluded.length : 0,
+      error: documentsCapture.error || null
+    };
+    if (!documentsCapture.ok) throw new Error(`Falha na captura seletiva de Documents: ${documentsCapture.error}`);
     if (config.investment_platforms && config.investment_platforms.enabled) {
       const safety = investmentPlatforms.driveSafetyStatus({ environment });
       if (config.investment_platforms.require_drive_sync_ack && !safety.ok) {

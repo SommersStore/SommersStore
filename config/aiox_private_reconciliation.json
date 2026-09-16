@@ -1,0 +1,20 @@
+{
+  "schema_version": "aiox.private-reconciliation.v1",
+  "files": [
+    {
+      "path": "projects/financas/data/fin2_data.json",
+      "format": "json",
+      "policy": "missing_or_identical_only"
+    },
+    {
+      "path": "projects/financas/data/finance_state.json",
+      "format": "json",
+      "policy": "missing_or_identical_only"
+    },
+    {
+      "path": "projects/imposto-de-renda/data/ir_state.json",
+      "format": "json",
+      "policy": "missing_or_identical_only"
+    }
+  ]
+}

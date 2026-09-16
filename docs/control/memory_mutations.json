@@ -1,139 +1,6 @@
 {
   "mutations": [
     {
-      "timestamp": "2026-06-26T02:05:03-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260626-0002",
-      "mutated_by": "dashboard",
-      "project_id": "electro"
-    },
-    {
-      "timestamp": "2026-06-26T02:05:03-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "electro"
-    },
-    {
-      "timestamp": "2026-06-26T02:15:21-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260626-0002: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-26T02:15:27-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260626-0003",
-      "mutated_by": "dashboard",
-      "project_id": "electro"
-    },
-    {
-      "timestamp": "2026-06-26T02:15:27-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "electro"
-    },
-    {
-      "timestamp": "2026-06-26T02:16:51-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260626-0003: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-26T09:13:01-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260626-0004",
-      "mutated_by": "dashboard",
-      "project_id": "electro"
-    },
-    {
-      "timestamp": "2026-06-26T09:13:02-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "electro"
-    },
-    {
-      "timestamp": "2026-06-26T09:13:56-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260626-0004: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-26T09:14:02-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260626-0005",
-      "mutated_by": "dashboard",
-      "project_id": "electro"
-    },
-    {
-      "timestamp": "2026-06-26T09:14:02-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "electro"
-    },
-    {
-      "timestamp": "2026-06-26T14:21:55-03:00",
-      "memory_scope": "session_milestone",
-      "diff_summary": "Financas Planilha: os dois botoes sutis por celula foram substituidos por uma faixa unica vertical no canto esquerdo. A faixa preenchida retira o valor do calculo do proprio grupo; o abatimento separado de Receitas foi neutralizado e estados legados exclude_receitas normalizam para exclude.",
-      "mutated_by": "codex",
-      "project_id": "financas"
-    },
-    {
-      "timestamp": "2026-06-26T14:26:51-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260626-0005: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-26T14:27:03-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260626-0006",
-      "mutated_by": "dashboard",
-      "project_id": "electro"
-    },
-    {
-      "timestamp": "2026-06-26T14:27:03-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "electro"
-    },
-    {
-      "timestamp": "2026-06-26T14:46:03-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260626-0006: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-26T14:46:11-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260626-0007",
-      "mutated_by": "dashboard",
-      "project_id": "electro"
-    },
-    {
-      "timestamp": "2026-06-26T14:46:11-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "electro"
-    },
-    {
-      "timestamp": "2026-06-26T14:59:49-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260626-0007: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
       "timestamp": "2026-06-26T14:59:55-03:00",
       "memory_scope": "session_startup",
       "diff_summary": "Oracle iniciou SES-20260626-0008",
@@ -2136,11 +2003,11 @@
       "project_id": "sommersstore"
     },
     {
-        "timestamp":  "2026-09-08T10:08:43-03:00",
-        "memory_scope":  "milestone_checkpoint",
-        "diff_summary":  "CHK-MIG-PC-NOVO-CONFLICTS-SELECTIVE: backup 487/487; Codex mesclado para 31 sessoes validas; 441 conflitos MetaTrader nativos/vendor e 15 ambiguos preservados; Workspace e NinjaTrader mantidos; gates aprovados e smoke demo manual pendente.",
-        "mutated_by":  "codex-scribe",
-        "project_id":  "sommersstore"
+      "timestamp": "2026-09-08T10:08:43-03:00",
+      "memory_scope": "milestone_checkpoint",
+      "diff_summary": "CHK-MIG-PC-NOVO-CONFLICTS-SELECTIVE: backup 487/487; Codex mesclado para 31 sessoes validas; 441 conflitos MetaTrader nativos/vendor e 15 ambiguos preservados; Workspace e NinjaTrader mantidos; gates aprovados e smoke demo manual pendente.",
+      "mutated_by": "codex-scribe",
+      "project_id": "sommersstore"
     },
     {
       "timestamp": "2026-09-08T15:16:37-03:00",
@@ -2197,6 +2064,41 @@
       "diff_summary": "CHK-CONTINUITY-PC-NEW-PROMOTION-ADMIN: tres conflitos auditados individualmente; sessao Codex consolidada por prefixo exato, JSON de anexos e protobuf Antigravity preservados por origem com hashes verificados; zero sobrescrita, exclusao ou alteracao ativa.",
       "mutated_by": "codex-scribe",
       "project_id": "sommersstore"
+    },
+    {
+      "timestamp": "2026-09-12T14:30:00-03:00",
+      "memory_scope": "support_operations",
+      "diff_summary": "NinjaTrader 8: resolucao completa de conflito. Purgada instalacao anterior e dados residuais em Documents/Registry. Desinstalada versao legada 8.0.22.2 e ativada versao oficial 8.1.8.2 compativel com Windows 11 24H2. Resolvida colisao de instancias concorrentes e desbloqueados arquivos de log. NinjaTrader 8.1.8.2 100% operacional.",
+      "mutated_by": "antigravity",
+      "project_id": "forex"
+    },
+    {
+      "timestamp": "2026-09-15T23:07:46-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260831-0001: Story 2.115 implementada: encerramento seguro, sincronizacao conservadora e Documentos seletivos.",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-09-15T23:11:07-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260915-0001: Story 2.115 implementada: encerramento seguro, sincronizacao conservadora e Documentos seletivos.",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-09-15T23:12:24-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260915-0002: Story 2.115 implementada: encerramento seguro, sincronizacao conservadora e Documentos seletivos.",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-09-15T23:26:46-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260915-0003: Story 2.115 concluida e revisada: continuidade segura entre escritor primario e notebook secundario.",
+      "mutated_by": "human",
+      "project_id": null
     }
   ]
 }

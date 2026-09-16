@@ -1,94 +1,6 @@
 {
   "snapshots": [
     {
-      "id": "CTX-20260721-0062",
-      "timestamp": "2026-07-21T22:25:17-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260721-0002",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260721-0063",
-      "timestamp": "2026-07-21T22:25:28-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260721-0002",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260721-0064",
-      "timestamp": "2026-07-21T22:26:18-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260721-0002",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260721-0065",
-      "timestamp": "2026-07-21T22:32:51-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260721-0002",
-      "summary": "background",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260721-0066",
-      "timestamp": "2026-07-21T22:33:23-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260721-0002",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260721-0067",
-      "timestamp": "2026-07-21T22:43:30-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260721-0002",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260721-0068",
-      "timestamp": "2026-07-21T22:53:30-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260721-0002",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260722-0001",
-      "timestamp": "2026-07-22T07:41:59-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260721-0002",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260722-0002",
-      "timestamp": "2026-07-22T07:52:30-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260721-0002",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260722-0003",
-      "timestamp": "2026-07-22T08:02:30-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260721-0002",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
-      "id": "CTX-20260722-0004",
-      "timestamp": "2026-07-22T08:12:30-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260721-0002",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
       "id": "CTX-20260722-0005",
       "timestamp": "2026-07-22T08:22:30-03:00",
       "type": "session_pulse",
@@ -2111,6 +2023,38 @@
       "session_id": "SES-20260831-0001",
       "summary": "background",
       "project_id": "sais"
+    },
+    {
+      "id": "CTX-20260915-0001",
+      "timestamp": "2026-09-15T23:07:46-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260831-0001",
+      "summary": "Story 2.115 implementada: encerramento seguro, sincronizacao conservadora e Documentos seletivos.",
+      "checkpoint_id": "CHK-MEM-0825"
+    },
+    {
+      "id": "CTX-20260915-0002",
+      "timestamp": "2026-09-15T23:11:07-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260915-0001",
+      "summary": "Story 2.115 implementada: encerramento seguro, sincronizacao conservadora e Documentos seletivos.",
+      "checkpoint_id": "CHK-MEM-0826"
+    },
+    {
+      "id": "CTX-20260915-0003",
+      "timestamp": "2026-09-15T23:12:24-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260915-0002",
+      "summary": "Story 2.115 implementada: encerramento seguro, sincronizacao conservadora e Documentos seletivos.",
+      "checkpoint_id": "CHK-MEM-0827"
+    },
+    {
+      "id": "CTX-20260915-0004",
+      "timestamp": "2026-09-15T23:26:46-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260915-0003",
+      "summary": "Story 2.115 concluida e revisada: continuidade segura entre escritor primario e notebook secundario.",
+      "checkpoint_id": "CHK-MEM-0828"
     }
   ]
 }
