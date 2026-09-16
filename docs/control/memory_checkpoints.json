@@ -17496,6 +17496,29 @@
       "linked_loops": [],
       "linked_decisions": [],
       "recovery_instruction": "Reabrir dashboard e executar startup automatico"
+    },
+    {
+      "id": "CHK-MEM-0830",
+      "timestamp": "2026-09-16T15:33:51-03:00",
+      "title": "Tentativa de finalizacao SES-20260916-0002",
+      "where_it_stopped": "Tentativa do atalho de finalizacao interrompida antes dos gates, Git, Restic e desligamento.",
+      "completed_since_last_checkpoint": [
+        "Story 2.116: continuidade Git multirrepositorio"
+      ],
+      "do_not_repeat": [
+        "Fechar sem checkpoint",
+        "Fechar sem mutacao"
+      ],
+      "next_exact_action": "Concluir o checkpoint administrativo no PC principal e confirmar o relatorio do notebook secundario antes do proximo encerramento.",
+      "active_risks": [],
+      "affected_files": [
+        "task.md",
+        "docs/control/memory_*.json",
+        "docs/memory/*.md"
+      ],
+      "linked_loops": [],
+      "linked_decisions": [],
+      "recovery_instruction": "Reabrir dashboard e executar startup automatico"
     }
   ]
 }

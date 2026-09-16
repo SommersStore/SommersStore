@@ -222,6 +222,11 @@
 
 ## Done in this session
 - [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Tentativa do atalho de finalizacao interrompida antes dos gates, Git, Restic e desligamento.
+- [x] Proxima acao: Concluir o checkpoint administrativo no PC principal e confirmar o relatorio do notebook secundario antes do proximo encerramento.
+- [x] Checkpoint: CHK-MEM-0830
+
+- [x] Sessao encerrada pelo usuario.
 - [x] Resumo: Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.
 - [x] Proxima acao: Executar Oracle e sincronizacao segura na proxima inicializacao.
 - [x] Checkpoint: CHK-MEM-0829
@@ -889,7 +894,7 @@
 - [x] Executar gates proprios dos dois projetos, varredura de segredos e ensaio integral `--no-shutdown --test-mode` sem Firebase.
 - [x] Confirmar Restic integral para ambos e snapshot local/nuvem `7bfb700d1fe3be5d10ebb3ef9c23aa0db02b1161b413a2695c2977489b21819e`.
 - [x] Criar checkpoint local da Story 2.116, sem push.
-- [ ] Receber autorizacao expressa e executar push normal do commit local; confirmar HEAD remoto.
+- [x] Publicar por push normal o commit `6788f25925a4266c0a7fe0d24162c8bd02f8fbb4` e confirmar o HEAD remoto.
 - [ ] Configurar o notebook como secundario por fast-forward e executar o dry-run inicial.
 
 ## Risks
@@ -897,4 +902,4 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-09-16T15:20:00-03:00
+- updated_at: 2026-09-16T15:33:51-03:00

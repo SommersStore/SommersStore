@@ -1,27 +1,6 @@
 {
   "mutations": [
     {
-      "timestamp": "2026-06-26T15:14:14-03:00",
-      "memory_scope": "session_shutdown",
-      "diff_summary": "Scribe encerrou SES-20260626-0008: Encerramento automatico (fechamento de aba/janela).",
-      "mutated_by": "system",
-      "project_id": null
-    },
-    {
-      "timestamp": "2026-06-26T15:14:20-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Oracle iniciou SES-20260626-0009",
-      "mutated_by": "dashboard",
-      "project_id": "electro"
-    },
-    {
-      "timestamp": "2026-06-26T15:14:20-03:00",
-      "memory_scope": "session_startup",
-      "diff_summary": "Startup context atualizado em docs/memory/startup_context_latest.md",
-      "mutated_by": "dashboard",
-      "project_id": "electro"
-    },
-    {
       "timestamp": "2026-06-26T20:19:12-03:00",
       "memory_scope": "session_shutdown",
       "diff_summary": "Scribe encerrou SES-20260626-0009: Encerramento automatico (fechamento de aba/janela).",
@@ -2101,11 +2080,25 @@
       "project_id": null
     },
     {
-      "timestamp": "2026-09-16T15:20:00-03:00",
+      "timestamp": "2026-09-16T15:05:00-03:00",
       "memory_scope": "milestone_checkpoint",
       "diff_summary": "CHK-STORY-2.116-LOCAL: continuidade Git multirrepositorio implementada e validada; Protheus 3dbb05a limpo, gates dos dois projetos aprovados, snapshot local/Drive 7bfb700d identico, Firebase/shutdown/push nao executados e autorizacao de push pendente.",
       "mutated_by": "codex-scribe",
       "project_id": "sommersstore"
+    },
+    {
+      "timestamp": "2026-09-16T15:09:08-03:00",
+      "memory_scope": "milestone_checkpoint",
+      "diff_summary": "CHK-STORY-2.116-PUBLISHED: commit 6788f25925a4266c0a7fe0d24162c8bd02f8fbb4 publicado por push normal; HEAD remoto confirmado; Protheus permaneceu limpo em 3dbb05a; Firebase nao executado; stashes preservados.",
+      "mutated_by": "codex-scribe",
+      "project_id": "sommersstore"
+    },
+    {
+      "timestamp": "2026-09-16T15:33:51-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260916-0002 durante tentativa do atalho, interrompida antes dos gates, Git, Restic e desligamento.",
+      "mutated_by": "human",
+      "project_id": null
     }
   ]
 }

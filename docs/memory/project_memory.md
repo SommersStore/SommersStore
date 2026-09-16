@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-09-16T14:53:31-03:00
+- updated_at: 2026-09-16T15:33:51-03:00
 
 ## Handoff Atual - PC novo como escritor primario da continuidade
 - timestamp: 2026-09-10T12:31:34-03:00
@@ -817,6 +817,11 @@
 - proxima_acao: revisar refinamento editorial/visual dos entregaveis com o usuario e, em seguida, acrescentar a esteira de Upsell e Downsell mantendo o mesmo modelo de producao real.
 
 ## Ultimo fechamento
+- timestamp: 2026-09-16T15:33:51-03:00
+- tipo: usuario
+- resumo: Tentativa do atalho de finalizacao interrompida antes dos gates, Git, Restic e desligamento.
+- proxima_acao: Concluir o checkpoint administrativo no PC principal e confirmar o relatorio do notebook secundario antes do proximo encerramento.
+- checkpoint: CHK-MEM-0830
 - timestamp: 2026-09-16T14:53:31-03:00
 - tipo: usuario
 - resumo: Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.
@@ -4116,7 +4121,7 @@
 - proxima_acao: Configurar o notebook como secundario por fast-forward e `continuity:startup-sync -- --dry-run`.
 - checkpoint: CHK-STORY-2.115-PUBLISHED
 
-## Registro Manual - 2026-09-16T15:20:00-03:00
+## Registro Manual - 2026-09-16T15:05:00-03:00
 - tipo: story-2.116-checkpoint-local
 - resumo: Continuidade Git multirrepositorio implementada com Protheus canonico prioritario em main e SommersStore orquestrador em migration/pc-new-20260907; inicio e encerramento agora classificam, validam e relatam os repositorios separadamente.
 - testes: Gates Protheus (lint, typecheck, 11 testes) e SommersStore (lint, typecheck, testes, estrutura e agentes) aprovados; startup dry-run bloqueou SommersStore dirty sem sobrescrita; ensaio close:day:test aprovado sem Git/Firebase/shutdown.
@@ -4125,3 +4130,12 @@
 - git: Protheus permaneceu limpo em 3dbb05afaf92616f695840567d90528313c0c4df. SommersStore parte de 20343ea29af54507c006e73c61b21cddd85fde29; checkpoint local desta Story sera criado sem push e aguardara autorizacao expressa.
 - proxima_acao: Autorizar push normal do commit local da Story 2.116 para origin/migration/pc-new-20260907; depois configurar o notebook como secundario por fast-forward e executar continuity:startup-sync -- --dry-run.
 - checkpoint: CHK-STORY-2.116-LOCAL
+
+## Registro Manual - 2026-09-16T15:09:08-03:00
+- tipo: story-2.116-publicada
+- resumo: Continuidade Git multirrepositorio publicada por push normal, preservando Protheus como projeto canonico prioritario e SommersStore como orquestrador.
+- git: Branch `migration/pc-new-20260907`; commit remoto confirmado em `6788f25925a4266c0a7fe0d24162c8bd02f8fbb4`; remoto anterior `20343ea29af54507c006e73c61b21cddd85fde29`; exatamente um commit enviado, sem force push.
+- protheus: Branch `main`, HEAD local/remoto `3dbb05afaf92616f695840567d90528313c0c4df`, workspace limpo e nenhum push executado.
+- seguranca: Firebase nao executado; stage e workspace estavam limpos antes do push; arquivos privados, credenciais, plataformas, snapshots e stashes permaneceram intocados.
+- proxima_acao: No notebook secundario, fazer fast-forward dos dois repositorios e executar `npm run continuity:startup-sync -- --dry-run`, revisando o relatorio antes de qualquer reconciliacao efetiva.
+- checkpoint: CHK-STORY-2.116-PUBLISHED

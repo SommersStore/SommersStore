@@ -1,14 +1,6 @@
 {
   "snapshots": [
     {
-      "id": "CTX-20260722-0006",
-      "timestamp": "2026-07-22T08:32:30-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260721-0002",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
       "id": "CTX-20260722-0007",
       "timestamp": "2026-07-22T08:42:30-03:00",
       "type": "session_pulse",
@@ -2053,8 +2045,16 @@
       "timestamp": "2026-09-16T14:53:31-03:00",
       "type": "session_close",
       "session_id": "SES-20260916-0001",
-      "summary": "Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.",
+      "summary": "Tentativa do atalho de finalizacao interrompida antes dos gates, Git, Restic e desligamento.",
       "checkpoint_id": "CHK-MEM-0829"
+    },
+    {
+      "id": "CTX-20260916-0002",
+      "timestamp": "2026-09-16T15:33:51-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260916-0002",
+      "summary": "Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.",
+      "checkpoint_id": "CHK-MEM-0830"
     }
   ]
 }
