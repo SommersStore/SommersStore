@@ -1,4 +1,4 @@
-# Project Memory
+﻿# Project Memory
 
 ## Projeto
 - Nome: SommersStore Elite
@@ -20,7 +20,7 @@
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
 
 ## Ultima atualizacao
-- updated_at: 2026-09-16T15:33:51-03:00
+- updated_at: 2026-09-17T01:32:09-03:00
 
 ## Handoff Atual - PC novo como escritor primario da continuidade
 - timestamp: 2026-09-10T12:31:34-03:00
@@ -175,38 +175,38 @@
 
 ## Handoff Atual - Espelho Local Antigravity no Disco D
 - timestamp: 2026-06-23T19:05:30-03:00
-- objetivo: manter uma cópia completa e recuperável do workspace no disco D, atualizada após sincronizações com GitHub/Firebase sem ampliar o que é publicado na nuvem.
-- destino: `D:\Antigravity-SommersStore\workspace`; o estado da última cópia fica em `D:\Antigravity-SommersStore\sync-state.json`.
-- comportamento: o painel atualiza o espelho após sucesso de GitHub ou Firebase; um hook pós-push no caminho ativo do Husky cobre pushes manuais e a tarefa `SommersStore Project Mirror Sync` executa a cada 15 minutos como salvaguarda.
-- validacao: cópia inicial completa concluída em 99.148 ms; hash do sincronizador conferido entre origem e espelho; hook executado com `trigger=git-post-push`; tarefa agendada executada com `trigger=scheduled-watchdog` e último resultado `0`; `npm run lint`, `npm run typecheck` e `npm test` passaram.
-- limites: GitHub contém apenas commits e Firebase Hosting publica somente `projects/loja-digital/out_deploy`; dados financeiros/fiscais e estado operacional continuam locais, mas entram no backup do D. Não há `git add`, commit, push, deploy ou pull automático.
-- seguranca: o espelho é completo e local; manter o disco D protegido e usar criptografia de unidade se disponível. Não salvar arquivos manuais dentro de `D:\Antigravity-SommersStore\workspace`, pois é um diretório gerenciado por `robocopy /MIR`.
+- objetivo: manter uma cÃ³pia completa e recuperÃ¡vel do workspace no disco D, atualizada apÃ³s sincronizaÃ§Ãµes com GitHub/Firebase sem ampliar o que Ã© publicado na nuvem.
+- destino: `D:\Antigravity-SommersStore\workspace`; o estado da Ãºltima cÃ³pia fica em `D:\Antigravity-SommersStore\sync-state.json`.
+- comportamento: o painel atualiza o espelho apÃ³s sucesso de GitHub ou Firebase; um hook pÃ³s-push no caminho ativo do Husky cobre pushes manuais e a tarefa `SommersStore Project Mirror Sync` executa a cada 15 minutos como salvaguarda.
+- validacao: cÃ³pia inicial completa concluÃ­da em 99.148 ms; hash do sincronizador conferido entre origem e espelho; hook executado com `trigger=git-post-push`; tarefa agendada executada com `trigger=scheduled-watchdog` e Ãºltimo resultado `0`; `npm run lint`, `npm run typecheck` e `npm test` passaram.
+- limites: GitHub contÃ©m apenas commits e Firebase Hosting publica somente `projects/loja-digital/out_deploy`; dados financeiros/fiscais e estado operacional continuam locais, mas entram no backup do D. NÃ£o hÃ¡ `git add`, commit, push, deploy ou pull automÃ¡tico.
+- seguranca: o espelho Ã© completo e local; manter o disco D protegido e usar criptografia de unidade se disponÃ­vel. NÃ£o salvar arquivos manuais dentro de `D:\Antigravity-SommersStore\workspace`, pois Ã© um diretÃ³rio gerenciado por `robocopy /MIR`.
 - story: `docs/stories/2.106.story.md`; gate: `docs/qa/gates/2.106-espelho-local-no-disco-d-e-rastreio-de-sincronizacao.yml`
 - checkpoint: CHK-MIRROR-02106
 
-## Handoff Atual - Salvar Tudo e Higienização do Repositório
+## Handoff Atual - Salvar Tudo e HigienizaÃ§Ã£o do RepositÃ³rio
 - timestamp: 2026-06-23T18:13:33-03:00
-- objetivo: corrigir a confirmação enganosa do botão `Salvar Tudo`, proteger o stage e organizar o histórico local antes de qualquer publicação no GitHub.
-- causa_confirmada: o sync `SYNC-20260622-1782178811894` falhava no commit por ausência de `user.name` e `user.email`, embora o Firebase Hosting tivesse publicado. O front-end chamava o resultado de “Tudo salvo” mesmo quando a nuvem retornava erro.
-- correcao: `scripts/cloud_sync_guardrails.js` e `scripts/dashboard_server.js` agora verificam identidade Git e stage antes de qualquer `git add`. O painel separa checkpoint local de sucesso cloud completo; o alerta do usuário confirmou `GitHub: ERROR` com causa acionável e `Firebase: SUCCESS`.
-- identidade: configurada somente neste repositório, com autorização do usuário, como `SommersStore <sommersstoreltda@gmail.com>`. Nenhuma senha foi usada ou persistida.
-- auditoria_git: o stage legado de 721 arquivos foi removido apenas do index, sem perda no diretório de trabalho. Dados financeiros/fiscais, anexos, sessões, archives e caches foram mantidos locais e protegidos via `.gitignore`.
+- objetivo: corrigir a confirmaÃ§Ã£o enganosa do botÃ£o `Salvar Tudo`, proteger o stage e organizar o histÃ³rico local antes de qualquer publicaÃ§Ã£o no GitHub.
+- causa_confirmada: o sync `SYNC-20260622-1782178811894` falhava no commit por ausÃªncia de `user.name` e `user.email`, embora o Firebase Hosting tivesse publicado. O front-end chamava o resultado de â€œTudo salvoâ€ mesmo quando a nuvem retornava erro.
+- correcao: `scripts/cloud_sync_guardrails.js` e `scripts/dashboard_server.js` agora verificam identidade Git e stage antes de qualquer `git add`. O painel separa checkpoint local de sucesso cloud completo; o alerta do usuÃ¡rio confirmou `GitHub: ERROR` com causa acionÃ¡vel e `Firebase: SUCCESS`.
+- identidade: configurada somente neste repositÃ³rio, com autorizaÃ§Ã£o do usuÃ¡rio, como `SommersStore <sommersstoreltda@gmail.com>`. Nenhuma senha foi usada ou persistida.
+- auditoria_git: o stage legado de 721 arquivos foi removido apenas do index, sem perda no diretÃ³rio de trabalho. Dados financeiros/fiscais, anexos, sessÃµes, archives e caches foram mantidos locais e protegidos via `.gitignore`.
 - commits_locais: `6476da4 chore(git): exclude local and sensitive artifacts`; `5c5067d feat(pajero): add command room and technical evidence`; `083d67e feat(forex): add IBKR desk and research toolkit`; `ab0e379 feat(velas): add guided product deliverables`; `0809910 feat(control-hub): consolidate dashboard and cloud safeguards`; `0d4df42 docs(governance): record cloud safeguard and stage audit`.
-- validacao: index vazio; varredura dos commits não encontrou os caminhos sensíveis excluídos; `npm run lint`, `npm run typecheck` e `npm test` passaram. Há warnings de whitespace em documentos legados, não alterados mecanicamente para preservar conteúdo do usuário.
-- estado_remoto: Firebase Hosting respondeu HTTP 200 após o deploy. Com autorização explícita do usuário, os seis commits foram publicados em `origin/master`: `c9b32bf..0d4df42`. A verificação posterior confirmou que `origin/master` aponta para `0d4df42d30e436a0fdf476dad865df325dc8d30e`.
-- validacao_push: `npm run lint`, `npm run typecheck` e `npm test` passaram; o índice estava vazio e o branch estava exatamente seis commits à frente. Não há script `build` na raiz e CodeRabbit não está disponível neste ambiente.
-- proxima_acao: continuar a evolução do painel conforme a prioridade do usuário. O conteúdo financeiro/fiscal e o estado operacional continuam fora do Git; nenhum sétimo commit foi criado.
+- validacao: index vazio; varredura dos commits nÃ£o encontrou os caminhos sensÃ­veis excluÃ­dos; `npm run lint`, `npm run typecheck` e `npm test` passaram. HÃ¡ warnings de whitespace em documentos legados, nÃ£o alterados mecanicamente para preservar conteÃºdo do usuÃ¡rio.
+- estado_remoto: Firebase Hosting respondeu HTTP 200 apÃ³s o deploy. Com autorizaÃ§Ã£o explÃ­cita do usuÃ¡rio, os seis commits foram publicados em `origin/master`: `c9b32bf..0d4df42`. A verificaÃ§Ã£o posterior confirmou que `origin/master` aponta para `0d4df42d30e436a0fdf476dad865df325dc8d30e`.
+- validacao_push: `npm run lint`, `npm run typecheck` e `npm test` passaram; o Ã­ndice estava vazio e o branch estava exatamente seis commits Ã  frente. NÃ£o hÃ¡ script `build` na raiz e CodeRabbit nÃ£o estÃ¡ disponÃ­vel neste ambiente.
+- proxima_acao: continuar a evoluÃ§Ã£o do painel conforme a prioridade do usuÃ¡rio. O conteÃºdo financeiro/fiscal e o estado operacional continuam fora do Git; nenhum sÃ©timo commit foi criado.
 - stories: `docs/stories/2.104.story.md`, `docs/stories/2.105.story.md`
 - checkpoint: CHK-GIT-02105
 
 ## Handoff Atual - Ponte Local IBKR e Rascunhos Paper
 - timestamp: 2026-06-22T23:10:29-03:00
-- objetivo: evoluir o IBKR Manual Desk sem pular para automação ou conta real, permitindo dados locais opcionais e preparação disciplinada de boletas paper.
-- acao: criada a aba `Inteligência & paper`, o módulo `scripts/ibkr_local_bridge.js`, endpoints locais de status/inteligência/rascunhos e o contrato `projects/forex/integrations/ibkr-local-bridge-contract.md`.
-- seguranca: a configuração `projects/forex/data/ibkr_integration.json` nasce desligada e em `paper_only`; aceita somente HTTP em loopback, exige cliente loopback, nunca armazena credenciais e não existe rota de ordem real. Rascunhos são locais, exigem reconhecimento explícito e registram `broker_transmission: false`.
-- comportamento: se a ponte não estiver configurada, não há preço, notícia ou contrato sintético. Quando um adaptador local responder, a tela mostra origem/horário, notícias e uma triagem de puts com score explicável de prazo, spread e prêmio relativo, sem promessa de “melhor opção”.
-- validacao: endpoints confirmaram `paper_only`, consulta desligada e bloqueio sem reconhecimento; criação/exclusão de rascunho de teste confirmou `draft_local_only` sem transmissão. Puppeteer confirmou a aba, mensagens seguras e zero erros de console. `npm run lint`, `npm run typecheck` e `npm test` passaram.
-- proxima_acao: instalar e autenticar fora do painel um adaptador local compatível com TWS API ou Client Portal Gateway, mantendo a conta paper; então habilitar manualmente a ponte e validar o contrato com dados reais antes de qualquer rotina de conta real.
+- objetivo: evoluir o IBKR Manual Desk sem pular para automaÃ§Ã£o ou conta real, permitindo dados locais opcionais e preparaÃ§Ã£o disciplinada de boletas paper.
+- acao: criada a aba `InteligÃªncia & paper`, o mÃ³dulo `scripts/ibkr_local_bridge.js`, endpoints locais de status/inteligÃªncia/rascunhos e o contrato `projects/forex/integrations/ibkr-local-bridge-contract.md`.
+- seguranca: a configuraÃ§Ã£o `projects/forex/data/ibkr_integration.json` nasce desligada e em `paper_only`; aceita somente HTTP em loopback, exige cliente loopback, nunca armazena credenciais e nÃ£o existe rota de ordem real. Rascunhos sÃ£o locais, exigem reconhecimento explÃ­cito e registram `broker_transmission: false`.
+- comportamento: se a ponte nÃ£o estiver configurada, nÃ£o hÃ¡ preÃ§o, notÃ­cia ou contrato sintÃ©tico. Quando um adaptador local responder, a tela mostra origem/horÃ¡rio, notÃ­cias e uma triagem de puts com score explicÃ¡vel de prazo, spread e prÃªmio relativo, sem promessa de â€œmelhor opÃ§Ã£oâ€.
+- validacao: endpoints confirmaram `paper_only`, consulta desligada e bloqueio sem reconhecimento; criaÃ§Ã£o/exclusÃ£o de rascunho de teste confirmou `draft_local_only` sem transmissÃ£o. Puppeteer confirmou a aba, mensagens seguras e zero erros de console. `npm run lint`, `npm run typecheck` e `npm test` passaram.
+- proxima_acao: instalar e autenticar fora do painel um adaptador local compatÃ­vel com TWS API ou Client Portal Gateway, mantendo a conta paper; entÃ£o habilitar manualmente a ponte e validar o contrato com dados reais antes de qualquer rotina de conta real.
 - story: `docs/stories/2.103.story.md`
 - checkpoint: CHK-FX-02103
 
@@ -418,10 +418,10 @@
 ## Handoff Atual - Financas Abre em Planilha
 - timestamp: 2026-06-14T00:03:37-03:00
 - objetivo: verificar regressao relatada pelo usuario na aba `Financas`, apos uma volta atras que deixou a tela aparentando estar desconfigurada.
-- causa: a configuracao recente de `Dividas/Acordos` havia deixado `Dívidas/Acordos` como subaba ativa padrao e `renderFinancas()` forcava `fin2Switch('dividas')`.
+- causa: a configuracao recente de `Dividas/Acordos` havia deixado `DÃ­vidas/Acordos` como subaba ativa padrao e `renderFinancas()` forcava `fin2Switch('dividas')`.
 - acao: story 2.80 concluida; `Planilha` voltou a ser o botao ativo inicial, `fin2-pane-planilha` voltou a ser o pane visivel inicial e `renderFinancas()` agora retorna para `fin2Switch('planilha')`.
-- preservado: `Dívidas/Acordos` continua abrindo por clique e por `fin2SwitchToDebtDrawer()`; regras de contratos, holerite, grupos de dividas, `Dívidas Antigas` vazia e ausencia da copia 2017 foram mantidas.
-- validacao: Puppeteer em `http://localhost:4000/` confirmou abertura em `Planilha`, atalho para `Dívidas/Acordos` com 27 cards e zero erros de console; `npm run lint`, `npm run typecheck` e `npm test` passaram.
+- preservado: `DÃ­vidas/Acordos` continua abrindo por clique e por `fin2SwitchToDebtDrawer()`; regras de contratos, holerite, grupos de dividas, `DÃ­vidas Antigas` vazia e ausencia da copia 2017 foram mantidas.
+- validacao: Puppeteer em `http://localhost:4000/` confirmou abertura em `Planilha`, atalho para `DÃ­vidas/Acordos` com 27 cards e zero erros de console; `npm run lint`, `npm run typecheck` e `npm test` passaram.
 
 ## Handoff Atual - Workspace Antigravity Canonico
 - timestamp: 2026-06-13T22:14:21-03:00
@@ -453,7 +453,7 @@
 - objetivo: acrescentar os dois botoes sutis tambem nas linhas compactas `Dividas do Holerite`, `Dividas Antigas` e `Dividas Atuais`.
 - acao: story 2.78 concluida e complementada; as tres linhas de grupo da secao `Dividas` renderizam os controles de excluir da somatoria local e de abater de `Receitas`.
 - comportamento: o controle do grupo afeta todas as linhas pertencentes ao grupo sem esconder nem apagar valores; o agrupador homonimo dentro de `Despesas PM` continua apenas com recolher/expandir para nao misturar regras de despesas.
-- rotulos: os textos visiveis foram encurtados para `Dividas holê`, `Dividas anti` e `Dividas atua` para evitar que os simbolos fiquem embolados.
+- rotulos: os textos visiveis foram encurtados para `Dividas holÃª`, `Dividas anti` e `Dividas atua` para evitar que os simbolos fiquem embolados.
 - subtotais: as tres linhas compactas exibem subtotais de Jan-Dez e total anual alinhados com as colunas da Planilha.
 - persistencia: o estado dos grupos e salvo em `debtGroupTotalModes` junto com os dados de Financas.
 - validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/`; Puppeteer confirmou dois botoes em cada um dos tres grupos, rotulos compactos, subtotais mensais, total anual, reducao do total de `Dividas` e abatimento em `Receitas` no mes de junho.
@@ -500,7 +500,7 @@
 ## Handoff Atual - Planilha Financas Cabecalho Fixo
 - timestamp: 2026-06-04T14:08:35-03:00
 - objetivo: melhorar a leitura da `Financas > Planilha` mantendo a linha dos meses fixa na rolagem vertical e removendo a necessidade de rolagem horizontal em tela de PC.
-- acao: story 2.62 concluida; o cabecalho da tabela usa `position: sticky; top: 0`, a tabela passou a usar `table-layout: fixed`, o wrapper perdeu largura minima forçada e os inputs/colunas foram compactados de forma sutil.
+- acao: story 2.62 concluida; o cabecalho da tabela usa `position: sticky; top: 0`, a tabela passou a usar `table-layout: fixed`, o wrapper perdeu largura minima forÃ§ada e os inputs/colunas foram compactados de forma sutil.
 - layout: `#fin2-pane-planilha` agora usa `overflow-y:auto; overflow-x:hidden`; a tabela mantem os 12 meses mais a coluna `Total` dentro da area visivel.
 - validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/`; viewports 1440x900 e 1366x768 ficaram sem overflow horizontal no documento, painel e pane, e o cabecalho sticky ficou com distancia `0` apos rolagem vertical.
 
@@ -614,7 +614,7 @@
 ## Handoff Atual - Financas Sublinas PM Limpas
 - timestamp: 2026-05-30T01:30:19-03:00
 - objetivo: reduzir ruido visual nas sublinhas expandidas de `Pagamento PM` e `Despesas PM`.
-- acao: story 2.49 concluida; removido o prefixo visual `Credito PM · Mes` / `Desconto PM · Mes`, deixando somente o input editavel do item do holerite.
+- acao: story 2.49 concluida; removido o prefixo visual `Credito PM Â· Mes` / `Desconto PM Â· Mes`, deixando somente o input editavel do item do holerite.
 - preservacao: edicao e exclusao dos itens expandidos continuam funcionando; o mes segue indicado pela coluna onde o valor aparece.
 - validacao: `npm run lint`, `npm run typecheck`, `npm test` e Puppeteer em `http://localhost:4000/` confirmaram 21 sublinhas expandidas, 21 inputs editaveis, nenhum prefixo visivel e sem overflow horizontal.
 - proxima_acao: seguir refinando a leitura visual da `Planilha` se surgirem novos ruidos na revisao manual.
@@ -817,6 +817,16 @@
 - proxima_acao: revisar refinamento editorial/visual dos entregaveis com o usuario e, em seguida, acrescentar a esteira de Upsell e Downsell mantendo o mesmo modelo de producao real.
 
 ## Ultimo fechamento
+- timestamp: 2026-09-17T01:32:09-03:00
+- tipo: usuario
+- resumo: Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.
+- proxima_acao: Executar Oracle e sincronizacao segura na proxima inicializacao.
+- checkpoint: CHK-MEM-0832
+- timestamp: 2026-09-17T01:32:09-03:00
+- tipo: usuario
+- resumo: Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.
+- proxima_acao: Executar Oracle e sincronizacao segura na proxima inicializacao.
+- checkpoint: CHK-MEM-0831
 - timestamp: 2026-09-16T15:33:51-03:00
 - tipo: usuario
 - resumo: Tentativa do atalho de finalizacao interrompida antes dos gates, Git, Restic e desligamento.
@@ -3965,7 +3975,7 @@
 ## Registro Manual - 2026-07-21T22:36:39-03:00
 - tipo: correcao-conceitual-holerite-financas-mobile-cloud
 - resumo: Corrigido o mapeamento conceitual do holerite no app cloud. `Pagamento PM` em Receitas e `Despesas PM` em Despesas sao categorias automaticas proprias; `Holerite` fica apenas como subcategoria automatica de emprestimos bancarios em `Dividas`.
-- comportamento: A arvore publicada agora segue a organizacao informada pelo usuario: `Receitas` -> `Rodoanel` (`Rodoanel 1`, `Rodoanel 2`), `Outros` (`13º PM`) e `Pagamento PM` bloqueado; `Despesas` -> `Casa` (`Mercado`, `Net`, `Luz + Gas`, `Celular PF`, `Celular PJ`), `Carro` (`C6 TAG PJ`, `Gasolina`), `Extras` (`Rose`, `Junior`, `Marcelo`, `Gabriel`, `Rosa`, `A C S P M`, `ChatGPT_Codex`) e `Despesas PM` bloqueado; `Dividas` -> `Atuais`, `Antigas` e `Holerite`, com linhas de holerite bloqueadas.
+- comportamento: A arvore publicada agora segue a organizacao informada pelo usuario: `Receitas` -> `Rodoanel` (`Rodoanel 1`, `Rodoanel 2`), `Outros` (`13Âº PM`) e `Pagamento PM` bloqueado; `Despesas` -> `Casa` (`Mercado`, `Net`, `Luz + Gas`, `Celular PF`, `Celular PJ`), `Carro` (`C6 TAG PJ`, `Gasolina`), `Extras` (`Rose`, `Junior`, `Marcelo`, `Gabriel`, `Rosa`, `A C S P M`, `ChatGPT_Codex`) e `Despesas PM` bloqueado; `Dividas` -> `Atuais`, `Antigas` e `Holerite`, com linhas de holerite bloqueadas.
 - dados-gravados: Lancamentos editaveis continuam gravando `destinationRowId`, `destinationLabel`, `destinationPath`, `destinationSectionLabel`, `destinationCategoryLabel` e `destinationSubdivisionLabel`.
 - validacao: Passaram `projects/loja-digital npm run typecheck`, lint focado de `app/financas-mobile-cloud`, `projects/loja-digital npm run build`, `npm run lint`, `npm run typecheck` e `npm test`. A URL remota confirmou `Rodoanel`, `Outros`, `Pagamento PM`, `Casa`, `Carro`, `Extras`, `Despesas PM`, `Atuais`, `Antigas`, `Hol`, `Subdivisao`, `destinationCategoryLabel` e `destinationSubdivisionLabel`.
 - deploy: Firebase Hosting publicado no projeto `sommersstore-c6c23`, versao `ad38c2f8734bfaec`, mantendo a URL `https://sommersstore-c6c23.web.app/financas-mobile-cloud`.
@@ -4062,21 +4072,21 @@
 
 ## Registro Manual - 2026-08-17T23:31:00-03:00
 - tipo: integracao-protheus-market-context-v2
-- resumo: A view `Protheus contexto` da aba Forex foi atualizada para consumir `protheus.market-context.v2`, exibindo níveis bloqueados por sessão e distinguindo estrutura local de Gamma/OI real.
-- comportamento: O leitor aceita V1/V2, normaliza os novos campos, elimina snapshots duplicados por símbolo/timeframe e mostra `LOCKED · NÃO REPAINTA`, PDL, VAL5D, POC5D, VWAP D-1, VAH5D e PDH. A sequência visual passou a ser contexto, volatilidade, Gamma/opções, localização, confirmação e risco.
-- seguranca_operacional: O endpoint permanece somente loopback, retorna `live_orders_enabled: false` e mantém `NO_TRADE` quando Gamma/OI está `MISSING` ou `STALE`.
-- validacao: Endpoint confirmou GOLD/M5 `CURRENT`, `GOLD-20260818-LOCKED`, `repaint=false`; captura headless não registrou erros. Passaram `npm run lint`, `npm run typecheck` e `npm test`.
+- resumo: A view `Protheus contexto` da aba Forex foi atualizada para consumir `protheus.market-context.v2`, exibindo nÃ­veis bloqueados por sessÃ£o e distinguindo estrutura local de Gamma/OI real.
+- comportamento: O leitor aceita V1/V2, normaliza os novos campos, elimina snapshots duplicados por sÃ­mbolo/timeframe e mostra `LOCKED Â· NÃƒO REPAINTA`, PDL, VAL5D, POC5D, VWAP D-1, VAH5D e PDH. A sequÃªncia visual passou a ser contexto, volatilidade, Gamma/opÃ§Ãµes, localizaÃ§Ã£o, confirmaÃ§Ã£o e risco.
+- seguranca_operacional: O endpoint permanece somente loopback, retorna `live_orders_enabled: false` e mantÃ©m `NO_TRADE` quando Gamma/OI estÃ¡ `MISSING` ou `STALE`.
+- validacao: Endpoint confirmou GOLD/M5 `CURRENT`, `GOLD-20260818-LOCKED`, `repaint=false`; captura headless nÃ£o registrou erros. Passaram `npm run lint`, `npm run typecheck` e `npm test`.
 - evidencia: `artifacts/protheus-market-desk-v2-20260817.png`.
-- proxima_acao: Acompanhar o diário de 30 sessões no projeto canônico Protheus e só enriquecer Gamma/OI quando existir fonte licenciada com `as_of` verificável.
+- proxima_acao: Acompanhar o diÃ¡rio de 30 sessÃµes no projeto canÃ´nico Protheus e sÃ³ enriquecer Gamma/OI quando existir fonte licenciada com `as_of` verificÃ¡vel.
 - checkpoint: CHK-FOREX-PROTHEUS-LOCKED-V2
 
 ## Registro Manual - 2026-08-18T00:24:02-03:00
 - tipo: protheus-gamma-confluence-exness
-- resumo: O projeto canônico Protheus recebeu uma terceira camada independente na MT5 Exness. O indicador lê os objetos Gamma licenciados já renderizados no gráfico e os combina com estrutura local bloqueada, sem alterar o produto fechado nem o Market Context da ActivTrades.
-- validacao: Em `XAUUSDm`, 28 níveis e 14 campos estruturais permaneceram idênticos entre M5/M15; os hashes dos quatro artefatos protegidos conferiram e a compilação terminou com zero erro/aviso.
-- seguranca_operacional: A camada é apenas de leitura/paper, não decompila código, não contorna licença e não contém primitivas de ordem. Superioridade foi reconhecida apenas no plano operacional/explicativo, ainda não no preditivo.
+- resumo: O projeto canÃ´nico Protheus recebeu uma terceira camada independente na MT5 Exness. O indicador lÃª os objetos Gamma licenciados jÃ¡ renderizados no grÃ¡fico e os combina com estrutura local bloqueada, sem alterar o produto fechado nem o Market Context da ActivTrades.
+- validacao: Em `XAUUSDm`, 28 nÃ­veis e 14 campos estruturais permaneceram idÃªnticos entre M5/M15; os hashes dos quatro artefatos protegidos conferiram e a compilaÃ§Ã£o terminou com zero erro/aviso.
+- seguranca_operacional: A camada Ã© apenas de leitura/paper, nÃ£o decompila cÃ³digo, nÃ£o contorna licenÃ§a e nÃ£o contÃ©m primitivas de ordem. Superioridade foi reconhecida apenas no plano operacional/explicativo, ainda nÃ£o no preditivo.
 - evidencia: `../Protheus/records/PRO-010-exness-gamma-confluence-20260818.md` e `../Protheus/artifacts/mt5/exness-gamma-confluence-nonrepaint-audit-20260818.json`.
-- proxima_acao: Acompanhar o diário forward/paper de 30 sessões em duas trilhas, comparando ActivTrades e Exness e medindo estabilidade, falsos rompimentos, excursão adversa e resultado por grau A/B/C.
+- proxima_acao: Acompanhar o diÃ¡rio forward/paper de 30 sessÃµes em duas trilhas, comparando ActivTrades e Exness e medindo estabilidade, falsos rompimentos, excursÃ£o adversa e resultado por grau A/B/C.
 - checkpoint: CHK-FOREX-PROTHEUS-GAMMA-CONFLUENCE-EXNESS
 
 ## Registro Manual - 2026-09-08T00:19:28-03:00
@@ -4139,3 +4149,12 @@
 - seguranca: Firebase nao executado; stage e workspace estavam limpos antes do push; arquivos privados, credenciais, plataformas, snapshots e stashes permaneceram intocados.
 - proxima_acao: No notebook secundario, fazer fast-forward dos dois repositorios e executar `npm run continuity:startup-sync -- --dry-run`, revisando o relatorio antes de qualquer reconciliacao efetiva.
 - checkpoint: CHK-STORY-2.116-PUBLISHED
+
+## Registro Manual - 2026-09-16T21:21:36-03:00
+- tipo: limpeza-operacional-sistema
+- resumo: Jigsaw daytradr64/Jigsaw Trading Tools e NinjaTrader foram removidos do PC local a pedido do usuario.
+- remocao: NinjaTrader 8.1.8.2 desinstalado via MSI com codigo 0; pastas de programa do Jigsaw, dados em Documents, downloads, pacotes antigos, atalhos, inicializacao, firewall, prefetch, crash dumps e cache local de 	d.ninjatrader.com removidos.
+- preservacao: arquivos internos do OneDrive chamados jigsaw.* foram ignorados por serem componente do OneDrive, nao do Jigsaw Trading.
+- verificacao: zero entradas instaladas restantes, zero startup, zero regras firewall, zero prefetch, zero crash dumps e zero caminhos conhecidos remanescentes.
+- impacto: futuras sessoes nao devem assumir NinjaTrader/Jigsaw disponiveis localmente sem nova instalacao manual.
+- checkpoint: CHK-SUPPORT-TRADING-APPS-REMOVED

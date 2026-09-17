@@ -1,26 +1,6 @@
 {
   "entries": [
     {
-      "id": "LOG-20260705-0033",
-      "type": "session_pulse",
-      "target": "SES-20260705-0002",
-      "initiated_by": "dashboard",
-      "project_id": "sais",
-      "timestamp": "2026-07-05T17:37:00-03:00",
-      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
-      "id": "LOG-20260705-0034",
-      "type": "session_pulse",
-      "target": "SES-20260705-0002",
-      "initiated_by": "dashboard",
-      "project_id": "sais",
-      "timestamp": "2026-07-05T17:47:44-03:00",
-      "details": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "why_this_ran": "Pulse keepalive"
-    },
-    {
       "id": "LOG-20260705-0035",
       "type": "session_pulse",
       "target": "SES-20260705-0002",
@@ -4998,6 +4978,26 @@
       "project_id": "sais",
       "timestamp": "2026-09-16T15:33:51-03:00",
       "details": "Tentativa do atalho de finalizacao interrompida antes dos gates, Git, Restic e desligamento.",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260917-0001",
+      "type": "session_close",
+      "target": "SES-20260917-0001",
+      "initiated_by": "human",
+      "project_id": "sais",
+      "timestamp": "2026-09-17T01:32:09-03:00",
+      "details": "Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.",
+      "why_this_ran": "Scribe shutdown automatico"
+    },
+    {
+      "id": "LOG-20260917-0002",
+      "type": "session_close",
+      "target": "SES-20260917-0002",
+      "initiated_by": "human",
+      "project_id": "sais",
+      "timestamp": "2026-09-17T01:32:09-03:00",
+      "details": "Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.",
       "why_this_ran": "Scribe shutdown automatico"
     }
   ]

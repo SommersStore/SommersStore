@@ -1,4 +1,4 @@
-# Task Board (Canonical)
+﻿# Task Board (Canonical)
 
 ## Current Focus
 - [x] Validar e operar a nova memoria em camadas no fluxo diario
@@ -78,14 +78,14 @@
 - [x] Atualizar AIOX Trader On Chart v1.32 com pip automatico para BTC/CFDs, painel ampliado e alerta de spread explicativo
 - [x] Enriquecer Forex com skills/agentes MQL5, portabilidade MT4 -> MT5/JForex/ProfitPro e template inicial ProfitPro
 - [x] Criar corpus Rimantas/EA Coder para persona e skills operacionais MetaTrader
-- [x] Reformular Forex como `IBKR Manual Desk`, com campanha 3x1 em 1,5R, simulador de protective put e Dukascopy como laboratório secundário
-- [x] Integrar o `Protheus Market Context V2` ao painel Forex com níveis bloqueados, schema V2, `LOCKED · NÃO REPAINTA` e bloqueio `NO_TRADE` quando Gamma/OI estiver ausente
-- [x] Registrar o checkpoint da camada independente `Protheus_Gamma_Confluence` instalada e validada na MT5 Exness, preservando os indicadores originais e a separação da ActivTrades
-- [x] Adicionar inteligência local IBKR em modo paper-only: status de conector, triagem explicável de puts e rascunhos locais sem transmissão de ordens
-- [x] Corrigir `Salvar Tudo`: distinguir checkpoint local de cloud, validar identidade Git antes do stage e preservar dados sensíveis fora do Git
-- [x] Organizar o stage legado em commits locais por domínio, sem push, PR, tag ou novo deploy
-- [x] Publicar os seis commits organizados em `origin/master` após autorização explícita; remoto confirmado em `0d4df42`
-- [x] Criar espelho local completo do Antigravity em `D:\Antigravity-SommersStore`, com atualização pós-GitHub/Firebase, hook pós-push e salvaguarda agendada
+- [x] Reformular Forex como `IBKR Manual Desk`, com campanha 3x1 em 1,5R, simulador de protective put e Dukascopy como laboratÃ³rio secundÃ¡rio
+- [x] Integrar o `Protheus Market Context V2` ao painel Forex com nÃ­veis bloqueados, schema V2, `LOCKED Â· NÃƒO REPAINTA` e bloqueio `NO_TRADE` quando Gamma/OI estiver ausente
+- [x] Registrar o checkpoint da camada independente `Protheus_Gamma_Confluence` instalada e validada na MT5 Exness, preservando os indicadores originais e a separaÃ§Ã£o da ActivTrades
+- [x] Adicionar inteligÃªncia local IBKR em modo paper-only: status de conector, triagem explicÃ¡vel de puts e rascunhos locais sem transmissÃ£o de ordens
+- [x] Corrigir `Salvar Tudo`: distinguir checkpoint local de cloud, validar identidade Git antes do stage e preservar dados sensÃ­veis fora do Git
+- [x] Organizar o stage legado em commits locais por domÃ­nio, sem push, PR, tag ou novo deploy
+- [x] Publicar os seis commits organizados em `origin/master` apÃ³s autorizaÃ§Ã£o explÃ­cita; remoto confirmado em `0d4df42`
+- [x] Criar espelho local completo do Antigravity em `D:\Antigravity-SommersStore`, com atualizaÃ§Ã£o pÃ³s-GitHub/Firebase, hook pÃ³s-push e salvaguarda agendada
 - [x] Auditar e reforcar persistencia/autosalvamento da aba Financas apos alerta de perda de contexto
 - [x] Corrigir expansao das dividas do holerite e conexao automatica de pasta em Financas
 - [x] Reclassificar intervalo de `M.C. Nu PJ` ate `Cabos e Soldados` como `Dividas Antigas`
@@ -222,6 +222,16 @@
 
 ## Done in this session
 - [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.
+- [x] Proxima acao: Executar Oracle e sincronizacao segura na proxima inicializacao.
+- [x] Checkpoint: CHK-MEM-0832
+
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.
+- [x] Proxima acao: Executar Oracle e sincronizacao segura na proxima inicializacao.
+- [x] Checkpoint: CHK-MEM-0831
+
+- [x] Sessao encerrada pelo usuario.
 - [x] Resumo: Tentativa do atalho de finalizacao interrompida antes dos gates, Git, Restic e desligamento.
 - [x] Proxima acao: Concluir o checkpoint administrativo no PC principal e confirmar o relatorio do notebook secundario antes do proximo encerramento.
 - [x] Checkpoint: CHK-MEM-0830
@@ -354,7 +364,7 @@
 
 - [x] Story 2.101 concluida: o botao inferior esquerdo (`receitas`) deixou de zerar subtotais e celulas locais; ele agora apenas abate de `Receitas`/saldo geral e mantem o valor visivel na subaba/celula. Puppeteer validou `Mercado` com subtotal `100` e `Dividas atua` com subtotal `200` preservados, enquanto `Fluxo de Caixa` diminuiu; gates passaram.
 
-- [x] Story 2.100 concluida: os subtotais mensais de `Gasolina`, `Despesas X`, `Mercado`, `Dividas holê`, `Dividas anti` e `Dividas atua` ganharam os mesmos dois botoes sutis das celulas totalizadoras, aplicando exclusao/abatimento em lote somente nas linhas da subaba naquele mes. Puppeteer validou os seis scopes com autosave desligado; gates passaram.
+- [x] Story 2.100 concluida: os subtotais mensais de `Gasolina`, `Despesas X`, `Mercado`, `Dividas holÃª`, `Dividas anti` e `Dividas atua` ganharam os mesmos dois botoes sutis das celulas totalizadoras, aplicando exclusao/abatimento em lote somente nas linhas da subaba naquele mes. Puppeteer validou os seis scopes com autosave desligado; gates passaram.
 
 - [x] Story 2.99 concluida: em `Financas > Planilha > Despesas`, `Despesas PM` ficou com a mesma fonte/cor compacta verde das subabas, mesmo com controles de totalizacao; `Gasolina`, `Despesas X` e `Mercado` ganharam alca discreta de arrastar e a ordem escolhida passa a persistir em `sheet.expenseGroupOrder`. Puppeteer validou visual e reordenacao simulada; gates passaram.
 
@@ -565,7 +575,7 @@
 - [x] Criado helper `fin2PayslipLabelCase` para normalizar dados extraidos, renderizados e editados manualmente.
 - [x] Holerite de maio/2026 atualizado para labels como `Salario base (padrao)` e `Imposto de renda`.
 
-- [x] Story 2.49 concluida: removido o texto `Credito PM · Mes` / `Desconto PM · Mes` das sublinhas expandidas.
+- [x] Story 2.49 concluida: removido o texto `Credito PM Â· Mes` / `Desconto PM Â· Mes` das sublinhas expandidas.
 - [x] Sublinas PM agora exibem somente o input editavel do item do holerite.
 - [x] Edicao e exclusao dos itens expandidos permanecem preservadas.
 
@@ -810,11 +820,11 @@
 - [x] Proxima acao: Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.
 - [x] Checkpoint: CHK-MEM-0265
 
-- [x] Estabilização do Dashboard (Rotação de logs implementada).
-- [x] Restauração do Clone Inspector (Gaveta removida).
-- [x] Limpeza de arquivos de memória (project_memory.md e task.md).
-- [x] Diagnóstico de hardware do usuário (C: com 26GB livres).
-- [x] Geração do PDF Editorial: "O Cofre das Botânicas Secretas" (28 páginas).
+- [x] EstabilizaÃ§Ã£o do Dashboard (RotaÃ§Ã£o de logs implementada).
+- [x] RestauraÃ§Ã£o do Clone Inspector (Gaveta removida).
+- [x] Limpeza de arquivos de memÃ³ria (project_memory.md e task.md).
+- [x] DiagnÃ³stico de hardware do usuÃ¡rio (C: com 26GB livres).
+- [x] GeraÃ§Ã£o do PDF Editorial: "O Cofre das BotÃ¢nicas Secretas" (28 pÃ¡ginas).
 - [x] Draft do Volume I de "THE BLACK PROTOCOL" (Manifesto e Guia).
 
 - [x] Janela visivel de `node.exe` corrigida: tarefa do espelho e servidor local do painel agora iniciam ocultos via `wscript.exe`, preservando as automacoes.
@@ -824,7 +834,7 @@
 
 - [x] Falha `Cannot find module 'execa'` corrigida no `.aiox-core`; ativacao `dev`, validacao estrutural, validacao de agentes e gates da raiz verificados.
 - [x] `4-CONJUNTO-DE-VELAS` MT5 v1.20 ajustado para quatro cores/espessuras editaveis como no MT4 e instalado nas plataformas Exness e ActivTrades.
-- [x] Paridade visual MT4/MT5 refinada: candle v1.21 normaliza largura legada e `Fractals_Original_MT5` replica raio 2, platôs 5-9 barras, cores e simbolo do MT4.
+- [x] Paridade visual MT4/MT5 refinada: candle v1.21 normaliza largura legada e `Fractals_Original_MT5` replica raio 2, platÃ´s 5-9 barras, cores e simbolo do MT4.
 - [x] Compensacao final de rasterizacao: candle MT5 v1.30 usa Inputs MT4 `1/2` com pixels nativos `0/1`; fractais MT5 v1.10 usam largura `0`.
 - [x] Fractal MT5 v1.20 instalado na Exness e ActivTrades: runtime que persiste largura minima `1` compensado por marcador ultrafino 159, com opcao 119 original preservada.
 - [x] SOMMA Multimarket Desk v1.10 instalado na Exness e ActivTrades: atualizacao incremental das EMAs corrigida para encerrar as linhas normalmente, sem queda vertical ate zero.
@@ -902,4 +912,10 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-09-16T15:33:51-03:00
+- updated_at: 2026-09-17T01:32:09-03:00
+
+## Registro Operacional - Limpeza Local Trading
+
+- [x] Remover Jigsaw daytradr64/Jigsaw Trading Tools e NinjaTrader do PC local, incluindo instalacoes, dados, downloads, pacotes antigos, atalhos, inicializacao, firewall, prefetch, crash dumps, cache local e backups AIOX da plataforma NinjaTrader.
+- [x] Verificar ausencia de entradas instaladas, startup, firewall, prefetch, dumps e caminhos conhecidos restantes.
+- [x] Checkpoint: CHK-SUPPORT-TRADING-APPS-REMOVED
