@@ -41,6 +41,13 @@
       "diff_summary": "Registrada diretriz mandatoria do usuario: Projetos de investimentos, EAs, Copiadores de ordem e Mesas Proprietarias devem SEMPRE ser abertos e operados dentro do workspace Protheus (C:\\AIOX\\Workspace\\Protheus) e NUNCA no SommersStore.",
       "mutated_by": "oracle",
       "project_id": "protheus"
+    },
+    {
+      "timestamp": "2026-09-29T02:52:19.601Z",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou sessao noturna de 28/09/2026: Manuais em PDF e MD gerados no Desktop (FTP e AIOX Copier); regra mandatoria de isolamento registrada (Trading/EAs/Mesas exclusivamente no Protheus); ambos os repositorios (SommersStore e Protheus) validados com quality gates 100%, commitados e sincronizados com sucesso no GitHub.",
+      "mutated_by": "scribe",
+      "project_id": "sommersstore"
     }
   ]
 }
