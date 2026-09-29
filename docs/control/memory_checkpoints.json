@@ -17565,6 +17565,29 @@
       "linked_loops": [],
       "linked_decisions": [],
       "recovery_instruction": "Reabrir dashboard e executar startup automatico"
+    },
+    {
+      "id": "CHK-MEM-0833",
+      "timestamp": "2026-09-17T01:33:32-03:00",
+      "title": "Fechamento SES-20260917-0003",
+      "where_it_stopped": "Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.",
+      "completed_since_last_checkpoint": [
+        "Story 2.116: continuidade Git multirrepositorio"
+      ],
+      "do_not_repeat": [
+        "Fechar sem checkpoint",
+        "Fechar sem mutacao"
+      ],
+      "next_exact_action": "Executar Oracle e sincronizacao segura na proxima inicializacao.",
+      "active_risks": [],
+      "affected_files": [
+        "task.md",
+        "docs/control/memory_*.json",
+        "docs/memory/*.md"
+      ],
+      "linked_loops": [],
+      "linked_decisions": [],
+      "recovery_instruction": "Reabrir dashboard e executar startup automatico"
     }
   ]
 }

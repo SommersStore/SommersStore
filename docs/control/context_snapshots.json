@@ -1,14 +1,6 @@
 {
   "snapshots": [
     {
-      "id": "CTX-20260722-0009",
-      "timestamp": "2026-07-22T09:02:30-03:00",
-      "type": "session_pulse",
-      "session_id": "SES-20260721-0002",
-      "summary": "Retomar aprimoramentos no painel, priorizando clones e depois evoluir abas de agentes e skills, validando continuamente memoria/contexto.",
-      "project_id": "sais"
-    },
-    {
       "id": "CTX-20260722-0010",
       "timestamp": "2026-07-22T09:12:30-03:00",
       "type": "session_pulse",
@@ -2055,6 +2047,14 @@
       "session_id": "SES-20260917-0002",
       "summary": "Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.",
       "checkpoint_id": "CHK-MEM-0832"
+    },
+    {
+      "id": "CTX-20260917-0003",
+      "timestamp": "2026-09-17T01:33:32-03:00",
+      "type": "session_close",
+      "session_id": "SES-20260917-0003",
+      "summary": "Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.",
+      "checkpoint_id": "CHK-MEM-0833"
     }
   ]
 }

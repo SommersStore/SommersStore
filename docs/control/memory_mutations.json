@@ -13,6 +13,34 @@
       "diff_summary": "Scribe encerrou SES-20260917-0002: Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.",
       "mutated_by": "human",
       "project_id": null
+    },
+    {
+      "timestamp": "2026-09-17T01:33:32-03:00",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou SES-20260917-0003: Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.",
+      "mutated_by": "human",
+      "project_id": null
+    },
+    {
+      "timestamp": "2026-09-24T15:51:17.1192816-03:00",
+      "memory_scope": "mt5_topology_review",
+      "diff_summary": "Confirmada topologia 1 master e 4 receptoras; nome LVL Funding - Zero Markets; revisao preliminar documentada, sem alteracoes nas plataformas ou ordens.",
+      "mutated_by": "codex",
+      "project_id": "forex"
+    },
+    {
+      "timestamp": "2026-09-25T05:03:07.687Z",
+      "memory_scope": "session_shutdown",
+      "diff_summary": "Scribe encerrou sessao: Concluida Fase 1 no Protheus (PRO-012, AIOX_Trader_On_Chart v1.60 com tolerancia 20% e override, Copiador Local com stops estaticos, Gamma_SFX_Cyan e presets das 5 contas). Transcricao literal completa salva no Desktop.",
+      "mutated_by": "scribe",
+      "project_id": "protheus"
+    },
+    {
+      "timestamp": "2026-09-29T02:25:52.916Z",
+      "memory_scope": "workspace_governance",
+      "diff_summary": "Registrada diretriz mandatoria do usuario: Projetos de investimentos, EAs, Copiadores de ordem e Mesas Proprietarias devem SEMPRE ser abertos e operados dentro do workspace Protheus (C:\\AIOX\\Workspace\\Protheus) e NUNCA no SommersStore.",
+      "mutated_by": "oracle",
+      "project_id": "protheus"
     }
   ]
 }

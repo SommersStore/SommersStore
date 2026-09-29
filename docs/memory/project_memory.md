@@ -18,9 +18,17 @@
 - Nao tratar resumo curto como memoria principal.
 - Nao iniciar mudanca estrutural sem registrar decisao e checkpoint.
 - Nao encerrar sessao sem registrar mutacao em `docs/control/memory_mutations.json`.
+- ISOLAMENTO MANDATÓRIO: Projetos de investimentos, EAs, copiadores e Mesas Proprietárias pertencem EXCLUSIVAMENTE ao workspace Protheus (C:\AIOX\Workspace\Protheus), NUNCA ao SommersStore.
+
+## Diretriz Mandatória de Isolamento — Investimentos, EAs e Mesas no Protheus
+- timestamp: 2026-09-28T23:25:06-03:00
+- decisao: O usuário determinou expressamente que todo projeto sobre investimentos, EAs, copiadores de ordens, MetaTrader e Mesas Proprietárias (FTMO/Prop Firms) deve sempre ser aberto e desenvolvido dentro do Protheus (C:\AIOX\Workspace\Protheus), nunca no SommersStore.
+- escopo_sommersstore: E-commerce, Loja Digital, Finanças Pessoais, Painel de Controle e Gestão Geral.
+- escopo_protheus: Automações MQL5, EAs, Copiadores, Análise de Mercado, Brain de Trading e Mesas Proprietárias.
+
 
 ## Ultima atualizacao
-- updated_at: 2026-09-17T01:32:09-03:00
+- updated_at: 2026-09-17T01:33:32-03:00
 
 ## Handoff Atual - PC novo como escritor primario da continuidade
 - timestamp: 2026-09-10T12:31:34-03:00
@@ -817,6 +825,11 @@
 - proxima_acao: revisar refinamento editorial/visual dos entregaveis com o usuario e, em seguida, acrescentar a esteira de Upsell e Downsell mantendo o mesmo modelo de producao real.
 
 ## Ultimo fechamento
+- timestamp: 2026-09-17T01:33:32-03:00
+- tipo: usuario
+- resumo: Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.
+- proxima_acao: Executar Oracle e sincronizacao segura na proxima inicializacao.
+- checkpoint: CHK-MEM-0833
 - timestamp: 2026-09-17T01:32:09-03:00
 - tipo: usuario
 - resumo: Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.
@@ -4158,3 +4171,11 @@
 - verificacao: zero entradas instaladas restantes, zero startup, zero regras firewall, zero prefetch, zero crash dumps e zero caminhos conhecidos remanescentes.
 - impacto: futuras sessoes nao devem assumir NinjaTrader/Jigsaw disponiveis localmente sem nova instalacao manual.
 - checkpoint: CHK-SUPPORT-TRADING-APPS-REMOVED
+
+## Revisao MT5 - 2026-09-24
+- checkpoint: CHK-MT5-TOPOLOGY-20260924
+- Nome obrigatorio: LVL Funding - Zero Markets, conta 135070062.
+- Topologia: ActivTrades demo 6275085 master; FTMO 1514716800, Funded Trader Market 227066, Blue Guardian 570363 e LVL Funding - Zero Markets 135070062 receptoras. ActivTrades real excluida.
+- Inventario confirmou cinco terminais abertos e suas pastas. Gestor fonte instalado na master v1.50; v1.60 e copiador AIOX ja estavam em desenvolvimento local na Story 2.117.
+- Achados: v1.50 eleva lote ao minimo; copiador local tem problemas de stops, sequencia apos reinicio e parciais. Ver docs/qa/mt5-risk-copier-review-20260924.md.
+- Escopo executado: leitura e documentacao. Nenhuma plataforma alterada, nenhuma compilacao/instalacao e nenhuma ordem enviada. Escolha do copiador pendente; a story antiga nao amplia autorizacao atual.

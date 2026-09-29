@@ -39,7 +39,8 @@ yarn-error.log*
 .cache/
 *.cache
 
-# Backups locais de dados financeiros sensiveis
+# Backups locais
+backups/
 projects/financas/data/recovery/
 
 # Dados pessoais, anexos e estado local do painel

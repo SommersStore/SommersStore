@@ -5,7 +5,7 @@
 //+------------------------------------------------------------------+
 #property copyright "Copyright 2026, SommersStore"
 #property link      "https://sommers.store"
-#property version   "1.50"
+#property version   "1.60"
 
 #include <Trade\Trade.mqh>
 #include <Trade\PositionInfo.mqh>
@@ -18,10 +18,13 @@ COrderInfo orderInfo;
 enum ENUM_AIOX_PANEL_THEME
 {
    TEMA_CLARO_ORIGINAL_MT4 = 0,
-   TEMA_ESCURO_GRAFICO_PRETO = 1
+   TEMA_ESCURO_GRAFICO_PRETO = 1,
+   TEMA_GAMMA_CYAN = 2
 };
 
 //--- Risk parameters
+input long AllowedAccountLogin = 0;       // Required account allowlist; 0 blocks trading
+input bool EnableTrading = false;         // Installation is inert until explicitly enabled
 input double RiskPercent = 1.0;            // Default risk % in percent mode
 input double RiskCash = 100.0;             // Default cash risk in cash mode
 input double FixedLot = 0.10;              // Default lot in fixed-lot mode
@@ -81,6 +84,7 @@ bool   g_auto_trailing = false;
 bool   g_two_way = true;
 bool   g_oco_enabled = true;
 int    g_pending_mode = 0;                 // 0=Buy Stop, 1=Sell Stop, 2=Buy Limit, 3=Sell Limit
+long   g_oco_sequence = 0;
 
 //--- Colors
 color COLOR_BG = C'12,18,28';
@@ -130,6 +134,20 @@ void ApplyPanelTheme()
       return;
    }
 
+   if(PanelTheme == TEMA_GAMMA_CYAN)
+   {
+      COLOR_BG=C'14,17,24'; COLOR_BORDER=C'17,95,116';
+      COLOR_TEXT=C'182,233,245'; COLOR_MUTED=C'82,129,149'; COLOR_SYMBOL=C'45,213,250';
+      COLOR_BUY=C'0,92,79'; COLOR_SELL=C'105,28,51'; COLOR_PENDING=C'17,73,89';
+      COLOR_BTN_DEFAULT=C'18,31,42'; COLOR_BTN_ACTIVE=C'21,166,192';
+      COLOR_BTN_TEXT=COLOR_TEXT; COLOR_ACTIVE_TEXT=C'5,18,26'; COLOR_ACTION_TEXT=clrWhite;
+      COLOR_EDIT_BG=C'10,24,33'; COLOR_EDIT_TEXT=C'63,220,249';
+      COLOR_POSITIVE_TEXT=C'0,221,158'; COLOR_NEGATIVE_TEXT=C'255,73,117';
+      COLOR_CLOSE_BG=C'18,31,42'; COLOR_CLOSE_ALL_TEXT=COLOR_TEXT;
+      COLOR_CLOSE_PROFIT_TEXT=COLOR_POSITIVE_TEXT; COLOR_CLOSE_LOSS_TEXT=COLOR_NEGATIVE_TEXT;
+      COLOR_CLOSE_PENDING_TEXT=COLOR_SYMBOL;
+      return;
+   }
    COLOR_BG = C'12,18,28';
    COLOR_BORDER = C'64,80,104';
    COLOR_TEXT = C'232,238,246';
@@ -180,6 +198,8 @@ double GetAsk()
 int OnInit()
 {
    ApplyPanelTheme();
+   if(MagicNumber <= 0 || DefaultSlippage < 0 || RiskPercent < 0 || RiskCash < 0 || FixedLot < 0)
+      return(INIT_PARAMETERS_INCORRECT);
 
    g_risk_mode = DefaultRiskMode;
    if(g_risk_mode < 0 || g_risk_mode > 2)
@@ -226,6 +246,7 @@ void OnDeinit(const int reason)
 //+------------------------------------------------------------------+
 void OnTick()
 {
+   if(!AccountAuthorized()) return;
    if(g_auto_trailing)
       ApplyTrailingStops();
    ApplyAutomaticPartialCloses();
@@ -360,7 +381,7 @@ void CreatePanel()
    int x = PanelOffsetX;
    int y = PanelOffsetY;
    int w = U(240);
-   int h = U(425);
+   int h = U(450);
 
    ObjectCreate(0, "AIOX_TOC_BG", OBJ_RECTANGLE_LABEL, 0, 0, 0);
    ObjectSetInteger(0, "AIOX_TOC_BG", OBJPROP_XDISTANCE, x);
@@ -375,7 +396,7 @@ void CreatePanel()
    ObjectSetInteger(0, "AIOX_TOC_BG", OBJPROP_ZORDER, 100);
 
    CreateLabel("AIOX_TOC_LBL_SYMBOL", Symbol(), x + U(8), y + U(6), COLOR_SYMBOL, 11, true);
-   CreateLabel("AIOX_TOC_LBL_VERSION", "AIOX v1.50", x + U(182), y + U(8), COLOR_TEXT, 7, true);
+   CreateLabel("AIOX_TOC_LBL_VERSION", "AIOX v1.60", x + U(182), y + U(8), COLOR_TEXT, 7, true);
 
    CreateLabel("AIOX_TOC_LBL_CLOSE_ORDERS", "Close orders:", x + U(8), y + U(28), COLOR_TEXT, 7, true);
    CreateButton("AIOX_TOC_BTN_CLOSE_MARKET", "All", x + U(88), y + U(24), U(30), U(20), 7);
@@ -441,7 +462,8 @@ void CreatePanel()
    SetButtonColors("AIOX_TOC_BTN_SELL", COLOR_SELL, COLOR_ACTION_TEXT);
    SetButtonFont("AIOX_TOC_BTN_SELL", 10, true);
 
-   CreateLabel("AIOX_TOC_LBL_POWERED", "Powered by AIOX", x + U(76), y + U(411), COLOR_MUTED, 7, false);
+   CreateLabel("AIOX_TOC_LBL_AUTH", "", x + U(8), y + U(416), COLOR_MUTED, 7, true);
+   CreateLabel("AIOX_TOC_LBL_POWERED", "GAMMA  /  RISK CONTROL", x + U(45), y + U(433), COLOR_MUTED, 7, false);
 }
 
 void CreateRule(string name, int x, int y, int w)
@@ -643,7 +665,7 @@ string SpreadText()
 int VolumeDigits(double step)
 {
    int digits = 0;
-   while(step > 0 && step < 1.0 && digits < 8)
+   while(digits < 8 && MathAbs(step - MathRound(step)) > 1e-8)
    {
       step *= 10.0;
       digits++;
@@ -651,17 +673,26 @@ int VolumeDigits(double step)
    return(digits);
 }
 
-double NormalizeLots(double lots)
+double NormalizeLotsDown(double lots)
 {
    double step = SymbolInfoDouble(Symbol(), SYMBOL_VOLUME_STEP);
    double minLot = SymbolInfoDouble(Symbol(), SYMBOL_VOLUME_MIN);
    double maxLot = SymbolInfoDouble(Symbol(), SYMBOL_VOLUME_MAX);
-   if(step <= 0) step = 0.01;
+   if(step <= 0 || minLot <= 0 || maxLot <= 0 || lots <= 0)
+      return(0);
 
-   lots = MathFloor(lots / step) * step;
-   if(lots < minLot) lots = minLot;
-   if(lots > maxLot) lots = maxLot;
+   lots = MathFloor(lots / step + 1e-9) * step;
+   if(lots < minLot)
+      return(0);
+   if(lots > maxLot) lots = MathFloor(maxLot / step + 1e-9) * step;
    return(NormalizeDouble(lots, VolumeDigits(step)));
+}
+
+ENUM_ORDER_TYPE MarketDirection(ENUM_ORDER_TYPE direction)
+{
+   if(direction == ORDER_TYPE_BUY || direction == ORDER_TYPE_BUY_LIMIT || direction == ORDER_TYPE_BUY_STOP)
+      return(ORDER_TYPE_BUY);
+   return(ORDER_TYPE_SELL);
 }
 
 double RiskCashForMode()
@@ -673,27 +704,33 @@ double RiskCashForMode()
    return(0);
 }
 
-double CalculateLots(double entry, double sl)
+double CalculateLots(ENUM_ORDER_TYPE direction, double entry, double sl)
 {
    if(g_risk_mode == 2)
-      return(NormalizeLots(g_risk_val));
+      return(NormalizeLotsDown(g_risk_val));
 
-   double diff = MathAbs(entry - sl);
-   double tickValue = SymbolInfoDouble(Symbol(), SYMBOL_TRADE_TICK_VALUE);
-   double tickSize = SymbolInfoDouble(Symbol(), SYMBOL_TRADE_TICK_SIZE);
    double riskCash = RiskCashForMode();
+   double oneLotResult = 0;
 
-   if(diff <= 0 || tickSize <= 0 || tickValue <= 0 || riskCash <= 0)
+   if(entry <= 0 || sl <= 0 || entry == sl || riskCash <= 0)
       return(0);
+   if(!OrderCalcProfit(MarketDirection(direction), Symbol(), 1.0, entry, sl, oneLotResult))
+   {
+      Print("AIOX TOC OrderCalcProfit failed. error=", GetLastError());
+      return(0);
+   }
 
-   return(NormalizeLots(riskCash / ((diff / tickSize) * tickValue)));
+   double oneLotRisk = MathAbs(oneLotResult);
+   if(oneLotRisk <= 0)
+      return(0);
+   return(NormalizeLotsDown(riskCash / oneLotRisk));
 }
 
 bool HasValidLots(double lots)
 {
    if(lots > 0)
       return(true);
-   Alert("AIOX TOC: lot size is zero. Check Entry/SL distance and symbol tick value.");
+   Alert("AIOX TOC: blocked. The calculated/fixed lot is invalid or below the broker minimum; increasing it would exceed the configured risk.");
    return(false);
 }
 
@@ -708,24 +745,36 @@ string TradeErrorText()
    return(IntegerToString((int)trade.ResultRetcode()) + " - " + trade.ResultRetcodeDescription());
 }
 
-double CashAtRisk(double lots, double entry, double sl)
+bool TradeOperationSucceeded(const bool requested, const string action)
 {
-   double diff = MathAbs(entry - sl);
-   double tickValue = SymbolInfoDouble(Symbol(), SYMBOL_TRADE_TICK_VALUE);
-   double tickSize = SymbolInfoDouble(Symbol(), SYMBOL_TRADE_TICK_SIZE);
-   if(diff <= 0 || tickSize <= 0 || tickValue <= 0 || lots <= 0)
-      return(0);
-   return(lots * ((diff / tickSize) * tickValue));
+   if(requested && TradeSucceeded())
+      return(true);
+   Print("AIOX TOC ", action, " failed. retcode=", TradeErrorText());
+   return(false);
 }
 
-double CashPerPip(double lots)
+double CashAtRisk(ENUM_ORDER_TYPE direction, double lots, double entry, double closePrice)
+{
+   double result = 0;
+   if(entry <= 0 || closePrice <= 0 || entry == closePrice || lots <= 0)
+      return(0);
+   if(!OrderCalcProfit(MarketDirection(direction), Symbol(), lots, entry, closePrice, result))
+      return(0);
+   return(MathAbs(result));
+}
+
+double CashPerPip(ENUM_POSITION_TYPE positionType, double lots)
 {
    double pip = GetPipSize();
-   double tickValue = SymbolInfoDouble(Symbol(), SYMBOL_TRADE_TICK_VALUE);
-   double tickSize = SymbolInfoDouble(Symbol(), SYMBOL_TRADE_TICK_SIZE);
-   if(lots <= 0 || pip <= 0 || tickValue <= 0 || tickSize <= 0)
+   double entry = position.PriceOpen();
+   double closePrice = (positionType == POSITION_TYPE_BUY) ? entry - pip : entry + pip;
+   double result = 0;
+   if(lots <= 0 || pip <= 0 || entry <= 0)
       return(0);
-   return(lots * ((pip / tickSize) * tickValue));
+   ENUM_ORDER_TYPE direction = (positionType == POSITION_TYPE_BUY) ? ORDER_TYPE_BUY : ORDER_TYPE_SELL;
+   if(!OrderCalcProfit(direction, Symbol(), lots, entry, closePrice, result))
+      return(0);
+   return(MathAbs(result));
 }
 
 double SmartBEOffsetPips()
@@ -738,18 +787,48 @@ double SmartBEOffsetPips()
    if(costs < 0)
       costs = 0;
 
-   double pipCash = CashPerPip(position.Volume());
+   double pipCash = CashPerPip(position.PositionType(), position.Volume());
    if(pipCash > 0)
       offset += costs / pipCash;
 
    return(offset + MathMax(0.0, SmartBEExtraCostPips));
 }
 
+bool AccountAuthorized()
+{
+   return(EnableTrading && AllowedAccountLogin > 0 &&
+          AccountInfoInteger(ACCOUNT_LOGIN) == AllowedAccountLogin &&
+          TerminalInfoInteger(TERMINAL_CONNECTED));
+}
+
 bool CheckTradeAllowed()
 {
+   if(!AccountAuthorized())
+   {
+      Alert("AIOX TOC: inactive or unauthorized account. Check EnableTrading and AllowedAccountLogin.");
+      return(false);
+   }
+   // Netting merges all orders for a symbol: do not mix unrelated exposure.
+   if(AccountInfoInteger(ACCOUNT_MARGIN_MODE) != ACCOUNT_MARGIN_MODE_RETAIL_HEDGING)
+   {
+      if(PositionSelect(Symbol()))
+      {
+         Alert("AIOX TOC: a netting position already exists on this symbol. Manage it before a new entry.");
+         return(false);
+      }
+      for(int i=OrdersTotal()-1; i>=0; i--)
+         if(OrderGetTicket(i)>0 && OrderGetString(ORDER_SYMBOL)==Symbol())
+         { Alert("AIOX TOC: a pending order already exists on this netting symbol."); return(false); }
+   }
    if(!TerminalInfoInteger(TERMINAL_TRADE_ALLOWED) || !MQLInfoInteger(MQL_TRADE_ALLOWED))
    {
       Alert("AIOX TOC: trading is not allowed. Enable Algo Trading and live trading for this EA.");
+      return(false);
+   }
+
+   if(!AccountInfoInteger(ACCOUNT_TRADE_ALLOWED) || !AccountInfoInteger(ACCOUNT_TRADE_EXPERT))
+   {
+      Alert("AIOX TOC: this account does not allow Expert Advisor trading.");
       return(false);
    }
 
@@ -773,7 +852,9 @@ bool CheckTradeAllowed()
 
 bool ValidateStopDistance(double price, double sl, double tp)
 {
-   double minDist = SymbolInfoInteger(Symbol(), SYMBOL_TRADE_STOPS_LEVEL) * _Point;
+   long stopsLevel = SymbolInfoInteger(Symbol(), SYMBOL_TRADE_STOPS_LEVEL);
+   long freezeLevel = SymbolInfoInteger(Symbol(), SYMBOL_TRADE_FREEZE_LEVEL);
+   double minDist = MathMax(stopsLevel, freezeLevel) * _Point;
    if(minDist <= 0) return(true);
 
    if(sl > 0 && MathAbs(price - sl) < minDist)
@@ -792,6 +873,7 @@ bool ValidateStopDistance(double price, double sl, double tp)
 
 bool PositionInScope()
 {
+   if(!AccountAuthorized()) return(false);
    if(!ManageOnlyMagic)
       return(true);
    return(position.Magic() == MagicNumber);
@@ -799,6 +881,7 @@ bool PositionInScope()
 
 bool OrderInScope()
 {
+   if(!AccountAuthorized()) return(false);
    if(!ManageOnlyMagic)
       return(true);
    return(OrderGetInteger(ORDER_MAGIC) == MagicNumber);
@@ -947,9 +1030,10 @@ void RecalculateAndRedraw()
    double entry = ObjectGetDouble(0, "AIOX_TOC_LINE_ENTRY", OBJPROP_PRICE);
    double sl = ObjectGetDouble(0, "AIOX_TOC_LINE_SL", OBJPROP_PRICE);
    double tp = ObjectGetDouble(0, "AIOX_TOC_LINE_TP", OBJPROP_PRICE);
-   double lots = CalculateLots(entry, sl);
-   double riskCash = CashAtRisk(lots, entry, sl);
-   double rewardCash = CashAtRisk(lots, entry, tp);
+   ENUM_ORDER_TYPE direction = DirectionFromLines();
+   double lots = CalculateLots(direction, entry, sl);
+   double riskCash = CashAtRisk(direction, lots, entry, sl);
+   double rewardCash = CashAtRisk(direction, lots, entry, tp);
    double rr = 0;
    double riskDist = MathAbs(entry - sl);
    if(riskDist > 0)
@@ -976,6 +1060,8 @@ void RecalculateAndRedraw()
    ObjectSetString(0, "AIOX_TOC_BTN_PENDING_MODE", OBJPROP_TEXT, PendingModeText());
    ObjectSetString(0, "AIOX_TOC_BTN_PARTIAL_1", OBJPROP_TEXT, PartialButtonText(1));
    ObjectSetString(0, "AIOX_TOC_BTN_PARTIAL_2", OBJPROP_TEXT, PartialButtonText(2));
+   ObjectSetString(0,"AIOX_TOC_LBL_AUTH",OBJPROP_TEXT,
+                   AccountAuthorized() ? "CONTA AUTORIZADA  /  "+IntegerToString(AllowedAccountLogin) : "INSTALADO  /  NEGOCIACAO INATIVA");
    ObjectSetString(0, "AIOX_TOC_BTN_PARTIAL_3", OBJPROP_TEXT, PartialButtonText(3));
    ObjectSetString(0, "AIOX_TOC_BTN_TWOWAY", OBJPROP_TEXT, g_two_way ? "Yes" : "No");
    ObjectSetString(0, "AIOX_TOC_BTN_OCO", OBJPROP_TEXT, g_oco_enabled ? "Yes" : "No");
@@ -1016,7 +1102,7 @@ void ExecuteMarketOrder(ENUM_ORDER_TYPE type)
    if(!ValidateStopDistance(price, sl, tp))
       return;
 
-   double lots = CalculateLots(price, sl);
+   double lots = CalculateLots(type, price, sl);
    if(!HasValidLots(lots))
       return;
 
@@ -1041,7 +1127,9 @@ void ExecutePendingOrder()
    double entry = 0;
    ENUM_ORDER_TYPE direction = ORDER_TYPE_BUY;
    ENUM_ORDER_TYPE pendingType = ORDER_TYPE_BUY_STOP;
-   double minDist = SymbolInfoInteger(Symbol(), SYMBOL_TRADE_STOPS_LEVEL) * _Point;
+   long stopsLevel = SymbolInfoInteger(Symbol(), SYMBOL_TRADE_STOPS_LEVEL);
+   long freezeLevel = SymbolInfoInteger(Symbol(), SYMBOL_TRADE_FREEZE_LEVEL);
+   double minDist = MathMax(stopsLevel, freezeLevel) * _Point;
    double ask = GetAsk();
    double bid = GetBid();
    bool ok = false;
@@ -1080,7 +1168,7 @@ void ExecutePendingOrder()
    if(!ValidateStopDistance(entry, sl, tp))
       return;
 
-   double lots = CalculateLots(entry, sl);
+   double lots = CalculateLots(direction, entry, sl);
    if(!HasValidLots(lots))
       return;
    ENUM_ORDER_TYPE_TIME timeType = (StraddleExpiryMinutes > 0) ? ORDER_TIME_SPECIFIED : ORDER_TIME_GTC;
@@ -1130,18 +1218,43 @@ void PlaceStraddleOrders()
    if(!ValidateStopDistance(buyEntry, buySl, buyTp) || !ValidateStopDistance(sellEntry, sellSl, sellTp))
       return;
 
-   double buyLots = CalculateLots(buyEntry, buySl);
-   double sellLots = CalculateLots(sellEntry, sellSl);
+   double buyLots = CalculateLots(ORDER_TYPE_BUY, buyEntry, buySl);
+   double sellLots = CalculateLots(ORDER_TYPE_SELL, sellEntry, sellSl);
+   if(g_risk_mode != 2)
+   {
+      buyLots=NormalizeLotsDown(buyLots*0.5);
+      sellLots=NormalizeLotsDown(sellLots*0.5);
+   }
    if(!HasValidLots(buyLots) || !HasValidLots(sellLots))
       return;
    ENUM_ORDER_TYPE_TIME timeType = (StraddleExpiryMinutes > 0) ? ORDER_TIME_SPECIFIED : ORDER_TIME_GTC;
    datetime expiration = (StraddleExpiryMinutes > 0) ? TimeCurrent() + StraddleExpiryMinutes * 60 : 0;
 
-   bool buyOk = trade.BuyStop(buyLots, buyEntry, Symbol(), buySl, buyTp, timeType, expiration, "AIOX TOC Straddle Buy");
-   bool sellOk = trade.SellStop(sellLots, sellEntry, Symbol(), sellSl, sellTp, timeType, expiration, "AIOX TOC Straddle Sell");
+   g_oco_sequence = (long)GetMicrosecondCount();
+   string groupComment = "AIOX_OCO_" + IntegerToString((long)TimeCurrent()) + "_" + IntegerToString(g_oco_sequence);
 
-   if(!buyOk || !sellOk || !TradeSucceeded())
-      Alert("AIOX TOC straddle placement incomplete. Retcode ", TradeErrorText());
+   bool buyRequested = trade.BuyStop(buyLots, buyEntry, Symbol(), buySl, buyTp, timeType, expiration, groupComment);
+   bool buyOk = buyRequested && TradeSucceeded();
+   ulong buyTicket = trade.ResultOrder();
+   string buyError = TradeErrorText();
+
+   bool sellRequested = trade.SellStop(sellLots, sellEntry, Symbol(), sellSl, sellTp, timeType, expiration, groupComment);
+   bool sellOk = sellRequested && TradeSucceeded();
+   ulong sellTicket = trade.ResultOrder();
+   string sellError = TradeErrorText();
+
+   if(buyOk != sellOk)
+   {
+      ulong orphanTicket = buyOk ? buyTicket : sellTicket;
+      bool removed = orphanTicket > 0 && trade.OrderDelete(orphanTicket) && TradeSucceeded();
+      Print("AIOX TOC straddle compensation group=", groupComment,
+            " orphan=", orphanTicket, " removed=", removed ? "yes" : "no",
+            " retcode=", TradeErrorText());
+   }
+
+   if(!buyOk || !sellOk)
+      Alert("AIOX TOC straddle blocked/compensated. Buy=", buyOk ? "ok" : buyError,
+            " Sell=", sellOk ? "ok" : sellError);
 }
 
 void ClosePositions(string sym, int profitFilter)
@@ -1160,8 +1273,9 @@ void ClosePositions(string sym, int profitFilter)
       if(profitFilter < 0 && netProfit >= 0)
          continue;
 
-      if(!trade.PositionClose(position.Ticket()))
-         Print("AIOX TOC position close failed #", position.Ticket(), " retcode=", TradeErrorText());
+      trade.SetTypeFillingBySymbol(position.Symbol());
+      bool requested = trade.PositionClose(position.Ticket());
+      TradeOperationSucceeded(requested, "position close #" + IntegerToString((long)position.Ticket()));
    }
 }
 
@@ -1202,15 +1316,9 @@ double NormalizePartialCloseVolume(const double currentVolume, const double perc
 
 bool ClosePositionPartialByTicket(const ulong ticket, const double percent, const bool reportErrors)
 {
-   if(AccountInfoInteger(ACCOUNT_MARGIN_MODE) != ACCOUNT_MARGIN_MODE_RETAIL_HEDGING)
-   {
-      if(reportErrors)
-         Alert("AIOX TOC: partial closing is enabled only on MT5 hedging accounts.");
+   if(!AccountAuthorized() || !PositionSelectByTicket(ticket))
       return(false);
-   }
-
-   if(!PositionSelectByTicket(ticket))
-      return(false);
+   if(ManageOnlyMagic && PositionGetInteger(POSITION_MAGIC) != MagicNumber) return(false);
 
    double currentVolume = PositionGetDouble(POSITION_VOLUME);
    double closeVolume = NormalizePartialCloseVolume(currentVolume, percent);
@@ -1222,7 +1330,30 @@ bool ClosePositionPartialByTicket(const ulong ticket, const double percent, cons
       return(false);
    }
 
-   bool requested = trade.PositionClosePartial(ticket, closeVolume, (ulong)DefaultSlippage);
+   long marginMode = AccountInfoInteger(ACCOUNT_MARGIN_MODE);
+   bool requested = false;
+   trade.SetTypeFillingBySymbol(PositionGetString(POSITION_SYMBOL));
+   if(marginMode == ACCOUNT_MARGIN_MODE_RETAIL_HEDGING)
+   {
+      requested = trade.PositionClosePartial(ticket, closeVolume, (ulong)DefaultSlippage);
+   }
+   else
+   {
+      ENUM_POSITION_TYPE positionType = (ENUM_POSITION_TYPE)PositionGetInteger(POSITION_TYPE);
+      string symbol = PositionGetString(POSITION_SYMBOL);
+      MqlTradeRequest reduction={}; MqlTradeResult result={};
+      reduction.action=TRADE_ACTION_DEAL; reduction.position=ticket;
+      reduction.symbol=symbol; reduction.volume=closeVolume; reduction.magic=MagicNumber;
+      reduction.type=positionType==POSITION_TYPE_BUY ? ORDER_TYPE_SELL : ORDER_TYPE_BUY;
+      reduction.price=positionType==POSITION_TYPE_BUY ? GetBid() : GetAsk();
+      reduction.deviation=DefaultSlippage;
+      long filling=SymbolInfoInteger(symbol,SYMBOL_FILLING_MODE);
+      reduction.type_filling=(filling & SYMBOL_FILLING_FOK)!=0 ? ORDER_FILLING_FOK : ORDER_FILLING_IOC;
+      requested=OrderSend(reduction,result);
+      bool done=requested && (result.retcode==TRADE_RETCODE_DONE || result.retcode==TRADE_RETCODE_DONE_PARTIAL);
+      Print("AIOX TOC netting reduction position=",ticket," retcode=",result.retcode," volume=",result.volume);
+      return(done && result.volume>0);
+   }
    if(!requested || !TradeSucceeded())
    {
       if(reportErrors)
@@ -1289,9 +1420,6 @@ void ApplyAutomaticPartialCloses()
       return;
    lastCheck = now;
 
-   if(AccountInfoInteger(ACCOUNT_MARGIN_MODE) != ACCOUNT_MARGIN_MODE_RETAIL_HEDGING)
-      return;
-
    for(int i = PositionsTotal() - 1; i >= 0; i--)
    {
       if(!position.SelectByIndex(i))
@@ -1337,34 +1465,60 @@ void DeletePendingOrders()
       long type = OrderGetInteger(ORDER_TYPE);
       if(type != ORDER_TYPE_BUY && type != ORDER_TYPE_SELL)
       {
-         if(!trade.OrderDelete(ticket))
-            Print("AIOX TOC pending delete failed #", ticket, " retcode=", TradeErrorText());
+         bool requested = trade.OrderDelete(ticket);
+         TradeOperationSucceeded(requested, "pending delete #" + IntegerToString((long)ticket));
       }
    }
 }
 
+bool HasFilledOCOGroup(const string groupComment)
+{
+   if(groupComment == "" || !HistorySelect(TimeCurrent() - 30 * 86400, TimeCurrent()))
+      return(false);
+
+   for(int i = HistoryDealsTotal() - 1; i >= 0; i--)
+   {
+      ulong dealTicket = HistoryDealGetTicket(i);
+      if(dealTicket == 0)
+         continue;
+      if(HistoryDealGetString(dealTicket, DEAL_SYMBOL) != Symbol())
+         continue;
+      if(HistoryDealGetInteger(dealTicket, DEAL_MAGIC) != MagicNumber)
+         continue;
+      ulong sourceOrder=(ulong)HistoryDealGetInteger(dealTicket,DEAL_ORDER);
+      if(HistoryDealGetString(dealTicket, DEAL_COMMENT) != groupComment &&
+         HistoryOrderGetString(sourceOrder,ORDER_COMMENT) != groupComment)
+         continue;
+      long entry = HistoryDealGetInteger(dealTicket, DEAL_ENTRY);
+      if(entry == DEAL_ENTRY_IN || entry == DEAL_ENTRY_INOUT)
+         return(true);
+   }
+   return(false);
+}
+
 void ApplyOCO()
 {
-   bool hasScopedPosition = false;
-   for(int i = PositionsTotal() - 1; i >= 0; i--)
+   for(int i = OrdersTotal() - 1; i >= 0; i--)
    {
-      if(!position.SelectByIndex(i))
+      ulong ticket = OrderGetTicket(i);
+      if(ticket == 0 || OrderGetString(ORDER_SYMBOL) != Symbol() || !OrderInScope())
          continue;
-      if(position.Symbol() == Symbol() && PositionInScope())
-      {
-         hasScopedPosition = true;
-         break;
-      }
-   }
 
-   if(hasScopedPosition)
-      DeletePendingOrders();
+      string groupComment = OrderGetString(ORDER_COMMENT);
+      if(StringFind(groupComment, "AIOX_OCO_", 0) != 0 || !HasFilledOCOGroup(groupComment))
+         continue;
+
+      bool requested = trade.OrderDelete(ticket);
+      TradeOperationSucceeded(requested, "OCO delete #" + IntegerToString((long)ticket));
+   }
 }
 
 void MoveToBreakeven()
 {
    double pip = GetPipSize();
-   double minDist = SymbolInfoInteger(Symbol(), SYMBOL_TRADE_STOPS_LEVEL) * _Point;
+   long stopsLevel = SymbolInfoInteger(Symbol(), SYMBOL_TRADE_STOPS_LEVEL);
+   long freezeLevel = SymbolInfoInteger(Symbol(), SYMBOL_TRADE_FREEZE_LEVEL);
+   double minDist = MathMax(stopsLevel, freezeLevel) * _Point;
 
    for(int i = PositionsTotal() - 1; i >= 0; i--)
    {
@@ -1393,8 +1547,8 @@ void MoveToBreakeven()
 
       if(shouldMove)
       {
-         if(!trade.PositionModify(position.Ticket(), newSL, position.TakeProfit()))
-            Print("AIOX TOC BE failed #", position.Ticket(), " retcode=", TradeErrorText());
+         bool requested = trade.PositionModify(position.Ticket(), newSL, position.TakeProfit());
+         TradeOperationSucceeded(requested, "BE modify #" + IntegerToString((long)position.Ticket()));
       }
    }
 }
@@ -1402,7 +1556,9 @@ void MoveToBreakeven()
 void ApplyTrailingStops()
 {
    double pip = GetPipSize();
-   double minDist = SymbolInfoInteger(Symbol(), SYMBOL_TRADE_STOPS_LEVEL) * _Point;
+   long stopsLevel = SymbolInfoInteger(Symbol(), SYMBOL_TRADE_STOPS_LEVEL);
+   long freezeLevel = SymbolInfoInteger(Symbol(), SYMBOL_TRADE_FREEZE_LEVEL);
+   double minDist = MathMax(stopsLevel, freezeLevel) * _Point;
    double step = MathMax(1, TrailingStepPips) * pip;
 
    for(int i = PositionsTotal() - 1; i >= 0; i--)
@@ -1432,8 +1588,8 @@ void ApplyTrailingStops()
 
       if(shouldMove)
       {
-         if(!trade.PositionModify(position.Ticket(), newSL, position.TakeProfit()))
-            Print("AIOX TOC trailing failed #", position.Ticket(), " retcode=", TradeErrorText());
+         bool requested = trade.PositionModify(position.Ticket(), newSL, position.TakeProfit());
+         TradeOperationSucceeded(requested, "trailing modify #" + IntegerToString((long)position.Ticket()));
       }
    }
 }

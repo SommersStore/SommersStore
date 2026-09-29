@@ -130,6 +130,35 @@
       ],
       "linked_runs": [],
       "linked_approvals": []
+    },
+    {
+      "id": "DEC-WORKSPACE-0002",
+      "timestamp": "2026-09-29T02:25:52.911Z",
+      "category": "workspace_boundary",
+      "context": "Instrucao mandatoria e explicita do usuario em 2026-09-28T23:25:06-03:00 definindo a governanca e o isolamento de projetos.",
+      "decision": "Todo projeto e desenvolvimento sobre investimentos, Expert Advisors (EAs), Copiadores locais, MetaTrader 5 e Mesas Proprietarias (Prop Firms/FTMO) DEVE SEMPRE SER ABERTO E EXECUTADO DENTRO DO WORKSPACE PROTHEUS (C:\\AIOX\\Workspace\\Protheus), e NUNCA no SommersStore.",
+      "rationale": "Isolamento estrito de dominios: SommersStore e reservado para e-commerce, catalogo, financas pessoais e control hub. Protheus e o ambiente canonico de trading, mercado financeiro, automacoes MQL5 e avaliacao de mesas proprietarias.",
+      "alternatives_rejected": [
+        "Misturar desenvolvimento de EAs e operacoes de mesa proprietaria no workspace SommersStore"
+      ],
+      "expected_impact": "Eliminacao total de conflitos de contexto, protecao de repositorios e alinhamento imediato de sessoes futuras.",
+      "accepted_risks": [
+        "Necessidade de alternar de workspace no editor/IDE ao trabalhar com trading"
+      ],
+      "reversible": false,
+      "rollback_plan": "Nenhum. Regra permanente definida pelo usuario.",
+      "review_trigger": "Nenhum",
+      "owner": "aiox-architect",
+      "status": "active",
+      "linked_artifacts": [
+        "C:/AIOX/Workspace/Protheus/AGENTS.md",
+        "C:/AIOX/Workspace/Protheus/docs/stories/PRO-012-mt5-risk-manager-local-trade-copier.md",
+        "AGENTS.md"
+      ],
+      "linked_runs": [],
+      "linked_approvals": [
+        "USER_EXPLICIT"
+      ]
     }
   ]
 }

@@ -9,6 +9,7 @@ Este arquivo define as instrucoes do projeto para o Codex CLI.
 2. Priorize `CLI First -> Observability Second -> UI Third`
 3. Trabalhe por stories em `docs/stories/`
 4. Nao invente requisitos fora dos artefatos existentes
+5. ISOLAMENTO DE TRADING/INVESTIMENTOS: Todo desenvolvimento sobre investimentos, Expert Advisors (EAs), copiadores de ordens, MetaTrader e Mesas Proprietarias pertence EXCLUSIVAMENTE ao workspace Protheus (`C:\AIOX\Workspace\Protheus`). NUNCA abra nem execute tarefas de trading dentro do SommersStore.
 <!-- AIOX-MANAGED-END: core -->
 
 <!-- AIOX-MANAGED-START: quality -->

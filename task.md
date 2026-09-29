@@ -224,6 +224,11 @@
 - [x] Sessao encerrada pelo usuario.
 - [x] Resumo: Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.
 - [x] Proxima acao: Executar Oracle e sincronizacao segura na proxima inicializacao.
+- [x] Checkpoint: CHK-MEM-0833
+
+- [x] Sessao encerrada pelo usuario.
+- [x] Resumo: Fechamento seguro do dia com memoria, publicacao e continuidade verificadas.
+- [x] Proxima acao: Executar Oracle e sincronizacao segura na proxima inicializacao.
 - [x] Checkpoint: CHK-MEM-0832
 
 - [x] Sessao encerrada pelo usuario.
@@ -912,10 +917,15 @@
 - Se `task.md` nao for mantido, o protocolo Oracle/Scribe perde eficacia.
 
 ## Last updated
-- updated_at: 2026-09-17T01:32:09-03:00
+- updated_at: 2026-09-17T01:33:32-03:00
 
 ## Registro Operacional - Limpeza Local Trading
 
 - [x] Remover Jigsaw daytradr64/Jigsaw Trading Tools e NinjaTrader do PC local, incluindo instalacoes, dados, downloads, pacotes antigos, atalhos, inicializacao, firewall, prefetch, crash dumps, cache local e backups AIOX da plataforma NinjaTrader.
 - [x] Verificar ausencia de entradas instaladas, startup, firewall, prefetch, dumps e caminhos conhecidos restantes.
 - [x] Checkpoint: CHK-SUPPORT-TRADING-APPS-REMOVED
+
+## Revisao MT5 2026-09-24
+- [x] Confirmar e documentar topologia 1 master + 4 receptoras, incluindo LVL Funding - Zero Markets.
+- [x] Comparar gestor instalado v1.50 com fonte v1.60 em andamento e revisar copiador local; relatorio em docs/qa/mt5-risk-copier-review-20260924.md.
+- [ ] Confirmar copiador escolhido, concluir correcoes e preparar validacao isolada; operacoes demo ainda nao realizadas nesta etapa.
